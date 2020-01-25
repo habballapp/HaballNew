@@ -3,7 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    //scrollview should only have one child
   <ScrollView
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
@@ -36,9 +35,7 @@
                 android:layout_marginTop="10dp"
                 android:text="INTERNET AND MOBILE BANKING"
                 android:textSize="18sp"
-                android:paddingTop="10dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:padding="10dp"
                 android:textColor="#96bb3c"
                 android:background="@drawable/border_set"
                 android:layout_marginLeft="20dp"
@@ -116,6 +113,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/rl_1"
+            android:layout_marginTop="10dp"
+
             >
 
             <TextView
@@ -124,12 +123,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginTop="10dp"
                 android:text="OVER THE COUNTER"
                 android:textSize="18sp"
-                android:paddingTop="10dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:padding="10dp"
                 android:textColor="#96bb3c"
                 android:background="@drawable/border_set"
                 />
@@ -206,6 +202,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/rl_2"
+            android:layout_marginTop="10dp"
+
             >
             <TextView
                 android:id="@+id/txt_header3"
@@ -213,12 +211,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginTop="10dp"
                 android:text="ATM"
                 android:textSize="18sp"
-                android:paddingTop="10dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:padding="10dp"
                 android:textColor="#96bb3c"
                 android:background="@drawable/border_set"
                 />
