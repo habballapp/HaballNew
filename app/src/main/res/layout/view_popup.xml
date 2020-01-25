@@ -16,20 +16,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:weightSum="2">
+            android:weightSum="3">
             <TextView
                 android:id="@+id/tv_username"
-                android:layout_width="wrap_content"
-                android:autoSizeTextType="uniform"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ghulam Rabbani &amp; Sons &amp; Traders and Distributors"
                 android:textSize="18sp"
-                android:layout_weight="3"
+                android:layout_weight="0.5"
                 android:layout_marginLeft="20dp"/>
             <ImageButton
                 android:id="@+id/btn_close"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="2.5"
                 android:layout_toRightOf="@+id/tv_username"
                 android:layout_gravity="fill_horizontal"
                 android:src="@drawable/ic_close_black_24dp"

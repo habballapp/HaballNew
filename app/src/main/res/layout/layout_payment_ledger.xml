@@ -6,9 +6,7 @@
     android:paddingRight="5dp"
     android:paddingTop="20dp"
     android:paddingBottom="20dp"
-    android:background="@drawable/edit_text_squared"
-    android:layout_marginTop="30dp">
-
+    android:background="@drawable/edit_text_squared">
     <LinearLayout
         android:id="@+id/ll_heading"
         android:layout_width="match_parent"
@@ -33,57 +31,74 @@
             android:textColor="#000"/>
     </LinearLayout>
     <TextView
-        android:id="@+id/payment_id"
+        android:id="@+id/ledger_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_heading"
-        android:layout_marginTop="20dp"
-        android:text="Payment Id:"
-        android:textSize="14sp"/>
+        android:layout_marginTop="30dp"
+        android:text="Ledger ID:"
+        android:textSize="16sp"/>
     <TextView
-        android:id="@+id/payment_id_value"
+        android:id="@+id/ledger_id_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_heading"
-        android:layout_marginTop="20dp"
-        android:text="51247895354254780369"
-        android:textSize="14sp"
+        android:layout_marginTop="30dp"
+        android:text="1002312324251524"
+        android:textSize="16sp"
         android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@+id/payment_id"
+        android:layout_toRightOf="@+id/ledger_id"
         android:textColor="#000"/>
     <TextView
-        android:id="@+id/tv_amount"
+        android:id="@+id/transaction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/payment_id"
-        android:text="Amount: "
-        android:textSize="14sp"/>
+        android:layout_below="@+id/document_type"
+        android:text="Debit: "
+        android:textSize="16sp"/>
     <TextView
-        android:id="@+id/amount_value"
+        android:id="@+id/transaction_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/payment_id"
+        android:layout_below="@+id/document_type"
+        android:text="PKR 50,000.00"
+        android:textSize="16sp"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/transaction"
+        android:textColor="#000"/>
+    <TextView
+        android:id="@+id/document_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ledger_id"
+        android:text="Document Type: "
+        android:textSize="16sp"/>
+    <TextView
+        android:id="@+id/document_type_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ledger_id"
+        android:text="Invoice"
+        android:layout_toRightOf="@+id/document_type"
+        android:textSize="16sp"
+        android:layout_marginLeft="5dp"
+        android:textColor="#000"/>
+    <TextView
+        android:id="@+id/balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/transaction"
+        android:text="Balance:"
+        android:textSize="16sp"/>
+    <TextView
+        android:id="@+id/balance_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/transaction"
         android:text="PKR 600,000.00"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@+id/tv_amount"
-        android:textColor="#000"/>
-    <TextView
-        android:id="@+id/status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_amount"
-        android:text="Status: "
-        android:textSize="14sp"/>
-    <TextView
-        android:id="@+id/status_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_amount"
-        android:text="Paid"
-        android:layout_toRightOf="@+id/status"
-        android:textSize="14sp"
-        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/balance"
         android:textColor="#000"/>
 
 </RelativeLayout>

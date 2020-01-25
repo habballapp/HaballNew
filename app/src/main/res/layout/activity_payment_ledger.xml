@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    tools:context=".Payment.ProofOfPaymentDashboard">
+    tools:context=".Payment.PaymentLedger">
     <TextView
         android:id="@+id/tv_proof_payment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Proof Of Payment"
+        android:text="Payment Ledger"
         android:paddingTop="5dp"
         android:paddingBottom="10dp"
         android:layout_marginTop="20dp"
@@ -29,29 +29,30 @@
         android:background="@drawable/line"
         android:layout_marginTop="-2dp"/>
 
-    <Button
-        android:id="@+id/btn_create_proof_of_payment"
+    <RelativeLayout
+        android:id="@+id/spinner_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_background"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:text="Create Proof of Payment"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:layout_below="@+id/tv_proof_payment"
-        android:layout_marginTop="30dp"/>
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/line_">
+        <Spinner
+            android:id="@+id/spinner_criteria"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/line_bottom"
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:layout_below="@+id/btn_create_proof_of_payment"
+        android:layout_below="@+id/spinner_container"
         android:background="@drawable/line_seperator"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="20dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_proof_of_payments"
+        android:id="@+id/rv_payment_ledger"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/line_bottom"
