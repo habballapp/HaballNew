@@ -27,9 +27,16 @@
                 android:layout_weight="1"
                 android:padding="10dp"
                 android:text="Support"
-                android:background="@drawable/underline"
                 android:textSize="24sp"
                 />
+            <RelativeLayout
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/tv_support"
+                android:background="@drawable/horizontal_black_line"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

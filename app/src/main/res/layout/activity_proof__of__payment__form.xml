@@ -44,16 +44,7 @@
         android:layout_below="@id/proof_of_payment"
         android:layout_marginTop="40dp"
         >
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Payment ID *"
-           android:layout_marginLeft="50dp"
-           android:textColor="#96bb3c"
-           android:layout_marginBottom="50dp"
-           android:background="@android:color/white"
-           />
-        <RelativeLayout
+         <RelativeLayout
             android:id="@+id/payment_id"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -143,7 +134,7 @@
             android:textColor="#96bb3c"
             />
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_below="@id/txt_view"
@@ -151,10 +142,16 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:text="No Files Uploaded"
-            android:padding="30dp"
+            android:padding="10dp"
             android:textAlignment="center"
             android:background="@drawable/edit_round"
-            />
+            >
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_proof_of_payments_form"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </RelativeLayout>
 
 
     </RelativeLayout>
@@ -185,8 +182,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_round"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
             android:layout_marginTop="20dp"
             android:text="Finsih"
             android:textSize="15sp"
