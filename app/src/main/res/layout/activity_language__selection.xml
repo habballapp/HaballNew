@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:theme="@style/Theme.AppCompat.Light"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background01"
+    tools:context=".Language_Selection.Language_Selection">
+
+
+    <LinearLayout
+        android:id="@+id/ln_1"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical"
+        android:weightSum="2"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="LANGUAGE SELECTION"
+            android:gravity="center"
+            android:paddingTop="20dp"
+            android:textColor="#96bb3c"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="20dp"
+            android:textColor="#000000"
+            android:text="زبان منتخب کریں"
+            />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+        <RelativeLayout
+            android:id="@+id/rel_english"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_round"
+            android:layout_marginRight="40dp"
+            android:padding="20dp"
+            >
+            <TextView
+                android:id="@+id/tv_english"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="English"
+                android:textSize="32sp"
+                android:gravity="center"
+                android:textColor="@android:color/white"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CONTINUE USING ENGLISH"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:layout_below="@+id/tv_english"
+                android:layout_marginTop="5dp"
+                android:textColor="@android:color/white"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rel_urdu"
+            android:layout_width="match_parent"
+            android:layout_below="@id/rel_english"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/button_round"
+            android:layout_marginRight="40dp"
+            android:padding="20dp"
+            >
+            <TextView
+                android:id="@+id/tv_urdu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="اردو"
+                android:textSize="32sp"
+                android:gravity="center"
+                android:textColor="@android:color/white"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="اردو زبان استعمال کریں"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:layout_below="@+id/tv_urdu"
+                android:layout_marginTop="5dp"
+                android:textColor="@android:color/white"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:background="@drawable/edit_text_squared"
+    android:layout_marginTop="30dp">
+
+    <LinearLayout
+        android:id="@+id/ll_heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3">
+        <TextView
+            android:id="@+id/heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ghulam Rabani &amp; Sons Traders &amp; Distributors"
+            android:textSize="18sp"
+            android:layout_weight="4"
+            android:textColor="#000"/>
+        <ImageButton
+            android:id="@+id/menu_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_more_vert_black_24dp"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:textSize="18sp"
+            android:textColor="#000"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/order_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_heading"
+        android:layout_marginTop="20dp"
+        android:text="Order No:"
+        android:textSize="14sp"/>
+    <TextView
+        android:id="@+id/order_no_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_heading"
+        android:layout_marginTop="20dp"
+        android:text="51247895354254780369"
+        android:textSize="14sp"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/order_no"
+        android:textColor="#000"/>
+    <TextView
+        android:id="@+id/tv_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/order_no"
+        android:text="Amount: "
+        android:textSize="14sp"/>
+    <TextView
+        android:id="@+id/amount_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/order_no"
+        android:text="PKR 600,000.00"
+        android:textSize="14sp"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/tv_amount"
+        android:textColor="#000"/>
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_amount"
+        android:text="Status: "
+        android:textSize="14sp"/>
+    <TextView
+        android:id="@+id/status_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_amount"
+        android:text="Approved"
+        android:layout_toRightOf="@+id/status"
+        android:textSize="14sp"
+        android:layout_marginLeft="5dp"
+        android:textColor="#000"/>
+
+</RelativeLayout>

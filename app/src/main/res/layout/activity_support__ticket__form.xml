@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    tools:context=".MainActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/support"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:text="Support"
+                android:background="@drawable/underline"
+                android:textSize="24sp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Welcome to Haball Support Center"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_fields"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/header">
+            <EditText
+                android:id="@+id/BName"
+                android:hint="Business Name"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:paddingBottom="20dp"
+                android:padding="10dp"
+                android:background="@drawable/edit_round"/>
+            <EditText
+                android:id="@+id/Email"
+                android:layout_width="match_parent"
+                android:textSize="16sp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/BName"
+                android:hint="Email"
+                android:padding="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/edit_round"
+                />
+            <EditText
+                android:id="@+id/MobileNo"
+                android:hint="Mobile No"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_round"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:layout_below="@+id/Email"/>
+
+            <RelativeLayout
+                android:id="@+id/relative_issuetype"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/MobileNo"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:background="@drawable/edit_round">
+                <Spinner
+                    android:id="@+id/IssueType"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_criticality"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/relative_issuetype"
+                android:layout_marginTop="20dp"
+
+                android:padding="10dp"
+                android:background="@drawable/edit_round">
+                <Spinner
+                    android:id="@+id/critcicality"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_Preffered_Contact"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/relative_criticality"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:background="@drawable/edit_round">
+                <Spinner
+                    android:id="@+id/Preffered_Contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+            </RelativeLayout>
+
+
+            <EditText
+                android:id="@+id/Comment"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/edit_round"
+                android:padding="10dp"
+                android:hint="Comment"
+                android:textSize="18sp"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/relative_Preffered_Contact"
+                android:layout_marginLeft="20dp"
+                android:gravity="left"
+                android:layout_marginRight="20dp"/>
+
+        </RelativeLayout>
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_fields"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:background="@drawable/button_round"
+            android:text="Add Ticket"
+            android:textColor="#fff"
+            />
+
+    </RelativeLayout>
+</ScrollView>
+
