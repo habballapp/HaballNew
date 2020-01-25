@@ -8,15 +8,7 @@
     android:background="#fff"
     android:theme="@style/AppTheme"
     tools:context=".Support.Support_dashboard">
-    <TextView
-        android:id="@+id/tv_dashboard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Dashboard"
-        android:layout_marginTop="20dp"
-        android:textSize="18sp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
+
     <TextView
         android:id="@+id/tv_support"
         android:layout_width="match_parent"
@@ -25,9 +17,8 @@
         android:paddingRight="5dp"
         android:paddingTop="5dp"
         android:paddingBottom="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:textSize="24sp"
-        android:layout_below="@+id/tv_dashboard"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"/>
     <RelativeLayout

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Payment.ProofOfPaymentDashboard">
+    <TextView
+        android:id="@+id/tv_proof_payment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Proof Of Payment"
+        android:paddingTop="5dp"
+        android:paddingBottom="10dp"
+        android:layout_marginTop="20dp"
+        android:textSize="18sp"
+        android:textColor="#96bb3c"
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/half_underline"/>
+
+    <RelativeLayout
+        android:id="@+id/line_"
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layout_marginRight="30dp"
+        android:layout_below="@+id/tv_proof_payment"
+        android:layout_toRightOf="@+id/tv_proof_payment"
+        android:background="@drawable/line"
+        android:layout_marginTop="-2dp"/>
+
+    <Button
+        android:id="@+id/btn_create_proof_of_payment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:text="Create Proof of Payment"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/tv_proof_payment"
+        android:layout_marginTop="30dp"/>
+
+    <RelativeLayout
+        android:id="@+id/line_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@+id/btn_create_proof_of_payment"
+        android:background="@drawable/line_seperator"
+        android:layout_marginTop="30dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_proof_of_payments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line_bottom"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"/>
+
+</RelativeLayout>
