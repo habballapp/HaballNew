@@ -10,6 +10,7 @@ import com.example.haball.Language_Selection.Language_Selection;
 import com.example.haball.Payment.Payment_Screen1;
 import com.example.haball.Payment.Payment_Screen2;
 import com.example.haball.Payment.Payment_Screen3;
+import com.example.haball.Payment.Proof_Of_Payment_Form;
 import com.example.haball.R;
 import com.example.haball.Distribution_Login.Distribution_Login;
 import com.example.haball.Register_Activity.Register_Activity;
@@ -29,7 +30,7 @@ public class SplashScreen extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashScreen.this, Language_Selection.class);
+                Intent intent = new Intent(SplashScreen.this, Proof_Of_Payment_Form.class);
                 startActivity(intent);
                 finish();
             }
