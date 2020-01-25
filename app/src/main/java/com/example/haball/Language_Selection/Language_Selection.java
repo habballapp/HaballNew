@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.example.haball.R;
@@ -18,7 +19,7 @@ public class Language_Selection extends AppCompatActivity {
         setContentView(R.layout.activity_language__selection);
 
 
-        RelativeLayout rl = (RelativeLayout)findViewById(R.id.rel_english);
+        Button rl = (Button) findViewById(R.id.rel_english);
 
         rl.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
