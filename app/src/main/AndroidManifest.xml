@@ -19,6 +19,7 @@
         <activity android:name=".Payment.Payment_Screen3" />
         <activity android:name=".Payment.Payment_Screen2" />
         <activity android:name=".Payment.Payment_Screen1" />
+        <activity android:name=".Payment.Proof_Of_Payment_Form" />
         <activity android:name=".Registration.Registration_Actvity2" />
         <activity android:name=".Registration.Registration_Activity" />
         <activity
