@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.example.haball.Language_Selection.Language_Selection;
+import com.example.haball.Order.DistributorOrder;
+import com.example.haball.Order.DistributorOrder_Shop;
+import com.example.haball.Payment.DistributorPaymentRequestAdaptor;
+import com.example.haball.Payment.DistributorPaymentRequest_CriteriaSelection;
 import com.example.haball.Payment.Payment_Screen1;
 import com.example.haball.Payment.Payment_Screen2;
 import com.example.haball.Payment.Payment_Screen3;
@@ -30,7 +34,7 @@ public class SplashScreen extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashScreen.this, Proof_Of_Payment_Form.class);
+                Intent intent = new Intent(SplashScreen.this, DistributorOrder_Shop.class);
                 startActivity(intent);
                 finish();
             }

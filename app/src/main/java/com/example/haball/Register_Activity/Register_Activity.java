@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import com.example.haball.Distribution_Login.Distribution_Login;
 import com.example.haball.Language_Selection.Language_Selection;
 import com.example.haball.R;
+import com.example.haball.RetailerLogin;
 
 public class Register_Activity extends AppCompatActivity {
 
@@ -20,13 +21,13 @@ public class Register_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_);
-        CardView card_retaler = findViewById(R.id.card_retailer);
-        CardView card_distributor = findViewById(R.id.card_retailer);
+        CardView card_retailer = findViewById(R.id.card_retailer);
+        CardView card_distributor = findViewById(R.id.card_distributor);
 
-        card_retaler.setOnClickListener(new View.OnClickListener(){
+        card_retailer.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
 
-                Intent intent = new Intent(Register_Activity.this, Distribution_Login.class);
+                Intent intent = new Intent(Register_Activity.this, RetailerLogin.class);
                 startActivity(intent);
             }
 
@@ -42,4 +43,6 @@ public class Register_Activity extends AppCompatActivity {
 
 
     }
+
+
 }

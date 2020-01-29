@@ -6,7 +6,7 @@
     <string name="tab_text_1">Dashboard</string>
     <string name="tab_text_2">Payments</string>
     <string name="tab_text_3">Orders</string>
-    <string name="Forgot_Password">Forgot Password</string>
+    <string name="Forget_Password">Forget Password</string>
     <string name="Txt_Dashboard">Dashboard</string>
     <string name="Txt_Payment">Payment Options</string>
     <string name="TxT_Update">Update</string>
@@ -30,4 +30,5 @@
     <string name="Txt_Pr14">* User will keep the payment-reciept from ATM as proof of payment.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="forget_password_text">Please Enter your registered email address to reset your password</string>
 </resources>

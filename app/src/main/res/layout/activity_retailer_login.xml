@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Welcome To Distributor Portal"
+            android:text="Welcome To Retailer Portal"
             android:textSize="20sp"
             android:padding="10dp"
             android:paddingStart="20dp"
@@ -107,15 +107,14 @@
             android:inputType="textPassword"
             android:padding="10dp"
             android:textSize="15sp"
-            android:drawableEnd="@drawable/ic_remove_red_eye_black_24dp"
             android:layout_marginTop="20dp"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
             android:layout_weight="1"
             android:hint="Password"
-            />
+            android:drawableRight="@drawable/ic_remove_red_eye_black_24dp" />
     </LinearLayout>
-    
+
     <LinearLayout
         android:id="@+id/ln_btn"
         android:layout_width="match_parent"
@@ -140,28 +139,28 @@
             android:layout_weight="1"
             android:textAllCaps="false"
             />
-         <RelativeLayout
-             android:id="@+id/rl_forget_password"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_weight="1"
-             >
-        <Button
-            android:id="@+id/btn_password"
+        <RelativeLayout
+            android:id="@+id/rl_forget_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_round"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:text="@string/Forget_Password"
-            android:layout_marginTop="20dp"
-            android:textSize="15sp"
-            android:textColor="#fff"
             android:layout_weight="1"
-            android:textAllCaps="false"
-            android:gravity="center"
-            />
-         </RelativeLayout>
+            >
+            <Button
+                android:id="@+id/btn_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_round"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:text="@string/Forget_Password"
+                android:layout_marginTop="20dp"
+                android:textSize="15sp"
+                android:textColor="#fff"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:gravity="center"
+                />
+        </RelativeLayout>
 
     </LinearLayout>
 
@@ -179,8 +178,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_round"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="10dp"
             android:text="Need Support"
             android:textSize="15sp"
             android:textColor="#fff"
@@ -195,8 +194,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_round"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="40dp"
             android:text="SignUp"
             android:textSize="15sp"
             android:textColor="#fff"
