@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.haball.Distribution_Login.Distribution_Login;
 import com.example.haball.R;
@@ -15,6 +16,7 @@ import com.example.haball.R;
 public class Registration_Activity extends AppCompatActivity {
 
     private Button btn_next;
+    private ImageButton btn_back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +31,14 @@ public class Registration_Activity extends AppCompatActivity {
 
         actionBar.setCustomView(customView);
         actionBar.setDisplayShowCustomEnabled(true);
+        btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         btn_next = findViewById(R.id.btn_next);
         btn_next.setOnClickListener(new View.OnClickListener() {

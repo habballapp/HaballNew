@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".Order.DistributorOrder_ItemSelection">
+
+    <LinearLayout
+        android:id="@+id/tv_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/underline"
+        android:orientation="vertical">
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Place Order"
+            android:paddingTop="5dp"
+            android:paddingBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:textSize="18sp"
+            android:textColor="#96bb3c"
+            android:background="@drawable/half_underline"
+            android:drawableRight="@drawable/ic_add_shopping_cart_black_24dp"
+            />
+
+    </LinearLayout>
+
+
+
+    <Button
+        android:id="@+id/create_payment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_round"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Use Template"
+        android:textSize="15sp"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:layout_below="@+id/tv_order"
+        />
+
+    <RelativeLayout
+        android:id="@+id/spinner_container"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/create_payment">
+        <Spinner
+            android:id="@+id/spinner_criteria"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/line_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@+id/spinner_container"
+        android:background="@drawable/line_seperator"
+        android:layout_marginTop="20dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_addtocart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/line_bottom"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"/>
+
+</RelativeLayout>

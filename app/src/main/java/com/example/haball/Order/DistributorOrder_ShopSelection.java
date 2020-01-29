@@ -1,30 +1,25 @@
-package com.example.haball.Payment;
+package com.example.haball.Order;
 
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 
 import com.example.haball.R;
 
-public class Proof_Of_Payment_Form extends AppCompatActivity {
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+public class DistributorOrder_ShopSelection extends AppCompatActivity {
 
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter1,mAdapter2,mAdapter3,mAdapter4;
+    private RecyclerView.LayoutManager layoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_proof__of__payment__form);
-
+        setContentView(R.layout.activity_distributor_order__shop);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayShowTitleEnabled(false);
@@ -34,22 +29,20 @@ public class Proof_Of_Payment_Form extends AppCompatActivity {
 
         actionBar.setCustomView(customView);
         actionBar.setDisplayShowCustomEnabled(true);
-        Button rl = (Button) findViewById(R.id.btn_upload);
 
-
-        recyclerView = (RecyclerView) findViewById(R.id.rv_proof_of_payments_form);
+        recyclerView = (RecyclerView) findViewById(R.id.rv_order_company);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         recyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+        //layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         // specify an adapter (see also next example)
-        mAdapter = new ProofOfPaymentsFormAdapter(Proof_Of_Payment_Form.this,"Document 01","Deposit slip 01");
-        recyclerView.setAdapter(mAdapter);
+        mAdapter1 = new DistributorOrder_ShopAdapter(DistributorOrder_ShopSelection.this,"Company01");
+        recyclerView.setAdapter(mAdapter1);
+       // recyclerView.setAdapter(mAdapter2);
     }
 }
-

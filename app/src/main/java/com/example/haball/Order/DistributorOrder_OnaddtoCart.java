@@ -1,7 +1,6 @@
-package com.example.haball.Payment;
+package com.example.haball.Order;
 
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,13 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 
 import com.example.haball.R;
 
-public class Proof_Of_Payment_Form extends AppCompatActivity {
+public class DistributorOrder_OnaddtoCart extends AppCompatActivity {
+
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -23,7 +20,7 @@ public class Proof_Of_Payment_Form extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_proof__of__payment__form);
+        setContentView(R.layout.activity_distributor_order__onaddto_cart);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(false);
@@ -34,10 +31,8 @@ public class Proof_Of_Payment_Form extends AppCompatActivity {
 
         actionBar.setCustomView(customView);
         actionBar.setDisplayShowCustomEnabled(true);
-        Button rl = (Button) findViewById(R.id.btn_upload);
 
-
-        recyclerView = (RecyclerView) findViewById(R.id.rv_proof_of_payments_form);
+        recyclerView = (RecyclerView) findViewById(R.id.rv_addtocart);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -47,9 +42,15 @@ public class Proof_Of_Payment_Form extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+
         // specify an adapter (see also next example)
-        mAdapter = new ProofOfPaymentsFormAdapter(Proof_Of_Payment_Form.this,"Document 01","Deposit slip 01");
+        mAdapter = new DistributorOrder_OnaddtoCartAdapter(DistributorOrder_OnaddtoCart.this,"AC Card Battery Charger","PKR1200.00");
+        mAdapter = new DistributorOrder_OnaddtoCartAdapter(DistributorOrder_OnaddtoCart.this,"AC Card Battery Charger","PKR1200.00");
+
         recyclerView.setAdapter(mAdapter);
+
+
+
+
     }
 }
-
