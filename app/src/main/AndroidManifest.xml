@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
-        <activity android:name=".Order.DistributorOrder_Shop"></activity>
+        <activity android:name=".Order.DistributorOrder_OnaddtoCart"></activity>
+        <activity android:name=".Order.DistributorOrder_ItemSelection" />
+        <activity android:name=".Order.DistributorOrder_ShopSelection" />
         <activity android:name=".RetailerLogin" />
         <activity android:name=".Order.DistributorOrder" />
         <activity android:name=".Payment.DistributorPaymentRequest_CriteriaSelection" />

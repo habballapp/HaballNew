@@ -17,7 +17,7 @@ public class DistributorOrder_ShopAdapter extends RecyclerView.Adapter<Distribut
     private  String txt_select_value;
 
 
-    public DistributorOrder_ShopAdapter(DistributorOrder_Shop order_shop,String txt_select_value){
+    public DistributorOrder_ShopAdapter(DistributorOrder_ShopSelection order_shop, String txt_select_value){
         this.mContext = order_shop;
         this.txt_select_value = txt_select_value;
     }

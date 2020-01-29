@@ -3,18 +3,15 @@ package com.example.haball.Order;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.example.haball.Payment.DistributorPaymentRequestAdaptor;
-import com.example.haball.Payment.DistributorPaymentRequest_CriteriaSelection;
 import com.example.haball.R;
 
-public class DistributorOrder_Shop extends AppCompatActivity {
+public class DistributorOrder_ShopSelection extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter1,mAdapter2,mAdapter3,mAdapter4;
@@ -44,10 +41,7 @@ public class DistributorOrder_Shop extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         // specify an adapter (see also next example)
-        mAdapter1 = new DistributorOrder_ShopAdapter(DistributorOrder_Shop.this,"Company01");
-        mAdapter2 = new DistributorOrder_ShopAdapter(DistributorOrder_Shop.this,"Company02");
-        mAdapter3 = new DistributorOrder_ShopAdapter(DistributorOrder_Shop.this,"Company03");
-        mAdapter4 = new DistributorOrder_ShopAdapter(DistributorOrder_Shop.this,"Company04");
+        mAdapter1 = new DistributorOrder_ShopAdapter(DistributorOrder_ShopSelection.this,"Company01");
         recyclerView.setAdapter(mAdapter1);
        // recyclerView.setAdapter(mAdapter2);
     }
