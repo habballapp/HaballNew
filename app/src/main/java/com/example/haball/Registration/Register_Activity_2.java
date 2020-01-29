@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.haball.Distributor.Distributor_Dashboard;
 import com.example.haball.R;
 
 public class Register_Activity_2 extends AppCompatActivity {

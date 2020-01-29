@@ -6,9 +6,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +23,7 @@ public class Support_dashboard extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<String> array = new ArrayList<>();
-
+    private Button btn_add_ticket;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,14 @@ public class Support_dashboard extends AppCompatActivity {
         actionBar.setCustomView(customView);
         actionBar.setDisplayShowCustomEnabled(true);
 
+        btn_add_ticket = findViewById(R.id.btn_add_ticket);
+        btn_add_ticket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Support_dashboard.this, Support_Ticket_Form.class);
+                startActivity(intent);
+            }
+        });
         recyclerView = (RecyclerView) findViewById(R.id.rv_support_complaints);
 
         // use this setting to improve performance if you know that changes

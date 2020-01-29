@@ -35,7 +35,7 @@
           android:layout_marginRight="100dp"
           android:text="view"
           android:textColor="#96bb3c"
-          android:background="d6d6d6"
+          android:background="@android:color/transparent"
 
           />
 
@@ -48,7 +48,7 @@
           android:textColor="#FFA500"
           android:layout_marginRight="20dp"
           android:layout_alignParentEnd="true"
-          android:background="d6d6d6"
+          android:background="@android:color/transparent"
 
           />
 

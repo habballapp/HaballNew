@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.haball.Distributor.Distributor_Dashboard;
+import com.example.haball.Distributor.DistributorDashboard;
 import com.example.haball.R;
 import com.example.haball.Register_Activity.Register_Activity;
 import com.example.haball.Registration.Registration_Activity;
@@ -39,7 +39,7 @@ public class Distribution_Login extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Distribution_Login.this, Distributor_Dashboard.class);
+                Intent intent = new Intent(Distribution_Login.this, DistributorDashboard.class);
                 startActivity(intent);
             }
         });

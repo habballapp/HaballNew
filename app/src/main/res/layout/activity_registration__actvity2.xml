@@ -9,359 +9,353 @@
     android:backgroundTintMode="src_over"
     tools:context=".Registration.Registration_Actvity2">
 
-
-    <LinearLayout
-        android:id="@+id/ln_shipping"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="2"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="20dp"
-        android:orientation="vertical"
-
-        >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Welcome To Distributor Portal"
-            android:textSize="20sp"
-            android:padding="10dp"
-            android:paddingStart="5dp"
-            android:paddingEnd="10dp"
-            android:textColor="#96bb3c"
-            android:textStyle="bold"
-            android:maxLines="1"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-
-            android:layout_weight="1"
-            android:layout_marginTop="10dp"
-            android:text="@string/Txt_Description"
-            android:textSize="15sp"
-            android:justificationMode="inter_word"
-            />
-
-
-    </LinearLayout>
     <ScrollView
-
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/ln_shipping">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/ln_shipping">
-    <LinearLayout
-        android:id="@+id/ln_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="2"
-        android:orientation="vertical"
-        >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="10dp"
-            android:text="REGISTER"
-            android:layout_weight="1"
-            android:textSize="18sp"
-            android:paddingTop="5dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:textColor="#96bb3c"
-            android:textStyle="bold"
-            android:background="@drawable/border_set"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="15dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:text="ACCOUNT CREDENTIALS"
-            android:textColor="#96bb3c"
-            android:textSize="10sp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:background="@drawable/border_set"
-            />
-
-    </LinearLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/rl_fields"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ln_login"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="21dp"
-            android:layout_marginEnd="0dp">
-
-            <EditText
-                android:id="@+id/Address"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/edit_round"
-                android:hint="Address01 *"
-                android:paddingBottom="20dp"
-                android:textSize="16sp" />
-
-
-            <RelativeLayout
-                android:id="@+id/relative_issuetype"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_below="@+id/Address"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/edit_round"
-                android:padding="10dp">
-
-                <Spinner
-                    android:id="@+id/IssueType"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/relative_criticality"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_below="@+id/relative_issuetype"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/edit_round"
-                android:padding="10dp">
-
-                <Spinner
-                    android:id="@+id/critcicality"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/relative_Preffered_Contact"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_below="@+id/relative_criticality"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/edit_round"
-                android:padding="10dp">
-
-                <Spinner
-                    android:id="@+id/Preffered_Contact"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </RelativeLayout>
-
-
-            <EditText
-                android:id="@+id/postal_shipping"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/relative_Preffered_Contact"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/edit_round"
-                android:gravity="left"
-                android:hint="Postal Code *"
-                android:padding="10dp"
-                android:textSize="18sp" />
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/ln_billing"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="2"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            android:layout_below="@id/rl_fields"
-            >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="10dp"
-                android:text="REGISTER"
-                android:layout_weight="1"
-                android:textSize="18sp"
-                android:paddingTop="5dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:textColor="#96bb3c"
-                android:textStyle="bold"
-                android:background="@drawable/border_set"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_height="15dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:text="BILLING ADDRESS"
-                android:textColor="#96bb3c"
-                android:textSize="10sp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:background="@drawable/border_set"
-                />
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="10dp"
-                android:text="SAME AS SHIPPING ADDRESS"
-                android:textColor="#d3d3d3"
-
-                />
-        </LinearLayout>
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ln_billing"
-            android:layout_marginBottom="20dp"
-            >
-            <EditText
-                android:id="@+id/Address02"
-                android:hint="Address02 *"
-                android:textSize="16sp"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:paddingBottom="20dp"
-                android:background="@drawable/edit_round"/>
+            android:layout_height="match_parent">
 
-            <RelativeLayout
-                android:id="@+id/select_country"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_below="@+id/Address02"
-                android:layout_marginTop="20dp"
-                android:padding="10dp"
-                android:background="@drawable/edit_round">
-                <Spinner
-                    android:id="@+id/type_country"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/select_province"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_below="@+id/select_country"
-                android:layout_marginTop="20dp"
-                android:padding="10dp"
-                android:background="@drawable/edit_round">
-                <Spinner
-                    android:id="@+id/type_province"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/select_city"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_below="@+id/select_province"
-                android:layout_marginTop="20dp"
-                android:padding="10dp"
-                android:background="@drawable/edit_round">
-                <Spinner
-                    android:id="@+id/type_city"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
-            </RelativeLayout>
-
-            <EditText
-                android:id="@+id/postal_billing"
+            <LinearLayout
+                android:id="@+id/ln_shipping"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edit_round"
-                android:padding="10dp"
-                android:hint="Postal Code *"
-                android:textSize="18sp"
-                android:layout_marginTop="20dp"
-                android:layout_below="@+id/select_city"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:gravity="left"
-                />
-            <Button
-                android:id="@+id/btn_register"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="vertical"
+                android:weightSum="2"
+
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="10dp"
+                    android:text="Welcome To Distributor Portal"
+                    android:textColor="#96bb3c"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+
+                    android:paddingRight="10dp"
+                    android:paddingLeft="5dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+
+                    android:layout_marginEnd="20dp"
+                    android:layout_weight="1"
+                    android:justificationMode="inter_word"
+                    android:text="@string/Txt_Description"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/ln_shipping">
+
+                <LinearLayout
+                    android:id="@+id/ln_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_set"
+                        android:paddingStart="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="10dp"
+                        android:text="REGISTER"
+                        android:textColor="#96bb3c"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_set"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="ACCOUNT CREDENTIALS"
+                        android:textColor="#96bb3c"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/rl_fields"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ln_login"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="21dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="0dp">
+
+                    <EditText
+                        android:id="@+id/Address"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/edit_round"
+                        android:hint="Address01 *"
+                        android:paddingBottom="20dp"
+                        android:textSize="16sp" />
+
+
+                    <RelativeLayout
+                        android:id="@+id/relative_issuetype"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_below="@+id/Address"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/edit_round"
+                        android:padding="10dp">
+
+                        <Spinner
+                            android:id="@+id/IssueType"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/relative_criticality"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_below="@+id/relative_issuetype"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/edit_round"
+                        android:padding="10dp">
+
+                        <Spinner
+                            android:id="@+id/critcicality"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/relative_Preffered_Contact"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_below="@+id/relative_criticality"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/edit_round"
+                        android:padding="10dp">
+
+                        <Spinner
+                            android:id="@+id/Preffered_Contact"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </RelativeLayout>
+
+
+                    <EditText
+                        android:id="@+id/postal_shipping"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/relative_Preffered_Contact"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/edit_round"
+                        android:gravity="left"
+                        android:hint="Postal Code *"
+                        android:padding="10dp"
+                        android:textSize="18sp" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/ln_billing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rl_fields"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_set"
+                        android:paddingStart="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="10dp"
+                        android:text="REGISTER"
+                        android:textColor="#96bb3c"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_set"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="BILLING ADDRESS"
+                        android:textColor="#96bb3c"
+                        android:textSize="10sp" />
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:text="SAME AS SHIPPING ADDRESS"
+                        android:textColor="#d3d3d3"
+
+                        />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ln_billing"
+                    android:layout_marginBottom="50dp">
+
+                    <EditText
+                        android:id="@+id/Address02"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/edit_round"
+                        android:hint="Address02 *"
+                        android:paddingBottom="20dp"
+                        android:textSize="16sp" />
+
+                    <RelativeLayout
+                        android:id="@+id/select_country"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_below="@+id/Address02"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/edit_round"
+                        android:padding="10dp">
+
+                        <Spinner
+                            android:id="@+id/type_country"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/select_province"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_below="@+id/select_country"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/edit_round"
+                        android:padding="10dp">
+
+                        <Spinner
+                            android:id="@+id/type_province"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/select_city"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_below="@+id/select_province"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/edit_round"
+                        android:padding="10dp">
+
+                        <Spinner
+                            android:id="@+id/type_city"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </RelativeLayout>
+
+                    <EditText
+                        android:id="@+id/postal_billing"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/select_city"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/edit_round"
+                        android:gravity="left"
+                        android:hint="Postal Code *"
+                        android:padding="10dp"
+                        android:textSize="18sp" />
+
+                    <Button
+                        android:id="@+id/btn_register"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/postal_billing"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_round"
+                        android:gravity="center"
+                        android:text="Next"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="15sp" />
+
+
+                </RelativeLayout>
+            </RelativeLayout>
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_round"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_below="@id/postal_billing"
-                android:text="Next"
-                android:textSize="15sp"
-                android:textColor="#fff"
-                android:layout_marginTop="20dp"
+                android:layout_alignParentBottom="true"
                 android:gravity="center"
-                android:layout_weight="1"
-                android:textAllCaps="false"/>
-
-
+                android:layout_marginBottom="5dp"
+                android:text="© Haball | All rights reserved" />
         </RelativeLayout>
-
-
-
-    </RelativeLayout>
     </ScrollView>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="© Haball | All rights reserved"
-        android:gravity="center"
-
-        />
-
-
 </RelativeLayout>

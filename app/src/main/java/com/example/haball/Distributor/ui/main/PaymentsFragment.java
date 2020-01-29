@@ -45,7 +45,7 @@ public class PaymentsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PaymentsFragment.
+     * @return A new instance of fragment Payments_Fragment.
      */
     // TODO: Rename and change types and number of parameters
     public static PaymentsFragment newInstance(String param1, String param2) {

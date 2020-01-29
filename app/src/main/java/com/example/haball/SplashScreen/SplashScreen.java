@@ -30,7 +30,7 @@ public class SplashScreen extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashScreen.this, Proof_Of_Payment_Form.class);
+                Intent intent = new Intent(SplashScreen.this, Distribution_Login.class);
                 startActivity(intent);
                 finish();
             }
