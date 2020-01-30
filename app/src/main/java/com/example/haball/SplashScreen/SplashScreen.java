@@ -34,7 +34,7 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run() {
              //   Intent intent = new Intent(SplashScreen.this, Distribution_Login.class);
-                Intent intent = new Intent(SplashScreen.this, DistributorOrder_OnaddtoCart.class);
+                Intent intent = new Intent(SplashScreen.this, Distribution_Login.class);
                 startActivity(intent);
                 finish();
             }

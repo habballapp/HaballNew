@@ -34,5 +34,6 @@ dependencies {
     implementation "androidx.cardview:cardview:1.0.0"
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation 'androidx.core:core:1.1.0'
+    implementation 'androidx.navigation:navigation-runtime:2.2.0'
 
 }
