@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.haball.Distributor.ui.orders.Orders_Fragment;
 import com.example.haball.R;
 
 import androidx.annotation.NonNull;
@@ -14,10 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class DistributorOrderAdapter extends RecyclerView.Adapter<DistributorOrderAdapter.ViewHolder> {
 
-    private Context mContext;
+    private Orders_Fragment mContext;
     private  String heading,orderno,amount,status;
 
-    public DistributorOrderAdapter(DistributorOrder requestOrder,String heading,String orderno,String amount,String status){
+    public DistributorOrderAdapter(Orders_Fragment requestOrder, String heading, String orderno, String amount, String status){
 
         this.heading = heading;
         this.mContext = requestOrder;
@@ -28,7 +29,7 @@ public class DistributorOrderAdapter extends RecyclerView.Adapter<DistributorOrd
     @NonNull
     @Override
     public DistributorOrderAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view_inflate = LayoutInflater.from(mContext).inflate(R.layout.orders_layout,parent,false);
+        View view_inflate = LayoutInflater.from(mContext.getContext()).inflate(R.layout.orders_layout,parent,false);
         return new DistributorOrderAdapter.ViewHolder(view_inflate);
     }
 

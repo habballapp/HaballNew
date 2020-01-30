@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Dashboard"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textColor="#000"/>
     <ImageButton
         android:id="@+id/menu_btn"
@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/heading"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:text="Ticket Id:"
         android:textSize="18sp"/>
     <TextView
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/heading"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:text="584325"
         android:textSize="18sp"
         android:layout_marginLeft="5dp"

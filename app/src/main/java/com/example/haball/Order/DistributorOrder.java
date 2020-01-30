@@ -31,19 +31,19 @@ public class DistributorOrder extends AppCompatActivity {
         actionBar.setCustomView(customView);
         actionBar.setDisplayShowCustomEnabled(true);
 
-         recyclerView = (RecyclerView) findViewById(R.id.rv_order_ledger);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        recyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        // specify an adapter (see also next example)
-        mAdapter = new DistributorOrderAdapter(DistributorOrder.this,"Ghulam Rabani & Sons Traders & Distributors","1002312324251524","Invoice","Pending");
-        recyclerView.setAdapter(mAdapter);
+//         recyclerView = (RecyclerView) findViewById(R.id.rv_order_ledger);
+//
+//        // use this setting to improve performance if you know that changes
+//        // in content do not change the layout size of the RecyclerView
+//        recyclerView.setHasFixedSize(true);
+//
+//        // use a linear layout manager
+//        layoutManager = new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(layoutManager);
+//
+//        // specify an adapter (see also next example)
+//        mAdapter = new DistributorOrderAdapter(this,"Ghulam Rabani & Sons Traders & Distributors","1002312324251524","Invoice","Pending");
+//        recyclerView.setAdapter(mAdapter);
     }
     }
 

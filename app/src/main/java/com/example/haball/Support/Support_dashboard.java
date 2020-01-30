@@ -58,7 +58,7 @@ public class Support_dashboard extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new SupportDashboardAdapter(Support_dashboard.this,this.getApplicationContext(),"Distributor_Dashboard","584325","Pending","01/01/2020");
+        mAdapter = new SupportDashboardAdapter(Support_dashboard.this,this.getApplicationContext(),"Dashboard","584325","Pending","01/01/2020");
         recyclerView.setAdapter(mAdapter);
     }
 }
