@@ -38,8 +38,8 @@
             android:paddingTop="5dp"
             android:textColor="#96bb3c"
             android:background="@drawable/half_underline"
-
-            />
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="100dp" />
 
     </LinearLayout>
 

@@ -145,7 +145,8 @@
                 android:text="Banking Channel"
                 android:gravity="center"
                 android:drawableStart="@drawable/ic_account_balance_black_24dp"
-                android:textSize="22dp"/>
+                android:textSize="22dp"
+                android:drawableLeft="@drawable/ic_account_balance_black_24dp" />
         </RelativeLayout>
     </LinearLayout>
 
