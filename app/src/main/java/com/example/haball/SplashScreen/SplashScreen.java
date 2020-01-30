@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.example.haball.Language_Selection.Language_Selection;
+import com.example.haball.Order.DistributorOrder;
+import com.example.haball.Order.DistributorOrder_ItemSelection;
+import com.example.haball.Order.DistributorOrder_OnaddtoCart;
 import com.example.haball.Payment.Payment_Screen1;
 import com.example.haball.Payment.Payment_Screen2;
 import com.example.haball.Payment.Payment_Screen3;
@@ -31,7 +34,7 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run() {
              //   Intent intent = new Intent(SplashScreen.this, Distribution_Login.class);
-                Intent intent = new Intent(SplashScreen.this, Distribution_Login.class);
+                Intent intent = new Intent(SplashScreen.this, DistributorOrder_OnaddtoCart.class);
                 startActivity(intent);
                 finish();
             }

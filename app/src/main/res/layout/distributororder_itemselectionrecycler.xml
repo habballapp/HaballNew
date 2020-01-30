@@ -12,7 +12,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:orientation="vertical"
-        android:padding="15dp"
+        android:padding="20dp"
         >
 
         <TextView
