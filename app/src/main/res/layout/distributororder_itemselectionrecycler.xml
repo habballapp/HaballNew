@@ -12,6 +12,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:orientation="vertical"
+        android:padding="15dp"
         >
 
         <TextView
@@ -21,6 +22,7 @@
             android:text="AC Card Battery Charger"
             android:textColor="#96bb3c"
             android:paddingLeft="15dp"
+            android:textSize="18sp"
             />
         <TextView
             android:id="@+id/txt_price"
@@ -28,7 +30,7 @@
             android:layout_height="match_parent"
             android:text="PKR12000.00"
             android:paddingLeft="15dp"
-            android:textSize="10sp"
+            android:textSize="16sp"
             />
     </LinearLayout>
 
