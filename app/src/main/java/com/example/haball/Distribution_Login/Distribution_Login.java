@@ -3,8 +3,11 @@ package com.example.haball.Distribution_Login;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +25,12 @@ public class Distribution_Login extends AppCompatActivity {
 
     private Button btn_login,btn_signup,btn_support,btn_password,btn_reset;
     private ImageButton btn_back;
+    private Toolbar tb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_distribution__login);
+        getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
 
         btn_login = findViewById(R.id.btn_login);
         btn_signup = findViewById(R.id.btn_signup);
@@ -33,16 +38,28 @@ public class Distribution_Login extends AppCompatActivity {
         btn_password = findViewById(R.id.btn_password);
         btn_back = (ImageButton)findViewById(R.id.btn_back);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.setDisplayShowHomeEnabled(false);
+//        actionBar.setDisplayShowTitleEnabled(false);
+//
+//
+//        LayoutInflater inflater = LayoutInflater.from(this);
+//        View customView = inflater.inflate(R.layout.actio   n_bar_main, null);
+//
+//        actionBar.setCustomView(customView);
+//        actionBar.setDisplayShowCustomEnabled(true);
+
+        ActionBar bar = getSupportActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
 
         LayoutInflater inflater = LayoutInflater.from(this);
+
         View customView = inflater.inflate(R.layout.action_bar_main, null);
 
-
-        actionBar.setCustomView(customView);
-        actionBar.setDisplayShowCustomEnabled(true);
+        bar.setCustomView(customView);
+        bar.setDisplayShowCustomEnabled(true);
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
+        bar.setTitle("");
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
