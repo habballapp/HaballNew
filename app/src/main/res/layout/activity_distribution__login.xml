@@ -209,61 +209,19 @@
                     android:textSize="15sp" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/footer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:gravity="center"
-                android:text="© Haball | All rights reserved" />
-
         </RelativeLayout>
 
     </ScrollView>
 
-
-    <!--    <RelativeLayout-->
-<!--        android:id="@+id/footer_RL"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:background="@color/colorAccent">-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/footer_txt"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:textSize="30dp"-->
-<!--            android:gravity="center"-->
-<!--            android:text="Footer"/>-->
-
-<!--    </RelativeLayout>-->
+    <TextView
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:text="© Haball | All rights reserved" />
 
 
-<!--    <FrameLayout-->
-<!--        android:id="@+id/frame_container"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_above="@+id/footer_RL"-->
-<!--        android:layout_below="@+id/sv">-->
-
-<!--    </FrameLayout>-->
 
 
-<!--    <RelativeLayout-->
-<!--        android:id="@+id/footer_RL"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:background="@color/colorAccent">-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/footer_txt"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:textSize="30dp"-->
-<!--            android:gravity="center"-->
-<!--            android:text="Footer"/>-->
-
-<!--    </RelativeLayout>-->
 </RelativeLayout>

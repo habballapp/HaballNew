@@ -26,9 +26,9 @@
         <activity android:name=".Order.DistributorOrder_ShopSelection"/>
         <activity android:name=".Registration.Registration_Actvity2" />
         <activity android:name=".Registration.Registration_Activity" />
+        <activity android:name=".RetailerLogin"></activity>
         <activity android:name=".Registration.Register_Activity_2" />
-        <activity
-            android:name=".Distribution_Login.Distribution_Login"
+        <activity android:name=".Distribution_Login.Distribution_Login"/>
             android:theme="@style/Theme.AppCompat.Light" />
         <activity android:name=".Support.Support_Ticket_Form" />
         <activity
