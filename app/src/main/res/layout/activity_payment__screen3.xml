@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="2"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/underline"
         android:orientation="vertical">
@@ -50,10 +50,10 @@
         <Button
             android:id="@+id/btn_newpayment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80px"
             android:background="@drawable/button_round"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:layout_marginTop="20dp"
             android:text="Make New Payment"
             android:textSize="15sp"
@@ -65,11 +65,11 @@
         <RelativeLayout
             android:id="@+id/relative_Preffered_Contact"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="80px"
             android:layout_below="@+id/relative_criticality"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="40dp"
             android:background="@drawable/edit_round"
             android:padding="10dp">
 
@@ -81,13 +81,14 @@
         <EditText
             android:id="@+id/txt_amount"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:padding="10dp"
+            android:layout_height="80px"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:textSize="15sp"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="40dp"
             android:background="@drawable/edit_round"
-            android:layout_marginEnd="20dp"
+            android:layout_marginRight="40dp"
             android:layout_weight="1"
             android:hint="Amount"
             />
@@ -95,10 +96,10 @@
         <Button
             android:id="@+id/btn_update"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80px"
             android:background="@drawable/button_round"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:layout_marginTop="20dp"
             android:text="Back"
             android:textSize="15sp"
@@ -116,28 +117,54 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ln_txt"
         android:layout_marginTop="10dp"
-        android:weightSum="3"
+        android:weightSum="4"
         android:orientation="vertical"
         >
-
-        <EditText
-            android:id="@+id/payment_id"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:padding="10dp"
-            android:textSize="15sp"
-            android:layout_marginStart="20dp"
+            android:layout_height="80px"
+            android:weightSum="4"
+            android:orientation="horizontal"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:background="@drawable/edit_round"
-            android:layout_marginEnd="20dp"
-            android:layout_weight="1"
-            android:hint="Payment ID:324569697708"
+
+            >
+        <TextView
+            android:id="@+id/payment_txt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="15sp"
+            android:layout_weight="2"
+            android:hint="Payment ID:"
+
+            android:gravity="center"
+            android:layout_marginRight="30dp"
+            android:background="@android:color/transparent"
             />
+
+            <TextView
+                android:id="@+id/payment_id"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="15sp"
+                android:layout_weight="1"
+                android:hint="324569697708"
+                android:layout_marginLeft="-56dp"
+                android:paddingLeft="10dp"
+                android:gravity="center_vertical"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:background="@android:color/transparent"
+                />
+        </LinearLayout>
+
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginTop="20dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginLeft="40dp"
             android:layout_weight="1"
             android:text="@string/Txt_Payment"
             android:layout_below="@id/ln_btn"
@@ -159,7 +186,7 @@
                 android:layout_height="wrap_content"
                 android:text="Banking Channel"
                 android:gravity="center"
-                android:drawableStart="@drawable/ic_account_balance_black_24dp"
+                android:drawableLeft="@drawable/ic_account_balance_black_24dp"
                 android:textSize="22dp"/>
         </RelativeLayout>
 

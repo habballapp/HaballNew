@@ -31,8 +31,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
                     android:layout_weight="1"
                     android:maxLines="1"
                     android:padding="10dp"
@@ -49,10 +49,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="40dp"
                     android:layout_marginTop="10dp"
-
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_weight="1"
                     android:justificationMode="inter_word"
                     android:text="@string/Txt_Description"
@@ -124,6 +123,7 @@
                         android:layout_marginRight="40dp"
                         android:background="@drawable/edit_round"
                         android:hint="Address01 *"
+                        android:paddingLeft="10dp"
                         android:paddingBottom="20dp"
                         android:textSize="16sp" />
 
@@ -192,7 +192,7 @@
                         android:gravity="left"
                         android:hint="Postal Code *"
                         android:padding="10dp"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </RelativeLayout>
 
@@ -237,12 +237,11 @@
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginEnd="20dp"
                         android:text="SAME AS SHIPPING ADDRESS"
                         android:textColor="#d3d3d3"
-
                         />
                 </LinearLayout>
 
@@ -261,6 +260,7 @@
                         android:layout_marginRight="40dp"
                         android:background="@drawable/edit_round"
                         android:hint="Address02 *"
+                        android:paddingLeft="10dp"
                         android:paddingBottom="20dp"
                         android:textSize="16sp" />
 
@@ -327,7 +327,7 @@
                         android:gravity="left"
                         android:hint="Postal Code *"
                         android:padding="10dp"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                     <Button
                         android:id="@+id/btn_register"

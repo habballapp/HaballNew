@@ -17,6 +17,8 @@
         <activity android:name=".Order.DistributorOrder_ItemSelection"/>
         <activity android:name=".Order.DistributorOrder"/>
         <activity android:name=".Order.DistributorOrder_OnaddtoCart"/>
+        <activity android:name=".Payment.PaymentLedger"/>
+        <activity android:name=".Payment.DistributorPaymentRequest_CriteriaSelection"/>
         <activity android:name=".Payment.Payment_Screen3" />
         <activity android:name=".Payment.Payment_Screen2" />
         <activity android:name=".Payment.Payment_Screen1" />

@@ -48,7 +48,7 @@ public class Proof_Of_Payment_Form extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new ProofOfPaymentsFormAdapter(Proof_Of_Payment_Form.this,"Document 01","Deposit slip 01");
+        mAdapter = new ProofOfPaymentsFormAdapter(Proof_Of_Payment_Form.this,"Document 01","Deposit slip");
         recyclerView.setAdapter(mAdapter);
     }
 }
