@@ -4,6 +4,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,15 +24,18 @@ public class Registration_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
+        ActionBar bar = getSupportActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
 
         LayoutInflater inflater = LayoutInflater.from(this);
+
         View customView = inflater.inflate(R.layout.action_bar_main, null);
 
-        actionBar.setCustomView(customView);
-        actionBar.setDisplayShowCustomEnabled(true);
+        bar.setCustomView(customView);
+        bar.setDisplayShowCustomEnabled(true);
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
+        bar.setTitle("");
+
         btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
 
         btn_back.setOnClickListener(new View.OnClickListener() {

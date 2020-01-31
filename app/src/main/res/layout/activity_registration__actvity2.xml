@@ -31,8 +31,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
                     android:layout_weight="1"
                     android:maxLines="1"
                     android:padding="10dp"
@@ -49,10 +49,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="40dp"
                     android:layout_marginTop="10dp"
-
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_weight="1"
                     android:justificationMode="inter_word"
                     android:text="@string/Txt_Description"
@@ -76,9 +75,9 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="40dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginRight="40dp"
                         android:layout_weight="1"
                         android:background="@drawable/border_set"
                         android:paddingStart="10dp"
@@ -92,8 +91,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="15dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
                         android:layout_weight="1"
                         android:background="@drawable/border_set"
                         android:paddingStart="10dp"
@@ -111,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ln_login"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginTop="21dp"
+                    android:layout_marginTop="40dp"
                     android:layout_marginEnd="0dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="0dp">
@@ -120,11 +119,11 @@
                         android:id="@+id/Address"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
                         android:background="@drawable/edit_round"
                         android:hint="Address01 *"
+                        android:paddingLeft="10dp"
                         android:paddingBottom="20dp"
                         android:textSize="16sp" />
 
@@ -132,11 +131,11 @@
                     <RelativeLayout
                         android:id="@+id/relative_issuetype"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="80px"
                         android:layout_below="@+id/Address"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
                         android:background="@drawable/edit_round"
                         android:padding="10dp">
 
@@ -149,11 +148,11 @@
                     <RelativeLayout
                         android:id="@+id/relative_criticality"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="80px"
                         android:layout_below="@+id/relative_issuetype"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
                         android:background="@drawable/edit_round"
                         android:padding="10dp">
 
@@ -166,11 +165,11 @@
                     <RelativeLayout
                         android:id="@+id/relative_Preffered_Contact"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="80px"
                         android:layout_below="@+id/relative_criticality"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
                         android:background="@drawable/edit_round"
                         android:padding="10dp">
 
@@ -184,16 +183,16 @@
                     <EditText
                         android:id="@+id/postal_shipping"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="80px"
                         android:layout_below="@+id/relative_Preffered_Contact"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
                         android:background="@drawable/edit_round"
                         android:gravity="left"
                         android:hint="Postal Code *"
                         android:padding="10dp"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </RelativeLayout>
 
@@ -209,9 +208,9 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginRight="40dp"
                         android:layout_weight="1"
                         android:background="@drawable/border_set"
                         android:paddingStart="10dp"
@@ -225,8 +224,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="15dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
                         android:layout_weight="1"
                         android:background="@drawable/border_set"
                         android:paddingStart="10dp"
@@ -238,12 +237,11 @@
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginEnd="20dp"
                         android:text="SAME AS SHIPPING ADDRESS"
                         android:textColor="#d3d3d3"
-
                         />
                 </LinearLayout>
 
@@ -251,28 +249,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/ln_billing"
-                    android:layout_marginBottom="50dp">
+                    android:layout_marginBottom="40dp">
 
                     <EditText
                         android:id="@+id/Address02"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
                         android:background="@drawable/edit_round"
                         android:hint="Address02 *"
-                        android:paddingBottom="20dp"
+                        android:paddingLeft="10dp"
                         android:textSize="16sp" />
 
                     <RelativeLayout
                         android:id="@+id/select_country"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="80px"
                         android:layout_below="@+id/Address02"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
                         android:background="@drawable/edit_round"
                         android:padding="10dp">
 
@@ -285,11 +283,11 @@
                     <RelativeLayout
                         android:id="@+id/select_province"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="80px"
                         android:layout_below="@+id/select_country"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
                         android:background="@drawable/edit_round"
                         android:padding="10dp">
 
@@ -302,11 +300,11 @@
                     <RelativeLayout
                         android:id="@+id/select_city"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="80px"
                         android:layout_below="@+id/select_province"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
                         android:background="@drawable/edit_round"
                         android:padding="10dp">
 
@@ -319,25 +317,25 @@
                     <EditText
                         android:id="@+id/postal_billing"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="80px"
                         android:layout_below="@+id/select_city"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
                         android:background="@drawable/edit_round"
                         android:gravity="left"
                         android:hint="Postal Code *"
                         android:padding="10dp"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                     <Button
                         android:id="@+id/btn_register"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="80px"
                         android:layout_below="@id/postal_billing"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
                         android:layout_weight="1"
                         android:background="@drawable/button_round"
                         android:gravity="center"

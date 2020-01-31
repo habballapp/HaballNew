@@ -11,8 +11,8 @@
         android:id="@+id/tv_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/underline"
         android:orientation="vertical">
@@ -36,11 +36,11 @@
     <Button
         android:id="@+id/create_payment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80px"
         android:background="@drawable/button_round"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="30dp"
         android:text="Use Template"
         android:textSize="15sp"
         android:textColor="#fff"
@@ -52,10 +52,10 @@
     <RelativeLayout
         android:id="@+id/spinner_container"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="80px"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="30dp"
         android:layout_below="@+id/create_payment">
         <Spinner
             android:id="@+id/spinner_criteria"
@@ -69,14 +69,15 @@
         android:layout_height="5dp"
         android:layout_below="@+id/spinner_container"
         android:background="@drawable/line_seperator"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="30dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_itemselection"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/line_bottom"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"/>
 
 </RelativeLayout>

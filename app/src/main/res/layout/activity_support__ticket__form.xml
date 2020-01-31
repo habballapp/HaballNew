@@ -22,8 +22,8 @@
                 android:id="@+id/support"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginLeft="40dp"
                 android:layout_weight="1"
                 android:padding="10dp"
                 android:text="Support"
@@ -35,14 +35,14 @@
                 android:layout_height="1dp"
                 android:layout_below="@+id/tv_support"
                 android:background="@drawable/horizontal_black_line"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"/>
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Welcome to Haball Support Center"
                 android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="40dp"
                 android:layout_marginTop="20dp"
                 android:textSize="20sp"
                 android:layout_weight="1"/>
@@ -52,30 +52,31 @@
             android:id="@+id/rl_fields"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/header">
+            android:layout_below="@+id/header"
+            android:layout_marginTop="20dp"
+            >
             <EditText
                 android:id="@+id/BName"
                 android:hint="Business Name"
                 android:textSize="16sp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80px"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:paddingBottom="20dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
                 android:padding="10dp"
                 android:background="@drawable/edit_round"/>
             <EditText
                 android:id="@+id/Email"
                 android:layout_width="match_parent"
                 android:textSize="16sp"
-                android:layout_height="wrap_content"
                 android:layout_below="@+id/BName"
                 android:hint="Email"
+                android:layout_height="80px"
                 android:padding="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
                 android:background="@drawable/edit_round"
                 />
             <EditText
@@ -83,22 +84,22 @@
                 android:hint="Mobile No"
                 android:textSize="16sp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:background="@drawable/edit_round"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="80px"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="30dp"
                 android:padding="10dp"
                 android:layout_below="@+id/Email"/>
 
             <RelativeLayout
                 android:id="@+id/relative_issuetype"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
+                android:layout_height="80px"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="30dp"
                 android:layout_below="@+id/MobileNo"
-                android:layout_marginTop="20dp"
                 android:padding="10dp"
                 android:background="@drawable/edit_round">
                 <Spinner
@@ -111,9 +112,9 @@
             <RelativeLayout
                 android:id="@+id/relative_criticality"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
+                android:layout_height="80px"
+                android:layout_marginRight="40dp"
+                android:layout_marginLeft="40dp"
                 android:layout_below="@+id/relative_issuetype"
                 android:layout_marginTop="20dp"
 
@@ -129,11 +130,11 @@
             <RelativeLayout
                 android:id="@+id/relative_Preffered_Contact"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
+                android:layout_height="80px"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="30dp"
                 android:layout_below="@+id/relative_criticality"
-                android:layout_marginTop="20dp"
                 android:padding="10dp"
                 android:background="@drawable/edit_round">
                 <Spinner
@@ -143,7 +144,6 @@
                     />
             </RelativeLayout>
 
-
             <EditText
                 android:id="@+id/Comment"
                 android:layout_width="match_parent"
@@ -152,28 +152,40 @@
                 android:padding="10dp"
                 android:hint="Comment"
                 android:textSize="18sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_below="@+id/relative_Preffered_Contact"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="40dp"
                 android:gravity="left"
-                android:layout_marginRight="20dp"/>
+                android:layout_marginRight="40dp"/>
+
 
         </RelativeLayout>
 
 
         <Button
+            android:id="@+id/ticket_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_below="@id/rl_fields"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_height="80px"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="30dp"
             android:textAllCaps="false"
             android:textSize="18sp"
             android:background="@drawable/button_round"
             android:text="Add Ticket"
             android:textColor="#fff"
             />
+
+        <TextView
+            android:id="@+id/footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/ticket_btn"
+            android:gravity="center"
+            android:text="© Haball | All rights reserved" />
+
 
     </RelativeLayout>
 </ScrollView>
