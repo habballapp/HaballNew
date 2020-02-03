@@ -54,7 +54,7 @@
                     android:layout_marginRight="20dp"
                     android:layout_weight="1"
                     android:justificationMode="inter_word"
-                    android:text="@string/Txt_Description"
+                    android:text="@string/Txt_Description_Distributer"
                     android:textSize="15sp" />
 
 

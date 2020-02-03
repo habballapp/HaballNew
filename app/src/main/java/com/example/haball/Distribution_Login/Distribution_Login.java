@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.haball.Distributor.DistributorDashboard;
+import com.example.haball.Language_Selection.Language_Selection;
 import com.example.haball.Payment.Payment_Screen2;
 import com.example.haball.R;
 import com.example.haball.Register_Activity.Register_Activity;
@@ -24,7 +25,7 @@ import com.example.haball.Support.Support_dashboard;
 public class Distribution_Login extends AppCompatActivity {
 
     private Button btn_login,btn_signup,btn_support,btn_password,btn_reset;
-    private ImageButton btn_back;
+    public ImageButton btn_back;
     private Toolbar tb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class Distribution_Login extends AppCompatActivity {
         btn_support = findViewById(R.id.btn_support);
         btn_password = findViewById(R.id.btn_password);
         btn_back = (ImageButton)findViewById(R.id.btn_back);
+
 
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.setDisplayShowHomeEnabled(false);
@@ -60,7 +62,12 @@ public class Distribution_Login extends AppCompatActivity {
         bar.setDisplayShowCustomEnabled(true);
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
         bar.setTitle("");
-
+//         btn_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
