@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,15 +27,17 @@ public class Proof_Of_Payment_Form extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_proof__of__payment__form);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
+        ActionBar bar = getSupportActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
 
         LayoutInflater inflater = LayoutInflater.from(this);
-        View customView = inflater.inflate(R.layout.custom_actionbar, null);
 
-        actionBar.setCustomView(customView);
-        actionBar.setDisplayShowCustomEnabled(true);
+        View customView = inflater.inflate(R.layout.action_bar_main, null);
+
+        bar.setCustomView(customView);
+        bar.setDisplayShowCustomEnabled(true);
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
+        bar.setTitle("");
         Button rl = (Button) findViewById(R.id.btn_upload);
 
 
@@ -48,7 +52,7 @@ public class Proof_Of_Payment_Form extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new ProofOfPaymentsFormAdapter(Proof_Of_Payment_Form.this,"Document 01","Deposit slip 01");
+        mAdapter = new ProofOfPaymentsFormAdapter(Proof_Of_Payment_Form.this,"Document 01","Deposit slip");
         recyclerView.setAdapter(mAdapter);
     }
 }

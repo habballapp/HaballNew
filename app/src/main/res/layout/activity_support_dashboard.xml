@@ -19,22 +19,22 @@
         android:paddingBottom="10dp"
         android:layout_marginTop="20dp"
         android:textSize="24sp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"/>
     <RelativeLayout
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/tv_support"
         android:background="@drawable/horizontal_black_line"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"/>
     <Button
         android:id="@+id/btn_add_ticket"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_height="80px"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:text="Add Ticket"
         android:textAllCaps="false"
         android:textSize="18sp"
@@ -46,10 +46,10 @@
     <RelativeLayout
         android:id="@+id/spinner_container"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_height="80px"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="40dp"
         android:layout_below="@+id/btn_add_ticket"
         android:background="@drawable/edit_text_squared">
         <Spinner
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/spinner_container"
         android:layout_marginTop="30dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"/>
 
 </RelativeLayout>

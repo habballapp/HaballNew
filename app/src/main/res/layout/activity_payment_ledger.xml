@@ -16,14 +16,14 @@
         android:layout_marginTop="20dp"
         android:textSize="18sp"
         android:textColor="#96bb3c"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="40dp"
         android:background="@drawable/half_underline"/>
 
     <RelativeLayout
         android:id="@+id/line_"
         android:layout_width="match_parent"
         android:layout_height="1.5dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginRight="40dp"
         android:layout_below="@+id/tv_proof_payment"
         android:layout_toRightOf="@+id/tv_proof_payment"
         android:background="@drawable/line"
@@ -32,10 +32,10 @@
     <RelativeLayout
         android:id="@+id/spinner_container"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="80px"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="30dp"
         android:layout_below="@+id/line_">
         <Spinner
             android:id="@+id/spinner_criteria"
@@ -49,15 +49,15 @@
         android:layout_height="5dp"
         android:layout_below="@+id/spinner_container"
         android:background="@drawable/line_seperator"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="30dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_payment_ledger"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/line_bottom"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"/>
 
 </RelativeLayout>
