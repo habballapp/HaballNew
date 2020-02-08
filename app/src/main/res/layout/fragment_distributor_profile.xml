@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:backgroundTint="#80FFFFFF"
+    android:backgroundTintMode="src_over">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:id="@+id/ln_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginTop="20dp"
+                android:text="Profile"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:paddingTop="5dp"
+                android:textColor="#96bb3c"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:text="DSITRIBUTOR INFORMATION"
+                android:textColor="#000"
+                android:textSize="10sp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ln_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ln_login"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="40dp"
+            android:orientation="vertical"
+            android:weightSum="8">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_weight="1"
+                android:text="DISTRIBUTOR  CODE"
+                android:layout_marginTop="10dp"
+                android:textColor="#96bb3c"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/tv_dcode"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:paddingLeft="20dp"
+                android:hint="555551223455"
+                android:background="@drawable/distribution_login"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_weight="1"
+                android:text="FIRST NAME *"
+                android:layout_marginTop="10dp"
+                android:textColor="#96bb3c"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/tv_firstname"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:hint="Abdul"
+                android:drawableRight="@drawable/editprofile"
+                android:background="@drawable/distribution_login"
+                android:textSize="10sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_weight="1"
+                android:text="LAST NAME *"
+                android:layout_marginTop="10dp"
+                android:textColor="#96bb3c"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/tv_lastname"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:drawablePadding="10dp"
+                android:hint="Qadir"
+                android:gravity="center_vertical"
+                android:drawableRight="@drawable/editprofile"
+                android:background="@drawable/distribution_login"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_weight="1"
+                android:text="EMAIL ADDRESS *"
+                android:layout_marginTop="10dp"
+                android:textColor="#96bb3c"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/tv_email"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:hint="abdul.qadir@gmail.com"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/editprofile"
+                android:background="@drawable/distribution_login"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_weight="1"
+                android:text="CNIC NUMBER"
+                android:layout_marginTop="10dp"
+                android:textColor="#96bb3c"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_cnic"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:paddingLeft="15dp"
+                android:gravity="center_vertical"
+                android:text="12345678"
+                android:background="@drawable/distribution_login"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_weight="1"
+                android:text="MOBILE NO *"
+                android:layout_marginTop="10dp"
+                android:textColor="#96bb3c"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tv_mobileno"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/editprofile"
+                android:gravity="center_vertical"
+                android:text="03452389760"
+                android:background="@drawable/distribution_login"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_weight="1"
+                android:text="NTN"
+                android:layout_marginTop="10dp"
+                android:textColor="#96bb3c"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_shaddress"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:paddingLeft="20dp"
+                android:gravity="center_vertical"
+                android:text="Recieved"
+                android:background="@drawable/distribution_login"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_weight="1"
+                android:text="COMPANY NAME"
+                android:layout_marginTop="10dp"
+                android:textColor="#96bb3c"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_companyname"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:paddingLeft="20dp"
+                android:gravity="center_vertical"
+                android:text="MATZ Solutions"
+                android:background="@drawable/distribution_login"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_weight="1"
+                android:text="CREATED DATE"
+                android:layout_marginTop="10dp"
+                android:textColor="#96bb3c"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_shstatus"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:paddingLeft="20dp"
+                android:gravity="center_vertical"
+                android:text="18/01/2020"
+                android:background="@drawable/distribution_login"
+                android:textSize="10sp" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ln_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ln_txt"
+            android:layout_marginTop="10dp"
+            android:weightSum="2"
+            android:orientation="vertical"
+            >
+            <Button
+                android:id="@+id/btn_changepwd"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:background="@drawable/button_background"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:text="Change Password"
+                android:textSize="15sp"
+                android:textColor="#fff"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:layout_marginBottom="60dp"
+
+                />
+        </LinearLayout>
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:text="© Haball | All rights reserved"
+            android:gravity="center"
+            />
+
+    </RelativeLayout>
+
+</ScrollView>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:scrollbars="none">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="40dp"
+            android:weightSum="2">
+
+            <Spinner
+                android:id="@+id/spinner_retailor"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_marginRight="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_weight="1"
+                android:padding="10dp"
+
+                android:textSize="24sp"
+                />
+            <RelativeLayout
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/tv_support"
+                android:background="@drawable/horizontal_black_line"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_fields"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/header"
+            android:layout_marginTop="20dp"
+            >
+
+            <TextView
+                android:id="@+id/profile_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Profile Information"
+                android:layout_marginRight="40dp"
+                android:layout_marginLeft="40dp"
+
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+                />
+
+            <EditText
+                android:id="@+id/Rcode"
+                android:hint="Retailor Code"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:paddingLeft="10dp"
+                android:layout_below="@id/profile_info"
+                android:background="@drawable/edit_round"/>
+            <EditText
+                android:id="@+id/Rname"
+                android:layout_width="match_parent"
+                android:textSize="16sp"
+                android:layout_below="@+id/Rcode"
+                android:hint="Retailor Name"
+                android:layout_height="80px"
+                android:paddingLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/edit_round"
+                />
+            <EditText
+                android:id="@+id/Email"
+                android:hint="Email"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:background="@drawable/edit_round"
+                android:layout_height="80px"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="30dp"
+                android:paddingLeft="10dp"
+                android:layout_below="@+id/Rname"/>
+
+            <EditText
+                android:id="@+id/Cnicno"
+                android:hint="CNIC No"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:background="@drawable/edit_round"
+                android:layout_height="80px"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="30dp"
+                android:paddingLeft="10dp"
+                android:layout_below="@+id/Email"/>
+
+            <RelativeLayout
+                android:id="@+id/Mobileno"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/Cnicno"
+                android:paddingLeft="10dp"
+                android:background="@drawable/edit_round">
+                <Spinner
+                    android:id="@+id/spinner_mobileno"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/created_date"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_marginRight="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_below="@+id/Mobileno"
+                android:layout_marginTop="20dp"
+
+                android:padding="10dp"
+                android:background="@drawable/edit_round">
+                <Spinner
+                    android:id="@+id/spinner_created_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/Address"
+                android:hint="Address"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:background="@drawable/edit_round"
+                android:layout_height="150px"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="30dp"
+                android:paddingLeft="10dp"
+                android:layout_below="@+id/created_date"/>
+        </RelativeLayout>
+
+
+        <Button
+            android:id="@+id/change_pwd"
+            android:layout_width="match_parent"
+            android:layout_below="@id/rl_fields"
+            android:layout_height="80px"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="20dp"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:background="@drawable/button_round"
+            android:text="Change Password"
+            android:textColor="#fff"
+            />
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="match_parent"
+            android:layout_below="@id/change_pwd"
+            android:layout_height="80px"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="15dp"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:background="@drawable/button_round"
+            android:text="Save"
+            android:textColor="#fff"
+            />
+
+        <TextView
+            android:id="@+id/footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/btn_save"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="© Haball | All rights reserved" />
+
+
+    </RelativeLayout>
+</ScrollView>
