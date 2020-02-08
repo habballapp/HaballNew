@@ -19,7 +19,6 @@ import com.example.haball.Payment.Payment_Screen3;
 import com.example.haball.Payment.Proof_Of_Payment_Form;
 import com.example.haball.R;
 import com.example.haball.Distribution_Login.Distribution_Login;
-import com.example.haball.Register_Activity.Register_Activity;
 import com.example.haball.Registration.Registration_Activity;
 import com.example.haball.Registration.Registration_Actvity2;
 import com.example.haball.Support.Support_Ticket_Form;

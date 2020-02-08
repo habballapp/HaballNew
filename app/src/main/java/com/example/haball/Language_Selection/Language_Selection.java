@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.example.haball.R;
-import com.example.haball.Register_Activity.Register_Activity;
+import com.example.haball.Select_User.Register_Activity;
 
 public class Language_Selection extends AppCompatActivity {
 

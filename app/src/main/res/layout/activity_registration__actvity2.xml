@@ -144,8 +144,7 @@
                         <Spinner
                             android:id="@+id/spinner_country"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:prompt="@string/hint_resource1"/>
+                            android:layout_height="wrap_content"/>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -161,8 +160,7 @@
                         <Spinner
                             android:id="@+id/spinner_province"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:prompt="@string/hint_resource2"/>
+                            android:layout_height="match_parent"/>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -178,8 +176,7 @@
                         <Spinner
                             android:id="@+id/spinner_city"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:prompt="@string/hint_resource3"/>
+                            android:layout_height="match_parent"/>
                     </RelativeLayout>
 
 

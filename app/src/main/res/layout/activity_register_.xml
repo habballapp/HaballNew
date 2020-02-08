@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    tools:context=".Register_Activity.Register_Activity"
+    tools:context=".Select_User.Register_Activity"
     android:background="@drawable/background01"
 >
 

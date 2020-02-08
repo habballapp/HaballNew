@@ -139,7 +139,7 @@
                     android:weightSum="2">
 
                     <Button
-                        android:id="@+id/btn_login"
+                        android:id="@+id/retailer_btn_login"
                         android:layout_width="match_parent"
                         android:layout_height="80px"
                         android:layout_marginLeft="40dp"
@@ -153,7 +153,7 @@
                         android:textSize="15sp" />
 
                     <Button
-                        android:id="@+id/btn_password"
+                        android:id="@+id/ret_btn_password"
                         android:layout_width="match_parent"
                         android:layout_height="80px"
                         android:layout_marginStart="40dp"
@@ -182,7 +182,7 @@
                     android:weightSum="2">
 
                     <Button
-                        android:id="@+id/btn_support"
+                        android:id="@+id/ret_btn_support"
                         android:layout_width="match_parent"
                         android:layout_height="80px"
                         android:layout_marginLeft="40dp"
@@ -196,7 +196,7 @@
                         android:textSize="15sp" />
 
                     <Button
-                        android:id="@+id/btn_signup"
+                        android:id="@+id/ret_btn_signup"
                         android:layout_width="match_parent"
                         android:layout_height="80px"
                         android:layout_marginStart="10dp"

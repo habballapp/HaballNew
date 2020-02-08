@@ -45,9 +45,9 @@ public class DistributorPaymentRequest_CriteriaSelection extends AppCompatActivi
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new DistributorPaymentRequestAdaptor(DistributorPaymentRequest_CriteriaSelection.this,"Ghulam Rabani & Sons Traders & Distributors","1002312324251524","Invoice","PKR 50,000.00","PKR 600,000.00");
-        mAdapter = new DistributorPaymentRequestAdaptor(DistributorPaymentRequest_CriteriaSelection.this,"Ghulam Rabani & Sons Traders & Distributors","1002312324251524","Invoice","PKR 50,000.00","PKR 600,000.00");
-        mAdapter = new DistributorPaymentRequestAdaptor(DistributorPaymentRequest_CriteriaSelection.this,"Ghulam Rabani & Sons Traders & Distributors","1002312324251524","Invoice","PKR 50,000.00","PKR 600,000.00");
-        recyclerView.setAdapter(mAdapter);
+//        mAdapter = new DistributorPaymentRequestAdaptor(DistributorPaymentRequest_CriteriaSelection.this,"Ghulam Rabani & Sons Traders & Distributors","1002312324251524","Invoice","PKR 50,000.00","PKR 600,000.00");
+//        mAdapter = new DistributorPaymentRequestAdaptor(DistributorPaymentRequest_CriteriaSelection.this,"Ghulam Rabani & Sons Traders & Distributors","1002312324251524","Invoice","PKR 50,000.00","PKR 600,000.00");
+//        mAdapter = new DistributorPaymentRequestAdaptor(DistributorPaymentRequest_CriteriaSelection.this,"Ghulam Rabani & Sons Traders & Distributors","1002312324251524","Invoice","PKR 50,000.00","PKR 600,000.00");
+//        recyclerView.setAdapter(mAdapter);
     }
 }

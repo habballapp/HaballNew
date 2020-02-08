@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
-    tools:context=".Payment.PaymentLedger">
+    android:background="#fff">
 
     <LinearLayout
         android:id="@+id/tv_proof_paymentrequest"
@@ -74,10 +73,11 @@
         android:layout_marginTop="30dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_payment_ledger"
+        android:id="@+id/rv_payment_request"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/line_bottom"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="40dp"
         android:layout_marginLeft="40dp"/>

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".Distributor.ui.main.DashboardFragment">
+    tools:context=".Distributor.ui.home.HomeFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,19 +18,18 @@
             android:layout_marginTop="70dp"
             android:background="@drawable/edit_text_squared">
             <TextView
-                android:id="@+id/tv_unpaid_amount"
+                android:id="@+id/value_unpaid_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Total Unpaid Amount"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
             <TextView
-                android:id="@+id/value_unpaid_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="PKR 0.00"
                 android:textSize="14sp"
-                android:layout_below="@+id/tv_unpaid_amount"/>
+                android:layout_below="@+id/value_unpaid_amount"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -42,19 +41,18 @@
             android:layout_below="@+id/rl_unpaid_amount"
             android:background="@drawable/edit_text_squared">
             <TextView
-                android:id="@+id/tv_paid_amount"
+                android:id="@+id/value_paid_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Total Paid Amount"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
             <TextView
-                android:id="@+id/value_paid_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="PKR 0.00"
                 android:textSize="14sp"
-                android:layout_below="@+id/tv_paid_amount"/>
+                android:layout_below="@+id/value_paid_amount"/>
         </RelativeLayout>
 
         <RelativeLayout

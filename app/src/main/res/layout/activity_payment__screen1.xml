@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Payment.Payment_Screen1">
+    tools:context=".Payment.Payment_Amount">
 
     <LinearLayout
         android:id="@+id/ln_login"
@@ -17,13 +17,7 @@
         android:background="@drawable/underline"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_weight="1"
-            android:text="@string/Txt_Dashboard"
-            android:textStyle="bold"
-            ></TextView>
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -101,7 +95,7 @@
         >
 
         <Button
-            android:id="@+id/btn_login"
+            android:id="@+id/btn_next"
             android:layout_width="match_parent"
             android:background="@drawable/button_round"
             android:layout_height="80px"

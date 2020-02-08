@@ -6,10 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.haball.R;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.haball.Order.DistributorOrder_ItemSelection;
+import com.example.haball.R;
 
 public class DistributorOrder_ItemSelectionAdaptor extends RecyclerView.Adapter<DistributorOrder_ItemSelectionAdaptor.ViewHolder> {
 

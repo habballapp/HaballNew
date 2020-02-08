@@ -1,17 +1,16 @@
 package com.example.haball.Order;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.haball.Distributor.ui.orders.Orders_Fragment;
-import com.example.haball.R;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.haball.Distributor.ui.orders.Orders_Fragment;
+import com.example.haball.R;
 
 public class DistributorOrderAdapter extends RecyclerView.Adapter<DistributorOrderAdapter.ViewHolder> {
 
@@ -48,7 +47,7 @@ public class DistributorOrderAdapter extends RecyclerView.Adapter<DistributorOrd
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_heading,order_no_value,amount_value,status_value;
+        public TextView tv_heading,order_no_value,amount_value,status_value,tv_price;
         public ImageButton menu_btn;
 
         public ViewHolder(@NonNull View itemView) {

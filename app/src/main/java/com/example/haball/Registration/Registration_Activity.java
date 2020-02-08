@@ -25,7 +25,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distribution_Login.Distribution_Login;
 import com.example.haball.R;
-import com.example.haball.Register_Activity.Register_Activity;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;

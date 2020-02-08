@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Payment.Payment_Screen3">
+    tools:context=".Payment.Payment_Make_New">
 
     <LinearLayout
         android:id="@+id/ln_login"
@@ -173,6 +173,7 @@
             ></TextView>
 
         <RelativeLayout
+            android:id="@+id/rl_banking"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edit_round"

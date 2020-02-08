@@ -34,7 +34,6 @@ import com.example.haball.Distributor.DistributorDashboard;
 import com.example.haball.Language_Selection.Language_Selection;
 import com.example.haball.Payment.Payment_Screen2;
 import com.example.haball.R;
-import com.example.haball.Register_Activity.Register_Activity;
 import com.example.haball.Registration.Registration_Activity;
 import com.example.haball.Support.Support_dashboard;
 import com.google.gson.Gson;

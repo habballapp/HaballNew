@@ -2,52 +2,40 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="20dp"
-    android:paddingRight="5dp"
-    android:paddingTop="20dp"
-    android:paddingBottom="20dp"
-    android:layout_marginTop="30dp"
-    android:layout_marginBottom="10dp"
+    android:padding="20dp"
     android:background="@drawable/edit_text_squared">
-    <LinearLayout
-        android:id="@+id/ll_heading"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:weightSum="3">
-        <TextView
-            android:id="@+id/heading"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Dashboard"
-            android:textSize="18sp"
-            android:layout_weight="0.5"
-            android:textColor="#000"/>
-        <ImageButton
-            android:id="@+id/menu_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2.5"
-            android:src="@drawable/ic_more_vert_black_24dp"
-            android:background="@null"
-            android:textSize="18sp"
-            android:textColor="#000"/>
-    </LinearLayout>
+        android:text="Dashboard"
+        android:textSize="18sp"
+        android:textColor="#000"/>
+    <ImageButton
+        android:id="@+id/menu_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_more_vert_black_24dp"
+        android:layout_alignParentRight="true"
+        android:background="@null"
+        android:textSize="18sp"
+        android:textColor="#000"/>
     <TextView
         android:id="@+id/ticket_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_heading"
+        android:layout_below="@+id/heading"
         android:layout_marginTop="20dp"
         android:text="Ticket Id:"
-        android:textSize="16sp"/>
+        android:textSize="18sp"/>
     <TextView
         android:id="@+id/ticket_id_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_heading"
+        android:layout_below="@+id/heading"
         android:layout_marginTop="20dp"
         android:text="584325"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/ticket_id"
         android:textColor="#000"/>
@@ -57,14 +45,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ticket_id"
         android:text="Status: "
-        android:textSize="16sp"/>
+        android:textSize="18sp"/>
     <TextView
         android:id="@+id/status_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ticket_id"
         android:text="Pending"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/status"
         android:textColor="#000"/>
@@ -74,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/status"
         android:text="Created Date: "
-        android:textSize="16sp"/>
+        android:textSize="18sp"/>
     <TextView
         android:id="@+id/created_date_value"
         android:layout_width="wrap_content"
@@ -82,7 +70,7 @@
         android:layout_below="@+id/status"
         android:text="01/01/2020"
         android:layout_toRightOf="@+id/created_date"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:layout_marginLeft="5dp"
         android:textColor="#000"/>
 

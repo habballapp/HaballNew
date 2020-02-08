@@ -1,33 +1,49 @@
 package com.example.haball.Payment;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.haball.R;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.haball.Distributor.ui.payments.Payments_Fragment;
+import com.example.haball.R;
+import com.example.haball.Retailor.ui.Dashboard.DashBoardFragment;
+import com.example.haball.Retailor.ui.Make_Payment.Payment_Summary;
+
 public class DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPaymentRequestAdaptor.ViewHolder> {
-    private Context mContxt;
+    private Payments_Fragment mContext;
+    private DashBoardFragment mContext1;
     private String heading, ledgerid, doctype, transaction, balance;
-    public DistributorPaymentRequestAdaptor(DistributorPaymentRequest_CriteriaSelection requestLedger, String heading, String ledgerid, String doctype, String transaction, String balance) {
-        this.mContxt = requestLedger;
+    public DistributorPaymentRequestAdaptor(Payments_Fragment requestPayment, String heading, String ledgerid, String doctype, String transaction, String balance) {
+        this.mContext = requestPayment;
         this.heading = heading;
         this.ledgerid = ledgerid;
         this.doctype = doctype;
         this.transaction = transaction;
         this.balance = balance;
     }
+//
+//    public DistributorPaymentRequestAdaptor(DashBoardFragment dashBoardFragment, String heading, String ledgerid, String invoice, String transaction, String balance) {
+//        this.mContext1 = dashBoardFragment;
+//        this.heading = heading;
+//        this.ledgerid = ledgerid;
+//        this.doctype = doctype;
+//        this.transaction = transaction;
+//        this.balance = balance;
+//    }
+////
+//    public DistributorPaymentRequestAdaptor(Payment_Summary payment_summary, String s, String s1, String invoice, String s2, String s3) {
+//    }
 
     @NonNull
     @Override
     public DistributorPaymentRequestAdaptor.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view_inflate = LayoutInflater.from(mContxt).inflate(R.layout.layout_payment_ledger,parent,false);
+        //View view_inflate = LayoutInflater.from(mContxt).inflate(R.layout.distributerorder_shoprecycler,parent,false);
+        View view_inflate = LayoutInflater.from(mContext.getContext()).inflate(R.layout.layout_payment_ledger,parent,false);
         return new DistributorPaymentRequestAdaptor.ViewHolder(view_inflate);
     }
 
