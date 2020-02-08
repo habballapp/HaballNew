@@ -41,6 +41,7 @@ import com.example.haball.Retailer_Login.RetailerLogin;
 import com.example.haball.Retailor.ui.Dashboard.DashBoardFragment;
 import com.example.haball.Retailor.ui.Make_Payment.MakePaymentFragment;
 import com.example.haball.Retailor.ui.Make_Payment.Payment_Summary;
+import com.example.haball.Retailor.ui.Place_Order.PlaceOrderFragment;
 import com.example.haball.Retailor.ui.Profile.ProfileFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.techatmosphere.expandablenavigation.model.ChildModel;
@@ -121,7 +122,7 @@ public class RetailorDashboard extends AppCompatActivity implements NavigationVi
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 2) {
                             Log.i("Place Order", "Place Order Activity");
-//                            drawer.closeDrawer(GravityCompat.START);
+
                         } else if (id == 3) {
                             Log.i("Make Payment", "Make Payment Activity");
 
@@ -172,7 +173,10 @@ public class RetailorDashboard extends AppCompatActivity implements NavigationVi
                             Intent proof_p = new Intent(RetailorDashboard.this, Proof_Of_Payment_Form.class);
                             startActivity(proof_p);
                         } else if (groupPosition == 2 && childPosition == 0) {
-                            Log.i("Place Order", "Child");
+                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container_ret, new PlaceOrderFragment());
+                            fragmentTransaction.commit();
+                            drawer.closeDrawer(GravityCompat.START);
                         }
                         drawer.closeDrawer(GravityCompat.START);
                         return false;

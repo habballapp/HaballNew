@@ -68,7 +68,7 @@ public class Distribution_Login extends AppCompatActivity {
         btn_signup = findViewById(R.id.btn_signup);
         btn_support = findViewById(R.id.btn_support);
         btn_password = findViewById(R.id.btn_password);
-        btn_back = (ImageButton)findViewById(R.id.btn_back);
+
 
         et_username = findViewById(R.id.txt_username);
         et_password = findViewById(R.id.txt_password);
@@ -85,12 +85,21 @@ public class Distribution_Login extends AppCompatActivity {
         bar.setDisplayShowCustomEnabled(true);
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
         bar.setTitle("");
+        btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
 //         btn_back.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                finish();
 //            }
 //        });
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

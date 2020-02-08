@@ -1,14 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Retailor.ui.Place_Order.PlaceOrderFragment">
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:background="#fff"
+     tools:context=".Retailor.ui.Place_Order.PlaceOrderFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+     <LinearLayout
+         android:id="@+id/tv_order"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:weightSum="2"
+         android:layout_marginLeft="40dp"
+         android:layout_marginRight="40dp"
+         android:layout_marginTop="40dp"
+         android:background="@drawable/underline"
+         android:orientation="vertical">
+         <TextView
 
-</FrameLayout>
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Order"
+             android:paddingTop="5dp"
+             android:paddingBottom="10dp"
+             android:layout_marginTop="20dp"
+             android:textSize="18sp"
+             android:textColor="#96bb3c"
+             android:background="@drawable/half_underline"
+             />
+
+     </LinearLayout>
+
+
+
+     <Button
+         android:id="@+id/place_order_button"
+         android:layout_width="match_parent"
+         android:background="@drawable/button_round"
+         android:layout_height="80px"
+         android:layout_marginLeft="40dp"
+         android:layout_marginRight="40dp"
+         android:layout_marginTop="30dp"
+         android:text="Place Order"
+         android:textSize="15sp"
+         android:textColor="#fff"
+         android:gravity="center"
+         android:textAllCaps="false"
+         android:layout_below="@+id/tv_order"
+         />
+
+     <RelativeLayout
+         android:id="@+id/spinner_container"
+         android:layout_width="match_parent"
+         android:layout_height="80px"
+         android:layout_marginLeft="40dp"
+         android:layout_marginRight="40dp"
+         android:layout_marginTop="20dp"
+         android:layout_below="@+id/place_order_button">
+         <Spinner
+             android:id="@+id/spinner_criteria"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"/>
+     </RelativeLayout>
+
+     <RelativeLayout
+         android:id="@+id/line_bottom"
+         android:layout_width="match_parent"
+         android:layout_height="5dp"
+         android:layout_below="@+id/spinner_container"
+         android:background="@drawable/line_seperator"
+         android:layout_marginTop="20dp"/>
+
+     <androidx.recyclerview.widget.RecyclerView
+         android:id="@+id/rv_order_ledger"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/line_bottom"
+         android:layout_marginTop="30dp"
+         android:layout_marginRight="40dp"
+         android:layout_marginLeft="40dp"/>
+
+ </RelativeLayout>

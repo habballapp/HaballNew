@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +51,7 @@ import java.util.Map;
 public class Support_Ticket_Form extends AppCompatActivity {
 
     private EditText BName, Email, MobileNo, Comment;
+    private ImageButton btn_back;
     private Spinner IssueType, critcicality, Preffered_Contact;
     private String URL_SPINNER_ISSUETYPE = "http://175.107.203.97:4008/api/lookup/ISSUE_TYPE_PRIVATE";
     private String URL_SPINNER_CRITICALITY = "http://175.107.203.97:4008/api/lookup/CRITICALITY_PRIVATE";
@@ -78,7 +80,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(false);
 
         LayoutInflater inflater = LayoutInflater.from(this);
-        View customView = inflater.inflate(R.layout.custom_actionbar, null);
+        View customView = inflater.inflate(R.layout.action_bar_main, null);
 
         actionBar.setCustomView(customView);
         actionBar.setDisplayShowCustomEnabled(true);
@@ -92,6 +94,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
         critcicality = findViewById(R.id.critcicality);
         Preffered_Contact = findViewById(R.id.Preffered_Contact);
         ticket_btn = findViewById(R.id.ticket_btn);
+        btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
 
         issue_type.add("Issue Type *");
         criticality.add("Criticality *");
@@ -107,6 +110,13 @@ public class Support_Ticket_Form extends AppCompatActivity {
         fetchIssueType();
         fetchCriticality();
         fetchPrefferedContact();
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         IssueType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -328,4 +338,5 @@ public class Support_Ticket_Form extends AppCompatActivity {
         arrayAdapterPreferredContact.notifyDataSetChanged();
         Preffered_Contact.setAdapter(arrayAdapterPreferredContact);
     }
+
 }

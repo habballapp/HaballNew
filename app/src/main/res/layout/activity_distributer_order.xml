@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    tools:context=".Payment.PaymentLedger">
+    tools:context=".Order.DistributorOrder">
 
     <LinearLayout
         android:id="@+id/tv_order"
@@ -35,7 +35,7 @@
 
 
     <Button
-        android:id="@+id/create_payment"
+        android:id="@+id/place_order_button"
         android:layout_width="match_parent"
         android:background="@drawable/button_round"
         android:layout_height="80px"
@@ -57,7 +57,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/create_payment">
+        android:layout_below="@+id/place_order_button">
         <Spinner
             android:id="@+id/spinner_criteria"
             android:layout_width="match_parent"

@@ -1,10 +1,13 @@
 package com.example.haball.Order;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,11 +21,14 @@ public class DistributorOrder_ItemSelection extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private ImageButton btn_back;
+    private Button use_template;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_distributor_order__item_selection);
+
 
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
@@ -37,6 +43,26 @@ public class DistributorOrder_ItemSelection extends AppCompatActivity {
         bar.setTitle("");
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_itemselection);
+
+        btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
+        use_template = (Button) findViewById(R.id.use_template);
+
+
+
+        use_template.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DistributorOrder_ItemSelection.this, DistributorOrder_OnaddtoCart.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView

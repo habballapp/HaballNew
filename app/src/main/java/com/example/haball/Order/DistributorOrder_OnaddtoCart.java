@@ -10,6 +10,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.haball.R;
 
@@ -18,6 +20,7 @@ public class DistributorOrder_OnaddtoCart extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private ImageButton btn_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +41,18 @@ public class DistributorOrder_OnaddtoCart extends AppCompatActivity {
 
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_addtocart);
+        btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         recyclerView.setHasFixedSize(true);
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(this);

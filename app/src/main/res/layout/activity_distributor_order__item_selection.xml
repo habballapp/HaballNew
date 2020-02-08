@@ -34,7 +34,7 @@
 
 
     <Button
-        android:id="@+id/create_payment"
+        android:id="@+id/use_template"
         android:layout_width="match_parent"
         android:layout_height="80px"
         android:background="@drawable/button_round"
@@ -56,7 +56,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginTop="30dp"
-        android:layout_below="@+id/create_payment">
+        android:layout_below="@+id/use_template">
         <Spinner
             android:id="@+id/spinner_criteria"
             android:layout_width="match_parent"
