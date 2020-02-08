@@ -13,6 +13,8 @@ import com.example.haball.Distributor.ui.main.PaymentsFragment;
 import com.example.haball.Distributor.ui.orders.Orders_Fragment;
 import com.example.haball.Distributor.ui.payments.Payments_Fragment;
 import com.example.haball.Distributor.ui.payments.ProofOfPaymentsDashboardFragment;
+import com.example.haball.Distributor.ui.profile.ProfileFragment;
+import com.example.haball.Distributor.ui.shipments.Shipments_Fragments;
 import com.example.haball.Distributor.ui.support.SupportFragment;
 import com.example.haball.R;
 
@@ -120,6 +122,10 @@ public class DistributorDashboard extends AppCompatActivity implements Navigatio
 
                         if (id == 0) {
                             Log.i("Dashboard","Dashboard Activity");
+                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container, new HomeFragment());
+                            fragmentTransaction.commit();
+                            drawer.closeDrawer(GravityCompat.START);
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 1) {
                             Log.i("Orders","Orders Activity");
@@ -131,12 +137,20 @@ public class DistributorDashboard extends AppCompatActivity implements Navigatio
                             navigationView.setItemTextColor(ColorStateList.valueOf(Color.RED));
                         } else if (id == 3) {
                             Log.i("Shipment","Shipment Activity");
+                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container, new Shipments_Fragments());
+                            fragmentTransaction.commit();
+                            drawer.closeDrawer(GravityCompat.START);
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 4) {
                             Log.i("Retailer","Retailer Activity");
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 5) {
                             Log.i("Profile","Profile Activity");
+                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container, new ProfileFragment());
+                            fragmentTransaction.commit();
+                            drawer.closeDrawer(GravityCompat.START);
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 6) {
                             Log.i("Suppport","Support Activity");
