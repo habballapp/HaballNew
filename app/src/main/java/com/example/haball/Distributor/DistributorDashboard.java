@@ -37,6 +37,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.haball.Retailor.ui.Place_Order.PlaceOrderFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.techatmosphere.expandablenavigation.model.ChildModel;
 import com.techatmosphere.expandablenavigation.model.HeaderModel;
@@ -102,7 +103,8 @@ public class DistributorDashboard extends AppCompatActivity implements Navigatio
         navigationExpandableListView
                 .init(this)
                 .addHeaderModel(new HeaderModel("Dashboard"))
-                .addHeaderModel(new HeaderModel("Orders"))
+                .addHeaderModel(new HeaderModel("Orders")
+                                    .addChildModel(new ChildModel("Place Order")))
                 .addHeaderModel(
                         new HeaderModel("Payment")
                                 .addChildModel(new ChildModel("Payments Summary"))
@@ -132,8 +134,6 @@ public class DistributorDashboard extends AppCompatActivity implements Navigatio
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 1) {
                             Log.i("Orders","Orders Activity");
-//                            startActivity(new Intent(AwokoHomeActivity.this, MoviesActivity.class));
-                            drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 2) {
                             Log.i("Payments","Payments Activity");//DONE
 //                            drawer.closeDrawer(GravityCompat.START);
@@ -174,36 +174,44 @@ public class DistributorDashboard extends AppCompatActivity implements Navigatio
                     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                         navigationExpandableListView.setSelected(groupPosition, childPosition);
 
-                        if (id == 0) {
+                        Toast.makeText(DistributorDashboard.this, String.valueOf(groupPosition), Toast.LENGTH_SHORT).show();
+                        if (groupPosition == 2 && childPosition == 0) {
                             Log.i("Payments Summary","Child"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new PaymentsSummaryFragment());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        } else if (id == 1) {
+                        } else if (groupPosition == 2 && childPosition == 1) {
                             Log.i("Consolidate Payments","Child");//DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new ConsolidatedPaymentsFragment());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        } else if (id == 2) {
+                        } else if (groupPosition == 2 && childPosition == 2) {
                             Log.i("Payment Request","Child");//DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new PaymentRequestDashboard());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         }
-                        else if (id == 3) {
+                        else if (groupPosition == 2 && childPosition == 3) {
                             Log.i("Payment Ledger","Child"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new Payments_Fragment());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         }
-                        else if (id == 4) {
+                        else if (groupPosition == 2 && childPosition == 4) {
                             Log.i("Proof of Payments","Child"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new ProofOfPaymentsDashboardFragment());
+                            fragmentTransaction.commit();
+                            drawer.closeDrawer(GravityCompat.START);
+                        }
+                        else if (groupPosition == 1 && childPosition == 0) {
+                            Log.i("Place order","Child"); //DONE
+                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container, new Orders_Fragment());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         }

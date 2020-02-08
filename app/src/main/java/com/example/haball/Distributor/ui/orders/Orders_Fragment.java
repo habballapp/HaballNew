@@ -41,7 +41,7 @@ public class Orders_Fragment extends Fragment {
         View root = inflater.inflate(R.layout.activity_distributer_order, container, false);
         recyclerView = (RecyclerView) root.findViewById(R.id.rv_order_ledger);
 
-        create_payment = root.findViewById(R.id.create_payment);
+        create_payment = root.findViewById(R.id.place_order_button);
         create_payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
