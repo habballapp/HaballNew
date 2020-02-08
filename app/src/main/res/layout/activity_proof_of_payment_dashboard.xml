@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
+    android:id="@+id/popformcontainer"
     tools:context=".Payment.ProofOfPaymentDashboard">
     <TextView
         android:id="@+id/tv_proof_payment"
@@ -16,7 +17,7 @@
         android:layout_marginTop="20dp"
         android:textSize="18sp"
         android:textColor="#96bb3c"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="40dp"
         android:background="@drawable/half_underline"/>
 
     <RelativeLayout
@@ -34,8 +35,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_background"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:text="Create Proof of Payment"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
@@ -56,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/line_bottom"
         android:layout_marginTop="30dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"/>
 
 </RelativeLayout>

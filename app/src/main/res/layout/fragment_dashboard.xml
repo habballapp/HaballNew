@@ -25,6 +25,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"/>
             <TextView
+                android:id="@+id/value_unpaid_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="PKR 0.00"
@@ -48,6 +49,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"/>
             <TextView
+                android:id="@+id/value_paid_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="PKR 0.00"

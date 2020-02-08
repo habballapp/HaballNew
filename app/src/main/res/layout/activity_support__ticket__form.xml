@@ -65,7 +65,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:background="@drawable/edit_round"/>
             <EditText
                 android:id="@+id/Email"
@@ -74,7 +74,7 @@
                 android:layout_below="@+id/BName"
                 android:hint="Email"
                 android:layout_height="80px"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
@@ -90,7 +90,7 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="30dp"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:layout_below="@+id/Email"/>
 
             <RelativeLayout
@@ -101,7 +101,7 @@
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="30dp"
                 android:layout_below="@+id/MobileNo"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:background="@drawable/edit_round">
                 <Spinner
                     android:id="@+id/IssueType"
@@ -118,8 +118,7 @@
                 android:layout_marginLeft="40dp"
                 android:layout_below="@+id/relative_issuetype"
                 android:layout_marginTop="20dp"
-
-                android:padding="10dp"
+                android:padding="5dp"
                 android:background="@drawable/edit_round">
                 <Spinner
                     android:id="@+id/critcicality"
@@ -136,7 +135,7 @@
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="30dp"
                 android:layout_below="@+id/relative_criticality"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:background="@drawable/edit_round">
                 <Spinner
                     android:id="@+id/Preffered_Contact"
@@ -173,6 +172,7 @@
             android:layout_marginTop="30dp"
             android:textAllCaps="false"
             android:textSize="18sp"
+            android:layout_marginBottom="30dp"
             android:background="@drawable/button_round"
             android:text="Add Ticket"
             android:textColor="#fff"

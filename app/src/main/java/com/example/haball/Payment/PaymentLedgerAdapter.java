@@ -12,16 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haball.R;
 
+import java.util.List;
+
 public class PaymentLedgerAdapter extends RecyclerView.Adapter<PaymentLedgerAdapter.ViewHolder> {
     private Context mContxt;
-    private String heading, ledgerid, doctype, transaction, balance;
-    public PaymentLedgerAdapter(PaymentLedger paymentLedger, String heading, String ledgerid, String doctype, String transaction, String balance) {
-        this.mContxt = paymentLedger;
-        this.heading = heading;
-        this.ledgerid = ledgerid;
-        this.doctype = doctype;
-        this.transaction = transaction;
-        this.balance = balance;
+    private List<PaymentLedgerModel> PaymentLedgerList;
+
+    public PaymentLedgerAdapter(Context context, List<PaymentLedgerModel> paymentLedgerList) {
+        this.mContxt = context;
+        this.PaymentLedgerList = paymentLedgerList;
     }
 
     @NonNull
@@ -33,20 +32,26 @@ public class PaymentLedgerAdapter extends RecyclerView.Adapter<PaymentLedgerAdap
 
     @Override
     public void onBindViewHolder(@NonNull PaymentLedgerAdapter.ViewHolder holder, int position) {
-        holder.tv_heading.setText(heading);
-        holder.ledger_id_value.setText(ledgerid);
-        holder.document_type_value.setText(doctype);
-        holder.transaction_value.setText(transaction);
-        holder.balance_value.setText(balance);
+        holder.tv_heading.setText(PaymentLedgerList.get(position).getCompanyName());
+        holder.ledger_id_value.setText(PaymentLedgerList.get(position).getDocumentNumber());
+        holder.document_type_value.setText(PaymentLedgerList.get(position).getDocumentType());
+        if(!PaymentLedgerList.get(position).getDebitAmount().equals("0"))
+            holder.transaction_value.setText(PaymentLedgerList.get(position).getDebitAmount());
+        else{
+            holder.transaction_value.setText(PaymentLedgerList.get(position).getCreditAmount());
+            holder.transaction.setText("Credit");
+        }
+
+        holder.balance_value.setText(PaymentLedgerList.get(position).getBalanceAmount());
     }
 
     @Override
     public int getItemCount() {
-        return 1;
+        return PaymentLedgerList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_heading, ledger_id_value, document_type_value, transaction_value,balance_value;
+        public TextView tv_heading, ledger_id_value, document_type_value, transaction_value,balance_value, transaction;
         public ImageButton menu_btn;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -55,6 +60,7 @@ public class PaymentLedgerAdapter extends RecyclerView.Adapter<PaymentLedgerAdap
             document_type_value = itemView.findViewById(R.id.document_type_value);
             transaction_value = itemView.findViewById(R.id.transaction_value);
             balance_value = itemView.findViewById(R.id.balance_value);
+            transaction = itemView.findViewById(R.id.transaction);
         }
     }
 }

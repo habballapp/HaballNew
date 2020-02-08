@@ -35,5 +35,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation 'androidx.core:core:1.1.0'
     implementation 'com.github.nirwannursabda:expandable-navigation:0.1.2'
+    implementation 'com.android.volley:volley:1.1.1'
+    implementation 'com.google.code.gson:gson:2.8.6'
 
 }

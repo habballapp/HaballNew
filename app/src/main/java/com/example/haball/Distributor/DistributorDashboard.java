@@ -12,6 +12,7 @@ import com.example.haball.Distributor.ui.main.OrdersFragment;
 import com.example.haball.Distributor.ui.main.PaymentsFragment;
 import com.example.haball.Distributor.ui.orders.Orders_Fragment;
 import com.example.haball.Distributor.ui.payments.Payments_Fragment;
+import com.example.haball.Distributor.ui.payments.ProofOfPaymentsDashboardFragment;
 import com.example.haball.Distributor.ui.support.SupportFragment;
 import com.example.haball.R;
 
@@ -80,20 +81,8 @@ public class DistributorDashboard extends AppCompatActivity implements Navigatio
 
         drawer = findViewById(R.id.drawer_layout);
 
-//        expandableListView = findViewById(R.id.navList);
-//        prepareMenuData();
-//        populateExpandableList();
-
         final NavigationView navigationView = findViewById(R.id.nav_view);
 
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-//        mAppBarConfiguration = new AppBarConfiguration.Builder(
-//                R.id.nav_home, R.id.nav_orders,R.id.nav_subcategory_laptops, R.id.nav_payments,
-//                R.id.nav_shipments, R.id.nav_retailer, R.id.nav_profile,
-//                R.id.nav_support, R.id.nav_logout, R.id.nav_terms_and_conditions)
-//                .setDrawerLayout(drawer)
-//                .build();
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.main_container,new HomeFragment());
         fragmentTransaction.commit();
@@ -151,6 +140,9 @@ public class DistributorDashboard extends AppCompatActivity implements Navigatio
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 6) {
                             Log.i("Suppport","Support Activity");
+                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container, new SupportFragment());
+                            fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 7) {
                             Log.i("Logout","Logout Activity");
@@ -167,7 +159,7 @@ public class DistributorDashboard extends AppCompatActivity implements Navigatio
 
                         if (id == 0) {
                             Log.i("Payments Summary","Child");
-//                            startActivity(new Intent(AwokoHomeActivity.this, KidsActivity.class));
+
                         } else if (id == 1) {
                             Log.i("Consolidate Payments","Child");
 //                            Common.showToast(AwokoHomeActivity.this, "music");
@@ -179,13 +171,17 @@ public class DistributorDashboard extends AppCompatActivity implements Navigatio
                         }
                         else if (id == 3) {
                             Log.i("Payment Ledger","Child");
-//                            Common.showToast(AwokoHomeActivity.this, "tv series");
-//                            startActivity(new Intent(AwokoHomeActivity.this, TvSeriesActivity.class));
+                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container, new Payments_Fragment());
+                            fragmentTransaction.commit();
+                            drawer.closeDrawer(GravityCompat.START);
                         }
                         else if (id == 4) {
                             Log.i("Proof of Payments","Child");
-//                            Common.showToast(AwokoHomeActivity.this, "tv series");
-//                            startActivity(new Intent(AwokoHomeActivity.this, TvSeriesActivity.class));
+                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container, new ProofOfPaymentsDashboardFragment());
+                            fragmentTransaction.commit();
+                            drawer.closeDrawer(GravityCompat.START);
                         }
                         drawer.closeDrawer(GravityCompat.START);
                         return false;
@@ -365,40 +361,7 @@ public class DistributorDashboard extends AppCompatActivity implements Navigatio
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int position = menuItem.getItemId();
-//        Toast.makeText(this,menuItem.getItemId(),Toast.LENGTH_LONG).show();
-//        Fragment fragment;
-//        FragmentManager fragmentManager = getSupportFragmentManager(); // For AppCompat use getSupportFragmentManager
-//        switch(position) {
-//            default:
-//            case R.id.nav_home:
-//                Toast.makeText(this,position,Toast.LENGTH_LONG).show();
-//
-//                Fragment frag_home = new HomeFragment();
-//                FragmentTransaction transaction1 = getSupportFragmentManager().beginTransaction();
-//                transaction1.replace(R.id.container, frag_home);
-//                transaction1.addToBackStack(null);
-//                transaction1.commit();
-//                break;
-//            case R.id.nav_orders:
-//                Toast.makeText(this,position,Toast.LENGTH_LONG).show();
-//
-//                Fragment frag_orders = new OrdersFragment();
-//                FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
-//                transaction2.replace(R.id.container, frag_orders);
-//                transaction2.addToBackStack(null);
-//                transaction2.commit();
-//
-//                break;
-//            case R.id.nav_payments:
-//                Toast.makeText(this,position,Toast.LENGTH_LONG).show();
-//
-//                Fragment frag_payments = new PaymentsFragment();
-//                FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
-//                transaction3.replace(R.id.container, frag_payments);
-//                transaction3.addToBackStack(null);
-//                transaction3.commit();
-//                break;
-//        }
+
         drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

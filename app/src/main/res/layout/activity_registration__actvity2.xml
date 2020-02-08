@@ -121,11 +121,14 @@
                         android:layout_height="100dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
-                        android:background="@drawable/edit_round"
+                        android:background="@drawable/edit_text_squared"
                         android:hint="Address01 *"
-                        android:paddingLeft="10dp"
-                        android:paddingBottom="20dp"
-                        android:textSize="16sp" />
+                        android:paddingTop="5dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="5dp"
+                        android:textSize="16sp"
+                        android:gravity="top|left"/>
 
 
                     <RelativeLayout
@@ -136,13 +139,13 @@
                         android:layout_marginTop="30dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
-                        android:background="@drawable/edit_round"
-                        android:padding="10dp">
+                        android:background="@drawable/edit_text_squared">
 
                         <Spinner
-                            android:id="@+id/IssueType"
+                            android:id="@+id/spinner_country"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="wrap_content"
+                            android:prompt="@string/hint_resource1"/>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -153,13 +156,13 @@
                         android:layout_marginTop="30dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
-                        android:background="@drawable/edit_round"
-                        android:padding="10dp">
+                        android:background="@drawable/edit_text_squared">
 
                         <Spinner
-                            android:id="@+id/critcicality"
+                            android:id="@+id/spinner_province"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            android:prompt="@string/hint_resource2"/>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -170,13 +173,13 @@
                         android:layout_marginTop="30dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
-                        android:background="@drawable/edit_round"
-                        android:padding="10dp">
+                        android:background="@drawable/edit_text_squared">
 
                         <Spinner
-                            android:id="@+id/Preffered_Contact"
+                            android:id="@+id/spinner_city"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            android:prompt="@string/hint_resource3"/>
                     </RelativeLayout>
 
 
@@ -188,10 +191,13 @@
                         android:layout_marginTop="30dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
-                        android:background="@drawable/edit_round"
+                        android:background="@drawable/edit_text_squared"
                         android:gravity="left"
                         android:hint="Postal Code *"
-                        android:padding="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="5dp"
                         android:textSize="16sp" />
 
                 </RelativeLayout>
@@ -258,10 +264,14 @@
                         android:layout_marginTop="30dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
-                        android:background="@drawable/edit_round"
+                        android:background="@drawable/edit_text_squared"
                         android:hint="Address02 *"
-                        android:paddingLeft="10dp"
-                        android:textSize="16sp" />
+                        android:paddingTop="5dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="5dp"
+                        android:textSize="16sp"
+                        android:gravity="top|left" />
 
                     <RelativeLayout
                         android:id="@+id/select_country"
@@ -271,11 +281,10 @@
                         android:layout_marginTop="30dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
-                        android:background="@drawable/edit_round"
-                        android:padding="10dp">
+                        android:background="@drawable/edit_text_squared">
 
                         <Spinner
-                            android:id="@+id/type_country"
+                            android:id="@+id/spinner_country2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
                     </RelativeLayout>
@@ -288,11 +297,10 @@
                         android:layout_marginTop="30dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
-                        android:background="@drawable/edit_round"
-                        android:padding="10dp">
+                        android:background="@drawable/edit_text_squared">
 
                         <Spinner
-                            android:id="@+id/type_province"
+                            android:id="@+id/spinner_province2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
                     </RelativeLayout>
@@ -305,11 +313,10 @@
                         android:layout_marginTop="30dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
-                        android:background="@drawable/edit_round"
-                        android:padding="10dp">
+                        android:background="@drawable/edit_text_squared">
 
                         <Spinner
-                            android:id="@+id/type_city"
+                            android:id="@+id/spinner_city2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
                     </RelativeLayout>
@@ -322,10 +329,13 @@
                         android:layout_marginTop="30dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
-                        android:background="@drawable/edit_round"
+                        android:background="@drawable/edit_text_squared"
                         android:gravity="left"
                         android:hint="Postal Code *"
-                        android:padding="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="5dp"
                         android:textSize="16sp" />
 
                     <Button
@@ -339,7 +349,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/button_round"
                         android:gravity="center"
-                        android:text="Next"
+                        android:text="Register"
                         android:textAllCaps="false"
                         android:textColor="#fff"
                         android:textSize="15sp" />

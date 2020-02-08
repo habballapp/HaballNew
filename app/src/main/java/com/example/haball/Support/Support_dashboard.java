@@ -47,18 +47,18 @@ public class Support_dashboard extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        recyclerView = (RecyclerView) findViewById(R.id.rv_support_complaints);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        recyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        // specify an adapter (see also next example)
-        mAdapter = new SupportDashboardAdapter(Support_dashboard.this,this.getApplicationContext(),"Dashboard","584325","Pending","01/01/2020");
-        recyclerView.setAdapter(mAdapter);
+//        recyclerView = (RecyclerView) findViewById(R.id.rv_support_complaints);
+//
+//        // use this setting to improve performance if you know that changes
+//        // in content do not change the layout size of the RecyclerView
+//        recyclerView.setHasFixedSize(true);
+//
+//        // use a linear layout manager
+//        layoutManager = new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(layoutManager);
+//
+//        // specify an adapter (see also next example)
+//        mAdapter = new SupportDashboardAdapter(Support_dashboard.this,this.getApplicationContext(),"Dashboard","584325","Pending","01/01/2020");
+//        recyclerView.setAdapter(mAdapter);
     }
 }

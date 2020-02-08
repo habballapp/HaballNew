@@ -49,4 +49,8 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
     <string name="title_activity_new_distributor_dashboard">NewDistributorDashboard</string>
+    <string name="hint_resource1">Select Country</string>
+    <string name="hint_resource2">Select Province</string>
+    <string name="hint_resource3">Select City</string>
+
 </resources>

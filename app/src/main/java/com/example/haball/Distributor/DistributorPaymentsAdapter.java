@@ -1,6 +1,7 @@
 package com.example.haball.Distributor;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,44 +11,53 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Response;
 import com.example.haball.Distributor.ui.main.PlaceholderFragment;
 import com.example.haball.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DistributorPaymentsAdapter extends RecyclerView.Adapter<DistributorPaymentsAdapter.ViewHolder> {
-    private PlaceholderFragment mContxt;
-    private String heading, paymentid, amount, status;
-    public DistributorPaymentsAdapter(PlaceholderFragment placeholderFragment, String heading, String paymentid, String amount, String status) {
-        this.mContxt = placeholderFragment;
-        this.heading = heading;
-        this.paymentid = paymentid;
-        this.amount = amount;
-        this.status = status;
+    private Context mContxt;
+    List<DistributorPaymentsModel> paymentsList;
+
+    public DistributorPaymentsAdapter(Context context, List<DistributorPaymentsModel> paymentsList) {
+        this.mContxt = context;
+        this.paymentsList = paymentsList;
+        Log.i("Payments List => ", String.valueOf(paymentsList));
     }
 
     @NonNull
     @Override
     public DistributorPaymentsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view_inflate = LayoutInflater.from(mContxt.getContext()).inflate(R.layout.payments_layout,parent,false);
+        View view_inflate = LayoutInflater.from(mContxt).inflate(R.layout.payments_layout,parent,false);
         return new DistributorPaymentsAdapter.ViewHolder(view_inflate);
     }
 
     @Override
     public void onBindViewHolder(@NonNull DistributorPaymentsAdapter.ViewHolder holder, int position) {
-        holder.tv_heading.setText(heading);
-        holder.tv_payment_id.setText(paymentid);
-        holder.tv_status.setText(status);
-        holder.tv_amount.setText(amount);
+        holder.tv_heading.setText(paymentsList.get(position).getName());
+        holder.tv_payment_id.setText(paymentsList.get(position).getPrePaidNumber());
+        holder.tv_amount.setText(paymentsList.get(position).getPaidAmount());
+
+        if(paymentsList.get(position).getStatus().equals("1")){
+            holder.tv_status.setText("Paid");
+        }
+        else{
+            holder.tv_status.setText("Unpaid");
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 1;
+        return paymentsList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_heading, tv_payment_id, tv_status, tv_amount;
+        private TextView tv_heading, tv_payment_id, tv_status, tv_amount;
         public ImageButton menu_btn;
-        public ViewHolder(@NonNull View itemView) {
+        private ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_heading = itemView.findViewById(R.id.heading);
             tv_payment_id = itemView.findViewById(R.id.payment_id_value);

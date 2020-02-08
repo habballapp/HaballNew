@@ -122,7 +122,10 @@
                         android:background="@drawable/distribution_login"
                         android:hint="Username Or Mobile No"
                         android:inputType="textEmailAddress"
-                        android:padding="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="5dp"
                         android:textSize="15sp" />
 
                     <EditText
@@ -138,7 +141,10 @@
                         android:drawableRight="@drawable/ic_remove_red_eye_black_24dp"
                         android:hint="Password"
                         android:inputType="textPassword"
-                        android:padding="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="5dp"
                         android:textSize="15sp" />
 
                     <EditText
@@ -154,7 +160,10 @@
                         android:drawableRight="@drawable/ic_remove_red_eye_black_24dp"
                         android:hint="Confirm Password*"
                         android:inputType="textPassword"
-                        android:padding="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="5dp"
                         android:textSize="15sp" />
                 </LinearLayout>
 

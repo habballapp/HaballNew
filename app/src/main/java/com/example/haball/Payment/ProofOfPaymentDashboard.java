@@ -44,7 +44,7 @@ public class ProofOfPaymentDashboard extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new ProofOfPaymentAdapter(ProofOfPaymentDashboard.this,"Pending","1002312324251524","01/01/2020","ATM","51247895354254780369");
-        recyclerView.setAdapter(mAdapter);
+//        mAdapter = new ProofOfPaymentAdapter(ProofOfPaymentDashboard.this,"Pending","1002312324251524","01/01/2020","ATM","51247895354254780369");
+//        recyclerView.setAdapter(mAdapter);
     }
 }
