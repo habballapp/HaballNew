@@ -57,7 +57,7 @@ public class Payments_Fragment extends Fragment {
     private HashMap<String,String> companies = new HashMap<>();
     private List<String> company_names = new ArrayList<>();
     private String Token;
-    private String URL_PAYMENT_LEDGER_COMPANY = "http://175.107.203.97:4008/api/company/ReadActiveCompanyContract/724";
+    private String URL_PAYMENT_LEDGER_COMPANY = "http://175.107.203.97:4008/api/company/ReadActiveCompanyContract/";
     private String URL_PAYMENT_LEDGER = "http://175.107.203.97:4008/api/transactions/search";
     private ArrayAdapter<String> arrayAdapterPayments;
     private List<PaymentLedgerModel> paymentLedgerList = new ArrayList<>();
@@ -163,6 +163,8 @@ public class Payments_Fragment extends Fragment {
                 Context.MODE_PRIVATE);
         DistributorId = sharedPreferences1.getString("Distributor_Id","");
         Log.i("DistributorId ", DistributorId);
+
+        URL_PAYMENT_LEDGER = URL_PAYMENT_LEDGER+DistributorId;
 
         JSONObject map = new JSONObject();
         map.put("Status", -1);

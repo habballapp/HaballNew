@@ -111,9 +111,9 @@ public class Registration_Actvity2 extends AppCompatActivity {
         spinner_city2.setPrompt("Choose Widget Mode");
         spinner_province2.setPrompt("Choose Widget Mode");
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading,\n please wait.");
-        progressDialog.show();
+//        progressDialog = new ProgressDialog(this);
+//        progressDialog.setMessage("Loading,\n please wait.");
+//        progressDialog.show();
 
         fetch_countries();
         fetch_province();
@@ -331,7 +331,6 @@ public class Registration_Actvity2 extends AppCompatActivity {
         arrayAdapterCity.notifyDataSetChanged();
         spinner_city.setAdapter(arrayAdapterCity);
         spinner_city2.setAdapter(arrayAdapterCity);
-        progressDialog.dismiss();
     }
 
     private void fetch_province() {

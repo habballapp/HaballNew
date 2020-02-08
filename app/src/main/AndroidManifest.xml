@@ -33,6 +33,8 @@
         <activity android:name=".Retailer_Login.RetailerLogin" />
         <activity android:name=".Distribution_Login.Distribution_Login" />
         <activity android:name=".Registration.Registration_Activity" />
+        <activity android:name=".Registration.Register_Activity_2" />
+        <activity android:name=".Registration.Registration_Actvity2" />
         <activity android:name=".Support.Support_Ticket_Form" />
         <activity
             android:name=".Select_User.Register_Activity"
