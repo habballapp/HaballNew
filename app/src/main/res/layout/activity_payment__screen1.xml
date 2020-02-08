@@ -95,13 +95,13 @@
         >
 
         <Button
-            android:id="@+id/btn_next"
+            android:id="@+id/btn_create"
             android:layout_width="match_parent"
             android:background="@drawable/button_round"
             android:layout_height="80px"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:text="Next"
+            android:text="Create Payment"
             android:textSize="15sp"
             android:textColor="#fff"
             android:gravity="center"

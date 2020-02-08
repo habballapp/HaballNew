@@ -1,5 +1,6 @@
 package com.example.haball.Payment;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,64 +15,50 @@ import com.example.haball.R;
 import com.example.haball.Retailor.ui.Dashboard.DashBoardFragment;
 import com.example.haball.Retailor.ui.Make_Payment.Payment_Summary;
 
+import java.util.List;
+
 public class DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPaymentRequestAdaptor.ViewHolder> {
-    private Payments_Fragment mContext;
-    private DashBoardFragment mContext1;
-    private String heading, ledgerid, doctype, transaction, balance;
-    public DistributorPaymentRequestAdaptor(Payments_Fragment requestPayment, String heading, String ledgerid, String doctype, String transaction, String balance) {
-        this.mContext = requestPayment;
-        this.heading = heading;
-        this.ledgerid = ledgerid;
-        this.doctype = doctype;
-        this.transaction = transaction;
-        this.balance = balance;
+    private Context context;
+    private List<DistributorPaymentRequestModel> paymentsRequestList;
+
+    public DistributorPaymentRequestAdaptor(Context context, List<DistributorPaymentRequestModel> paymentsRequestList) {
+        this.context = context;
+        this.paymentsRequestList = paymentsRequestList;
     }
-//
-//    public DistributorPaymentRequestAdaptor(DashBoardFragment dashBoardFragment, String heading, String ledgerid, String invoice, String transaction, String balance) {
-//        this.mContext1 = dashBoardFragment;
-//        this.heading = heading;
-//        this.ledgerid = ledgerid;
-//        this.doctype = doctype;
-//        this.transaction = transaction;
-//        this.balance = balance;
-//    }
-////
-//    public DistributorPaymentRequestAdaptor(Payment_Summary payment_summary, String s, String s1, String invoice, String s2, String s3) {
-//    }
 
     @NonNull
     @Override
     public DistributorPaymentRequestAdaptor.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //View view_inflate = LayoutInflater.from(mContxt).inflate(R.layout.distributerorder_shoprecycler,parent,false);
-        View view_inflate = LayoutInflater.from(mContext.getContext()).inflate(R.layout.layout_payment_ledger,parent,false);
+        View view_inflate = LayoutInflater.from(context).inflate(R.layout.payments_layout,parent,false);
         return new DistributorPaymentRequestAdaptor.ViewHolder(view_inflate);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-        holder.tv_heading.setText(heading);
-        holder.ledger_id_value.setText(ledgerid);
-        holder.document_type_value.setText(doctype);
-        holder.transaction_value.setText(transaction);
-        holder.balance_value.setText(balance);
+        holder.tv_heading.setText(paymentsRequestList.get(position).getCompanyName());
+        holder.payment_id_value.setText(paymentsRequestList.get(position).getPrePaidNumber());
+        holder.amount_value.setText(paymentsRequestList.get(position).getPaidAmount());
+        if(paymentsRequestList.get(position).getStatus().equals("1"))
+            holder.status_value.setText("Paid");
+        else
+            holder.status_value.setText("Unpaid");
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return paymentsRequestList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_heading, ledger_id_value, document_type_value, transaction_value,balance_value;
+        public TextView tv_heading, payment_id_value, amount_value,status_value;
         public ImageButton menu_btn;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_heading = itemView.findViewById(R.id.heading);
-            ledger_id_value = itemView.findViewById(R.id.ledger_id_value);
-            document_type_value = itemView.findViewById(R.id.document_type_value);
-            transaction_value = itemView.findViewById(R.id.transaction_value);
-            balance_value = itemView.findViewById(R.id.balance_value);
+            payment_id_value = itemView.findViewById(R.id.payment_id_value);
+            amount_value = itemView.findViewById(R.id.amount_value);
+            status_value = itemView.findViewById(R.id.status_value);
+            menu_btn = itemView.findViewById(R.id.menu_btn);
         }
     }
 }

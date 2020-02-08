@@ -11,6 +11,8 @@ import com.example.haball.Distributor.ui.home.HomeFragment;
 import com.example.haball.Distributor.ui.main.OrdersFragment;
 import com.example.haball.Distributor.ui.main.PaymentsFragment;
 import com.example.haball.Distributor.ui.orders.Orders_Fragment;
+import com.example.haball.Distributor.ui.payments.PaymentRequestDashboard;
+import com.example.haball.Distributor.ui.payments.PaymentsSummaryFragment;
 import com.example.haball.Distributor.ui.payments.Payments_Fragment;
 import com.example.haball.Distributor.ui.payments.ProofOfPaymentsDashboardFragment;
 import com.example.haball.Distributor.ui.profile.ProfileFragment;
@@ -121,7 +123,7 @@ public class DistributorDashboard extends AppCompatActivity implements Navigatio
                         navigationExpandableListView.setSelected(groupPosition);
 
                         if (id == 0) {
-                            Log.i("Dashboard","Dashboard Activity");
+                            Log.i("Dashboard","Dashboard Activity"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new HomeFragment());
                             fragmentTransaction.commit();
@@ -153,7 +155,7 @@ public class DistributorDashboard extends AppCompatActivity implements Navigatio
                             drawer.closeDrawer(GravityCompat.START);
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 6) {
-                            Log.i("Suppport","Support Activity");
+                            Log.i("Suppport","Support Activity"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new SupportFragment());
                             fragmentTransaction.commit();
@@ -172,26 +174,31 @@ public class DistributorDashboard extends AppCompatActivity implements Navigatio
                         navigationExpandableListView.setSelected(groupPosition, childPosition);
 
                         if (id == 0) {
-                            Log.i("Payments Summary","Child");
-
+                            Log.i("Payments Summary","Child"); //DONE
+                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container, new PaymentsSummaryFragment());
+                            fragmentTransaction.commit();
+                            drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 1) {
                             Log.i("Consolidate Payments","Child");
 //                            Common.showToast(AwokoHomeActivity.this, "music");
 //                            startActivity(new Intent(AwokoHomeActivity.this, MusicActivity.class));
                         } else if (id == 2) {
                             Log.i("Payment Request","Child");
-//                            Common.showToast(AwokoHomeActivity.this, "tv series");
-//                            startActivity(new Intent(AwokoHomeActivity.this, TvSeriesActivity.class));
+                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container, new PaymentRequestDashboard());
+                            fragmentTransaction.commit();
+                            drawer.closeDrawer(GravityCompat.START);
                         }
                         else if (id == 3) {
-                            Log.i("Payment Ledger","Child");
+                            Log.i("Payment Ledger","Child"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new Payments_Fragment());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         }
                         else if (id == 4) {
-                            Log.i("Proof of Payments","Child");
+                            Log.i("Proof of Payments","Child"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new ProofOfPaymentsDashboardFragment());
                             fragmentTransaction.commit();

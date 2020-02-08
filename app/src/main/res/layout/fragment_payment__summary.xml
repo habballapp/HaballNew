@@ -12,7 +12,7 @@
         android:weightSum="2"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/underline"
         android:orientation="vertical">
         <TextView
