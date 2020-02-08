@@ -1,5 +1,6 @@
 package com.example.haball.Payment;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,47 +14,53 @@ import com.example.haball.Payment.Consolidate_Fragment;
 import com.example.haball.R;
 import com.example.haball.Retailor.ui.Dashboard.DashBoardFragment;
 
+import java.util.List;
+
 public class Consolidate_Fragment_Adapter extends RecyclerView.Adapter<Consolidate_Fragment_Adapter.ViewHolder> {
 
-    private Consolidate_Fragment mContext;
-    public String consolidate_heading, invoice_no_value,company_name_value,tv_consolidated_date,tv_amount_value, tv_amount_remvalue ,consolidate_status;
+    private Context context;
+    private List<ConsolidatePaymentsModel> consolidatePaymentsRequestList;
 
-    public Consolidate_Fragment_Adapter(Consolidate_Fragment mContext, String consolidate_heading, String invoice_no_value, String company_name_value, String tv_consolidated_date, String tv_amount_value, String tv_amount_remvalue, String consolidate_status) {
-        this.mContext = mContext;
-        this.consolidate_heading = consolidate_heading;
-        this.invoice_no_value = invoice_no_value;
-        this.company_name_value = company_name_value;
-        this.tv_consolidated_date = tv_consolidated_date;
-        this.tv_amount_value = tv_amount_value;
-        this.tv_amount_remvalue = tv_amount_remvalue;
-        this.consolidate_status = consolidate_status;
+    public Consolidate_Fragment_Adapter(Context context, List<ConsolidatePaymentsModel> consolidatePaymentsRequestList) {
+        this.context = context;
+        this.consolidatePaymentsRequestList = consolidatePaymentsRequestList;
     }
 
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view_inflate = LayoutInflater.from(mContext.getContext()).inflate(R.layout.payments_consolidate_recycler,parent,false);
+        View view_inflate = LayoutInflater.from(context).inflate(R.layout.payments_consolidate_recycler,parent,false);
         return new Consolidate_Fragment_Adapter.ViewHolder(view_inflate);
 
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-        holder.tv_heading.setText(consolidate_heading);
-        holder.invoice_no_value.setText(invoice_no_value);
-        holder.company_name_value.setText(company_name_value);
-        holder.tv_consolidated_date.setText(tv_consolidated_date);
-        holder.tv_amount_value.setText(tv_amount_value);
-        holder.tv_amount_remvalue.setText(tv_amount_remvalue);
-        holder.consolidate_status.setText(consolidate_status);
-
-
-
+        int Total = Integer.parseInt(consolidatePaymentsRequestList.get(position).getTotalPrice())
+                -Integer.parseInt(consolidatePaymentsRequestList.get(position).getPaidAmount());
+        String string = consolidatePaymentsRequestList.get(position).getCreatedDate();
+        String[] parts = string.split("T");
+        String Date = parts[0];
+        holder.tv_heading.setText(consolidatePaymentsRequestList.get(position).getCompanyName());
+        holder.invoice_no_value.setText(consolidatePaymentsRequestList.get(position).getConsolidatedInvoiceNumber());
+        holder.tv_consolidated_date.setText(Date);
+        holder.tv_amount_value.setText(consolidatePaymentsRequestList.get(position).getTotalPrice());
+        holder.tv_amount_remvalue.setText(String.valueOf(Total));
+        if(consolidatePaymentsRequestList.get(position).getStatus().equals("0")) {
+            holder.consolidate_status.setText("Pending");
+        }
+        else if (consolidatePaymentsRequestList.get(position).getStatus().equals("1"))
+            holder.consolidate_status.setText("Unpaid");
+        else if (consolidatePaymentsRequestList.get(position).getStatus().equals("2"))
+            holder.consolidate_status.setText("Partially Paid");
+        else if (consolidatePaymentsRequestList.get(position).getStatus().equals("3"))
+            holder.consolidate_status.setText("Paid");
+        else if (consolidatePaymentsRequestList.get(position).getStatus().equals("-1"))
+            holder.consolidate_status.setText("Payment Processing");
     }
 
     @Override
     public int getItemCount() {
-        return 1;
+        return consolidatePaymentsRequestList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

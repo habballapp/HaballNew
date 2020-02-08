@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     tools:context=".Payment.Payment_Amount">
 
     <LinearLayout
@@ -61,7 +62,7 @@
             android:background="@drawable/edit_round">
 
             <Spinner
-                android:id="@+id/Preffered_Contact"
+                android:id="@+id/spinner_company"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </RelativeLayout>

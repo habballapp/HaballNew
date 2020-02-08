@@ -28,16 +28,16 @@ public class Consolidate_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_consolidate_, container, false);
-        recyclerView = root.findViewById(R.id.rv_consolidate);
-
-        recyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new Consolidate_Fragment_Adapter(this,"Ghulam Rabani & Sons Traders & Distributors","1002312324251524","Shield","12/02/2020","PKR 600,000.00","600,000.00","Paid");
-
-        recyclerView.setAdapter(mAdapter);
+//        recyclerView = root.findViewById(R.id.rv_consolidate);
+//
+//        recyclerView.setHasFixedSize(true);
+//
+//        // use a linear layout manager
+//        layoutManager = new LinearLayoutManager(getContext());
+//        recyclerView.setLayoutManager(layoutManager);
+//        mAdapter = new Consolidate_Fragment_Adapter(this,"Ghulam Rabani & Sons Traders & Distributors","1002312324251524","Shield","12/02/2020","PKR 600,000.00","600,000.00","Paid");
+//
+//        recyclerView.setAdapter(mAdapter);
         return root;
     }
 

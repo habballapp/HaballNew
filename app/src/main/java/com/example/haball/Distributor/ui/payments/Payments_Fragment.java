@@ -117,6 +117,11 @@ public class Payments_Fragment extends Fragment {
         Token = sharedPreferences.getString("Login_Token","");
         Log.i("Token", Token);
 
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+
+        URL_PAYMENT_LEDGER_COMPANY = URL_PAYMENT_LEDGER_COMPANY+DistributorId;
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PAYMENT_LEDGER_COMPANY,null,new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
@@ -156,15 +161,13 @@ public class Payments_Fragment extends Fragment {
     private void fetchPaymentLedgerData(String companyId) throws JSONException{
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token","");
-        Log.i("Token", Token);
+        Token = sharedPreferences.getString("Login_Token", "");
 
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences1.getString("Distributor_Id","");
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
-
-        URL_PAYMENT_LEDGER = URL_PAYMENT_LEDGER+DistributorId;
+        Log.i("Token pl .. ", Token);
 
         JSONObject map = new JSONObject();
         map.put("Status", -1);
