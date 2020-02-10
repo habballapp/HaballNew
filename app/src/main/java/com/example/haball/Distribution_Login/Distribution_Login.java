@@ -212,7 +212,7 @@ public class Distribution_Login extends AppCompatActivity {
         sr.setRetryPolicy(new RetryPolicy() {
             @Override
             public int getCurrentTimeout() {
-                return 1000;
+                return 50000;
             }
 
             @Override
