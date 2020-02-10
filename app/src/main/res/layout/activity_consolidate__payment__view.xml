@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Payment.Consolidate_Payment_View">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/consolidated_payment_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/underline"
+            android:orientation="vertical">
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Payments"
+                android:paddingBottom="10dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:textSize="18sp"
+                android:textColor="#96bb3c"
+                android:background="@drawable/half_underline"
+
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/consolidated_payment_view_fields"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/consolidated_payment_view"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp"
+            android:orientation="vertical"
+            android:weightSum="10">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_weight="1"
+                android:text="Invoice ID"
+                android:layout_marginTop="10dp"
+                android:textColor="#96bb3c"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/consolidated_view_invoice_id"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:paddingLeft="20dp"
+                android:hint="555551223455"
+                android:background="@drawable/distribution_login"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_weight="1"
+                android:text="Invoice Date"
+                android:layout_marginTop="15dp"
+                android:textColor="#96bb3c"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/consolidated_view_invoice_date"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:hint="06/01/2020"
+                android:background="@drawable/distribution_login"
+                android:textSize="10sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_weight="1"
+                android:text="Invoice Amount"
+                android:layout_marginTop="15dp"
+                android:textColor="#96bb3c"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/consolidated_view_invoice_amount"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:drawablePadding="10dp"
+                android:hint="5475"
+                android:gravity="center_vertical"
+                android:background="@drawable/distribution_login"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_weight="1"
+                android:text="Company"
+                android:layout_marginTop="15dp"
+                android:textColor="#96bb3c"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/onsolidated_view_company"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:hint="Shield"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:drawablePadding="10dp"
+                android:background="@drawable/distribution_login"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_weight="1"
+                android:text="Status"
+                android:layout_marginTop="15dp"
+                android:textColor="#96bb3c"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/onsolidated_view_status"
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:paddingLeft="15dp"
+                android:gravity="center_vertical"
+                android:text="Paid"
+                android:background="@drawable/distribution_login"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/consolidated_payment_view_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/consolidated_payment_view_fields">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/border_set"
+                android:padding="10dp"
+                android:text="Payment Details"
+                android:textColor="#96bb3c"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_payment_consolidate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/consolidated_payment_view_header"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="40dp"/>
+
+
+    </RelativeLayout>
+</ScrollView>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        >
+
+        <ImageButton
+            android:id="@+id/image_payment_request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_clear_black_24dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp" />
+
+        <TextView
+            android:id="@+id/txt_header1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginTop="10dp"
+            android:text="Edit Payment Request"
+            android:textSize="18sp"
+            android:padding="10dp"
+            android:textColor="#96bb3c"
+            android:background="@drawable/border_set"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="40dp" />
+
+
+        <TextView
+            android:id="@+id/payment_request_cname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_header1"
+            android:text="Company *"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="40dp"
+            android:textAlignment="gravity"
+            android:layout_marginRight="40dp"
+            android:justificationMode="inter_word"
+            />
+
+        <EditText
+            android:id="@+id/edt_payment_request_company"
+            android:layout_width="match_parent"
+            android:layout_height="80px"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_below="@id/payment_request_cname"
+            android:layout_marginTop="10dp"
+            android:textSize="15sp"
+            android:paddingLeft="10dp"
+            android:background="@drawable/distribution_login"
+            android:hint="Shield"
+            />
+
+        <TextView
+            android:id="@+id/payment_request_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edt_payment_request_company"
+            android:text="Payment Amount *"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="40dp"
+            android:textAlignment="gravity"
+            android:layout_marginRight="40dp"
+            android:justificationMode="inter_word"
+            />
+
+        <EditText
+            android:id="@+id/tv_edt_payment_request_amount"
+            android:layout_width="match_parent"
+            android:layout_height="80px"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_below="@id/payment_request_amount"
+            android:layout_marginTop="10dp"
+            android:textSize="15sp"
+            android:paddingLeft="10dp"
+            android:background="@drawable/distribution_login"
+            android:hint="10000"
+            />
+
+        <Button
+            android:id="@+id/btn_payment_request_update"
+            android:layout_width="match_parent"
+            android:layout_height="80px"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/button_round"
+            android:layout_marginTop="20dp"
+            android:text="Update"
+            android:textSize="15sp"
+            android:textColor="#fff"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_below="@id/tv_edt_payment_request_amount"
+            android:textAllCaps="false"
+            android:layout_marginBottom="10dp"
+            />
+
+
+
+    </RelativeLayout>
+</LinearLayout>

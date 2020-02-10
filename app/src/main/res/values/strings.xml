@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Haball</string>
     <string name="Txt_Description_Distributer">Haball Self-Service Distributor is a one window solution to manage business transactions and enable process optimization from
-                                   ordering digitally to making payments easily.</string>
-    <string name="Txt_Description_Retailer">Haball Self-Service Retailer is a one window solution to manage business transactions and enable process optimization from
-                                   ordering digitally to making payments easily.</string>
+                                   ordering digitally to making payments easily</string>
+    <string name="Txt_Description_Retailer">Haball Self-Service Retailor is a one window solution to manage business transactions and enable process optimization from
+                                   ordering digitally to making payments easily</string>
     <string name="title_activity_distributor__dashboard">Distributor_Dashboard</string>
     <string name="tab_text_1">Dashboard</string>
     <string name="tab_text_2">Payments</string>
@@ -65,4 +65,7 @@
     <string name="pr5"> Please use the following tips to set a new password</string>
     <string name="pr6"> Password must be atleast 6 characters long.</string>
     <string name="pr7"> Password must have atleast 1 alphabet,Numeric or special character.</string>
+    <string name="pr8"> Payment Request</string>
+    <string name="pr9"> has been updated successfully.</string>
+    <string name="pr10">Kindly use this payment ID to pay your invoice using the following channels.</string>
 </resources>

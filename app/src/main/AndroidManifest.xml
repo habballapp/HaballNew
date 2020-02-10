@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.haball">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Retailor.Retailor_SignUp.SignUp"></activity>
+        <activity android:name=".Payment.Consolidate_Payment_View"></activity>
+        <activity android:name=".Retailor.Retailor_SignUp.SignUp" />
         <activity
             android:name=".Retailor.RetailorDashboard"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

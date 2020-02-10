@@ -1,13 +1,18 @@
 package com.example.haball.Payment;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haball.R;
@@ -45,6 +50,31 @@ public class ProofOfPaymentAdapter extends RecyclerView.Adapter<ProofOfPaymentAd
 
     @Override
     public void onBindViewHolder(@NonNull ProofOfPaymentAdapter.ViewHolder holder, int position) {
+        holder.menu_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final PopupMenu popup = new PopupMenu(mContxt, view);
+                MenuInflater inflater = popup.getMenuInflater();
+                inflater.inflate(R.menu.proof_of_payment_form_menu, popup.getMenu());
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.proof_view:
+                                final AlertDialog alertDialog = new AlertDialog.Builder(mContxt).create();
+                                LayoutInflater inflater = LayoutInflater.from(mContxt);
+                                View view_popup = inflater.inflate(R.layout.proof_of_payment_form_view, null);
+                                alertDialog.setView(view_popup);
+                                alertDialog.show();
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                popup.show();
+            }
+        });
+
         if(proofOfPaymentsList.get(position).getStatus().equals("4")){
             holder.tv_status.setText("Approved");
             holder.tv_status.setTextColor(mContxt.getResources().getColor(R.color.green_color));
@@ -79,6 +109,7 @@ public class ProofOfPaymentAdapter extends RecyclerView.Adapter<ProofOfPaymentAd
             pop_id_value = itemView.findViewById(R.id.pop_id_value);
             created_date_value = itemView.findViewById(R.id.created_date_value);
             payment_mode_value = itemView.findViewById(R.id.payment_mode_value);
+            menu_btn = itemView.findViewById(R.id.menu_btn);
         }
     }
 }
