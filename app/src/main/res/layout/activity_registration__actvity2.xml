@@ -237,121 +237,126 @@
                         android:textSize="10sp" />
 
                     <CheckBox
+                        android:id="@+id/check_box"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_marginTop="10dp"
                         android:text="SAME AS SHIPPING ADDRESS"
-                        android:textColor="#d3d3d3"
+                        android:textColor="#676a6e"
                         />
                 </LinearLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_billing_main"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/ln_billing"
-                    android:layout_marginBottom="40dp">
-
-                    <EditText
-                        android:id="@+id/Address02"
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:layout_marginTop="30dp"
-                        android:layout_marginLeft="40dp"
-                        android:layout_marginRight="40dp"
-                        android:background="@drawable/edit_text_squared"
-                        android:hint="Address02 *"
-                        android:paddingTop="5dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="5dp"
-                        android:textSize="16sp"
-                        android:gravity="top|left" />
-
+                    android:layout_below="@id/ln_billing">
                     <RelativeLayout
-                        android:id="@+id/select_country"
+                        android:id="@+id/rl_billing"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
-                        android:layout_below="@+id/Address02"
-                        android:layout_marginTop="30dp"
-                        android:layout_marginLeft="40dp"
-                        android:layout_marginRight="40dp"
-                        android:background="@drawable/edit_text_squared">
-
-                        <Spinner
-                            android:id="@+id/spinner_country2"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/Address02"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-                    </RelativeLayout>
+                            android:layout_height="100dp"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginLeft="40dp"
+                            android:layout_marginRight="40dp"
+                            android:background="@drawable/edit_text_squared"
+                            android:hint="Address02 *"
+                            android:paddingTop="5dp"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textSize="16sp"
+                            android:gravity="top|left" />
 
-                    <RelativeLayout
-                        android:id="@+id/select_province"
-                        android:layout_width="match_parent"
-                        android:layout_height="80px"
-                        android:layout_below="@+id/select_country"
-                        android:layout_marginTop="30dp"
-                        android:layout_marginLeft="40dp"
-                        android:layout_marginRight="40dp"
-                        android:background="@drawable/edit_text_squared">
-
-                        <Spinner
-                            android:id="@+id/spinner_province2"
+                        <RelativeLayout
+                            android:id="@+id/select_country"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-                    </RelativeLayout>
+                            android:layout_height="80px"
+                            android:layout_below="@+id/Address02"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginLeft="40dp"
+                            android:layout_marginRight="40dp"
+                            android:background="@drawable/edit_text_squared">
 
-                    <RelativeLayout
-                        android:id="@+id/select_city"
-                        android:layout_width="match_parent"
-                        android:layout_height="80px"
-                        android:layout_below="@+id/select_province"
-                        android:layout_marginTop="30dp"
-                        android:layout_marginLeft="40dp"
-                        android:layout_marginRight="40dp"
-                        android:background="@drawable/edit_text_squared">
+                            <Spinner
+                                android:id="@+id/spinner_country2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </RelativeLayout>
 
-                        <Spinner
-                            android:id="@+id/spinner_city2"
+                        <RelativeLayout
+                            android:id="@+id/select_province"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="80px"
+                            android:layout_below="@+id/select_country"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginLeft="40dp"
+                            android:layout_marginRight="40dp"
+                            android:background="@drawable/edit_text_squared">
+
+                            <Spinner
+                                android:id="@+id/spinner_province2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/select_city"
+                            android:layout_width="match_parent"
+                            android:layout_height="80px"
+                            android:layout_below="@+id/select_province"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginLeft="40dp"
+                            android:layout_marginRight="40dp"
+                            android:background="@drawable/edit_text_squared">
+
+                            <Spinner
+                                android:id="@+id/spinner_city2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </RelativeLayout>
+
+                        <EditText
+                            android:id="@+id/postal_billing"
+                            android:layout_width="match_parent"
+                            android:layout_height="80px"
+                            android:layout_below="@+id/select_city"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginLeft="40dp"
+                            android:layout_marginRight="40dp"
+                            android:background="@drawable/edit_text_squared"
+                            android:gravity="left"
+                            android:hint="Postal Code *"
+                            android:paddingTop="5dp"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textSize="16sp" />
+
                     </RelativeLayout>
-
-                    <EditText
-                        android:id="@+id/postal_billing"
-                        android:layout_width="match_parent"
-                        android:layout_height="80px"
-                        android:layout_below="@+id/select_city"
-                        android:layout_marginTop="30dp"
-                        android:layout_marginLeft="40dp"
-                        android:layout_marginRight="40dp"
-                        android:background="@drawable/edit_text_squared"
-                        android:gravity="left"
-                        android:hint="Postal Code *"
-                        android:paddingTop="5dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="5dp"
-                        android:textSize="16sp" />
-
-                    <Button
-                        android:id="@+id/btn_register"
-                        android:layout_width="match_parent"
-                        android:layout_height="80px"
-                        android:layout_below="@id/postal_billing"
-                        android:layout_marginTop="30dp"
-                        android:layout_marginLeft="40dp"
-                        android:layout_marginRight="40dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/button_round"
-                        android:gravity="center"
-                        android:text="Register"
-                        android:textAllCaps="false"
-                        android:textColor="#fff"
-                        android:textSize="15sp" />
-
-
                 </RelativeLayout>
+                <Button
+                    android:id="@+id/btn_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="80px"
+                    android:layout_below="@id/rl_billing_main"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_round"
+                    android:gravity="center"
+                    android:text="Register"
+                    android:textAllCaps="false"
+                    android:textColor="#fff"
+                    android:textSize="15sp"
+                    android:layout_marginBottom="40dp"/>
+
             </RelativeLayout>
             <TextView
                 android:layout_width="match_parent"

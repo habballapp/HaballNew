@@ -14,8 +14,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,6 +56,9 @@ public class Registration_Actvity2 extends AppCompatActivity {
     private String URL_SPINNERS_CITY = "http://175.107.203.97:4008/api/city/ReadByState/1";
     private String URL = "http://175.107.203.97:4008/api/distributor/Register";
 
+    private CheckBox check_box;
+    private Boolean check_value = false;
+    private RelativeLayout rl_billing_address;
     private String country1, country2, city1, city2, province1, province2;
     private Spinner spinner_country, spinner_city, spinner_province, spinner_country2, spinner_city2, spinner_province2;
 
@@ -104,6 +110,22 @@ public class Registration_Actvity2 extends AppCompatActivity {
         spinner_country2 = findViewById(R.id.spinner_country2);
         spinner_city2 = findViewById(R.id.spinner_city2);
         spinner_province2 = findViewById(R.id.spinner_province2);
+
+        rl_billing_address = findViewById(R.id.rl_billing);
+        check_box = findViewById(R.id.check_box);
+
+        check_box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                check_value = isChecked;
+                if (isChecked) {
+                    rl_billing_address.setVisibility(View.GONE);
+                }
+                else{
+                    rl_billing_address.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         spinner_country.setPrompt("Choose Widget Mode");
         spinner_city.setPrompt("Choose Widget Mode");
@@ -250,33 +272,61 @@ public class Registration_Actvity2 extends AppCompatActivity {
     }
 
     private void makeRegisterRequest() throws JSONException {
-
         JSONObject map = new JSONObject();
-        map.put("status", 1);
-        map.put("UserType", 0);
-        map.put("Username", username);
-        map.put("Password", password);
-        map.put("ConfirmPassword", confirmpassword);
-        map.put("FirstName", firstname);
-        map.put("LastName", lastname);
-        map.put("Email", email);
-        map.put("CNIC", cnic);
-        map.put("Mobile", mobile_number);
-        map.put("Phone", phone_number);
-        map.put("CompanyNTN", ntn);
-        map.put("CompanyName", conpany_name);
-        map.put("URL", website);
-        map.put("ShippingCountryId", 1);
-        map.put("BillingCountryId", 1);
-        map.put("ShippingProvinceId", 1);
-        map.put("BillingProvinceId", 1);
-        map.put("ShippingCityId", 1);
-        map.put("BillingCityId", 1);
-        map.put("ShippingAddress1", Address.getText().toString());
-        map.put("BillingAddress1", Address02.getText().toString());
-        map.put("ShippingPostCode", postal_shipping.getText().toString());
-        map.put("BillingPostCode", postal_billing.getText().toString());
-        map.put("IsAgree", true);
+        if(check_value){
+            map.put("status", 1);
+            map.put("UserType", 0);
+            map.put("Username", username);
+            map.put("Password", password);
+            map.put("ConfirmPassword", confirmpassword);
+            map.put("FirstName", firstname);
+            map.put("LastName", lastname);
+            map.put("Email", email);
+            map.put("CNIC", cnic);
+            map.put("Mobile", mobile_number);
+            map.put("Phone", phone_number);
+            map.put("CompanyNTN", ntn);
+            map.put("CompanyName", conpany_name);
+            map.put("URL", website);
+            map.put("ShippingCountryId", 1);
+            map.put("BillingCountryId", 1);
+            map.put("ShippingProvinceId", 1);
+            map.put("BillingProvinceId", 1);
+            map.put("ShippingCityId", 1);
+            map.put("BillingCityId", 1);
+            map.put("ShippingAddress1", Address.getText().toString());
+            map.put("BillingAddress1", Address.getText().toString());
+            map.put("ShippingPostCode", postal_shipping.getText().toString());
+            map.put("BillingPostCode", postal_shipping.getText().toString());
+            map.put("IsAgree", true);
+        }
+        else{
+            map.put("status", 1);
+            map.put("UserType", 0);
+            map.put("Username", username);
+            map.put("Password", password);
+            map.put("ConfirmPassword", confirmpassword);
+            map.put("FirstName", firstname);
+            map.put("LastName", lastname);
+            map.put("Email", email);
+            map.put("CNIC", cnic);
+            map.put("Mobile", mobile_number);
+            map.put("Phone", phone_number);
+            map.put("CompanyNTN", ntn);
+            map.put("CompanyName", conpany_name);
+            map.put("URL", website);
+            map.put("ShippingCountryId", 1);
+            map.put("BillingCountryId", 1);
+            map.put("ShippingProvinceId", 1);
+            map.put("BillingProvinceId", 1);
+            map.put("ShippingCityId", 1);
+            map.put("BillingCityId", 1);
+            map.put("ShippingAddress1", Address.getText().toString());
+            map.put("BillingAddress1", Address02.getText().toString());
+            map.put("ShippingPostCode", postal_shipping.getText().toString());
+            map.put("BillingPostCode", postal_billing.getText().toString());
+            map.put("IsAgree", true);
+        }
 
         Log.i("MAP OBJECT", String.valueOf(map));
 

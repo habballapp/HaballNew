@@ -221,12 +221,17 @@ public class Distribution_Login extends AppCompatActivity {
                         JSONObject userAccount = new JSONObject(String.valueOf(result.get("UserAccount")));
                         Log.i("user account => ",userAccount.get("DistributorID").toString());
                         String DistributorId = userAccount.get("DistributorID").toString();
+                        String username = userAccount.get("Username").toString();
+                        String CompanyName = userAccount.get("CompanyName").toString();
 
                         SharedPreferences login_token = getSharedPreferences("LoginToken",
                                 Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = login_token.edit();
                         editor.putString("Login_Token",token);
                         editor.putString("Distributor_Id",DistributorId);
+                        editor.putString("username",username);
+                        editor.putString("CompanyName",CompanyName);
+
                         editor.commit();
 
                         Toast.makeText(Distribution_Login.this,"Login Success",Toast.LENGTH_LONG).show();

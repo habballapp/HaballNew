@@ -1,6 +1,8 @@
 package com.example.haball.Distributor;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -65,7 +67,7 @@ public class DistributorDashboard extends AppCompatActivity implements Navigatio
     private AppBarConfiguration mAppBarConfiguration;
     private FragmentManager mFragmentManager;
     private FragmentTransaction mFragmentTransaction;
-    private TextView tv_username;
+    private TextView tv_username, tv_user_company;
     private FragmentTransaction fragmentTransaction;
     private DrawerLayout drawer;
     ExpandableListAdapter expandableListAdapter;
@@ -73,8 +75,8 @@ public class DistributorDashboard extends AppCompatActivity implements Navigatio
     List<CustomExpandableListModel> headerList = new ArrayList<>();
     HashMap<CustomExpandableListModel, List<CustomExpandableListModel>> childList = new HashMap<>();
     private ExpandableNavigationListView navigationExpandableListView;
+    private String username, companyname;
 
-    Menu m;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,8 +84,16 @@ public class DistributorDashboard extends AppCompatActivity implements Navigatio
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        SharedPreferences sharedPreferences = this.getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        username = sharedPreferences.getString("username", "");
+        companyname = sharedPreferences.getString("CompanyName", "");
+
         tv_username = toolbar.findViewById(R.id.tv_username);
-        tv_username.setText("abcd test");
+        tv_user_company = toolbar.findViewById(R.id.tv_user_company);
+
+        tv_username.setText(username);
+        tv_user_company.setText(companyname);
 
         drawer = findViewById(R.id.drawer_layout);
 
