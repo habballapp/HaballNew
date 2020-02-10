@@ -157,6 +157,7 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:layout_weight="1"
+                android:maxLength="15"
                 android:hint="CNIC Number *"
                 />
             <EditText
@@ -164,13 +165,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="80px"
                 android:background="@drawable/edit_text_squared"
-                android:inputType="phone"
+                android:inputType="number"
                 android:padding="10dp"
                 android:textSize="15sp"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:layout_weight="1"
+                android:maxLength="12"
                 android:hint="Mobile Number *"
                 />
             <EditText
@@ -178,13 +180,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="80px"
                 android:background="@drawable/edit_text_squared"
-                android:inputType="phone"
+                android:inputType="number"
                 android:padding="10dp"
                 android:textSize="15sp"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:layout_weight="1"
+                android:maxLength="12"
                 android:hint="Phone Number *"
                 />
             <EditText
@@ -199,6 +202,7 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:layout_weight="1"
+                android:maxLength="9"
                 android:hint="NTN *"
                 />
             <EditText
