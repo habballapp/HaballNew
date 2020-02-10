@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,6 +27,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -51,13 +53,17 @@ public class Distribution_Login extends AppCompatActivity {
 
     private Button btn_login,btn_signup,btn_support,btn_password,btn_reset;
     public ImageButton btn_back;
-    private EditText et_username,et_password;
+    private EditText et_username,et_password, txt_email;
     private Toolbar tb;
     private RequestQueue queue;
     private String URL = "http://175.107.203.97:4008/Token";
+    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4008/api/Users/forgot";
     private HttpURLConnection urlConnection = null;
     private URL url;
     private String token;
+    private String success_text = "";
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +75,7 @@ public class Distribution_Login extends AppCompatActivity {
         btn_support = findViewById(R.id.btn_support);
         btn_password = findViewById(R.id.btn_password);
 
+        progressDialog = new ProgressDialog(this);
 
         et_username = findViewById(R.id.txt_username);
         et_password = findViewById(R.id.txt_password);
@@ -86,13 +93,6 @@ public class Distribution_Login extends AppCompatActivity {
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
         bar.setTitle("");
         btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
-//         btn_back.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
-
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,24 +132,19 @@ public class Distribution_Login extends AppCompatActivity {
                 LayoutInflater inflater = LayoutInflater.from(Distribution_Login.this);
                 View view_popup = inflater.inflate(R.layout.forget_password, null);
                 alertDialog.setView(view_popup);
+                txt_email = view_popup.findViewById(R.id.txt_email);
                 btn_reset = view_popup.findViewById(R.id.btn_reset);
-                ImageButton img_btn = view_popup.findViewById(R.id.image_button);
+                final ImageButton img_btn = view_popup.findViewById(R.id.image_button);
                 btn_reset.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        alertDialog.dismiss();
                         final AlertDialog alertDialog1 = new AlertDialog.Builder(Distribution_Login.this).create();
                         LayoutInflater inflater = LayoutInflater.from(Distribution_Login.this);
                         View view_popup = inflater.inflate(R.layout.email_sent, null);
                         alertDialog1.setView(view_popup);
                         ImageButton img_email = view_popup.findViewById(R.id.image_email);
-                        img_email.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                alertDialog1.dismiss();
-                            }
-                        });
-                        alertDialog1.show();
+
+                        forgotPasswordRequest(alertDialog, alertDialog1, img_email);
 
                     }
                 });
@@ -166,6 +161,73 @@ public class Distribution_Login extends AppCompatActivity {
 
         });
     }
+
+    private String forgotPasswordRequest(final AlertDialog alertDialog, final AlertDialog alertDialog1, final ImageButton img_email) {
+
+        progressDialog.setTitle("Resetting Password");
+        progressDialog.setMessage("Loading, Please Wait..");
+        StringRequest sr = new StringRequest(Request.Method.POST, URL_FORGOT_PASSWORD, new Response.Listener<String>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onResponse(String result) {
+                success_text = result;
+                Log.e("RESPONSE", result);
+                progressDialog.dismiss();
+                alertDialog.dismiss();
+                img_email.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog1.dismiss();
+                    }
+                });
+                alertDialog1.show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Toast.makeText(Distribution_Login.this,error.toString(),Toast.LENGTH_LONG).show();
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                return params;
+            }
+
+            @Override
+            public byte[] getBody() {
+                try {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("EmailAddress",txt_email.getText().toString());
+                    return jsonObject.toString().getBytes("utf-8");
+                } catch (Exception e) {
+                    return null;
+                }
+            }
+        };
+        sr.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 10000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 10000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
+        Volley.newRequestQueue(this).add(sr);
+        return success_text;
+    }
+
     private void makeLoginRequest(){
 
         queue = Volley.newRequestQueue(this);
