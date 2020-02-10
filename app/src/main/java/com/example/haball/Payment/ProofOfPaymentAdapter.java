@@ -13,8 +13,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.haball.Distributor.ui.payments.ProofOfPaymentForm;
 import com.example.haball.R;
 
 import java.util.List;
@@ -61,11 +64,9 @@ public class ProofOfPaymentAdapter extends RecyclerView.Adapter<ProofOfPaymentAd
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.proof_view:
-                                final AlertDialog alertDialog = new AlertDialog.Builder(mContxt).create();
-                                LayoutInflater inflater = LayoutInflater.from(mContxt);
-                                View view_popup = inflater.inflate(R.layout.proof_of_payment_form_view, null);
-                                alertDialog.setView(view_popup);
-                                alertDialog.show();
+                                FragmentTransaction fragmentTransaction= ((FragmentActivity)mContxt).getSupportFragmentManager().beginTransaction();
+                                fragmentTransaction.add(R.id.main_container,new ProofOfPaymentForm());
+                                fragmentTransaction.commit();
                                 break;
                         }
                         return false;
