@@ -15,6 +15,10 @@ import com.android.volley.Response;
 import com.example.haball.Distributor.ui.main.PlaceholderFragment;
 import com.example.haball.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +43,11 @@ public class DistributorPaymentsAdapter extends RecyclerView.Adapter<Distributor
     public void onBindViewHolder(@NonNull DistributorPaymentsAdapter.ViewHolder holder, int position) {
         holder.tv_heading.setText(paymentsList.get(position).getName());
         holder.tv_payment_id.setText(paymentsList.get(position).getPrePaidNumber());
-        holder.tv_amount.setText(paymentsList.get(position).getPaidAmount());
+
+        DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
+        String yourFormattedString1 = formatter1.format(Integer.parseInt(paymentsList.get(position).getPaidAmount()));
+        holder.tv_amount.setText(yourFormattedString1);
+
 
         if(paymentsList.get(position).getStatus().equals("1")){
             holder.tv_status.setText("Paid");

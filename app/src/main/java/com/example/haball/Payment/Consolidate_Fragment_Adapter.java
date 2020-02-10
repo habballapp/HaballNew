@@ -14,6 +14,7 @@ import com.example.haball.Payment.Consolidate_Fragment;
 import com.example.haball.R;
 import com.example.haball.Retailor.ui.Dashboard.DashBoardFragment;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class Consolidate_Fragment_Adapter extends RecyclerView.Adapter<Consolidate_Fragment_Adapter.ViewHolder> {
@@ -43,8 +44,14 @@ public class Consolidate_Fragment_Adapter extends RecyclerView.Adapter<Consolida
         holder.tv_heading.setText(consolidatePaymentsRequestList.get(position).getCompanyName());
         holder.invoice_no_value.setText(consolidatePaymentsRequestList.get(position).getConsolidatedInvoiceNumber());
         holder.tv_consolidated_date.setText(Date);
-        holder.tv_amount_value.setText(consolidatePaymentsRequestList.get(position).getTotalPrice());
-        holder.tv_amount_remvalue.setText(String.valueOf(Total));
+
+        DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
+        String yourFormattedString1 = formatter1.format(Integer.parseInt(consolidatePaymentsRequestList.get(position).getTotalPrice()));
+        holder.tv_amount_value.setText(yourFormattedString1);
+
+        DecimalFormat formatter2 = new DecimalFormat("#,###,##0.00");
+        String yourFormattedString2 = formatter2.format(Integer.parseInt(String.valueOf(Total)));
+        holder.tv_amount_remvalue.setText(yourFormattedString2);
         if(consolidatePaymentsRequestList.get(position).getStatus().equals("0")) {
             holder.consolidate_status.setText("Pending");
         }
