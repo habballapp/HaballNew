@@ -19,6 +19,7 @@
             android:background="@drawable/edit_text_squared">
             <TextView
                 android:id="@+id/tv_unpaid_amount"
+                android:textColor="#676a6c"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Total Unpaid Amount"
@@ -27,6 +28,7 @@
             <TextView
                 android:id="@+id/value_unpaid_amount"
                 android:layout_width="wrap_content"
+                android:textColor="#676a6c"
                 android:layout_height="wrap_content"
                 android:text="PKR 0.00"
                 android:textSize="14sp"
@@ -45,6 +47,7 @@
                 android:id="@+id/tv_paid_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#676a6c"
                 android:text="Total Paid Amount"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
@@ -52,6 +55,7 @@
                 android:id="@+id/value_paid_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#676a6c"
                 android:text="PKR 0.00"
                 android:textSize="14sp"
                 android:layout_below="@+id/tv_paid_amount"/>
@@ -69,6 +73,7 @@
                 android:id="@+id/tv_prepaid_balance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#676a6c"
                 android:text="Prepaid Balance"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
@@ -76,6 +81,7 @@
                 android:id="@+id/tv_opening_balance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#676a6c"
                 android:text="Opening Balance"
                 android:textSize="14sp"
                 android:layout_below="@+id/tv_prepaid_balance"/>

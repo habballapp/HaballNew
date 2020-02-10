@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background01"
+    android:background="@drawable/background_logo"
     tools:context=".Language_Selection.Language_Selection">
 
 
@@ -20,11 +20,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="5"
             android:text="LANGUAGE SELECTION"
             android:gravity="center"
+            android:textSize="22sp"
             android:paddingTop="20dp"
-            android:textColor="#96bb3c"
+            android:textColor="#96BA3C"
+            android:textStyle="bold"
             />
         <TextView
             android:layout_width="match_parent"
@@ -32,8 +34,10 @@
             android:layout_weight="1"
             android:gravity="center"
             android:paddingBottom="20dp"
-            android:textColor="#000000"
+            android:textSize="22sp"
+            android:textColor="#676a6c"
             android:text="زبان منتخب کریں"
+            android:textStyle="bold"
             />
 
     </LinearLayout>
@@ -46,16 +50,15 @@
         <Button
             android:id="@+id/rel_english"
             android:layout_width="match_parent"
-            android:layout_height="80px"
+            android:layout_height="40dp"
             android:layout_marginLeft="40dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:text="English"
+            android:layout_marginRight="40dp"
             android:layout_marginBottom="20dp"
+            android:textSize="15sp"
+            android:text="English"
             android:textColor="@android:color/white"
             android:background="@drawable/button_round"
-            android:layout_marginRight="40dp"
-            android:padding="5dp"
+            android:textAllCaps="false"
             >
 
 
@@ -65,13 +68,12 @@
             android:id="@+id/rel_urdu"
             android:layout_width="match_parent"
             android:layout_below="@id/rel_english"
-            android:layout_height="80px"
+            android:layout_height="40dp"
             android:layout_marginLeft="40dp"
-            android:layout_marginStart="50dp"
+            android:layout_marginRight="40dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/button_round"
-            android:layout_marginEnd="50dp"
-            android:padding="5dp"
+            android:textSize="20sp"
             android:text="اردو"
             android:textColor="@android:color/white"
             >

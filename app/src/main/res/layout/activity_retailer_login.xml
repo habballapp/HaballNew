@@ -57,6 +57,7 @@
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="40dp"
+                        android:textColor="#676a6c"
                         android:layout_weight="1"
                         android:justificationMode="inter_word"
                         android:text="@string/Txt_Description_Retailer"
@@ -96,7 +97,7 @@
                     <EditText
                         android:id="@+id/txt_username"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_weight="1"
@@ -112,7 +113,7 @@
                     <EditText
                         android:id="@+id/txt_password"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="30dp"
                         android:layout_marginEnd="40dp"
@@ -141,7 +142,7 @@
                     <Button
                         android:id="@+id/retailer_btn_login"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_weight="1"
@@ -155,7 +156,7 @@
                     <Button
                         android:id="@+id/ret_btn_password"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginEnd="40dp"
@@ -184,7 +185,7 @@
                     <Button
                         android:id="@+id/ret_btn_support"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
@@ -198,7 +199,7 @@
                     <Button
                         android:id="@+id/ret_btn_signup"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginEnd="40dp"

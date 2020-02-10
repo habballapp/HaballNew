@@ -48,6 +48,8 @@ public class Register_Activity_2 extends AppCompatActivity implements View.OnFoc
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register__2);
+        getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
+
 
         progressDialog = new ProgressDialog(this);
 

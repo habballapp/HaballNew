@@ -18,10 +18,12 @@
             android:id="@+id/heading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="Ghulam Rabani &amp; Sons Traders &amp; Distributors"
             android:textSize="18sp"
             android:layout_weight="0.5"
-            android:textColor="#000"/>
+            android:textColor="#676a6c"
+            />
         <ImageButton
             android:id="@+id/menu_btn"
             android:layout_width="match_parent"
@@ -30,7 +32,8 @@
             android:src="@drawable/ic_more_vert_black_24dp"
             android:background="@null"
             android:textSize="18sp"
-            android:textColor="#000"/>
+            android:textColor="#676a6c"
+            />
     </LinearLayout>
     <TextView
         android:id="@+id/payment_id"
@@ -39,51 +42,63 @@
         android:layout_below="@+id/ll_heading"
         android:layout_marginTop="20dp"
         android:text="Payment Id:"
-        android:textSize="14sp"/>
+        android:textSize="14sp"
+        android:textColor="#676a6c"
+        />
     <TextView
         android:id="@+id/payment_id_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_heading"
         android:layout_marginTop="20dp"
+        android:textStyle="bold"
         android:text="51247895354254780369"
         android:textSize="14sp"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/payment_id"
-        android:textColor="#000"/>
+        android:textColor="#676a6c"
+        />
     <TextView
         android:id="@+id/tv_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/payment_id"
         android:text="Amount: "
-        android:textSize="14sp"/>
+        android:textSize="14sp"
+        android:textColor="#676a6c"
+        />
     <TextView
         android:id="@+id/amount_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/payment_id"
         android:text="PKR 600,000.00"
+        android:textStyle="bold"
         android:textSize="14sp"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/tv_amount"
-        android:textColor="#000"/>
+        android:textColor="#676a6c"
+        />
     <TextView
         android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_amount"
         android:text="Status: "
-        android:textSize="14sp"/>
+        android:textSize="14sp"
+        android:textColor="#676a6c"
+        />
     <TextView
         android:id="@+id/status_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_amount"
+        android:textStyle="bold"
         android:text="Paid"
         android:layout_toRightOf="@+id/status"
         android:textSize="14sp"
         android:layout_marginLeft="5dp"
-        android:textColor="#000"/>
+        android:textColor="#676a6c"
+        />
 
 </RelativeLayout>

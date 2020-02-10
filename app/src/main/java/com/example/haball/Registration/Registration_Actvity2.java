@@ -65,6 +65,7 @@ public class Registration_Actvity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration__actvity2);
+        getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
 
         countries = new ArrayList<>();
         cities = new ArrayList<>();

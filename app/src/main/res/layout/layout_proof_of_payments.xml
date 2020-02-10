@@ -2,14 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="20dp"
-    android:background="@drawable/edit_text_squared">
+    android:layout_marginTop="30dp"
+    android:background="@drawable/edit_text_squared"
+    android:paddingLeft="20dp"
+    android:paddingTop="20dp"
+    android:paddingRight="5dp"
+    android:paddingBottom="20dp">
     <TextView
         android:id="@+id/tv_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pending"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textColor="#F8981D"
         android:textStyle="bold"/>
     <ImageButton
@@ -39,7 +43,8 @@
         android:textSize="16sp"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/pop_id"
-        android:textColor="#000"/>
+        android:textStyle="bold"
+        android:textColor="#676a6c"/>
     <TextView
         android:id="@+id/payment_mode"
         android:layout_width="wrap_content"
@@ -56,7 +61,8 @@
         android:textSize="16sp"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/payment_mode"
-        android:textColor="#000"/>
+        android:textStyle="bold"
+        android:textColor="#676a6c"/>
     <TextView
         android:id="@+id/created_date"
         android:layout_width="wrap_content"
@@ -71,9 +77,10 @@
         android:layout_below="@+id/pop_id"
         android:text="01/01/2020"
         android:layout_toRightOf="@+id/created_date"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:layout_marginLeft="5dp"
-        android:textColor="#000"/>
+        android:textStyle="bold"
+        android:textColor="#676a6c"/>
     <TextView
         android:id="@+id/payment_id"
         android:layout_width="wrap_content"
@@ -90,6 +97,7 @@
         android:textSize="16sp"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/payment_id"
-        android:textColor="#000"/>
+        android:textStyle="bold"
+        android:textColor="#676a6c"/>
 
 </RelativeLayout>

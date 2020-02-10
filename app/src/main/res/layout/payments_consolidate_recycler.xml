@@ -21,8 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
+            android:textColor="#676a6c"
             android:text="Ghulam Rabani &amp; Sons Traders &amp; Distributors"
-            android:textColor="#000"
             android:textStyle="bold"
             android:textSize="18sp" />
 
@@ -33,7 +33,7 @@
             android:layout_weight="2.5"
             android:background="@null"
             android:src="@drawable/ic_more_vert_black_24dp"
-            android:textColor="#000"
+            android:textColor="#676a6c"
             android:textSize="18sp" />
     </LinearLayout>
 
@@ -55,7 +55,7 @@
         android:layout_marginTop="30dp"
         android:layout_toRightOf="@+id/consolidate_invoice"
         android:text="1002312324251524"
-        android:textColor="#000"
+        android:textColor="#676a6c"
         android:textStyle="bold"
         android:textSize="16sp" />
 
@@ -76,7 +76,7 @@
         android:layout_toRightOf="@+id/company"
         android:text="Shield"
         android:textStyle="bold"
-        android:textColor="#000"
+        android:textColor="#676a6c"
         android:textSize="16sp" />
 
     <TextView
@@ -95,7 +95,7 @@
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/tv_createdate"
         android:text="24/12/2019"
-        android:textColor="#000"
+        android:textColor="#676a6c"
         android:textStyle="bold"
         android:textSize="16sp" />
 
@@ -117,7 +117,7 @@
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/tv_consolidate_amount"
         android:text="PKR "
-        android:textColor="#000"
+        android:textColor="#676a6c"
         android:textSize="16sp"
         android:textStyle="bold" />
     <TextView
@@ -128,7 +128,7 @@
         android:layout_marginLeft="1dp"
         android:layout_toRightOf="@+id/tv_pkr_amount"
         android:text=" 600,000.00"
-        android:textColor="#000"
+        android:textColor="#676a6c"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -149,7 +149,7 @@
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/tv_consolidate_remamount"
         android:text="PKR "
-        android:textColor="#000"
+        android:textColor="#676a6c"
         android:textSize="16sp"
         android:textStyle="bold" />
     <TextView
@@ -160,7 +160,7 @@
         android:layout_marginLeft="1dp"
         android:layout_toRightOf="@+id/tv_pkr1_ramaining"
         android:text="600,000.00"
-        android:textColor="#000"
+        android:textColor="#676a6c"
         android:textSize="16sp"
         android:textStyle="bold" />
     <TextView

@@ -44,6 +44,8 @@ public class Registration_Activity extends AppCompatActivity implements View.OnF
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_);
+        getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
+
 
         context = getApplicationContext();
         progressDialog = new ProgressDialog(this);

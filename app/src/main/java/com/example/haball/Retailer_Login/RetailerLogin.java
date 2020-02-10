@@ -29,13 +29,13 @@ public class RetailerLogin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
+
         setContentView(R.layout.activity_retailer_login);
         btn_login = findViewById(R.id.retailer_btn_login);
         btn_signup = findViewById(R.id.ret_btn_signup);
         btn_support = findViewById(R.id.ret_btn_support);
         btn_password = findViewById(R.id.ret_btn_password);
-
-
 
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.setDisplayShowHomeEnabled(false);

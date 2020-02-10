@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     tools:context=".Select_User.Register_Activity"
-    android:background="@drawable/background01"
+    android:background="@drawable/background_logo"
 >
 
 
@@ -13,7 +13,7 @@
         android:id="@+id/ln_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="100dp"
         android:orientation="vertical"
         android:layout_marginBottom="20dp"
         android:weightSum="2"
@@ -24,7 +24,7 @@
             android:layout_weight="1"
             android:text="REGISTER"
             android:gravity="center"
-            android:textSize="28sp"
+            android:textSize="22sp"
             android:paddingTop="20dp"
             android:textStyle="bold"
             android:textColor="#96bb3c"
@@ -38,7 +38,7 @@
             android:textSize="18sp"
             android:paddingBottom="20dp"
             android:text="Select type of account"
-            android:textColor="#000000"/>
+            android:textColor="#676a6c"/>
 
     </LinearLayout>
 
