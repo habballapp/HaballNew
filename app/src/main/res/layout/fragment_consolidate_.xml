@@ -39,6 +39,7 @@
         android:layout_below="@+id/line_">
         <Spinner
             android:id="@+id/spinner_consolidate"
+            android:background="@drawable/edit_text_squared"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </RelativeLayout>

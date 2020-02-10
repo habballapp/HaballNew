@@ -1,6 +1,7 @@
 package com.example.haball.Payment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,10 +16,14 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.haball.Distribution_Login.Distribution_Login;
 import com.example.haball.Distributor.ui.payments.Payments_Fragment;
 import com.example.haball.Distributor.ui.payments.ProofOfPaymentForm;
+import com.example.haball.Distributor.ui.shipments.DistributorShipment_ViewDashboard;
+import com.example.haball.Distributor.ui.shipments.Shipments_Fragments;
 import com.example.haball.Payment.Consolidate_Fragment;
 import com.example.haball.R;
+import com.example.haball.Registration.Registration_Activity;
 import com.example.haball.Retailor.ui.Dashboard.DashBoardFragment;
 
 import java.text.DecimalFormat;
@@ -28,6 +33,7 @@ public class Consolidate_Fragment_Adapter extends RecyclerView.Adapter<Consolida
 
     private Context context;
     private List<ConsolidatePaymentsModel> consolidatePaymentsRequestList;
+    private FragmentTransaction fragmentTransaction;
 
     public Consolidate_Fragment_Adapter(Context context, List<ConsolidatePaymentsModel> consolidatePaymentsRequestList) {
         this.context = context;
@@ -82,9 +88,8 @@ public class Consolidate_Fragment_Adapter extends RecyclerView.Adapter<Consolida
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.consiladate_view:
-                                FragmentTransaction fragmentTransaction= ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction.add(R.id.main_container,new Consolidate_Fragment());
-                                fragmentTransaction.commit();
+                                Intent intent = new Intent(context, Consolidate_Payment_View.class);
+                                context.startActivity(intent);
                                 break;
                         }
                         return false;

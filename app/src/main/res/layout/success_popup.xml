@@ -30,12 +30,14 @@
             android:layout_marginEnd="40dp"
             android:layout_marginTop="30dp"
             android:text="Success"
-            android:gravity="center"
-            android:textSize="25sp"
+            android:background="@drawable/border_set"
+            android:gravity="left"
+            android:textSize="18sp"
             android:padding="10dp"
+            android:textStyle="bold"
             android:textColor="#96bb3c"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="40dp" />
+            android:layout_marginRight="20dp" />
 
         <LinearLayout
             android:id="@+id/ln_txt"
@@ -52,45 +54,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:layout_marginLeft="40dp"
             android:padding="10dp"
             android:justificationMode="inter_word"
             android:layout_below="@id/txt_header1"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:textSize="15sp"
             android:text="@string/pr1"
-            android:inputType="textMultiLine"
 
             />
 
         <TextView
             android:id="@+id/tv_pr2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:layout_marginLeft="-210dp"
-            android:layout_marginRight="120dp"
-            android:layout_below="@id/tv_pr1"
-            android:layout_marginTop="57dp"
+            android:layout_marginLeft="-200dp"
+            android:layout_marginTop="45dp"
             android:textSize="15sp"
             android:text="5355"
             android:textStyle="bold"
-            android:inputType="textEmailAddress"
+            android:layout_below="@id/tv_pr1"
             />
-
-            <TextView
-                android:id="@+id/tv_pr3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="-165dp"
-                android:layout_marginTop="57dp"
-                android:gravity="center_vertical"
-                android:padding="10dp"
-                android:textSize="15sp"
-                android:justificationMode="inter_word"
-                android:text="."
-                android:inputType="textMultiLine"
-                />
 
 
         </LinearLayout>
@@ -99,10 +84,10 @@
             android:id="@+id/tv_pr4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
             android:layout_below="@id/ln_txt"
-            android:layout_marginTop="-25dp"
             android:gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:textSize="15sp"
             android:padding="10dp"
             android:justificationMode="inter_word"
