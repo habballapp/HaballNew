@@ -62,18 +62,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class DistributorDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
-    private AppBarConfiguration mAppBarConfiguration;
-    private FragmentManager mFragmentManager;
-    private FragmentTransaction mFragmentTransaction;
+public class DistributorDashboard extends AppCompatActivity {
+    
     private TextView tv_username, tv_user_company;
     private FragmentTransaction fragmentTransaction;
     private DrawerLayout drawer;
-    ExpandableListAdapter expandableListAdapter;
-    ExpandableListView expandableListView;
-    List<CustomExpandableListModel> headerList = new ArrayList<>();
-    HashMap<CustomExpandableListModel, List<CustomExpandableListModel>> childList = new HashMap<>();
     private ExpandableNavigationListView navigationExpandableListView;
     private String username, companyname;
 
@@ -100,7 +93,7 @@ public class DistributorDashboard extends AppCompatActivity implements Navigatio
         final NavigationView navigationView = findViewById(R.id.nav_view);
 
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.main_container,new HomeFragment());
+        fragmentTransaction.add(R.id.main_container, new HomeFragment());
         fragmentTransaction.commit();
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -108,13 +101,12 @@ public class DistributorDashboard extends AppCompatActivity implements Navigatio
         drawer.addDrawerListener(toggle);
 
         toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
         navigationExpandableListView = findViewById(R.id.expandable_navigation);
         navigationExpandableListView
                 .init(this)
                 .addHeaderModel(new HeaderModel("Dashboard"))
                 .addHeaderModel(new HeaderModel("Orders")
-                                    .addChildModel(new ChildModel("Place Order")))
+                        .addChildModel(new ChildModel("Place Order")))
                 .addHeaderModel(
                         new HeaderModel("Payment")
                                 .addChildModel(new ChildModel("Payments Summary"))
@@ -136,43 +128,39 @@ public class DistributorDashboard extends AppCompatActivity implements Navigatio
                         navigationExpandableListView.setSelected(groupPosition);
 
                         if (id == 0) {
-                            Log.i("Dashboard","Dashboard Activity"); //DONE
+                            Log.i("Dashboard", "Dashboard Activity"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new HomeFragment());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                            drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 1) {
-                            Log.i("Orders","Orders Activity");
+                            Log.i("Orders", "Orders Activity");
                         } else if (id == 2) {
-                            Log.i("Payments","Payments Activity");//DONE
-//                            drawer.closeDrawer(GravityCompat.START);
+                            Log.i("Payments", "Payments Activity");//DONE
                             navigationView.setItemTextColor(ColorStateList.valueOf(Color.RED));
                         } else if (id == 3) {
-                            Log.i("Shipment","Shipment Activity");
+                            Log.i("Shipment", "Shipment Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new Shipments_Fragments());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                            drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 4) {
-                            Log.i("Retailer","Retailer Activity");
+                            Log.i("Retailer", "Retailer Activity");
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 5) {
-                            Log.i("Profile","Profile Activity");
+                            Log.i("Profile", "Profile Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new ProfileFragment());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                            drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 6) {
-                            Log.i("Suppport","Support Activity"); //DONE
+                            Log.i("Suppport", "Support Activity"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new SupportFragment());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 7) {
-                            Log.i("Logout","Logout Activity");
+                            Log.i("Logout", "Logout Activity");
                             drawer.closeDrawer(GravityCompat.START);
                         }
 
@@ -184,42 +172,38 @@ public class DistributorDashboard extends AppCompatActivity implements Navigatio
                     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                         navigationExpandableListView.setSelected(groupPosition, childPosition);
 
-                        Toast.makeText(DistributorDashboard.this, String.valueOf(groupPosition), Toast.LENGTH_SHORT).show();
                         if (groupPosition == 2 && childPosition == 0) {
-                            Log.i("Payments Summary","Child"); //DONE
+                            Log.i("Payments Summary", "Child"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new PaymentsSummaryFragment());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (groupPosition == 2 && childPosition == 1) {
-                            Log.i("Consolidate Payments","Child");//DONE
+                            Log.i("Consolidate Payments", "Child");//DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new ConsolidatedPaymentsFragment());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (groupPosition == 2 && childPosition == 2) {
-                            Log.i("Payment Request","Child");//DONE
+                            Log.i("Payment Request", "Child");//DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new PaymentRequestDashboard());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        }
-                        else if (groupPosition == 2 && childPosition == 3) {
-                            Log.i("Payment Ledger","Child"); //DONE
+                        } else if (groupPosition == 2 && childPosition == 3) {
+                            Log.i("Payment Ledger", "Child"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new Payments_Fragment());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        }
-                        else if (groupPosition == 2 && childPosition == 4) {
-                            Log.i("Proof of Payments","Child"); //DONE
+                        } else if (groupPosition == 2 && childPosition == 4) {
+                            Log.i("Proof of Payments", "Child"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new ProofOfPaymentsDashboardFragment());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        }
-                        else if (groupPosition == 1 && childPosition == 0) {
-                            Log.i("Place order","Child"); //DONE
+                        } else if (groupPosition == 1 && childPosition == 0) {
+                            Log.i("Place order", "Child"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new Orders_Fragment());
                             fragmentTransaction.commit();
@@ -231,182 +215,5 @@ public class DistributorDashboard extends AppCompatActivity implements Navigatio
                 });
         navigationExpandableListView.expandGroup(1);
 
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-//        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-//        NavigationUI.setupWithNavController(navigationView, navController);
-
-
-
-//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener()
-//        {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                switch (item.getItemId())
-//                {
-//                    case R.id.nav_home:
-//                        Log.i("item no. ", String.valueOf(item.getItemId()));
-//                        fragmentTransaction=getSupportFragmentManager().beginTransaction();
-//                        fragmentTransaction.replace(R.id.main_container,new HomeFragment());
-//                        fragmentTransaction.commit();
-//
-//                        item.setChecked(true);
-//                        drawer.closeDrawer(GravityCompat.START);
-//                        break;
-//                    case R.id.orders:
-////                        Log.i("item no. ", String.valueOf(item.getItemId()));
-////                        fragmentTransaction=getSupportFragmentManager().beginTransaction();
-////                        fragmentTransaction.replace(R.id.main_container,new Orders_Fragment());
-////                        fragmentTransaction.commit();
-////
-////                        item.setChecked(true);
-//                        m=navigationView.getMenu();
-//                        m.findItem(R.id.nav_subcategory_laptops).setVisible(true);
-//
-//                        switch (item.getItemId()){
-//                            case R.id.nav_subcategory_laptops:
-//                                Log.i("item sub","sub item");
-//                            break;
-//
-//                        }
-//
-//                        break;
-//                    case R.id.nav_payments:
-//                        Log.i("item no. ", String.valueOf(item.getItemId()));
-//                        fragmentTransaction=getSupportFragmentManager().beginTransaction();
-//                        fragmentTransaction.replace(R.id.main_container,new Payments_Fragment());
-//                        fragmentTransaction.commit();
-//
-//                        item.setChecked(true);
-//                        drawer.closeDrawer(GravityCompat.START);
-//                        break;
-//                    case R.id.nav_support:
-//                        Log.i("item no. ", String.valueOf(item.getItemId()));
-//                        fragmentTransaction=getSupportFragmentManager().beginTransaction();
-//                        fragmentTransaction.replace(R.id.main_container,new SupportFragment());
-//                        fragmentTransaction.commit();
-//
-//                        item.setChecked(true);
-//                        drawer.closeDrawer(GravityCompat.START);
-//                        break;
-//                }
-//                return true;
-//            }
-//        });
-
-//        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this,getSupportFragmentManager());
-//        ViewPager viewPager = findViewById(R.id.view_pager);
-//        viewPager.setAdapter(sectionsPagerAdapter);
-//        TabLayout tabs = findViewById(R.id.tabs);
-//        tabs.setupWithViewPager(viewPager);
     }
-
-//    private void populateExpandableList() {
-//        expandableListAdapter = new CustomExpandableListViewAdapter(this, headerList, childList);
-//        expandableListView.setAdapter(expandableListAdapter);
-//
-//        expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-//            @Override
-//            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-//
-//                if (headerList.get(groupPosition).isGroup) {
-//
-//                }
-//
-//                return false;
-//            }
-//        });
-//
-//        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-//            @Override
-//            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-//
-//                if (childList.get(headerList.get(groupPosition)) != null) {
-//
-//                }
-//
-//                return false;
-//            }
-//        });
-//    }
-//
-//    private void prepareMenuData() {
-//        CustomExpandableListModel customExpandableListModel = new CustomExpandableListModel("Dashboard", false, false);
-//
-//        headerList.add(customExpandableListModel);
-//
-//        if (!customExpandableListModel.hasChildren) {
-//            childList.put(customExpandableListModel, null);
-//        }
-//
-//        customExpandableListModel = new CustomExpandableListModel("Orders", true, true); //Menu of Java Tutorials
-//        headerList.add(customExpandableListModel);
-//        List<CustomExpandableListModel> childModelsList = new ArrayList<>();
-//        CustomExpandableListModel childModel = new CustomExpandableListModel("Payments", false, false);
-//        childModelsList.add(childModel);
-//
-//        childModel = new CustomExpandableListModel("Shipments", false, false);
-//        childModelsList.add(childModel);
-//
-//        childModel = new CustomExpandableListModel("Retailer", false, false);
-//        childModelsList.add(childModel);
-//
-//        childModel = new CustomExpandableListModel("Profile", false, false);
-//        childModelsList.add(childModel);
-//
-//
-//        customExpandableListModel = new CustomExpandableListModel("Payments", true, true); //Menu of Java Tutorials
-//        headerList.add(customExpandableListModel);
-//        childModel = new CustomExpandableListModel("Support", false, false);
-//        childModelsList.add(childModel);
-//
-//        childModel = new CustomExpandableListModel("Logout", false, false);
-//        childModelsList.add(childModel);
-//
-//        childModel = new CustomExpandableListModel("Terms & Conditions", false, false);
-//        childModelsList.add(childModel);
-//
-//        customExpandableListModel = new CustomExpandableListModel("Shipment", true, true); //Menu of Java Tutorials
-//        headerList.add(customExpandableListModel);
-//
-//        customExpandableListModel = new CustomExpandableListModel("Retailer", true, true); //Menu of Java Tutorials
-//        headerList.add(customExpandableListModel);
-//
-//        customExpandableListModel = new CustomExpandableListModel("Profile", true, true); //Menu of Java Tutorials
-//        headerList.add(customExpandableListModel);
-//
-//        customExpandableListModel = new CustomExpandableListModel("Support", true, true); //Menu of Java Tutorials
-//        headerList.add(customExpandableListModel);
-//
-//        customExpandableListModel = new CustomExpandableListModel("Logout", true, true); //Menu of Java Tutorials
-//        headerList.add(customExpandableListModel);
-//
-//        customExpandableListModel = new CustomExpandableListModel("Terms & Conditions", true, true); //Menu of Java Tutorials
-//        headerList.add(customExpandableListModel);
-//
-//
-//    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.distributor_dashboard, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        int position = menuItem.getItemId();
-
-        drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
 }
