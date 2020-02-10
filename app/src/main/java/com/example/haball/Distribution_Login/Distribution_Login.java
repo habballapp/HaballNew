@@ -166,6 +166,7 @@ public class Distribution_Login extends AppCompatActivity {
 
         progressDialog.setTitle("Resetting Password");
         progressDialog.setMessage("Loading, Please Wait..");
+        progressDialog.show();
         StringRequest sr = new StringRequest(Request.Method.POST, URL_FORGOT_PASSWORD, new Response.Listener<String>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
