@@ -175,9 +175,9 @@ public class PlaceholderFragment extends Fragment {
             public void onResponse(String result) {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
-                    DecimalFormat formatter1 = new DecimalFormat("#,###,###");
+                    DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
                     String yourFormattedString1 = formatter1.format(Integer.parseInt(jsonObject.get("TotalUnpaidAmount").toString()));
-                    DecimalFormat formatter2 = new DecimalFormat("#,###,###");
+                    DecimalFormat formatter2 = new DecimalFormat("#,###,###.00");
                     String yourFormattedString2 = formatter2.format(Integer.parseInt(jsonObject.get("TotalPrepaidAmount").toString()));
                     value_unpaid_amount.setText(yourFormattedString1);
                     value_paid_amount.setText(yourFormattedString2);

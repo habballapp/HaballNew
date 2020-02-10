@@ -85,7 +85,7 @@ public class DistributorDashboard extends AppCompatActivity {
         tv_username = toolbar.findViewById(R.id.tv_username);
         tv_user_company = toolbar.findViewById(R.id.tv_user_company);
 
-        tv_username.setText(username);
+        tv_username.setText("Hi, " + username);
         tv_user_company.setText(companyname);
 
         drawer = findViewById(R.id.drawer_layout);
@@ -106,14 +106,14 @@ public class DistributorDashboard extends AppCompatActivity {
                 .init(this)
                 .addHeaderModel(new HeaderModel("Dashboard"))
                 .addHeaderModel(new HeaderModel("Orders")
-                        .addChildModel(new ChildModel("Place Order")))
+                        .addChildModel(new ChildModel("\t\t\tPlace Order")))
                 .addHeaderModel(
                         new HeaderModel("Payment")
-                                .addChildModel(new ChildModel("Payments Summary"))
-                                .addChildModel(new ChildModel("Consolidate Payments"))
-                                .addChildModel(new ChildModel("Payment Request"))
-                                .addChildModel(new ChildModel("Payment Ledger"))
-                                .addChildModel(new ChildModel("Proof of Payments"))
+                                .addChildModel(new ChildModel("\t\t\tPayments Summary"))
+                                .addChildModel(new ChildModel("\t\t\tConsolidate Payments"))
+                                .addChildModel(new ChildModel("\t\t\tPayment Request"))
+                                .addChildModel(new ChildModel("\t\t\tPayment Ledger"))
+                                .addChildModel(new ChildModel("\t\t\tProof of Payments"))
 
                 )
                 .addHeaderModel(new HeaderModel("Shipment"))

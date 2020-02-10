@@ -22,6 +22,7 @@ import com.example.haball.R;
 import com.example.haball.Retailor.ui.Dashboard.DashBoardFragment;
 import com.example.haball.Retailor.ui.Make_Payment.Payment_Summary;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPaymentRequestAdaptor.ViewHolder> {
@@ -46,7 +47,9 @@ public class DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<Distr
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.tv_heading.setText(paymentsRequestList.get(position).getCompanyName());
         holder.payment_id_value.setText(paymentsRequestList.get(position).getPrePaidNumber());
-        holder.amount_value.setText(paymentsRequestList.get(position).getPaidAmount());
+        DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
+        String yourFormattedString1 = formatter1.format(Integer.parseInt(paymentsRequestList.get(position).getPaidAmount()));
+        holder.amount_value.setText(yourFormattedString1);
         if(paymentsRequestList.get(position).getStatus().equals("1"))
             holder.status_value.setText("Paid");
         else

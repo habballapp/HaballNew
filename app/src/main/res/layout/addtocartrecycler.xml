@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:background="#fff"
             android:weightSum="4"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_below="@+id/txt_price1">
             <ImageButton

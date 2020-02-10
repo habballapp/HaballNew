@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haball.R;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class PaymentLedgerAdapter extends RecyclerView.Adapter<PaymentLedgerAdapter.ViewHolder> {
@@ -35,14 +36,20 @@ public class PaymentLedgerAdapter extends RecyclerView.Adapter<PaymentLedgerAdap
         holder.tv_heading.setText(PaymentLedgerList.get(position).getCompanyName());
         holder.ledger_id_value.setText(PaymentLedgerList.get(position).getDocumentNumber());
         holder.document_type_value.setText(PaymentLedgerList.get(position).getDocumentType());
-        if(!PaymentLedgerList.get(position).getDebitAmount().equals("0"))
-            holder.transaction_value.setText(PaymentLedgerList.get(position).getDebitAmount());
-        else{
-            holder.transaction_value.setText(PaymentLedgerList.get(position).getCreditAmount());
+
+        DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
+        String yourFormattedString1;
+        if(!PaymentLedgerList.get(position).getDebitAmount().equals("0")) {
+            yourFormattedString1 = formatter1.format(Integer.parseInt(PaymentLedgerList.get(position).getDebitAmount()));
+            holder.transaction_value.setText(yourFormattedString1);
+        } else{
+            yourFormattedString1 = formatter1.format(Integer.parseInt(PaymentLedgerList.get(position).getCreditAmount()));
+            holder.transaction_value.setText(yourFormattedString1);
             holder.transaction.setText("Credit");
         }
-
-        holder.balance_value.setText(PaymentLedgerList.get(position).getBalanceAmount());
+        DecimalFormat formatter2 = new DecimalFormat("#,###,##0.00");
+        String yourFormattedString2 = formatter2.format(Integer.parseInt(PaymentLedgerList.get(position).getBalanceAmount()));
+        holder.balance_value.setText(yourFormattedString2);
     }
 
     @Override
