@@ -2,15 +2,24 @@ package com.example.haball.Payment;
 
 public class ConsolidatePaymentsModel {
 
-    private String ConsolidatedInvoiceNumber, CompanyName, CreatedDate, TotalPrice, PaidAmount, Status;
+    private String ID, ConsolidatedInvoiceNumber, CompanyName, CreatedDate, TotalPrice, PaidAmount, Status;
 
-    public ConsolidatePaymentsModel(String consolidatedInvoiceNumber, String companyName, String createdDate, String totalPrice, String paidAmount, String status) {
+    public ConsolidatePaymentsModel(String ID, String consolidatedInvoiceNumber, String companyName, String createdDate, String totalPrice, String paidAmount, String status) {
+        this.ID = ID;
         ConsolidatedInvoiceNumber = consolidatedInvoiceNumber;
         CompanyName = companyName;
         CreatedDate = createdDate;
         TotalPrice = totalPrice;
         PaidAmount = paidAmount;
         Status = status;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     public String getConsolidatedInvoiceNumber() {
