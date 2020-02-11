@@ -79,7 +79,7 @@ public class DistributorShipmentAdapter extends RecyclerView.Adapter<Distributor
                                 Toast.makeText(activity,"Delete Clicked",Toast.LENGTH_LONG).show();
                                 final AlertDialog deleteAlert = new AlertDialog.Builder(activity).create();
                                 LayoutInflater delete_inflater = LayoutInflater.from(activity);
-                                View delete_alert = delete_inflater.inflate(R.layout.delete_alert, null);
+                                final View delete_alert = delete_inflater.inflate(R.layout.delete_alert, null);
                                 deleteAlert.setView(delete_alert);
                                 Button btn_delete = (Button) delete_alert.findViewById(R.id.btn_delete);
                                 btn_delete.setOnClickListener(new View.OnClickListener() {
@@ -91,9 +91,23 @@ public class DistributorShipmentAdapter extends RecyclerView.Adapter<Distributor
                                         View delete_success_alert = delete_inflater.inflate(R.layout.delete_success, null);
                                         delete_successAlert.setView(delete_success_alert);
                                         delete_successAlert.show();
+                                        ImageButton img_close = (ImageButton) delete_alert.findViewById(R.id.btn_close_success);
+                                        img_close.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                deleteAlert.dismiss();
+                                            }
+                                        });
                                     }
                                 });
                                 deleteAlert.show();
+                                ImageButton img_close = (ImageButton) delete_alert.findViewById(R.id.btn_close);
+                                img_close.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        deleteAlert.dismiss();
+                                    }
+                                });
                                 break;
                         }
                         return false;
