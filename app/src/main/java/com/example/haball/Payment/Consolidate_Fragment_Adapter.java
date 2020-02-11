@@ -2,6 +2,7 @@ package com.example.haball.Payment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -50,7 +51,7 @@ public class Consolidate_Fragment_Adapter extends RecyclerView.Adapter<Consolida
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         int Total = Integer.parseInt(consolidatePaymentsRequestList.get(position).getTotalPrice())
                 -Integer.parseInt(consolidatePaymentsRequestList.get(position).getPaidAmount());
         String string = consolidatePaymentsRequestList.get(position).getCreatedDate();
@@ -90,10 +91,13 @@ public class Consolidate_Fragment_Adapter extends RecyclerView.Adapter<Consolida
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.consiladate_view:
+                                Consolidate_Fragment_View_Payment consolidateFragment = new Consolidate_Fragment_View_Payment();
+                                Bundle args = new Bundle();
+                                args.putString("ConsolidateInvoiceId", consolidatePaymentsRequestList.get(position).getID());
+                                consolidateFragment.setArguments(args);
                                 fragmentTransaction = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction.replace(R.id.main_container, new Consolidate_Fragment_View_Payment());
+                                fragmentTransaction.replace(R.id.main_container, consolidateFragment);
                                 fragmentTransaction.commit();
-                                //drawer.closeDrawer(GravityCompat.START);
                                 break;
                         }
                         return false;

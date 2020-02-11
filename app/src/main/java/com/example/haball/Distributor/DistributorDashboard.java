@@ -7,6 +7,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import com.example.haball.Distribution_Login.Distribution_Login;
 import com.example.haball.Distributor.ui.expandablelist.CustomExpandableListModel;
 import com.example.haball.Distributor.ui.expandablelist.CustomExpandableListViewAdapter;
 import com.example.haball.Distributor.ui.home.HomeFragment;
@@ -68,7 +69,7 @@ public class DistributorDashboard extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
     private DrawerLayout drawer;
     private ExpandableNavigationListView navigationExpandableListView;
-    private String username, companyname;
+    private String username, companyname, Token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +82,7 @@ public class DistributorDashboard extends AppCompatActivity {
                 Context.MODE_PRIVATE);
         username = sharedPreferences.getString("username", "");
         companyname = sharedPreferences.getString("CompanyName", "");
+        Token = sharedPreferences.getString("Login_Token", "");
 
         tv_username = toolbar.findViewById(R.id.tv_username);
         tv_user_company = toolbar.findViewById(R.id.tv_user_company);
@@ -106,14 +108,14 @@ public class DistributorDashboard extends AppCompatActivity {
                 .init(this)
                 .addHeaderModel(new HeaderModel("Dashboard"))
                 .addHeaderModel(new HeaderModel("Orders")
-                        .addChildModel(new ChildModel("\t\t\tPlace Order")))
+                        .addChildModel(new ChildModel("\tPlace Order")))
                 .addHeaderModel(
                         new HeaderModel("Payment")
-                                .addChildModel(new ChildModel("\t\t\tPayments Summary"))
-                                .addChildModel(new ChildModel("\t\t\tConsolidate Payments"))
-                                .addChildModel(new ChildModel("\t\t\tPayment Request"))
-                                .addChildModel(new ChildModel("\t\t\tPayment Ledger"))
-                                .addChildModel(new ChildModel("\t\t\tProof of Payments"))
+                                .addChildModel(new ChildModel("\tPayments Summary"))
+                                .addChildModel(new ChildModel("\tConsolidate Payments"))
+                                .addChildModel(new ChildModel("\tPayment Request"))
+                                .addChildModel(new ChildModel("\tPayment Ledger"))
+                                .addChildModel(new ChildModel("\tProof of Payments"))
 
                 )
                 .addHeaderModel(new HeaderModel("Shipment"))
@@ -161,6 +163,11 @@ public class DistributorDashboard extends AppCompatActivity {
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 7) {
                             Log.i("Logout", "Logout Activity");
+                            if (Token != null){
+                                Intent login = new Intent(DistributorDashboard.this, Distribution_Login.class);
+                                startActivity(login);
+                                finish();
+                            }
                             drawer.closeDrawer(GravityCompat.START);
                         }
 

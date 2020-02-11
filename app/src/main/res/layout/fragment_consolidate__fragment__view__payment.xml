@@ -15,10 +15,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:background="@drawable/underline"
             android:orientation="vertical">
-
-
 
             <TextView
                 android:layout_width="wrap_content"
@@ -27,8 +27,6 @@
                 android:text="Payments"
                 android:paddingBottom="10dp"
                 android:layout_weight="1"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
                 android:textSize="18sp"
                 android:textColor="#96bb3c"
                 android:background="@drawable/half_underline"
@@ -55,21 +53,20 @@
                 android:text="Invoice ID"
                 android:layout_marginTop="10dp"
                 android:textColor="#96bb3c"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/consolidated_view_invoice_id"
                 android:layout_width="match_parent"
-                android:layout_height="80px"
-                android:gravity="center_vertical"
+                android:layout_height="40dp"
                 android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginRight="40dp"
                 android:layout_weight="1"
-                android:paddingLeft="20dp"
-                android:hint="555551223455"
                 android:background="@drawable/distribution_login"
-                android:textSize="10sp" />
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -80,12 +77,12 @@
                 android:text="Invoice Date"
                 android:layout_marginTop="15dp"
                 android:textColor="#96bb3c"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/consolidated_view_invoice_date"
                 android:layout_width="match_parent"
-                android:layout_height="80px"
+                android:layout_height="40dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="5dp"
@@ -94,9 +91,8 @@
                 android:paddingRight="10dp"
                 android:drawablePadding="10dp"
                 android:gravity="center_vertical"
-                android:hint="06/01/2020"
                 android:background="@drawable/distribution_login"
-                android:textSize="10sp" />
+                android:textSize="14sp" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -106,12 +102,12 @@
                 android:text="Invoice Amount"
                 android:layout_marginTop="15dp"
                 android:textColor="#96bb3c"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/consolidated_view_invoice_amount"
                 android:layout_width="match_parent"
-                android:layout_height="80px"
+                android:layout_height="40dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="5dp"
@@ -119,37 +115,35 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
                 android:drawablePadding="10dp"
-                android:hint="5475"
                 android:gravity="center_vertical"
                 android:background="@drawable/distribution_login"
-                android:textSize="10sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="15dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:layout_weight="1"
                 android:text="Company"
                 android:layout_marginTop="15dp"
                 android:textColor="#96bb3c"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
-            <EditText
-                android:id="@+id/onsolidated_view_company"
+            <TextView
+                android:id="@+id/consolidated_view_company"
                 android:layout_width="match_parent"
-                android:layout_height="80px"
+                android:layout_height="40dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:hint="Shield"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
                 android:drawablePadding="10dp"
                 android:background="@drawable/distribution_login"
-                android:textSize="10sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -160,21 +154,22 @@
                 android:text="Status"
                 android:layout_marginTop="15dp"
                 android:textColor="#96bb3c"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/onsolidated_view_status"
+                android:id="@+id/consolidated_view_status"
                 android:layout_width="match_parent"
-                android:layout_height="80px"
+                android:layout_height="40dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:paddingLeft="15dp"
                 android:gravity="center_vertical"
-                android:text="Paid"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:drawablePadding="10dp"
                 android:background="@drawable/distribution_login"
-                android:textSize="10sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -195,7 +190,6 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -207,7 +201,5 @@
             android:layout_marginBottom="15dp"
             android:layout_marginRight="40dp"
             android:layout_marginLeft="40dp"/>
-
-
     </RelativeLayout>
 </ScrollView>
