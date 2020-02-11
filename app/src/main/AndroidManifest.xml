@@ -37,6 +37,7 @@
         <activity android:name=".Registration.Register_Activity_2" />
         <activity android:name=".Registration.Registration_Actvity2" />
         <activity android:name=".Support.Support_Ticket_Form" />
+        <activity android:name=".Distributor.ui.support.SupportTicketFormFragment" />
         <activity
             android:name=".Select_User.Register_Activity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

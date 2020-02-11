@@ -1,60 +1,60 @@
-package com.example.haball.Support;
+package com.example.haball.Distributor.ui.support;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+        import androidx.appcompat.app.ActionBar;
+        import androidx.appcompat.app.AlertDialog;
+        import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Paint;
-import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
+        import android.content.Context;
+        import android.content.Intent;
+        import android.content.SharedPreferences;
+        import android.graphics.Paint;
+        import android.os.Bundle;
+        import android.text.SpannableString;
+        import android.text.style.UnderlineSpan;
+        import android.util.Log;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.widget.AdapterView;
+        import android.widget.ArrayAdapter;
+        import android.widget.Button;
+        import android.widget.EditText;
+        import android.widget.ImageButton;
+        import android.widget.Spinner;
+        import android.widget.TextView;
+        import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.haball.Distribution_Login.Distribution_Login;
-import com.example.haball.Distributor.DistributorDashboard;
-import com.example.haball.R;
-import com.example.haball.Registration.Registration_Actvity2;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+        import com.android.volley.AuthFailureError;
+        import com.android.volley.Request;
+        import com.android.volley.Response;
+        import com.android.volley.VolleyError;
+        import com.android.volley.toolbox.JsonArrayRequest;
+        import com.android.volley.toolbox.JsonObjectRequest;
+        import com.android.volley.toolbox.StringRequest;
+        import com.android.volley.toolbox.Volley;
+        import com.example.haball.Distribution_Login.Distribution_Login;
+        import com.example.haball.Distributor.DistributorDashboard;
+        import com.example.haball.R;
+        import com.example.haball.Registration.Registration_Actvity2;
+        import com.google.gson.JsonArray;
+        import com.google.gson.JsonObject;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+        import org.json.JSONArray;
+        import org.json.JSONException;
+        import org.json.JSONObject;
 
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+        import java.net.URLConnection;
+        import java.util.ArrayList;
+        import java.util.HashMap;
+        import java.util.List;
+        import java.util.Map;
 
-public class Support_Ticket_Form extends AppCompatActivity {
+public class SupportTicketFormFragment extends AppCompatActivity {
 
     private EditText BName, Email, MobileNo, Comment;
     private ImageButton btn_back;
     private Spinner IssueType, critcicality, Preffered_Contact;
-    private String URL_SPINNER_ISSUETYPE = "http://175.107.203.97:4008/api/lookup/ISSUE_TYPE_PUBLIC";
-    private String URL_SPINNER_CRITICALITY = "http://175.107.203.97:4008/api/lookup/CRITICALITY_PUBLIC";
+    private String URL_SPINNER_ISSUETYPE = "http://175.107.203.97:4008/api/lookup/ISSUE_TYPE_PRIVATE";
+    private String URL_SPINNER_CRITICALITY = "http://175.107.203.97:4008/api/lookup/CRITICALITY_PRIVATE";
     private String URL_SPINNER_PREFFEREDCONTACT = "http://175.107.203.97:4008/api/lookup/public/CONTRACTING_METHOD";
     private String URL_TICkET = "http://175.107.203.97:4008/api/contact/save";
 
@@ -340,3 +340,4 @@ public class Support_Ticket_Form extends AppCompatActivity {
     }
 
 }
+

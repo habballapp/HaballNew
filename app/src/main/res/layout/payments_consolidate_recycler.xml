@@ -21,9 +21,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:textColor="#676a6c"
             android:text="Ghulam Rabani &amp; Sons Traders &amp; Distributors"
             android:textStyle="bold"
+            android:textColor="#676a6c"
             android:textSize="18sp" />
 
         <ImageButton

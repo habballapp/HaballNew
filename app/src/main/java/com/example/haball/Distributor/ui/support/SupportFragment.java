@@ -66,7 +66,7 @@ public class SupportFragment extends Fragment {
         btn_add_ticket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), Support_Ticket_Form.class);
+                Intent intent = new Intent(getActivity(), SupportTicketFormFragment.class);
                 startActivity(intent);
             }
         });
