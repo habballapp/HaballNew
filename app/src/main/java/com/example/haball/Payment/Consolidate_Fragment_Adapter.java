@@ -12,11 +12,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.view.GravityCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haball.Distribution_Login.Distribution_Login;
+import com.example.haball.Distributor.ui.payments.PaymentRequestDashboard;
 import com.example.haball.Distributor.ui.payments.Payments_Fragment;
 import com.example.haball.Distributor.ui.payments.ProofOfPaymentForm;
 import com.example.haball.Distributor.ui.shipments.DistributorShipment_ViewDashboard;
@@ -88,8 +90,10 @@ public class Consolidate_Fragment_Adapter extends RecyclerView.Adapter<Consolida
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.consiladate_view:
-                                Intent intent = new Intent(context, Consolidate_Payment_View.class);
-                                context.startActivity(intent);
+                                fragmentTransaction = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
+                                fragmentTransaction.replace(R.id.main_container, new Consolidate_Fragment_View_Payment());
+                                fragmentTransaction.commit();
+                                //drawer.closeDrawer(GravityCompat.START);
                                 break;
                         }
                         return false;
