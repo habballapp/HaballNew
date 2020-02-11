@@ -14,14 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="3">
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.25">
 
             <TextView
-                android:id="@+id/consolidate_amount_value"
+                android:id="@+id/subject"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/consolidate_invoice_no_view"
@@ -32,47 +31,25 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/consolidate_status_view"
+                android:id="@+id/notification_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/consolidate_amount_value"
+                android:layout_below="@+id/subject"
+                android:layout_marginTop="10dp"
                 android:text="Payment ID"
-                android:layout_marginTop="10dp"
-                android:textSize="14sp"
-                />
-            <TextView
-                android:id="@+id/notification_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/consolidate_amount_value"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/consolidate_status_view"
-                android:text="001569787865"
-                android:textColor="#676a6c"
-                android:layout_marginTop="10dp"
                 android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/consolidate_status_view_current"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/consolidate_amount_value"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/notification_id"
-                android:text="has been paid"
-                android:textColor="#676a6c"
-                android:layout_marginTop="10dp"
-                android:textSize="14sp" />
         </RelativeLayout>
         <ImageButton
-            android:id="@+id/consolidate_menu_btn"
+            android:id="@+id/menu_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2.75"
-            android:background="@null"
             android:src="@drawable/ic_more_vert_black_24dp"
-            android:textColor="#676a6c"
-            android:textSize="14sp" />
+            android:background="@null"
+            android:layout_weight="2.75"
+            android:textSize="18sp"
+            android:layout_marginRight="10dp"
+            android:textColor="#000"/>
     </LinearLayout>
 
 </RelativeLayout>

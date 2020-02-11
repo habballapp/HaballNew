@@ -286,7 +286,7 @@ public class Distribution_Login extends AppCompatActivity {
                         String DistributorId = userAccount.get("DistributorID").toString();
                         String username = userAccount.get("Username").toString();
                         String CompanyName = userAccount.get("CompanyName").toString();
-
+                        String ID = userAccount.get("ID").toString();
                         SharedPreferences login_token = getSharedPreferences("LoginToken",
                                 Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = login_token.edit();
@@ -294,6 +294,7 @@ public class Distribution_Login extends AppCompatActivity {
                         editor.putString("Distributor_Id",DistributorId);
                         editor.putString("username",username);
                         editor.putString("CompanyName",CompanyName);
+                        editor.putString("ID",ID);
 
                         editor.commit();
 

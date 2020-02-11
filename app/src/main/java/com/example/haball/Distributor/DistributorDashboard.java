@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import com.example.haball.Distribution_Login.Distribution_Login;
+import com.example.haball.Distributor.ui.Fragment_Notification.FragmentNotification;
 import com.example.haball.Distributor.ui.expandablelist.CustomExpandableListModel;
 import com.example.haball.Distributor.ui.expandablelist.CustomExpandableListViewAdapter;
 import com.example.haball.Distributor.ui.home.HomeFragment;
@@ -56,6 +57,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,6 +72,7 @@ public class DistributorDashboard extends AppCompatActivity {
     private DrawerLayout drawer;
     private ExpandableNavigationListView navigationExpandableListView;
     private String username, companyname, Token;
+    private ImageButton notification_icon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +89,16 @@ public class DistributorDashboard extends AppCompatActivity {
 
         tv_username = toolbar.findViewById(R.id.tv_username);
         tv_user_company = toolbar.findViewById(R.id.tv_user_company);
+        notification_icon = toolbar.findViewById(R.id.notification_icon);
+
+        notification_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, new FragmentNotification());
+                fragmentTransaction.commit();
+            }
+        });
 
         tv_username.setText("Hi, " + username);
         tv_user_company.setText(companyname);
