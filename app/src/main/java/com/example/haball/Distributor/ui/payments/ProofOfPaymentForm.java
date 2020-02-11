@@ -1,5 +1,6 @@
 package com.example.haball.Distributor.ui.payments;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -98,6 +99,13 @@ public class ProofOfPaymentForm extends Fragment {
         btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+//                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+//                LayoutInflater inflater = LayoutInflater.from(getContext());
+//                View view_popup = inflater.inflate(R.layout.upload_file_layout, null);
+//                alertDialog.setView(view_popup);
+//
+//                alertDialog.show();
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
                 photoPickerIntent.setType("image/*");
                 startActivityForResult(photoPickerIntent, RESULT_LOAD_IMAGE);
