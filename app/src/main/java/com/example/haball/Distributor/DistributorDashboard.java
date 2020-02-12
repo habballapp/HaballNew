@@ -8,7 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import com.example.haball.Distribution_Login.Distribution_Login;
-//import com.example.haball.Distributor.ui.Fragment_Notification.FragmentNotification;
+import com.example.haball.Distributor.ui.Fragment_Notification.FragmentNotification;
 import com.example.haball.Distributor.ui.expandablelist.CustomExpandableListModel;
 import com.example.haball.Distributor.ui.expandablelist.CustomExpandableListViewAdapter;
 import com.example.haball.Distributor.ui.home.HomeFragment;
@@ -94,9 +94,9 @@ public class DistributorDashboard extends AppCompatActivity {
         notification_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.main_container, new FragmentNotification());
-//                fragmentTransaction.commit();
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, new FragmentNotification());
+                fragmentTransaction.commit();
             }
         });
 
