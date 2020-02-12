@@ -1,8 +1,15 @@
 package com.example.haball.Distributor.ui.payments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +19,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,11 +43,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static android.app.Activity.RESULT_OK;
 
 public class ProofOfPaymentForm extends Fragment {
     private RecyclerView recyclerView;
@@ -56,6 +70,20 @@ public class ProofOfPaymentForm extends Fragment {
     private List<String> payment_ids = new ArrayList<>();
     private List<String> payment_modes = new ArrayList<>();
     private String DistributorId, selected_paymentid, selected_paymentmode;
+    private Button btn_upload;
+    private static int RESULT_LOAD_IMAGE = 1;
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            final Uri imageUri = data.getData();
+            String imageName = getRealPathFromURI(imageUri);
+            Toast.makeText(getContext(), imageName, Toast.LENGTH_LONG).show();
+        }else {
+            Toast.makeText(getContext(), "You haven't picked Image",Toast.LENGTH_LONG).show();
+        }
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -67,6 +95,22 @@ public class ProofOfPaymentForm extends Fragment {
 
         spinner_payment_id = root.findViewById(R.id.spinner_id);
         spinner_mode_of_payments = root.findViewById(R.id.payment_mode);
+        btn_upload = root.findViewById(R.id.btn_upload);
+        btn_upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+//                LayoutInflater inflater = LayoutInflater.from(getContext());
+//                View view_popup = inflater.inflate(R.layout.upload_file_layout, null);
+//                alertDialog.setView(view_popup);
+//
+//                alertDialog.show();
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, RESULT_LOAD_IMAGE);
+            }
+        });
 
         arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
                 android.R.layout.simple_dropdown_item_1line, payment_ids);
@@ -210,5 +254,16 @@ public class ProofOfPaymentForm extends Fragment {
             arrayAdapterPayments.notifyDataSetChanged();
             spinner_payment_id.setAdapter(arrayAdapterPayments);
         }
+    private String getRealPathFromURI(Uri contentURI) {
 
+        String thePath = "no-path-found";
+        String[] filePathColumn = {MediaStore.Images.Media.DISPLAY_NAME};
+        Cursor cursor = getContext().getContentResolver().query(contentURI, filePathColumn, null, null, null);
+        if(cursor.moveToFirst()){
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            thePath = cursor.getString(columnIndex);
+        }
+        cursor.close();
+        return  thePath;
+    }
 }

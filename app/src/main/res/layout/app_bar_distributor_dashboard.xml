@@ -22,10 +22,13 @@
                 android:layout_marginLeft="50dp"
                 android:layout_height="wrap_content">
 
-                <ImageView
+                <ImageButton
+                    android:id="@+id/notification_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/tv_username"
+                    android:layout_marginRight="10dp"
+                    android:background="@android:color/transparent"
                     android:src="@drawable/ic_notifications_black_24dp"/>
                 <TextView
                     android:id="@+id/tv_username"

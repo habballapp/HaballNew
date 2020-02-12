@@ -67,7 +67,7 @@ public class DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<Distr
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.payment_request_edit:
-                                Toast.makeText(context,"Edit Clicked",Toast.LENGTH_LONG).show();
+                               // Toast.makeText(context,"Edit Clicked",Toast.LENGTH_LONG).show();
                                 final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
                                 LayoutInflater inflater = LayoutInflater.from(context);
                                 View view_popup = inflater.inflate(R.layout.edit_payment_request,null);
@@ -76,7 +76,7 @@ public class DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<Distr
                                 btn_update.setOnClickListener(new View.OnClickListener() {
                                     public void onClick(View v) {
                                         alertDialog.dismiss();
-                                        Toast.makeText(context,"Update",Toast.LENGTH_LONG).show();
+                                    //    Toast.makeText(context,"Update",Toast.LENGTH_LONG).show();
                                         final AlertDialog alertDialog1 = new AlertDialog.Builder(context).create();
                                         LayoutInflater inflater = LayoutInflater.from(context);
                                         View view_popup = inflater.inflate(R.layout.edit_request_payment_success, null);
@@ -105,14 +105,19 @@ public class DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<Distr
                                 break;
                             case R.id.payment_request_bank:
                                 //handle menu2 click
-                                Toast.makeText(context,"Bank Clicked",Toast.LENGTH_LONG).show();
+                              //  Toast.makeText(context,"Bank Clicked",Toast.LENGTH_LONG).show();
                                 final AlertDialog alertDialog2 = new AlertDialog.Builder(context).create();
                                 LayoutInflater inflater2 = LayoutInflater.from(context);
                                 View view_popup2 = inflater2.inflate(R.layout.payment_request_details,null);
                                 alertDialog2.setView(view_popup2);
                                 alertDialog2.show();
-
-
+                                ImageButton img_close = (ImageButton) view_popup2.findViewById(R.id.image_button_close);
+                                img_close.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        alertDialog2.dismiss();
+                                    }
+                                });
                                 break;
                             case R.id.menu_delete:
                                 //handle menu3 click
