@@ -17,14 +17,25 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProofOfPaymentsFormAdapter extends RecyclerView.Adapter<ProofOfPaymentsFormAdapter.ViewHolder> {
     private Context mContext;
-    private String deposit,slip;
+    private List<String> documentNames;
+    private List<String> selectedImageFileTypes;
 
-    public ProofOfPaymentsFormAdapter(Proof_Of_Payment_Form proof_of_payment_form, String deposit, String slip) {
-        this.mContext = proof_of_payment_form;
-        this.deposit = deposit;
-        this.slip = slip;
+//    public ProofOfPaymentsFormAdapter(Proof_Of_Payment_Form proof_of_payment_form, String deposit, String slip) {
+//        this.mContext = proof_of_payment_form;
+//        this.deposit = deposit;
+//        this.slip = slip;
+//    }
+
+    public ProofOfPaymentsFormAdapter(Context context, ArrayList<String> documentNames, ArrayList<String> selectedImageFileTypes) {
+        this.mContext = context;
+        this.documentNames = documentNames;
+        this.selectedImageFileTypes = selectedImageFileTypes;
+
     }
 
     @NonNull
@@ -36,14 +47,13 @@ public class ProofOfPaymentsFormAdapter extends RecyclerView.Adapter<ProofOfPaym
 
     @Override
     public void onBindViewHolder(@NonNull ProofOfPaymentsFormAdapter.ViewHolder holder, int position) {
-        holder.txt_doc1.setText(deposit);
-        holder.txt_slip.setText(slip);
+        holder.txt_doc1.setText(documentNames.get(position));
+        holder.txt_slip.setText(selectedImageFileTypes.get(position));
     }
-
 
     @Override
     public int getItemCount() {
-        return 1;
+        return documentNames.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -162,12 +162,12 @@
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:text="No Files Uploaded"
-                        android:padding="10dp"
+                        android:padding="5dp"
                         android:textAlignment="center"
                         android:background="@drawable/edit_round"
                         >
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rv_proof_of_payments_form"
+                            android:id="@+id/rv_upload_doc"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             />

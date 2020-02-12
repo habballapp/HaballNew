@@ -41,19 +41,19 @@ public class Proof_Of_Payment_Form extends AppCompatActivity {
         Button rl = (Button) findViewById(R.id.btn_upload);
 
 
-        recyclerView = (RecyclerView) findViewById(R.id.rv_proof_of_payments_form);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        recyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        // specify an adapter (see also next example)
-        mAdapter = new ProofOfPaymentsFormAdapter(Proof_Of_Payment_Form.this,"Document 01","Deposit slip");
-        recyclerView.setAdapter(mAdapter);
+//        recyclerView = (RecyclerView) findViewById(R.id.rv_proof_of_payments_form);
+//
+//        // use this setting to improve performance if you know that changes
+//        // in content do not change the layout size of the RecyclerView
+//        recyclerView.setHasFixedSize(true);
+//
+//        // use a linear layout manager
+//        layoutManager = new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(layoutManager);
+//
+//        // specify an adapter (see also next example)
+//        mAdapter = new ProofOfPaymentsFormAdapter(Proof_Of_Payment_Form.this,"Document 01","Deposit slip");
+//        recyclerView.setAdapter(mAdapter);
     }
 }
 

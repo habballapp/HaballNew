@@ -3,55 +3,64 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-  <RelativeLayout
+  <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+      android:layout_height="wrap_content"
+      android:weightSum="4">
 
-        <TextView
-            android:id="@+id/txt_doc1"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:text="Document 01"
-            android:layout_marginLeft="10dp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="2">
+            <TextView
+                android:id="@+id/txt_doc1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Document 01"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:textColor="#000000"
+                />
 
-        <TextView
-            android:id="@+id/txt_slip"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_below="@id/txt_doc1"
-            android:text="Deposit Slip"
-            android:layout_marginLeft="10dp"
-            />
+            <TextView
+                android:id="@+id/txt_slip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_doc1"
+                android:text="Deposit Slip"
+                android:textSize="12sp"
+                />
+        </LinearLayout>
 
       <Button
           android:id="@+id/btn_view"
-          android:layout_width="wrap_content"
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_alignParentRight="true"
-          android:layout_marginRight="100dp"
           android:text="view"
+          android:layout_weight="1"
           android:textColor="#96bb3c"
+          android:textSize="12sp"
+          android:textStyle="bold"
           android:background="@android:color/transparent"
 
           />
 
       <Button
           android:id="@+id/btn_remove"
-          android:layout_width="wrap_content"
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_alignParentRight="true"
           android:text="Remove"
           android:textColor="#FFA500"
-          android:layout_marginRight="20dp"
-          android:layout_alignParentEnd="true"
+          android:layout_weight="1"
+          android:textSize="12sp"
+          android:textStyle="bold"
+          android:layout_marginRight="5dp"
           android:background="@android:color/transparent"
 
           />
 
-  </RelativeLayout>
+  </LinearLayout>
 
 
 
