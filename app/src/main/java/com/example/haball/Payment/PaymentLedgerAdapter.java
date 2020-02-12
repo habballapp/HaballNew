@@ -48,7 +48,7 @@ public class PaymentLedgerAdapter extends RecyclerView.Adapter<PaymentLedgerAdap
             holder.transaction.setText("Credit");
         }
         DecimalFormat formatter2 = new DecimalFormat("#,###,##0.00");
-        String yourFormattedString2 = formatter2.format(Integer.parseInt(PaymentLedgerList.get(position).getBalanceAmount()));
+        String yourFormattedString2 = formatter2.format(Double.parseDouble(PaymentLedgerList.get(position).getBalanceAmount()));
         holder.balance_value.setText(yourFormattedString2);
     }
 
