@@ -70,7 +70,7 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
 
                                 TextView tv_username, et_email, et_phone, et_issue_type, et_criticality, et_preffered_contact, et_status, et_comments;
                                 Toast.makeText(mContxt,"View Clicked",Toast.LENGTH_LONG).show();
-                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContxt);
+                                final AlertDialog alertDialog = new AlertDialog.Builder(mContxt).create();
                                 LayoutInflater inflater = LayoutInflater.from(mContxt);
                                 View view_popup = inflater.inflate(R.layout.view_popup, null);
                                 alertDialog.setView(view_popup);
@@ -92,7 +92,13 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
                                 et_preffered_contact.setText("Preferred Contact Method: "+supportList.get(position).getPreferredContactMethod());
                                 et_status.setText("Status: "+supportList.get(position).getStatus());
                                 et_comments.setText("Message: "+supportList.get(position).getDescription());
-
+                                ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+                                img_email.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        alertDialog.dismiss();
+                                    }
+                                });
                                 alertDialog.show();
                                 break;
                             case R.id.menu_edit:
@@ -112,11 +118,26 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
                                     @Override
                                     public void onClick(View view) {
                                         deleteAlert.dismiss();
-                                        AlertDialog.Builder delete_successAlert = new AlertDialog.Builder(mContxt);
+                                        final AlertDialog delete_successAlert = new AlertDialog.Builder(mContxt).create();
                                         LayoutInflater delete_inflater = LayoutInflater.from(mContxt);
                                         View delete_success_alert = delete_inflater.inflate(R.layout.delete_success, null);
                                         delete_successAlert.setView(delete_success_alert);
+
+                                        ImageButton img_delete = (ImageButton) delete_success_alert.findViewById(R.id.btn_close_success);
+                                        img_delete.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                delete_successAlert.dismiss();
+                                            }
+                                        });
                                         delete_successAlert.show();
+                                    }
+                                });
+                                ImageButton img_delete_alert = (ImageButton) delete_alert.findViewById(R.id.btn_close);
+                                img_delete_alert.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        deleteAlert.dismiss();
                                     }
                                 });
                                 deleteAlert.show();

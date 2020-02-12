@@ -42,6 +42,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_header1"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:orientation="horizontal"
             android:weightSum="3"
 
@@ -49,10 +51,9 @@
 
             <TextView
                 android:id="@+id/tv_pr1"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:layout_marginLeft="40dp"
                 android:padding="10dp"
                 android:justificationMode="inter_word"
                 android:layout_below="@id/txt_header1"
@@ -65,33 +66,35 @@
 
             <TextView
                 android:id="@+id/tv_pr2"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:layout_marginLeft="-200dp"
-                android:layout_marginRight="120dp"
-                android:layout_below="@id/tv_pr1"
-                android:layout_marginTop="21dp"
+                android:paddingLeft="5dp"
+                android:layout_below="@id/txt_header1"
+                android:layout_toRightOf="@id/tv_pr1"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
                 android:textSize="15sp"
                 android:text="5355"
                 android:textStyle="bold"
 
                 />
+
         </LinearLayout>
+
         <TextView
             android:id="@+id/tv_pr3"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
             android:layout_below="@id/ln_txt"
-            android:layout_marginTop="2dp"
             android:gravity="center_vertical"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:textSize="15sp"
-            android:padding="10dp"
-            android:justificationMode="inter_word"
+            android:paddingLeft="10dp"
             android:text="@string/pr9"
             android:inputType="textMultiLine"
             />
+
 
 
 
