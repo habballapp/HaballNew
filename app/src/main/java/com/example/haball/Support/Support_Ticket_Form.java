@@ -53,8 +53,8 @@ public class Support_Ticket_Form extends AppCompatActivity {
     private EditText BName, Email, MobileNo, Comment;
     private ImageButton btn_back;
     private Spinner IssueType, critcicality, Preffered_Contact;
-    private String URL_SPINNER_ISSUETYPE = "http://175.107.203.97:4008/api/lookup/ISSUE_TYPE_PUBLIC";
-    private String URL_SPINNER_CRITICALITY = "http://175.107.203.97:4008/api/lookup/CRITICALITY_PUBLIC";
+    private String URL_SPINNER_ISSUETYPE = "http://175.107.203.97:4008/api/lookup/public/ISSUE_TYPE_PUBLIC";
+    private String URL_SPINNER_CRITICALITY = "http://175.107.203.97:4008/api/lookup/public/CRITICALITY_PUBLIC";
     private String URL_SPINNER_PREFFEREDCONTACT = "http://175.107.203.97:4008/api/lookup/public/CONTRACTING_METHOD";
     private String URL_TICkET = "http://175.107.203.97:4008/api/contact/save";
 
@@ -176,12 +176,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
 
     }
 
-    private void makeTicketAddRequest() throws JSONException{
-        SharedPreferences sharedPreferences = getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences.getString("Distributor_Id","");
-        Log.i("DistributorId ", DistributorId);
-
+    private void makeTicketAddRequest() throws JSONException {
         JSONObject map = new JSONObject();
         map.put("Name", BName.getText().toString());
         map.put("EmailAddress", Email.getText().toString());
@@ -213,11 +208,6 @@ public class Support_Ticket_Form extends AppCompatActivity {
     }
 
     private void fetchIssueType() {
-        SharedPreferences sharedPreferences = getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token","");
-        Log.i("Token", Token);
-
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNER_ISSUETYPE,null,new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
@@ -242,7 +232,6 @@ public class Support_Ticket_Form extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer "+Token);
                 params.put("rightid", "-1");
                 return params;
             }
@@ -254,12 +243,6 @@ public class Support_Ticket_Form extends AppCompatActivity {
     }
 
     private void fetchCriticality() {
-        SharedPreferences sharedPreferences = getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token","");
-        Log.i("Token", Token);
-
-
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNER_CRITICALITY,null,new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
@@ -285,7 +268,6 @@ public class Support_Ticket_Form extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer "+Token);
                 params.put("rightid", "-1");
                 return params;
             }
@@ -297,12 +279,6 @@ public class Support_Ticket_Form extends AppCompatActivity {
     }
 
     private void fetchPrefferedContact() {
-        SharedPreferences sharedPreferences = getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token","");
-        Log.i("Token", Token);
-
-
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNER_PREFFEREDCONTACT,null,new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="30dp"
+    android:background="@drawable/edit_text_squared"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingTop="20dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25">
+            <TextView
+                android:id="@+id/tv_pop_detail_title_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_heading"
+                android:text="Title:"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/tv_pop_detail_title_view_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_heading"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/tv_pop_detail_title_view"
+                android:text="Title_Text"
+                android:textColor="#676a6c"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/tv_pop_created_date_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_pop_detail_title_view"
+                android:text="Created Date:"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/tv_pop_created_date_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_pop_detail_title_view"
+                android:layout_marginLeft="1dp"
+                android:layout_toRightOf="@+id/tv_pop_created_date_view"
+                android:text="12/02/2020"
+                android:textColor="#676a6c"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_pop_status_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_pop_created_date_view"
+                android:text="File Type: "
+                android:textSize="14sp"
+                />
+            <TextView
+                android:id="@+id/tv_pop_status_view_current"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_pop_created_date_value"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/tv_pop_status_view"
+                android:text="CNIC"
+                android:textColor="#676a6c"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+        </RelativeLayout>
+        <ImageButton
+            android:id="@+id/pop_menu_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.75"
+            android:background="@null"
+            android:src="@drawable/ic_more_vert_black_24dp"
+            android:textColor="#676a6c"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</RelativeLayout>
