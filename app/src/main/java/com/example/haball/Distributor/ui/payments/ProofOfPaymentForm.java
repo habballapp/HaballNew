@@ -1,6 +1,7 @@
 package com.example.haball.Distributor.ui.payments;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Base64;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -91,6 +93,9 @@ public class ProofOfPaymentForm extends Fragment {
     private ArrayList<String> selectedImageFileTypes = new ArrayList<>();
     private ArrayList<String> imageBitmapBase64 = new ArrayList<>();
 
+    private ProgressDialog progressDialog;
+    private CountDownTimer CDT;
+    private int i=8;
     private String selectedFileType, imageName;
     private TextView FileName;
     private EditText txt_bank, txt_branch, txt_transaction;
@@ -98,7 +103,7 @@ public class ProofOfPaymentForm extends Fragment {
     public static String encodeTobase64(Bitmap image) {
         Bitmap immagex=image;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        immagex.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        immagex.compress(Bitmap.CompressFormat.JPEG, 30, baos);
         byte[] b = baos.toByteArray();
 
         String imageEncoded = Base64.encodeToString(baos.toByteArray(),Base64.NO_WRAP);
@@ -151,6 +156,7 @@ public class ProofOfPaymentForm extends Fragment {
         txt_branch = root.findViewById(R.id.txt_branch);
         txt_transaction = root.findViewById(R.id.txt_transaction);
 
+        progressDialog = new ProgressDialog(getContext());
 
         btn_finish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -241,6 +247,7 @@ public class ProofOfPaymentForm extends Fragment {
             array.put(obj);
         }
 
+        System.out.println("JSON ARRAY"+array);
         JSONObject map = new JSONObject();
         map.put("ID",0);
         map.put("Status",0);
@@ -339,6 +346,27 @@ public class ProofOfPaymentForm extends Fragment {
                     mAdapter = new ProofOfPaymentsFormAdapter(getContext(),DocumentNames, selectedImageFileTypes);
                     recyclerView.setAdapter(mAdapter);
                     alertDialog.dismiss();
+                    progressDialog.setTitle("Uploading ... ");
+                    progressDialog.setMessage("Please wait...");
+                    progressDialog.setCancelable(false);
+                    progressDialog.setProgress(i);
+                    progressDialog.show();
+
+                    CDT = new CountDownTimer(8000, 1000)
+                    {
+                        public void onTick(long millisUntilFinished)
+                        {
+                            progressDialog.setMessage("Please wait...");
+                            i--;
+                        }
+
+                        public void onFinish()
+                        {
+                            i=8;
+                            progressDialog.dismiss();
+                            //Your Code ...
+                        }
+                    }.start();
                 }
             }
         });
