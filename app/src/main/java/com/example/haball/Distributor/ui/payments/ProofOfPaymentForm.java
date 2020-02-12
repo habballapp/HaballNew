@@ -9,8 +9,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Base64;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Payment.ConsolidatePaymentsModel;
 import com.example.haball.Payment.Consolidate_Fragment_Adapter;
@@ -68,28 +70,38 @@ public class ProofOfPaymentForm extends Fragment {
     private String Token;
     private String URL_PROOF_OF_PAYMENTS = "http://175.107.203.97:4008/api/prepaidrequests/PrepaidPOP/";
     private String URL_MODE_OF_PAYMENTS = "http://175.107.203.97:4008/api/lookup/PROOF_OF_PAYMENT";
+    private String URL_PROOF_OF_PAYMENTS_SUBMIT = "http://175.107.203.97:4008/api/proofofpayment/save";
 
     private Spinner spinner_payment_id, spinner_mode_of_payments;
     private ArrayAdapter<String> arrayAdapterPayments;
     private ArrayAdapter<String> arrayAdapterPaymentModes;
     private List<ProofOfPaymentModel> proofOfPaymentsList = new ArrayList<>();
+    private HashMap<String, String> PaymentIdNumber = new HashMap<>();
+    private HashMap<String, String> PaymentModeAndID = new HashMap<>();
+    private HashMap<String, String> FileTypeIdValue = new HashMap<>();
+
     private List<String> payment_ids = new ArrayList<>();
+    private List<String> paymentID = new ArrayList<>();
     private List<String> payment_modes = new ArrayList<>();
     private String DistributorId, selected_paymentid, selected_paymentmode;
-    private Button btn_upload;
+    private Button btn_upload, btn_finish;
     private static int RESULT_LOAD_IMAGE = 1;
     private ArrayList<String> ImageFileTypes = new ArrayList<>();
     private ArrayList<String> DocumentNames = new ArrayList<>();
     private ArrayList<String> selectedImageFileTypes = new ArrayList<>();
+    private ArrayList<String> imageBitmapBase64 = new ArrayList<>();
 
     private String selectedFileType, imageName;
     private TextView FileName;
+    private EditText txt_bank, txt_branch, txt_transaction;
+
     public static String encodeTobase64(Bitmap image) {
         Bitmap immagex=image;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        immagex.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        immagex.compress(Bitmap.CompressFormat.JPEG, 50, baos);
         byte[] b = baos.toByteArray();
-        String imageEncoded = Base64.encodeToString(b,Base64.DEFAULT);
+
+        String imageEncoded = Base64.encodeToString(baos.toByteArray(),Base64.NO_WRAP);
 
         Log.e("LOOK", imageEncoded);
         return imageEncoded;
@@ -106,7 +118,7 @@ public class ProofOfPaymentForm extends Fragment {
                 e.printStackTrace();
             }
             Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
-            encodeTobase64(yourSelectedImage);
+            imageBitmapBase64.add(encodeTobase64(yourSelectedImage));
             imageName = getRealPathFromURI(imageUri);
             FileName.setText(imageName);
             Toast.makeText(getContext(), imageName, Toast.LENGTH_LONG).show();
@@ -127,9 +139,30 @@ public class ProofOfPaymentForm extends Fragment {
         ImageFileTypes.add("Deposit-slip");
         ImageFileTypes.add("CNIC");
 
+        FileTypeIdValue.put("Deposit-slip", "0");
+        FileTypeIdValue.put("Cheque", "1");
+        FileTypeIdValue.put("CNIC", "2");
+
         spinner_payment_id = root.findViewById(R.id.spinner_id);
         spinner_mode_of_payments = root.findViewById(R.id.payment_mode);
         btn_upload = root.findViewById(R.id.btn_upload);
+        btn_finish = root.findViewById(R.id.btn_finish);
+        txt_bank = root.findViewById(R.id.txt_bank);
+        txt_branch = root.findViewById(R.id.txt_branch);
+        txt_transaction = root.findViewById(R.id.txt_transaction);
+
+
+        btn_finish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Toast.makeText(getContext(), "Requesting please wait", Toast.LENGTH_LONG).show();
+                    makePOPRequest();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,6 +174,7 @@ public class ProofOfPaymentForm extends Fragment {
                 android.R.layout.simple_dropdown_item_1line, payment_ids);
         arrayAdapterPaymentModes = new ArrayAdapter<>(root.getContext(),
                 android.R.layout.simple_dropdown_item_1line, payment_modes);
+
         spinner_payment_id.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -177,6 +211,7 @@ public class ProofOfPaymentForm extends Fragment {
 
             }
         });
+
         recyclerView = root.findViewById(R.id.rv_upload_doc);
         recyclerView.setHasFixedSize(true);
 
@@ -188,8 +223,67 @@ public class ProofOfPaymentForm extends Fragment {
         return root;
     }
 
+    private void makePOPRequest() throws JSONException{
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token","");
+        DistributorId = sharedPreferences.getString("Distributor_Id","");
+
+        JSONArray array = new JSONArray();
+        for(int i=0;i<DocumentNames.size();i++){
+            JSONObject obj = new JSONObject();
+            obj.put("ID", 0);
+            obj.put("ImageType", "image/png");
+            obj.put("Title", DocumentNames.get(i));
+            obj.put("FileType", FileTypeIdValue.get(selectedImageFileTypes.get(i)));
+            obj.put("FileTypeValue", selectedImageFileTypes.get(i));
+            obj.put("ImageData", "data:image/png;base64,"+imageBitmapBase64.get(i));
+            array.put(obj);
+        }
+
+        JSONObject map = new JSONObject();
+        map.put("ID",0);
+        map.put("Status",0);
+        map.put("CompanyId",null);
+        map.put("DistributorId",DistributorId);
+        map.put("PaymentId",PaymentIdNumber.get(selected_paymentid));
+        map.put("ModeOfPayment",PaymentModeAndID.get(selected_paymentmode));
+        map.put("Bank",txt_bank.getText().toString());
+        map.put("BranchCode",txt_branch.getText().toString());
+        map.put("ChecqueNo",txt_transaction.getText().toString());
+        map.put("ProofOfPaymentDetails",array);
+
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PROOF_OF_PAYMENTS_SUBMIT, map, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject result) {
+                Log.e("RESPONSE", result.toString());
+                try {
+                    Toast.makeText(getContext(), "Proof Of payment ID "+result.getString("POPNumber")+" has been created successfully.", Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(sr);
+    }
+
     private void uploadImageDialogue() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+        final AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View view_popup = inflater.inflate(R.layout.upload_file_layout, null);
         alertDialog.setView(view_popup);
@@ -244,6 +338,7 @@ public class ProofOfPaymentForm extends Fragment {
                     DocumentNames.add(imageName);
                     mAdapter = new ProofOfPaymentsFormAdapter(getContext(),DocumentNames, selectedImageFileTypes);
                     recyclerView.setAdapter(mAdapter);
+                    alertDialog.dismiss();
                 }
             }
         });
@@ -275,6 +370,7 @@ public class ProofOfPaymentForm extends Fragment {
                     for (int i = 0; i < result.length(); i++) {
                         jsonObject = result.getJSONObject(i);
                         payment_modes.add(jsonObject.getString("value"));
+                        PaymentModeAndID.put(jsonObject.getString("value"), jsonObject.getString("key"));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -301,7 +397,6 @@ public class ProofOfPaymentForm extends Fragment {
         spinner_mode_of_payments.setAdapter(arrayAdapterPaymentModes);
     }
 
-
     private void fetchPaymentsId() {
             SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                     Context.MODE_PRIVATE);
@@ -325,6 +420,7 @@ public class ProofOfPaymentForm extends Fragment {
                         for (int i = 0; i < result.length(); i++) {
                             jsonObject = result.getJSONObject(i);
                             payment_ids.add(jsonObject.getString("PaymentNumber"));
+                            PaymentIdNumber.put(jsonObject.getString("PaymentNumber"), jsonObject.getString("PaymentId"));
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -349,6 +445,7 @@ public class ProofOfPaymentForm extends Fragment {
             arrayAdapterPayments.notifyDataSetChanged();
             spinner_payment_id.setAdapter(arrayAdapterPayments);
         }
+
     private String getRealPathFromURI(Uri contentURI) {
 
         String thePath = "no-path-found";
