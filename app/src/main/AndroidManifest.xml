@@ -13,7 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Notfication.Notification"></activity>
+        <activity
+            android:name=".Invoice.Distributor_Invoice_DashBoard"
+            android:label="@string/title_activity_distributor__invoice__dash_board"
+            android:theme="@style/NoActionBar"></activity>
+        <activity android:name=".Notfication.Notification" />
         <activity android:name=".Retailor.Retailor_SignUp.SignUp" />
         <activity
             android:name=".Retailor.RetailorDashboard"

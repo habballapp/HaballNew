@@ -12,6 +12,12 @@
     <string name="tab_text_5">Order Details</string>
     <string name="tab_text_6">Product Details</string>
     <string name="tab_text_7">Shipment Details</string>
+    //invoice
+    <string name="tab_text_01">Invoice Details</string>
+    <string name="tab_text_02">Dealer Information</string>
+    <string name="tab_text_03">Orders Details</string>
+    <string name="tab_text_04">Products Details</string>
+    <string name="tab_text_05">Shipments Details</string>
 
     <string name="Forgot_Password">Forgot Password</string>
     <string name="Txt_Dashboard">Dashboard</string>
@@ -68,4 +74,6 @@
     <string name="pr8"> Payment Request</string>
     <string name="pr9"> has been updated successfully.</string>
     <string name="pr10">Kindly use this payment ID to pay your invoice using the following channels.</string>
+    <string name="title_activity_distributor__invoice__dash_board">Distributor_Invoice_DashBoard
+    </string>
 </resources>

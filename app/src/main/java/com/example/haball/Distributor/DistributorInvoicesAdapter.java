@@ -2,6 +2,7 @@ package com.example.haball.Distributor;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -15,10 +16,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Response;
 import com.example.haball.Distributor.ui.main.PlaceholderFragment;
+import com.example.haball.Distributor.ui.shipments.DistributorShipment_ViewDashboard;
+import com.example.haball.Invoice.Distributor_Invoice_DashBoard;
 import com.example.haball.R;
 
 import org.json.JSONException;
@@ -73,6 +78,10 @@ public class DistributorInvoicesAdapter extends RecyclerView.Adapter<Distributor
                         switch (item.getItemId()) {
                             case R.id.view_invoice:
                                 Toast.makeText(mContxt,"View Invoice",Toast.LENGTH_LONG).show();
+                                FragmentTransaction fragmentTransaction= ((FragmentActivity)mContxt).getSupportFragmentManager().beginTransaction();
+                                fragmentTransaction.add(R.id.main_container,new Distributor_Invoice_DashBoard());
+                                fragmentTransaction.commit();
+
                                 break;
                             case R.id.view_pdf:
                                 Toast.makeText(mContxt,"View PDF",Toast.LENGTH_LONG).show();
