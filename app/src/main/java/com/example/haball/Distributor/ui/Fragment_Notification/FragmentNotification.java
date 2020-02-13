@@ -86,7 +86,6 @@ public class FragmentNotification extends Fragment {
                 notificationLists = gson.fromJson(result.toString(), type);
                 NotificationAdapter = new NotificationAdapter(getContext(), notificationLists, Token);
                 recyclerView.setAdapter(NotificationAdapter);
-
             }
         }, new Response.ErrorListener() {
             @Override

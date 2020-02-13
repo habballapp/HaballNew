@@ -11,10 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.view.GravityCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,7 +59,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.subject.setText(notificationLists.get(position).getSubject());
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 final PopupMenu popup = new PopupMenu(context, view);
                 MenuInflater inflater = popup.getMenuInflater();
                 inflater.inflate(R.menu.notification_menu, popup.getMenu());
@@ -67,8 +69,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                         switch (item.getItemId()) {
                             case R.id.dismiss:
                                 Log.i("DISMISS CASE", "HERE");
+                                notifyItemRemoved(position);
                                 Dismiss_Notification dismiss_notification = new Dismiss_Notification();
                                 dismiss_notification.requestDismissNotification(notificationLists.get(position).getID(),context, token);
+                                Toast.makeText(context, "Notification Dismissed", Toast.LENGTH_LONG).show();
                                 break;
                         }
                         return false;
