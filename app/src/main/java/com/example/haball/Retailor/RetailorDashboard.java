@@ -14,8 +14,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -23,24 +21,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.haball.Distribution_Login.Distribution_Login;
-import com.example.haball.Distributor.DistributorDashboard;
+import com.example.haball.Distributor.ui.Fragment_Notification.FragmentNotification;
 import com.example.haball.Distributor.ui.expandablelist.CustomExpandableListModel;
-import com.example.haball.Distributor.ui.home.HomeFragment;
-import com.example.haball.Distributor.ui.orders.Orders_Fragment;
+import com.example.haball.Distributor.ui.payments.PaymentRequestDashboard;
 import com.example.haball.Distributor.ui.payments.Payments_Fragment;
-import com.example.haball.Distributor.ui.shipments.Shipments_Fragments;
 import com.example.haball.Distributor.ui.support.SupportFragment;
-import com.example.haball.Payment.PaymentLedger;
+import com.example.haball.Retailor.ui.Network.My_NetworkDashboard;
 import com.example.haball.Payment.Proof_Of_Payment_Form;
 import com.example.haball.R;
 import com.example.haball.Retailer_Login.RetailerLogin;
 import com.example.haball.Retailor.ui.Dashboard.DashBoardFragment;
-import com.example.haball.Retailor.ui.Make_Payment.MakePaymentFragment;
 import com.example.haball.Retailor.ui.Make_Payment.Payment_Summary;
+import com.example.haball.Retailor.ui.Network.Select_Tabs.My_Network_Fragment;
 import com.example.haball.Retailor.ui.Place_Order.PlaceOrderFragment;
 import com.example.haball.Retailor.ui.Profile.ProfileFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -59,6 +54,7 @@ public class RetailorDashboard extends AppCompatActivity implements NavigationVi
     private FragmentTransaction mFragmentTransaction;
     private TextView tv_username;
     private FragmentTransaction fragmentTransaction;
+    private ImageButton notification_icon;
     private DrawerLayout drawer;
     ExpandableListAdapter expandableListAdapter;
     ExpandableListView expandableListView;
@@ -84,7 +80,12 @@ public class RetailorDashboard extends AppCompatActivity implements NavigationVi
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
+
         toggle.syncState();
+        toggle.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
+        drawer.setDrawerListener(toggle);
+        
+
 
         navigationView.setNavigationItemSelectedListener(this);
         navigationExpandableListView = findViewById(R.id.expandable_navigation);
@@ -119,6 +120,9 @@ public class RetailorDashboard extends AppCompatActivity implements NavigationVi
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 1) {
                             Log.i("My Network", "My Network Activity");
+                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container_ret, new My_NetworkDashboard());
+                            fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 2) {
                             Log.i("Place Order", "Place Order Activity");
@@ -162,12 +166,14 @@ public class RetailorDashboard extends AppCompatActivity implements NavigationVi
                         }  else if (groupPosition == 3 && childPosition == 1) {
                             Log.i("Payment Request", "Child");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new Payments_Fragment());
+                            fragmentTransaction.replace(R.id.main_container_ret, new PaymentRequestDashboard());
                             fragmentTransaction.commit();
                         } else if (groupPosition == 3 && childPosition == 2) {
                             Log.i("Payment Ledger", "Child");
-                            Intent payment_ledger = new Intent(RetailorDashboard.this, PaymentLedger.class);
-                            startActivity(payment_ledger);
+                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container_ret, new Payments_Fragment());
+                            fragmentTransaction.commit();
+
                         } else if (groupPosition == 3 && childPosition == 4) {
                             Log.i("Proof of Payments", "Child");
                             Intent proof_p = new Intent(RetailorDashboard.this, Proof_Of_Payment_Form.class);

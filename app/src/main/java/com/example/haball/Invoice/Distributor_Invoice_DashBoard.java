@@ -38,7 +38,6 @@ public class Distributor_Invoice_DashBoard extends Fragment {
         TabLayout tabs = root.findViewById(R.id.tabs3);
         tabs.setupWithViewPager(viewPager);
         tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
-
         return root;
     }
     }

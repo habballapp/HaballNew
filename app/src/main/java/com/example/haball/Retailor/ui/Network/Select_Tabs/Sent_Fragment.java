@@ -1,4 +1,4 @@
-package com.example.haball.Retailor.ui.My_Network;
+package com.example.haball.Retailor.ui.Network.Select_Tabs;
 
 
 import android.os.Bundle;
@@ -14,10 +14,10 @@ import com.example.haball.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MyNetworkFragment extends Fragment {
+public class Sent_Fragment extends Fragment {
 
 
-    public MyNetworkFragment() {
+    public Sent_Fragment() {
         // Required empty public constructor
     }
 
@@ -26,7 +26,7 @@ public class MyNetworkFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_network, container, false);
+        return inflater.inflate(R.layout.fragment_sent_, container, false);
     }
 
 }
