@@ -84,7 +84,7 @@ public class RetailorDashboard extends AppCompatActivity implements NavigationVi
         toggle.syncState();
         toggle.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         drawer.setDrawerListener(toggle);
-        
+
 
 
         navigationView.setNavigationItemSelectedListener(this);
