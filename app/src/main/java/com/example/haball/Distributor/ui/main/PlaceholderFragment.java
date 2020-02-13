@@ -141,7 +141,7 @@ public class PlaceholderFragment extends Fragment {
                     Type type = new TypeToken<List<DistributorPaymentsModel>>(){}.getType();
                     PaymentsList = gson.fromJson(jsonArray.toString(),type);
 
-                    PaymentsAdapter = new DistributorPaymentsAdapter(getContext(),PaymentsList);
+                    PaymentsAdapter = new DistributorPaymentsAdapter(getContext(),PaymentsList, null);
                     recyclerView.setAdapter(PaymentsAdapter);
 
                 }catch (JSONException e) {
