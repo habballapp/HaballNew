@@ -1,5 +1,6 @@
 package com.example.haball.Distributor.ui.payments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -62,6 +63,7 @@ public class Payments_Fragment extends Fragment {
     private ArrayAdapter<String> arrayAdapterPayments;
     private List<PaymentLedgerModel> paymentLedgerList = new ArrayList<>();
     private Spinner spinner_criteria;
+    private ProgressDialog progressDialog;
 
     private PaymentsViewModel paymentsViewModel;
 
