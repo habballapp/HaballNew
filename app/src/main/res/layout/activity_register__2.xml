@@ -290,13 +290,11 @@
                 />
         </LinearLayout>
 
-
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="50dp"
+            android:layout_below="@+id/ln_btn"
+            android:layout_marginBottom="10dp"
             android:text="© Haball | All rights reserved"
             android:gravity="center"
             />
