@@ -100,5 +100,26 @@
         android:layout_marginLeft="5dp"
         android:textColor="#676a6c"
         />
+    <TextView
+        android:id="@+id/tv_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/status_value"
+        android:text="State:"
+        android:textSize="14sp"
+        android:textColor="#676a6c"
+        />
+    <TextView
+        android:id="@+id/tv_state_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/status_value"
+        android:textStyle="bold"
+        android:text="Normal"
+        android:textSize="14sp"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/tv_state"
+        android:textColor="#676a6c"
+        />
 
 </RelativeLayout>

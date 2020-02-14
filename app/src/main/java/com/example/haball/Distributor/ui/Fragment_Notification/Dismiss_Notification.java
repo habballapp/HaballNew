@@ -3,6 +3,7 @@ package com.example.haball.Distributor.ui.Fragment_Notification;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -35,6 +36,7 @@ public class Dismiss_Notification {
             @Override
             public void onResponse(JSONObject result) {
                 Log.i("DISMISSED ", result.toString());
+
             }
         }, new Response.ErrorListener() {
             @Override

@@ -1,8 +1,10 @@
 package com.example.haball.Distributor.ui.payments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,8 +59,23 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
     private String URL_PROOF_OF_PAYMENTS = "http://175.107.203.97:4008/api/proofofpayment/search";
     private ArrayAdapter<String> arrayAdapterPayments;
     private List<ProofOfPaymentModel> proofOfPaymentsList = new ArrayList<>();
+    private List<ProofOfPaymentModel> proofOfPaymentsList2 = new ArrayList<>();
 
     private String DistributorId;
+    private int pageNumber = 0;
+    private int i = 3;
+    private ProgressDialog progressDialog;
+
+    private CountDownTimer CDT;
+
+    private int pos_y = 0;
+    private int visibleItemCount, totalItemCount = 1;
+    private int firstVisiblesItems = 0, lastItem = 0;
+    private int totalPages = 1; // get your total pages from web service first response
+    private int current_page = 0;
+
+    boolean canLoadMoreData = true; // make this variable false while your web service call is going on.
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -69,8 +86,59 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
         recyclerView = root.findViewById(R.id.rv_proof_of_payments);
         recyclerView.setHasFixedSize(true);
 
+        progressDialog = new ProgressDialog(getContext());
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0){
+                    pos_y = dy;
+
+                    visibleItemCount = layoutManager.getChildCount();
+                    totalItemCount = layoutManager.getItemCount();
+                    firstVisiblesItems = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+                    lastItem = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastVisibleItemPosition();
+                    if (canLoadMoreData) {
+                        if ((visibleItemCount + firstVisiblesItems) >= totalItemCount) {
+                            if (pageNumber < 3) {
+                                Log.i("page", String.valueOf(pageNumber));
+                                try {
+                                    fetchProofOfPaymentsData();
+
+//                                    pageNumber++;
+
+//                                    progressDialog.setTitle("Loading ... ");
+//                                    progressDialog.setMessage("Please wait...");
+//                                    progressDialog.setCancelable(false);
+//                                    progressDialog.setProgress(i);
+//                                    progressDialog.show();
+//                                    CDT = new CountDownTimer(1500, 1000) {
+//                                        public void onTick(long millisUntilFinished) {
+//                                            progressDialog.setMessage("Please wait...");
+//                                            i--;
+//                                        }
+//
+//                                        public void onFinish() {
+//                                            i=8;
+//                                            progressDialog.dismiss();
+//                                            pageNumber++;
+//                                        }
+//                                    }.start();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                //After completion of web service make 'canLoadMoreData = true'
+                            }
+                            else
+                                canLoadMoreData  = false;
+                        }
+                    }
+                    dy = pos_y;
+                }
+            }
+        });
 
         btn_create_proof_of_payment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +175,7 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
         JSONObject map = new JSONObject();
         map.put("DistributorId", Integer.parseInt(DistributorId));
         map.put("TotalRecords", 10);
-        map.put("PageNumber", 0);
+        map.put("PageNumber", pageNumber);
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_PROOF_OF_PAYMENTS,map,new Response.Listener<JSONArray>() {
             @Override
@@ -120,9 +188,12 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
                     Gson gson = new Gson();
                     Type type = new TypeToken<List<ProofOfPaymentModel>>(){}.getType();
                     proofOfPaymentsList = gson.fromJson(String.valueOf(result),type);
-
-                    mAdapter = new ProofOfPaymentAdapter(getContext(),proofOfPaymentsList);
+                    proofOfPaymentsList2.addAll(proofOfPaymentsList) ;
+                    mAdapter = new ProofOfPaymentAdapter(getContext(),proofOfPaymentsList2);
                     recyclerView.setAdapter(mAdapter);
+
+                    if(pageNumber > 0)
+                        ((LinearLayoutManager) recyclerView.getLayoutManager()).scrollToPosition(8);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -144,6 +215,7 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
             }
         };
         Volley.newRequestQueue(getContext()).add(sr);
+        pageNumber++;
     }
 
 

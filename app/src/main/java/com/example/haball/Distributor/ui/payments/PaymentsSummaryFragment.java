@@ -59,53 +59,53 @@ public class PaymentsSummaryFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-//        fetchPaymentsSummary();
-        try {
-            fetchInvoicesSummary();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        fetchPaymentsSummary();
+
+
+//        mAdapter = new DistributorInvoicesAdapter(getContext(),InvoicesList);
+//        recyclerView.setAdapter(mAdapter);
         return root;
     }
-//
-//    private void fetchPaymentsSummary() {
-//        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
-//                Context.MODE_PRIVATE);
-//        Token = sharedPreferences.getString("Login_Token","");
-//        Log.i("Token", Token);
-//
-//        StringRequest sr = new StringRequest(Request.Method.POST, URL_PAYMENTS, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String result) {
-//                try{
-//                    JSONArray jsonArray = new JSONArray(result);
-//                    Gson gson = new Gson();
-//                    Type type = new TypeToken<List<DistributorPaymentsModel>>(){}.getType();
-//                    PaymentsList = gson.fromJson(jsonArray.toString(),type);
-//
-//                    mAdapter = new DistributorPaymentsAdapter(getContext(),PaymentsList);
-//                    recyclerView.setAdapter(mAdapter);
-//
-//                }catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                error.printStackTrace();
-//            }
-//        }){
-//
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                Map<String, String> params = new HashMap<String, String>();
-//                params.put("Authorization", "bearer " +Token);
-//                return params;
-//            }
-//        };
-//        Volley.newRequestQueue(getContext()).add(sr);
-//    }
+
+    private void fetchPaymentsSummary() {
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token","");
+        Log.i("Token", Token);
+
+        StringRequest sr = new StringRequest(Request.Method.POST, URL_PAYMENTS, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String result) {
+                try{
+                    JSONArray jsonArray = new JSONArray(result);
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<DistributorPaymentsModel>>(){}.getType();
+                    PaymentsList = gson.fromJson(jsonArray.toString(),type);
+                    try {
+                        fetchInvoicesSummary();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        }){
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " +Token);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(sr);
+    }
 
     private void fetchInvoicesSummary() throws JSONException{
             SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
@@ -131,8 +131,7 @@ public class PaymentsSummaryFragment extends Fragment {
                     Gson gson = new Gson();
                     Type type = new TypeToken<List<DistributorInvoicesModel>>(){}.getType();
                     InvoicesList = gson.fromJson(result.toString(),type);
-
-                    mAdapter = new DistributorInvoicesAdapter(getContext(),InvoicesList);
+                    mAdapter = new DistributorPaymentsAdapter(getContext(),PaymentsList, InvoicesList);
                     recyclerView.setAdapter(mAdapter);
                 }
             }, new Response.ErrorListener() {

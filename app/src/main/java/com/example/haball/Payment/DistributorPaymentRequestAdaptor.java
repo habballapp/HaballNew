@@ -25,7 +25,8 @@ import com.example.haball.Retailor.ui.Make_Payment.Payment_Summary;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPaymentRequestAdaptor.ViewHolder> {
+public class
+DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPaymentRequestAdaptor.ViewHolder> {
     private Context context;
     private List<DistributorPaymentRequestModel> paymentsRequestList;
     private Button btn_update;

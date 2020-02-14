@@ -19,6 +19,7 @@ import com.example.haball.Distributor.DistributorDashboard;
 import com.example.haball.R;
 import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Retailor.Retailor_SignUp.SignUp;
+import com.example.haball.Support.Support_Ticket_Form;
 import com.example.haball.Support.Support_dashboard;
 
 public class RetailerLogin extends AppCompatActivity {
@@ -84,7 +85,7 @@ public class RetailerLogin extends AppCompatActivity {
         btn_support.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RetailerLogin.this, Support_dashboard.class);
+                Intent intent = new Intent(RetailerLogin.this, Support_Ticket_Form.class);
                 startActivity(intent);
             }
         });

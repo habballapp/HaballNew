@@ -270,12 +270,12 @@
             >
 
             <Button
-                android:id="@+id/btn_register"
-                android:layout_width="wrap_content"
+                android:id="@+id/btn_register_signup"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/button_background"
                 android:layout_marginLeft="40dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginRight="40dp"
                 android:text="@string/signup"
                 android:textSize="15sp"
                 android:textColor="#fff"
@@ -285,19 +285,6 @@
 
                 />
 
-            <Button
-                android:id="@+id/btn_signup"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:textColor="#fff"
-                android:text="@string/signup_close"
-                android:background="@drawable/button_background"
-                android:layout_marginRight="40dp"
-                android:textAllCaps="false"
-
-
-                />
         </LinearLayout>
 
 

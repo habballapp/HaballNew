@@ -1,4 +1,4 @@
-package com.example.haball.Invoice.ui.main;
+package com.example.haball.Retailor.ui.Network.ui.main;
 
 import android.content.Context;
 
@@ -17,7 +17,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_01, R.string.tab_text_02,R.string.tab_text_03, R.string.tab_text_04,R.string.tab_text_05};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_06, R.string.tab_text_07,R.string.tab_text_08};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -40,7 +40,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 5 total pages.
-        return 5;
+        // Show 3 total pages.
+        return 3;
     }
 }
