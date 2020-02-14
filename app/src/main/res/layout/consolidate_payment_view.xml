@@ -35,6 +35,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginTop="30dp"
+        android:background="@drawable/edit_text_squared"
         android:layout_below="@+id/line_">
         <Spinner
             android:id="@+id/spinner_consolidate"
