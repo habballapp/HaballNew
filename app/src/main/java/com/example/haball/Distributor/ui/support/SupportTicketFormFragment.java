@@ -1,8 +1,11 @@
 package com.example.haball.Distributor.ui.support;
 
+        import androidx.annotation.NonNull;
         import androidx.appcompat.app.ActionBar;
         import androidx.appcompat.app.AlertDialog;
         import androidx.appcompat.app.AppCompatActivity;
+        import androidx.fragment.app.Fragment;
+        import androidx.fragment.app.FragmentTransaction;
 
         import android.content.Context;
         import android.content.Intent;
@@ -14,6 +17,7 @@ package com.example.haball.Distributor.ui.support;
         import android.util.Log;
         import android.view.LayoutInflater;
         import android.view.View;
+        import android.view.ViewGroup;
         import android.widget.AdapterView;
         import android.widget.ArrayAdapter;
         import android.widget.Button;
@@ -48,7 +52,7 @@ package com.example.haball.Distributor.ui.support;
         import java.util.List;
         import java.util.Map;
 
-public class SupportTicketFormFragment extends AppCompatActivity {
+public class SupportTicketFormFragment extends Fragment {
 
     private EditText BName, Email, MobileNo, Comment;
     private ImageButton btn_back;
@@ -70,53 +74,34 @@ public class SupportTicketFormFragment extends AppCompatActivity {
 
     private String DistributorId;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_support__ticket__form);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
+        View root = inflater.inflate(R.layout.activity_support__ticket__form, container, false);
 
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View customView = inflater.inflate(R.layout.action_bar_main, null);
-
-        actionBar.setCustomView(customView);
-        actionBar.setDisplayShowCustomEnabled(true);
-
-
-        BName = findViewById(R.id.BName);
-        Email = findViewById(R.id.Email);
-        MobileNo = findViewById(R.id.MobileNo);
-        Comment = findViewById(R.id.Comment);
-        IssueType = findViewById(R.id.IssueType);
-        critcicality = findViewById(R.id.critcicality);
-        Preffered_Contact = findViewById(R.id.Preffered_Contact);
-        ticket_btn = findViewById(R.id.ticket_btn);
-        btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
+        BName = root.findViewById(R.id.BName);
+        Email = root.findViewById(R.id.Email);
+        MobileNo = root.findViewById(R.id.MobileNo);
+        Comment = root.findViewById(R.id.Comment);
+        IssueType = root.findViewById(R.id.IssueType);
+        critcicality = root.findViewById(R.id.critcicality);
+        Preffered_Contact = root.findViewById(R.id.Preffered_Contact);
+        ticket_btn = root.findViewById(R.id.ticket_btn);
 
         issue_type.add("Issue Type *");
         criticality.add("Criticality *");
         preffered_contact.add("Preferred Method of Contacting *");
 
-        arrayAdapterIssueType = new ArrayAdapter<>(this,
+        arrayAdapterIssueType = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_dropdown_item_1line, issue_type);
-        arrayAdapterCriticality = new ArrayAdapter<>(this,
+        arrayAdapterCriticality = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_dropdown_item_1line, criticality);
-        arrayAdapterPreferredContact = new ArrayAdapter<>(this,
+        arrayAdapterPreferredContact = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_dropdown_item_1line, preffered_contact);
 
         fetchIssueType();
         fetchCriticality();
         fetchPrefferedContact();
-
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         IssueType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -174,10 +159,11 @@ public class SupportTicketFormFragment extends AppCompatActivity {
             }
         });
 
+        return root;
     }
 
     private void makeTicketAddRequest() throws JSONException{
-        SharedPreferences sharedPreferences = getSharedPreferences("LoginToken",
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         DistributorId = sharedPreferences.getString("Distributor_Id","");
         Log.i("DistributorId ", DistributorId);
@@ -199,7 +185,9 @@ public class SupportTicketFormFragment extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject result) {
                 Log.e("RESPONSE", result.toString());
-                finish();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(((ViewGroup)getView().getParent()).getId(), new SupportFragment());
+                fragmentTransaction.commit();
             }
 
         }, new Response.ErrorListener() {
@@ -209,11 +197,11 @@ public class SupportTicketFormFragment extends AppCompatActivity {
             }
 
         });
-        Volley.newRequestQueue(this).add(sr);
+        Volley.newRequestQueue(getContext()).add(sr);
     }
 
     private void fetchIssueType() {
-        SharedPreferences sharedPreferences = getSharedPreferences("LoginToken",
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token","");
         Log.i("Token", Token);
@@ -247,14 +235,14 @@ public class SupportTicketFormFragment extends AppCompatActivity {
                 return params;
             }
         };
-        Volley.newRequestQueue(this).add(sr);
+        Volley.newRequestQueue(getContext()).add(sr);
         arrayAdapterIssueType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         arrayAdapterIssueType.notifyDataSetChanged();
         IssueType.setAdapter(arrayAdapterIssueType);
     }
 
     private void fetchCriticality() {
-        SharedPreferences sharedPreferences = getSharedPreferences("LoginToken",
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token","");
         Log.i("Token", Token);
@@ -290,14 +278,14 @@ public class SupportTicketFormFragment extends AppCompatActivity {
                 return params;
             }
         };
-        Volley.newRequestQueue(this).add(sr);
+        Volley.newRequestQueue(getContext()).add(sr);
         arrayAdapterCriticality.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         arrayAdapterCriticality.notifyDataSetChanged();
         critcicality.setAdapter(arrayAdapterCriticality);
     }
 
     private void fetchPrefferedContact() {
-        SharedPreferences sharedPreferences = getSharedPreferences("LoginToken",
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token","");
         Log.i("Token", Token);
@@ -333,7 +321,7 @@ public class SupportTicketFormFragment extends AppCompatActivity {
                 return params;
             }
         };
-        Volley.newRequestQueue(this).add(sr);
+        Volley.newRequestQueue(getContext()).add(sr);
         arrayAdapterPreferredContact.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         arrayAdapterPreferredContact.notifyDataSetChanged();
         Preffered_Contact.setAdapter(arrayAdapterPreferredContact);
