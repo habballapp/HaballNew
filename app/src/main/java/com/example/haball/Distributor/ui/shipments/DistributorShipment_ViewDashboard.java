@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.haball.R;
-import com.example.haball.Shipment.ui.main.Adapters.SectionsPagerAdapter;
+import com.example.haball.Distributor.ui.shipments.main.Adapters.SectionsPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 public class DistributorShipment_ViewDashboard extends Fragment {
@@ -24,10 +24,6 @@ public class DistributorShipment_ViewDashboard extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
 
     private DistributorShipmentViewDashboardViewModel mViewModel;
-
-    public static DistributorShipment_ViewDashboard newInstance() {
-        return new DistributorShipment_ViewDashboard();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,

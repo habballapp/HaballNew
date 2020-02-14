@@ -1,4 +1,4 @@
-package com.example.haball.Shipment.ui.main.Adapters;
+package com.example.haball.Distributor.ui.shipments.main.Adapters;
 
 import android.content.Context;
 
@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.haball.Distributor.ui.shipments.main.PlaceholderFragment;
 import com.example.haball.R;
-import com.example.haball.Shipment.ui.main.PlaceholderFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to

@@ -2,6 +2,9 @@ package com.example.haball.Shipment.Adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haball.Distributor.ui.shipments.DistributorShipment_ViewDashboard;
 import com.example.haball.Distributor.ui.shipments.ShipmentModel;
+import com.example.haball.Distributor.ui.shipments.Shipments_Fragments;
 import com.example.haball.R;
 
 import java.text.DecimalFormat;
@@ -55,7 +59,7 @@ public class DistributorShipmentAdapter extends RecyclerView.Adapter<Distributor
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DistributorShipmentAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DistributorShipmentAdapter.ViewHolder holder, final int position) {
         if(shipmentList.get(position).getCompanyName() != null)
             heading = shipmentList.get(position).getCompanyName();
         if(shipmentList.get(position).getDeliveryNumber() != null)
@@ -95,8 +99,14 @@ public class DistributorShipmentAdapter extends RecyclerView.Adapter<Distributor
                                 FragmentTransaction fragmentTransaction= ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
                                 fragmentTransaction.add(R.id.main_container,new DistributorShipment_ViewDashboard());
                                 fragmentTransaction.commit();
-
+                                SharedPreferences shipmentid = ((FragmentActivity)context).getSharedPreferences("Shipment_ID",
+                                        Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = shipmentid.edit();
+                                editor.putString("ShipmentID", shipmentList.get(position).getID());
+                                editor.commit();
                                 break;
+
+
                         }
                         return false;
                     }
