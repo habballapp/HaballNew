@@ -15,6 +15,8 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +27,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Distributor.ui.payments.CreatePaymentRequestFragment;
+import com.example.haball.Distributor.ui.payments.PaymentRequestDashboard;
+import com.example.haball.Distributor.ui.shipments.DistributorShipment_ViewDashboard;
 import com.example.haball.R;
 import com.example.haball.Support.SupportDashboardAdapter;
 import com.example.haball.Support.SupportDashboardModel;
@@ -66,8 +71,10 @@ public class SupportFragment extends Fragment {
         btn_add_ticket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), SupportTicketFormFragment.class);
-                startActivity(intent);
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(((ViewGroup)getView().getParent()).getId(), new SupportTicketFormFragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
         recyclerView = root.findViewById(R.id.rv_support_complaints);

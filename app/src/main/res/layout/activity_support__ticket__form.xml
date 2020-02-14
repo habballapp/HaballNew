@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="none"
+    android:background="#fff"
     tools:context=".MainActivity">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -58,18 +59,19 @@
             <EditText
                 android:id="@+id/BName"
                 android:hint="Business Name"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:padding="10dp"
+                android:inputType="text|textCapSentences"
                 android:background="@drawable/edit_round"/>
             <EditText
                 android:id="@+id/Email"
                 android:layout_width="match_parent"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:layout_below="@+id/BName"
                 android:hint="Email"
                 android:layout_height="40dp"
@@ -77,12 +79,13 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
+                android:inputType="textEmailAddress"
                 android:background="@drawable/edit_round"
                 />
             <EditText
                 android:id="@+id/MobileNo"
                 android:hint="Mobile No"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:layout_width="match_parent"
                 android:background="@drawable/edit_round"
                 android:layout_height="40dp"
@@ -90,6 +93,7 @@
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="30dp"
                 android:padding="10dp"
+                android:inputType="number"
                 android:layout_below="@+id/Email"/>
 
             <RelativeLayout
@@ -151,11 +155,12 @@
                 android:background="@drawable/edit_round"
                 android:padding="10dp"
                 android:hint="Comment"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:layout_marginTop="30dp"
                 android:layout_below="@+id/relative_Preffered_Contact"
                 android:layout_marginLeft="40dp"
                 android:gravity="left"
+                android:inputType="textMultiLine|textCapSentences"
                 android:layout_marginRight="40dp"/>
 
 

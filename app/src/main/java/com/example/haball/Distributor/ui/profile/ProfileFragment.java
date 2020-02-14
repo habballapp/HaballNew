@@ -39,7 +39,7 @@ import java.util.Map;
 public class ProfileFragment extends Fragment {
 
     private Button change_pwd, update_password, distributor_save_b;
-    private EditText edt_firstname, edt_lastname, edt_email, edt_dist_mobile;
+    private EditText edt_firstname, edt_lastname, edt_email, edt_dist_mobile, et_test;
     public TextView edt_dist_code, tv_cnic, tv_NTN, tv_companyname, tv_created_date;
     private String PROFILE_URL = "http://175.107.203.97:4008/api/distributor/";
     private String Token;
@@ -65,7 +65,8 @@ public class ProfileFragment extends Fragment {
         tv_NTN = root.findViewById(R.id.tv_NTN);
         tv_companyname = root.findViewById(R.id.tv_companyname);
         tv_created_date = root.findViewById(R.id.tv_created_date);
-
+        et_test = root.findViewById(R.id.et_test);
+        et_test.setText("username");
         change_pwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

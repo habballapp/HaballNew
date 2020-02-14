@@ -107,7 +107,7 @@
                         android:layout_below="@id/rl_mode"
                         android:textSize="15sp"
                         android:background="@drawable/edit_round"
-                        android:hint="Bank*"
+                        android:hint="Bank *"
                         android:maxLength="25"
                         android:inputType="text"
                         />
@@ -125,7 +125,7 @@
                         android:layout_below="@id/txt_bank"
                         android:textSize="15sp"
                         android:background="@drawable/edit_round"
-                        android:hint="Branch Code*"
+                        android:hint="Branch Code *"
                         android:inputType="number"
                         />
                     <EditText
@@ -141,7 +141,7 @@
                         android:textSize="15sp"
                         android:maxLength="25"
                         android:background="@drawable/edit_round"
-                        android:hint="Transaction No*"
+                        android:hint="Transaction No *"
                         android:inputType="number"
                         />
                     <TextView

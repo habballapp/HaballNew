@@ -64,7 +64,7 @@
                     <RelativeLayout
                         android:id="@+id/payment_id"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_below="@+id/relative_criticality"
@@ -80,7 +80,7 @@
                     <RelativeLayout
                         android:id="@+id/rl_mode"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_below="@+id/payment_id"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
@@ -98,7 +98,7 @@
                     <EditText
                         android:id="@+id/txt_bank"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
                         android:layout_marginTop="30dp"
@@ -113,7 +113,7 @@
                     <EditText
                         android:id="@+id/txt_branch"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
                         android:layout_marginLeft="40dp"
@@ -129,7 +129,7 @@
                     <EditText
                         android:id="@+id/txt_transaction"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
                         android:layout_marginLeft="40dp"
@@ -185,7 +185,7 @@
                     <Button
                         android:id="@+id/btn_upload"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:background="@drawable/button_round"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
@@ -200,7 +200,7 @@
                     <Button
                         android:id="@+id/btn_finish"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:background="@drawable/button_round"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"

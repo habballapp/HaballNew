@@ -126,7 +126,7 @@
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
-                        android:textSize="16sp"
+                        android:textSize="15sp"
                         android:gravity="top|left"/>
 
 
@@ -194,7 +194,7 @@
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
                         android:maxLength="5"
-                        android:textSize="16sp" />
+                        android:textSize="15sp" />
 
                 </RelativeLayout>
 
@@ -270,7 +270,7 @@
                             android:paddingLeft="20dp"
                             android:paddingRight="20dp"
                             android:paddingBottom="5dp"
-                            android:textSize="16sp"
+                            android:textSize="15sp"
                             android:gravity="top|left" />
 
                         <RelativeLayout
@@ -336,7 +336,7 @@
                             android:paddingRight="20dp"
                             android:paddingBottom="5dp"
                             android:maxLength="5"
-                            android:textSize="16sp" />
+                            android:textSize="15sp" />
 
                     </RelativeLayout>
                 </RelativeLayout>

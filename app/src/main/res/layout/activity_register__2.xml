@@ -141,19 +141,19 @@
                 android:id="@+id/txt_email"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@drawable/edit_text_squared"
-                android:inputType="textEmailAddress"
-                android:paddingTop="5dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="5dp"
-                android:textSize="15sp"
-                android:layout_marginTop="30dp"
                 android:layout_marginLeft="40dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginRight="40dp"
                 android:layout_weight="1"
+                android:background="@drawable/edit_text_squared"
                 android:hint="Email Address *"
-                />
+                android:inputType="textEmailAddress"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:textSize="15sp" />
+
             <EditText
                 android:id="@+id/txt_cnic"
                 android:layout_width="match_parent"
@@ -275,7 +275,7 @@
             <Button
                 android:id="@+id/btn_register"
                 android:layout_width="match_parent"
-                android:layout_height="80px"
+                android:layout_height="40dp"
                 android:background="@drawable/button_background"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"

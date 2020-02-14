@@ -46,7 +46,7 @@
                     <TextView
                         android:id="@+id/order_id"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:gravity="center_vertical"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
@@ -55,7 +55,7 @@
                         android:paddingLeft="20dp"
                         android:hint="555551223455"
                         android:background="@drawable/distribution_login"
-                        android:textSize="@dimen/text_box" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -72,7 +72,7 @@
                     <TextView
                         android:id="@+id/company_name"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_marginTop="5dp"
@@ -81,7 +81,7 @@
                         android:gravity="center_vertical"
                         android:hint="Kamran Traders"
                         android:background="@drawable/distribution_login"
-                        android:textSize="@dimen/text_box" />
+                        android:textSize="15sp" />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                     <TextView
                         android:id="@+id/tr_mode"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_marginTop="5dp"
@@ -106,7 +106,7 @@
                         android:hint="Self"
                         android:gravity="center_vertical"
                         android:background="@drawable/distribution_login"
-                        android:textSize="@dimen/text_box" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -123,7 +123,7 @@
                     <TextView
                         android:id="@+id/payment_term"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_marginTop="5dp"
@@ -132,7 +132,7 @@
                         android:gravity="center_vertical"
                         android:hint="100"
                         android:background="@drawable/distribution_login"
-                        android:textSize="@dimen/text_box" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -149,7 +149,7 @@
                     <TextView
                         android:id="@+id/tv_cdate"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_marginTop="5dp"
@@ -158,7 +158,7 @@
                         android:gravity="center_vertical"
                         android:text="12/4/2020"
                         android:background="@drawable/distribution_login"
-                        android:textSize="@dimen/text_box" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -174,7 +174,7 @@
                     <TextView
                         android:id="@+id/tv_status"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_marginTop="5dp"
@@ -183,7 +183,7 @@
                         android:gravity="center_vertical"
                         android:text="Recieved"
                         android:background="@drawable/distribution_login"
-                        android:textSize="@dimen/text_box" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -200,7 +200,7 @@
                     <TextView
                         android:id="@+id/tv_shaddress"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_marginTop="5dp"
@@ -209,7 +209,7 @@
                         android:gravity="center_vertical"
                         android:text="Karachi Pakistan"
                         android:background="@drawable/distribution_login"
-                        android:textSize="@dimen/text_box" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -226,7 +226,7 @@
                     <TextView
                         android:id="@+id/tv_shstatus"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_marginTop="5dp"
@@ -235,7 +235,7 @@
                         android:gravity="center_vertical"
                         android:text="Karachi Pakistan"
                         android:background="@drawable/distribution_login"
-                        android:textSize="@dimen/text_box" />
+                        android:textSize="15sp" />
 
 
                 </LinearLayout>
@@ -251,7 +251,7 @@
                     <Button
                         android:id="@+id/btn_next"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_weight="1"
