@@ -20,30 +20,36 @@
             android:weightSum="2"
             android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/proof_of_payment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginTop="20dp"
-                android:text="Profile"
-                android:layout_weight="1"
-                android:textSize="18sp"
-                android:paddingTop="5dp"
-                android:textColor="#96bb3c"
-                android:textStyle="bold"
-                />
+                android:weightSum="2"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/underline"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                android:text="DSITRIBUTOR INFORMATION"
-                android:textColor="#000"
-                android:textSize="10sp"
-                />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Profile"
+                    android:paddingBottom="10dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="100dp"
+                    android:textSize="18sp"
+                    android:textColor="#96bb3c"
+                    android:background="@drawable/half_underline"
+
+                    />
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
@@ -56,6 +62,27 @@
             android:layout_marginBottom="40dp"
             android:orientation="vertical"
             android:weightSum="8">
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:hint="Username"
+                android:textColorHint="#96bb3c"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_test"
+                    android:textSize="15sp"
+                    android:textColor="#676a6c"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <TextView
                 android:layout_width="match_parent"
@@ -78,6 +105,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:paddingLeft="20dp"
+                android:textColor="#676a6c"
                 android:editable="false"
                 android:hint="555551223455"
                 android:background="@drawable/distribution_login"
@@ -105,6 +133,7 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
                 android:drawablePadding="10dp"
+                android:textColor="#676a6c"
                 android:gravity="center_vertical"
                 android:hint="Abdul"
                 android:drawableRight="@drawable/editprofile"
@@ -133,6 +162,7 @@
                 android:paddingRight="10dp"
                 android:drawablePadding="10dp"
                 android:hint="Qadir"
+                android:textColor="#676a6c"
                 android:gravity="center_vertical"
                 android:drawableRight="@drawable/editprofile"
                 android:background="@drawable/distribution_login"
@@ -161,6 +191,7 @@
                 android:hint="abdul.qadir@gmail.com"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
+                android:textColor="#676a6c"
                 android:drawablePadding="10dp"
                 android:drawableRight="@drawable/editprofile"
                 android:background="@drawable/distribution_login"
@@ -188,6 +219,7 @@
                 android:paddingLeft="15dp"
                 android:gravity="center_vertical"
                 android:text="12345678"
+                android:textColor="#676a6c"
                 android:background="@drawable/distribution_login"
                 android:textSize="15sp" />
 
@@ -215,6 +247,7 @@
                 android:drawableRight="@drawable/editprofile"
                 android:gravity="center_vertical"
                 android:text="03452389760"
+                android:textColor="#676a6c"
                 android:background="@drawable/distribution_login"
                 android:textSize="15sp" />
 
@@ -240,6 +273,7 @@
                 android:paddingLeft="20dp"
                 android:gravity="center_vertical"
                 android:text="23132"
+                android:textColor="#676a6c"
                 android:background="@drawable/distribution_login"
                 android:textSize="15sp" />
 
@@ -263,6 +297,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:paddingLeft="20dp"
+                android:textColor="#676a6c"
                 android:gravity="center_vertical"
                 android:text="MATZ Solutions"
                 android:background="@drawable/distribution_login"
@@ -289,6 +324,7 @@
                 android:layout_weight="1"
                 android:paddingLeft="20dp"
                 android:gravity="center_vertical"
+                android:textColor="#676a6c"
                 android:text="18/01/2020"
                 android:background="@drawable/distribution_login"
                 android:textSize="15sp" />
