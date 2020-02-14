@@ -32,7 +32,7 @@
     <Button
         android:id="@+id/btn_create_proof_of_payment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:background="@drawable/button_background"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"

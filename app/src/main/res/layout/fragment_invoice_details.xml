@@ -46,7 +46,7 @@
                     <TextView
                         android:id="@+id/invoice_id"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:gravity="center_vertical"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
@@ -55,7 +55,7 @@
                         android:paddingLeft="20dp"
                         android:hint="55555122345432"
                         android:background="@drawable/distribution_login"
-                        android:textSize="@dimen/text_box" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -72,7 +72,7 @@
                     <TextView
                         android:id="@+id/tv_date"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_marginTop="5dp"
@@ -81,7 +81,7 @@
                         android:gravity="center_vertical"
                         android:hint="24/12/2019"
                         android:background="@drawable/distribution_login"
-                        android:textSize="@dimen/text_box" />
+                        android:textSize="15sp" />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                     <TextView
                         android:id="@+id/tv_amount"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_marginTop="5dp"
@@ -106,7 +106,7 @@
                         android:hint="15000"
                         android:gravity="center_vertical"
                         android:background="@drawable/distribution_login"
-                        android:textSize="@dimen/text_box" />
+                        android:textSize="15sp" />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -122,7 +122,7 @@
                     <TextView
                         android:id="@+id/payment_date"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_marginTop="5dp"
@@ -131,7 +131,7 @@
                         android:hint="12/2/2019"
                         android:gravity="center_vertical"
                         android:background="@drawable/distribution_login"
-                        android:textSize="@dimen/text_box" />
+                        android:textSize="15sp" />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -147,7 +147,7 @@
                     <TextView
                         android:id="@+id/Transaction_amount"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_marginTop="5dp"
@@ -156,7 +156,7 @@
                         android:hint="1400"
                         android:gravity="center_vertical"
                         android:background="@drawable/distribution_login"
-                        android:textSize="@dimen/text_box" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -173,7 +173,7 @@
                     <TextView
                         android:id="@+id/tv_status"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_marginTop="5dp"
@@ -182,7 +182,7 @@
                         android:gravity="center_vertical"
                         android:text="Unpaid"
                         android:background="@drawable/distribution_login"
-                        android:textSize="@dimen/text_box" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -199,7 +199,7 @@
                     <TextView
                         android:id="@+id/state"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_marginTop="5dp"
@@ -208,7 +208,7 @@
                         android:gravity="center_vertical"
                         android:text="Normal"
                         android:background="@drawable/distribution_login"
-                        android:textSize="@dimen/text_box" />
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 
@@ -223,7 +223,7 @@
                     <Button
                         android:id="@+id/btn_next"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_weight="1"

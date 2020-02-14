@@ -192,9 +192,6 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
                     mAdapter = new ProofOfPaymentAdapter(getContext(),proofOfPaymentsList2);
                     recyclerView.setAdapter(mAdapter);
 
-                    if(pageNumber > 0)
-                        ((LinearLayoutManager) recyclerView.getLayoutManager()).scrollToPosition(8);
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

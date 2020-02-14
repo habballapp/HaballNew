@@ -40,7 +40,7 @@
         <RelativeLayout
             android:id="@+id/relative_Preffered_Contact"
             android:layout_width="match_parent"
-            android:layout_height="80px"
+            android:layout_height="40dp"
             android:layout_below="@+id/relative_criticality"
             android:layout_marginTop="20dp"
             android:background="@drawable/edit_round">

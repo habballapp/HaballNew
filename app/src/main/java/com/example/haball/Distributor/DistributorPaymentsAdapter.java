@@ -19,6 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Response;
 import com.example.haball.Distributor.ui.main.PlaceholderFragment;
+import com.example.haball.Distributor.ui.payments.CreatePaymentRequestFragment;
+import com.example.haball.Distributor.ui.payments.PaymentRequestDashboard;
+import com.example.haball.Distributor.ui.payments.PaymentsSummaryFragment;
 import com.example.haball.Invoice.Distributor_Invoice_DashBoard;
 import com.example.haball.R;
 
@@ -128,9 +131,15 @@ public class DistributorPaymentsAdapter extends RecyclerView.Adapter<Distributor
                                 switch (item.getItemId()) {
                                     case R.id.view_invoice:
                                         Toast.makeText(mContxt,"View Invoice",Toast.LENGTH_LONG).show();
-                                        FragmentTransaction fragmentTransaction= ((FragmentActivity)mContxt).getSupportFragmentManager().beginTransaction();
-                                        fragmentTransaction.add(R.id.main_container,new Distributor_Invoice_DashBoard());
+
+                                        FragmentTransaction fragmentTransaction = ((FragmentActivity)mContxt).getSupportFragmentManager().beginTransaction();
+                                        fragmentTransaction.replace(R.id.main_container, new Distributor_Invoice_DashBoard());
+                                        fragmentTransaction.addToBackStack(null);
                                         fragmentTransaction.commit();
+//
+//                                        FragmentTransaction fragmentTransaction= ((FragmentActivity)mContxt).getSupportFragmentManager().beginTransaction();
+//                                        fragmentTransaction.add(R.id.main_container,new Distributor_Invoice_DashBoard());
+//                                        fragmentTransaction.commit();
 
                                         break;
                                     case R.id.view_pdf:

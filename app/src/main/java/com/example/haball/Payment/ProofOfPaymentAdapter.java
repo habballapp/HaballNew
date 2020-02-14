@@ -65,7 +65,8 @@ public class ProofOfPaymentAdapter extends RecyclerView.Adapter<ProofOfPaymentAd
                         switch (item.getItemId()) {
                             case R.id.proof_view:
                                 FragmentTransaction fragmentTransaction= ((FragmentActivity)mContxt).getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction.add(R.id.main_container,new ProofOfPaymentForm());
+                                fragmentTransaction.replace(R.id.main_container,new ProofOfPaymentForm());
+                                fragmentTransaction.addToBackStack(null);
                                 fragmentTransaction.commit();
                                 break;
                         }
