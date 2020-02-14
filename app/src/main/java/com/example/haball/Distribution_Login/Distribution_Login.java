@@ -116,6 +116,7 @@ public class Distribution_Login extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Distribution_Login.this, Registration_Activity.class);
                 startActivity(intent);
+
             }
         });
         btn_support.setOnClickListener(new View.OnClickListener() {
@@ -123,6 +124,7 @@ public class Distribution_Login extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Distribution_Login.this, Support_Ticket_Form.class);
                 startActivity(intent);
+
             }
         });
         btn_password.setOnClickListener(new View.OnClickListener() {
@@ -144,20 +146,16 @@ public class Distribution_Login extends AppCompatActivity {
                         View view_popup = inflater.inflate(R.layout.email_sent, null);
                         alertDialog1.setView(view_popup);
                         ImageButton img_email = view_popup.findViewById(R.id.image_email);
-
                         forgotPasswordRequest(alertDialog, alertDialog1, img_email);
-
                     }
                 });
                 img_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         alertDialog.dismiss();
-
                     }
                 });
                 alertDialog.show();
-
             }
 
         });

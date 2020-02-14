@@ -73,6 +73,7 @@ public class Registration_Activity extends AppCompatActivity implements View.OnF
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                overridePendingTransition(android.R.anim.slide_out_right, android.R.anim.slide_in_left);
                 finish();
             }
         });

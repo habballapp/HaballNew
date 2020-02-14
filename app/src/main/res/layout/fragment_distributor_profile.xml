@@ -63,26 +63,23 @@
             android:orientation="vertical"
             android:weightSum="8">
 
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_marginLeft="40dp"-->
+<!--                android:layout_marginRight="40dp"-->
+<!--                android:hint="Username"-->
+<!--                android:textColorHint="#96bb3c"-->
+<!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:hint="Username"
-                android:textColorHint="#96bb3c"
-                app:boxStrokeWidth="0.5dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/et_test"-->
+<!--                    android:textSize="15sp"-->
+<!--                    android:textColor="#676a6c"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"/>-->
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_test"
-                    android:textSize="15sp"
-                    android:textColor="#676a6c"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
             <TextView
                 android:layout_width="match_parent"
