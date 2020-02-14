@@ -29,13 +29,13 @@ import com.example.haball.Distributor.ui.expandablelist.CustomExpandableListMode
 import com.example.haball.Distributor.ui.payments.PaymentRequestDashboard;
 import com.example.haball.Distributor.ui.payments.Payments_Fragment;
 import com.example.haball.Distributor.ui.support.SupportFragment;
+import com.example.haball.Payment.PaymentLedger;
 import com.example.haball.Retailor.ui.Network.My_NetworkDashboard;
 import com.example.haball.Payment.Proof_Of_Payment_Form;
 import com.example.haball.R;
 import com.example.haball.Retailer_Login.RetailerLogin;
 import com.example.haball.Retailor.ui.Dashboard.DashBoardFragment;
 import com.example.haball.Retailor.ui.Make_Payment.Payment_Summary;
-import com.example.haball.Retailor.ui.Network.Select_Tabs.My_Network_Fragment;
 import com.example.haball.Retailor.ui.Place_Order.PlaceOrderFragment;
 import com.example.haball.Retailor.ui.Profile.ProfileFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -47,7 +47,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class RetailorDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class RetailorDashboard extends AppCompatActivity  {
 
     private AppBarConfiguration mAppBarConfiguration;
     private FragmentManager mFragmentManager;
@@ -65,13 +65,10 @@ public class RetailorDashboard extends AppCompatActivity implements NavigationVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toolbar toolbar = findViewById(R.id.toolbar);
         setContentView(R.layout.activity_retailor_dashboard);
 
-
+        Toolbar toolbar = findViewById(R.id.toolbar);
         drawer = findViewById(R.id.drawer_layout_retailor);
-
-        final NavigationView navigationView = findViewById(R.id.nav_view_retailor);
 
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.main_container_ret, new DashBoardFragment());
@@ -86,20 +83,18 @@ public class RetailorDashboard extends AppCompatActivity implements NavigationVi
         drawer.setDrawerListener(toggle);
 
 
-
-        navigationView.setNavigationItemSelectedListener(this);
         navigationExpandableListView = findViewById(R.id.expandable_navigation);
         navigationExpandableListView
                 .init(this)
                 .addHeaderModel(new HeaderModel("Dashboard"))
                 .addHeaderModel(new HeaderModel("My Network"))
                 .addHeaderModel(new HeaderModel("Place Order")
-                        .addChildModel(new ChildModel("Place Order")))
+                        .addChildModel(new ChildModel("\tPlace Order")))
                 .addHeaderModel(
                         new HeaderModel("Make Payment")
-                                .addChildModel(new ChildModel("Payments Summary"))
-                                .addChildModel(new ChildModel("Payment Request"))
-                                .addChildModel(new ChildModel("Payment Ledger"))
+                                .addChildModel(new ChildModel("\tPayments Summary"))
+                                .addChildModel(new ChildModel("\tPayment Request"))
+                                .addChildModel(new ChildModel("\tPayment Ledger"))
 
                 )
                 .addHeaderModel(new HeaderModel("Profile"))
@@ -119,10 +114,13 @@ public class RetailorDashboard extends AppCompatActivity implements NavigationVi
 
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 1) {
-                            Log.i("My Network", "My Network Activity");
+
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container_ret, new My_NetworkDashboard());
                             fragmentTransaction.commit();
+                            drawer.closeDrawer(GravityCompat.START);
+                            Log.i("My Network", "My Network Activity");
+
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 2) {
                             Log.i("Place Order", "Place Order Activity");
@@ -166,14 +164,12 @@ public class RetailorDashboard extends AppCompatActivity implements NavigationVi
                         }  else if (groupPosition == 3 && childPosition == 1) {
                             Log.i("Payment Request", "Child");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new PaymentRequestDashboard());
+                            fragmentTransaction.replace(R.id.main_container_ret, new Payments_Fragment());
                             fragmentTransaction.commit();
                         } else if (groupPosition == 3 && childPosition == 2) {
                             Log.i("Payment Ledger", "Child");
-                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new Payments_Fragment());
-                            fragmentTransaction.commit();
-
+                            Intent payment_ledger = new Intent(RetailorDashboard.this, PaymentLedger.class);
+                            startActivity(payment_ledger);
                         } else if (groupPosition == 3 && childPosition == 4) {
                             Log.i("Proof of Payments", "Child");
                             Intent proof_p = new Intent(RetailorDashboard.this, Proof_Of_Payment_Form.class);
@@ -192,26 +188,4 @@ public class RetailorDashboard extends AppCompatActivity implements NavigationVi
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.retailor_dashboard, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_ret);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        int position = menuItem.getItemId();
-
-        drawer = findViewById(R.id.drawer_layout_retailor);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
 }

@@ -17,9 +17,7 @@ import com.example.haball.R;
 public class Sent_Fragment extends Fragment {
 
 
-    public Sent_Fragment() {
-        // Required empty public constructor
-    }
+
 
 
     @Override

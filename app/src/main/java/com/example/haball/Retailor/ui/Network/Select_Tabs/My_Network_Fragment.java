@@ -16,8 +16,8 @@ import com.example.haball.Retailor.ui.Network.Models.Fragment_My_Netwok_Model;
 import com.example.haball.R;
 
 /**
- * A simple {@link Fragment} subclass.
- */
+        * A simple {@link Fragment} subclass.
+        */
 public class My_Network_Fragment extends Fragment {
 
     private RecyclerView recyclerView;
@@ -44,8 +44,8 @@ public class My_Network_Fragment extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         // specify an adapter (see also next example)
-        mAdapter = new Fragment_My_Network_Adapter(this, "Connected", "123456789","Mz-2,Horizon Vista,Plot-10,Block-4,Clifton");
-        recyclerView.setAdapter(mAdapter);
+       // mAdapter = new Fragment_My_Network_Adapter(this, "Connected", "123456789","Mz-2,Horizon Vista,Plot-10,Block-4,Clifton");
+      //  recyclerView.setAdapter(mAdapter);
         return root;
     }
 

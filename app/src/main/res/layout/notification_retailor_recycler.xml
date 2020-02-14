@@ -14,50 +14,52 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="3">
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.25">
 
             <TextView
-                android:id="@+id/my_network_fragment_no"
+                android:id="@+id/subject"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/my_network_fragment_status"
-                android:text="+92"
-                android:textSize="14sp" />
-            <TextView
-                android:id="@+id/my_network_fragment_no_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/my_network_fragment_status"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/my_network_fragment_no"
-                android:text="123456789"
-                android:textColor="#676a6c"
+                android:layout_below="@+id/consolidate_invoice_no_view"
+                android:layout_toRightOf="@+id/tv_pkr_amount_view"
+                android:text=" Payment"
+                android:textColor="#96bb3c"
                 android:textSize="14sp"
-                />
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/my_network_fragment_cnic_value"
+                android:id="@+id/notification_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/my_network_fragment_no"
-                android:text="Mz-2,Horizon Vista,Plot-10,Block-4,Clifton"
-                android:textSize="14sp"
-                />
-            />
+                android:layout_below="@+id/subject"
+                android:layout_marginTop="10dp"
+                android:text="Payment ID"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/notification_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/subject"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/notification_message"
+                android:text=" 345697977970 has been approved successfully"
+                android:textSize="14sp" />
+
         </RelativeLayout>
         <ImageButton
-            android:id="@+id/pop_menu_btn"
+            android:id="@+id/menu_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2.75"
-            android:background="@null"
             android:src="@drawable/ic_more_vert_black_24dp"
-            android:textColor="#676a6c"
-            android:textSize="14sp" />
+            android:background="@null"
+            android:layout_weight="2.75"
+            android:textSize="18sp"
+            android:layout_marginRight="10dp"
+            android:textColor="#000"/>
     </LinearLayout>
 
 </RelativeLayout>

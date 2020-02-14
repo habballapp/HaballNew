@@ -37,6 +37,7 @@ import com.example.haball.Language_Selection.Language_Selection;
 import com.example.haball.Payment.Payment_Screen2;
 import com.example.haball.R;
 import com.example.haball.Registration.Registration_Activity;
+import com.example.haball.Select_User.Register_Activity;
 import com.example.haball.Support.Support_Ticket_Form;
 import com.example.haball.Support.Support_dashboard;
 import com.google.gson.Gson;
@@ -97,7 +98,8 @@ public class Distribution_Login extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(Distribution_Login.this, Register_Activity.class);
+                startActivity(intent);
             }
         });
 

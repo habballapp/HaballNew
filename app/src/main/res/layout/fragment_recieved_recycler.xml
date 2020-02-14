@@ -27,9 +27,8 @@
                 android:layout_below="@+id/my_network_fragment_status"
                 android:text="+92"
                 android:textSize="14sp" />
-
             <TextView
-                android:id="@+id/sent_no_value"
+                android:id="@+id/recieved_no_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/my_network_fragment_status"
@@ -37,10 +36,11 @@
                 android:layout_toRightOf="@+id/my_network_fragment_no"
                 android:text="123456789"
                 android:textColor="#676a6c"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                />
 
             <TextView
-                android:id="@+id/sent_address_value"
+                android:id="@+id/recieved_address_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/my_network_fragment_no"
