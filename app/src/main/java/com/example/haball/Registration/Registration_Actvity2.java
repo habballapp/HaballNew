@@ -336,8 +336,10 @@ public class Registration_Actvity2 extends AppCompatActivity {
                 Log.e("RESPONSE", result.toString());
                 try {
                     if(!result.get("DealerCode").toString().isEmpty()){
-                        Intent i = new Intent(Registration_Actvity2.this, DistributorDashboard.class);
+                        Intent i = new Intent(Registration_Actvity2.this, Distribution_Login.class);
+                        Toast.makeText(Registration_Actvity2.this,"You have been registered successfully, please use login credentials to access the Portal.",Toast.LENGTH_LONG).show();
                         startActivity(i);
+                        finish();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

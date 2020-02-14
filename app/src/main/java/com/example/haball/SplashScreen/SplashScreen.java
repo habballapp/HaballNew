@@ -2,9 +2,12 @@ package com.example.haball.SplashScreen;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 import com.example.haball.Distributor.DistributorDashboard;
 import com.example.haball.Language_Selection.Language_Selection;
@@ -25,21 +28,27 @@ import com.example.haball.Support.Support_Ticket_Form;
 
 public class SplashScreen extends AppCompatActivity {
 
+    private String Token = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        Handler handler = new Handler();
+        SharedPreferences sharedPreferences = this.getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        if(!sharedPreferences.getString("Login_Token","").equals(""))
+            Token = sharedPreferences.getString("Login_Token","");
+        Log.i("Token Splash", Token);
 
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-               Intent intent = new Intent(SplashScreen.this, Language_Selection.class);
-            //   Intent intent = new Intent(SplashScreen.this, DistributorOrder_ItemSelection.class);
-                startActivity(intent);
-                finish();
-            }
-        },4500);
+        if(!Token.equals("")){
+            Intent intent = new Intent(SplashScreen.this, DistributorDashboard.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            Intent intent = new Intent(SplashScreen.this, Distribution_Login.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }

@@ -133,7 +133,7 @@
                     <RelativeLayout
                         android:id="@+id/relative_issuetype"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_below="@+id/Address"
                         android:layout_marginTop="30dp"
                         android:layout_marginLeft="40dp"
@@ -143,13 +143,13 @@
                         <Spinner
                             android:id="@+id/spinner_country"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="match_parent"/>
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/relative_criticality"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_below="@+id/relative_issuetype"
                         android:layout_marginTop="30dp"
                         android:layout_marginLeft="40dp"
@@ -165,7 +165,7 @@
                     <RelativeLayout
                         android:id="@+id/relative_Preffered_Contact"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_below="@+id/relative_criticality"
                         android:layout_marginTop="30dp"
                         android:layout_marginLeft="40dp"
@@ -182,18 +182,18 @@
                     <EditText
                         android:id="@+id/postal_shipping"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_below="@+id/relative_Preffered_Contact"
                         android:layout_marginTop="30dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:background="@drawable/edit_text_squared"
-                        android:gravity="left"
                         android:hint="Postal Code *"
                         android:paddingTop="5dp"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
+                        android:maxLength="5"
                         android:textSize="16sp" />
 
                 </RelativeLayout>
@@ -276,7 +276,7 @@
                         <RelativeLayout
                             android:id="@+id/select_country"
                             android:layout_width="match_parent"
-                            android:layout_height="80px"
+                            android:layout_height="40dp"
                             android:layout_below="@+id/Address02"
                             android:layout_marginTop="30dp"
                             android:layout_marginLeft="40dp"
@@ -292,7 +292,7 @@
                         <RelativeLayout
                             android:id="@+id/select_province"
                             android:layout_width="match_parent"
-                            android:layout_height="80px"
+                            android:layout_height="40dp"
                             android:layout_below="@+id/select_country"
                             android:layout_marginTop="30dp"
                             android:layout_marginLeft="40dp"
@@ -308,7 +308,7 @@
                         <RelativeLayout
                             android:id="@+id/select_city"
                             android:layout_width="match_parent"
-                            android:layout_height="80px"
+                            android:layout_height="40dp"
                             android:layout_below="@+id/select_province"
                             android:layout_marginTop="30dp"
                             android:layout_marginLeft="40dp"
@@ -324,18 +324,18 @@
                         <EditText
                             android:id="@+id/postal_billing"
                             android:layout_width="match_parent"
-                            android:layout_height="80px"
+                            android:layout_height="40dp"
                             android:layout_below="@+id/select_city"
                             android:layout_marginTop="30dp"
                             android:layout_marginLeft="40dp"
                             android:layout_marginRight="40dp"
                             android:background="@drawable/edit_text_squared"
-                            android:gravity="left"
                             android:hint="Postal Code *"
                             android:paddingTop="5dp"
                             android:paddingLeft="20dp"
                             android:paddingRight="20dp"
                             android:paddingBottom="5dp"
+                            android:maxLength="5"
                             android:textSize="16sp" />
 
                     </RelativeLayout>
@@ -343,7 +343,7 @@
                 <Button
                     android:id="@+id/btn_register"
                     android:layout_width="match_parent"
-                    android:layout_height="80px"
+                    android:layout_height="40dp"
                     android:layout_below="@id/rl_billing_main"
                     android:layout_marginTop="40dp"
                     android:layout_marginLeft="40dp"
