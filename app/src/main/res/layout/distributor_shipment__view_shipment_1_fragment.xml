@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:backgroundTint="#80FFFFFF"
     android:backgroundTintMode="src_over"
-    tools:context=".Registration.Registration_Activity">
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -45,8 +45,8 @@
                         android:textColor="#96bb3c"
                         android:textSize="12sp" />
 
-                    <EditText
-                        android:id="@+id/invoice_id"
+                    <TextView
+                        android:id="@+id/shipment_invoice_id"
                         android:layout_width="match_parent"
                         android:layout_height="80px"
                         android:gravity="center_vertical"
@@ -55,7 +55,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
                         android:paddingLeft="20dp"
-                        android:hint="555551223455"
+                        android:hint=""
                         android:background="@drawable/distribution_login"
                         android:textSize="10sp" />
 
@@ -71,8 +71,8 @@
                         android:textColor="#96bb3c"
                         android:textSize="12sp" />
 
-                    <EditText
-                        android:id="@+id/tv_date"
+                    <TextView
+                        android:id="@+id/invoice_tv_date"
                         android:layout_width="match_parent"
                         android:layout_height="80px"
                         android:layout_marginLeft="40dp"
@@ -81,7 +81,7 @@
                         android:layout_weight="1"
                         android:paddingLeft="20dp"
                         android:gravity="center_vertical"
-                        android:hint="24/12/2019"
+                        android:hint=""
                         android:background="@drawable/distribution_login"
                         android:textSize="10sp" />
                     <TextView
@@ -97,7 +97,7 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/tv_amount"
+                        android:id="@+id/invoice_tv_amount"
                         android:layout_width="match_parent"
                         android:layout_height="80px"
                         android:layout_marginLeft="40dp"
@@ -105,7 +105,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
                         android:paddingLeft="20dp"
-                        android:hint="15000"
+                        android:hint=""
                         android:gravity="center_vertical"
                         android:background="@drawable/distribution_login"
                         android:textSize="10sp" />
@@ -123,7 +123,7 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/tv_status"
+                        android:id="@+id/shipment_tv_status"
                         android:layout_width="match_parent"
                         android:layout_height="80px"
                         android:layout_marginLeft="40dp"
@@ -132,7 +132,7 @@
                         android:layout_weight="1"
                         android:paddingLeft="20dp"
                         android:gravity="center_vertical"
-                        android:text="Unpaid"
+                        android:text=""
                         android:background="@drawable/distribution_login"
                         android:textSize="10sp" />
                 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.haball.Shipment.ui.main;
+package com.example.haball.Distributor.ui.shipments.main;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,14 +11,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.haball.R;
-import com.example.haball.Shipment.ui.main.Models.DistributorShipmentViewShipmentViewModel;
 
-public class DistributorShipment_ViewShipment extends Fragment {
+public class Distributor_shipmentDetails extends Fragment {
 
-    private DistributorShipmentViewShipmentViewModel mViewModel;
-
-    public static DistributorShipment_ViewShipment newInstance() {
-        return new DistributorShipment_ViewShipment();
+    public static Distributor_shipmentDetails newInstance() {
+        return new Distributor_shipmentDetails();
     }
 
     @Override
@@ -30,8 +27,7 @@ public class DistributorShipment_ViewShipment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(DistributorShipmentViewShipmentViewModel.class);
-        // TODO: Use the ViewModel
+
     }
 
 }
