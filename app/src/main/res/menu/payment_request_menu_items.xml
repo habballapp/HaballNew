@@ -9,7 +9,7 @@
         <item android:id="@+id/payment_request_download"
             android:title="Download Slip" />
         <item android:id="@+id/payment_request_ebay"
-            android:title="Pay By Ebay" />
+            android:title="Pay By Epay" />
 
     </group>
 </menu>

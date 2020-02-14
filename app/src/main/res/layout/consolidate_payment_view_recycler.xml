@@ -28,7 +28,9 @@
         android:text="Ghulam Rabbani and  Sons"
         android:textSize="18sp"
         android:layout_weight="0.5"
-        android:textColor="#000"/>
+        android:textStyle="bold"
+        android:textColor="#676a6c"
+    />
     <TextView
         android:id="@+id/invoice_no"
         android:layout_width="wrap_content"
@@ -47,7 +49,9 @@
         android:textSize="16sp"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/invoice_no"
-        android:textColor="#000"/>
+        android:textStyle="bold"
+        android:textColor="#676a6c"
+        />
 
     <TextView
         android:id="@+id/consolidate_view_amount"
@@ -66,7 +70,8 @@
         android:layout_marginLeft="2dp"
         android:textStyle="bold"
         android:layout_toRightOf="@id/consolidated_view_pkr"
-        android:textColor="#000"/>
+        android:textColor="#676a6c"
+        />
 
     <TextView
         android:id="@+id/consolidated_view_pkr"
@@ -78,7 +83,8 @@
         android:layout_marginLeft="5dp"
         android:textStyle="bold"
         android:layout_toRightOf="@+id/consolidate_view_amount"
-        android:textColor="#000"/>
+        android:textColor="#676a6c"
+        />
 
     <TextView
         android:id="@+id/consolidate_view_status"
@@ -87,7 +93,8 @@
         android:layout_below="@+id/consolidate_view_amount"
         android:text="Status:"
         android:textSize="16sp"
-        android:textColor="#000"/>
+        android:textColor="#676a6c"
+        />
 
     <TextView
         android:id="@+id/tv_pkr1"
@@ -98,7 +105,9 @@
         android:textSize="16sp"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/consolidate_view_status"
-        android:textColor="#000"/>
+        android:textStyle="bold"
+        android:textColor="#676a6c"
+        />
 
 
 
