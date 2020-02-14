@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.haball.Distributor.ui.Fragment_Notification.FragmentNotification;
@@ -36,6 +37,7 @@ import com.example.haball.R;
 import com.example.haball.Retailer_Login.RetailerLogin;
 import com.example.haball.Retailor.ui.Dashboard.DashBoardFragment;
 import com.example.haball.Retailor.ui.Make_Payment.Payment_Summary;
+import com.example.haball.Retailor.ui.Notification.Notification_Fragment;
 import com.example.haball.Retailor.ui.Place_Order.PlaceOrderFragment;
 import com.example.haball.Retailor.ui.Profile.ProfileFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -54,7 +56,7 @@ public class RetailorDashboard extends AppCompatActivity  {
     private FragmentTransaction mFragmentTransaction;
     private TextView tv_username;
     private FragmentTransaction fragmentTransaction;
-    private ImageButton notification_icon;
+    private ImageView notification_icon;
     private DrawerLayout drawer;
     ExpandableListAdapter expandableListAdapter;
     ExpandableListView expandableListView;
@@ -68,7 +70,9 @@ public class RetailorDashboard extends AppCompatActivity  {
         setContentView(R.layout.activity_retailor_dashboard);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout_retailor);
+        notification_icon = (ImageView)toolbar.findViewById(R.id.notification_icon_retailer);
 
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.main_container_ret, new DashBoardFragment());
@@ -81,6 +85,15 @@ public class RetailorDashboard extends AppCompatActivity  {
         toggle.syncState();
         toggle.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         drawer.setDrawerListener(toggle);
+
+    notification_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container_ret, new Notification_Fragment());
+                fragmentTransaction.commit();
+            }
+        });
 
 
         navigationExpandableListView = findViewById(R.id.expandable_navigation);

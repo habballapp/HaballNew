@@ -11,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.haball.Distributor.ui.Fragment_Notification.NotificationAdapter;
 import com.example.haball.R;
+import com.example.haball.Retailor.ui.Notification.Adapters.Notification_Adapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,12 +35,15 @@ public class Notification_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
    //     return inflater.inflate(R.layout.fragment_blank, container, false);
-        View root = inflater.inflate(R.layout.fragment_blank, container, false);
+        View root = inflater.inflate(R.layout.notification_fragment, container, false);
 
         recyclerView = root.findViewById(R.id.rv_notification_retailor);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(root.getContext());
         recyclerView.setLayoutManager(layoutManager);
+        NotificationAdapter = new Notification_Adapter(getContext(),"Payment","Payment ID 345697977970 has been approved successfully" );
+        recyclerView.setAdapter(NotificationAdapter);
+
         return root;
     }
 
