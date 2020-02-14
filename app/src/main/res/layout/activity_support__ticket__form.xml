@@ -66,6 +66,7 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:padding="10dp"
+                android:inputType="text|textCapSentences"
                 android:background="@drawable/edit_round"/>
             <EditText
                 android:id="@+id/Email"
@@ -78,6 +79,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
+                android:inputType="textEmailAddress"
                 android:background="@drawable/edit_round"
                 />
             <EditText
@@ -91,7 +93,7 @@
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="30dp"
                 android:padding="10dp"
-                android:inputType=""
+                android:inputType="number"
                 android:layout_below="@+id/Email"/>
 
             <RelativeLayout
@@ -158,6 +160,7 @@
                 android:layout_below="@+id/relative_Preffered_Contact"
                 android:layout_marginLeft="40dp"
                 android:gravity="left"
+                android:inputType="textMultiLine|textCapSentences"
                 android:layout_marginRight="40dp"/>
 
 
