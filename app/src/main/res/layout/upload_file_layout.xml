@@ -52,7 +52,7 @@
         <TextView
             android:id="@+id/filename"
             android:layout_width="match_parent"
-            android:layout_height="80px"
+            android:layout_height="40dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_below="@+id/relative_criticality"
@@ -63,7 +63,7 @@
         <RelativeLayout
             android:id="@+id/rl_mode"
             android:layout_width="match_parent"
-            android:layout_height="80px"
+            android:layout_height="40dp"
             android:layout_below="@+id/filename"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -84,7 +84,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:text="Accepted Button Formats:JPEG,PNG,BMP and GIF"
+            android:text="Accepted image formats: JPEG, PNG, BMP and GIF"
             android:layout_below="@id/rl_mode"
             />
 
@@ -99,7 +99,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:background="@drawable/button_round"
-            android:layout_height="80px"/>
+            android:layout_height="40dp"/>
 
 
             <Button
@@ -114,7 +114,7 @@
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="30dp"
                 android:background="@drawable/button_round"
-                android:layout_height="80px"/>
+                android:layout_height="40dp"/>
 
         </RelativeLayout>
 

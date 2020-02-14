@@ -52,7 +52,7 @@
     <EditText
         android:id="@+id/order_id"
         android:layout_width="match_parent"
-        android:layout_height="80px"
+        android:layout_height="40dp"
         android:gravity="center_vertical"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
@@ -61,7 +61,7 @@
         android:paddingLeft="20dp"
         android:hint="555551223455"
         android:background="@drawable/distribution_login"
-        android:textSize="10sp" />
+        android:textSize="15sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -75,7 +75,7 @@
         <Button
             android:id="@+id/btn_next"
             android:layout_width="match_parent"
-            android:layout_height="80px"
+            android:layout_height="40dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:layout_weight="1"

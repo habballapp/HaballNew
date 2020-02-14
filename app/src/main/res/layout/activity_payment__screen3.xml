@@ -50,7 +50,7 @@
         <Button
             android:id="@+id/btn_newpayment"
             android:layout_width="match_parent"
-            android:layout_height="80px"
+            android:layout_height="40dp"
             android:background="@drawable/button_round"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
@@ -65,7 +65,7 @@
         <RelativeLayout
             android:id="@+id/relative_Preffered_Contact"
             android:layout_width="match_parent"
-            android:layout_height="80px"
+            android:layout_height="40dp"
             android:layout_below="@+id/relative_criticality"
             android:layout_marginRight="40dp"
             android:layout_marginTop="30dp"
@@ -81,7 +81,7 @@
         <EditText
             android:id="@+id/txt_amount"
             android:layout_width="match_parent"
-            android:layout_height="80px"
+            android:layout_height="40dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:textSize="15sp"
@@ -96,7 +96,7 @@
         <Button
             android:id="@+id/btn_update"
             android:layout_width="match_parent"
-            android:layout_height="80px"
+            android:layout_height="40dp"
             android:background="@drawable/button_round"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
@@ -122,7 +122,7 @@
         >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80px"
+            android:layout_height="40dp"
             android:weightSum="4"
             android:orientation="horizontal"
             android:layout_marginLeft="40dp"

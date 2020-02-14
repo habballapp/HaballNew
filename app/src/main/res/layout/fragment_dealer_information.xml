@@ -45,7 +45,7 @@
                     <TextView
                         android:id="@+id/order_id"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:gravity="center_vertical"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
@@ -54,7 +54,7 @@
                         android:paddingLeft="20dp"
                         android:hint="20191232"
                         android:background="@drawable/distribution_login"
-                        android:textSize="@dimen/text_box" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -71,7 +71,7 @@
                     <TextView
                         android:id="@+id/dealer_first_name"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_marginTop="5dp"
@@ -80,7 +80,7 @@
                         android:gravity="center_vertical"
                         android:hint="karam"
                         android:background="@drawable/distribution_login"
-                        android:textSize="@dimen/text_box" />
+                        android:textSize="15sp" />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                     <TextView
                         android:id="@+id/dealer_last_name"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_marginTop="5dp"
@@ -105,7 +105,7 @@
                         android:hint="Khan"
                         android:gravity="center_vertical"
                         android:background="@drawable/distribution_login"
-                        android:textSize="@dimen/text_box" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -122,7 +122,7 @@
                     <TextView
                         android:id="@+id/dealer_email"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_marginTop="5dp"
@@ -131,7 +131,7 @@
                         android:gravity="center_vertical"
                         android:hint="kamranKhan@gmail.com"
                         android:background="@drawable/distribution_login"
-                        android:textSize="@dimen/text_box" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -148,7 +148,7 @@
                     <TextView
                         android:id="@+id/dealer_mobile_no"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_marginTop="5dp"
@@ -157,7 +157,7 @@
                         android:gravity="center_vertical"
                         android:text="0343-3323433"
                         android:background="@drawable/distribution_login"
-                        android:textSize="@dimen/text_box" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -173,7 +173,7 @@
                     <TextView
                         android:id="@+id/dealer_landline"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_marginTop="5dp"
@@ -182,7 +182,7 @@
                         android:gravity="center_vertical"
                         android:text="232-22323233"
                         android:background="@drawable/distribution_login"
-                        android:textSize="@dimen/text_box" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -198,7 +198,7 @@
                     <TextView
                         android:id="@+id/dealer_no"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_marginTop="5dp"
@@ -207,7 +207,7 @@
                         android:gravity="center_vertical"
                         android:text="2323-343"
                         android:background="@drawable/distribution_login"
-                        android:textSize="@dimen/text_box" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -224,7 +224,7 @@
                     <TextView
                         android:id="@+id/dealer_company_name"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_marginTop="5dp"
@@ -233,7 +233,7 @@
                         android:gravity="center_vertical"
                         android:text="Kamran Traders"
                         android:background="@drawable/distribution_login"
-                        android:textSize="@dimen/text_box" />
+                        android:textSize="15sp" />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -249,7 +249,7 @@
                     <TextView
                         android:id="@+id/dealer_created_date"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_marginTop="5dp"
@@ -258,7 +258,7 @@
                         android:gravity="center_vertical"
                         android:text="25/12/2020"
                         android:background="@drawable/distribution_login"
-                        android:textSize="@dimen/text_box" />
+                        android:textSize="15sp" />
 
 
                 </LinearLayout>
@@ -274,7 +274,7 @@
                     <Button
                         android:id="@+id/btn_next"
                         android:layout_width="match_parent"
-                        android:layout_height="80px"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
                         android:layout_weight="1"

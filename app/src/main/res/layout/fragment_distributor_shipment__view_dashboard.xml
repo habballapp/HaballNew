@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
-    tools:context=".Shipment.DistributorShipment_ViewDashboard">
+    android:background="#fff">
 
     <LinearLayout
         android:id="@+id/tv_shipment"
@@ -34,7 +33,7 @@
     <RelativeLayout
         android:id="@+id/spinner_status"
         android:layout_width="match_parent"
-        android:layout_height="80px"
+        android:layout_height="40dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginTop="30dp"
@@ -46,24 +45,10 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/spinner_pending"
-        android:layout_width="match_parent"
-        android:layout_height="80px"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/spinner_status">
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </RelativeLayout>
-
-    <RelativeLayout
         android:id="@+id/line_bottom"
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:layout_below="@+id/spinner_pending"
+        android:layout_below="@+id/spinner_status"
         android:background="@drawable/line_seperator"
         android:layout_marginTop="30dp"/>
 
