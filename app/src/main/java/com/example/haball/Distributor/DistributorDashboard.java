@@ -177,6 +177,11 @@ public class DistributorDashboard extends AppCompatActivity {
                         } else if (id == 7) {
                             Log.i("Logout", "Logout Activity");
                             if (Token != null){
+                                SharedPreferences login_token = getSharedPreferences("LoginToken",
+                                        Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = login_token.edit();
+                                editor.remove("Login_Token");
+                                editor.commit();
                                 Intent login = new Intent(DistributorDashboard.this, Distribution_Login.class);
                                 startActivity(login);
                                 finish();

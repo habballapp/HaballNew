@@ -95,6 +95,7 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 if (dy > 0){
                     pos_y = dy;
+
                     visibleItemCount = layoutManager.getChildCount();
                     totalItemCount = layoutManager.getItemCount();
                     firstVisiblesItems = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
