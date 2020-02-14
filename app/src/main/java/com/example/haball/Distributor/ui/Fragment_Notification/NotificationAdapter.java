@@ -69,7 +69,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                         switch (item.getItemId()) {
                             case R.id.dismiss:
                                 Log.i("DISMISS CASE", "HERE");
-                                notifyItemRemoved(position);
                                 Dismiss_Notification dismiss_notification = new Dismiss_Notification();
                                 dismiss_notification.requestDismissNotification(notificationLists.get(position).getID(),context, token);
                                 Toast.makeText(context, "Notification Dismissed", Toast.LENGTH_LONG).show();

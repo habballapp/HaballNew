@@ -70,7 +70,7 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
 
     private int pos_y = 0;
     private int visibleItemCount, totalItemCount = 1;
-    private int firstVisiblesItems = 0;
+    private int firstVisiblesItems = 0, lastItem = 0;
     private int totalPages = 1; // get your total pages from web service first response
     private int current_page = 0;
 
@@ -94,15 +94,18 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 if (dy > 0){
+                    pos_y = dy;
                     visibleItemCount = layoutManager.getChildCount();
                     totalItemCount = layoutManager.getItemCount();
                     firstVisiblesItems = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+                    lastItem = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastVisibleItemPosition();
                     if (canLoadMoreData) {
                         if ((visibleItemCount + firstVisiblesItems) >= totalItemCount) {
                             if (pageNumber < 3) {
                                 Log.i("page", String.valueOf(pageNumber));
                                 try {
                                     fetchProofOfPaymentsData();
+
 //                                    pageNumber++;
 
 //                                    progressDialog.setTitle("Loading ... ");
@@ -187,8 +190,9 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
                     proofOfPaymentsList2.addAll(proofOfPaymentsList) ;
                     mAdapter = new ProofOfPaymentAdapter(getContext(),proofOfPaymentsList2);
                     recyclerView.setAdapter(mAdapter);
-                    pageNumber++;
-                    ((LinearLayoutManager) recyclerView.getLayoutManager()).scrollToPosition(totalItemCount);
+
+                    if(pageNumber > 0)
+                        ((LinearLayoutManager) recyclerView.getLayoutManager()).scrollToPosition(8);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -210,6 +214,7 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
             }
         };
         Volley.newRequestQueue(getContext()).add(sr);
+        pageNumber++;
     }
 
 
