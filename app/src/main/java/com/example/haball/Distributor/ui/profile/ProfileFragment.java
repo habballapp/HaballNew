@@ -65,8 +65,6 @@ public class ProfileFragment extends Fragment {
         tv_NTN = root.findViewById(R.id.tv_NTN);
         tv_companyname = root.findViewById(R.id.tv_companyname);
         tv_created_date = root.findViewById(R.id.tv_created_date);
-        et_test = root.findViewById(R.id.et_test);
-        et_test.setText("username");
         change_pwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

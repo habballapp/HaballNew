@@ -198,8 +198,16 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/consolidated_payment_view_header"
             android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="30dp"
             android:layout_marginRight="40dp"
             android:layout_marginLeft="40dp"/>
+        <TextView
+            android:id="@+id/footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/rv_payment_consolidate"
+            android:text="© Haball | All rights reserved" />
     </RelativeLayout>
 </ScrollView>

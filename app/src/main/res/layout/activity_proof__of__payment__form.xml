@@ -35,8 +35,6 @@
                     android:background="@drawable/underline"
                     android:orientation="vertical">
 
-
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -183,6 +181,7 @@
                     android:id="@+id/rl_btns"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp"
                     android:layout_below="@+id/rl_proof_payment"
                     >
                     <Button
@@ -218,25 +217,17 @@
                         android:layout_below="@+id/btn_upload"
                         />
                 </RelativeLayout>
-
-                <RelativeLayout
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/rl_btns">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="5dp"
-                        android:text="© Haball | All rights reserved"
-                        android:gravity="center"
-                        />
-                </RelativeLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rl_btns"
+                    android:layout_marginBottom="10dp"
+                    android:text="© Haball | All rights reserved"
+                    android:gravity="center"/>
             </RelativeLayout>
 
-
         </ScrollView>
+
     </RelativeLayout>
 
 
