@@ -48,7 +48,6 @@ public class Registration_Activity extends AppCompatActivity implements View.OnF
 
 
         context = getApplicationContext();
-        progressDialog = new ProgressDialog(this);
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
 
@@ -82,22 +81,20 @@ public class Registration_Activity extends AppCompatActivity implements View.OnF
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(txt_username.getText().toString()) ||
+                if (TextUtils.isEmpty(txt_username.getText().toString()) ||
                         TextUtils.isEmpty(txt_password.getText().toString()) ||
-                        TextUtils.isEmpty(txt_confirm.getText().toString())){
+                        TextUtils.isEmpty(txt_confirm.getText().toString())) {
                     Snackbar.make(view, "Please Enter All Required Fields", Snackbar.LENGTH_SHORT).show();
-                }
-                else{
-                    if(!username_check) {
-                        if(password_check && confirm_password_check){
-                            Intent intent = new Intent(Registration_Activity.this, Register_Activity_2.class);
-                            intent.putExtra("username", txt_username.getText().toString());
-                            intent.putExtra("password", txt_password.getText().toString());
-                            intent.putExtra("confirmpassword", txt_confirm.getText().toString());
-                            startActivity(intent);
-                        }
+                } else {
+                    if(!username_check && password_check && confirm_password_check){
+                        Intent intent = new Intent(Registration_Activity.this, Register_Activity_2.class);
+                        intent.putExtra("username", txt_username.getText().toString());
+                        intent.putExtra("password", txt_password.getText().toString());
+                        intent.putExtra("confirmpassword", txt_confirm.getText().toString());
+                        startActivity(intent);
                     }
                 }
+
             }
         });
     }
@@ -141,7 +138,6 @@ public class Registration_Activity extends AppCompatActivity implements View.OnF
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Snackbar.make(view, error.toString(), Snackbar.LENGTH_LONG).show();
-                    progressDialog.dismiss();
                 }
             });
 
