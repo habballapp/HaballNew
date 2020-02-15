@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.example.haball.Distributor.DistributorDashboard;
 import com.example.haball.Language_Selection.Language_Selection;
+import com.example.haball.MainActivity;
 import com.example.haball.Order.DistributorOrder;
 import com.example.haball.Order.DistributorOrder_ItemSelection;
 import com.example.haball.Order.DistributorOrder_OnaddtoCart;
@@ -34,21 +35,32 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        SharedPreferences sharedPreferences = this.getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        if(!sharedPreferences.getString("Login_Token","").equals(""))
-            Token = sharedPreferences.getString("Login_Token","");
-        Log.i("Token Splash", Token);
+        new Handler().postDelayed(new Runnable() {
 
-        if(!Token.equals("")){
-            Intent intent = new Intent(SplashScreen.this, DistributorDashboard.class);
-            startActivity(intent);
-            finish();
-        }
-        else {
-            Intent intent = new Intent(SplashScreen.this, Distribution_Login.class);
-            startActivity(intent);
-            finish();
-        }
+            /*
+             * Showing splash screen with a timer. This will be useful when you
+             * want to show case your app logo / company
+             */
+
+            @Override
+            public void run() {
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("LoginToken",
+                        Context.MODE_PRIVATE);
+                if(!sharedPreferences.getString("Login_Token","").equals(""))
+                    Token = sharedPreferences.getString("Login_Token","");
+                Log.i("Token Splash", Token);
+
+                if(!Token.equals("")){
+                    Intent intent = new Intent(SplashScreen.this, DistributorDashboard.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else {
+                    Intent intent = new Intent(SplashScreen.this, Distribution_Login.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        }, 3500);
     }
 }

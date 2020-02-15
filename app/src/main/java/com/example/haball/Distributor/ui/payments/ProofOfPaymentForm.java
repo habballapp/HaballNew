@@ -342,9 +342,7 @@ public class ProofOfPaymentForm extends Fragment {
             @Override
             public void onClick(View view) {
                 if(DocumentNames != null){
-                    DocumentNames.add(imageName);
-                    mAdapter = new ProofOfPaymentsFormAdapter(getContext(),DocumentNames, selectedImageFileTypes);
-                    recyclerView.setAdapter(mAdapter);
+
                     alertDialog.dismiss();
                     progressDialog.setTitle("Uploading ... ");
                     progressDialog.setMessage("Please wait...");
@@ -363,6 +361,9 @@ public class ProofOfPaymentForm extends Fragment {
                         public void onFinish()
                         {
                             i=8;
+                            DocumentNames.add(imageName);
+                            mAdapter = new ProofOfPaymentsFormAdapter(getContext(),DocumentNames, selectedImageFileTypes, imageBitmapBase64);
+                            recyclerView.setAdapter(mAdapter);
                             progressDialog.dismiss();
                             //Your Code ...
                         }
