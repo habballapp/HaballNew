@@ -63,11 +63,6 @@ public class DistributorPaymentsAdapter extends RecyclerView.Adapter<Distributor
 
         }
 
-//        Log.i("Payments List => ", String.valueOf(paymentsList));
-//        Log.i("Invoice List => ", String.valueOf(paymentsList));
-//        Log.i("Payments List (size) ", String.valueOf(paymentsList.size()));
-//        Log.i("Invoice List (size) ", String.valueOf(paymentsList.size()));
-
     }
 
     @NonNull

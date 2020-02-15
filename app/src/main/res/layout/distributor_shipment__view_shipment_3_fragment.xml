@@ -5,25 +5,30 @@
     android:layout_height="match_parent"
     tools:context=".Distributor.ui.shipments.main.DistributorShipment_ProductDetails">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/rl_1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
+        android:weightSum="8"
+        android:orientation="vertical"
         >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="12">
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_shipment"
+        android:id="@+id/product_rv_shipment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="40dp"
         android:layout_marginLeft="40dp"/>
-
+        </RelativeLayout>
     <RelativeLayout
         android:id="@+id/line_bottom"
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:layout_below="@+id/rv_shipment"
+        android:layout_below="@+id/product_rv_shipment"
         android:background="@drawable/line_seperator"
         android:layout_marginTop="30dp"/>
 
@@ -88,6 +93,10 @@
 
     </LinearLayout>
 
+
+    </LinearLayout>
+
+
         <TextView
             android:id="@+id/footer"
             android:layout_width="match_parent"
@@ -97,6 +106,3 @@
             android:layout_alignParentBottom="true"
             android:text="© Haball | All rights reserved" />
     </RelativeLayout>
-
-
-</RelativeLayout>

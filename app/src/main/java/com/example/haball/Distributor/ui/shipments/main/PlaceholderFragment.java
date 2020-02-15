@@ -2,6 +2,7 @@ package com.example.haball.Distributor.ui.shipments.main;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,23 +12,38 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.example.haball.Distributor.ui.shipments.main.Models.PageViewModel;
 import com.example.haball.R;
+import com.example.haball.Shipment.Adapters.ProductDetailsAdapter;
 import com.example.haball.Shipment.ui.main.Models.Distributor_InvoiceModel;
 import com.example.haball.Shipment.ui.main.Models.Distributor_OrderModel;
+import com.example.haball.Shipment.ui.main.Models.Distributor_ProductModel;
 import com.example.haball.Shipment.ui.main.Models.Distributor_ShipmentModel;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,6 +60,12 @@ public class PlaceholderFragment extends Fragment {
     private TextView order_id, order_company_name, order_tr_mode, order_payment_term, order_tv_cdate, order_tv_status, order_tv_shaddress, order_tv_billingAdd;
     //shipmentDetails
     private TextView shipment_id, shipment_delivery_date, shipment_recieving_date, shipment_tv_quantity, shipment_tv_shstatus;
+    //product details
+    private RecyclerView product_RecyclerV;
+    private RecyclerView.Adapter productDetailsAdapter;
+    private List<Distributor_ProductModel> productList = new ArrayList<>();
+
+    private RecyclerView.LayoutManager layoutManager;
     private static final String ARG_SECTION_NUMBER = "section_number";
     private PageViewModel pageViewModel;
 
@@ -106,6 +128,11 @@ public class PlaceholderFragment extends Fragment {
 
             case 3: {
                 rootView = inflater.inflate(R.layout.distributor_shipment__view_shipment_3_fragment, container, false);
+                product_RecyclerV = (RecyclerView) rootView.findViewById(R.id.product_rv_shipment);
+                ProductData();
+                product_RecyclerV.setHasFixedSize(true);
+                layoutManager = new LinearLayoutManager(rootView.getContext());
+                product_RecyclerV.setLayoutManager(layoutManager);
 
                 break;
             }
@@ -121,6 +148,70 @@ public class PlaceholderFragment extends Fragment {
             }
         }
         return rootView;
+
+    }
+
+    private void ProductData() {
+        SharedPreferences sharedPreferences3 = getContext().getSharedPreferences("Shipment_ID",
+                Context.MODE_PRIVATE);
+        shipmentID = sharedPreferences3.getString("ShipmentID", "");
+        Log.i("shipmentID shared pref", shipmentID);
+
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+        Log.i("DistributorId invoice", DistributorId);
+        Log.i("Token invoice", Token);
+        if(!INVOICE_URL.contains(shipmentID))
+            INVOICE_URL = INVOICE_URL + shipmentID;
+        Log.i("INVOICE_URL12", INVOICE_URL);
+
+        JsonObjectRequest obj = new JsonObjectRequest(Request.Method.GET, INVOICE_URL, null, new Response.Listener<JSONObject>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.i("responesProductmy" ,response.getString("DeliveryNoteDetails").toString());
+                    JSONArray jsonArray = new JSONArray(response.getString("DeliveryNoteDetails"));
+                    Log.i("responesProduct" ,jsonArray.toString());
+//                    for(int i = 0; i < jsonArray.length(); i++) {
+//                        Log.i("array",jsonArray.getJSONObject(i).toString());
+                        Gson gson = new Gson();
+                        Type type = new TypeToken<List<Distributor_ProductModel>>() {
+                        }.getType();
+                        productList = gson.fromJson(String.valueOf(jsonArray), type);
+                        Log.i("productList" , String.valueOf(productList));
+
+                        productDetailsAdapter = new ProductDetailsAdapter(getContext(), productList);
+                        product_RecyclerV.setAdapter(productDetailsAdapter);
+
+//                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.i("Error Product",e.toString());
+                    Toast.makeText(getActivity(), "Error" + e.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " +Token);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(obj);
 
     }
 
