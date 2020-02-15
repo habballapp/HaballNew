@@ -292,6 +292,7 @@ public class Distribution_Login extends AppCompatActivity {
                                 Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = login_token.edit();
                         editor.putString("Login_Token",token);
+                        editor.putString("User_Type","Distributor");
                         editor.putString("Distributor_Id",DistributorId);
                         editor.putString("username",username);
                         editor.putString("CompanyName",CompanyName);

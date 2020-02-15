@@ -25,6 +25,8 @@ import com.example.haball.R;
 import com.example.haball.Distribution_Login.Distribution_Login;
 import com.example.haball.Registration.Registration_Activity;
 import com.example.haball.Registration.Registration_Actvity2;
+import com.example.haball.Retailer_Login.RetailerLogin;
+import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Support.Support_Ticket_Form;
 
 public class SplashScreen extends AppCompatActivity {
@@ -49,16 +51,37 @@ public class SplashScreen extends AppCompatActivity {
                 if(!sharedPreferences.getString("Login_Token","").equals(""))
                     Token = sharedPreferences.getString("Login_Token","");
                 Log.i("Token Splash", Token);
+                Log.i("User Type", sharedPreferences.getString("User_Type",""));
 
                 if(!Token.equals("")){
-                    Intent intent = new Intent(SplashScreen.this, DistributorDashboard.class);
-                    startActivity(intent);
-                    finish();
+                    if(sharedPreferences.getString("User_Type","").equals("Distributor")) {
+                        Intent intent = new Intent(SplashScreen.this, DistributorDashboard.class);
+                        startActivity(intent);
+                        finish();
+                    } else if(sharedPreferences.getString("User_Type","").equals("Retailer")) {
+                        Intent intent = new Intent(SplashScreen.this, RetailorDashboard.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Intent intent = new Intent(SplashScreen.this, Distribution_Login.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
                 else {
-                    Intent intent = new Intent(SplashScreen.this, Distribution_Login.class);
-                    startActivity(intent);
-                    finish();
+                    if(sharedPreferences.getString("User_Type","").equals("Distributor")) {
+                        Intent intent = new Intent(SplashScreen.this, Distribution_Login.class);
+                        startActivity(intent);
+                        finish();
+                    } else if(sharedPreferences.getString("User_Type","").equals("Retailer")) {
+                        Intent intent = new Intent(SplashScreen.this, RetailerLogin.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Intent intent = new Intent(SplashScreen.this, Distribution_Login.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
             }
         }, 3500);
