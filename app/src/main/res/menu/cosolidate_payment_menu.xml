@@ -4,7 +4,5 @@
     <group android:id="@+id/group_delete">
         <item android:id="@+id/consiladate_view"
             android:title="View" />
-
-
     </group>
 </menu>

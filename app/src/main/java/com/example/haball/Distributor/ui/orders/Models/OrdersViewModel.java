@@ -1,4 +1,4 @@
-package com.example.haball.Distributor.ui.orders;
+package com.example.haball.Distributor.ui.orders.Models;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

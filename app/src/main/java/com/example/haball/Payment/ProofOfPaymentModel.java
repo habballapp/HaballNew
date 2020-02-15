@@ -1,14 +1,24 @@
 package com.example.haball.Payment;
 
 public class ProofOfPaymentModel {
-    String POPNumber, PaymentMode, PaymentNumber, Status, CreatedDate;
+    String ID, POPNumber, PaymentMode, PaymentNumber, Status, CreatedDate;
 
-    public ProofOfPaymentModel(String POPNumber, String paymentMode, String paymentNumber, String status, String createdDate) {
+
+    public ProofOfPaymentModel(String ID, String POPNumber, String paymentMode, String paymentNumber, String status, String createdDate) {
+        this.ID = ID;
         this.POPNumber = POPNumber;
         PaymentMode = paymentMode;
         PaymentNumber = paymentNumber;
         Status = status;
         CreatedDate = createdDate;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     public String getPOPNumber() {

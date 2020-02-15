@@ -2,6 +2,7 @@ package com.example.haball.Payment;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,6 +19,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haball.Distributor.ui.payments.ProofOfPaymentForm;
+import com.example.haball.Distributor.ui.payments.ProofOfPaymentFormViewFragment;
 import com.example.haball.R;
 
 import java.util.List;
@@ -52,7 +54,7 @@ public class ProofOfPaymentAdapter extends RecyclerView.Adapter<ProofOfPaymentAd
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProofOfPaymentAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ProofOfPaymentAdapter.ViewHolder holder, final int position) {
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,8 +66,12 @@ public class ProofOfPaymentAdapter extends RecyclerView.Adapter<ProofOfPaymentAd
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.proof_view:
+                                ProofOfPaymentFormViewFragment proofOfPaymentForm = new ProofOfPaymentFormViewFragment();
+                                Bundle args = new Bundle();
+                                args.putString("ProofOfPaymentID", proofOfPaymentsList.get(position).getID());
+                                proofOfPaymentForm.setArguments(args);
                                 FragmentTransaction fragmentTransaction= ((FragmentActivity)mContxt).getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction.replace(R.id.main_container,new ProofOfPaymentForm());
+                                fragmentTransaction.replace(R.id.main_container, proofOfPaymentForm);
                                 fragmentTransaction.addToBackStack(null);
                                 fragmentTransaction.commit();
                                 break;
