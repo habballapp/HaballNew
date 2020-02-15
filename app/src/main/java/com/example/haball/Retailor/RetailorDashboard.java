@@ -13,7 +13,9 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -54,7 +56,6 @@ public class RetailorDashboard extends AppCompatActivity  {
     private AppBarConfiguration mAppBarConfiguration;
     private FragmentManager mFragmentManager;
     private FragmentTransaction mFragmentTransaction;
-    private TextView tv_username;
     private FragmentTransaction fragmentTransaction;
     private ImageView notification_icon;
     private DrawerLayout drawer;
@@ -63,6 +64,8 @@ public class RetailorDashboard extends AppCompatActivity  {
     List<CustomExpandableListModel> headerList = new ArrayList<>();
     HashMap<CustomExpandableListModel, List<CustomExpandableListModel>> childList = new HashMap<>();
     private ExpandableNavigationListView navigationExpandableListView;
+    private String username, companyname, Token;
+    private TextView tv_username, tv_user_company;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +76,8 @@ public class RetailorDashboard extends AppCompatActivity  {
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout_retailor);
         notification_icon = (ImageView)toolbar.findViewById(R.id.notification_icon_retailer);
-
+        tv_username = toolbar.findViewById(R.id.tv_username);
+        tv_user_company = toolbar.findViewById(R.id.tv_user_company);
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.main_container_ret, new DashBoardFragment());
         fragmentTransaction.commit();
@@ -85,8 +89,13 @@ public class RetailorDashboard extends AppCompatActivity  {
         toggle.syncState();
         toggle.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         drawer.setDrawerListener(toggle);
+        SharedPreferences sharedPreferences = this.getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        username = sharedPreferences.getString("username", "");
+        companyname = sharedPreferences.getString("CompanyName", "");
+        Token = sharedPreferences.getString("Login_Token", "");
 
-    notification_icon.setOnClickListener(new View.OnClickListener() {
+        notification_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -95,6 +104,8 @@ public class RetailorDashboard extends AppCompatActivity  {
             }
         });
 
+        tv_username.setText("Hi, " + username);
+        tv_user_company.setText(companyname);
 
         navigationExpandableListView = findViewById(R.id.expandable_navigation);
         navigationExpandableListView

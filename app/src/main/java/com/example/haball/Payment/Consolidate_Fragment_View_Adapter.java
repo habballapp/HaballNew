@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
@@ -24,6 +25,7 @@ import com.example.haball.Distributor.ui.payments.Payments_Fragment;
 import com.example.haball.Distributor.ui.payments.ProofOfPaymentForm;
 import com.example.haball.Distributor.ui.shipments.DistributorShipment_ViewDashboard;
 import com.example.haball.Distributor.ui.shipments.Shipments_Fragments;
+import com.example.haball.Invoice.Distributor_Invoice_DashBoard;
 import com.example.haball.Payment.Consolidate_Fragment;
 import com.example.haball.R;
 import com.example.haball.Registration.Registration_Activity;
@@ -77,13 +79,17 @@ public class Consolidate_Fragment_View_Adapter extends RecyclerView.Adapter<Cons
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.consiladate_view:
-//                                Consolidate_Fragment_View_Payment consolidateFragment = new Consolidate_Fragment_View_Payment();
-//                                Bundle args = new Bundle();
-//                                args.putString("ConsolidateInvoiceId", consolidatePaymentsDetailList.get(position).getID());
-//                                consolidateFragment.setArguments(args);
-//                                fragmentTransaction = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
-//                                fragmentTransaction.replace(R.id.main_container, consolidateFragment);
-//                                fragmentTransaction.commit();
+                                Toast.makeText(context,"View Invoice",Toast.LENGTH_LONG).show();
+
+                                FragmentTransaction fragmentTransaction = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
+                                fragmentTransaction.replace(R.id.main_container, new Distributor_Invoice_DashBoard());
+                                fragmentTransaction.addToBackStack(null);
+                                fragmentTransaction.commit();
+//
+//                                        FragmentTransaction fragmentTransaction= ((FragmentActivity)mContxt).getSupportFragmentManager().beginTransaction();
+//                                        fragmentTransaction.add(R.id.main_container,new Distributor_Invoice_DashBoard());
+//                                        fragmentTransaction.commit();
+
                                 break;
                         }
                         return false;
