@@ -54,8 +54,8 @@
         android:textColor="#96bb3c"
         android:textSize="12sp" />
 
-    <EditText
-        android:id="@+id/order_id"
+    <TextView
+        android:id="@+id/total_price"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center_vertical"

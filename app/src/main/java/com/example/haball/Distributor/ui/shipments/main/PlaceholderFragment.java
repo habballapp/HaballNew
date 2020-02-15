@@ -59,7 +59,7 @@ public class PlaceholderFragment extends Fragment {
     // order data
     private TextView order_id, order_company_name, order_tr_mode, order_payment_term, order_tv_cdate, order_tv_status, order_tv_shaddress, order_tv_billingAdd;
     //shipmentDetails
-    private TextView shipment_id, shipment_delivery_date, shipment_recieving_date, shipment_tv_quantity, shipment_tv_shstatus;
+    private TextView total_price, shipment_id, shipment_delivery_date, shipment_recieving_date, shipment_tv_quantity, shipment_tv_shstatus;
     //product details
     private RecyclerView product_RecyclerV;
     private RecyclerView.Adapter productDetailsAdapter;
@@ -133,7 +133,7 @@ public class PlaceholderFragment extends Fragment {
                 product_RecyclerV.setHasFixedSize(true);
                 layoutManager = new LinearLayoutManager(rootView.getContext());
                 product_RecyclerV.setLayoutManager(layoutManager);
-
+                total_price = rootView.findViewById(R.id.total_price);
                 break;
             }
 
@@ -175,6 +175,7 @@ public class PlaceholderFragment extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 try {
+                    total_price.setText(response.getString("TotalPrice"));
                     Log.i("responesProductmy" ,response.getString("DeliveryNoteDetails").toString());
                     JSONArray jsonArray = new JSONArray(response.getString("DeliveryNoteDetails"));
                     Log.i("responesProduct" ,jsonArray.toString());
