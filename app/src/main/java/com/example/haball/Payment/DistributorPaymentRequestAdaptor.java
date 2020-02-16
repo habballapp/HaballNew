@@ -46,6 +46,8 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+        holder.tv_state.setVisibility(View.GONE);
+        holder.tv_state_value.setVisibility(View.GONE);
         holder.tv_heading.setText(paymentsRequestList.get(position).getCompanyName());
         holder.payment_id_value.setText(paymentsRequestList.get(position).getPrePaidNumber());
         DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
@@ -161,7 +163,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_heading, payment_id_value, amount_value,status_value;
+        public TextView tv_heading, payment_id_value, amount_value,status_value, tv_state, tv_state_value;
         public ImageButton menu_btn;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -170,6 +172,8 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
             amount_value = itemView.findViewById(R.id.amount_value);
             status_value = itemView.findViewById(R.id.status_value);
             menu_btn = itemView.findViewById(R.id.menu_btn);
+            tv_state = itemView.findViewById(R.id.tv_state);
+            tv_state_value = itemView.findViewById(R.id.tv_state_value);
         }
     }
 }

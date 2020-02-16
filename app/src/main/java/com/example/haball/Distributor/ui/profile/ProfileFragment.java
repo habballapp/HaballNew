@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
@@ -24,6 +26,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
@@ -39,11 +42,14 @@ import java.util.Map;
 public class ProfileFragment extends Fragment {
 
     private Button change_pwd, update_password, distributor_save_b;
-    private EditText edt_firstname, edt_lastname, edt_email, edt_dist_mobile, et_test;
-    public TextView edt_dist_code, tv_cnic, tv_NTN, tv_companyname, tv_created_date;
+    private EditText edt_firstname, edt_lastname, edt_email, edt_dist_mobile, et_test, txt_password, txt_newpassword, txt_cfmpassword;
+    public TextView edt_dist_code, tv_cnic, tv_NTN, tv_companyname, tv_created_date, tv_pr1;
     private String PROFILE_URL = "http://175.107.203.97:4008/api/distributor/";
+    private String ChangePass_URL = "http://175.107.203.97:4008/api/Users/ChangePassword";
     private String Token;
-    private String DistributorId;
+    private String DistributorId, ID, Username;
+    private Dialog change_password_dail;
+    private Boolean password_check = false, confirm_password_check = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -68,12 +74,15 @@ public class ProfileFragment extends Fragment {
         change_pwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Dialog change_password_dail = new Dialog(getActivity());
+                change_password_dail = new Dialog(getActivity());
                 //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
                 change_password_dail.setContentView(R.layout.pasword_change);
                 change_password_dail.setCancelable(true);
                 change_password_dail.show();
                 ImageButton close_button = change_password_dail.findViewById(R.id.image_button);
+                txt_password = change_password_dail.findViewById(R.id.txt_password);
+                txt_newpassword = change_password_dail.findViewById(R.id.txt_newpassword);
+                txt_cfmpassword = change_password_dail.findViewById(R.id.txt_cfmpassword);
                 close_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -82,22 +91,16 @@ public class ProfileFragment extends Fragment {
                 });
                 update_password = change_password_dail.findViewById(R.id.update_password);
                 update_password.setOnClickListener(new View.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onClick(View v) {
-                        change_password_dail.dismiss();
+                        try {
+                            updatePassword();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
-                        final Dialog fbDialogue = new Dialog(getActivity());
-                        //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
-                        fbDialogue.setContentView(R.layout.password_updatepopup);
-                        fbDialogue.setCancelable(true);
-                        fbDialogue.show();
-                        ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
-                        close_button.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                fbDialogue.dismiss();
-                            }
-                        });
+
                     }
                 });
             }
@@ -163,6 +166,113 @@ public class ProfileFragment extends Fragment {
         };
         Volley.newRequestQueue(getContext()).add(sr);
 
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void updatePassword() throws JSONException {
+        checkPasswords();
+        checkConfirmPassword();
+        if(password_check && confirm_password_check) {
+
+            SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                    Context.MODE_PRIVATE);
+            Token = sharedPreferences.getString("Login_Token", "");
+            Log.i("Login_Token", Token);
+            SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                    Context.MODE_PRIVATE);
+            ID = sharedPreferences1.getString("ID", "");
+            Username = sharedPreferences1.getString("username", "");
+            Toast.makeText(getActivity(), "Update Password clicked", Toast.LENGTH_SHORT).show();
+
+            change_password_dail.dismiss();
+
+            JSONObject map = new JSONObject();
+            map.put("Password", txt_password.getText().toString());
+            map.put("NewPassword", txt_newpassword.getText().toString());
+            map.put("NewPassword1", txt_cfmpassword.getText().toString());
+    //        map.put("Password", "Force@123");
+    //        map.put("NewPassword", "Force@123");
+    //        map.put("NewPassword1", "Force@123");
+            map.put("ID", ID);
+            map.put("Username", Username);
+            Log.i("Map", map.toString());
+            JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, ChangePass_URL, map, new Response.Listener<JSONObject>() {
+                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                @Override
+                public void onResponse(JSONObject result) {
+                    Log.i("response", String.valueOf(result));
+                    try {
+                        if(result.has("message")){
+                            Toast.makeText(getActivity(), result.get("message").toString(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            final Dialog fbDialogue = new Dialog(getActivity());
+                            //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                            fbDialogue.setContentView(R.layout.password_updatepopup);
+                            tv_pr1 = fbDialogue.findViewById(R.id.tv_pr1);
+                            tv_pr1.setText("User Profile ID " + ID + " password has been changed successfully.");
+                            fbDialogue.setCancelable(true);
+                            fbDialogue.show();
+                            ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+                            close_button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    fbDialogue.dismiss();
+                                }
+                            });
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_LONG).show();
+
+                    }
+    //                Log.e("RESPONSE", result.toString());
+    //                Toast.makeText(Distribution_Login.this,result.toString(),Toast.LENGTH_LONG).show();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                    Toast.makeText(getActivity(), String.valueOf(error),Toast.LENGTH_LONG).show();
+                }
+
+            }){
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("Authorization", "bearer " +Token);
+                    params.put("Content-Type", "application/json; charset=UTF-8");
+                    return params;
+                }
+            };
+            Volley.newRequestQueue(getActivity()).add(sr);
+        } else {
+            Toast.makeText(getActivity(), "Password do not Match",Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+
+    private void checkPasswords() {
+        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
+        if (txt_newpassword.getText().toString().matches(reg_ex)) {
+            password_check = true;
+            txt_newpassword.setError(null);
+        } else {
+            txt_newpassword.setError("Please enter password with minimum 6 characters & 1 Numeric or special character");
+            password_check = false;
+        }
+    }
+
+    private void checkConfirmPassword() {
+        if (txt_newpassword.getText().toString().equals(txt_cfmpassword.getText().toString())) {
+            confirm_password_check = true;
+            txt_cfmpassword.setError(null);
+        } else {
+            confirm_password_check = false;
+            txt_cfmpassword.setError("Password does not match");
+        }
     }
 
 }

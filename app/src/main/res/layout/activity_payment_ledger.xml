@@ -30,7 +30,7 @@
         android:layout_marginTop="-2dp"/>
 
     <RelativeLayout
-        android:id="@+id/spinner_container"
+        android:id="@+id/spinner_containerMain"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginLeft="40dp"
@@ -45,10 +45,50 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/spinner_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/edit_text_squared"
+        android:layout_below="@+id/spinner_containerMain">
+        <Spinner
+            android:id="@+id/spinner_conso"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/spinner_container1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/edit_text_squared"
+        android:layout_below="@+id/spinner_container">
+        <Spinner
+            android:id="@+id/conso_spinner2"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+
+        <EditText
+            android:id="@+id/conso_edittext"
+            android:background="@drawable/edit_text_squared"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/line_bottom"
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:layout_below="@+id/spinner_container"
+        android:layout_below="@+id/spinner_container1"
         android:background="@drawable/line_seperator"
         android:layout_marginTop="30dp"/>
 
