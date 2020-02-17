@@ -5,7 +5,7 @@
     android:id="@+id/main_container2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Shipment.ui.main.PlaceholderFragment">
+    tools:context=".Retailor.ui.Network.My_NetworkDashboard">
 
     <RelativeLayout
         android:layout_width="match_parent"
