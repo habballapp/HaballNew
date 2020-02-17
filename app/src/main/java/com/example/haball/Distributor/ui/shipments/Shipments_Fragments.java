@@ -233,7 +233,7 @@ public class Shipments_Fragments extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
-                Log.i("Payments Requests", result.toString());
+                Log.i("Shipment", result.toString());
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<ShipmentModel>>(){}.getType();
                 ShipmentList = gson.fromJson(result.toString(),type);
@@ -281,7 +281,7 @@ public class Shipments_Fragments extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
-                Log.i("Payments Requests", result.toString());
+                Log.i("Shipment Filtered", result.toString());
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<ShipmentModel>>(){}.getType();
                 ShipmentList = gson.fromJson(result.toString(),type);

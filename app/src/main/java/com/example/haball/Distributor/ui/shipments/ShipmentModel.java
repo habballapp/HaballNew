@@ -1,20 +1,12 @@
 package com.example.haball.Distributor.ui.shipments;
 
 public class ShipmentModel {
-    String DeliveryNumber, CompanyName, DeliveryDate, ReceivingDate, Quantity, ShipmentStatusValue, ID;
-
-    public ShipmentModel() {
-    }
-
-    public ShipmentModel(String deliveryNumber, String companyName, String deliveryDate, String receivingDate, String quantity, String shipmentStatusValue, String ID) {
-        DeliveryNumber = deliveryNumber;
-        CompanyName = companyName;
-        DeliveryDate = deliveryDate;
-        ReceivingDate = receivingDate;
-        Quantity = quantity;
-        ShipmentStatusValue = shipmentStatusValue;
-        this.ID = ID;
-    }
+    String DeliveryNumber;
+    String CompanyName;
+    String DeliveryDate;
+    String ReceivingDate;
+    String Quantity;
+    String ShipmentStatusValue;
 
     public String getDeliveryNumber() {
         return DeliveryNumber;
@@ -64,6 +56,14 @@ public class ShipmentModel {
         ShipmentStatusValue = shipmentStatusValue;
     }
 
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
+    }
+
     public String getID() {
         return ID;
     }
@@ -71,4 +71,20 @@ public class ShipmentModel {
     public void setID(String ID) {
         this.ID = ID;
     }
+
+    String Status;
+
+    public ShipmentModel(String deliveryNumber, String companyName, String deliveryDate, String receivingDate, String quantity, String shipmentStatusValue, String status, String ID) {
+        DeliveryNumber = deliveryNumber;
+        CompanyName = companyName;
+        DeliveryDate = deliveryDate;
+        ReceivingDate = receivingDate;
+        Quantity = quantity;
+        ShipmentStatusValue = shipmentStatusValue;
+        Status = status;
+        this.ID = ID;
+    }
+
+    String ID;
+
 }
