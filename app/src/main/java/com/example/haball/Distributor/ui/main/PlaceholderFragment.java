@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -25,7 +24,6 @@ import com.example.haball.Distributor.DistributorOrdersAdapter;
 import com.example.haball.Distributor.DistributorPaymentsAdapter;
 
 import com.example.haball.Distributor.DistributorPaymentsModel;
-import com.example.haball.Distributor.ui.orders.Orders_Fragment;
 import com.example.haball.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
