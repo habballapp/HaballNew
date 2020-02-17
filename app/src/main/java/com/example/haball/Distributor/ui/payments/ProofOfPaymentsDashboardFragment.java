@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +14,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -75,12 +79,20 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
     private int current_page = 0;
 
     boolean canLoadMoreData = true; // make this variable false while your web service call is going on.
+    private String Filter_selected, Filter_selected_value;
+    private Spinner spinner_consolidate;
+    private Spinner spinner2;
+    private EditText conso_edittext;
+    private List<String> consolidate_felter = new ArrayList<>();
+    private List<String> filters = new ArrayList<>();
+    private ArrayAdapter<String> arrayAdapterPaymentsFilter;
+    private ArrayAdapter<String> arrayAdapterFeltter;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.activity_proof_of_payment_dashboard, container, false);
+        final View root = inflater.inflate(R.layout.activity_proof_of_payment_dashboard, container, false);
 
         btn_create_proof_of_payment = root.findViewById(R.id.btn_create_proof_of_payment);
         recyclerView = root.findViewById(R.id.rv_proof_of_payments);
@@ -89,6 +101,157 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
         progressDialog = new ProgressDialog(getContext());
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+
+        btn_create_proof_of_payment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.remove(ProofOfPaymentsDashboardFragment.this);
+                fragmentTransaction.replace(((ViewGroup)getView().getParent()).getId(), new ProofOfPaymentForm());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
+        spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
+        spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
+        conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
+        spinner2.setVisibility(View.GONE);
+        conso_edittext.setVisibility(View.GONE);
+        consolidate_felter.add ("Select Criteria");
+        consolidate_felter.add ("POP ID");
+        consolidate_felter.add ("Created Date");
+        consolidate_felter.add ("Payment Mode");
+        consolidate_felter.add ("Payment ID");
+        consolidate_felter.add ("Status");
+
+        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
+                android.R.layout.simple_dropdown_item_1line, consolidate_felter);
+
+
+        spinner_consolidate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                spinner2.setVisibility(View.GONE);
+                conso_edittext.setVisibility(View.GONE);
+                if(i == 0){
+                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                }
+                else{
+                    Filter_selected = consolidate_felter.get(i);
+                    Log.i("Filter_selected", Filter_selected);
+                    if(!Filter_selected.equals("Status"))
+                        spinner2.setSelection(0);
+                    if(!Filter_selected.equals("Payment Mode"))
+                        spinner2.setSelection(0);
+                    if(!conso_edittext.getText().equals(""))
+                        conso_edittext.setText("");
+
+                    if(Filter_selected.equals("POP ID")) {
+                        Filter_selected = "POPNumber";
+                        conso_edittext.setVisibility(View.VISIBLE);
+                    } else if(Filter_selected.equals("Created Date")) {
+                        Toast.makeText(getContext(),"Created Date selected",Toast.LENGTH_LONG).show();
+                    } else if(Filter_selected.equals("Payment Mode")) {
+                        Filter_selected = "PaymentMode";
+                        filters = new ArrayList<>();
+                        filters.add ("Select Mode");
+                        filters.add ("ATM");
+                        filters.add ("Internet Banking");
+                        filters.add ("Mobile Banking");
+                        filters.add ("OTC");
+                        arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
+                                android.R.layout.simple_dropdown_item_1line, filters);
+                        arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        arrayAdapterFeltter.notifyDataSetChanged();
+                        spinner2.setAdapter(arrayAdapterFeltter);
+
+                        spinner2.setVisibility(View.VISIBLE);
+                    } else if(Filter_selected.equals("Transaction Date")) {
+                        Toast.makeText(getContext(),"Transaction Date selected",Toast.LENGTH_LONG).show();
+                    } else if(Filter_selected.equals("Amount")) {
+                        Toast.makeText(getContext(),"Amount selected",Toast.LENGTH_LONG).show();
+                    } else if(Filter_selected.equals("Status")) {
+                        Filter_selected = "Status";
+                        filters = new ArrayList<>();
+                        filters.add ("Status");
+                        filters.add ("Pending");
+                        filters.add ("Amended");
+                        filters.add ("Rejected");
+                        filters.add ("Returned");
+                        filters.add ("Approved");
+                        arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
+                                android.R.layout.simple_dropdown_item_1line, filters);
+
+                        arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        arrayAdapterFeltter.notifyDataSetChanged();
+                        spinner2.setAdapter(arrayAdapterFeltter);
+
+                        spinner2.setVisibility(View.VISIBLE);
+                    }
+//                    try {
+//                        fetchPaymentLedgerData(companies.get(Filter_selected));
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapterPayments.notifyDataSetChanged();
+        spinner_consolidate.setAdapter(arrayAdapterPayments);
+
+        Log.i("aaaa1111", String.valueOf(consolidate_felter));
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i == 0){
+                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                }
+                else{
+                    Filter_selected_value = String.valueOf(i-1);
+                    Log.i("Filter_selected_value",Filter_selected_value);
+                    try {
+                        fetchFilteredProofOfPaymentsData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+//        arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        arrayAdapterFeltter.notifyDataSetChanged();
+//        spinner2.setAdapter(arrayAdapterFeltter);
+
+
+        conso_edittext.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+                Log.i("text1", "check");
+                Log.i("text", String.valueOf(s));
+                Filter_selected_value = String.valueOf(s);
+                try {
+                    fetchFilteredProofOfPaymentsData();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        });
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -100,7 +263,7 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
                     totalItemCount = layoutManager.getItemCount();
                     firstVisiblesItems = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
                     lastItem = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastVisibleItemPosition();
-                    if (canLoadMoreData) {
+                    if (canLoadMoreData && Filter_selected_value.equals("")) {
                         if ((visibleItemCount + firstVisiblesItems) >= totalItemCount) {
                             if (pageNumber < 3) {
                                 Log.i("page", String.valueOf(pageNumber));
@@ -137,17 +300,6 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
                     }
                     dy = pos_y;
                 }
-            }
-        });
-
-        btn_create_proof_of_payment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.remove(ProofOfPaymentsDashboardFragment.this);
-                fragmentTransaction.replace(((ViewGroup)getView().getParent()).getId(), new ProofOfPaymentForm());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
             }
         });
 
@@ -215,6 +367,61 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
         pageNumber++;
     }
 
+
+    private void fetchFilteredProofOfPaymentsData() throws JSONException{
+        pageNumber = 0;
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token","");
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id","");
+        Log.i("DistributorId ", DistributorId);
+
+        Log.i("Token", Token);
+
+        JSONObject map = new JSONObject();
+        map.put("DistributorId", Integer.parseInt(DistributorId));
+        map.put("TotalRecords", 10);
+        map.put("PageNumber", pageNumber);
+        map.put(Filter_selected, Filter_selected_value);
+        Log.i("Map", String.valueOf(map));
+        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_PROOF_OF_PAYMENTS,map,new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray result) {
+                try {
+                    JSONObject jsonObject = null;
+                    for(int i=0;i<result.length();i++){
+                        jsonObject  = result.getJSONObject(i);
+                    }
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<ProofOfPaymentModel>>(){}.getType();
+                    proofOfPaymentsList = gson.fromJson(String.valueOf(result),type);
+                    mAdapter = new ProofOfPaymentAdapter(getContext(),proofOfPaymentsList);
+                    recyclerView.setAdapter(mAdapter);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Log.e("RESPONSE OF P_O_P", result.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer "+Token);
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(sr);
+    }
 
 
 

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="30dp"
+    android:background="@drawable/edit_text_squared"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingTop="20dp"
+    android:paddingRight="5dp"
+    android:paddingBottom="20dp">
+
+
+    <TextView
+        android:id="@+id/product_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_heading"
+        android:layout_marginTop="30dp"
+        android:text="Product Code:"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/shipment_productCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_heading"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="30dp"
+        android:layout_toRightOf="@+id/product_code"
+        android:text="PC_1002312324251524"
+        android:textColor="#676a6c"
+        android:textStyle="bold"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/shipment_productCode"
+        android:text="Product: "
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/shipment_productName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/shipment_productCode"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/product"
+        android:text="ABC"
+        android:textStyle="bold"
+        android:textColor="#676a6c"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/product_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/product"
+        android:text="Quantity: "
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/shipment_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/shipment_productName"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/product_quantity"
+        android:text="10"
+        android:textColor="#676a6c"
+        android:textStyle="bold"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_consolidate_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/product_quantity"
+        android:text="Unit Price:"
+        android:textSize="16sp" />
+
+
+
+    <TextView
+        android:id="@+id/unit_pkr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/shipment_quantity"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/tv_consolidate_amount"
+        android:text="PKR "
+        android:textColor="#676a6c"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/shipment_unitPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/shipment_quantity"
+        android:layout_marginLeft="1dp"
+        android:layout_toRightOf="@+id/unit_pkr"
+        android:text=" 750.00"
+        android:textColor="#676a6c"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_consolidate_remamount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_consolidate_amount"
+        android:text="Discount:"
+        android:textSize="16sp" />
+
+
+    <TextView
+        android:id="@+id/discount_pkr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/unit_pkr"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/tv_consolidate_remamount"
+        android:text="PKR "
+        android:textColor="#676a6c"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/shipment_discount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/shipment_unitPrice"
+        android:layout_marginLeft="1dp"
+        android:layout_toRightOf="@+id/discount_pkr"
+        android:text="0.00"
+        android:textColor="#676a6c"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/consolidate_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_consolidate_remamount"
+        android:text="Amount: "
+        android:textSize="16sp"
+        />
+
+    <TextView
+        android:id="@+id/PKR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/discount_pkr"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/tv_consolidate_amount"
+        android:text="PKR "
+        android:textColor="#676a6c"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/shipment_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/shipment_discount"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/PKR"
+        android:text="750.00"
+        android:textStyle="bold"
+        android:textSize="16sp" />
+
+
+</RelativeLayout>

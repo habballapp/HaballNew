@@ -37,16 +37,6 @@ public class DistributorShipmentAdapter extends RecyclerView.Adapter<Distributor
     private Context context;
     private List<ShipmentModel> shipmentList;
 
-//
-//    public DistributorShipmentAdapter(String heading, String shipment_no_value, String name_value, String tv_date, String tv_price, String tv_option, Context activity) {
-//        this.heading = heading;
-//        this.shipment_no_value = shipment_no_value;
-//        this.name_value = name_value;
-//        this.tv_date = tv_date;
-//        this.tv_price = tv_price;
-//        this.tv_option = tv_option;
-//        this.activity = activity;
-//    }
 
     public DistributorShipmentAdapter(Context context, List<ShipmentModel> shipmentList) {
         this.context = context;

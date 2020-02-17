@@ -86,9 +86,17 @@ public class ProofOfPaymentAdapter extends RecyclerView.Adapter<ProofOfPaymentAd
         if(proofOfPaymentsList.get(position).getStatus().equals("4")){
             holder.tv_status.setText("Approved");
             holder.tv_status.setTextColor(mContxt.getResources().getColor(R.color.green_color));
-        }
-        else if(proofOfPaymentsList.get(position).getStatus().equals("3")){
+        } else if(proofOfPaymentsList.get(position).getStatus().equals("3")){
             holder.tv_status.setText("Returned");
+            holder.tv_status.setTextColor(mContxt.getResources().getColor(R.color.orange_color));
+        } else if(proofOfPaymentsList.get(position).getStatus().equals("2")){
+            holder.tv_status.setText("Rejected");
+            holder.tv_status.setTextColor(mContxt.getResources().getColor(R.color.orange_color));
+        } else if(proofOfPaymentsList.get(position).getStatus().equals("1")){
+            holder.tv_status.setText("Amended");
+            holder.tv_status.setTextColor(mContxt.getResources().getColor(R.color.orange_color));
+        } else if(proofOfPaymentsList.get(position).getStatus().equals("0")){
+            holder.tv_status.setText("Pending");
             holder.tv_status.setTextColor(mContxt.getResources().getColor(R.color.orange_color));
         }
         String string = proofOfPaymentsList.get(position).getCreatedDate();
@@ -100,6 +108,13 @@ public class ProofOfPaymentAdapter extends RecyclerView.Adapter<ProofOfPaymentAd
         holder.created_date_value.setText(Date);
         if(proofOfPaymentsList.get(position).getPaymentMode().equals("0"))
             holder.payment_mode_value.setText("ATM");
+        else if(proofOfPaymentsList.get(position).getPaymentMode().equals("1"))
+            holder.payment_mode_value.setText("Internet Banking");
+        else if(proofOfPaymentsList.get(position).getPaymentMode().equals("2"))
+            holder.payment_mode_value.setText("Mobile Banking");
+        else if(proofOfPaymentsList.get(position).getPaymentMode().equals("3"))
+            holder.payment_mode_value.setText("OTC");
+
     }
 
     @Override

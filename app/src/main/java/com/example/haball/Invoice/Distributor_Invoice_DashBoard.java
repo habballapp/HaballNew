@@ -29,8 +29,8 @@ public class Distributor_Invoice_DashBoard extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         // return inflater.inflate(R.layout.distributor_shipment__view_dashboard_fragment, container, false);
-        sendViewModel =
-                ViewModelProviders.of(this).get(ShipmentsViewModel.class);
+//        sendViewModel =
+//                ViewModelProviders.of(this).get(ShipmentsViewModel.class);
         View root = inflater.inflate(R.layout.activity_distributor__invoice__dash_board, container, false);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getContext(), getChildFragmentManager());
         ViewPager viewPager = root.findViewById(R.id.view_pager3);
