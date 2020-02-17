@@ -34,6 +34,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
 import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Retailor.Retailor_SignUp.SignUp;
+import com.example.haball.Select_User.Register_Activity;
 import com.example.haball.Support.Support_Ticket_Form;
 import com.example.haball.Support.Support_dashboard;
 
@@ -102,7 +103,8 @@ public class RetailerLogin extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(RetailerLogin.this, Register_Activity.class);
+                startActivity(intent);
             }
         });
 

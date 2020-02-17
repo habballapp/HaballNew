@@ -167,9 +167,20 @@ public class RetailorDashboard extends AppCompatActivity  {
 
                         } else if (id == 6) {
                             Log.i("Logout", "Logout Activity");
+                            SharedPreferences login_token = getSharedPreferences("LoginToken",
+                                    Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = login_token.edit();
+                            editor.remove("Login_Token");
+                            editor.remove("User_Type");
+                            editor.remove("Retailer_Id");
+                            editor.remove("username");
+                            editor.remove("CompanyName");
+                            editor.remove("UserId");
+                            editor.commit();
                             Intent dashboard = new Intent(RetailorDashboard.this, RetailerLogin.class);
                             startActivity(dashboard);
                             drawer.closeDrawer(GravityCompat.START);
+                            finish();
                         }
 
                         return false;
