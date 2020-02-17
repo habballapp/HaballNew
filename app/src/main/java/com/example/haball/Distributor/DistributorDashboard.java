@@ -9,12 +9,9 @@ import android.os.Bundle;
 
 import com.example.haball.Distribution_Login.Distribution_Login;
 import com.example.haball.Distributor.ui.Fragment_Notification.FragmentNotification;
-import com.example.haball.Distributor.ui.expandablelist.CustomExpandableListModel;
-import com.example.haball.Distributor.ui.expandablelist.CustomExpandableListViewAdapter;
 import com.example.haball.Distributor.ui.home.HomeFragment;
-import com.example.haball.Distributor.ui.main.OrdersFragment;
-import com.example.haball.Distributor.ui.main.PaymentsFragment;
-import com.example.haball.Distributor.ui.orders.Orders_Fragment;
+import com.example.haball.Distributor.ui.orders.OrdersTabs.Orders_Dashboard;
+import com.example.haball.Distributor.ui.orders.OrdersTabs.Tabs.Orders_Fragment;
 import com.example.haball.Distributor.ui.payments.ConsolidatedPaymentsFragment;
 import com.example.haball.Distributor.ui.payments.PaymentRequestDashboard;
 import com.example.haball.Distributor.ui.payments.PaymentsSummaryFragment;
@@ -25,23 +22,12 @@ import com.example.haball.Distributor.ui.shipments.Shipments_Fragments;
 import com.example.haball.Distributor.ui.support.SupportFragment;
 import com.example.haball.R;
 
-import android.text.SpannableString;
-import android.text.style.TextAppearanceSpan;
 import android.util.Log;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
-import com.example.haball.Retailor.ui.Place_Order.PlaceOrderFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.techatmosphere.expandablenavigation.model.ChildModel;
 import com.techatmosphere.expandablenavigation.model.HeaderModel;
@@ -52,18 +38,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.view.Menu;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class DistributorDashboard extends AppCompatActivity {
 
@@ -230,7 +208,7 @@ public class DistributorDashboard extends AppCompatActivity {
                         } else if (groupPosition == 1 && childPosition == 0) {
                             Log.i("Place order", "Child"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, new Orders_Fragment());
+                            fragmentTransaction.replace(R.id.main_container, new Orders_Dashboard());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         }
