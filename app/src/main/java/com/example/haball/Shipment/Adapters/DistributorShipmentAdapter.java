@@ -68,10 +68,29 @@ public class DistributorShipmentAdapter extends RecyclerView.Adapter<Distributor
 
         holder.tv_recv_date.setText(tv_recv_date);
         holder.tv_quantity_value.setText(tv_quantity_value);
-        if(tv_option.equals("1"))
-            holder.tv_option.setText("Paid");
-        else
-            holder.tv_option.setText("Unpaid");
+        if(shipmentList.get(position).getStatus().equals("0"))
+            holder.tv_option.setText("Pending");
+        else if(shipmentList.get(position).getStatus().equals("1"))
+            holder.tv_option.setText("Delivered");
+        else if(shipmentList.get(position).getStatus().equals("2"))
+            holder.tv_option.setText("Received");
+        else if(shipmentList.get(position).getStatus().equals("3"))
+            holder.tv_option.setText("Returned");
+        else if(shipmentList.get(position).getStatus().equals("4"))
+            holder.tv_option.setText("Revised");
+//            holder.tv_option.setText(shipmentList.get(position).getShipmentStatusValue());
+
+//        if(shipmentList.get(position).get().equals("0"))
+//            holder.tv_option.setText("Pending");
+//        else if(shipmentList.get(position).getShipmentStatusValue().equals("1"))
+//            holder.tv_option.setText("Delivered");
+//        else if(shipmentList.get(position).getShipmentStatusValue().equals("2"))
+//            holder.tv_option.setText("Received");
+//        else if(shipmentList.get(position).getShipmentStatusValue().equals("3"))
+//            holder.tv_option.setText("Returned");
+//        else if(shipmentList.get(position).getShipmentStatusValue().equals("4"))
+//            holder.tv_option.setText("Revised");
+
 
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -238,7 +238,7 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:layout_weight="1"
-                android:hint="Business Name *"
+                android:hint="Company Name *"
                 />
             <EditText
                 android:id="@+id/txt_address"
@@ -251,6 +251,7 @@
                 android:paddingRight="20dp"
                 android:paddingBottom="5dp"
                 android:textSize="15sp"
+                android:gravity="top|left"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
