@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.orders.Adapter.CompanyFragmentAdapter;
 import com.example.haball.Distributor.ui.orders.Adapter.DistributorOrderAdapter;
 import com.example.haball.Distributor.ui.orders.Models.OrderFragmentModel;
+import com.example.haball.Distributor.ui.orders.OrdersTabsLayout.Tabs.Orders_Items_Fragment;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.example.haball.R;
 import com.google.gson.Gson;
@@ -44,6 +46,8 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -69,7 +73,9 @@ public class PlaceholderFragment extends Fragment {
     private List<String> filters = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapterPayments;
     private ArrayAdapter<String> arrayAdapterFeltter;
-
+    private ViewGroup mycontainer;
+    private LayoutInflater myinflater;
+    private ViewPager mPager;
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     private PageViewModel pageViewModel;
@@ -98,8 +104,8 @@ public class PlaceholderFragment extends Fragment {
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View rootView = null;
-
-
+        mycontainer = container;
+        myinflater = inflater;
         switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
 
             case 1: {
@@ -124,6 +130,29 @@ public class PlaceholderFragment extends Fragment {
                 Log.i("aaaaaa", String.valueOf(mAdapter1));
                 break;*/
             }
+            case 3: {
+
+                rootView = inflater.inflate(R.layout.orders_items_recycler, container, false);
+                Holderorders(rootView);
+//                FragmentTransaction fragmentTransaction= ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.add(R.id.main_container,new Orders_Items_Fragment());
+//                fragmentTransaction.commit();
+               mAdapter = new CompanyFragmentAdapter(getContext(),"Ghulam Rabani & Sons Traders & Distributors", mPager, mycontainer, myinflater);
+                recyclerView.setAdapter(mAdapter);
+
+                break;
+
+             /*   rootView = inflater.inflate(R.layout.fragment_sent_, container, false);
+                recyclerView1 = (RecyclerView) rootView.findViewById(R.id.rv_sent);
+                recyclerView1.setHasFixedSize(false);
+                // use a linear layout manager
+                layoutManager = new LinearLayoutManager(getContext());
+                recyclerView1.setLayoutManager(layoutManager);
+                mAdapter1 = new DistributorOrderAdapter(getContext(),);
+                recyclerView1.setAdapter(mAdapter1);
+                Log.i("aaaaaa", String.valueOf(mAdapter1));
+                break;*/
+            }
 
         }
         return rootView;
@@ -132,18 +161,19 @@ public class PlaceholderFragment extends Fragment {
 
     private void Holderorders(final View root){
 
-        final ViewPager mPager = getActivity().findViewById(R.id.view_pager5);
+        mPager = getActivity().findViewById(R.id.view_pager5);
         recyclerView = (RecyclerView) root.findViewById(R.id.rv_order_ledger);
+
 
         create_payment = root.findViewById(R.id.place_order_button);
         create_payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mPager.setCurrentItem(1); // Change to page 1, i.e., FragmentB
-//                Intent intent = new Intent(getContext(), DistributorOrder_ItemSelection.class);
-//                startActivity(intent);
             }
         });
+
+
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         recyclerView.setHasFixedSize(true);
@@ -303,7 +333,7 @@ public class PlaceholderFragment extends Fragment {
 //        }
 //        mAdapter = new DistributorOrderAdapter(getContext(),"Ghulam Rabani & Sons Traders & Distributors","1002312324251524","89465","Pending");
 //        recyclerView.setAdapter(mAdapter);
-        mAdapter = new CompanyFragmentAdapter(getContext(),"Ghulam Rabani & Sons Traders & Distributors");
+        mAdapter = new CompanyFragmentAdapter(getContext(),"Ghulam Rabani & Sons Traders & Distributors", mPager, mycontainer, myinflater);
         recyclerView.setAdapter(mAdapter);
 
 

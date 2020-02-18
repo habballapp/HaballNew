@@ -78,14 +78,14 @@ public class Orders_Fragment extends Fragment {
         final View root = inflater.inflate(R.layout.activity_distributer_order, container, false);
         recyclerView = (RecyclerView) root.findViewById(R.id.rv_order_ledger);
 
-        create_payment = root.findViewById(R.id.place_order_button);
+       /* create_payment = root.findViewById(R.id.place_order_button);
         create_payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), DistributorOrder_ItemSelection.class);
-                startActivity(intent);
+                 startActivity(intent);
             }
-        });
+        });*/
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         recyclerView.setHasFixedSize(true);

@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="70dp"
     android:background="#fff"
-    tools:context=".Order.DistributorOrder">
+    tools:context=".Distributor.ui.orders.OrdersTabsLayout.Tabs.Orders_Items_Fragment">
 
     <RelativeLayout
         android:id="@+id/spinner_container"
@@ -22,30 +23,30 @@
     </RelativeLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/search_bar"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="20dp"
-            android:hint="Search by Item"
-            android:textColorHint="#676a6c"
-            android:layout_below="@id/spinner_container"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="20dp"
+        android:hint="Search by Item"
+        android:textColorHint="#676a6c"
+        android:layout_below="@id/spinner_container"
 
         >
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_test"
-                android:textSize="15sp"
-                android:textColor="#676a6c"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="15dp"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:drawableRight="@drawable/ic_search_black_24dp"/>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_test"
+            android:textSize="15sp"
+            android:textColor="#676a6c"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="15dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:drawableRight="@drawable/ic_search_black_24dp"/>
 
-        </com.google.android.material.textfield.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
     <RelativeLayout
         android:id="@+id/line_bottom"
         android:layout_width="match_parent"
