@@ -1,4 +1,4 @@
-package com.example.haball.Distributor.ui.orders.OrdersTabs.ui.main;
+package com.example.haball.Distributor.ui.orders.OrdersTabsLayout.Tabs;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,12 +19,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
-import com.example.haball.Distributor.ui.orders.Adapter.CompanyFragmentAdapter;
 import com.example.haball.Distributor.ui.orders.Adapter.DistributorOrderAdapter;
 import com.example.haball.Distributor.ui.orders.Models.OrderFragmentModel;
 import com.example.haball.Distributor.ui.orders.Models.OrdersViewModel;
@@ -44,30 +50,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
-/**
- * A placeholder fragment containing a simple view.
- */
-public class PlaceholderFragment extends Fragment {
+public class Orders_Fragment extends Fragment {
 
-    private RecyclerView recyclerView,recyclerView1,recyclerView2;
-    private RecyclerView.Adapter mAdapter,mAdapter1,mAdapter2;
+    private OrdersViewModel sendViewModel;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private Button create_payment;
-    private Spinner spinner_consolidate;
     private List<OrderFragmentModel> OrderList;
     private String URL_ORDER = "http://175.107.203.97:4008/api/orders/search";
     private String Token, DistributorId;
     private String Filter_selected, Filter_selected_value;
+
+    private Spinner spinner_consolidate;
     private Spinner spinner2;
     private EditText conso_edittext;
     private List<String> consolidate_felter = new ArrayList<>();
@@ -75,84 +71,25 @@ public class PlaceholderFragment extends Fragment {
     private ArrayAdapter<String> arrayAdapterPayments;
     private ArrayAdapter<String> arrayAdapterFeltter;
 
-    private static final String ARG_SECTION_NUMBER = "section_number";
-
-    private PageViewModel pageViewModel;
-
-    public static PlaceholderFragment newInstance(int index) {
-        PlaceholderFragment fragment = new PlaceholderFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt(ARG_SECTION_NUMBER, index);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
-        int index = 1;
-        if (getArguments() != null) {
-            index = getArguments().getInt(ARG_SECTION_NUMBER);
-        }
-        pageViewModel.setIndex(index);
-
-    }
-
-    @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        View rootView = null;
-
-
-        switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
-
-            case 1: {
-                rootView = inflater.inflate(R.layout.activity_distributer_order, container, false);
-                Holderorders(rootView);
-                Log.i("aaaaaa", String.valueOf(mAdapter));
-                break;
-            }
-            case 2: {
-
-                rootView = inflater.inflate(R.layout.fragment_order__summary, container, false);
-                break;
-
-             /*   rootView = inflater.inflate(R.layout.fragment_sent_, container, false);
-                recyclerView1 = (RecyclerView) rootView.findViewById(R.id.rv_sent);
-                recyclerView1.setHasFixedSize(false);
-                // use a linear layout manager
-                layoutManager = new LinearLayoutManager(getContext());
-                recyclerView1.setLayoutManager(layoutManager);
-                mAdapter1 = new DistributorOrderAdapter(getContext(),);
-                recyclerView1.setAdapter(mAdapter1);
-                Log.i("aaaaaa", String.valueOf(mAdapter1));
-                break;*/
-            }
-
-        }
-        return rootView;
-
-    }
-
-    private void Holderorders(final View root){
-
-        final ViewPager mPager = getActivity().findViewById(R.id.view_pager5);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        sendViewModel =
+                ViewModelProviders.of(this).get(OrdersViewModel.class);
+        final View root = inflater.inflate(R.layout.activity_distributer_order, container, false);
         recyclerView = (RecyclerView) root.findViewById(R.id.rv_order_ledger);
 
-        create_payment = root.findViewById(R.id.place_order_button);
+       /* create_payment = root.findViewById(R.id.place_order_button);
         create_payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPager.setCurrentItem(1); // Change to page 1, i.e., FragmentB
-//                Intent intent = new Intent(getContext(), DistributorOrder_ItemSelection.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getContext(), DistributorOrder_ItemSelection.class);
+                 startActivity(intent);
             }
-        });
+        });*/
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         recyclerView.setHasFixedSize(true);
-
+//
 //        spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
 //        spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
 //        conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
@@ -262,7 +199,7 @@ public class PlaceholderFragment extends Fragment {
 //                        Filter_selected_value = "-1";
 //                    Log.i("Filter_selected_value",Filter_selected_value);
 //                    try {
-//                       fetchFilteredOrders();
+//                        fetchFilteredOrders();
 //                    } catch (JSONException e) {
 //                        e.printStackTrace();
 //                    }
@@ -306,12 +243,10 @@ public class PlaceholderFragment extends Fragment {
 //        } catch (JSONException e) {
 //            e.printStackTrace();
 //        }
-//        mAdapter = new DistributorOrderAdapter(getContext(),"Ghulam Rabani & Sons Traders & Distributors","1002312324251524","89465","Pending");
+//        // specify an adapter (see also next example)
+//        mAdapter = new DistributorOrderAdapter(this,"Ghulam Rabani & Sons Traders & Distributors","1002312324251524","Invoice","Pending");
 //        recyclerView.setAdapter(mAdapter);
-        mAdapter = new CompanyFragmentAdapter(getContext(),"Ghulam Rabani & Sons Traders & Distributors");
-        recyclerView.setAdapter(mAdapter);
-
-
+        return root;
     }
 //
 //    private void fetchOrders() throws JSONException {
@@ -412,6 +347,4 @@ public class PlaceholderFragment extends Fragment {
 //        };
 //        Volley.newRequestQueue(getContext()).add(sr);
 //    }
-
 }
-

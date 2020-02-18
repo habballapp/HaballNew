@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_orders"
-        android:name="com.example.haball.Distributor.ui.orders.OrdersTabs.Tabs.Orders_Fragment"
+        android:name="com.example.haball.Distributor.ui.orders.OrdersTabsLayout.Tabs.Orders_Fragment"
         android:label="Orders"
         tools:layout="@layout/fragment_send" />
 

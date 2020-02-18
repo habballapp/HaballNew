@@ -1,4 +1,4 @@
-package com.example.haball.Distributor.ui.orders.OrdersTabs.ui.main;
+package com.example.haball.Distributor.ui.orders.OrdersTabsLayout.ui.main;
 
 import android.content.Context;
 

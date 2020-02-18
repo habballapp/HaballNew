@@ -4,28 +4,48 @@ package com.example.haball.Distributor.ui.orders.Adapter;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
+        import android.widget.LinearLayout;
         import android.widget.TextView;
+        import android.widget.Toast;
 
         import androidx.annotation.NonNull;
+        import androidx.core.view.GravityCompat;
+        import androidx.drawerlayout.widget.DrawerLayout;
+        import androidx.fragment.app.FragmentActivity;
+        import androidx.fragment.app.FragmentTransaction;
         import androidx.recyclerview.widget.RecyclerView;
+        import androidx.viewpager.widget.ViewPager;
 
         import com.example.haball.Distributor.ui.orders.Models.Company_Fragment_Model;
         import com.example.haball.Distributor.ui.orders.Models.OrderFragmentModel;
+        import com.example.haball.Distributor.ui.orders.OrdersTabsLayout.Orders_Dashboard;
+        import com.example.haball.Distributor.ui.orders.OrdersTabsLayout.Tabs.Order_Summary;
+        import com.example.haball.Distributor.ui.orders.OrdersTabsLayout.Tabs.Orders_Items_Fragment;
+        import com.example.haball.Invoice.Distributor_Invoice_DashBoard;
         import com.example.haball.R;
+        import com.google.android.material.tabs.TabLayout;
 
         import java.util.List;
 
 public class CompanyFragmentAdapter extends RecyclerView.Adapter<CompanyFragmentAdapter.ViewHolder> {
-
+//    ViewPager mPager;
     //  private Orders_Fragment mContext;
     private  String heading="";
+    private DrawerLayout drawer;
+    private FragmentTransaction fragmentTransaction;
 
     private Context context;
     private List<OrderFragmentModel> orderList;
-    public CompanyFragmentAdapter(Context requestOrder, String heading){
+    private ViewPager mPager;
+    private ViewGroup mycontainer;
+    private LayoutInflater myinflator;
+    public CompanyFragmentAdapter(Context requestOrder, String heading, ViewPager mPager, ViewGroup container, LayoutInflater inflator){
 
         this.heading = heading;
         this.context = requestOrder;
+        this.mPager = mPager;
+        this.mycontainer = container;
+        this.myinflator = inflator;
     }
 //
 //    public DistributorOrderAdapter(Context context, List<OrderFragmentModel> orderList) {
@@ -33,9 +53,11 @@ public class CompanyFragmentAdapter extends RecyclerView.Adapter<CompanyFragment
 //        this.orderList = orderList;
 //    }
 
+
+
     @Override
     public CompanyFragmentAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view_inflate = LayoutInflater.from(context).inflate(R.layout.company_fragment,parent,false);
+        View view_inflate = LayoutInflater.from(context).inflate(R.layout.company_fragment,mycontainer,false);
         return new CompanyFragmentAdapter.ViewHolder(view_inflate);
     }
 
@@ -101,19 +123,49 @@ public class CompanyFragmentAdapter extends RecyclerView.Adapter<CompanyFragment
 //            status = orderList.get(position).getOrderStatusValue();
 
         holder.tv_heading.setText(heading);
+        holder.ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,"Clicked", Toast.LENGTH_SHORT).show();
+                mPager.setCurrentItem(0);
+                   FragmentTransaction fragmentTransaction= ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
+                   fragmentTransaction.add(R.id.main_container,new Orders_Items_Fragment());
+                   fragmentTransaction.commit();
+              // View root = myinflator.inflate(R.layout.activity_orders__dashboard, mycontainer, false);// TabLayout tab = root.findViewById(R.id.tabs5);
+               // tab.setupWithViewPager(mPager);
+                 // mPager.setCurrentItem(1);
+
+
+//                recyclerView = (RecyclerView) root.findViewById(R.id.rv_order_ledger);
+
+
+                 //drawer.closeDrawer(GravityCompat.START);
+                    /*((FragmentActivity) v.getContext()).getFragmentManager().beginTransaction()
+                            .replace(R.id.main_container, new Order_Summary())
+                            .commit();*/
+            }
+        });
+
     }
     @Override
     public int getItemCount() {
 //        return orderList.size();
-        return 1;
+        return 2;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_heading;
+        public LinearLayout ll;
+
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_heading = itemView.findViewById(R.id.heading);
+            ll = (LinearLayout) itemView.findViewById(R.id.ll_heading);
+//            mPager = itemView.findViewById(R.id.view_pager5);
+
         }
+
     }
 }

@@ -1,26 +1,20 @@
-package com.example.haball.Distributor.ui.orders.OrdersTabs.Tabs;
-
+package com.example.haball.Distributor.ui.orders.OrdersTabsLayout.Tabs;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.haball.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class Order_Summary extends Fragment {
+import androidx.fragment.app.Fragment;
 
-    @Override
+public class Orders_Items_Fragment extends Fragment {
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_order__summary, container, false);
-    }
+        return inflater.inflate(R.layout.orders_items_fragments, container, false);
 
+    }
 }

@@ -14,7 +14,7 @@
         android:theme="@style/Theme.AppCompat.Light"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".Distributor.ui.orders.OrdersTabs.Orders_Dashboard"
+            android:name=".Distributor.ui.orders.OrdersTabsLayout.Orders_Dashboard"
             android:label="@string/title_activity_orders__dashboard"
             android:theme="@style/NoActionBar"></activity>
         <activity
