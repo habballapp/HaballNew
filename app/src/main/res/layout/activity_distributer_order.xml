@@ -7,103 +7,81 @@
     android:background="#fff"
     tools:context=".Order.DistributorOrder">
 
-    <LinearLayout
-        android:id="@+id/tv_order"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="2"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/underline"
-        android:orientation="vertical">
-        <TextView
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Order"
-            android:paddingTop="5dp"
-            android:paddingBottom="10dp"
-            android:layout_marginTop="20dp"
-            android:textSize="20sp"
-            android:textColor="#96bb3c"
-            android:background="@drawable/half_underline"
-            />
-
-    </LinearLayout>
 
 
-
-    <Button
-        android:id="@+id/place_order_button"
-        android:layout_width="match_parent"
-        android:background="@drawable/button_round"
-        android:layout_height="40dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="15dp"
-        android:text="Place Order"
-        android:textSize="15sp"
-        android:textColor="#fff"
-        android:gravity="center"
-        android:textAllCaps="false"
-        android:layout_below="@+id/tv_order"
-        />
 
     <RelativeLayout
         android:id="@+id/spinner_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/edit_text_squared"
-        android:layout_below="@+id/place_order_button">
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/edit_text_border_bottom">
         <Spinner
             android:id="@+id/spinner_conso"
             android:layout_width="match_parent"
             android:layout_height="40dp"/>
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/spinner_container1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/edit_text_squared"
-        android:layout_below="@+id/spinner_container">
-        <Spinner
-            android:id="@+id/conso_spinner2"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"/>
 
-        <EditText
-            android:id="@+id/conso_edittext"
-            android:background="@drawable/edit_text_squared"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/search_bar"
             android:layout_width="match_parent"
-            android:layout_height="40dp"/>
+            android:layout_height="60dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="20dp"
+            android:hint="Search by Item"
+            android:textColorHint="#676a6c"
+            android:layout_below="@id/spinner_container"
 
-    </RelativeLayout>
+        >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_test"
+                android:textSize="15sp"
+                android:textColor="#676a6c"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="15dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:drawableRight="@drawable/ic_search_black_24dp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
     <RelativeLayout
         android:id="@+id/line_bottom"
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:layout_below="@+id/spinner_container1"
-        android:background="@drawable/line_seperator"
-        android:layout_marginTop="15dp"/>
+        android:layout_below="@+id/search_bar"
+        android:layout_marginTop="20dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_order_ledger"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/line_bottom"
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"/>
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_above="@id/place_order_button"/>
+
+    <Button
+        android:id="@+id/place_order_button"
+        android:layout_width="match_parent"
+        android:background="@drawable/button_round"
+        android:layout_height="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:text="Checkout"
+        android:textSize="15sp"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:layout_alignParentBottom="true"
+
+        />
 
 </RelativeLayout>
