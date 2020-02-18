@@ -12,11 +12,12 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#fff"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
+            app:tabMode="scrollable"
             android:layout_marginRight="30dp"
             app:tabBackground="@drawable/custom_indicator"
             app:tabIndicatorColor="#96bb3c"

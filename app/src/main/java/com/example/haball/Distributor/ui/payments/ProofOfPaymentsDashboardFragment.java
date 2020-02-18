@@ -126,7 +126,7 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
         consolidate_felter.add ("Status");
 
         arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_dropdown_item_1line, consolidate_felter);
+                android.R.layout.simple_spinner_dropdown_item, consolidate_felter);
 
 
         spinner_consolidate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -181,7 +181,7 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
                         filters.add ("Returned");
                         filters.add ("Approved");
                         arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
-                                android.R.layout.simple_dropdown_item_1line, filters);
+                                android.R.layout.simple_spinner_dropdown_item, filters);
 
                         arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         arrayAdapterFeltter.notifyDataSetChanged();

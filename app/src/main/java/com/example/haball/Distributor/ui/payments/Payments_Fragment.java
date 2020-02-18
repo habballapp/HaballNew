@@ -90,7 +90,7 @@ public class Payments_Fragment extends Fragment {
 
         spinner_criteria = root.findViewById(R.id.spinner_criteria);
         arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_dropdown_item_1line, company_names);
+                android.R.layout.simple_spinner_dropdown_item, company_names);
         spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);

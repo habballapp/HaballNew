@@ -82,11 +82,11 @@ public class Registration_Actvity2 extends AppCompatActivity {
         provinces.add("Select Province *");
 
         arrayAdapterCountry = new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, countries);
+                android.R.layout.simple_spinner_dropdown_item, countries);
         arrayAdapterCity = new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, cities);
+                android.R.layout.simple_spinner_dropdown_item, cities);
         arrayAdapterProvince = new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, provinces);
+                android.R.layout.simple_spinner_dropdown_item, provinces);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){

@@ -6,7 +6,7 @@
     android:paddingRight="5dp"
     android:paddingTop="20dp"
     android:paddingBottom="20dp"
-    android:layout_marginTop="30dp"
+    android:layout_marginTop="20dp"
     android:background="@drawable/edit_text_squared">
     <LinearLayout
         android:id="@+id/ll_heading"
@@ -37,17 +37,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_heading"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:text="Ledger ID:"
-        android:textSize="16sp"/>
+        android:textSize="15sp"/>
     <TextView
         android:id="@+id/ledger_id_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_heading"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:text="1002312324251524"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/ledger_id"
         android:textStyle="bold"
@@ -59,14 +59,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/document_type"
         android:text="Debit: "
-        android:textSize="16sp"/>
+        android:textSize="15sp"/>
     <TextView
         android:id="@+id/transaction_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/document_type"
         android:text="PKR 50,000.00"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/transaction"
         android:textStyle="bold"
@@ -78,7 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ledger_id"
         android:text="Document Type: "
-        android:textSize="16sp"/>
+        android:textSize="15sp"/>
     <TextView
         android:id="@+id/document_type_value"
         android:layout_width="wrap_content"
@@ -86,7 +86,7 @@
         android:layout_below="@+id/ledger_id"
         android:text="Invoice"
         android:layout_toRightOf="@+id/document_type"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:layout_marginLeft="5dp"
         android:textStyle="bold"
         android:textColor="#676a6c"
@@ -97,14 +97,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/transaction"
         android:text="Balance:"
-        android:textSize="16sp"/>
+        android:textSize="15sp"/>
     <TextView
         android:id="@+id/balance_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/transaction"
         android:text="PKR 600,000.00"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/balance"
         android:textStyle="bold"

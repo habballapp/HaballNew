@@ -17,39 +17,39 @@
         android:paddingRight="5dp"
         android:paddingTop="5dp"
         android:paddingBottom="10dp"
-        android:layout_marginTop="20dp"
-        android:textSize="24sp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"/>
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
     <RelativeLayout
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/tv_support"
         android:background="@drawable/horizontal_black_line"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"/>
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
     <Button
         android:id="@+id/btn_add_ticket"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:text="Add Ticket"
         android:textAllCaps="false"
         android:textSize="18sp"
         android:textColor="#fff"
         android:layout_below="@+id/line"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:clickable="true"
         android:background="@drawable/button_background"/>
     <RelativeLayout
         android:id="@+id/spinner_container"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
         android:layout_below="@+id/btn_add_ticket"
         android:background="@drawable/edit_text_squared">
         <Spinner
@@ -62,10 +62,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/spinner_container"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="30dp"
         android:layout_marginBottom="30dp"
-        android:layout_marginLeft="40dp"/>
+        android:layout_marginLeft="30dp"/>
     <TextView
         android:id="@+id/footer"
         android:layout_width="match_parent"

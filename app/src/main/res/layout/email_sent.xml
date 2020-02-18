@@ -8,18 +8,16 @@
         android:id="@+id/rl_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:padding="20dp"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
         >
 
         <ImageButton
             android:id="@+id/image_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="20dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_clear_black_24dp"
+            android:src="@drawable/ic_close_black_24dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="5dp" />
 
@@ -27,16 +25,14 @@
             android:id="@+id/txt_header1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginTop="10dp"
             android:text="Email Sent"
             android:textSize="18sp"
             android:padding="10dp"
             android:textColor="#96bb3c"
             android:background="@drawable/border_set"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="40dp" />
+            android:layout_marginRight="20dp" />
 
 
         <TextView
@@ -46,9 +42,9 @@
             android:layout_below="@id/txt_header1"
             android:text="Password reset email has been sent please check your inbox"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:textAlignment="gravity"
-            android:layout_marginEnd="20dp"
             android:justificationMode="inter_word"
             android:layout_marginBottom="20dp"
             />

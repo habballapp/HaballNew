@@ -64,7 +64,7 @@ public class CreatePaymentRequestFragment extends Fragment {
         CompanyNames.add("Company *");
 
         arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_dropdown_item_1line, CompanyNames);
+                android.R.layout.simple_spinner_dropdown_item, CompanyNames);
 
         spinner_company.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

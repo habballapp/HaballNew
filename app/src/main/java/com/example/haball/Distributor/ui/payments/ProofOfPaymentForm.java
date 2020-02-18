@@ -177,9 +177,9 @@ public class ProofOfPaymentForm extends Fragment {
         });
 
         arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_dropdown_item_1line, payment_ids);
+                android.R.layout.simple_spinner_dropdown_item, payment_ids);
         arrayAdapterPaymentModes = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_dropdown_item_1line, payment_modes);
+                android.R.layout.simple_spinner_dropdown_item, payment_modes);
 
         spinner_payment_id.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

@@ -14,7 +14,7 @@
             android:id="@+id/proof_of_payment_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:background="@drawable/underline"
@@ -25,9 +25,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="Proof of Payment"
+                android:paddingTop="5dp"
                 android:paddingBottom="10dp"
                 android:layout_weight="1"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textColor="#96bb3c"
                 android:background="@drawable/half_underline"
 
@@ -39,8 +40,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/proof_of_payment_view"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="30dp"
             android:orientation="vertical"
             android:weightSum="10">
 
