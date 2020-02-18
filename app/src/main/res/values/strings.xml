@@ -5,23 +5,23 @@
     <string name="Txt_Description_Retailer">Haball Self-Service Retailer is a one window solution to manage business transactions and enable process optimization from
                                    ordering digitally to making payments easily</string>
     <string name="title_activity_distributor__dashboard">Distributor_Dashboard</string>
-    <string name="tab_text_1">Dashboard</string>
-    <string name="tab_text_2">Payments</string>
-    <string name="tab_text_3">Orders</string>
-    <string name="tab_text_4">Invoice Details</string>
-    <string name="tab_text_5">Order Details</string>
-    <string name="tab_text_6">Product Details</string>
-    <string name="tab_text_7">Shipment Details</string>
+    <string name="tab_text_1">Dashboard\t\t</string>
+    <string name="tab_text_2">Payments\t\t</string>
+    <string name="tab_text_3">Orders\t\t</string>
+    <string name="tab_text_4">Invoice Details\t\t</string>
+    <string name="tab_text_5">Order Details\t\t</string>
+    <string name="tab_text_6">Product Details\t\t</string>
+    <string name="tab_text_7">Shipment Details\t\t</string>
     //invoice
-    <string name="tab_text_01">Invoice Details</string>
-    <string name="tab_text_02">Dealer Information</string>
-    <string name="tab_text_03">Orders Details</string>
-    <string name="tab_text_04">Products Details</string>
-    <string name="tab_text_05">Shipments Details</string>
-    <string name="tab_text_06">My Network</string>
-    <string name="tab_text_07">Sent</string>
-    <string name="tab_text_08">Place Order</string>
-    <string name="tab_text_09">Order Summary</string>
+    <string name="tab_text_01">Invoice Details\t\t</string>
+    <string name="tab_text_02">Dealer Information\t\t</string>
+    <string name="tab_text_03">Orders Details\t\t</string>
+    <string name="tab_text_04">Products Details\t\t</string>
+    <string name="tab_text_05">Shipments Details\t\t</string>
+    <string name="tab_text_06">My Network\t\t</string>
+    <string name="tab_text_07">Sent\t\t</string>
+    <string name="tab_text_08">Place Order\t\t</string>
+    <string name="tab_text_09">Order Summary\t\t</string>
 
 
     <string name="Forgot_Password">Forgot Password</string>
