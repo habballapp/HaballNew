@@ -14,9 +14,9 @@
         android:id="@+id/spinner_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/edit_text_border_bottom">
         <Spinner
             android:id="@+id/spinner_conso"
@@ -29,14 +29,12 @@
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="15dp"
             android:hint="Search by Item"
             android:textColorHint="#676a6c"
-            android:layout_below="@id/spinner_container"
-
-        >
+            android:layout_below="@id/spinner_container">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_test"
                 android:textSize="15sp"
@@ -54,16 +52,16 @@
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:layout_below="@+id/search_bar"
-        android:layout_marginTop="20dp"/>
+        android:background="@drawable/line_seperator"
+        android:layout_marginTop="15dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_order_ledger"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/line_bottom"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginLeft="40dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
         android:layout_above="@id/place_order_button"/>
 
     <Button
