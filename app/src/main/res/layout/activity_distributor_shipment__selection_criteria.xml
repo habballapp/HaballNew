@@ -11,9 +11,9 @@
         android:id="@+id/tv_shipment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/underline"
         android:orientation="vertical">
         <TextView
@@ -23,7 +23,7 @@
             android:paddingTop="5dp"
             android:paddingBottom="10dp"
             android:layout_marginTop="20dp"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textColor="#96bb3c"
             android:background="@drawable/half_underline"
             />
@@ -35,9 +35,9 @@
         android:id="@+id/spinner_status"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/edit_text_squared"
         android:layout_below="@+id/tv_shipment">
         <Spinner
@@ -52,17 +52,16 @@
         android:layout_height="5dp"
         android:layout_below="@+id/spinner_status"
         android:background="@drawable/line_seperator"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="15dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_shipment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/line_bottom"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginRight="30dp"
         android:layout_marginBottom="30dp"
-        android:layout_marginLeft="40dp"/>
+        android:layout_marginLeft="30dp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

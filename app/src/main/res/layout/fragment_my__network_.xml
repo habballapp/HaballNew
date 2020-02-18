@@ -12,11 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="2"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp"
         android:orientation="vertical">
-
 
         <Button
             android:layout_width="match_parent"
@@ -24,18 +23,15 @@
             android:background="@drawable/button_round"
             android:text="Send Invite"
             android:textColor="#fff"
-            android:textAllCaps="false"
-
-            />
+            android:textAllCaps="false"/>
 
         <RelativeLayout
             android:id="@+id/relative_Preffered_Contact"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_below="@+id/relative_criticality"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/edit_round">
-
 
             <Spinner
                 android:id="@+id/spinner_dashboard_retailor"
@@ -50,9 +46,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/ln_my_network"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="40dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
         >
 
         <androidx.recyclerview.widget.RecyclerView

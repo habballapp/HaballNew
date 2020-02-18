@@ -15,28 +15,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:weightSum="2">
 
-            <Spinner
-                android:id="@+id/spinner_retailor"
+            <RelativeLayout
+                android:id="@+id/relative_Preffered_Contact"
                 android:layout_width="match_parent"
-                android:layout_height="80px"
+                android:layout_height="40dp"
+                android:layout_below="@+id/relative_criticality"
                 android:layout_marginRight="40dp"
                 android:layout_marginLeft="40dp"
-                android:layout_weight="1"
-                android:padding="10dp"
+                android:layout_marginTop="20dp"
+                android:padding="5dp"
+                android:background="@drawable/edit_round">
+                <Spinner
+                    android:id="@+id/spinner_retailor"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </RelativeLayout>
 
-                android:textSize="24sp"
-                />
             <RelativeLayout
                 android:id="@+id/line1"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/tv_support"
-                android:background="@drawable/horizontal_black_line"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"/>
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/relative_Preffered_Contact"
+                android:background="@drawable/horizontal_black_line" />
 
         </LinearLayout>
 
@@ -80,7 +84,7 @@
                 android:layout_below="@+id/Rcode"
                 android:hint="Retailer Name"
                 android:paddingLeft="10dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:background="@drawable/edit_round"
@@ -94,7 +98,7 @@
                 android:layout_height="40dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:paddingLeft="10dp"
                 android:layout_below="@+id/Rname"/>
 
@@ -107,7 +111,7 @@
                 android:layout_height="40dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:paddingLeft="10dp"
                 android:layout_below="@+id/Email"/>
 
@@ -117,7 +121,7 @@
                 android:layout_height="40dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_below="@+id/Cnicno"
                 android:paddingLeft="10dp"
                 android:background="@drawable/edit_round">
@@ -136,8 +140,6 @@
                 android:layout_marginLeft="40dp"
                 android:layout_below="@+id/Mobileno"
                 android:layout_marginTop="20dp"
-
-                android:padding="10dp"
                 android:background="@drawable/edit_round">
                 <Spinner
                     android:id="@+id/spinner_created_date"
@@ -155,7 +157,7 @@
                 android:layout_height="150px"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:paddingLeft="10dp"
                 android:layout_below="@+id/created_date"/>
         </RelativeLayout>
@@ -168,9 +170,9 @@
             android:layout_height="40dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:textAllCaps="false"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:background="@drawable/button_round"
             android:text="Change Password"
             android:textColor="#fff"
@@ -182,9 +184,9 @@
             android:layout_height="40dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             android:textAllCaps="false"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:background="@drawable/button_round"
             android:text="Save"
             android:textColor="#fff"

@@ -44,7 +44,6 @@ public class Orders_Dashboard extends Fragment {
                 }
             });
         }
-
         viewPager.beginFakeDrag();
         return root;
     }

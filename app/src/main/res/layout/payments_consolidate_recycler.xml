@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="30dp"
+    android:layout_marginTop="20dp"
     android:background="@drawable/edit_text_squared"
     android:orientation="vertical"
     android:paddingLeft="20dp"
@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_heading"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:text="Invoice No:"
         android:textSize="15sp" />
 
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_heading"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_toRightOf="@+id/consolidate_invoice"
         android:text="1002312324251524"
         android:textColor="#676a6c"

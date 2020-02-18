@@ -93,7 +93,7 @@ public class PaymentRequestDashboard extends Fragment {
         consolidate_felter.add ("Status");
 
         arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_dropdown_item_1line, consolidate_felter);
+                android.R.layout.simple_spinner_dropdown_item, consolidate_felter);
 
         spinner_consolidate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -149,7 +149,7 @@ public class PaymentRequestDashboard extends Fragment {
         filters.add ("Unpaid ");
         filters.add ("Paid");
         arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_dropdown_item_1line, filters);
+                android.R.layout.simple_spinner_dropdown_item, filters);
         Log.i("aaaa1111", String.valueOf(consolidate_felter));
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

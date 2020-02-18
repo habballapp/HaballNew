@@ -117,13 +117,7 @@ public class PlaceholderFragment extends Fragment {
                 invoice_tv_date = rootView.findViewById(R.id.invoice_tv_date);
                 invoice_tv_amount = rootView.findViewById(R.id.invoice_tv_amount);
                 tv_status = rootView.findViewById(R.id.shipment_tv_status);
-                btn_next = rootView.findViewById(R.id.btn_next);
-                btn_next.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.i("btn", "clicked");
-                    }
-                });
+
                 InvoiceData();
                 break;
             }

@@ -166,7 +166,7 @@ public class PlaceholderFragment extends Fragment {
         consolidate_felter.add ("Status");
 
         arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_dropdown_item_1line, consolidate_felter);
+                android.R.layout.simple_spinner_dropdown_item, consolidate_felter);
 
 
         spinner_consolidate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -11,24 +11,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="2"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/underline"
         android:orientation="vertical">
-
-
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:text="Payment"
+            android:paddingTop="5dp"
             android:paddingBottom="10dp"
             android:layout_weight="1"
             android:layout_marginLeft="0dp"
             android:layout_marginRight="100dp"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textColor="#96bb3c"
             android:background="@drawable/half_underline"
 
@@ -41,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_below="@+id/ln_login"
         android:weightSum="4"
         android:orientation="vertical"
@@ -52,9 +51,9 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@drawable/button_round"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="15dp"
             android:text="Make New Payment"
             android:textSize="15sp"
             android:textColor="#fff"
@@ -67,9 +66,9 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_below="@+id/relative_criticality"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="40dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="30dp"
             android:background="@drawable/edit_round"
             android:padding="10dp">
 
@@ -85,10 +84,10 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:textSize="15sp"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="40dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="30dp"
             android:background="@drawable/edit_round"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="30dp"
             android:layout_weight="1"
             android:hint="Amount"
             />
@@ -98,9 +97,9 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@drawable/button_round"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="15dp"
             android:text="Back"
             android:textSize="15sp"
             android:textColor="#fff"
@@ -116,7 +115,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ln_txt"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="5dp"
         android:weightSum="4"
         android:orientation="vertical"
         >
@@ -125,8 +124,8 @@
             android:layout_height="40dp"
             android:weightSum="4"
             android:orientation="horizontal"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:background="@drawable/edit_round"
 
             >
@@ -137,7 +136,6 @@
             android:textSize="15sp"
             android:layout_weight="2"
             android:hint="Payment ID:"
-
             android:gravity="center"
             android:layout_marginRight="30dp"
             android:background="@android:color/transparent"
@@ -164,13 +162,13 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="30dp"
             android:layout_weight="1"
             android:text="@string/Txt_Payment"
             android:layout_below="@id/ln_btn"
             android:textSize="20sp"
             android:layout_marginBottom="5dp"
-            ></TextView>
+            />
 
         <RelativeLayout
             android:id="@+id/rl_banking"

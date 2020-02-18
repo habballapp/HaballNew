@@ -15,9 +15,9 @@
             android:id="@+id/rv_shipment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginLeft="40dp"/>
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"/>
 
         <RelativeLayout
             android:id="@+id/line_bottom"
@@ -25,7 +25,7 @@
             android:layout_height="5dp"
             android:layout_below="@+id/rv_shipment"
             android:background="@drawable/line_seperator"
-            android:layout_marginTop="30dp"/>
+            android:layout_marginTop="15dp"/>
 
         <LinearLayout
             android:id="@+id/ln_txt"
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/line_bottom"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="30dp"
             android:orientation="vertical"
             android:weightSum="8">
 
@@ -41,8 +41,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_weight="1"
                 android:text="Total Amount"
                 android:layout_marginTop="10dp"
@@ -54,8 +54,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:paddingLeft="20dp"
@@ -76,8 +76,8 @@
                 android:id="@+id/btn_next"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_round"
                 android:gravity="center"

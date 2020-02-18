@@ -11,9 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="2"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/underline"
         android:orientation="vertical">
         <TextView
@@ -24,7 +24,7 @@
             android:paddingTop="5dp"
             android:paddingBottom="10dp"
             android:layout_marginTop="20dp"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textColor="#96bb3c"
             android:background="@drawable/half_underline"
             />
@@ -34,14 +34,14 @@
             android:id="@+id/txt_ln"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
              android:layout_below="@+id/tv_order">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Select a company to place your order"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:layout_weight="1"
            />
 
@@ -52,9 +52,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt_ln"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginLeft="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
 
         />
 
