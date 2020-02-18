@@ -6,16 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".Select_User.Register_Activity"
     android:background="@drawable/background_logo"
-    >
+>
 
 
     <LinearLayout
         android:id="@+id/ln_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_above="@+id/cards"
         android:orientation="vertical"
-        android:layout_marginBottom="20dp"
         android:weightSum="2"
         >
         <TextView
@@ -44,14 +43,10 @@
 
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/ln_1"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="2dp"
-        android:layout_alignParentLeft="true">
+        android:id="@+id/cards"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_retailer"
@@ -69,25 +64,25 @@
                 android:layout_height="wrap_content"
                 android:padding="20dp">
 
-                <ImageView
-                    android:id="@+id/img_retailer"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/store"
-                    android:layout_marginBottom="15dp"
-                    />
-                <TextView
-                    android:id="@+id/txt_retailer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_below="@+id/img_retailer"
-                    android:text="RETAILER"
-                    android:textColor="#96bb3c"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    />
+            <ImageView
+                android:id="@+id/img_retailer"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/store"
+                android:layout_marginBottom="15dp"
+                />
+            <TextView
+                android:id="@+id/txt_retailer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_below="@+id/img_retailer"
+                android:text="RETAILER"
+                android:textColor="#96bb3c"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                />
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
@@ -107,6 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="20dp">
+
                 <ImageView
                     android:id="@+id/img_distributor"
                     android:layout_width="80dp"
