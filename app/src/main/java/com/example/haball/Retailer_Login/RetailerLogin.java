@@ -53,7 +53,7 @@ public class RetailerLogin extends AppCompatActivity {
     private EditText et_username,et_password, txt_email;
     private Toolbar tb;
     private RequestQueue queue;
-    private String URL = "http://175.107.203.97:3020/token";
+    private String URL = "http://175.107.203.97:3020/Token";
     private String URL_FORGOT_PASSWORD = "http://175.107.203.97:3020/api/Users/forgot";
     private HttpURLConnection urlConnection = null;
     private java.net.URL url;
@@ -182,62 +182,62 @@ public class RetailerLogin extends AppCompatActivity {
 
     private void loginRequest() throws JSONException {
 
-//        JSONObject map = new JSONObject();
-//        map.put("Username", et_username.getText().toString());
-//        map.put("Password", et_password.getText().toString());
-//        map.put("grant_type", "password");
-//
-//        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
-//            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-//            @Override
-//            public void onResponse(JSONObject result) {
-//                try {
-//                    if(!result.get("access_token").toString().isEmpty()){
-//                        token = result.get("access_token").toString();
-//                        JSONObject userAccount = new JSONObject(String.valueOf(result.get("UserAccount")));
-//                        Log.i("user account => ",userAccount.get("RetailerID").toString());
-//                        String RetailerId = userAccount.get("RetailerID").toString();
-//                        String username = userAccount.get("Username").toString();
-//                        String CompanyName = userAccount.get("CompanyName").toString();
-//                        String ID = userAccount.get("UserId").toString();
-//                        SharedPreferences login_token = getSharedPreferences("LoginToken",
-//                                Context.MODE_PRIVATE);
-//                        SharedPreferences.Editor editor = login_token.edit();
-//                        editor.putString("Login_Token",token);
-//                        editor.putString("User_Type","Retailer");
-//                        editor.putString("Retailer_Id",RetailerId);
-//                        editor.putString("username",username);
-//                        editor.putString("CompanyName",CompanyName);
-//                        editor.putString("UserId",ID);
-//
-//                        editor.commit();
-//
+        JSONObject map = new JSONObject();
+        map.put("Username", et_username.getText().toString());
+        map.put("Password", et_password.getText().toString());
+        map.put("grant_type", "password");
+
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onResponse(JSONObject result) {
+                try {
+                    if(!result.get("access_token").toString().isEmpty()){
+                        token = result.get("access_token").toString();
+                        JSONObject userAccount = new JSONObject(String.valueOf(result.get("UserAccount")));
+                        Log.i("user account => ",userAccount.get("RetailerID").toString());
+                        String RetailerId = userAccount.get("RetailerID").toString();
+                        String username = userAccount.get("Username").toString();
+                        String CompanyName = userAccount.get("CompanyName").toString();
+                        String ID = userAccount.get("UserId").toString();
+                        SharedPreferences login_token = getSharedPreferences("LoginToken",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = login_token.edit();
+                        editor.putString("Login_Token",token);
+                        editor.putString("User_Type","Retailer");
+                        editor.putString("Retailer_Id",RetailerId);
+                        editor.putString("username",username);
+                        editor.putString("CompanyName",CompanyName);
+                        editor.putString("UserId",ID);
+
+                        editor.commit();
+
                         Toast.makeText(RetailerLogin.this,"Login Success",Toast.LENGTH_LONG).show();
                         Intent login_intent = new Intent(RetailerLogin.this,RetailorDashboard.class);
                         startActivity(login_intent);
                         finish();
-//                    }
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                    try {
-//                        Toast.makeText(RetailerLogin.this,result.get("ErrorMessage").toString(),Toast.LENGTH_LONG).show();
-//                    } catch (JSONException ex) {
-//                        ex.printStackTrace();
-//                    }
-//
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                error.printStackTrace();
-//                Toast.makeText(RetailerLogin.this,error.toString(),Toast.LENGTH_LONG).show();
-//            }
-//        });
-//        Volley.newRequestQueue(this).add(sr);
-//        RequestQueue requestQueue = Volley.newRequestQueue(this);
-//        requestQueue.add(sr);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    try {
+                        Toast.makeText(RetailerLogin.this,result.get("ErrorMessage").toString(),Toast.LENGTH_LONG).show();
+                    } catch (JSONException ex) {
+                        ex.printStackTrace();
+                    }
+
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Toast.makeText(RetailerLogin.this,error.toString(),Toast.LENGTH_LONG).show();
+            }
+        });
+        Volley.newRequestQueue(this).add(sr);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(sr);
     }
 
     private String forgotPasswordRequest(final AlertDialog alertDialog, final AlertDialog alertDialog1, final ImageButton img_email) {

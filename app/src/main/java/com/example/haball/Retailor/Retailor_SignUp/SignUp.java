@@ -92,6 +92,7 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
         JSONObject map = new JSONObject();
         if(password_check && confirm_password_check) {
             map.put("ID", 0);
+            map.put("Email", txt_email.getText().toString());
             map.put("Username", txt_username.getText().toString());
             map.put("Password", txt_password.getText().toString());
             map.put("ConfirmPassword", txt_confirmpass.getText().toString());
@@ -100,10 +101,6 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
             map.put("Mobile", txt_mobile_number.getText().toString());
             map.put("CompanyName", txt_business_name.getText().toString());
             map.put("Address", txt_address.getText().toString());
-            map.put("Phone", txt_cnic.getText().toString());
-            map.put("CompanyNTN", txt_cnic.getText().toString());
-            map.put("CompanyName", txt_cnic.getText().toString());
-            map.put("URL", txt_cnic.getText().toString());
             map.put("CountryId", 1);
             map.put("ProvinceId", 1);
             map.put("CityId", 1);
@@ -141,13 +138,12 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
         } else {
             Toast.makeText(SignUp.this,"Password does not match",Toast.LENGTH_LONG).show();
         }
-
     }
 
 
 
     private void checkPasswords(){
-        String reg_ex = "^(?=.*[A-Za-z])(?=.*\\\\d)(?=.*[@$!%*#?&])[A-Za-z\\\\d@$!%*#?&]{6,}$";
+        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
         if(txt_password.getText().toString().matches(reg_ex)) {
             password_check = true;
             txt_password.setError(null);
