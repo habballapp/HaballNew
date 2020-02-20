@@ -10,6 +10,16 @@
 
     </style>
 
+    <style name="TextLabel" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">#96bb3c</item>
+<!--        <item name="android:textSize">20sp</item>-->
+        <item name="colorAccent">#676a6c</item>
+        <item name="colorControlNormal">#676a6c</item>
+        <item name="colorControlActivated">#96bb3c</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

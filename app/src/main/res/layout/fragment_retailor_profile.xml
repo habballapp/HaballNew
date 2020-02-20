@@ -5,203 +5,290 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:scrollbars="none">
+    android:backgroundTint="#80FFFFFF"
+    android:backgroundTintMode="src_over">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/header"
+            android:id="@+id/ln_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="20dp"
-            android:weightSum="2">
-
-            <RelativeLayout
-                android:id="@+id/relative_Preffered_Contact"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_below="@+id/relative_criticality"
-                android:layout_marginRight="40dp"
-                android:layout_marginLeft="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profile Information"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp"
                 android:layout_marginTop="20dp"
-                android:padding="5dp"
-                android:background="@drawable/edit_round">
-                <Spinner
-                    android:id="@+id/spinner_retailor"
+                android:textSize="20sp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ln_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ln_login"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="40dp"
+            android:orientation="vertical"
+            android:weightSum="8">
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:hint="Retailer Code"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/Rcode"
+                    android:textSize="15sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
-            </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/line1"
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="20dp"
-                android:layout_below="@+id/relative_Preffered_Contact"
-                android:background="@drawable/horizontal_black_line" />
+                android:layout_height="60dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="15dp"
+                android:hint="Full Name*"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/Rfirstname"
+                    android:textSize="15sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="15dp"
+                android:hint="Email Address*"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/Remail"
+                    android:drawableRight="@drawable/editprofile"
+                    android:textSize="15sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="15dp"
+                android:hint="CNIC No"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/Rcnic"
+                    android:textSize="15sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="15dp"
+                android:hint="Mobile No"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/Rmobile"
+                    android:drawableRight="@drawable/editprofile"
+                    android:textSize="15sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="15dp"
+                android:hint="Created Date"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/R_created_date"
+                    android:textSize="15sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="15dp"
+                android:hint="Address"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_created_date"
+                    android:textSize="15sp"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="50dp"
+                    android:drawableRight="@drawable/editprofile"
+                    android:textColor="#676a6c"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
 
         </LinearLayout>
 
+
         <RelativeLayout
-            android:id="@+id/rl_fields"
+            android:id="@+id/ln_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/header"
-            android:layout_marginTop="20dp"
-            >
+            android:layout_below="@id/ln_txt"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:weightSum="2">
 
-            <TextView
-                android:id="@+id/profile_info"
+            <Button
+                android:id="@+id/btn_changepwd"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Profile Information"
-                android:layout_marginRight="40dp"
-                android:layout_marginLeft="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_background"
+                android:gravity="center"
+                android:text="Change Password"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="15sp"
 
-                android:textSize="20sp"
-                android:layout_marginTop="10dp"
                 />
 
-            <EditText
-                android:id="@+id/Rcode"
-                android:hint="Retailer Code"
-                android:textSize="15sp"
+            <Button
+                android:id="@+id/distri_btn_save"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:paddingLeft="10dp"
-                android:layout_below="@id/profile_info"
-                android:background="@drawable/edit_round"/>
-            <EditText
-                android:id="@+id/Rname"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:textSize="15sp"
-                android:layout_below="@+id/Rcode"
-                android:hint="Retailer Name"
-                android:paddingLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:background="@drawable/edit_round"
-                />
-            <EditText
-                android:id="@+id/Email"
-                android:hint="Email"
-                android:textSize="15sp"
-                android:layout_width="match_parent"
-                android:background="@drawable/edit_round"
-                android:layout_height="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="20dp"
-                android:paddingLeft="10dp"
-                android:layout_below="@+id/Rname"/>
-
-            <EditText
-                android:id="@+id/Cnicno"
-                android:hint="CNIC No"
-                android:textSize="15sp"
-                android:layout_width="match_parent"
-                android:background="@drawable/edit_round"
-                android:layout_height="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="20dp"
-                android:paddingLeft="10dp"
-                android:layout_below="@+id/Email"/>
-
-            <RelativeLayout
-                android:id="@+id/Mobileno"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="20dp"
-                android:layout_below="@+id/Cnicno"
-                android:paddingLeft="10dp"
-                android:background="@drawable/edit_round">
-                <Spinner
-                    android:id="@+id/spinner_mobileno"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/created_date"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_below="@+id/Mobileno"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/edit_round">
-                <Spinner
-                    android:id="@+id/spinner_created_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
-            </RelativeLayout>
-
-            <EditText
-                android:id="@+id/Address"
-                android:hint="Address"
-                android:textSize="15sp"
-                android:layout_width="match_parent"
-                android:background="@drawable/edit_round"
-                android:layout_height="150px"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="20dp"
-                android:paddingLeft="10dp"
-                android:layout_below="@+id/created_date"/>
+                android:layout_below="@id/btn_changepwd"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20sp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/button_round"
+                android:text="Save"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="15sp" />
         </RelativeLayout>
 
 
-        <Button
-            android:id="@+id/change_pwd"
-            android:layout_width="match_parent"
-            android:layout_below="@id/rl_fields"
-            android:layout_height="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="30dp"
-            android:textAllCaps="false"
-            android:textSize="15sp"
-            android:background="@drawable/button_round"
-            android:text="Change Password"
-            android:textColor="#fff"
-            />
-        <Button
-            android:id="@+id/btn_save"
-            android:layout_width="match_parent"
-            android:layout_below="@id/change_pwd"
-            android:layout_height="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="20dp"
-            android:textAllCaps="false"
-            android:textSize="15sp"
-            android:background="@drawable/button_round"
-            android:text="Save"
-            android:textColor="#fff"
-            />
-
         <TextView
-            android:id="@+id/footer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/ln_btn"
             android:layout_alignParentBottom="true"
-            android:layout_below="@id/btn_save"
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="50dp"
             android:gravity="center"
             android:text="© Haball | All rights reserved" />
 
-
     </RelativeLayout>
+
 </ScrollView>

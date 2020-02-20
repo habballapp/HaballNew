@@ -43,261 +43,259 @@
             android:orientation="vertical"
             android:weightSum="8">
 
-<!--                        <com.google.android.material.textfield.TextInputLayout-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="60dp"-->
-<!--                            android:layout_marginLeft="40dp"-->
-<!--                            android:layout_marginRight="40dp"-->
-<!--                            android:hint="Username"-->
-<!--                            android:textColorHint="#96bb3c"-->
-<!--                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
+            <com.google.android.material.textfield.TextInputLayout
 
-<!--                            <com.google.android.material.textfield.TextInputEditText-->
-<!--                                android:id="@+id/et_test"-->
-<!--                                android:textSize="15sp"-->
-<!--                                android:textColor="#676a6c"-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="match_parent"/>-->
-
-<!--                        </com.google.android.material.textfield.TextInputLayout>-->
-
-            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:text="DISTRIBUTOR  CODE"
-                android:textColor="#96bb3c"
-                android:textSize="12sp" />
+                android:hint="DISTRIBUTOR CODE"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <EditText
-                android:id="@+id/edt_dist_code"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:background="@drawable/distribution_login"
-                android:editable="false"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:textColor="#676a6c"
-                android:textSize="15sp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_dist_code"
+                    android:textSize="15sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:text="FIRST NAME *"
-                android:textColor="#96bb3c"
-                android:textSize="12sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/edt_firstname"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:background="@drawable/distribution_login"
-                android:drawableRight="@drawable/editprofile"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:textColor="#676a6c"
-                android:textSize="15sp" />
+            <com.google.android.material.textfield.TextInputLayout
 
-            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:text="LAST NAME *"
-                android:textColor="#96bb3c"
-                android:textSize="12sp" />
+                android:layout_marginTop="15dp"
+                android:hint="FIRST NAME*"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <EditText
-                android:id="@+id/edt_lastname"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:background="@drawable/distribution_login"
-                android:drawableRight="@drawable/editprofile"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:textColor="#676a6c"
-                android:textSize="15sp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_firstname"
+                    android:drawableRight="@drawable/editprofile"
+                    android:textSize="15sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:text="EMAIL ADDRESS *"
-                android:textColor="#96bb3c"
-                android:textSize="12sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/edt_email"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:background="@drawable/distribution_login"
-                android:drawableRight="@drawable/editprofile"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:textColor="#676a6c"
-                android:textSize="15sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:text="CNIC NUMBER"
-                android:textColor="#96bb3c"
-                android:textSize="12sp" />
+            <com.google.android.material.textfield.TextInputLayout
 
-            <TextView
-                android:id="@+id/tv_cnic"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="60dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
                 android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:background="@drawable/distribution_login"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:textColor="#676a6c"
-                android:textSize="15sp" />
+                android:layout_marginTop="15dp"
+                android:hint="LAST NAME*"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:text="MOBILE NO *"
-                android:textColor="#96bb3c"
-                android:textSize="12sp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_lastname"
+                    android:drawableRight="@drawable/editprofile"
+                    android:textSize="15sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
-            <EditText
-                android:id="@+id/edt_dist_mobile"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:background="@drawable/distribution_login"
-                android:drawableRight="@drawable/editprofile"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:textColor="#676a6c"
-                android:textSize="15sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:text="NTN"
-                android:textColor="#96bb3c"
-                android:textSize="12sp" />
+            <com.google.android.material.textfield.TextInputLayout
 
-            <TextView
-                android:id="@+id/tv_NTN"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="60dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
                 android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:background="@drawable/distribution_login"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:textColor="#676a6c"
-                android:textSize="15sp" />
+                android:layout_marginTop="15dp"
+                android:hint="EMAIL ADDRESS*"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:text="COMPANY NAME"
-                android:textColor="#96bb3c"
-                android:textSize="12sp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_email"
+                    android:drawableRight="@drawable/editprofile"
+                    android:textSize="15sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
-            <TextView
-                android:id="@+id/tv_companyname"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:background="@drawable/distribution_login"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:textColor="#676a6c"
-                android:textSize="15sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:text="CREATED DATE"
-                android:textColor="#96bb3c"
-                android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/tv_created_date"
+            <com.google.android.material.textfield.TextInputLayout
+
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="60dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
                 android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:background="@drawable/distribution_login"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:textColor="#676a6c"
-                android:textSize="15sp" />
+                android:layout_marginTop="15dp"
+                android:hint="CNIC NUMBER"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_cnic"
+                    android:textSize="15sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="15dp"
+                android:hint="MOBILE NO*"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_dist_mobile"
+                    android:drawableRight="@drawable/editprofile"
+                    android:textSize="15sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="15dp"
+                android:hint="NTN"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_NTN"
+                    android:textSize="15sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="15dp"
+                android:hint="COMPANY NAME"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_companyname"
+                    android:textSize="15sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="15dp"
+                android:hint="CREATED DATE"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_created_date"
+                    android:textSize="15sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
 
 
         </LinearLayout>

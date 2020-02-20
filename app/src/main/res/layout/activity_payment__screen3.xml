@@ -100,7 +100,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="15dp"
-            android:text="Back"
+            android:text="Voucher"
             android:textSize="15sp"
             android:textColor="#fff"
             android:gravity="center"

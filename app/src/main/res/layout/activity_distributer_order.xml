@@ -49,8 +49,9 @@
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:layout_below="@+id/search_bar"
+
         android:background="@drawable/line_seperator"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="20dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_order_ledger"
@@ -59,32 +60,6 @@
         android:layout_below="@+id/line_bottom"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
-        android:layout_above="@id/place_order_button"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_order_ledger2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/line_bottom"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_above="@id/place_order_button"/>
-    <Button
-        android:id="@+id/place_order_button"
-        android:layout_width="match_parent"
-        android:background="@drawable/button_round"
-        android:layout_height="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        android:text="Checkout"
-        android:textSize="15sp"
-        android:textColor="#fff"
-        android:gravity="center"
-        android:textAllCaps="false"
-        android:layout_alignParentBottom="true"
-
-        />
+       />
 
 </RelativeLayout>

@@ -103,7 +103,7 @@ public class DistributorDashboard extends AppCompatActivity {
                         new HeaderModel("Payment")
                                 .addChildModel(new ChildModel("\tPayments Summary"))
                                 .addChildModel(new ChildModel("\tConsolidate Payments"))
-                                .addChildModel(new ChildModel("\tPayment Request"))
+                                .addChildModel(new ChildModel("\tMake Payment"))
                                 .addChildModel(new ChildModel("\tPayment Ledger"))
                                 .addChildModel(new ChildModel("\tProof of Payments"))
 
@@ -187,7 +187,7 @@ public class DistributorDashboard extends AppCompatActivity {
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (groupPosition == 2 && childPosition == 2) {
-                            Log.i("Payment Request", "Child");//DONE
+                            Log.i("Make Payment", "Child");//DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new PaymentRequestDashboard());
                             fragmentTransaction.commit();

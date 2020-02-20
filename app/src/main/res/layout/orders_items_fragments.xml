@@ -13,13 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
         android:layout_marginTop="30dp"
+        android:layout_marginRight="40dp"
         android:background="@drawable/edit_text_border_bottom">
+
         <Spinner
             android:id="@+id/spinner_conso"
             android:layout_width="match_parent"
-            android:layout_height="40dp"/>
+            android:layout_height="40dp" />
     </RelativeLayout>
 
 
@@ -27,66 +28,62 @@
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_below="@id/spinner_container"
         android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
         android:layout_marginTop="20dp"
+        android:layout_marginRight="40dp"
         android:hint="Search by Item"
         android:textColorHint="#676a6c"
-        android:layout_below="@id/spinner_container"
 
         >
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_test"
-            android:textSize="15sp"
-            android:textColor="#676a6c"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="15dp"
-            android:paddingRight="10dp"
+            android:drawableRight="@drawable/ic_search_black_24dp"
             android:paddingLeft="10dp"
-            android:drawableRight="@drawable/ic_search_black_24dp"/>
+            android:paddingRight="10dp"
+            android:paddingBottom="15dp"
+            android:textColor="#676a6c"
+            android:textSize="15sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
     <RelativeLayout
         android:id="@+id/line_bottom"
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:layout_below="@+id/search_bar"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp" />
+
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_order_ledger"
+        android:id="@+id/rv_items_orders"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@id/place_item_button"
         android:layout_below="@+id/line_bottom"
+        android:layout_marginLeft="40dp"
         android:layout_marginTop="30dp"
         android:layout_marginRight="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_above="@id/place_order_button"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_order_ledger2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/line_bottom"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_above="@id/place_order_button"/>
+        android:layout_marginBottom="20dp" />
+
     <Button
-        android:id="@+id/place_order_button"
+        android:id="@+id/place_item_button"
         android:layout_width="match_parent"
-        android:background="@drawable/button_round"
         android:layout_height="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        android:text="Checkout"
-        android:textSize="15sp"
-        android:textColor="#fff"
-        android:gravity="center"
-        android:textAllCaps="false"
         android:layout_alignParentBottom="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/button_round"
+        android:gravity="center"
+        android:text="Checkout"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textSize="15sp"
 
         />
 

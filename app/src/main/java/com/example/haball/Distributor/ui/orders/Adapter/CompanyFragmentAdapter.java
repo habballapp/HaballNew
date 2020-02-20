@@ -1,9 +1,11 @@
 package com.example.haball.Distributor.ui.orders.Adapter;
 
         import android.content.Context;
+        import android.os.Bundle;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
+        import android.widget.Button;
         import android.widget.LinearLayout;
         import android.widget.TextView;
         import android.widget.Toast;
@@ -39,6 +41,7 @@ public class CompanyFragmentAdapter extends RecyclerView.Adapter<CompanyFragment
     private ViewPager mPager;
     private ViewGroup mycontainer;
     private LayoutInflater myinflator;
+    private Button place_order_button;
     public CompanyFragmentAdapter(Context requestOrder, String heading, ViewPager mPager, ViewGroup container, LayoutInflater inflator){
 
         this.heading = heading;
@@ -57,7 +60,7 @@ public class CompanyFragmentAdapter extends RecyclerView.Adapter<CompanyFragment
 
     @Override
     public CompanyFragmentAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view_inflate = LayoutInflater.from(context).inflate(R.layout.company_fragment,mycontainer,false);
+        View view_inflate = LayoutInflater.from(context).inflate(R.layout.company_fragment,parent,false);
         return new CompanyFragmentAdapter.ViewHolder(view_inflate);
     }
 
@@ -126,14 +129,18 @@ public class CompanyFragmentAdapter extends RecyclerView.Adapter<CompanyFragment
         holder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"Clicked", Toast.LENGTH_SHORT).show();
-                mPager.setCurrentItem(0);
+                    // mPager.setCurrentItem(0);
                    FragmentTransaction fragmentTransaction= ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
                    fragmentTransaction.add(R.id.main_container,new Orders_Items_Fragment());
                    fragmentTransaction.commit();
-              // View root = myinflator.inflate(R.layout.activity_orders__dashboard, mycontainer, false);// TabLayout tab = root.findViewById(R.id.tabs5);
-               // tab.setupWithViewPager(mPager);
-                 // mPager.setCurrentItem(1);
+                // View root = myinflator.inflate(R.layout.orders_items_fragments, false);// TabLayout tab = root.findViewById(R.id.tabs5);
+               /*   place_order_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mPager.setCurrentItem(0);
+                    }
+                });*/
+
 
 
 //                recyclerView = (RecyclerView) root.findViewById(R.id.rv_order_ledger);
@@ -159,11 +166,14 @@ public class CompanyFragmentAdapter extends RecyclerView.Adapter<CompanyFragment
 
 
 
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_heading = itemView.findViewById(R.id.heading);
             ll = (LinearLayout) itemView.findViewById(R.id.ll_heading);
-//            mPager = itemView.findViewById(R.id.view_pager5);
+            place_order_button = (Button) itemView.findViewById(R.id.place_order_button);
+
+
 
         }
 

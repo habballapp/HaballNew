@@ -79,7 +79,7 @@
             android:textSize="15sp"
             android:background="@drawable/distribution_login"
             android:hint="Old Password"
-            android:inputType="textEmailAddress"
+            android:inputType="textPassword"
             />
 
         <EditText
@@ -94,7 +94,7 @@
             android:textSize="15sp"
             android:background="@drawable/distribution_login"
             android:hint="New Password"
-            android:inputType="textEmailAddress"
+            android:inputType="textPassword"
             />
 
         <EditText
@@ -109,7 +109,7 @@
             android:textSize="15sp"
             android:background="@drawable/distribution_login"
             android:hint="New Password"
-            android:inputType="textEmailAddress"
+            android:inputType="textPassword"
             />
 
 
