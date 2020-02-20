@@ -106,19 +106,16 @@ public class PlaceholderFragment extends Fragment {
             case 1: {
                 rootView = inflater.inflate(R.layout.activity_distributer_order, container, false);
                 Holderorders(rootView);
-                place_item_button = (Button) rootView.findViewById(R.id.place_item_button);
-                Log.i("aaaaaa", String.valueOf(mAdapter));
+
+                Log.i("aaaaaa", String
+               .valueOf(mAdapter));
                 break;
 
             }
-            case 2:{
-                rootView = inflater.inflate(R.layout.orders_items_fragments, container, false);
-                holderitems(rootView);
 
 
 
-            }
-            case 3: {
+            case 2: {
 
                 rootView = inflater.inflate(R.layout.fragment_order__summary, container, false);
                 break;
@@ -160,18 +157,6 @@ public class PlaceholderFragment extends Fragment {
 
     }
 
-    private void holderitems(final View root) {
-        Log.i("abbasi" ,"abccccccccccccccccc");
-        itemsSelect_Rv =(RecyclerView) root.findViewById(R.id.rv_items_orders);
-        itemsSelect_Rv.setHasFixedSize(true);
-        layoutManager1 = new LinearLayoutManager(getContext());
-        itemsSelect_Rv.setLayoutManager(layoutManager1);
-
-        mAdapter1 = new OrdersItemsAdapter(getContext(),"0","abc","1232","230");
-        itemsSelect_Rv.setAdapter(mAdapter1);
-        Log.i("placeHolder12" , String.valueOf(mAdapter1));
-
-    }
 
     private void Holderorders(final View root){
 
@@ -353,6 +338,8 @@ public class PlaceholderFragment extends Fragment {
 //        recyclerView.setAdapter(mAdapter);
         mAdapter = new CompanyFragmentAdapter(getContext(),"Ghulam Rabani & Sons Traders & Distributors", mPager, mycontainer, myinflater);
         recyclerView.setAdapter(mAdapter);
+
+        Log.i("qqqqqqq", String.valueOf(mPager));
 
 
     }
