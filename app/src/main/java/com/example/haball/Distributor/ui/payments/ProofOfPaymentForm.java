@@ -3,6 +3,7 @@ package com.example.haball.Distributor.ui.payments;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -57,7 +58,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,6 +71,9 @@ public class ProofOfPaymentForm extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+
+    private static final int REQUEST_CAMERA = 2;
+    private static final int SELECT_FILE = 1;
 
     private String Token;
     private String URL_PROOF_OF_PAYMENTS = "http://175.107.203.97:4008/api/prepaidrequests/PrepaidPOP/";
@@ -114,21 +120,57 @@ public class ProofOfPaymentForm extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            final Uri imageUri = data.getData();
-            InputStream imageStream = null;
-            try {
-                imageStream = getContext().getContentResolver().openInputStream(imageUri);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+        switch (requestCode){
+            case SELECT_FILE:{
+                if (resultCode == RESULT_OK && data != null) {
+                    final Uri imageUri = data.getData();
+                    System.out.println("data"+data.getData());
+
+                    Bundle extras = data.getExtras();
+                    Bitmap bmp = (Bitmap) extras.get("data");
+                    System.out.println("bmp "+bmp);
+
+                    InputStream imageStream = null;
+                    try {
+                        imageStream = getContext().getContentResolver().openInputStream(imageUri);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("imageStream  "+imageStream);
+
+                    Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
+                    System.out.println("yourSelectedImage  "+yourSelectedImage);
+
+                    imageBitmapBase64.add(encodeTobase64(yourSelectedImage));
+                    imageName = getRealPathFromURI(imageUri);
+                    FileName.setText(imageName);
+                    Toast.makeText(getContext(), imageName, Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(getContext(), "You haven't picked Image",Toast.LENGTH_LONG).show();
+                }
+                break;
+
             }
-            Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
-            imageBitmapBase64.add(encodeTobase64(yourSelectedImage));
-            imageName = getRealPathFromURI(imageUri);
-            FileName.setText(imageName);
-            Toast.makeText(getContext(), imageName, Toast.LENGTH_LONG).show();
-        }else {
-            Toast.makeText(getContext(), "You haven't picked Image",Toast.LENGTH_LONG).show();
+            case REQUEST_CAMERA:{
+                if (resultCode == RESULT_OK && data != null) {
+                    Bundle extras = data.getExtras();
+                    // Get the returned image from extra
+                    Bitmap bmp = (Bitmap) extras.get("data");
+                    imageBitmapBase64.add(encodeTobase64(bmp));
+                    Calendar c = Calendar.getInstance();
+                    SimpleDateFormat dateformat = new SimpleDateFormat("ddMMyyyyhhmmss");
+                    String datetime = dateformat.format(c.getTime());
+                    System.out.println(datetime);
+
+                    imageName = datetime+".jpg";
+                    FileName.setText(imageName);
+                    Toast.makeText(getContext(), imageName, Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(getContext(), "You haven't picked Image",Toast.LENGTH_LONG).show();
+                }
+                break;
+            }
+
         }
     }
 
@@ -322,9 +364,10 @@ public class ProofOfPaymentForm extends Fragment {
                         @Override
                         public void onClick(View view) {
                             if(!selectedFileType.isEmpty()) {
-                                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-                                photoPickerIntent.setType("image/*");
-                                startActivityForResult(photoPickerIntent, RESULT_LOAD_IMAGE);
+                                openImageChooserDialog();
+//                                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+//                                photoPickerIntent.setType("image/*");
+//                                startActivityForResult(photoPickerIntent, RESULT_LOAD_IMAGE);
                             }
                         }
                     });
@@ -374,6 +417,30 @@ public class ProofOfPaymentForm extends Fragment {
 
         alertDialog.show();
 
+    }
+
+    private void openImageChooserDialog() {
+        final CharSequence[] items = {"Take Photo", "Gallery", "Cancel"};
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
+        builder.setTitle("Add Photo");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+
+                if (items[item].equals("Take Photo")) {
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(intent, REQUEST_CAMERA);
+                } else if (items[item].equals("Gallery")) {
+                    Intent intent = new Intent(
+                            Intent.ACTION_PICK,
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent,SELECT_FILE);
+                } else if (items[item].equals("Cancel")) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
     }
 
     private void fetchPaymentModes() {

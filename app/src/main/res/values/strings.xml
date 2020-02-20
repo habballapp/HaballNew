@@ -5,24 +5,23 @@
     <string name="Txt_Description_Retailer">Haball Self-Service Retailer is a one window solution to manage business transactions and enable process optimization from
                                    ordering digitally to making payments easily</string>
     <string name="title_activity_distributor__dashboard">Distributor_Dashboard</string>
-    <string name="tab_text_1">Dashboard\t\t</string>
-    <string name="tab_text_2">Payments\t\t</string>
-    <string name="tab_text_3">Orders\t\t</string>
-    <string name="tab_text_4">Invoice Details\t\t</string>
-    <string name="tab_text_5">Order Details\t\t</string>
-    <string name="tab_text_6">Product Details\t\t</string>
-    <string name="tab_text_7">Shipment Details\t\t</string>
+    <string name="tab_text_1">\t\tDashboard\t\t</string>
+    <string name="tab_text_2">\t\tPayments\t\t</string>
+    <string name="tab_text_3">\t\tOrders\t\t</string>
+    <string name="tab_text_4">\t\tInvoice Details\t\t</string>
+    <string name="tab_text_5">\t\tOrder Details\t\t</string>
+    <string name="tab_text_6">\t\tProduct Details\t\t</string>
+    <string name="tab_text_7">\t\tShipment Details\t\t</string>
     //invoice
-    <string name="tab_text_01">Invoice Details\t\t</string>
-    <string name="tab_text_02">Dealer Information\t\t</string>
-    <string name="tab_text_03">Orders Details\t\t</string>
-    <string name="tab_text_04">Products Details\t\t</string>
-    <string name="tab_text_05">Shipments Details\t\t</string>
-    <string name="tab_text_06">My Network\t\t</string>
-    <string name="tab_text_07">Sent\t\t</string>
-    <string name="tab_text_08">Place Order\t\t</string>
-    <string name="tab_text_09">Order Summary\t\t</string>
-
+    <string name="tab_text_01">\t\tInvoice Details\t\t</string>
+    <string name="tab_text_02">\t\tDealer Information\t\t</string>
+    <string name="tab_text_03">\t\tOrders Details\t\t</string>
+    <string name="tab_text_04">\t\tProducts Details\t\t</string>
+    <string name="tab_text_05">\t\tShipments Details\t\t</string>
+    <string name="tab_text_06">\t\tMy Network\t\t</string>
+    <string name="tab_text_07">\t\tSent\t\t</string>
+    <string name="tab_text_08">\t\tPlace Order\t\t</string>
+    <string name="tab_text_09">\t\tOrder Summary\t\t</string>
 
     <string name="Forgot_Password">Forgot Password</string>
     <string name="Txt_Dashboard">Dashboard</string>
