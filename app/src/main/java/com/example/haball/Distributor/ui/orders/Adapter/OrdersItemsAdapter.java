@@ -1,11 +1,14 @@
 package com.example.haball.Distributor.ui.orders.Adapter;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +22,9 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
 
     private Context context;
     public String txt_count,txt_products,unit_price_value,discount_price;
+    private EditText quantity;
+    public Button btn_cart;
+
 
     public OrdersItemsAdapter(Context context, String txt_count, String txt_products, String unit_price_value, String discount_price) {
         this.context = context;
@@ -47,21 +53,68 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
         holder.txt_products.setText(txt_products);
         holder.unit_price_value.setText(unit_price_value);
         holder.discount_price.setText(discount_price);
+
+
+         //final String s1 = quantity.getText().toString();
+        Log.i("S1:", String.valueOf(quantity));
+        quantity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                btn_cart.setBackgroundResource(R.drawable.button_grey_round);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                double myNum =0;
+                try {
+                    myNum = Integer.parseInt(quantity.getText().toString());
+                } catch(NumberFormatException nfe) {
+                   // System.out.println("Please Enter Number Only " + nfe);
+                    Toast.makeText(context,"Error",Toast.LENGTH_SHORT);
+                }
+
+              //  String s1 = quantity.getText().toString();
+                if (myNum == 0)
+                {
+                    btn_cart.setBackgroundResource(R.drawable.button_grey_round);
+                    btn_cart.setEnabled(false);
+                }
+                else
+                    btn_cart.setBackgroundResource(R.drawable.button_round);
+                // btn_cart.
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+
+
+
+
+
+            }
+        });
+
     }
     @Override
     public int getItemCount() {
-        return 2;
+        return 1;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView txt_count,txt_products,unit_price_value,discount_price;
-        public Button checkout;
+
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txt_count = itemView.findViewById(R.id.txt_count);
             txt_products = itemView.findViewById(R.id.txt_products);
             unit_price_value = itemView.findViewById(R.id.unit_price_value);
             discount_price = itemView.findViewById(R.id.discount_price);
+            quantity =  itemView.findViewById(R.id.quantity);
+            btn_cart = itemView.findViewById(R.id.btn_cart);
 
 
         }

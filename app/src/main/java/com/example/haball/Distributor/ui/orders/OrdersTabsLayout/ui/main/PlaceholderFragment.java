@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import com.example.haball.Distributor.ui.orders.Adapter.CompanyFragmentAdapter;
 import com.example.haball.Distributor.ui.orders.Adapter.DistributorOrderAdapter;
+import com.example.haball.Distributor.ui.orders.Adapter.OrderSummaryAdapter;
 import com.example.haball.Distributor.ui.orders.Adapter.OrdersItemsAdapter;
 import com.example.haball.Distributor.ui.orders.Models.OrderFragmentModel;
 import com.example.haball.Distributor.ui.orders.OrdersTabsLayout.Tabs.Orders_Items_Fragment;
@@ -51,7 +52,7 @@ import androidx.viewpager.widget.ViewPager;
  */
 public class PlaceholderFragment extends Fragment {
 
-    private RecyclerView recyclerView,itemsSelect_Rv,recyclerView2;
+    private RecyclerView recyclerView,recyclerView1;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.Adapter mAdapter1;
     private RecyclerView.LayoutManager layoutManager ,layoutManager1;
@@ -118,18 +119,20 @@ public class PlaceholderFragment extends Fragment {
             case 2: {
 
                 rootView = inflater.inflate(R.layout.fragment_order__summary, container, false);
-                break;
 
-             /*   rootView = inflater.inflate(R.layout.fragment_sent_, container, false);
-                recyclerView1 = (RecyclerView) rootView.findViewById(R.id.rv_sent);
-                recyclerView1.setHasFixedSize(false);
-                // use a linear layout manager
-                layoutManager = new LinearLayoutManager(getContext());
-                recyclerView1.setLayoutManager(layoutManager);
-                mAdapter1 = new DistributorOrderAdapter(getContext(),);
-                recyclerView1.setAdapter(mAdapter1);
-                Log.i("aaaaaa", String.valueOf(mAdapter1));
-                break;*/
+
+//
+//                recyclerView1 = rootView.findViewById(R.id.rv_orders_summary);
+//
+//                 recyclerView1.setHasFixedSize(false);
+//                // use a linear layout manager
+//                 layoutManager1 = new LinearLayoutManager(getContext());
+//                 recyclerView1.setLayoutManager(layoutManager1);
+//                mAdapter1 = new OrderSummaryAdapter(getContext(),"0","abc","1232","230","32678");
+//
+//                recyclerView1.setAdapter(mAdapter1);
+//                Log.i("aaaaaa", String.valueOf(mAdapter1));
+                  break;
             }
 
 

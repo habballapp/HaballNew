@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.haball.Distributor.ui.orders.Adapter.OrdersItemsAdapter;
@@ -38,6 +39,9 @@ public class Orders_Items_Fragment extends Fragment {
                 ViewPager  viewPager = getActivity().findViewById(R.id.view_pager5);
                 Toast.makeText(getContext(),"Clicked", Toast.LENGTH_SHORT).show();
                 viewPager.setCurrentItem(1);
+                FragmentTransaction fragmentTransaction= ((FragmentActivity)getActivity()).getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.add(R.id.main_container,new Order_Summary());
+                fragmentTransaction.commit();
             }
         });
 
