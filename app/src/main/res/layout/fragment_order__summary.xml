@@ -9,7 +9,6 @@
     tools:context=".Distributor.ui.orders.OrdersTabsLayout.Tabs.Order_Summary">
 
 
-
     <Button
         android:id="@+id/btn_template"
         android:layout_width="150dp"
@@ -39,52 +38,166 @@
         android:background="@drawable/button_round"
         />
 
+    <LinearLayout
+        android:layout_below="@+id/btn_more_items"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="4"
+        android:orientation="vertical">
 
-
+         <RelativeLayout
+             android:id="@+id/rl_orders"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+             android:layout_weight="3"
+             android:layout_marginTop="50dp"
+             android:layout_above="@id/line_bottom"
+             android:layout_below="@+id/btn_more_items"
+             >
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_orders_summary"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_above="@id/line_bottom"
-        android:layout_below="@+id/btn_more_items"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="30dp"
         android:layout_marginRight="40dp"
-        />
+        /></RelativeLayout>
     <RelativeLayout
         android:id="@+id/line_bottom"
         android:layout_width="match_parent"
         android:layout_height="5dp"
-
+        android:layout_below="@id/rl_orders"
         android:background="@drawable/line_seperator"
         android:layout_above="@+id/place_item_button"
         />
 
     <RelativeLayout
         android:id="@+id/asd"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/line_bottom"
-
+        android:layout_marginBottom="20dp"
         >
-
         <TextView
             android:id="@+id/gross"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_width="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Gross Amount:"/>
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/Rss"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rs."
+            android:text="Rs. "
+            android:textStyle="bold"
             android:layout_toRightOf="@+id/gross"
             />
 
+        <TextView
+            android:id="@+id/gross_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="7,94780"
+            android:textStyle="bold"
+            android:layout_toRightOf="@+id/Rss"
+            />
+
+        <TextView
+            android:id="@+id/discount"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="5dp"
+            android:layout_below="@id/gross"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Discount:"/>
+
+        <TextView
+            android:id="@+id/Rs_discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gross"
+            android:text="Rs. "
+            android:textStyle="bold"
+            android:layout_toRightOf="@+id/discount"
+            />
+
+        <TextView
+            android:id="@+id/discount_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="100"
+            android:textStyle="bold"
+            android:layout_below="@id/gross_amount"
+            android:layout_toRightOf="@+id/Rss"
+            />
+
+        <TextView
+            android:id="@+id/gst"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="5dp"
+            android:layout_below="@id/discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gsr 17% :"/>
+
+        <TextView
+            android:id="@+id/Rs_gst"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Rs_discount"
+            android:text="Rs. "
+            android:textStyle="bold"
+            android:layout_toRightOf="@+id/gst"
+            />
+
+        <TextView
+            android:id="@+id/gst_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="947.51"
+            android:textStyle="bold"
+            android:layout_below="@id/discount_amount"
+            android:layout_toRightOf="@+id/Rs_gst"
+            />
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="5dp"
+            android:layout_below="@id/gst"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Amount:"/>
+
+        <TextView
+            android:id="@+id/rs_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Rs_gst"
+            android:text="Rs. "
+            android:textStyle="bold"
+            android:layout_toRightOf="@+id/total"
+            />
+
+        <TextView
+            android:id="@+id/total_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="143,617,514.90"
+            android:textStyle="bold"
+            android:layout_below="@id/gst_amount"
+            android:layout_toRightOf="@+id/rs_total"
+            />
+
+
     </RelativeLayout>
+
+     </LinearLayout>
 
     <Button
 
