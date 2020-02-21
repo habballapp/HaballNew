@@ -66,10 +66,18 @@
         android:layout_above="@id/place_item_button"
         >
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Gross Amount"/>
+<!--        <TextView-->
+<!--            android:id="gross"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Gross Amount:"/>-->
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Gross Amount:"-->
+<!--            android:layout_below=""-->
+<!--            />-->
 
 
 
