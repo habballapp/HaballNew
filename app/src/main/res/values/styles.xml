@@ -13,13 +13,18 @@
     <style name="TextLabel" parent="TextAppearance.AppCompat">
         <!-- Hint color and label color in FALSE state -->
         <item name="android:textColorHint">#96bb3c</item>
-<!--        <item name="android:textSize">20sp</item>-->
-        <item name="colorAccent">#676a6c</item>
-        <item name="colorControlNormal">#676a6c</item>
+        <item name="android:textColor">#96bb3c</item>
+        <!--        <item name="android:textSize">20sp</item>-->
+        <item name="colorAccent">#96bb3c</item>
+        <item name="colorControlNormal">#96bb3c</item>
         <item name="colorControlActivated">#96bb3c</item>
         <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
     </style>
-
+    <style name="TextAppearance.App.TextInputLayout" parent="@android:style/TextAppearance">
+        <!-- Customize your theme here. -->
+        <item name="android:textColor">#96bb3c</item>
+        <item name="android:textSize">20sp</item>
+    </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
