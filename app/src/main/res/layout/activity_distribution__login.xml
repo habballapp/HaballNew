@@ -127,6 +127,7 @@
                     android:layout_marginLeft="40dp"
                     android:layout_marginRight="40dp"
                     android:hint="Password"
+                    app:passwordToggleEnabled="true"
                     android:layout_marginTop="30dp"
                     android:textColorHint="#676a6c"
                     android:theme="@style/TextLabel"
@@ -140,6 +141,7 @@
                         android:textSize="15sp"
                         android:textColor="#676a6c"
                         android:paddingTop="5dp"
+
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
