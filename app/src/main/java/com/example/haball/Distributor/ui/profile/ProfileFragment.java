@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -41,16 +42,18 @@ import java.util.Map;
 
 public class ProfileFragment extends Fragment {
 
-    private Button change_pwd, update_password, distributor_save_b;
+    private Button change_pwd, update_password, distri_btn_save;
     private EditText edt_firstname, edt_lastname, edt_email, edt_dist_mobile, et_test, txt_password, txt_newpassword, txt_cfmpassword;
     public TextView edt_dist_code, tv_cnic, tv_NTN, tv_companyname, tv_created_date, tv_pr1;
     private String PROFILE_URL = "http://175.107.203.97:4008/api/distributor/";
     private String ChangePass_URL = "http://175.107.203.97:4008/api/Users/ChangePassword";
+    private String PROFILE_EDIT_URL = "http://175.107.203.97:4008/api/distributor/save";
     private String Token;
-    private String DistributorId, ID, Username;
+    private String DistributorId, ID, Username, Phone;
     private Dialog change_password_dail;
     private Boolean password_check = false, confirm_password_check = false;
 
+    @SuppressLint("ClickableViewAccessibility")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -60,54 +63,211 @@ public class ProfileFragment extends Fragment {
         //profile
         edt_dist_code = root.findViewById(R.id.edt_dist_code);
         edt_firstname = root.findViewById(R.id.edt_firstname);
-        edt_firstname.setEnabled(false);
         edt_lastname = root.findViewById(R.id.edt_lastname);
-        edt_lastname.setEnabled(false);
         edt_email = root.findViewById(R.id.edt_email);
-        edt_email.setEnabled(false);
         edt_dist_mobile = root.findViewById(R.id.edt_dist_mobile);
-        edt_dist_mobile.setEnabled(false);
         tv_cnic = root.findViewById(R.id.tv_cnic);
         tv_NTN = root.findViewById(R.id.tv_NTN);
         tv_companyname = root.findViewById(R.id.tv_companyname);
         tv_created_date = root.findViewById(R.id.tv_created_date);
+        distri_btn_save = root.findViewById(R.id.distri_btn_save);
+
+        edt_firstname.setInputType( InputType.TYPE_NULL );
+        edt_lastname.setInputType( InputType.TYPE_NULL );
+        edt_email.setInputType( InputType.TYPE_NULL );
+        edt_dist_mobile.setInputType( InputType.TYPE_NULL );
+
+        edt_firstname.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (edt_firstname.getRight() - edt_firstname.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        // your action here
+                        edt_firstname.setInputType( InputType.TYPE_CLASS_TEXT );
+                        edt_firstname.requestFocus();
+                        edt_firstname.setFocusable(true);
+                        edt_firstname.setFocusableInTouchMode(true);
+                        edt_firstname.setSelection(edt_firstname.getText().length());
+                        distri_btn_save.setEnabled(true);
+                        distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+        edt_lastname.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (edt_lastname.getRight() - edt_lastname.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        // your action here
+                        edt_lastname.setInputType( InputType.TYPE_CLASS_TEXT );
+                        edt_lastname.requestFocus();
+                        edt_lastname.setFocusable(true);
+                        edt_lastname.setFocusableInTouchMode(true);
+                        edt_lastname.setSelection(edt_lastname.getText().length());
+                        distri_btn_save.setEnabled(true);
+                        distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+        edt_email.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (edt_email.getRight() - edt_email.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        // your action here
+                        edt_email.setInputType( InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS );
+                        edt_email.requestFocus();
+                        edt_email.setFocusable(true);
+                        edt_email.setFocusableInTouchMode(true);
+                        edt_email.setSelection(edt_email.getText().length());
+                        distri_btn_save.setEnabled(true);
+                        distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+        edt_dist_mobile.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (edt_dist_mobile.getRight() - edt_dist_mobile.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        // your action here
+                        edt_dist_mobile.setInputType( InputType.TYPE_CLASS_NUMBER );
+                        edt_dist_mobile.requestFocus();
+                        edt_dist_mobile.setFocusable(true);
+                        edt_dist_mobile.setFocusableInTouchMode(true);
+                        edt_dist_mobile.setSelection(edt_dist_mobile.getText().length());
+                        distri_btn_save.setEnabled(true);
+                        distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+        distri_btn_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    saveProfileData();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         change_pwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                change_password_dail = new Dialog(getActivity());
-                //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
-                change_password_dail.setContentView(R.layout.pasword_change);
-                change_password_dail.setCancelable(true);
-                change_password_dail.show();
-                ImageButton close_button = change_password_dail.findViewById(R.id.image_button);
-                txt_password = change_password_dail.findViewById(R.id.txt_password);
-                txt_newpassword = change_password_dail.findViewById(R.id.txt_newpassword);
-                txt_cfmpassword = change_password_dail.findViewById(R.id.txt_cfmpassword);
-                close_button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        change_password_dail.dismiss();
-                    }
-                });
-                update_password = change_password_dail.findViewById(R.id.update_password);
-                update_password.setOnClickListener(new View.OnClickListener() {
-                    @RequiresApi(api = Build.VERSION_CODES.O)
-                    @Override
-                    public void onClick(View v) {
-                        try {
-                            updatePassword();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+        change_password_dail = new Dialog(getActivity());
+        //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+        change_password_dail.setContentView(R.layout.pasword_change);
+        change_password_dail.setCancelable(true);
+        change_password_dail.show();
+        ImageButton close_button = change_password_dail.findViewById(R.id.image_button);
+        txt_password = change_password_dail.findViewById(R.id.txt_password);
+        txt_newpassword = change_password_dail.findViewById(R.id.txt_newpassword);
+        txt_cfmpassword = change_password_dail.findViewById(R.id.txt_cfmpassword);
+        close_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                change_password_dail.dismiss();
+            }
+        });
+        update_password = change_password_dail.findViewById(R.id.update_password);
+        update_password.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onClick(View v) {
+                try {
+                    updatePassword();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-
-                    }
-                });
+            }
+        });
             }
 
         });
         profileData();
         return root;
+    }
+
+    private void saveProfileData() throws JSONException{
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+        Log.i("Distributor_Id ", DistributorId);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("ID", DistributorId);
+        jsonObject.put("FirstName", edt_firstname.getText().toString());
+        jsonObject.put("LastName", edt_lastname.getText().toString());
+        jsonObject.put("CompanyName", tv_companyname.getText().toString());
+        jsonObject.put("CompanyNTN", tv_NTN.getText().toString());
+        jsonObject.put("CNIC", tv_cnic.getText().toString());
+        jsonObject.put("Phone", Phone);
+        jsonObject.put("Mobile", edt_dist_mobile.getText().toString());
+        jsonObject.put("Email", edt_email.getText().toString());
+        jsonObject.put("DealerCode", edt_dist_code.getText().toString());
+        jsonObject.put("UserType", 0);
+
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, PROFILE_EDIT_URL,jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject result) {
+                try {
+                    Toast.makeText(getContext(), "Profile Information Successfully updated for "+result.getString("DealerCode"), Toast.LENGTH_LONG).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(sr);
+
     }
 
     private void profileData() {
@@ -129,6 +289,7 @@ public class ProfileFragment extends Fragment {
                     if (result != null && !result.equals("")) {
                         Gson gson = new Gson();
                         Profile_Model profile_model = gson.fromJson(result, Profile_Model.class);
+                        Phone = profile_model.getPhone();
                         edt_dist_code.setText(profile_model.getDealerCode());
                         edt_firstname.setText(profile_model.getFirstName());
                         edt_lastname.setText(profile_model.getLastName());
