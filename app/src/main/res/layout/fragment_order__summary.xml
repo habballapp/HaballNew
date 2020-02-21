@@ -8,6 +8,8 @@
     android:background="#fff"
     tools:context=".Distributor.ui.orders.OrdersTabsLayout.Tabs.Order_Summary">
 
+
+
     <Button
         android:id="@+id/btn_template"
         android:layout_width="150dp"
@@ -42,7 +44,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_orders_summary"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_above="@id/line_bottom"
         android:layout_below="@+id/btn_more_items"
         android:layout_marginLeft="40dp"
@@ -53,38 +55,39 @@
         android:id="@+id/line_bottom"
         android:layout_width="match_parent"
         android:layout_height="5dp"
+
         android:background="@drawable/line_seperator"
-        android:layout_marginBottom="200dp"
         android:layout_above="@+id/place_item_button"
         />
 
     <RelativeLayout
         android:id="@+id/asd"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/line_bottom"
-        android:layout_above="@id/place_item_button"
+
         >
 
-<!--        <TextView-->
-<!--            android:id="gross"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Gross Amount:"/>-->
+        <TextView
+            android:id="@+id/gross"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gross Amount:"/>
 
-<!--        <TextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Gross Amount:"-->
-<!--            android:layout_below=""-->
-<!--            />-->
-
-
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rs."
+            android:layout_toRightOf="@+id/gross"
+            />
 
     </RelativeLayout>
 
     <Button
+
         android:id="@+id/place_item_button"
         android:layout_width="150dp"
         android:layout_height="40dp"
@@ -116,6 +119,4 @@
         android:layout_marginBottom="30dp"
         android:background="@drawable/button_round"
         />
-
-
 </RelativeLayout>
