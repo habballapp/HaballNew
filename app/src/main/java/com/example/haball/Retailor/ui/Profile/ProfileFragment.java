@@ -1,6 +1,7 @@
 package com.example.haball.Retailor.ui.Profile;
 
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -10,8 +11,10 @@ import android.os.Bundle;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -47,11 +50,13 @@ public class ProfileFragment extends Fragment {
     private TextView tv_pr1;
     private String PROFILE_URL = "http://175.107.203.97:3020/api/retailer/";
     private String ChangePass_URL = "http://175.107.203.97:3020/api/Users/ChangePassword";
+    private String PROFILE_EDIT_URL = "http://175.107.203.97:3020/api/retailer/Save";
     private String Token;
-    private String RetailerId, ID, username;
+    private String RetailerId, ID, username, CompanyName;
     private Dialog change_password_dail;
     private Boolean password_check = false, confirm_password_check = false;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,6 +72,92 @@ public class ProfileFragment extends Fragment {
         btn_changepwd = root.findViewById(R.id.btn_changepwd);
         btn_save_password = root.findViewById(R.id.btn_save_password);
 
+        Remail.setInputType( InputType.TYPE_NULL );
+        Rmobile.setInputType( InputType.TYPE_NULL );
+        R_Address.setInputType( InputType.TYPE_NULL );
+
+        Remail.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (Remail.getRight() - Remail.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        // your action here
+                        Remail.setInputType( InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS );
+                        Remail.requestFocus();
+                        Remail.setFocusable(true);
+                        Remail.setFocusableInTouchMode(true);
+                        Remail.setSelection(Remail.getText().length());
+                        btn_save_password.setEnabled(true);
+                        btn_save_password.setBackground(getResources().getDrawable(R.drawable.button_background));
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+        Rmobile.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (Rmobile.getRight() - Rmobile.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        // your action here
+                        Rmobile.setInputType( InputType.TYPE_CLASS_NUMBER );
+                        Rmobile.requestFocus();
+                        Rmobile.setFocusable(true);
+                        Rmobile.setFocusableInTouchMode(true);
+                        Rmobile.setSelection(Rmobile.getText().length());
+                        btn_save_password.setEnabled(true);
+                        btn_save_password.setBackground(getResources().getDrawable(R.drawable.button_background));
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+        R_Address.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (R_Address.getRight() - R_Address.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        // your action here
+                        R_Address.setInputType( InputType.TYPE_TEXT_FLAG_IME_MULTI_LINE );
+                        R_Address.requestFocus();
+                        R_Address.setFocusable(true);
+                        R_Address.setFocusableInTouchMode(true);
+                        R_Address.setSelection(R_Address.getText().length());
+                        btn_save_password.setEnabled(true);
+                        btn_save_password.setBackground(getResources().getDrawable(R.drawable.button_background));
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+        btn_save_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    saveProfileData();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         btn_changepwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,6 +194,53 @@ public class ProfileFragment extends Fragment {
         profileData();
 
         return root;
+    }
+
+    private void saveProfileData() throws JSONException{
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        RetailerId = sharedPreferences1.getString("Retailer_Id", "");
+        Log.i("RetailerId ", RetailerId);
+        PROFILE_URL = PROFILE_URL + RetailerId;
+        Log.i("Token Retailer ", Token);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("ID", 1);
+        jsonObject.put("Name", Rfirstname.getText().toString());
+        jsonObject.put("CNIC", Rcnic.getText().toString());
+        jsonObject.put("Mobile", Rmobile.getText().toString());
+        jsonObject.put("CompanyName", CompanyName);
+        jsonObject.put("Address", R_Address.getText().toString());
+        jsonObject.put("Email", Remail.getText().toString());
+
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, PROFILE_EDIT_URL,jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject result) {
+                try {
+                    Toast.makeText(getContext(), "Profile Information Successfully updated for "+result.getString("RetailerCode"), Toast.LENGTH_LONG).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(sr);
+
     }
 
     private void updatePassword() throws JSONException{
@@ -221,8 +359,8 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onResponse(JSONObject result) {
                 try {
-                    Log.i("aaaaa",result.getString("Name"));
-
+                    Log.i("aaaaa", String.valueOf(result));
+                    CompanyName = result.getString("CompanyName");
                     Rfirstname.setText(result.getString("Name"));
                     Remail.setText(result.getString("Email"));
                     Rcode.setText(result.getString("RetailerCode"));
