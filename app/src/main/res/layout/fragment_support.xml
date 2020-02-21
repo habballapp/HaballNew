@@ -53,10 +53,35 @@
         android:layout_below="@+id/btn_add_ticket_retailer"
         android:background="@drawable/edit_text_squared">
         <Spinner
-            android:id="@+id/spinner_criteria_retailer"
+            android:id="@+id/support_retailer_spiner1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </RelativeLayout>
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/spinner_container1"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="30dp"-->
+<!--        android:layout_marginRight="30dp"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        android:background="@drawable/edit_text_squared"-->
+<!--        android:layout_below="@+id/spinner_container_retailer">-->
+<!--        <Spinner-->
+<!--            android:id="@+id/support_retailer_spiner2"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="40dp"/>-->
+
+<!--        <EditText-->
+<!--            android:id="@+id/edt_support_ret"-->
+<!--            android:background="@drawable/edit_text_squared"-->
+<!--            android:paddingTop="5dp"-->
+<!--            android:paddingBottom="5dp"-->
+<!--            android:paddingLeft="20dp"-->
+<!--            android:paddingRight="20dp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="40dp"/>-->
+
+<!--    </RelativeLayout>-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_support_complaints_retailer"
         android:layout_width="match_parent"
