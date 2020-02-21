@@ -43,13 +43,39 @@
             android:id="@+id/spinner_dashboard_retailor"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/spinner_container1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edit_text_squared"
+        android:layout_below="@+id/relative_Preffered_Contact">
+        <Spinner
+            android:id="@+id/payment_retailer_spiner"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+
+        <EditText
+            android:id="@+id/edt_payment_ret"
+            android:background="@drawable/edit_text_squared"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_payment_request"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/relative_Preffered_Contact"
+        android:layout_below="@+id/spinner_container1"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="15dp"
         android:layout_marginRight="30dp"
