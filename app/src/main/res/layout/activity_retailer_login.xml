@@ -130,6 +130,7 @@
                         android:textColorHint="#676a6c"
                         android:theme="@style/TextLabel"
                         app:boxStrokeColor="#e5e5e5"
+                        app:passwordToggleEnabled="true"
                         app:boxStrokeWidth="0.5dp"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
