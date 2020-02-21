@@ -79,7 +79,7 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
     private int current_page = 0;
 
     boolean canLoadMoreData = true; // make this variable false while your web service call is going on.
-    private String Filter_selected, Filter_selected_value;
+    private String Filter_selected, Filter_selected_value = "";
     private Spinner spinner_consolidate;
     private Spinner spinner2;
     private EditText conso_edittext;

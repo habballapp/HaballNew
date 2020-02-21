@@ -32,6 +32,7 @@ import com.example.haball.Distributor.ui.expandablelist.CustomExpandableListMode
 import com.example.haball.Distributor.ui.payments.PaymentRequestDashboard;
 import com.example.haball.Distributor.ui.payments.Payments_Fragment;
 import com.example.haball.Payment.PaymentLedger;
+import com.example.haball.Retailor.ui.Make_Payment.CreatePaymentRequestFragment;
 import com.example.haball.Retailor.ui.Network.My_NetworkDashboard;
 import com.example.haball.Payment.Proof_Of_Payment_Form;
 import com.example.haball.R;
@@ -118,7 +119,6 @@ public class RetailorDashboard extends AppCompatActivity  {
                         new HeaderModel("Make Payment")
                                 .addChildModel(new ChildModel("\tPayments Summary"))
                                 .addChildModel(new ChildModel("\tPayment Request"))
-                                .addChildModel(new ChildModel("\tPayment Ledger"))
 
                 )
                 .addHeaderModel(new HeaderModel("Profile"))
@@ -199,17 +199,9 @@ public class RetailorDashboard extends AppCompatActivity  {
                         }  else if (groupPosition == 3 && childPosition == 1) {
                             Log.i("Payment Request", "Child");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new Payments_Fragment());
+                            fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment());
                             fragmentTransaction.commit();
-                        } else if (groupPosition == 3 && childPosition == 2) {
-                            Log.i("Payment Ledger", "Child");
-                            Intent payment_ledger = new Intent(RetailorDashboard.this, PaymentLedger.class);
-                            startActivity(payment_ledger);
-                        } else if (groupPosition == 3 && childPosition == 4) {
-                            Log.i("Proof of Payments", "Child");
-                            Intent proof_p = new Intent(RetailorDashboard.this, Proof_Of_Payment_Form.class);
-                            startActivity(proof_p);
-                        } else if (groupPosition == 2 && childPosition == 0) {
+                        }  else if (groupPosition == 2 && childPosition == 0) {
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container_ret, new PlaceOrderFragment());
                             fragmentTransaction.commit();

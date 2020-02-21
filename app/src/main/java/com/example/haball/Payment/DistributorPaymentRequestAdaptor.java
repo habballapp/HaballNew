@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haball.Distribution_Login.Distribution_Login;
@@ -31,6 +33,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
     private List<DistributorPaymentRequestModel> paymentsRequestList;
     private Button btn_update;
     public ImageButton btn_back;
+    private FragmentTransaction fragmentTransaction;
 
     public DistributorPaymentRequestAdaptor(Context context, List<DistributorPaymentRequestModel> paymentsRequestList) {
         this.context = context;
@@ -69,6 +72,12 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
+                            case R.id.payment_request_view:
+                                Toast.makeText(context,"View Clicked",Toast.LENGTH_LONG).show();
+                                fragmentTransaction = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
+                                fragmentTransaction.replace(R.id.main_container, new View_Payment_Fragment());
+                                fragmentTransaction.commit();
+                                break;
                             case R.id.payment_request_edit:
                                // Toast.makeText(context,"Edit Clicked",Toast.LENGTH_LONG).show();
                                 final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
@@ -147,6 +156,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
 
                             case R.id.payment_request_ebay:
                                 Toast.makeText(context,"Ebay Clicked",Toast.LENGTH_LONG).show();
+                                break;
 
                         }
                         return false;

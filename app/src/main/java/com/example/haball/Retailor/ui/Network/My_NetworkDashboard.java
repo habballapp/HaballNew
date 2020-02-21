@@ -31,7 +31,7 @@ public class My_NetworkDashboard extends Fragment {
         viewPager.setOffscreenPageLimit(1);
         TabLayout tabs = root.findViewById(R.id.tabs4);
         tabs.setupWithViewPager(viewPager);
-        //tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
+
         return root;
 
     }

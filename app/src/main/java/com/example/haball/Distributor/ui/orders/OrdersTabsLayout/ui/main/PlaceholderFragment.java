@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import com.example.haball.Distributor.ui.orders.Adapter.CompanyFragmentAdapter;
 import com.example.haball.Distributor.ui.orders.Adapter.DistributorOrderAdapter;
+import com.example.haball.Distributor.ui.orders.Adapter.OrderSummaryAdapter;
 import com.example.haball.Distributor.ui.orders.Adapter.OrdersItemsAdapter;
 import com.example.haball.Distributor.ui.orders.Models.OrderFragmentModel;
 import com.example.haball.Distributor.ui.orders.OrdersTabsLayout.Tabs.Orders_Items_Fragment;
@@ -51,7 +52,7 @@ import androidx.viewpager.widget.ViewPager;
  */
 public class PlaceholderFragment extends Fragment {
 
-    private RecyclerView recyclerView,itemsSelect_Rv,recyclerView2;
+    private RecyclerView recyclerView,recyclerView1;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.Adapter mAdapter1;
     private RecyclerView.LayoutManager layoutManager ,layoutManager1;
@@ -106,33 +107,32 @@ public class PlaceholderFragment extends Fragment {
             case 1: {
                 rootView = inflater.inflate(R.layout.activity_distributer_order, container, false);
                 Holderorders(rootView);
-                place_item_button = (Button) rootView.findViewById(R.id.place_item_button);
-                Log.i("aaaaaa", String.valueOf(mAdapter));
+
+                Log.i("aaaaaa", String
+               .valueOf(mAdapter));
                 break;
 
             }
-            case 2:{
-                rootView = inflater.inflate(R.layout.orders_items_fragments, container, false);
-                holderitems(rootView);
 
 
 
-            }
-            case 3: {
+            case 2: {
 
                 rootView = inflater.inflate(R.layout.fragment_order__summary, container, false);
-                break;
 
-             /*   rootView = inflater.inflate(R.layout.fragment_sent_, container, false);
-                recyclerView1 = (RecyclerView) rootView.findViewById(R.id.rv_sent);
-                recyclerView1.setHasFixedSize(false);
-                // use a linear layout manager
-                layoutManager = new LinearLayoutManager(getContext());
-                recyclerView1.setLayoutManager(layoutManager);
-                mAdapter1 = new DistributorOrderAdapter(getContext(),);
-                recyclerView1.setAdapter(mAdapter1);
-                Log.i("aaaaaa", String.valueOf(mAdapter1));
-                break;*/
+
+//
+//                recyclerView1 = rootView.findViewById(R.id.rv_orders_summary);
+//
+//                 recyclerView1.setHasFixedSize(false);
+//                // use a linear layout manager
+//                 layoutManager1 = new LinearLayoutManager(getContext());
+//                 recyclerView1.setLayoutManager(layoutManager1);
+//                mAdapter1 = new OrderSummaryAdapter(getContext(),"0","abc","1232","230","32678");
+//
+//                recyclerView1.setAdapter(mAdapter1);
+//                Log.i("aaaaaa", String.valueOf(mAdapter1));
+                  break;
             }
 
 
@@ -160,18 +160,6 @@ public class PlaceholderFragment extends Fragment {
 
     }
 
-    private void holderitems(final View root) {
-        Log.i("abbasi" ,"abccccccccccccccccc");
-        itemsSelect_Rv =(RecyclerView) root.findViewById(R.id.rv_items_orders);
-        itemsSelect_Rv.setHasFixedSize(true);
-        layoutManager1 = new LinearLayoutManager(getContext());
-        itemsSelect_Rv.setLayoutManager(layoutManager1);
-
-        mAdapter1 = new OrdersItemsAdapter(getContext(),"0","abc","1232","230");
-        itemsSelect_Rv.setAdapter(mAdapter1);
-        Log.i("placeHolder12" , String.valueOf(mAdapter1));
-
-    }
 
     private void Holderorders(final View root){
 
@@ -353,6 +341,8 @@ public class PlaceholderFragment extends Fragment {
 //        recyclerView.setAdapter(mAdapter);
         mAdapter = new CompanyFragmentAdapter(getContext(),"Ghulam Rabani & Sons Traders & Distributors", mPager, mycontainer, myinflater);
         recyclerView.setAdapter(mAdapter);
+
+        Log.i("qqqqqqq", String.valueOf(mPager));
 
 
     }
