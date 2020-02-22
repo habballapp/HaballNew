@@ -1,14 +1,23 @@
 package com.example.haball.Distributor;
 
 public class DistributorInvoicesModel {
-    private String InvoiceNumber,CompanyName,TotalPrice,InvoiceStatusValue,State;
+    private String ID, InvoiceNumber,CompanyName,TotalPrice,InvoiceStatusValue,State;
 
-    public DistributorInvoicesModel(String invoiceNumber, String companyName, String totalPrice, String invoiceStatusValue, String state) {
+    public DistributorInvoicesModel(String ID, String invoiceNumber, String companyName, String totalPrice, String invoiceStatusValue, String state) {
+        this.ID = ID;
         InvoiceNumber = invoiceNumber;
         CompanyName = companyName;
         TotalPrice = totalPrice;
         InvoiceStatusValue = invoiceStatusValue;
         State = state;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     public String getState() {
