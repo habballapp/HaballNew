@@ -196,7 +196,16 @@ public class SupportTicketFormFragment extends Fragment {
                 error.printStackTrace();
             }
 
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer "+Token);
+                params.put("rightid", "-1");
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                return params;
+            }
+        };
         Volley.newRequestQueue(getContext()).add(sr);
     }
 
