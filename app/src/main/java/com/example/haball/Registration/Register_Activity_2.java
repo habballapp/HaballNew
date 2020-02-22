@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -31,6 +32,7 @@ import com.google.android.material.snackbar.Snackbar;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 
 public class Register_Activity_2 extends AppCompatActivity implements View.OnFocusChangeListener {
@@ -281,6 +283,7 @@ public class Register_Activity_2 extends AppCompatActivity implements View.OnFoc
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+
                     Snackbar.make(view, error.toString(), Snackbar.LENGTH_LONG).show();
                     progressDialog.dismiss();
                 }
@@ -317,6 +320,7 @@ public class Register_Activity_2 extends AppCompatActivity implements View.OnFoc
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+
                     Snackbar.make(view, error.toString(), Snackbar.LENGTH_LONG).show();
                     progressDialog.dismiss();
                 }

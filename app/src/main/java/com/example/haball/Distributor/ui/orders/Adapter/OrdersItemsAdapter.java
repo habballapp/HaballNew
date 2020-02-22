@@ -1,6 +1,7 @@
 package com.example.haball.Distributor.ui.orders.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.haball.Distributor.ui.orders.OrdersTabsLayout.Tabs.Checkout_Class;
 import com.example.haball.R;
 
 import androidx.annotation.NonNull;
@@ -23,7 +25,8 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
     private Context context;
     public String txt_count,txt_products,unit_price_value,discount_price;
     private EditText quantity;
-    public Button btn_cart;
+    public Button btn_cart,btn_checkout;
+    public Checkout_Class b;
 
 
     public OrdersItemsAdapter(Context context, String txt_count, String txt_products, String unit_price_value, String discount_price) {
@@ -79,10 +82,22 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
                 {
                     btn_cart.setBackgroundResource(R.drawable.button_grey_round);
                     btn_cart.setEnabled(false);
+                    SharedPreferences sharedPref = context.getSharedPreferences("Button_Check",Context.MODE_PRIVATE);
+                    SharedPreferences.Editor button_check = sharedPref.edit();
+                    button_check.putBoolean("checkout_success",true);
+                    button_check.commit();
+
                 }
-                else
+                else{
+
                     btn_cart.setBackgroundResource(R.drawable.button_round);
-                // btn_cart.
+                    SharedPreferences sharedPref = context.getSharedPreferences("Button_Check",Context.MODE_PRIVATE);
+                    SharedPreferences.Editor button_check = sharedPref.edit();
+                    button_check.putBoolean("checkout_success",false);
+                    button_check.commit();
+
+                }
+
 
             }
 
@@ -115,6 +130,7 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
             discount_price = itemView.findViewById(R.id.discount_price);
             quantity =  itemView.findViewById(R.id.quantity);
             btn_cart = itemView.findViewById(R.id.btn_cart);
+//            btn_checkout = itemView.findViewById(R.id.place_item_button);
 
 
         }

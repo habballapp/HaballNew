@@ -1,5 +1,7 @@
 package com.example.haball.Distributor.ui.orders.OrdersTabsLayout.Tabs;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +27,7 @@ public class Orders_Items_Fragment extends Fragment {
     private RecyclerView.Adapter mAdapter1;
     private RecyclerView.LayoutManager layoutManager1;
     private Button  place_item_button;
+    Boolean Checkout;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,18 +35,10 @@ public class Orders_Items_Fragment extends Fragment {
          final View view = inflater.inflate(R.layout.orders_items_fragments, container, false);
       //  View view1 = inflater.inflate(R.layout.fragment_orders__dashboard, container, false);
                 //init
-              place_item_button = (Button) view.findViewById(R.id.place_item_button);
-               place_item_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ViewPager  viewPager = getActivity().findViewById(R.id.view_pager5);
-                Toast.makeText(getContext(),"Clicked", Toast.LENGTH_SHORT).show();
-                viewPager.setCurrentItem(1);
-                FragmentTransaction fragmentTransaction= ((FragmentActivity)getActivity()).getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.add(R.id.main_container,new Order_Summary());
-                fragmentTransaction.commit();
-            }
-        });
+        place_item_button = (Button) view.findViewById(R.id.place_item_button);
+         place_item_button.setBackgroundResource(R.drawable.button_grey_round);
+         place_item_button.setEnabled(false);
+
 
         holderitems(view);
 
@@ -58,6 +53,37 @@ public class Orders_Items_Fragment extends Fragment {
 
         mAdapter1 = new OrdersItemsAdapter(getContext(),"0","abc","1232","230");
         itemsSelect_Rv.setAdapter(mAdapter1);
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("Button_Check",
+                Context.MODE_PRIVATE);
+         Checkout = sharedPreferences.getBoolean("checkout_success", false);
+         Log.i("Checkout", String.valueOf(Checkout));
+         if(Checkout){
+
+//             place_item_button.setBackgroundResource(R.drawable.button_round);
+//             place_item_button.setEnabled(true);
+//
+//             place_item_button.setOnClickListener(new View.OnClickListener() {
+//                 @Override
+//                 public void onClick(View v) {
+//                     ViewPager  viewPager = getActivity().findViewById(R.id.view_pager5);
+//                     Toast.makeText(getContext(),"Clicked", Toast.LENGTH_SHORT).show();
+//                     viewPager.setCurrentItem(1);
+//                     FragmentTransaction fragmentTransaction= ((FragmentActivity)getActivity()).getSupportFragmentManager().beginTransaction();
+//                     fragmentTransaction.add(R.id.main_container,new Order_Summary());
+//                     fragmentTransaction.commit();
+//                 }
+//             });
+             Log.i("Checkout", "in true");
+         }
+         else {
+             Log.i("Checkout", "in false");
+//
+//             place_item_button.setBackgroundResource(R.drawable.button_grey_round);
+//             place_item_button.setEnabled(false);
+
+
+         }
+
         Log.i("placeHolder12" , String.valueOf(mAdapter1));
 
     }

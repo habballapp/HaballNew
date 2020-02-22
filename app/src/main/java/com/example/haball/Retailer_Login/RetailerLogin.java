@@ -36,13 +36,12 @@ import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Retailor.Retailor_SignUp.SignUp;
 import com.example.haball.Select_User.Register_Activity;
 import com.example.haball.Support.Support_Ticket_Form;
-import com.example.haball.Support.Support_dashboard;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -231,8 +230,18 @@ public class RetailerLogin extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                try {
+                    String responseBody = new String(error.networkResponse.data, "utf-8");
+                    JSONObject data = new JSONObject(responseBody);
+                    String message = data.getString("message");
+                    Toast.makeText(new RetailerLogin(), message, Toast.LENGTH_LONG).show();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 error.printStackTrace();
-                Toast.makeText(RetailerLogin.this,error.toString(),Toast.LENGTH_LONG).show();
+                //Toast.makeText(RetailerLogin.this,error.toString(),Toast.LENGTH_LONG).show();
             }
         });
         Volley.newRequestQueue(this).add(sr);
@@ -264,6 +273,17 @@ public class RetailerLogin extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
+                try {
+                    String responseBody = new String(error.networkResponse.data, "utf-8");
+                    JSONObject data = new JSONObject(responseBody);
+                    String message = data.getString("message");
+                    Toast.makeText(new RetailerLogin(), message, Toast.LENGTH_LONG).show();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 error.printStackTrace();
                 Toast.makeText(RetailerLogin.this,error.toString(),Toast.LENGTH_LONG).show();
             }
