@@ -10,11 +10,12 @@ public class Profile_Model {
     private  String CNIC;
     private  String Mobile;
     private  String Email;
+    private  String Phone;
 
     public Profile_Model() {
     }
 
-    public Profile_Model(String dealerCode, String createdDate, String firstName, String lastName, String companyName, String companyNTN, String CNIC, String mobile, String email) {
+    public Profile_Model(String dealerCode, String createdDate, String firstName, String lastName, String companyName, String companyNTN, String CNIC, String mobile, String email, String phone) {
         DealerCode = dealerCode;
         CreatedDate = createdDate;
         FirstName = firstName;
@@ -24,6 +25,15 @@ public class Profile_Model {
         this.CNIC = CNIC;
         Mobile = mobile;
         Email = email;
+        Phone = phone;
+    }
+
+    public String getPhone() {
+        return Phone;
+    }
+
+    public void setPhone(String phone) {
+        Phone = phone;
     }
 
     public String getDealerCode() {

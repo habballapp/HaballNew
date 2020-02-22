@@ -12,8 +12,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.haball.Invoice.Distributor_Invoice_DashBoard;
 import com.example.haball.R;
 
 import java.text.DecimalFormat;
@@ -64,7 +67,7 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
                         switch (item.getItemId()) {
                             case R.id.view_invoice:
                                 Toast.makeText(context,"View payments",Toast.LENGTH_LONG).show();
-//                                FragmentTransaction fragmentTransaction= ((FragmentActivity)mContxt).getSupportFragmentManager().beginTransaction();
+//                                FragmentTransaction fragmentTransaction= ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
 //                                fragmentTransaction.add(R.id.main_container,new Distributor_Invoice_DashBoard());
 //                                fragmentTransaction.commit();
 
