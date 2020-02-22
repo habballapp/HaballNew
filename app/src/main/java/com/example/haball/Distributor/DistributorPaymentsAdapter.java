@@ -1,6 +1,7 @@
 package com.example.haball.Distributor;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -42,20 +43,18 @@ public class DistributorPaymentsAdapter extends RecyclerView.Adapter<Distributor
         this.mContxt = context;
         this.paymentsList = paymentsList;
         this.invoiceList = invoiceList;
-        if(invoiceList != null && paymentsList != null){
+        if (invoiceList != null && paymentsList != null) {
             size = paymentsList.size() + invoiceList.size();
             Log.i("(size) if", String.valueOf(size));
             Log.i("Payments List (size) if", String.valueOf(paymentsList.size()));
             Log.i("Invoice List (size) if", String.valueOf(paymentsList.size()));
-        }
-        else if(paymentsList != null){
+        } else if (paymentsList != null) {
             size = paymentsList.size();
             Log.i("(size) elseif", String.valueOf(size));
 
             Log.i("Payments List(size)elif", String.valueOf(paymentsList.size()));
 
-        }
-        else if(invoiceList != null){
+        } else if (invoiceList != null) {
             size = invoiceList.size();
             Log.i("(size) elseif", String.valueOf(size));
 
@@ -68,7 +67,7 @@ public class DistributorPaymentsAdapter extends RecyclerView.Adapter<Distributor
     @NonNull
     @Override
     public DistributorPaymentsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view_inflate = LayoutInflater.from(mContxt).inflate(R.layout.payments_layout,parent,false);
+        View view_inflate = LayoutInflater.from(mContxt).inflate(R.layout.payments_layout, parent, false);
         return new DistributorPaymentsAdapter.ViewHolder(view_inflate);
     }
 
@@ -76,7 +75,7 @@ public class DistributorPaymentsAdapter extends RecyclerView.Adapter<Distributor
     public void onBindViewHolder(@NonNull DistributorPaymentsAdapter.ViewHolder holder, int position) {
         Log.i("POSITION .. ", String.valueOf(position));
 
-        if(position < paymentsList.size()) {
+        if (position < paymentsList.size()) {
             holder.tv_state.setVisibility(View.GONE);
             holder.tv_state_value.setVisibility(View.GONE);
             holder.menu_btn.setVisibility(View.GONE);
@@ -92,10 +91,8 @@ public class DistributorPaymentsAdapter extends RecyclerView.Adapter<Distributor
             } else {
                 holder.tv_status.setText("Unpaid");
             }
-        }
-
-        else {
-            position = 0;
+        } else {
+             position = 0;
             if (invoiceList != null) {
                 holder.tv_state.setVisibility(View.VISIBLE);
                 holder.tv_state_value.setVisibility(View.VISIBLE);
@@ -114,6 +111,7 @@ public class DistributorPaymentsAdapter extends RecyclerView.Adapter<Distributor
                 } else {
                     holder.tv_state_value.setText("Normal");
                 }
+                final int finalPosition = position;
                 holder.menu_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -125,20 +123,20 @@ public class DistributorPaymentsAdapter extends RecyclerView.Adapter<Distributor
                             public boolean onMenuItemClick(MenuItem item) {
                                 switch (item.getItemId()) {
                                     case R.id.view_invoice:
-                                        Toast.makeText(mContxt,"View Invoice",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(mContxt, "View Invoice", Toast.LENGTH_LONG).show();
 
-                                        FragmentTransaction fragmentTransaction = ((FragmentActivity)mContxt).getSupportFragmentManager().beginTransaction();
+                                        FragmentTransaction fragmentTransaction = ((FragmentActivity) mContxt).getSupportFragmentManager().beginTransaction();
                                         fragmentTransaction.replace(R.id.main_container, new Distributor_Invoice_DashBoard());
                                         fragmentTransaction.addToBackStack(null);
                                         fragmentTransaction.commit();
-//
-//                                        FragmentTransaction fragmentTransaction= ((FragmentActivity)mContxt).getSupportFragmentManager().beginTransaction();
-//                                        fragmentTransaction.add(R.id.main_container,new Distributor_Invoice_DashBoard());
-//                                        fragmentTransaction.commit();
 
+                                        SharedPreferences invoiceID = ((FragmentActivity) mContxt).getSharedPreferences("Invoice_ID",Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = invoiceID.edit();
+                                        editor.putString("InvoiceID", invoiceList.get(finalPosition).getID());
+                                        editor.commit();
                                         break;
                                     case R.id.view_pdf:
-                                        Toast.makeText(mContxt,"View PDF",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(mContxt, "View PDF", Toast.LENGTH_LONG).show();
                                         break;
                                 }
                                 return false;
@@ -159,6 +157,7 @@ public class DistributorPaymentsAdapter extends RecyclerView.Adapter<Distributor
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tv_heading, tv_payment_id, tv_status, tv_amount, tv_state, tv_state_value;
         public ImageButton menu_btn;
+
         private ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_heading = itemView.findViewById(R.id.heading);

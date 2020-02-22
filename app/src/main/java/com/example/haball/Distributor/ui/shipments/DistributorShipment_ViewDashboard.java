@@ -23,7 +23,6 @@ public class DistributorShipment_ViewDashboard extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    private DistributorShipmentViewDashboardViewModel mViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
