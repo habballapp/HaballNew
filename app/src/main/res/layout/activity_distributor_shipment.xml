@@ -13,17 +13,17 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/underline"
         android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Shipment"
-            android:paddingTop="5dp"
+            android:paddingTop="15dp"
             android:paddingBottom="10dp"
-            android:layout_marginTop="20dp"
-            android:textSize="20sp"
+            android:layout_marginTop="5dp"
+            android:textSize="22sp"
             android:textColor="#96bb3c"
             android:background="@drawable/half_underline"
             />
