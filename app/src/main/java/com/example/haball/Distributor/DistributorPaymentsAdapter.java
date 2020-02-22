@@ -22,6 +22,7 @@ import com.example.haball.Distributor.ui.main.PlaceholderFragment;
 import com.example.haball.Distributor.ui.payments.CreatePaymentRequestFragment;
 import com.example.haball.Distributor.ui.payments.PaymentRequestDashboard;
 import com.example.haball.Distributor.ui.payments.PaymentsSummaryFragment;
+import com.example.haball.Distributor.ui.payments.ViewPDFRequest;
 import com.example.haball.Invoice.Distributor_Invoice_DashBoard;
 import com.example.haball.R;
 
@@ -114,6 +115,7 @@ public class DistributorPaymentsAdapter extends RecyclerView.Adapter<Distributor
                 } else {
                     holder.tv_state_value.setText("Normal");
                 }
+                final int finalPosition = position;
                 holder.menu_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -139,6 +141,11 @@ public class DistributorPaymentsAdapter extends RecyclerView.Adapter<Distributor
                                         break;
                                     case R.id.view_pdf:
                                         Toast.makeText(mContxt,"View PDF",Toast.LENGTH_LONG).show();
+                                        try {
+                                            viewPDF(invoiceList.get(finalPosition).getID());
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                         break;
                                 }
                                 return false;
@@ -149,6 +156,11 @@ public class DistributorPaymentsAdapter extends RecyclerView.Adapter<Distributor
                 });
             }
         }
+    }
+
+    private void viewPDF(String ID) throws JSONException {
+        ViewPDFRequest viewPDFRequest = new ViewPDFRequest();
+        viewPDFRequest.viewPDF(mContxt, ID);
     }
 
     @Override
