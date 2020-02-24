@@ -50,39 +50,45 @@ public class Orders_Items_Fragment extends Fragment {
         itemsSelect_Rv.setHasFixedSize(true);
         layoutManager1 = new LinearLayoutManager(getContext());
         itemsSelect_Rv.setLayoutManager(layoutManager1);
-        
+
         SharedPreferences sharedPreferences1 = getContext().getSharedPreferences("Button_Check",
                 Context.MODE_PRIVATE);
-        Checkout2 = sharedPreferences1.getBoolean("checkout_success", true);
-        Log.i("Checkout", String.valueOf(Checkout2));
+//        SharedPreferences sharedPreferences2 = getContext().getSharedPreferences("Button_Check",
+//                Context.MODE_PRIVATE);
+//        Checkout1 = sharedPreferences1.getBoolean("checkout_success", false);
+//        Log.i("Checkout1", String.valueOf(Checkout1));
+
+        Checkout2 = sharedPreferences1.getBoolean("checkout_success", false);
+        Log.i("Checkout2", String.valueOf(Checkout2));
 
         mAdapter1 = new OrdersItemsAdapter(getContext(),"0","abc","1232","230");
         itemsSelect_Rv.setAdapter(mAdapter1);
-        Log.i("acccc" , String.valueOf(Checkout1));
+    //    Log.i("acccc" , String.valueOf(Checkout1));
         Log.i("acccc1" , String.valueOf(Checkout2));
 
 
-        if(Checkout1){
 
-             place_item_button.setBackgroundResource(R.drawable.button_round);
-             place_item_button.setEnabled(true);
+        if(Checkout2){
 
-             place_item_button.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                     ViewPager  viewPager = getActivity().findViewById(R.id.view_pager5);
-                     Toast.makeText(getContext(),"Clicked", Toast.LENGTH_SHORT).show();
-                     viewPager.setCurrentItem(1);
-                     FragmentTransaction fragmentTransaction= ((FragmentActivity)getActivity()).getSupportFragmentManager().beginTransaction();
-                     fragmentTransaction.add(R.id.main_container,new Order_Summary());
-                     fragmentTransaction.commit();
-                 }
-             });
-           //  Log.i("Checkout", "in true");
+//             place_item_button.setBackgroundResource(R.drawable.button_round);
+//             place_item_button.setEnabled(true);
+//
+//             place_item_button.setOnClickListener(new View.OnClickListener() {
+//                 @Override
+//                 public void onClick(View v) {
+//                     ViewPager  viewPager = getActivity().findViewById(R.id.view_pager5);
+//                     Toast.makeText(getContext(),"Clicked", Toast.LENGTH_SHORT).show();
+//                     viewPager.setCurrentItem(1);
+//                     FragmentTransaction fragmentTransaction= ((FragmentActivity)getActivity()).getSupportFragmentManager().beginTransaction();
+//                     fragmentTransaction.add(R.id.main_container,new Order_Summary());
+//                     fragmentTransaction.commit();
+//                 }
+//             });
+            Log.i("Checkout2", "in true condition");
          }
          else {
 
-           //  Log.i("Checkout", "in false");
+             Log.i("Checkout2", "in false");
 //
 //             place_item_button.setBackgroundResource(R.drawable.button_grey_round);
 //             place_item_button.setEnabled(false);

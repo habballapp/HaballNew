@@ -37,13 +37,13 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
         this.discount_price = discount_price;
     }
 
-    public OrdersItemsAdapter(Context context, String txt_count, String txt_products, String unit_price_value, String discount_price, ViewPager mPager) {
-        this.context = context;
-        this.txt_count = txt_count;
-        this.txt_products = txt_products;
-        this.unit_price_value = unit_price_value;
-        this.discount_price = discount_price;
-         }
+//    public OrdersItemsAdapter(Context context, String txt_count, String txt_products, String unit_price_value, String discount_price, ViewPager mPager) {
+//        this.context = context;
+//        this.txt_count = txt_count;
+//        this.txt_products = txt_products;
+//        this.unit_price_value = unit_price_value;
+//        this.discount_price = discount_price;
+//         }
 
     public OrdersItemsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view_inflate = LayoutInflater.from(context).inflate(R.layout.orders_items_recycler,parent,false);
@@ -80,20 +80,23 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
               //  String s1 = quantity.getText().toString();
                 if (myNum == 0)
                 {
+                    Log.i("True1", "in false condition adapter");
                     btn_cart.setBackgroundResource(R.drawable.button_grey_round);
                     btn_cart.setEnabled(false);
                     SharedPreferences sharedPref = context.getSharedPreferences("Button_Check",Context.MODE_PRIVATE);
                     SharedPreferences.Editor button_check = sharedPref.edit();
-                    button_check.putBoolean("checkout_unsuccess",false);
+                    button_check.putBoolean("checkout_unsuccess",true);
                     button_check.apply();
 
                 }
                 else{
 
+                    Log.i("True", "in true condition adapter");
                     btn_cart.setBackgroundResource(R.drawable.button_round);
+                    btn_cart.setEnabled(true);
                     SharedPreferences sharedPref = context.getSharedPreferences("Button_Check",Context.MODE_PRIVATE);
                     SharedPreferences.Editor button_check = sharedPref.edit();
-                    button_check.putBoolean("checkout_success",true);
+                    button_check.putBoolean("checkout_success",false);
                     button_check.apply();
 
                 }
