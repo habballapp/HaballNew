@@ -85,7 +85,7 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
                     SharedPreferences sharedPref = context.getSharedPreferences("Button_Check",Context.MODE_PRIVATE);
                     SharedPreferences.Editor button_check = sharedPref.edit();
                     button_check.putBoolean("checkout_success",true);
-                    button_check.commit();
+                    button_check.apply();
 
                 }
                 else{
@@ -94,7 +94,7 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
                     SharedPreferences sharedPref = context.getSharedPreferences("Button_Check",Context.MODE_PRIVATE);
                     SharedPreferences.Editor button_check = sharedPref.edit();
                     button_check.putBoolean("checkout_success",false);
-                    button_check.commit();
+                    button_check.apply();
 
                 }
 

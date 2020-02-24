@@ -51,12 +51,14 @@ public class Orders_Items_Fragment extends Fragment {
         layoutManager1 = new LinearLayoutManager(getContext());
         itemsSelect_Rv.setLayoutManager(layoutManager1);
 
-        mAdapter1 = new OrdersItemsAdapter(getContext(),"0","abc","1232","230");
-        itemsSelect_Rv.setAdapter(mAdapter1);
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("Button_Check",
                 Context.MODE_PRIVATE);
-         Checkout = sharedPreferences.getBoolean("checkout_success", false);
-         Log.i("Checkout", String.valueOf(Checkout));
+        Checkout = sharedPreferences.getBoolean("checkout_success", false);
+        Log.i("Checkout", String.valueOf(Checkout));
+
+        mAdapter1 = new OrdersItemsAdapter(getContext(),"0","abc","1232","230");
+        itemsSelect_Rv.setAdapter(mAdapter1);
+
          if(Checkout){
 
 //             place_item_button.setBackgroundResource(R.drawable.button_round);
