@@ -43,8 +43,8 @@
                         android:textColor="#96bb3c"
                         android:textSize="@dimen/heading" />
 
-                    <EditText
-                        android:id="@+id/shipment_id"
+                    <TextView
+                        android:id="@+id/invoice_shipment_id"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center_vertical"
@@ -70,7 +70,7 @@
                         android:textSize="@dimen/heading" />
 
                     <TextView
-                        android:id="@+id/delivery_date"
+                        android:id="@+id/invoice_shpDelivery_date"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginLeft="30dp"
@@ -95,7 +95,7 @@
                         android:textSize="@dimen/heading" />
 
                     <TextView
-                        android:id="@+id/recieving_date"
+                        android:id="@+id/invoice_shpRecieving_date"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginLeft="30dp"
@@ -120,7 +120,7 @@
                         android:textSize="@dimen/heading" />
 
                     <TextView
-                        android:id="@+id/tv_shstatus"
+                        android:id="@+id/invoice_shpstatus"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginLeft="30dp"

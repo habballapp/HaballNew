@@ -44,7 +44,7 @@
                         android:textSize="@dimen/heading" />
 
                     <TextView
-                        android:id="@+id/order_id"
+                        android:id="@+id/invoice_order_id"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center_vertical"
@@ -70,7 +70,7 @@
                         android:textSize="@dimen/heading" />
 
                     <TextView
-                        android:id="@+id/company_name"
+                        android:id="@+id/invoice_company_name"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginLeft="30dp"
@@ -95,7 +95,7 @@
                         android:textSize="@dimen/heading"/>
 
                     <TextView
-                        android:id="@+id/tr_mode"
+                        android:id="@+id/invoice_tr_mode"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginLeft="30dp"
@@ -121,7 +121,7 @@
                         android:textSize="@dimen/heading" />
 
                     <TextView
-                        android:id="@+id/payment_term"
+                        android:id="@+id/invoice_payment_term"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginLeft="30dp"
@@ -147,7 +147,7 @@
                         android:textSize="@dimen/heading" />
 
                     <TextView
-                        android:id="@+id/tv_cdate"
+                        android:id="@+id/invoice_Order_cdate"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginLeft="30dp"
@@ -172,7 +172,7 @@
                         android:textColor="#96bb3c"
                         android:textSize="@dimen/heading" />
                     <TextView
-                        android:id="@+id/tv_status"
+                        android:id="@+id/invoice_Order_status"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginLeft="30dp"
@@ -198,7 +198,7 @@
                         android:textSize="@dimen/heading" />
 
                     <TextView
-                        android:id="@+id/tv_shaddress"
+                        android:id="@+id/Order_shipaddress"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginLeft="30dp"
@@ -224,7 +224,7 @@
                         android:textSize="@dimen/heading" />
 
                     <TextView
-                        android:id="@+id/tv_shstatus"
+                        android:id="@+id/Order_billingAddress"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginLeft="30dp"

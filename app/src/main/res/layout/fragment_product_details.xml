@@ -12,7 +12,7 @@
         android:layout_alignParentBottom="true"
         >
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_shipment"
+            android:id="@+id/rv_invo_product"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -23,7 +23,7 @@
             android:id="@+id/line_bottom"
             android:layout_width="match_parent"
             android:layout_height="5dp"
-            android:layout_below="@+id/rv_shipment"
+            android:layout_below="@+id/rv_invo_product"
             android:background="@drawable/line_seperator"
             android:layout_marginTop="15dp"/>
 

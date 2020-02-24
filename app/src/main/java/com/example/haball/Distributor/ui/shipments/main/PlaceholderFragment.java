@@ -194,9 +194,8 @@ public class PlaceholderFragment extends Fragment {
                     Log.i("responesProductmy" ,response.getString("DeliveryNoteDetails").toString());
                     JSONArray jsonArray = new JSONArray(response.getString("DeliveryNoteDetails"));
                     Log.i("responesProduct" ,jsonArray.toString());
-//                    for(int i = 0; i < jsonArray.length(); i++) {
-//                        Log.i("array",jsonArray.getJSONObject(i).toString());
-                        Gson gson = new Gson();
+
+                    Gson gson = new Gson();
                         Type type = new TypeToken<List<Distributor_ProductModel>>() {
                         }.getType();
                         productList = gson.fromJson(String.valueOf(jsonArray), type);
@@ -204,8 +203,6 @@ public class PlaceholderFragment extends Fragment {
 
                         productDetailsAdapter = new ProductDetailsAdapter(getContext(), productList);
                         product_RecyclerV.setAdapter(productDetailsAdapter);
-
-//                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
