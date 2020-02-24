@@ -11,8 +11,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.orders.Adapter.OrdersItemsAdapter;
+import com.example.haball.Distributor.ui.orders.Models.OrderItemsModel;
+import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
+import com.example.haball.Payment.ConsolidatePaymentsModel;
+import com.example.haball.Payment.Consolidate_Fragment_Adapter;
 import com.example.haball.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -21,13 +32,28 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Orders_Items_Fragment extends Fragment {
 
     private RecyclerView itemsSelect_Rv;
     private RecyclerView.Adapter mAdapter1;
     private RecyclerView.LayoutManager layoutManager1;
-    private Button  place_item_button;
-    Boolean Checkout1 ,Checkout2;
+    private Button place_item_button;
+    String CompanyId = "2";
+    private String PRODUCTS_URL = "http://175.107.203.97:4008/api/products/ReadProductsByCategories/";
+    private String PRODUCTS_CATEGORY_URL = "http://175.107.203.97:4008/api/products/ReadCategories/0/";
+
+    private String Token, DistributorId;
+    private List<OrderItemsModel> ProductsDataList = new ArrayList<>();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,66 +61,117 @@ public class Orders_Items_Fragment extends Fragment {
          final View view = inflater.inflate(R.layout.orders_items_fragments, container, false);
       //  View view1 = inflater.inflate(R.layout.fragment_orders__dashboard, container, false);
                 //init
-        place_item_button = (Button) view.findViewById(R.id.place_item_button);
-         place_item_button.setBackgroundResource(R.drawable.button_grey_round);
-         place_item_button.setEnabled(false);
-
-
+              place_item_button = (Button) view.findViewById(R.id.place_item_button);
+               place_item_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewPager  viewPager = getActivity().findViewById(R.id.view_pager5);
+                Toast.makeText(getContext(),"Clicked", Toast.LENGTH_SHORT).show();
+                viewPager.setCurrentItem(1);
+                FragmentTransaction fragmentTransaction= ((FragmentActivity)getActivity()).getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.add(R.id.main_container,new Order_Summary());
+                fragmentTransaction.commit();
+            }
+        });
         holderitems(view);
 
         return view;
     }
+
+    private void fetchProductsData() {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+        Log.i("DistributorId ", DistributorId);
+        Log.i("Token", Token);
+            PRODUCTS_CATEGORY_URL = PRODUCTS_CATEGORY_URL + CompanyId;
+        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.GET, PRODUCTS_CATEGORY_URL, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray result) {
+                Log.i("CATEGORY DATA .. ", result.toString());
+
+                for(int i = 0; i < result.length(); i++) {
+//                    try {
+//                        Log.i("category items", String.valueOf(result.get(i)));
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+                    try {
+                        JSONObject obj = result.getJSONObject(i);
+                        PRODUCTS_URL = PRODUCTS_URL + obj.get("ID") + "/" + CompanyId ;
+                        Log.i("PRODUCTS_URL", PRODUCTS_URL);
+
+                        Gson gson = new Gson();
+                        Type type = new TypeToken<List<OrderItemsModel>>(){}.getType();
+                        ProductsDataList = gson.fromJson(result.toString(),type);
+
+                        mAdapter1 = new OrdersItemsAdapter(getContext(),ProductsDataList);
+                        itemsSelect_Rv.setAdapter(mAdapter1);
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    MyJsonArrayRequest sr1 = new MyJsonArrayRequest(Request.Method.GET, PRODUCTS_URL, null, new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray result) {
+                            Log.i("PRODUCTS DATA .. ", result.toString());
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            error.printStackTrace();
+                        }
+                    }) {
+                        @Override
+                        public Map<String, String> getHeaders() throws AuthFailureError {
+                            Map<String, String> params = new HashMap<String, String>();
+                            params.put("Authorization", "bearer " + Token);
+                            return params;
+                        }
+                    };
+                    Volley.newRequestQueue(getContext()).add(sr1);
+
+
+
+                    PRODUCTS_URL = "http://175.107.203.97:4008/api/products/ReadProductsByCategories/";
+
+
+                }
+
+
+//                mAdapter = new Consolidate_Fragment_Adapter(getContext(),ConsolidatePaymentsRequestList);
+//                recyclerView.setAdapter(mAdapter);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(sr);
+    }
+
     private void holderitems(final View root) {
         Log.i("abbasi" ,"abccccccccccccccccc");
         itemsSelect_Rv =(RecyclerView) root.findViewById(R.id.rv_items_orders);
         itemsSelect_Rv.setHasFixedSize(true);
         layoutManager1 = new LinearLayoutManager(getContext());
         itemsSelect_Rv.setLayoutManager(layoutManager1);
+        fetchProductsData();
 
-        SharedPreferences sharedPreferences1 = getContext().getSharedPreferences("Button_Check",
-                Context.MODE_PRIVATE);
-//        SharedPreferences sharedPreferences2 = getContext().getSharedPreferences("Button_Check",
-//                Context.MODE_PRIVATE);
-//        Checkout1 = sharedPreferences1.getBoolean("checkout_success", false);
-//        Log.i("Checkout1", String.valueOf(Checkout1));
-
-        Checkout2 = sharedPreferences1.getBoolean("checkout_success", false);
-        Log.i("Checkout2", String.valueOf(Checkout2));
-
-        mAdapter1 = new OrdersItemsAdapter(getContext(),"0","abc","1232","230");
-        itemsSelect_Rv.setAdapter(mAdapter1);
-    //    Log.i("acccc" , String.valueOf(Checkout1));
-        Log.i("acccc1" , String.valueOf(Checkout2));
-
-
-
-        if(Checkout2){
-
-//             place_item_button.setBackgroundResource(R.drawable.button_round);
-//             place_item_button.setEnabled(true);
-//
-//             place_item_button.setOnClickListener(new View.OnClickListener() {
-//                 @Override
-//                 public void onClick(View v) {
-//                     ViewPager  viewPager = getActivity().findViewById(R.id.view_pager5);
-//                     Toast.makeText(getContext(),"Clicked", Toast.LENGTH_SHORT).show();
-//                     viewPager.setCurrentItem(1);
-//                     FragmentTransaction fragmentTransaction= ((FragmentActivity)getActivity()).getSupportFragmentManager().beginTransaction();
-//                     fragmentTransaction.add(R.id.main_container,new Order_Summary());
-//                     fragmentTransaction.commit();
-//                 }
-//             });
-            Log.i("Checkout2", "in true condition");
-         }
-         else {
-
-             Log.i("Checkout2", "in false");
-//
-//             place_item_button.setBackgroundResource(R.drawable.button_grey_round);
-//             place_item_button.setEnabled(false);
-
-
-         }
 
         Log.i("placeHolder12" , String.valueOf(mAdapter1));
 
