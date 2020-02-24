@@ -1,7 +1,7 @@
 package com.example.haball.Distributor;
 
 public class DistributorPaymentsModel {
-    private String PrePaidNumber,Name,PaidAmount,Status;
+    private String PrePaidNumber,Name,PaidAmount,Status ;
 
     public DistributorPaymentsModel(String prePaidNumber, String name, String paidAmount, String status) {
         PrePaidNumber = prePaidNumber;

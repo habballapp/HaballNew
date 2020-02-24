@@ -44,7 +44,7 @@
                         android:textSize="@dimen/heading" />
 
                     <TextView
-                        android:id="@+id/invoice_id"
+                        android:id="@+id/distri_invoiceID"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center_vertical"
@@ -70,7 +70,7 @@
                         android:textSize="@dimen/heading" />
 
                     <TextView
-                        android:id="@+id/tv_date"
+                        android:id="@+id/distri_invoiceDate"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginLeft="30dp"
@@ -95,7 +95,7 @@
                         android:textSize="@dimen/heading" />
 
                     <TextView
-                        android:id="@+id/tv_amount"
+                        android:id="@+id/distri_invoiceAmount"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginLeft="30dp"
@@ -120,7 +120,7 @@
                         android:textSize="@dimen/heading" />
 
                     <TextView
-                        android:id="@+id/payment_date"
+                        android:id="@+id/distri_payment_date"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginLeft="30dp"
@@ -145,7 +145,7 @@
                         android:textSize="@dimen/heading" />
 
                     <TextView
-                        android:id="@+id/Transaction_amount"
+                        android:id="@+id/distri_Transaction_amount"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginLeft="30dp"
@@ -171,7 +171,7 @@
                         android:textSize="@dimen/heading" />
 
                     <TextView
-                        android:id="@+id/tv_status"
+                        android:id="@+id/distri_status"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginLeft="30dp"
@@ -197,7 +197,7 @@
                         android:textSize="@dimen/heading" />
 
                     <TextView
-                        android:id="@+id/state"
+                        android:id="@+id/distri_state"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginLeft="30dp"
