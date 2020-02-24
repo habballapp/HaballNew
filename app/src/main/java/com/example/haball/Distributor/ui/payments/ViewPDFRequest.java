@@ -5,9 +5,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.pdf.PdfDocument;
 import android.os.Build;
 import android.os.Environment;
+import android.provider.DocumentsContract;
+import android.provider.DocumentsContract.Document;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -34,7 +42,9 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -69,21 +79,21 @@ public class ViewPDFRequest {
             @Override
             public void onResponse(String result) {
                 Log.i("PDF VIEW..", result);
-                byte[] bytes = result.getBytes(Charset.forName("UTF-8"));
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    try {
-                        byte[] decodedString = Base64.getDecoder().decode(new String(bytes).getBytes("UTF-8"));
-                        String string = new String(decodedString);
-                        Log.i("PDF BYTE DECODED..", string);
-
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-                String string = new String(bytes);
-                Log.i("PDF BYTE ARRAY..", string);
-                saveToFile(bytes, "file.pdf");
+//                byte[] bytes = result.getBytes(Charset.forName("UTF-8"));
+////                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+////                    try {
+////                        byte[] decodedString = Base64.getDecoder().decode(new String(bytes).getBytes("UTF-8"));
+////                        String string = new String(decodedString);
+////                        Log.i("PDF BYTE DECODED..", string);
+////
+////                    } catch (UnsupportedEncodingException e) {
+////                        e.printStackTrace();
+////                    }
+////
+////                }
+////                String string = new String(bytes);
+////                Log.i("PDF BYTE ARRAY..", string);
+//                saveToFile(bytes, "file.pdf");
             }
         }, new Response.ErrorListener() {
             @Override
@@ -125,5 +135,4 @@ public class ViewPDFRequest {
         }
 
     }
-
 }

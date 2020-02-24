@@ -146,9 +146,9 @@ public class ProofOfPaymentFormViewFragment extends Fragment {
             Iterator<String> keys = data.keys();
             while(keys.hasNext()) {
                 String key = keys.next();
-                if (data.get(key) instanceof JSONObject) {
+//                if (data.get(key) instanceof JSONObject) {
                     message = message + data.get(key) + "\n";
-                }
+//                }
             }
 //                    if(data.has("message"))
 //                        message = data.getString("message");

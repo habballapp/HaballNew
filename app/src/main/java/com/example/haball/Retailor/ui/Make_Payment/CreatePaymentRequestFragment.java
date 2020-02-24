@@ -199,54 +199,54 @@ public class CreatePaymentRequestFragment extends Fragment {
 
 
     private void printErrorMessage(VolleyError error) {
-//        try {
-//            String message = "";
-//            String responseBody = new String(error.networkResponse.data, "utf-8");
-//            JSONObject data = new JSONObject(responseBody);
-//            Iterator<String> keys = data.keys();
-//            while(keys.hasNext()) {
-//                String key = keys.next();
+        try {
+            String message = "";
+            String responseBody = new String(error.networkResponse.data, "utf-8");
+            JSONObject data = new JSONObject(responseBody);
+            Iterator<String> keys = data.keys();
+            while(keys.hasNext()) {
+                String key = keys.next();
 //                if (data.get(key) instanceof JSONObject) {
-//                    message = message + data.get(key) + "\n";
+                    message = message + data.get(key) + "\n";
 //                }
-//            }
-////                    if(data.has("message"))
-////                        message = data.getString("message");
-////                    else if(data. has("Error"))
-//            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-        NetworkResponse response = error.networkResponse;
-        if (error instanceof ServerError && response != null) {
-            try {
-                String message = "";
-
-                String res = new String(response.data,
-                        HttpHeaderParser.parseCharset(response.headers, "utf-8"));
-                // Now you can use any deserializer to make sense of data
-                JSONObject obj = new JSONObject(res);
-                Log.i("obj", String.valueOf(obj));
-                Iterator<String> keys = obj.keys();
-                int i = 0;
-                while(keys.hasNext()) {
-                    String key = keys.next();
-//                    if (obj.get(key) instanceof JSONObject) {
-                        message = message + obj.get(key) + "\n";
-//                    }
-                    i++;
-                }
-                Log.i("message", message);
-                Toast.makeText(getContext(), String.valueOf(message), Toast.LENGTH_LONG).show();
-            } catch (UnsupportedEncodingException e1) {
-                // Couldn't properly decode data to string
-                e1.printStackTrace();
-            } catch (JSONException e2) {
-                // returned data is not JSONObject?
-                e2.printStackTrace();
             }
+//                    if(data.has("message"))
+//                        message = data.getString("message");
+//                    else if(data. has("Error"))
+            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+//        NetworkResponse response = error.networkResponse;
+//        if (error instanceof ServerError && response != null) {
+//            try {
+//                String message = "";
+//
+//                String res = new String(response.data,
+//                        HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+//                // Now you can use any deserializer to make sense of data
+//                JSONObject obj = new JSONObject(res);
+//                Log.i("obj", String.valueOf(obj));
+//                Iterator<String> keys = obj.keys();
+//                int i = 0;
+//                while(keys.hasNext()) {
+//                    String key = keys.next();
+////                    if (obj.get(key) instanceof JSONObject) {
+//                        message = message + obj.get(key) + "\n";
+////                    }
+//                    i++;
+//                }
+//                Log.i("message", message);
+//                Toast.makeText(getContext(), String.valueOf(message), Toast.LENGTH_LONG).show();
+//            } catch (UnsupportedEncodingException e1) {
+//                // Couldn't properly decode data to string
+//                e1.printStackTrace();
+//            } catch (JSONException e2) {
+//                // returned data is not JSONObject?
+//                e2.printStackTrace();
+//            }
+//        }
     }
 }
