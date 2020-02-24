@@ -27,7 +27,7 @@ public class Orders_Items_Fragment extends Fragment {
     private RecyclerView.Adapter mAdapter1;
     private RecyclerView.LayoutManager layoutManager1;
     private Button  place_item_button;
-    Boolean Checkout;
+    Boolean Checkout1 ,Checkout2;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,16 +50,19 @@ public class Orders_Items_Fragment extends Fragment {
         itemsSelect_Rv.setHasFixedSize(true);
         layoutManager1 = new LinearLayoutManager(getContext());
         itemsSelect_Rv.setLayoutManager(layoutManager1);
-
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("Button_Check",
+        
+        SharedPreferences sharedPreferences1 = getContext().getSharedPreferences("Button_Check",
                 Context.MODE_PRIVATE);
-        Checkout = sharedPreferences.getBoolean("checkout_success", false);
-        Log.i("Checkout", String.valueOf(Checkout));
+        Checkout2 = sharedPreferences1.getBoolean("checkout_success", true);
+        Log.i("Checkout", String.valueOf(Checkout2));
 
         mAdapter1 = new OrdersItemsAdapter(getContext(),"0","abc","1232","230");
         itemsSelect_Rv.setAdapter(mAdapter1);
+        Log.i("acccc" , String.valueOf(Checkout1));
+        Log.i("acccc1" , String.valueOf(Checkout2));
 
-         if(Checkout==true){
+
+        if(Checkout1){
 
              place_item_button.setBackgroundResource(R.drawable.button_round);
              place_item_button.setEnabled(true);
@@ -75,10 +78,11 @@ public class Orders_Items_Fragment extends Fragment {
                      fragmentTransaction.commit();
                  }
              });
-             Log.i("Checkout", "in true");
+           //  Log.i("Checkout", "in true");
          }
          else {
-             Log.i("Checkout", "in false");
+
+           //  Log.i("Checkout", "in false");
 //
 //             place_item_button.setBackgroundResource(R.drawable.button_grey_round);
 //             place_item_button.setEnabled(false);

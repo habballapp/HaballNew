@@ -84,7 +84,7 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
                     btn_cart.setEnabled(false);
                     SharedPreferences sharedPref = context.getSharedPreferences("Button_Check",Context.MODE_PRIVATE);
                     SharedPreferences.Editor button_check = sharedPref.edit();
-                    button_check.putBoolean("checkout_success",true);
+                    button_check.putBoolean("checkout_unsuccess",false);
                     button_check.apply();
 
                 }
@@ -93,7 +93,7 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
                     btn_cart.setBackgroundResource(R.drawable.button_round);
                     SharedPreferences sharedPref = context.getSharedPreferences("Button_Check",Context.MODE_PRIVATE);
                     SharedPreferences.Editor button_check = sharedPref.edit();
-                    button_check.putBoolean("checkout_success",false);
+                    button_check.putBoolean("checkout_success",true);
                     button_check.apply();
 
                 }
