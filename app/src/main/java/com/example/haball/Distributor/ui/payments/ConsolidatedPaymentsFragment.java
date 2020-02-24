@@ -50,6 +50,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -283,16 +284,8 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                try {
-                    String responseBody = new String(error.networkResponse.data, "utf-8");
-                    JSONObject data = new JSONObject(responseBody);
-                    String message = data.getString("message");
-                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                printErrorMessage(error);
+
                 error.printStackTrace();
             }
         }) {
@@ -338,16 +331,8 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                try {
-                    String responseBody = new String(error.networkResponse.data, "utf-8");
-                    JSONObject data = new JSONObject(responseBody);
-                    String message = data.getString("message");
-                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                printErrorMessage(error);
+
                 error.printStackTrace();
             }
         }) {
@@ -360,5 +345,29 @@ public class ConsolidatedPaymentsFragment extends Fragment {
             }
         };
         Volley.newRequestQueue(getContext()).add(sr);
+    }
+
+
+    private void printErrorMessage(VolleyError error) {
+        try {
+            String message = "";
+            String responseBody = new String(error.networkResponse.data, "utf-8");
+            JSONObject data = new JSONObject(responseBody);
+            Iterator<String> keys = data.keys();
+            while(keys.hasNext()) {
+                String key = keys.next();
+                if (data.get(key) instanceof JSONObject) {
+                    message = message + data.get(key) + "\n";
+                }
+            }
+//                    if(data.has("message"))
+//                        message = data.getString("message");
+//                    else if(data. has("Error"))
+            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

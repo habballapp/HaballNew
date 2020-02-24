@@ -36,9 +36,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -86,6 +89,10 @@ public class Orders_Items_Fragment extends Fragment {
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+        SharedPreferences sharedPreferences2 = this.getActivity().getSharedPreferences("CompanyId",
+                Context.MODE_PRIVATE);
+        CompanyId = sharedPreferences2.getString("CompanyId", "");
+
         Log.i("DistributorId ", DistributorId);
         Log.i("Token", Token);
             PRODUCTS_CATEGORY_URL = PRODUCTS_CATEGORY_URL + CompanyId;
@@ -104,27 +111,27 @@ public class Orders_Items_Fragment extends Fragment {
                         JSONObject obj = result.getJSONObject(i);
                         PRODUCTS_URL = PRODUCTS_URL + obj.get("ID") + "/" + CompanyId ;
                         Log.i("PRODUCTS_URL", PRODUCTS_URL);
-
-                        Gson gson = new Gson();
-                        Type type = new TypeToken<List<OrderItemsModel>>(){}.getType();
-                        ProductsDataList = gson.fromJson(result.toString(),type);
-
-                        mAdapter1 = new OrdersItemsAdapter(getContext(),ProductsDataList);
-                        itemsSelect_Rv.setAdapter(mAdapter1);
-
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
                     MyJsonArrayRequest sr1 = new MyJsonArrayRequest(Request.Method.GET, PRODUCTS_URL, null, new Response.Listener<JSONArray>() {
                         @Override
-                        public void onResponse(JSONArray result) {
-                            Log.i("PRODUCTS DATA .. ", result.toString());
+                        public void onResponse(JSONArray resultProduct) {
+                            Log.i("PRODUCTS DATA .. ", resultProduct.toString());
+                            Gson gson = new Gson();
+                            Type type = new TypeToken<List<OrderItemsModel>>(){}.getType();
+                            ProductsDataList.addAll((Collection<? extends OrderItemsModel>) gson.fromJson(resultProduct.toString(),type));
+                            mAdapter1 = new OrdersItemsAdapter(getContext(),ProductsDataList);
+                            itemsSelect_Rv.setAdapter(mAdapter1);
+
+
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
+                            printErrorMessage(error);
+
                             error.printStackTrace();
                         }
                     }) {
@@ -151,6 +158,7 @@ public class Orders_Items_Fragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
                 error.printStackTrace();
             }
         }) {
@@ -167,9 +175,16 @@ public class Orders_Items_Fragment extends Fragment {
     private void holderitems(final View root) {
         Log.i("abbasi" ,"abccccccccccccccccc");
         itemsSelect_Rv =(RecyclerView) root.findViewById(R.id.rv_items_orders);
+
         itemsSelect_Rv.setHasFixedSize(true);
         layoutManager1 = new LinearLayoutManager(getContext());
         itemsSelect_Rv.setLayoutManager(layoutManager1);
+
+        /* ****************************** */
+        /* Smooth Scroll in Recycler View */
+        itemsSelect_Rv.setNestedScrollingEnabled(false);
+        /* ****************************** */
+
         fetchProductsData();
 
 
@@ -177,6 +192,28 @@ public class Orders_Items_Fragment extends Fragment {
 
     }
 
+    private void printErrorMessage(VolleyError error) {
+        try {
+            String message = "";
+            String responseBody = new String(error.networkResponse.data, "utf-8");
+            JSONObject data = new JSONObject(responseBody);
+            Iterator<String> keys = data.keys();
+            while(keys.hasNext()) {
+                String key = keys.next();
+                if (data.get(key) instanceof JSONObject) {
+                    message = message + data.get(key) + "\n";
+                }
+            }
+//                    if(data.has("message"))
+//                        message = data.getString("message");
+//                    else if(data. has("Error"))
+            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }
 //    private void Holderorders(final View view){
 //

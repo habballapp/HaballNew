@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="70dp"
+    android:layout_marginTop="65dp"
     android:background="#fff"
     tools:context=".Distributor.ui.orders.OrdersTabsLayout.Tabs.Orders_Items_Fragment">
 
@@ -16,9 +16,9 @@
         android:id="@+id/spinner_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="30dp"
         android:background="@drawable/edit_text_border_bottom">
 
         <Spinner
@@ -33,9 +33,9 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_below="@id/spinner_container"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="30dp"
         android:hint="Search by Item"
         android:textColorHint="#676a6c"
 
@@ -46,6 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:drawableRight="@drawable/ic_search_black_24dp"
+
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingBottom="15dp"
@@ -58,8 +59,8 @@
         android:id="@+id/line_bottom"
         android:layout_width="match_parent"
         android:layout_height="5dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/line_seperator"
-        android:layout_marginTop="20dp"
         android:layout_below="@+id/search_bar"
          />
 
@@ -67,39 +68,46 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_items_orders"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/line_bottom"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="20dp"/>
     <RelativeLayout
+        android:id="@+id/rl_checkout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
         android:layout_below="@+id/rv_items_orders">
     <Button
         android:id="@+id/place_item_button"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="30dp"
         android:layout_marginBottom="30dp"
         android:background="@drawable/button_grey_round"
         android:enabled="false"
         android:gravity="center"
         android:layout_centerInParent="true"
+        android:layout_alignParentEnd="true"
         android:text="Checkout"
         android:textAllCaps="false"
         android:textColor="#fff"
         android:textSize="16sp"
 
-        />
+        android:layout_alignParentRight="true" />
 
     </RelativeLayout>
-
+        <TextView
+            android:id="@+id/footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:text="© Haball | All rights reserved" />
     </RelativeLayout>
 
 </ScrollView>

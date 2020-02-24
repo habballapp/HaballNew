@@ -44,6 +44,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class Distribution_Login extends AppCompatActivity {
@@ -182,16 +183,7 @@ public class Distribution_Login extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                try {
-                    String responseBody = new String(error.networkResponse.data, "utf-8");
-                    JSONObject data = new JSONObject(responseBody);
-                    String message = data.getString("message");
-                    Toast.makeText(new Distribution_Login(), message, Toast.LENGTH_LONG).show();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                printErrorMessage(error);
                 error.printStackTrace();
                // Toast.makeText(Distribution_Login.this,error.toString(),Toast.LENGTH_LONG).show();
             }
@@ -257,7 +249,8 @@ public class Distribution_Login extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Distribution_Login.this,error.toString(), Toast.LENGTH_LONG).show();
+                printErrorMessage(error);
+//                Toast.makeText(Distribution_Login.this,error.toString(), Toast.LENGTH_LONG).show();
             }
         }){
 
@@ -327,7 +320,8 @@ public class Distribution_Login extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Toast.makeText(Distribution_Login.this,error.toString(),Toast.LENGTH_LONG).show();
+//                Toast.makeText(Distribution_Login.this,error.toString(),Toast.LENGTH_LONG).show();
+                printErrorMessage(error);
             }
         });
         Volley.newRequestQueue(this).add(sr);
@@ -336,4 +330,26 @@ public class Distribution_Login extends AppCompatActivity {
     }
 
 
+    private void printErrorMessage(VolleyError error) {
+        try {
+            String message = "";
+            String responseBody = new String(error.networkResponse.data, "utf-8");
+            JSONObject data = new JSONObject(responseBody);
+            Iterator<String> keys = data.keys();
+            while(keys.hasNext()) {
+                String key = keys.next();
+                if (data.get(key) instanceof JSONObject) {
+                    message = message + data.get(key) + "\n";
+                }
+            }
+//                    if(data.has("message"))
+//                        message = data.getString("message");
+//                    else if(data. has("Error"))
+            Toast.makeText(Distribution_Login.this, message, Toast.LENGTH_LONG).show();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }

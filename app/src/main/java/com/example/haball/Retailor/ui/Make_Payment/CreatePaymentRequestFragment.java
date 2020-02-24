@@ -19,9 +19,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -34,6 +37,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -83,15 +87,19 @@ public class CreatePaymentRequestFragment extends Fragment {
 
             }
         });
-
+        final View finalroot = root;
         fetchCompanyData();
         btn_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    makeSaveRequest();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if(Integer.parseInt(String.valueOf(txt_amount.getText())) >= 500) {
+                    try {
+                        makeSaveRequest();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(finalroot.getContext(), "Paid Amount must be larger than or equal to 500", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -133,24 +141,7 @@ public class CreatePaymentRequestFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                try {
-                    String responseBody = new String(error.networkResponse.data, "utf-8");
-                    JSONObject data = new JSONObject(responseBody);
-                    String message = "";
-                    if(data.has("message")) {
-                        message = data.getString("message");
-                    } else if(data.has("errors")) {
-                        Log.i("error", data.getString("errors"));
-                    } else if(data.has("statusText")) {
-                        Log.i("statusText", data.getString("statusText"));
-                    }
-                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
+                printErrorMessage(error);
                 error.printStackTrace();
             }
         }) {
@@ -189,6 +180,7 @@ public class CreatePaymentRequestFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
                 error.printStackTrace();
             }
         }) {
@@ -203,5 +195,58 @@ public class CreatePaymentRequestFragment extends Fragment {
         arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         arrayAdapterPayments.notifyDataSetChanged();
         spinner_company.setAdapter(arrayAdapterPayments);
+    }
+
+
+    private void printErrorMessage(VolleyError error) {
+//        try {
+//            String message = "";
+//            String responseBody = new String(error.networkResponse.data, "utf-8");
+//            JSONObject data = new JSONObject(responseBody);
+//            Iterator<String> keys = data.keys();
+//            while(keys.hasNext()) {
+//                String key = keys.next();
+//                if (data.get(key) instanceof JSONObject) {
+//                    message = message + data.get(key) + "\n";
+//                }
+//            }
+////                    if(data.has("message"))
+////                        message = data.getString("message");
+////                    else if(data. has("Error"))
+//            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+        NetworkResponse response = error.networkResponse;
+        if (error instanceof ServerError && response != null) {
+            try {
+                String message = "";
+
+                String res = new String(response.data,
+                        HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+                // Now you can use any deserializer to make sense of data
+                JSONObject obj = new JSONObject(res);
+                Log.i("obj", String.valueOf(obj));
+                Iterator<String> keys = obj.keys();
+                int i = 0;
+                while(keys.hasNext()) {
+                    String key = keys.next();
+//                    if (obj.get(key) instanceof JSONObject) {
+                        message = message + obj.get(key) + "\n";
+//                    }
+                    i++;
+                }
+                Log.i("message", message);
+                Toast.makeText(getContext(), String.valueOf(message), Toast.LENGTH_LONG).show();
+            } catch (UnsupportedEncodingException e1) {
+                // Couldn't properly decode data to string
+                e1.printStackTrace();
+            } catch (JSONException e2) {
+                // returned data is not JSONObject?
+                e2.printStackTrace();
+            }
+        }
     }
 }

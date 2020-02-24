@@ -10,6 +10,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +46,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -73,6 +76,19 @@ public class SupportFragment extends Fragment {
     private List<String> filterList = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapterFilterList;
     private EditText edt_support_ret;
+    private Spinner spinner_criteria;
+
+    private Spinner spinner_consolidate;
+    private Spinner spinner2;
+    private EditText conso_edittext;
+    private List<String> consolidate_felter = new ArrayList<>();
+    private List<String> filters = new ArrayList<>();
+    private ArrayAdapter<String> arrayAdapterFeltter;
+
+    private String Company_selected;
+    private String Filter_selected, Filter_selected_value;
+    private List<String> company_names = new ArrayList<>();
+    private ArrayAdapter<String> arrayAdapterPayments, arrayAdapterPaymentsFilter;
 
     public SupportFragment() {
         // Required empty public constructor
@@ -96,41 +112,7 @@ public class SupportFragment extends Fragment {
         });
         //init
         recyclerView = root.findViewById(R.id.rv_support_complaints_retailer);
-//        support_retailer_spiner1 = root.findViewById(R.id.support_retailer_spiner1);
-//        support_retailer_spiner2 = root.findViewById(R.id.support_retailer_spiner2);
-//
-//        supportspinner_List.add("abc");
-//        supportspinner_List.add("zxc");
-//        supportspinner_List.add("qwe");
-//        supportspinner_List.add("ghg");
-//
-//        arrayAdapterSupport_ret = new ArrayAdapter<>(root.getContext(),
-//                android.R.layout.simple_spinner_dropdown_item, supportspinner_List);
-//        support_retailer_spiner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long id) {
-//                if (i == 0) {
-//                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-//                } else {
-//                    Filter_Select = supportspinner_List.get(i);
-//                    //if (!Filter_Select.equals("Status"))
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
-//        arrayAdapterSupport_ret.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        arrayAdapterSupport_ret.notifyDataSetChanged();
-//        support_retailer_spiner1.setAdapter(arrayAdapterSupport_ret);
 
-        //filter SPinner2
-
-
-        //recycler view
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -140,6 +122,152 @@ public class SupportFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+//        spinner_criteria = root.findViewById(R.id.spinner_criteria);
+//        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
+//                android.R.layout.simple_spinner_dropdown_item, company_names);
+        spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
+        spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
+        conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
+//        spinner_consolidate.setVisibility(View.GONE);
+        spinner2.setVisibility(View.GONE);
+        conso_edittext.setVisibility(View.GONE);
+        consolidate_felter.add ("Select Criteria");
+        consolidate_felter.add ("Contact Name");
+        consolidate_felter.add ("Issue Type");
+        consolidate_felter.add ("Created Date");
+        consolidate_felter.add ("Status");
+
+        arrayAdapterPaymentsFilter = new ArrayAdapter<>(root.getContext(),
+                android.R.layout.simple_dropdown_item_1line, consolidate_felter);
+
+        spinner_consolidate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                filters = new ArrayList<>();
+                spinner2.setVisibility(View.GONE);
+                conso_edittext.setVisibility(View.GONE);
+                if(i == 0){
+                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                }
+                else{
+                    Filter_selected = consolidate_felter.get(i);
+
+                    if(!Filter_selected.equals("Issue Type"))
+                        spinner2.setSelection(0);
+                    if(!conso_edittext.getText().equals(""))
+                        conso_edittext.setText("");
+
+                    if(Filter_selected.equals("Contact Name")) {
+                        Filter_selected = "ContactName";
+                        conso_edittext.setVisibility(View.VISIBLE);
+                    } else if(Filter_selected.equals("Issue Type")) {
+                        Filter_selected = "IssueType";
+                        spinner2.setVisibility(View.VISIBLE);
+
+                        filters.add ("Issue Type");
+                        filters.add ("Main Dashboard");
+                        filters.add ("Connecting with Businesses");
+                        filters.add ("Contracting");
+                        filters.add ("Order");
+                        filters.add ("Invoice");
+                        filters.add ("Shipment");
+                        filters.add ("My Prepaid Account");
+                        filters.add ("My Profile");
+                        filters.add ("Reports");
+
+                        arrayAdapterFeltter = new ArrayAdapter<>(getContext(),
+                                android.R.layout.simple_dropdown_item_1line, filters);
+
+                        arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        arrayAdapterFeltter.notifyDataSetChanged();
+                        spinner2.setAdapter(arrayAdapterFeltter);
+
+                    } else if(Filter_selected.equals("Created Date")) {
+                        Toast.makeText(getContext(),"Created Date selected",Toast.LENGTH_LONG).show();
+                    } else if(Filter_selected.equals("Status")) {
+                        Filter_selected = "Status";
+                        spinner2.setVisibility(View.VISIBLE);
+
+                        filters.add ("Status");
+                        filters.add ("Pending");
+                        filters.add ("Resolved");
+
+                        arrayAdapterFeltter = new ArrayAdapter<>(getContext(),
+                                android.R.layout.simple_dropdown_item_1line, filters);
+
+                        arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        arrayAdapterFeltter.notifyDataSetChanged();
+                        spinner2.setAdapter(arrayAdapterFeltter);
+
+
+                    }
+                }
+            }
+
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        arrayAdapterPaymentsFilter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapterPaymentsFilter.notifyDataSetChanged();
+        spinner_consolidate.setAdapter(arrayAdapterPaymentsFilter);
+
+        filters.add ("Document Type");
+        filters.add ("Invoice");
+        filters.add ("Prepaid ");
+        filters.add ("Shipment");
+        arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
+                android.R.layout.simple_dropdown_item_1line, filters);
+        Log.i("aaaa1111", String.valueOf(consolidate_felter));
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i == 0){
+                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                }
+                else{
+                    Filter_selected_value = String.valueOf(i);
+                    Log.i("Filter_selected_value",Filter_selected_value);
+                    try {
+                        fetchFilteredSupport();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapterFeltter.notifyDataSetChanged();
+        spinner2.setAdapter(arrayAdapterFeltter);
+
+
+        conso_edittext.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+                Log.i("text1", "check");
+                Log.i("text", String.valueOf(s));
+                Filter_selected_value = String.valueOf(s);
+                try {
+                    fetchFilteredSupport();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        });
+
         return root;
     }
 
@@ -178,18 +306,7 @@ public class SupportFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                try {
-                    String responseBody = new String(error.networkResponse.data, "utf-8");
-                    JSONObject data = new JSONObject(responseBody);
-                    String message = data.getString("message");
-                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                error.printStackTrace();
-                Log.i("onErrorResponse", "Error");
+                printErrorMessage(error);
             }
         }) {
             @Override
@@ -202,5 +319,79 @@ public class SupportFragment extends Fragment {
             }
         };
         Volley.newRequestQueue(getContext()).add(request);
+    }
+
+
+    private void fetchFilteredSupport() throws JSONException {
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+        Log.i("Token  ", Token);
+
+        JSONObject map = new JSONObject();
+        map.put("TotalRecords", 10);
+        map.put("PageNumber", 0);
+
+        MyJsonArrayRequest request = new MyJsonArrayRequest(Request.Method.POST, URL_SUPPORT, map, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                    Log.i("onResponse => SUPPORT ", "" + response.get(0).toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+//
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<SupportDashboardModel>>() {
+                }.getType();
+                try {
+                    SupportList = gson.fromJson(String.valueOf(response.get(0)), type);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                mAdapter = new SupportDashboardAdapter(getContext(), SupportList);
+                recyclerView.setAdapter(mAdapter);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                params.put("Content-Type", "application/json");
+
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(request);
+    }
+
+    private void printErrorMessage(VolleyError error) {
+        try {
+            String message = "";
+            String responseBody = new String(error.networkResponse.data, "utf-8");
+            JSONObject data = new JSONObject(responseBody);
+            Iterator<String> keys = data.keys();
+            while(keys.hasNext()) {
+                String key = keys.next();
+                if (data.get(key) instanceof JSONObject) {
+                    message = message + data.get(key) + "\n";
+                }
+            }
+//                    if(data.has("message"))
+//                        message = data.getString("message");
+//                    else if(data. has("Error"))
+            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

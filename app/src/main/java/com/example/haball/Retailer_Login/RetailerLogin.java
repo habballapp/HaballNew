@@ -43,6 +43,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class RetailerLogin extends AppCompatActivity {
@@ -230,16 +231,7 @@ public class RetailerLogin extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                try {
-                    String responseBody = new String(error.networkResponse.data, "utf-8");
-                    JSONObject data = new JSONObject(responseBody);
-                    String message = data.getString("message");
-                    Toast.makeText(new RetailerLogin(), message, Toast.LENGTH_LONG).show();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                printErrorMessage(error);
                 error.printStackTrace();
                 //Toast.makeText(RetailerLogin.this,error.toString(),Toast.LENGTH_LONG).show();
             }
@@ -273,19 +265,10 @@ public class RetailerLogin extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
 
-                try {
-                    String responseBody = new String(error.networkResponse.data, "utf-8");
-                    JSONObject data = new JSONObject(responseBody);
-                    String message = data.getString("message");
-                    Toast.makeText(new RetailerLogin(), message, Toast.LENGTH_LONG).show();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
                 error.printStackTrace();
-                Toast.makeText(RetailerLogin.this,error.toString(),Toast.LENGTH_LONG).show();
+//                Toast.makeText(RetailerLogin.this,error.toString(),Toast.LENGTH_LONG).show();
             }
         }) {
 
@@ -325,5 +308,28 @@ public class RetailerLogin extends AppCompatActivity {
         });
         Volley.newRequestQueue(this).add(sr);
         return success_text;
+    }
+
+    private void printErrorMessage(VolleyError error) {
+        try {
+            String message = "";
+            String responseBody = new String(error.networkResponse.data, "utf-8");
+            JSONObject data = new JSONObject(responseBody);
+            Iterator<String> keys = data.keys();
+            while(keys.hasNext()) {
+                String key = keys.next();
+                if (data.get(key) instanceof JSONObject) {
+                    message = message + data.get(key) + "\n";
+                }
+            }
+//                    if(data.has("message"))
+//                        message = data.getString("message");
+//                    else if(data. has("Error"))
+            Toast.makeText(RetailerLogin.this, message, Toast.LENGTH_LONG).show();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

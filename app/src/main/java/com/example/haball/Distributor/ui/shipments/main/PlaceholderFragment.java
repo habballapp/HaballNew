@@ -49,6 +49,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -214,16 +215,8 @@ public class PlaceholderFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                try {
-                    String responseBody = new String(error.networkResponse.data, "utf-8");
-                    JSONObject data = new JSONObject(responseBody);
-                    String message = data.getString("message");
-                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                printErrorMessage(error);
+
                 error.printStackTrace();
             }
         }) {
@@ -282,7 +275,9 @@ public class PlaceholderFragment extends Fragment {
                         shipment_tv_quantity.setText(shipmentModel.getGoodsreceivenotesReceiveQty());
 //                        shipment_tv_shstatus.setText(shipmentModel.getDeliveryNoteStatus());
 
-                        if (shipmentModel.getDeliveryNoteStatus().equals("1")) {
+                        if (shipmentModel.getDeliveryNoteStatus().equals("0")) {
+                            shipment_tv_shstatus.setText("Pending");
+                        } else if (shipmentModel.getDeliveryNoteStatus().equals("1")) {
                             shipment_tv_shstatus.setText("Delivered");
                         } else if (shipmentModel.getDeliveryNoteStatus().equals("2")) {
                             shipment_tv_shstatus.setText("Received");
@@ -303,16 +298,8 @@ public class PlaceholderFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        try {
-                            String responseBody = new String(error.networkResponse.data, "utf-8");
-                            JSONObject data = new JSONObject(responseBody);
-                            String message = data.getString("message");
-                            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        printErrorMessage(error);
+
 
                     }
                 }) {
@@ -365,6 +352,7 @@ public class PlaceholderFragment extends Fragment {
                         String Date = parts[0];
                         order_tv_cdate.setText(Date);
                         order_tv_status.setText(orderModel.getOrderStatus());
+
                         if (orderModel.getOrderStatus().equals("0")) {
                             order_tv_status.setText("Pending");
                         } else if (orderModel.getOrderStatus().equals("1")) {
@@ -390,16 +378,8 @@ public class PlaceholderFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        try {
-                            String responseBody = new String(error.networkResponse.data, "utf-8");
-                            JSONObject data = new JSONObject(responseBody);
-                            String message = data.getString("message");
-                            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        printErrorMessage(error);
+
 
                     }
                 }) {
@@ -453,15 +433,28 @@ public class PlaceholderFragment extends Fragment {
                         invoice_tv_date.setText(Date);
                         invoice_tv_amount.setText(invoiceModel.getNetPrice());
 //                        tv_status.setText(invoiceModel.getStatus());
-                        if (invoiceModel.getStatus().equals("1")) {
-                            tv_status.setText("Delivered");
+                        if (invoiceModel.getStatus().equals("0")) {
+                            tv_status.setText("Pending");
+                        } else if (invoiceModel.getStatus().equals("1")) {
+                            tv_status.setText("Unpaid");
                         } else if (invoiceModel.getStatus().equals("2")) {
-                            tv_status.setText("Received");
+                            tv_status.setText("Partially Paid");
                         } else if (invoiceModel.getStatus().equals("3")) {
-                            tv_status.setText("Returned");
+                            tv_status.setText("Paid");
                         } else if (invoiceModel.getStatus().equals("4")) {
-                            tv_status.setText("Revised");
+                            tv_status.setText("Payment Processing");
                         }
+
+
+//                        if (invoiceModel.getStatus().equals("1")) {
+//                            tv_status.setText("Delivered");
+//                        } else if (invoiceModel.getStatus().equals("2")) {
+//                            tv_status.setText("Received");
+//                        } else if (invoiceModel.getStatus().equals("3")) {
+//                            tv_status.setText("Returned");
+//                        } else if (invoiceModel.getStatus().equals("4")) {
+//                            tv_status.setText("Revised");
+//                        }
                     }
 
                 } catch (Exception e) {
@@ -474,16 +467,8 @@ public class PlaceholderFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        try {
-                            String responseBody = new String(error.networkResponse.data, "utf-8");
-                            JSONObject data = new JSONObject(responseBody);
-                            String message = data.getString("message");
-                            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        printErrorMessage(error);
+
 
                     }
                 }) {
@@ -498,4 +483,26 @@ public class PlaceholderFragment extends Fragment {
 
     }
 
+    private void printErrorMessage(VolleyError error) {
+        try {
+            String message = "";
+            String responseBody = new String(error.networkResponse.data, "utf-8");
+            JSONObject data = new JSONObject(responseBody);
+            Iterator<String> keys = data.keys();
+            while(keys.hasNext()) {
+                String key = keys.next();
+                if (data.get(key) instanceof JSONObject) {
+                    message = message + data.get(key) + "\n";
+                }
+            }
+//                    if(data.has("message"))
+//                        message = data.getString("message");
+//                    else if(data. has("Error"))
+            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }

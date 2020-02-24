@@ -43,19 +43,45 @@
         android:layout_marginTop="15dp"
         android:clickable="true"
         android:background="@drawable/button_background"/>
+
     <RelativeLayout
-        android:id="@+id/spinner_container_retailer"
+        android:id="@+id/spinner_container"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="15dp"
-        android:layout_below="@+id/btn_add_ticket_retailer"
-        android:background="@drawable/edit_text_squared">
+        android:background="@drawable/edit_text_squared"
+        android:layout_below="@+id/btn_add_ticket_retailer">
         <Spinner
-            android:id="@+id/support_retailer_spiner1"
+            android:id="@+id/spinner_conso"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="40dp"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/spinner_container1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edit_text_squared"
+        android:layout_below="@+id/spinner_container">
+        <Spinner
+            android:id="@+id/conso_spinner2"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+
+        <EditText
+            android:id="@+id/conso_edittext"
+            android:background="@drawable/edit_text_squared"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+
     </RelativeLayout>
 <!--    <RelativeLayout-->
 <!--        android:id="@+id/spinner_container1"-->
@@ -86,7 +112,7 @@
         android:id="@+id/rv_support_complaints_retailer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/spinner_container_retailer"
+        android:layout_below="@+id/spinner_container1"
         android:layout_marginTop="15dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="30dp"

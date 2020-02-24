@@ -27,7 +27,6 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ln_login"
                     android:layout_marginTop="30dp"
-                    android:layout_marginBottom="40dp"
                     android:orientation="vertical"
                     android:weightSum="8">
 
@@ -53,7 +52,6 @@
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
                         android:paddingLeft="20dp"
-                        android:hint="55555122345432"
                         android:background="@drawable/distribution_login"
                         android:textSize="15sp" />
 
@@ -79,7 +77,6 @@
                         android:layout_weight="1"
                         android:paddingLeft="20dp"
                         android:gravity="center_vertical"
-                        android:hint="24/12/2019"
                         android:background="@drawable/distribution_login"
                         android:textSize="15sp" />
                     <TextView
@@ -103,7 +100,6 @@
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
                         android:paddingLeft="20dp"
-                        android:hint="15000"
                         android:gravity="center_vertical"
                         android:background="@drawable/distribution_login"
                         android:textSize="15sp" />
@@ -128,7 +124,6 @@
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
                         android:paddingLeft="20dp"
-                        android:hint="12/2/2019"
                         android:gravity="center_vertical"
                         android:background="@drawable/distribution_login"
                         android:textSize="15sp" />
@@ -153,7 +148,6 @@
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
                         android:paddingLeft="20dp"
-                        android:hint="1400"
                         android:gravity="center_vertical"
                         android:background="@drawable/distribution_login"
                         android:textSize="15sp" />
@@ -180,7 +174,6 @@
                         android:layout_weight="1"
                         android:paddingLeft="20dp"
                         android:gravity="center_vertical"
-                        android:text="Unpaid"
                         android:background="@drawable/distribution_login"
                         android:textSize="15sp" />
 
@@ -206,49 +199,42 @@
                         android:layout_weight="1"
                         android:paddingLeft="20dp"
                         android:gravity="center_vertical"
-                        android:text="Normal"
                         android:background="@drawable/distribution_login"
                         android:textSize="15sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ln_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/ln_txt"
-                    android:orientation="vertical"
-                    android:weightSum="2">
-
-                    <Button
-                        android:id="@+id/btn_next"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/button_round"
-                        android:gravity="center"
-                        android:text="Next"
-                        android:textAllCaps="false"
-                        android:textColor="#fff"
-                        android:textSize="15sp" />
-
-                </LinearLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_marginTop="10dp"
-                    android:layout_below="@+id/ln_btn">
                     <TextView
                         android:id="@+id/footer"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="fill_parent"
                         android:gravity="center"
                         android:layout_alignParentBottom="true"
                         android:text="© Haball | All rights reserved" />
-                </RelativeLayout>
+
+                </LinearLayout>
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/ln_btn"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@id/ln_txt"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:weightSum="2">-->
+
+<!--                    <Button-->
+<!--                        android:id="@+id/btn_next"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="40dp"-->
+<!--                        android:layout_marginLeft="30dp"-->
+<!--                        android:layout_marginRight="30dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:background="@drawable/button_round"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="Next"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:textColor="#fff"-->
+<!--                        android:textSize="15sp" />-->
+
+<!--                </LinearLayout>-->
+
             </RelativeLayout>
         </ScrollView>
     </RelativeLayout>

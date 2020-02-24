@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,11 +41,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -59,6 +63,7 @@ public class PlaceholderFragment extends Fragment {
 
     //invoice Details
     private TextView distri_invoiceID, distri_invoiceDate, distri_invoiceAmount, distri_payment_date, distri_Transaction_amount, distri_status, distri_state;
+//    private TextView invoice_shipment_id, invoice_shpDelivery_date, invoice_shpRecieving_date, invoice_shpstatus;
     private String INVOICE_URL = "http://175.107.203.97:4008/api/Invoices/";
 
     //Dealer Details
@@ -160,6 +165,13 @@ public class PlaceholderFragment extends Fragment {
             }
             case 5: {
                 rootView = inflater.inflate(R.layout.fragment_shipment_details, container, false);
+
+                invoice_shipment_id = rootView.findViewById(R.id.invoice_shipment_id);
+                invoice_shpDelivery_date = rootView.findViewById(R.id.invoice_shpDelivery_date);
+                invoice_shpRecieving_date = rootView.findViewById(R.id.invoice_shpRecieving_date);
+                invoice_shpstatus = rootView.findViewById(R.id.invoice_shpstatus);
+                ShipmentDetailsData();
+
 //                invoice_shipment_id = rootView.findViewById(R.id.invoice_shipment_id);
 //                invoice_shpDelivery_date = rootView.findViewById(R.id.invoice_shpDelivery_date);
 //                invoice_shpRecieving_date = rootView.findViewById(R.id.invoice_shpRecieving_date);
@@ -169,6 +181,80 @@ public class PlaceholderFragment extends Fragment {
             }
         }
         return rootView;
+
+    }
+
+    private void ShipmentDetailsData() {
+        SharedPreferences sharedPreferences3 = getContext().getSharedPreferences("Invoice_ID",
+                Context.MODE_PRIVATE);
+        paymentID = sharedPreferences3.getString("InvoiceID", "");
+        Log.i("payment ID", paymentID);
+
+        Log.i("emthod", "kmkn");
+
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+        Log.i("DistributorId invoice", DistributorId);
+        Log.i("Token invoice", Token);
+        if (!INVOICE_URL.contains(paymentID))
+            INVOICE_URL = INVOICE_URL + paymentID;
+        Log.i("INVOICE_URL", INVOICE_URL);
+
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, INVOICE_URL,null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.i("response", String.valueOf(response));
+                try {
+                    try {
+                        if(TextUtils.isEmpty(String.valueOf(response.get("ShipmentId"))))
+                            invoice_shipment_id.setText(response.get("ShipmentId").toString());
+                        if(TextUtils.isEmpty(String.valueOf(response.get("ShipmentDeliveryDate"))))
+                            invoice_shpDelivery_date.setText(response.get("ShipmentDeliveryDate").toString().split("T")[0]);
+                        if(TextUtils.isEmpty(String.valueOf(response.get("ReceivingDate"))))
+                            invoice_shpRecieving_date.setText(response.get("ReceivingDate").toString().split("T")[0]);
+                        if(TextUtils.isEmpty(String.valueOf(response.get("ShipmentStatus")))) {
+                            if (response.get("ShipmentStatus").equals("0")) {
+                                invoice_shpstatus.setText("Pending");
+                            } else if (response.get("ShipmentStatus").equals("1")) {
+                                invoice_shpstatus.setText("Delivered");
+                            } else if (response.get("ShipmentStatus").equals("2")) {
+                                invoice_shpstatus.setText("Received");
+                            } else if (response.get("ShipmentStatus").equals("3")) {
+                                invoice_shpstatus.setText("Returned");
+                            } else if (response.get("ShipmentStatus").equals("4")) {
+                                invoice_shpstatus.setText("Revised");
+                            }
+                        }
+                    } catch (JSONException ex) {
+                        ex.printStackTrace();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(), "Error" + e.toString(), Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        printErrorMessage(error);
+
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(stringRequest);
 
     }
 
@@ -217,6 +303,7 @@ public class PlaceholderFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        printErrorMessage(error);
 
                     }
                 }) {
@@ -344,14 +431,16 @@ public class PlaceholderFragment extends Fragment {
                         String[] parts = string.split("T");
                         String Date = parts[0];
                         invoice_Order_cdate.setText(Date);
-                        if (ordersDetails_model.getOrderStatus().equals("1")) {
-                            invoice_Order_status.setText("Delivered");
+                        if (ordersDetails_model.getOrderStatus().equals("0")) {
+                            invoice_Order_status.setText("Pending");
+                        } else if (ordersDetails_model.getOrderStatus().equals("1")) {
+                            invoice_Order_status.setText("Approved");
                         } else if (ordersDetails_model.getOrderStatus().equals("2")) {
-                            invoice_Order_status.setText("Received");
+                            invoice_Order_status.setText("Rejected");
                         } else if (ordersDetails_model.getOrderStatus().equals("3")) {
-                            invoice_Order_status.setText("Returned");
+                            invoice_Order_status.setText("Draft");
                         } else if (ordersDetails_model.getOrderStatus().equals("4")) {
-                            invoice_Order_status.setText("Revised");
+                            invoice_Order_status.setText("Cancelled");
                         }
                         Order_shipaddress.setText(ordersDetails_model.getOrdersShippingAddress());
                         Order_billingAddress.setText(ordersDetails_model.getOrdersBillingAddress());
@@ -369,6 +458,7 @@ public class PlaceholderFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        printErrorMessage(error);
 
                     }
                 }) {
@@ -436,6 +526,7 @@ public class PlaceholderFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        printErrorMessage(error);
 
                     }
                 }) {
@@ -488,19 +579,33 @@ public class PlaceholderFragment extends Fragment {
                         distri_payment_date.setText(Date_payment);
                         distri_Transaction_amount.setText(invoiceModel.getTotalPrice());
 //                        tv_status.setText(invoiceModel.getStatus());
-                        if (invoiceModel.getStatus().equals("1")) {
-                            distri_status.setText("Delivered");
+//                        if (invoiceModel.getStatus().equals("1")) {
+//                            distri_status.setText("Delivered");
+//                        } else if (invoiceModel.getStatus().equals("2")) {
+//                            distri_status.setText("Received");
+//                        } else if (invoiceModel.getStatus().equals("3")) {
+//                            distri_status.setText("Returned");
+//                        } else if (invoiceModel.getStatus().equals("4")) {
+//                            distri_status.setText("Revised");
+//                        }
+                        if (invoiceModel.getStatus().equals("0")) {
+                            distri_status.setText("Pending");
+                        } else if (invoiceModel.getStatus().equals("1")) {
+                            distri_status.setText("Unpaid");
                         } else if (invoiceModel.getStatus().equals("2")) {
-                            distri_status.setText("Received");
+                            distri_status.setText("Partially Paid");
                         } else if (invoiceModel.getStatus().equals("3")) {
-                            distri_status.setText("Returned");
+                            distri_status.setText("Paid");
                         } else if (invoiceModel.getStatus().equals("4")) {
-                            distri_status.setText("Revised");
+                            distri_status.setText("Payment Processing");
                         }
+
                         if (invoiceModel.getState().equals("0")) {
                             distri_state.setText("Normal");
                         } else if (invoiceModel.getStatus().equals("1")) {
                             distri_state.setText("Consolidate");
+                        } else if (invoiceModel.getStatus().equals("2")) {
+                            distri_state.setText("Split");
                         }
                     }
 
@@ -515,6 +620,7 @@ public class PlaceholderFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        printErrorMessage(error);
 
                     }
                 }) {
@@ -527,5 +633,29 @@ public class PlaceholderFragment extends Fragment {
         };
         Volley.newRequestQueue(getContext()).add(stringRequest);
 
+    }
+
+
+    private void printErrorMessage(VolleyError error) {
+        try {
+            String message = "";
+            String responseBody = new String(error.networkResponse.data, "utf-8");
+            JSONObject data = new JSONObject(responseBody);
+            Iterator<String> keys = data.keys();
+            while(keys.hasNext()) {
+                String key = keys.next();
+                if (data.get(key) instanceof JSONObject) {
+                    message = message + data.get(key) + "\n";
+                }
+            }
+//                    if(data.has("message"))
+//                        message = data.getString("message");
+//                    else if(data. has("Error"))
+            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
