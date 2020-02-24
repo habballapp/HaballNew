@@ -16,10 +16,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.orders.Adapter.CompanyFragmentAdapter;
 import com.example.haball.Distributor.ui.orders.Adapter.DistributorOrderAdapter;
 import com.example.haball.Distributor.ui.orders.Adapter.OrderSummaryAdapter;
 import com.example.haball.Distributor.ui.orders.Adapter.OrdersItemsAdapter;
+import com.example.haball.Distributor.ui.orders.Models.Company_Fragment_Model;
 import com.example.haball.Distributor.ui.orders.Models.OrderFragmentModel;
 import com.example.haball.Distributor.ui.orders.OrdersTabsLayout.Tabs.Orders_Items_Fragment;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
@@ -58,8 +65,8 @@ public class PlaceholderFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager ,layoutManager1;
     private Button create_payment;
     private Spinner spinner_consolidate;
-    private List<OrderFragmentModel> OrderList;
-    private String URL_ORDER = "http://175.107.203.97:4008/api/orders/search";
+    private List<Company_Fragment_Model> CompanyList;
+    private String URL_Company = "http://175.107.203.97:4008/api/company/ReadActiveCompanyOrders/";
     private String Token, DistributorId;
     private String Filter_selected, Filter_selected_value;
     private Spinner spinner2;
@@ -119,42 +126,10 @@ public class PlaceholderFragment extends Fragment {
             case 2: {
 
                 rootView = inflater.inflate(R.layout.fragment_order__summary, container, false);
-
-
-//
-//                recyclerView1 = rootView.findViewById(R.id.rv_orders_summary);
-//
-//                 recyclerView1.setHasFixedSize(false);
-//                // use a linear layout manager
-//                 layoutManager1 = new LinearLayoutManager(getContext());
-//                 recyclerView1.setLayoutManager(layoutManager1);
-//                mAdapter1 = new OrderSummaryAdapter(getContext(),"0","abc","1232","230","32678");
-//
-//                recyclerView1.setAdapter(mAdapter1);
-//                Log.i("aaaaaa", String.valueOf(mAdapter1));
                   break;
             }
 
-
-//
-            //   mAdapter = new CompanyFragmentAdapter(getContext(),"Ghulam Rabani & Sons Traders & Distributors", mPager, mycontainer, myinflater);
-            //    recyclerView.setAdapter(mAdapter);
-
-
-
-
-             /*   rootView = inflater.inflate(R.layout.fragment_sent_, container, false);
-                recyclerView1 = (RecyclerView) rootView.findViewById(R.id.rv_sent);
-                recyclerView1.setHasFixedSize(false);
-                // use a linear layout manager
-                layoutManager = new LinearLayoutManager(getContext());
-                recyclerView1.setLayoutManager(layoutManager);
-                mAdapter1 = new DistributorOrderAdapter(getContext(),);
-                recyclerView1.setAdapter(mAdapter1);
-                Log.i("aaaaaa", String.valueOf(mAdapter1));
-                break;*/
         }
-
             return rootView;
 
 
@@ -164,12 +139,8 @@ public class PlaceholderFragment extends Fragment {
     private void Holderorders(final View root){
 
 
-        recyclerView = (RecyclerView) root.findViewById(R.id.rv_order_ledger);
+        recyclerView =  root.findViewById(R.id.rv_order_ledger);
        // create_payment = root.findViewById(R.id.place_order_button);
-
-
-
-
 
        /* create_payment = root.findViewById(R.id.place_order_button);
         create_payment.setOnClickListener(new View.OnClickListener() {
@@ -332,68 +303,63 @@ public class PlaceholderFragment extends Fragment {
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-//        try {
-//            fetchOrders();
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            fetchCompany();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 //        mAdapter = new DistributorOrderAdapter(getContext(),"Ghulam Rabani & Sons Traders & Distributors","1002312324251524","89465","Pending");
 //        recyclerView.setAdapter(mAdapter);
-        mAdapter = new CompanyFragmentAdapter(getContext(),"Ghulam Rabani & Sons Traders & Distributors", mPager, mycontainer, myinflater);
-        recyclerView.setAdapter(mAdapter);
+//        mAdapter = new CompanyFragmentAdapter(getContext(),"Ghulam Rabani & Sons Traders & Distributors", mPager, mycontainer, myinflater);
+//        recyclerView.setAdapter(mAdapter);
 
         Log.i("qqqqqqq", String.valueOf(mPager));
 
 
     }
-//
-//    private void fetchOrders() throws JSONException {
-//        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
-//                Context.MODE_PRIVATE);
-//        Token = sharedPreferences.getString("Login_Token","");
-//        Log.i("Token", Token);
-//
-//        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
-//                Context.MODE_PRIVATE);
-//        DistributorId = sharedPreferences1.getString("Distributor_Id","");
-//        Log.i("DistributorId ", DistributorId);
-//
-//        JSONObject map = new JSONObject();
-//        map.put("DistributorId", Integer.parseInt(DistributorId));
-//        map.put("TotalRecords", 10);
-//        map.put("PageNumber", 0);
-//        map.put("Status", -1);
-//        map.put("OrderState", -1);
-//
-//        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_ORDER, map,new Response.Listener<JSONArray>() {
-//            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-//            @Override
-//            public void onResponse(JSONArray result) {
-//                Log.i("Payments Requests", result.toString());
-//                Gson gson = new Gson();
-//                Type type = new TypeToken<List<OrderFragmentModel>>(){}.getType();
-//                OrderList = gson.fromJson(result.toString(),type);
-//
-//                mAdapter = new DistributorOrderAdapter(getContext(),OrderList);
-//                recyclerView.setAdapter(mAdapter);
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                error.printStackTrace();
-//            }
-//        }){
-//
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                Map<String, String> params = new HashMap<String, String>();
-//                params.put("Authorization", "bearer " +Token);
-//                params.put("Content-Type", "application/json; charset=UTF-8");
-//                return params;
-//            }
-//        };
-//        Volley.newRequestQueue(getContext()).add(sr);
-//    }
+
+    private void fetchCompany() throws JSONException {
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token","");
+        Log.i("Token", Token);
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id","");
+        Log.i("DistributorId ", DistributorId);
+        if(!URL_Company.contains(DistributorId))
+            URL_Company = URL_Company + DistributorId;
+
+        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.GET, URL_Company, null,new Response.Listener<JSONArray>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onResponse(JSONArray result) {
+                Log.i("Payments Requests", result.toString());
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<Company_Fragment_Model>>(){}.getType();
+                CompanyList = gson.fromJson(result.toString(),type);
+                Log.i("CompanyList", String.valueOf(CompanyList));
+                mAdapter = new CompanyFragmentAdapter(getContext(),CompanyList,mPager);
+                recyclerView.setAdapter(mAdapter);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        }){
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " +Token);
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(sr);
+    }
 //
 //
 //    private void fetchFilteredOrders() throws JSONException {

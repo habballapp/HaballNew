@@ -1,6 +1,7 @@
 package com.example.haball.Distributor.ui.orders.Adapter;
 
         import android.content.Context;
+        import android.content.SharedPreferences;
         import android.os.Bundle;
         import android.view.LayoutInflater;
         import android.view.View;
@@ -30,31 +31,20 @@ package com.example.haball.Distributor.ui.orders.Adapter;
         import java.util.List;
 
 public class CompanyFragmentAdapter extends RecyclerView.Adapter<CompanyFragmentAdapter.ViewHolder> {
-//    ViewPager mPager;
-    //  private Orders_Fragment mContext;
+
     private  String heading="";
-    private DrawerLayout drawer;
     private FragmentTransaction fragmentTransaction;
-
     private Context context;
-    private List<OrderFragmentModel> orderList;
+    private List<Company_Fragment_Model> companyList;
     private ViewPager mPager;
-    private ViewGroup mycontainer;
-    private LayoutInflater myinflator;
-    private Button place_order_button;
-    public CompanyFragmentAdapter(Context requestOrder, String heading, ViewPager mPager, ViewGroup container, LayoutInflater inflator){
 
-        this.heading = heading;
-        this.context = requestOrder;
+    public CompanyFragmentAdapter(Context context, List<Company_Fragment_Model> companyList, ViewPager mPager) {
+
+        this.context = context;
+        this.companyList = companyList;
         this.mPager = mPager;
-        this.mycontainer = container;
-        this.myinflator = inflator;
     }
-//
-//    public DistributorOrderAdapter(Context context, List<OrderFragmentModel> orderList) {
-//        this.context = context;
-//        this.orderList = orderList;
-//    }
+
 
 
 
@@ -64,16 +54,13 @@ public class CompanyFragmentAdapter extends RecyclerView.Adapter<CompanyFragment
         return new CompanyFragmentAdapter.ViewHolder(view_inflate);
     }
 
-//    @Override
-//    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//
-//    }
 
     @Override
-    public void onBindViewHolder(@NonNull CompanyFragmentAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CompanyFragmentAdapter.ViewHolder holder, final int position) {
 //
-//        if(orderList.get(position).getCompanyName() != null)
-//            heading = orderList.get(position).getCompanyName();
+        if(companyList.get(position).getName() != null)
+            heading = companyList.get(position).getName();
+            holder.tv_heading.setText(heading);
 //
 //        if(orderList.get(position).getCompanyName()!= null)
 //            orderno = orderList.get(position).getOrderNumber();
@@ -82,7 +69,7 @@ public class CompanyFragmentAdapter extends RecyclerView.Adapter<CompanyFragment
 //        if(orderList.get(position).getOrderStatusValue()!= null)
 //            status = orderList.get(position).getOrderStatusValue();
 //
-//        holder.tv_heading.setText(heading);
+
 //        holder.order_no_value.setText(orderno);
 //        DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
 //        String yourFormattedString1 = formatter1.format(Integer.parseInt(amount));
@@ -125,14 +112,23 @@ public class CompanyFragmentAdapter extends RecyclerView.Adapter<CompanyFragment
 //        if(orderList.get(position).getOrderStatusValue()!= null)
 //            status = orderList.get(position).getOrderStatusValue();
 
-        holder.tv_heading.setText(heading);
+    //    holder.tv_heading.setText(heading);
         holder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                     // mPager.setCurrentItem(0);
+
+                SharedPreferences companyId = ((FragmentActivity) context).getSharedPreferences("CompanyId",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = companyId.edit();
+                editor.putString("CompanyId", companyList.get(position).getId());
+                editor.commit();
+
+
                    FragmentTransaction fragmentTransaction= ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
                    fragmentTransaction.add(R.id.main_container,new Orders_Items_Fragment());
                    fragmentTransaction.commit();
+
                 // View root = myinflator.inflate(R.layout.orders_items_fragments, false);// TabLayout tab = root.findViewById(R.id.tabs5);
                /*   place_order_button.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -157,7 +153,7 @@ public class CompanyFragmentAdapter extends RecyclerView.Adapter<CompanyFragment
     @Override
     public int getItemCount() {
 //        return orderList.size();
-        return 2;
+        return companyList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -170,8 +166,8 @@ public class CompanyFragmentAdapter extends RecyclerView.Adapter<CompanyFragment
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_heading = itemView.findViewById(R.id.heading);
-            ll = (LinearLayout) itemView.findViewById(R.id.ll_heading);
-            place_order_button = (Button) itemView.findViewById(R.id.place_order_button);
+            ll = itemView.findViewById(R.id.ll_heading);
+           // place_order_button = (Button) itemView.findViewById(R.id.place_order_button);
 
 
 

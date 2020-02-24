@@ -1,25 +1,27 @@
 package com.example.haball.Distributor.ui.orders.Models;
 
 public class Company_Fragment_Model {
-    String ID, OrderNumber, TotalPrice, OrderStatusValue, CompanyName;
-    public Company_Fragment_Model(String ID, String companyName) {
-        this.ID = ID;
-        CompanyName = companyName;
+    String ID,Name;
+
+    public Company_Fragment_Model(String id, String name) {
+        ID = id;
+        Name = name;
     }
 
-    public String getID() {
+    public String getId() {
         return ID;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setId(String id) {
+        ID = id;
     }
 
-    public String getCompanyName() {
-        return CompanyName;
+    public String getName() {
+        return Name;
     }
 
-    public void setCompanyName(String companyName) {
-        CompanyName = companyName;
+    public void setName(String name) {
+        Name = name;
     }
+
 }

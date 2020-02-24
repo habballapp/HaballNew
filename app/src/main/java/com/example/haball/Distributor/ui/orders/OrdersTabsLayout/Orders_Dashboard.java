@@ -27,7 +27,7 @@ public class Orders_Dashboard extends Fragment {
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getActivity(), getChildFragmentManager());
         final ViewPager viewPager = root.findViewById(R.id.view_pager5);
         viewPager.setAdapter(sectionsPagerAdapter);
-        TabLayout tabs = root.findViewById(R.id.tabs5);
+        final TabLayout tabs = root.findViewById(R.id.tabs5);
         tabs.setupWithViewPager(viewPager);
 
         LinearLayout tabStrip = ((LinearLayout)tabs.getChildAt(0));
@@ -39,7 +39,8 @@ public class Orders_Dashboard extends Fragment {
                 }
             });
         }
-        viewPager.beginFakeDrag();
+
         return root;
     }
+
 }

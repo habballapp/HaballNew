@@ -39,6 +39,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -352,8 +353,18 @@ public class Registration_Actvity2 extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                try {
+                    String responseBody = new String(error.networkResponse.data, "utf-8");
+                    JSONObject data = new JSONObject(responseBody);
+                    String message = data.getString("message");
+                    Toast.makeText(new Registration_Actvity2(), message, Toast.LENGTH_LONG).show();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 error.printStackTrace();
-                Toast.makeText(Registration_Actvity2.this,error.toString(),Toast.LENGTH_LONG).show();
+              //  Toast.makeText(Registration_Actvity2.this,error.toString(),Toast.LENGTH_LONG).show();
             }
 
         });
@@ -377,6 +388,16 @@ public class Registration_Actvity2 extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                try {
+                    String responseBody = new String(error.networkResponse.data, "utf-8");
+                    JSONObject data = new JSONObject(responseBody);
+                    String message = data.getString("message");
+                    Toast.makeText(new Registration_Actvity2(), message, Toast.LENGTH_LONG).show();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 error.printStackTrace();
             }
         });
@@ -406,6 +427,16 @@ public class Registration_Actvity2 extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                try {
+                    String responseBody = new String(error.networkResponse.data, "utf-8");
+                    JSONObject data = new JSONObject(responseBody);
+                    String message = data.getString("message");
+                    Toast.makeText(new Registration_Actvity2(), message, Toast.LENGTH_LONG).show();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 error.printStackTrace();
             }
         });
@@ -436,6 +467,16 @@ public class Registration_Actvity2 extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                try {
+                    String responseBody = new String(error.networkResponse.data, "utf-8");
+                    JSONObject data = new JSONObject(responseBody);
+                    String message = data.getString("message");
+                    Toast.makeText(new Registration_Actvity2(), message, Toast.LENGTH_LONG).show();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 error.printStackTrace();
             }
         });

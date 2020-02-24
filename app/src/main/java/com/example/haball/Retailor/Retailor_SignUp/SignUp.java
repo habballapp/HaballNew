@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,12 +21,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
-import com.example.haball.Registration.BooleanRequest;
 import com.example.haball.Retailer_Login.RetailerLogin;
-import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 
 public class SignUp extends AppCompatActivity implements View.OnFocusChangeListener {
 
@@ -129,8 +128,18 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8");
+                        JSONObject data = new JSONObject(responseBody);
+                        String message = data.getString("message");
+                        Toast.makeText(new RetailerLogin(), message, Toast.LENGTH_LONG).show();
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     error.printStackTrace();
-                    Toast.makeText(SignUp.this,error.toString(),Toast.LENGTH_LONG).show();
+                  //  Toast.makeText(SignUp.this,error.toString(),Toast.LENGTH_LONG).show();
                 }
 
             });
