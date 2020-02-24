@@ -136,7 +136,14 @@ public class CreatePaymentRequestFragment extends Fragment {
                 try {
                     String responseBody = new String(error.networkResponse.data, "utf-8");
                     JSONObject data = new JSONObject(responseBody);
-                    String message = data.getString("message");
+                    String message = "";
+                    if(data.has("message")) {
+                        message = data.getString("message");
+                    } else if(data.has("errors")) {
+                        Log.i("error", data.getString("errors"));
+                    } else if(data.has("statusText")) {
+                        Log.i("statusText", data.getString("statusText"));
+                    }
                     Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();

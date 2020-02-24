@@ -2,6 +2,7 @@ package com.example.haball.Payment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -80,6 +81,12 @@ public class Consolidate_Fragment_View_Adapter extends RecyclerView.Adapter<Cons
                         switch (item.getItemId()) {
                             case R.id.consiladate_view:
                                 Toast.makeText(context,"View Invoice",Toast.LENGTH_LONG).show();
+
+                                SharedPreferences shipmentid = ((FragmentActivity) context).getSharedPreferences("Invoice_ID",
+                                        Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = shipmentid.edit();
+                                editor.putString("InvoiceID", consolidatePaymentsDetailList.get(position).getID());
+                                editor.commit();
 
                                 FragmentTransaction fragmentTransaction = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
                                 fragmentTransaction.replace(R.id.main_container, new Distributor_Invoice_DashBoard());

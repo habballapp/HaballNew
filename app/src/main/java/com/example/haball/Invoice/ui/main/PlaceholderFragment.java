@@ -2,6 +2,7 @@ package com.example.haball.Invoice.ui.main;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,8 +16,10 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Invoice.Adapters.ProductAdapter;
 import com.example.haball.Invoice.Models.DealerDetails_Model;
 import com.example.haball.Invoice.Models.InvoiceDetails_Model;
 import com.example.haball.Invoice.Models.OrdersDetails_Model;
@@ -25,15 +28,21 @@ import com.example.haball.Invoice.Models.ShipmentDetails_Model;
 import com.example.haball.R;
 import com.example.haball.Shipment.ui.main.Models.Distributor_InvoiceModel;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,7 +64,7 @@ public class PlaceholderFragment extends Fragment {
     //Dealer Details
     private TextView dealer_Code ,dealer_first_name ,dealer_last_name,dealer_email,dealer_mobile_no ,dealer_landline,dealer_NTN,dealer_company_name,dealer_created_date;
     //Order Details
-    private  TextView invoice_order_id ,invoice_company_name , invoice_tr_mode, invoice_payment_term ,invoice_Order_cdate, invoice_Order_status ,Order_shipaddress ,Order_billingAddress;
+    private  TextView total_price, invoice_order_id ,invoice_company_name , invoice_tr_mode, invoice_payment_term ,invoice_Order_cdate, invoice_Order_status ,Order_shipaddress ,Order_billingAddress;
     //Product Details
     private RecyclerView rv_invo_product;
     private RecyclerView.Adapter rv_productAdapter;
@@ -140,6 +149,7 @@ public class PlaceholderFragment extends Fragment {
             case 4: {
                 rootView = inflater.inflate(R.layout.fragment_product_details, container, false);
                 rv_invo_product = rootView.findViewById(R.id.rv_invo_product);
+                total_price = rootView.findViewById(R.id.total_price);
                 ProductDetailsData();
                 rv_invo_product.setHasFixedSize(true);
                 layoutManager = new LinearLayoutManager(rootView.getContext());
@@ -183,11 +193,18 @@ public class PlaceholderFragment extends Fragment {
             INVOICE_URL = INVOICE_URL + paymentID;
         Log.i("INVOICE_URL", INVOICE_URL);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, INVOICE_URL, new Response.Listener<String>() {
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, INVOICE_URL,null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                Log.i("response", response);
+            public void onResponse(JSONObject response) {
+                Log.i("response", String.valueOf(response));
                 try {
+                    total_price.setText(response.get("InvoiceTotal").toString());
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<ProductDetails_Model>>(){}.getType();
+                    invo_productList = gson.fromJson(response.get("InvoiceDetails").toString(),type);
+                    Log.i("ProductList", String.valueOf(response.get("InvoiceDetails")));
+                    ProductAdapter productAdapter = new ProductAdapter(getContext(), invo_productList);
+                    rv_invo_product.setAdapter(productAdapter);
 
 
                 } catch (Exception e) {

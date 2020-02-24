@@ -1,50 +1,67 @@
 package com.example.haball.Invoice.Models;
 
 public class ProductDetails_Model {
-    private String DeliveryNumber;
-    private String DeliveryDate;
-    private String ReceivingDate;
-    private String ShipmentStatus;
+    private String ProductCode;
+    private String DeliveredQty;
+    private String UnitPrice;
+    private String Discount;
+    private String TotalPrice;
+    private String ProductName;
 
-    public ProductDetails_Model() {
+    public String getProductCode() {
+        return ProductCode;
     }
 
-    public ProductDetails_Model(String deliveryNumber, String deliveryDate, String receivingDate, String shipmentStatus) {
-        DeliveryNumber = deliveryNumber;
-        DeliveryDate = deliveryDate;
-        ReceivingDate = receivingDate;
-        ShipmentStatus = shipmentStatus;
+    public void setProductCode(String productCode) {
+        ProductCode = productCode;
     }
 
-    public String getDeliveryNumber() {
-        return DeliveryNumber;
+    public String getDeliveredQty() {
+        return DeliveredQty;
     }
 
-    public void setDeliveryNumber(String deliveryNumber) {
-        DeliveryNumber = deliveryNumber;
+    public void setDeliveredQty(String deliveredQty) {
+        DeliveredQty = deliveredQty;
     }
 
-    public String getDeliveryDate() {
-        return DeliveryDate;
+    public String getUnitPrice() {
+        return UnitPrice;
     }
 
-    public void setDeliveryDate(String deliveryDate) {
-        DeliveryDate = deliveryDate;
+    public void setUnitPrice(String unitPrice) {
+        UnitPrice = unitPrice;
     }
 
-    public String getReceivingDate() {
-        return ReceivingDate;
+    public String getDiscount() {
+        return Discount;
     }
 
-    public void setReceivingDate(String receivingDate) {
-        ReceivingDate = receivingDate;
+    public void setDiscount(String discount) {
+        Discount = discount;
     }
 
-    public String getShipmentStatus() {
-        return ShipmentStatus;
+    public String getTotalPrice() {
+        return TotalPrice;
     }
 
-    public void setShipmentStatus(String shipmentStatus) {
-        ShipmentStatus = shipmentStatus;
+    public void setTotalPrice(String totalPrice) {
+        TotalPrice = totalPrice;
+    }
+
+    public String getProductName() {
+        return ProductName;
+    }
+
+    public void setProductName(String productName) {
+        ProductName = productName;
+    }
+
+    public ProductDetails_Model(String productCode, String deliveredQty, String unitPrice, String discount, String totalPrice, String productName) {
+        ProductCode = productCode;
+        DeliveredQty = deliveredQty;
+        UnitPrice = unitPrice;
+        Discount = discount;
+        TotalPrice = totalPrice;
+        ProductName = productName;
     }
 }
