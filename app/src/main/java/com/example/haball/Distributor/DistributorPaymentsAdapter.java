@@ -93,7 +93,7 @@ public class DistributorPaymentsAdapter extends RecyclerView.Adapter<Distributor
                 holder.tv_status.setText("Unpaid");
             }
         } else {
-            position = 0;
+            position = position - paymentsList.size();
             if (invoiceList != null) {
                 holder.tv_state.setVisibility(View.VISIBLE);
                 holder.tv_state_value.setVisibility(View.VISIBLE);
@@ -139,7 +139,7 @@ public class DistributorPaymentsAdapter extends RecyclerView.Adapter<Distributor
 
                                         break;
                                     case R.id.view_pdf:
-                                        Toast.makeText(mContxt, "View PDF", Toast.LENGTH_LONG).show();
+//                                        Toast.makeText(mContxt, "View PDF", Toast.LENGTH_LONG).show();
                                         try {
                                             viewPDF(invoiceList.get(finalPosition).getID());
                                         } catch (JSONException e) {

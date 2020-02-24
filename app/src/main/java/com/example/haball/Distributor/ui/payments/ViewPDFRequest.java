@@ -51,6 +51,7 @@ import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -118,20 +119,23 @@ public class ViewPDFRequest {
 //        Volley.newRequestQueue(context).add(sr);
 
 
-
+        final Context finalcontext = context;
         InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.POST, URL_PDF_VIEW, new Response.Listener<byte[]>() {
             @Override
             public void onResponse(byte[] response) {
                 // TODO handle the response
                 try {
                     if (response!=null) {
-                        String name = Environment.getExternalStorageDirectory() + "/myappname/" + "sample1.pdf";
+                        String dir = Environment.getExternalStorageDirectory() + "/Download/";
+                        String timeStamp = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(new Date());
+                        String name = dir + "Invoice - " + timeStamp + ".pdf";
                         FileOutputStream fPdf = new FileOutputStream(name);
 
                         fPdf.write(response);
                         fPdf.flush();
                         fPdf.close();
                         Log.i("Download Complete", "Download complete.");
+                        Toast.makeText(mContext, "File saved in Downloads", Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
