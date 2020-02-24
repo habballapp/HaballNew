@@ -59,22 +59,22 @@ public class Orders_Items_Fragment extends Fragment {
         mAdapter1 = new OrdersItemsAdapter(getContext(),"0","abc","1232","230");
         itemsSelect_Rv.setAdapter(mAdapter1);
 
-         if(Checkout){
+         if(Checkout==true){
 
-//             place_item_button.setBackgroundResource(R.drawable.button_round);
-//             place_item_button.setEnabled(true);
-//
-//             place_item_button.setOnClickListener(new View.OnClickListener() {
-//                 @Override
-//                 public void onClick(View v) {
-//                     ViewPager  viewPager = getActivity().findViewById(R.id.view_pager5);
-//                     Toast.makeText(getContext(),"Clicked", Toast.LENGTH_SHORT).show();
-//                     viewPager.setCurrentItem(1);
-//                     FragmentTransaction fragmentTransaction= ((FragmentActivity)getActivity()).getSupportFragmentManager().beginTransaction();
-//                     fragmentTransaction.add(R.id.main_container,new Order_Summary());
-//                     fragmentTransaction.commit();
-//                 }
-//             });
+             place_item_button.setBackgroundResource(R.drawable.button_round);
+             place_item_button.setEnabled(true);
+
+             place_item_button.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     ViewPager  viewPager = getActivity().findViewById(R.id.view_pager5);
+                     Toast.makeText(getContext(),"Clicked", Toast.LENGTH_SHORT).show();
+                     viewPager.setCurrentItem(1);
+                     FragmentTransaction fragmentTransaction= ((FragmentActivity)getActivity()).getSupportFragmentManager().beginTransaction();
+                     fragmentTransaction.add(R.id.main_container,new Order_Summary());
+                     fragmentTransaction.commit();
+                 }
+             });
              Log.i("Checkout", "in true");
          }
          else {
