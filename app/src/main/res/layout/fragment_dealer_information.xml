@@ -43,7 +43,7 @@
                         android:textSize="@dimen/heading" />
 
                     <TextView
-                        android:id="@+id/order_id"
+                        android:id="@+id/dealer_Code"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center_vertical"
@@ -196,7 +196,7 @@
                         android:textColor="#96bb3c"
                         android:textSize="@dimen/heading" />
                     <TextView
-                        android:id="@+id/dealer_no"
+                        android:id="@+id/dealer_NTN"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginLeft="30dp"

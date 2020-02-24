@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +17,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Invoice.Models.DealerDetails_Model;
 import com.example.haball.Invoice.Models.InvoiceDetails_Model;
+import com.example.haball.Invoice.Models.OrdersDetails_Model;
+import com.example.haball.Invoice.Models.ProductDetails_Model;
+import com.example.haball.Invoice.Models.ShipmentDetails_Model;
 import com.example.haball.R;
 import com.example.haball.Shipment.ui.main.Models.Distributor_InvoiceModel;
 import com.google.gson.Gson;
@@ -26,8 +31,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -38,11 +47,24 @@ public class PlaceholderFragment extends Fragment {
     private String Token;
     private String DistributorId;
     private String paymentID;
+
     //invoice Details
     private TextView distri_invoiceID, distri_invoiceDate, distri_invoiceAmount, distri_payment_date, distri_Transaction_amount, distri_status, distri_state;
     private String INVOICE_URL = "http://175.107.203.97:4008/api/Invoices/";
-    private static final String ARG_SECTION_NUMBER = "section_number";
 
+    //Dealer Details
+    private TextView dealer_Code ,dealer_first_name ,dealer_last_name,dealer_email,dealer_mobile_no ,dealer_landline,dealer_NTN,dealer_company_name,dealer_created_date;
+    //Order Details
+    private  TextView invoice_order_id ,invoice_company_name , invoice_tr_mode, invoice_payment_term ,invoice_Order_cdate, invoice_Order_status ,Order_shipaddress ,Order_billingAddress;
+    //Product Details
+    private RecyclerView rv_invo_product;
+    private RecyclerView.Adapter rv_productAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private List<ProductDetails_Model> invo_productList = new ArrayList<>();
+     // Shipment Details
+    private  TextView invoice_shipment_id,invoice_shpDelivery_date,invoice_shpRecieving_date ,invoice_shpstatus;
+
+    private static final String ARG_SECTION_NUMBER = "section_number";
     private PageViewModel pageViewModel;
 
     public static PlaceholderFragment newInstance(int index) {
@@ -88,20 +110,51 @@ public class PlaceholderFragment extends Fragment {
             }
             case 2: {
                 rootView = inflater.inflate(R.layout.fragment_dealer_information, container, false);
+                dealer_Code = rootView.findViewById(R.id.dealer_Code);
+                dealer_first_name = rootView.findViewById(R.id.dealer_first_name);
+                dealer_last_name = rootView.findViewById(R.id.dealer_last_name);
+                dealer_email = rootView.findViewById(R.id.dealer_email);
+                dealer_mobile_no = rootView.findViewById(R.id.dealer_mobile_no);
+                dealer_landline = rootView.findViewById(R.id.dealer_landline);
+                dealer_NTN = rootView.findViewById(R.id.dealer_NTN);
+                dealer_company_name = rootView.findViewById(R.id.dealer_company_name);
+                dealer_created_date = rootView.findViewById(R.id.dealer_created_date);
+                DealerDetailsData();
                 break;
             }
 
             case 3: {
                 rootView = inflater.inflate(R.layout.fragment_orders_details, container, false);
+                invoice_order_id = rootView.findViewById(R.id.invoice_order_id);
+                invoice_company_name = rootView.findViewById(R.id.invoice_company_name);
+                invoice_tr_mode = rootView.findViewById(R.id.invoice_tr_mode);
+                invoice_payment_term = rootView.findViewById(R.id.invoice_payment_term);
+                invoice_Order_cdate = rootView.findViewById(R.id.invoice_Order_cdate);
+                invoice_Order_status = rootView.findViewById(R.id.invoice_Order_status);
+                Order_shipaddress = rootView.findViewById(R.id.Order_shipaddress);
+                Order_billingAddress = rootView.findViewById(R.id.Order_billingAddress);
+                OrderDetailsData();
                 break;
             }
 
             case 4: {
                 rootView = inflater.inflate(R.layout.fragment_product_details, container, false);
+                rv_invo_product = rootView.findViewById(R.id.rv_invo_product);
+                ProductDetailsData();
+                rv_invo_product.setHasFixedSize(true);
+                layoutManager = new LinearLayoutManager(rootView.getContext());
+                rv_invo_product.setLayoutManager(layoutManager);
+
+
                 break;
             }
             case 5: {
                 rootView = inflater.inflate(R.layout.fragment_shipment_details, container, false);
+//                invoice_shipment_id = rootView.findViewById(R.id.invoice_shipment_id);
+//                invoice_shpDelivery_date = rootView.findViewById(R.id.invoice_shpDelivery_date);
+//                invoice_shpRecieving_date = rootView.findViewById(R.id.invoice_shpRecieving_date);
+//                invoice_shpstatus = rootView.findViewById(R.id.invoice_shpstatus);
+               // ShipmentDetailsData();
                 break;
             }
         }
@@ -109,7 +162,7 @@ public class PlaceholderFragment extends Fragment {
 
     }
 
-    private void InvoiceDetailsData() {
+    private void ProductDetailsData() {
         SharedPreferences sharedPreferences3 = getContext().getSharedPreferences("Invoice_ID",
                 Context.MODE_PRIVATE);
         paymentID = sharedPreferences3.getString("InvoiceID", "");
@@ -129,6 +182,275 @@ public class PlaceholderFragment extends Fragment {
         if (!INVOICE_URL.contains(paymentID))
             INVOICE_URL = INVOICE_URL + paymentID;
         Log.i("INVOICE_URL", INVOICE_URL);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, INVOICE_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.i("response", response);
+                try {
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(), "Error" + e.toString(), Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(stringRequest);
+
+    }
+
+//    private void ShipmentDetailsData() {
+//        SharedPreferences sharedPreferences3 = getContext().getSharedPreferences("Invoice_ID",
+//                Context.MODE_PRIVATE);
+//        paymentID = sharedPreferences3.getString("InvoiceID", "");
+//        Log.i("payment ID", paymentID);
+//
+//        Log.i("emthod", "kmkn");
+//
+//        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+//                Context.MODE_PRIVATE);
+//        Token = sharedPreferences.getString("Login_Token", "");
+//
+//        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+//                Context.MODE_PRIVATE);
+//        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+//        Log.i("DistributorId invoice", DistributorId);
+//        Log.i("Token invoice", Token);
+//        if (!INVOICE_URL.contains(paymentID))
+//            INVOICE_URL = INVOICE_URL + paymentID;
+//        Log.i("INVOICE_URL", INVOICE_URL);
+//
+//        StringRequest stringRequest = new StringRequest(Request.Method.GET, INVOICE_URL, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                Log.i("response", response);
+//                try {
+//                    if (response != null && !response.equals("")) {
+//                        Gson gson = new Gson();
+//                        ShipmentDetails_Model shipmentDetails_model = gson.fromJson(response, ShipmentDetails_Model.class);
+//                        invoice_shipment_id.setText(shipmentDetails_model.g());
+//                        invoice_company_name.setText(shipmentDetails_model.getDistributorCompanyName());
+//                        invoice_tr_mode.setText(shipmentDetails_model.getTransportTypeDescription());
+//                        invoice_payment_term.setText(shipmentDetails_model.getPaymentTermDescription());
+//                        String string = ordersDetails_model.getOrderDate();
+//                        String[] parts = string.split("T");
+//                        String Date = parts[0];
+//                        invoice_Order_cdate.setText(Date);
+//                        if (ordersDetails_model.getOrderStatus().equals("1")) {
+//                            invoice_Order_status.setText("Delivered");
+//                        } else if (ordersDetails_model.getOrderStatus().equals("2")) {
+//                            invoice_Order_status.setText("Received");
+//                        } else if (ordersDetails_model.getOrderStatus().equals("3")) {
+//                            invoice_Order_status.setText("Returned");
+//                        } else if (ordersDetails_model.getOrderStatus().equals("4")) {
+//                            invoice_Order_status.setText("Revised");
+//                        }
+//                        Order_shipaddress.setText(ordersDetails_model.getOrdersShippingAddress());
+//                        Order_billingAddress.setText(ordersDetails_model.getOrdersBillingAddress());
+//
+//                    }
+//
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    Toast.makeText(getActivity(), "Error" + e.toString(), Toast.LENGTH_SHORT).show();
+//
+//                }
+//            }
+//        },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//
+//                    }
+//                }) {
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                Map<String, String> params = new HashMap<String, String>();
+//                params.put("Authorization", "bearer " + Token);
+//                return params;
+//            }
+//        };
+//        Volley.newRequestQueue(getContext()).add(stringRequest);
+//
+//    }
+
+    private void OrderDetailsData() {
+        SharedPreferences sharedPreferences3 = getContext().getSharedPreferences("Invoice_ID",
+                Context.MODE_PRIVATE);
+        paymentID = sharedPreferences3.getString("InvoiceID", "");
+        Log.i("payment ID", paymentID);
+
+        Log.i("emthod", "kmkn");
+
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+        Log.i("DistributorId invoice", DistributorId);
+        Log.i("Token invoice", Token);
+        if (!INVOICE_URL.contains(paymentID))
+            INVOICE_URL = INVOICE_URL + paymentID;
+        Log.i("INVOICE_URL", INVOICE_URL);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, INVOICE_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.i("response", response);
+                try {
+                    if (response != null && !response.equals("")) {
+                        Gson gson = new Gson();
+                        OrdersDetails_Model ordersDetails_model = gson.fromJson(response, OrdersDetails_Model.class);
+                        invoice_order_id.setText(ordersDetails_model.getOrderNumber());
+                        invoice_company_name.setText(ordersDetails_model.getDistributorCompanyName());
+                        invoice_tr_mode.setText(ordersDetails_model.getTransportTypeDescription());
+                        invoice_payment_term.setText(ordersDetails_model.getPaymentTermDescription());
+                        String string = ordersDetails_model.getOrderDate();
+                        String[] parts = string.split("T");
+                        String Date = parts[0];
+                        invoice_Order_cdate.setText(Date);
+                        if (ordersDetails_model.getOrderStatus().equals("1")) {
+                            invoice_Order_status.setText("Delivered");
+                        } else if (ordersDetails_model.getOrderStatus().equals("2")) {
+                            invoice_Order_status.setText("Received");
+                        } else if (ordersDetails_model.getOrderStatus().equals("3")) {
+                            invoice_Order_status.setText("Returned");
+                        } else if (ordersDetails_model.getOrderStatus().equals("4")) {
+                            invoice_Order_status.setText("Revised");
+                        }
+                        Order_shipaddress.setText(ordersDetails_model.getOrdersShippingAddress());
+                        Order_billingAddress.setText(ordersDetails_model.getOrdersBillingAddress());
+
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(), "Error" + e.toString(), Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(stringRequest);
+
+    }
+
+    private void DealerDetailsData() {
+        SharedPreferences sharedPreferences3 = getContext().getSharedPreferences("Invoice_ID",
+                Context.MODE_PRIVATE);
+        paymentID = sharedPreferences3.getString("InvoiceID", "");
+        Log.i("payment ID", paymentID);
+
+        Log.i("emthod", "kmkn");
+
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+        Log.i("DistributorId invoice", DistributorId);
+        Log.i("Token invoice", Token);
+        if (!INVOICE_URL.contains(paymentID))
+            INVOICE_URL = INVOICE_URL + paymentID;
+        Log.i("INVOICE_URL", INVOICE_URL);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, INVOICE_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.i("response", response);
+                try {
+                    if (response != null && !response.equals("")) {
+                        Gson gson = new Gson();
+                        DealerDetails_Model dealerDetails = gson.fromJson(response, DealerDetails_Model.class);
+                        dealer_Code.setText(dealerDetails.getDistributorDealerCode());
+                        dealer_first_name.setText(dealerDetails.getDistributorFirstName());
+                        dealer_last_name.setText(dealerDetails.getDistributorLastName());
+                        dealer_email.setText(dealerDetails.getDistributorEmail());
+                        dealer_mobile_no.setText(dealerDetails.getDistributorMobile());
+                        dealer_landline.setText(dealerDetails.getDistributorPhone());
+                        dealer_NTN.setText(dealerDetails.getDistributorsCompanyNTN());
+                        dealer_company_name.setText(dealerDetails.getDistributorCompanyName());
+                        String string = dealerDetails.getDistributorCreatedDate();
+                        String[] parts = string.split("T");
+                        String Date = parts[0];
+                        dealer_created_date.setText(Date);
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(), "Error" + e.toString(), Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(stringRequest);
+    }
+
+    private void InvoiceDetailsData() {
+        SharedPreferences sharedPreferences3 = getContext().getSharedPreferences("Invoice_ID",
+                Context.MODE_PRIVATE);
+        paymentID = sharedPreferences3.getString("InvoiceID", "");
+        Log.i("payment ID", paymentID);
+
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+        Log.i("DistributorId invoice", DistributorId);
+        Log.i("Token invoice", Token);
+        if (!INVOICE_URL.contains(paymentID))
+            INVOICE_URL = INVOICE_URL + paymentID;
+        Log.i("INVOICE_URL", INVOICE_URL);
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET, INVOICE_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
