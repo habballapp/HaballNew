@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
@@ -30,7 +31,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -64,12 +68,21 @@ public class ViewPDFRequest {
             @Override
             public void onResponse(String result) {
                 Log.i("PDF VIEW..", result);
-                try {
-                    showPdf(result);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                byte[] bytes = result.getBytes(Charset.forName("UTF-8"));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    try {
+                        byte[] decodedString = Base64.getDecoder().decode(new String(bytes).getBytes("UTF-8"));
+                        String string = new String(decodedString);
+                        Log.i("PDF BYTE DECODED..", string);
 
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                String string = new String(bytes);
+                Log.i("PDF BYTE ARRAY..", string);
+                saveToFile(bytes, "file.pdf");
             }
         }, new Response.ErrorListener() {
             @Override
@@ -88,44 +101,28 @@ public class ViewPDFRequest {
         Volley.newRequestQueue(context).add(sr);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void showPdf(String result) throws IOException {
+    public void saveToFile(byte[] byteArray, String pFileName){
+        File f = new File(Environment.getExternalStorageDirectory() + "/myappname");
+        if (!f.isDirectory()) {
+            f.mkdir();
+        }
 
-        InputStream stream = new ByteArrayInputStream(result.getBytes(StandardCharsets.UTF_8));
-
-        Log.i("stream", String.valueOf(stream));
+        String fileName = Environment.getExternalStorageDirectory() + "/myappname/" + pFileName;
 
         try {
-            //input is your input stream object
-            File file = new File(Environment.getExternalStorageDirectory(), "filename.pdf");
-            OutputStream output = new FileOutputStream(file);
-            Log.i("output", String.valueOf(output));
 
-            try {
-                try {
-                    byte[] buffer = new byte[4 * 1024]; // or other buffer size
-                    int read;
-                    Log.i("byte ", "bytes");
+            FileOutputStream fPdf = new FileOutputStream(fileName);
 
-                    while ((read = stream.read(buffer)) != -1) {
-                        Log.i("read ", String.valueOf(read));
-
-                        output.write(buffer, 0, read);
-                        Log.i("output.write ", "output.write");
-
-                    }
-                    output.flush();
-                } finally {
-                    output.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace(); // handle exception, define IOException and others
-            }
+            fPdf.write(byteArray);
+            fPdf.flush();
+            fPdf.close();
+            Toast.makeText(mContext, "File successfully saved", Toast.LENGTH_LONG).show();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            stream.close();
+            Toast.makeText(mContext, "File create error", Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            Toast.makeText(mContext, "File write error", Toast.LENGTH_LONG).show();
         }
+
     }
 
 }

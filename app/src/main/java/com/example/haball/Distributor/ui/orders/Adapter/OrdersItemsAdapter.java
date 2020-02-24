@@ -12,35 +12,27 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.haball.Distributor.ui.orders.Models.OrderItemsModel;
 import com.example.haball.R;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import java.util.List;
+
 public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.ViewHolder> {
 
     private Context context;
-    public String txt_count,txt_products,unit_price_value,discount_price;
+    private String txt_count,txt_products,unit_price_value,discount_price;
     private EditText quantity;
-    public Button btn_cart;
+    private Button btn_cart;
+    private List<OrderItemsModel> productsDataList;
 
-
-    public OrdersItemsAdapter(Context context, String txt_count, String txt_products, String unit_price_value, String discount_price) {
+    public OrdersItemsAdapter(Context context, List<OrderItemsModel> productsDataList) {
         this.context = context;
-        this.txt_count = txt_count;
-        this.txt_products = txt_products;
-        this.unit_price_value = unit_price_value;
-        this.discount_price = discount_price;
+        this.productsDataList = productsDataList;
     }
-
-    public OrdersItemsAdapter(Context context, String txt_count, String txt_products, String unit_price_value, String discount_price, ViewPager mPager) {
-        this.context = context;
-        this.txt_count = txt_count;
-        this.txt_products = txt_products;
-        this.unit_price_value = unit_price_value;
-        this.discount_price = discount_price;
-         }
 
     public OrdersItemsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view_inflate = LayoutInflater.from(context).inflate(R.layout.orders_items_recycler,parent,false);
@@ -49,11 +41,10 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull OrdersItemsAdapter.ViewHolder holder, int position) {
-        holder.txt_count.setText(txt_count);
-        holder.txt_products.setText(txt_products);
-        holder.unit_price_value.setText(unit_price_value);
-        holder.discount_price.setText(discount_price);
-
+        holder.txt_count.setText(productsDataList.get(position).getCode());
+        holder.txt_products.setText(productsDataList.get(position).getTitle());
+        holder.unit_price_value.setText(String.valueOf(productsDataList.get(position).getUnitPrice()));
+        holder.discount_price.setText(String.valueOf(productsDataList.get(position).getDiscountAmount()));
 
          //final String s1 = quantity.getText().toString();
         Log.i("S1:", String.valueOf(quantity));
@@ -89,18 +80,13 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
             @Override
             public void afterTextChanged(Editable s) {
 
-
-
-
-
-
             }
         });
 
     }
     @Override
     public int getItemCount() {
-        return 1;
+        return productsDataList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
