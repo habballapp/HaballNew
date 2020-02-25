@@ -12,7 +12,7 @@
             android:title="Pay By ">
         <menu>
             <item android:id="@+id/create_new"
-                android:title="Ebay" />
+                android:title="Epay" />
             <item android:id="@+id/open"
                 android:title="Paypal" />
         </menu>

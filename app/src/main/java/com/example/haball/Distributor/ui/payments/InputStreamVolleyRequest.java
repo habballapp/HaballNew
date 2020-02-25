@@ -1,5 +1,6 @@
 package com.example.haball.Distributor.ui.payments;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -28,7 +29,11 @@ public class InputStreamVolleyRequest extends Request<byte[]> {
         mParams=params;
         mmap=map;
     }
-    
+
+    @Override
+    public byte[] getBody() throws AuthFailureError {
+        return mmap.toString().getBytes();
+    }
     @Override
     protected void deliverResponse(byte[] response) {
         mListener.onResponse(response);

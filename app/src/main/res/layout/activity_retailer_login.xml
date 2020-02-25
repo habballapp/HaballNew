@@ -104,6 +104,7 @@
                         android:theme="@style/TextLabel"
                         app:boxStrokeColor="#e5e5e5"
                         app:boxStrokeWidth="0.5dp"
+                        app:boxBackgroundColor="#fff"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -132,6 +133,7 @@
                         app:boxStrokeColor="#e5e5e5"
                         app:passwordToggleEnabled="true"
                         app:boxStrokeWidth="0.5dp"
+                        app:boxBackgroundColor="#fff"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                         <com.google.android.material.textfield.TextInputEditText

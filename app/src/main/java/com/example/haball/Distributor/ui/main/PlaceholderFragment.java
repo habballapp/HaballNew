@@ -22,9 +22,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.DistributorOrdersAdapter;
+import com.example.haball.Distributor.DistributorOrdersModel;
 import com.example.haball.Distributor.DistributorPaymentsAdapter;
 
 import com.example.haball.Distributor.DistributorPaymentsModel;
+import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.example.haball.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -55,10 +57,12 @@ public class PlaceholderFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private String URL_DISTRIBUTOR_DASHBOARD = "http://175.107.203.97:4008/api/dashboard/ReadDistributorDashboard";
     private String URL_DISTRIBUTOR_PAYMENTS = "http://175.107.203.97:4008/api/dashboard/ReadDistributorPayments";
+    private String URL_DISTRIBUTOR_ORDERS = "http://175.107.203.97:4008/api/orders/search";
 
     private TextView value_unpaid_amount, value_paid_amount;
     private List<DistributorPaymentsModel> PaymentsList = new ArrayList<>();
-        private String Token;
+    private List<DistributorOrdersModel> OrdersList = new ArrayList<>();
+    private String Token, DistributorId;
 
     private PageViewModel pageViewModel;
 
@@ -108,24 +112,81 @@ public class PlaceholderFragment extends Fragment {
 
             case 3: {
                 rootView = inflater.inflate(R.layout.fragment_orders, container, false);
+                try {
+                    fetchOrderData();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_fragment_orders);
 
-                // use this setting to improve performance if you know that changes
-                // in content do not change the layout size of the RecyclerView
                 recyclerView.setHasFixedSize(true);
-
-                // use a linear layout manager
                 layoutManager = new LinearLayoutManager(rootView.getContext());
                 recyclerView.setLayoutManager(layoutManager);
 
-                // specify an adapter (see also next example)
-                OrdersAdapter = new DistributorOrdersAdapter(this,"Ghulam Rabani & Sons Traders & Distributors","51247895354254780369","PKR 600,000.00","Approved");
-                recyclerView.setAdapter(OrdersAdapter);
                 break;
+
+//                recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_fragment_orders);
+//
+//                // use this setting to improve performance if you know that changes
+//                // in content do not change the layout size of the RecyclerView
+//                recyclerView.setHasFixedSize(true);
+//
+//                // use a linear layout manager
+//                layoutManager = new LinearLayoutManager(rootView.getContext());
+//                recyclerView.setLayoutManager(layoutManager);
+//
+//                // specify an adapter (see also next example)
+//                OrdersAdapter = new DistributorOrdersAdapter(this,"Ghulam Rabani & Sons Traders & Distributors","51247895354254780369","PKR 600,000.00","Approved");
+//                recyclerView.setAdapter(OrdersAdapter);
+//                break;
             }
         }
         return rootView;
     }
+    private void fetchOrderData() throws JSONException {
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token","");
+        DistributorId = sharedPreferences.getString("Distributor_Id","");
+        Log.i("Token", Token);
+        JSONObject map = new JSONObject();
+        map.put("Status", -1);
+        map.put("OrderState", -1);
+        map.put("DistributorId", DistributorId);
+        map.put("TotalRecords", 10);
+        map.put("PageNumber", 0);
+
+        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS, map, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray result) {
+                //                    JSONArray jsonArray = new JSONArray(result);
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<DistributorOrdersModel>>(){}.getType();
+                OrdersList = gson.fromJson(result.toString(),type);
+
+                OrdersAdapter = new DistributorOrdersAdapter(getContext(),OrdersList);
+                recyclerView.setAdapter(OrdersAdapter);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+
+                error.printStackTrace();
+            }
+        }){
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " +Token);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(sr);
+    }
+
 
     private void fetchPaymentsData() {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
