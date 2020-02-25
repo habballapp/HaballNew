@@ -57,7 +57,6 @@
         android:textColor="#676a6c"
         />
 
-    />
     <TextView
         android:id="@+id/discount"
         android:layout_width="wrap_content"

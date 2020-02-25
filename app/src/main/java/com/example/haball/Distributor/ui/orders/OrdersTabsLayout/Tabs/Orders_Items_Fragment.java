@@ -55,32 +55,63 @@ public class Orders_Items_Fragment extends Fragment {
     private String PRODUCTS_URL = "http://175.107.203.97:4008/api/products/ReadProductsByCategories/";
     private String PRODUCTS_CATEGORY_URL = "http://175.107.203.97:4008/api/products/ReadCategories/0/";
 
-    private String Token, DistributorId;
+    private String Token, DistributorId, object_string;
+    private List<OrderItemsModel> selectedProductsDataList = new ArrayList<>();
     private List<OrderItemsModel> ProductsDataList = new ArrayList<>();
-
+    private int i = 0;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-         final View view = inflater.inflate(R.layout.orders_items_fragments, container, false);
-      //  View view1 = inflater.inflate(R.layout.fragment_orders__dashboard, container, false);
-                //init
-              place_item_button = (Button) view.findViewById(R.id.place_item_button);
-               place_item_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ViewPager  viewPager = getActivity().findViewById(R.id.view_pager5);
-                Toast.makeText(getContext(),"Clicked", Toast.LENGTH_SHORT).show();
-                viewPager.setCurrentItem(1);
-                FragmentTransaction fragmentTransaction= ((FragmentActivity)getActivity()).getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.add(R.id.main_container,new Order_Summary());
-                fragmentTransaction.commit();
-            }
-        });
+
+        final View view = inflater.inflate(R.layout.orders_items_fragments, container, false);
+
+        place_item_button = view.findViewById(R.id.place_item_button);
+
+//        SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts",
+//                Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = selectedProducts.edit();
+//        editor.putString("selected_products","");
+//        editor.apply();
+
         holderitems(view);
 
         return view;
     }
 
+    private void enableCheckout(){
+        Log.i("checkout", "in checkout");
+        SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts",
+                Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        object_string = selectedProducts.getString("selected_products", "");
+        Log.i("object_string", object_string);
+        Type type = new TypeToken<List<OrderItemsModel>>(){}.getType();
+        selectedProductsDataList = gson.fromJson(object_string, type );
+        if(selectedProductsDataList != null) {
+            if(selectedProductsDataList.size() > 0) {
+                place_item_button.setBackgroundResource(R.drawable.button_round);
+                place_item_button.setEnabled(true);
+                place_item_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ViewPager viewPager = getActivity().findViewById(R.id.view_pager5);
+                        SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts",
+                                Context.MODE_PRIVATE);
+                        Gson gson = new Gson();
+                        object_string = selectedProducts.getString("selected_products", "");
+                        Type type = new TypeToken<List<OrderItemsModel>>(){}.getType();
+                        selectedProductsDataList = gson.fromJson(object_string, type );
+                        if(selectedProductsDataList.size()>0){
+                            Toast.makeText(getContext(), "Clicked", Toast.LENGTH_SHORT).show();
+                            viewPager.setCurrentItem(1);
+                            FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.add(R.id.main_container, new Order_Summary());
+                            fragmentTransaction.commit();
+                        }
+                    }
+                });
+            }
+        }
+    }
     private void fetchProductsData() {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
@@ -95,13 +126,13 @@ public class Orders_Items_Fragment extends Fragment {
 
         Log.i("DistributorId ", DistributorId);
         Log.i("Token", Token);
-            PRODUCTS_CATEGORY_URL = PRODUCTS_CATEGORY_URL + CompanyId;
+        PRODUCTS_CATEGORY_URL = PRODUCTS_CATEGORY_URL + CompanyId;
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.GET, PRODUCTS_CATEGORY_URL, null, new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(JSONArray result) {
+            public void onResponse(final JSONArray result) {
                 Log.i("CATEGORY DATA .. ", result.toString());
 
-                for(int i = 0; i < result.length(); i++) {
+                for (i = 0; i < result.length(); i++) {
 //                    try {
 //                        Log.i("category items", String.valueOf(result.get(i)));
 //                    } catch (JSONException e) {
@@ -109,7 +140,7 @@ public class Orders_Items_Fragment extends Fragment {
 //                    }
                     try {
                         JSONObject obj = result.getJSONObject(i);
-                        PRODUCTS_URL = PRODUCTS_URL + obj.get("ID") + "/" + CompanyId ;
+                        PRODUCTS_URL = PRODUCTS_URL + obj.get("ID") + "/" + CompanyId;
                         Log.i("PRODUCTS_URL", PRODUCTS_URL);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -120,11 +151,13 @@ public class Orders_Items_Fragment extends Fragment {
                         public void onResponse(JSONArray resultProduct) {
                             Log.i("PRODUCTS DATA .. ", resultProduct.toString());
                             Gson gson = new Gson();
-                            Type type = new TypeToken<List<OrderItemsModel>>(){}.getType();
-                            ProductsDataList.addAll((Collection<? extends OrderItemsModel>) gson.fromJson(resultProduct.toString(),type));
-                            mAdapter1 = new OrdersItemsAdapter(getContext(),ProductsDataList);
+                            Type type = new TypeToken<List<OrderItemsModel>>() {
+                            }.getType();
+                            ProductsDataList.addAll((Collection<? extends OrderItemsModel>) gson.fromJson(resultProduct.toString(), type));
+                            mAdapter1 = new OrdersItemsAdapter(getContext(), ProductsDataList);
                             itemsSelect_Rv.setAdapter(mAdapter1);
 
+                            Log.i("i", String.valueOf(i));
 
                         }
                     }, new Response.ErrorListener() {
@@ -145,12 +178,12 @@ public class Orders_Items_Fragment extends Fragment {
                     Volley.newRequestQueue(getContext()).add(sr1);
 
 
-
                     PRODUCTS_URL = "http://175.107.203.97:4008/api/products/ReadProductsByCategories/";
 
 
                 }
 
+                enableCheckout();
 
 //                mAdapter = new Consolidate_Fragment_Adapter(getContext(),ConsolidatePaymentsRequestList);
 //                recyclerView.setAdapter(mAdapter);
@@ -170,11 +203,12 @@ public class Orders_Items_Fragment extends Fragment {
             }
         };
         Volley.newRequestQueue(getContext()).add(sr);
+
     }
 
     private void holderitems(final View root) {
-        Log.i("abbasi" ,"abccccccccccccccccc");
-        itemsSelect_Rv =(RecyclerView) root.findViewById(R.id.rv_items_orders);
+        Log.i("abbasi", "abccccccccccccccccc");
+        itemsSelect_Rv = (RecyclerView) root.findViewById(R.id.rv_items_orders);
 
         itemsSelect_Rv.setHasFixedSize(true);
         layoutManager1 = new LinearLayoutManager(getContext());
@@ -188,26 +222,26 @@ public class Orders_Items_Fragment extends Fragment {
         fetchProductsData();
 
 
-        Log.i("placeHolder12" , String.valueOf(mAdapter1));
+        Log.i("placeHolder12", String.valueOf(mAdapter1));
 
     }
 
     private void printErrorMessage(VolleyError error) {
-        if(error.networkResponse != null && error.networkResponse.data != null) {
+        if (error.networkResponse != null && error.networkResponse.data != null) {
             try {
                 String message = "";
                 String responseBody = new String(error.networkResponse.data, "utf-8");
                 JSONObject data = new JSONObject(responseBody);
                 Iterator<String> keys = data.keys();
-                while(keys.hasNext()) {
+                while (keys.hasNext()) {
                     String key = keys.next();
-    //                if (data.get(key) instanceof JSONObject) {
-                        message = message + data.get(key) + "\n";
-    //                }
+                    //                if (data.get(key) instanceof JSONObject) {
+                    message = message + data.get(key) + "\n";
+                    //                }
                 }
-    //                    if(data.has("message"))
-    //                        message = data.getString("message");
-    //                    else if(data. has("Error"))
+                //                    if(data.has("message"))
+                //                        message = data.getString("message");
+                //                    else if(data. has("Error"))
                 Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();

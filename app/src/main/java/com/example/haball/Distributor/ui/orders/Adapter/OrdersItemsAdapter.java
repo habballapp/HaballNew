@@ -1,7 +1,9 @@
 package com.example.haball.Distributor.ui.orders.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,20 +16,20 @@ import android.widget.Toast;
 
 import com.example.haball.Distributor.ui.orders.Models.OrderItemsModel;
 import com.example.haball.R;
+import com.google.gson.Gson;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.ViewHolder> {
 
     private Context context;
-    private String txt_count,txt_products,unit_price_value,discount_price;
-    private EditText quantity;
-    private Button btn_cart;
     private List<OrderItemsModel> productsDataList;
+    private List<OrderItemsModel> selectedProductsDataList = new ArrayList<>();
 
     public OrdersItemsAdapter(Context context, List<OrderItemsModel> productsDataList) {
         this.context = context;
@@ -40,39 +42,27 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OrdersItemsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final OrdersItemsAdapter.ViewHolder holder, final int position) {
         holder.txt_products.setText(productsDataList.get(position).getCode() + "  |  " + productsDataList.get(position).getTitle());
         holder.unit_price_value.setText(String.valueOf(productsDataList.get(position).getUnitPrice()));
         holder.discount_price.setText(String.valueOf(productsDataList.get(position).getDiscountAmount()));
-
-         //final String s1 = quantity.getText().toString();
-        Log.i("S1:", String.valueOf(quantity));
-        quantity.addTextChangedListener(new TextWatcher() {
+        holder.quantity.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                btn_cart.setBackgroundResource(R.drawable.button_grey_round);
+                holder.btn_cart.setBackgroundResource(R.drawable.button_grey_round);
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                double myNum =0;
-                try {
-                    myNum = Integer.parseInt(quantity.getText().toString());
-                } catch(NumberFormatException nfe) {
-                   // System.out.println("Please Enter Number Only " + nfe);
-                    Toast.makeText(context,"Error",Toast.LENGTH_SHORT);
+                if (TextUtils.isEmpty(holder.quantity.getText())){
+                    holder.btn_cart.setBackgroundResource(R.drawable.button_grey_round);
+                    holder.btn_cart.setEnabled(false);
                 }
-
-              //  String s1 = quantity.getText().toString();
-                if (myNum == 0)
-                {
-                    btn_cart.setBackgroundResource(R.drawable.button_grey_round);
-                    btn_cart.setEnabled(false);
+                else{
+                    holder.btn_cart.setBackgroundResource(R.drawable.button_round);
+                    holder.btn_cart.setEnabled(true);
                 }
-                else
-                    btn_cart.setBackgroundResource(R.drawable.button_round);
-                // btn_cart.
 
             }
 
@@ -81,7 +71,23 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
 
             }
         });
+        holder.btn_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectedProductsDataList.add(productsDataList.get(position));
+                Toast.makeText(context, selectedProductsDataList.get(0).getTitle(), Toast.LENGTH_LONG).show();
 
+                Gson gson = new Gson();
+                String json = gson.toJson(selectedProductsDataList);
+
+                SharedPreferences selectedProducts = context.getSharedPreferences("selectedProducts",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = selectedProducts.edit();
+                editor.putString("selected_products",json);
+                editor.apply();
+
+            }
+        });
     }
     @Override
     public int getItemCount() {
@@ -89,7 +95,7 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView txt_count,txt_products,unit_price_value,discount_price;
+        public TextView txt_count,txt_products,unit_price_value,discount_price, btn_cart, quantity;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -100,8 +106,6 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
             discount_price = itemView.findViewById(R.id.discount_price);
             quantity =  itemView.findViewById(R.id.quantity);
             btn_cart = itemView.findViewById(R.id.btn_cart);
-
-
         }
     }
 }
