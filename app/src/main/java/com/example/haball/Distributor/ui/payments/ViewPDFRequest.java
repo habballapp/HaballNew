@@ -49,17 +49,23 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+
+import static com.google.android.gms.plus.PlusOneDummyView.TAG;
 
 public class ViewPDFRequest {
     public String URL_PDF_VIEW = "http://175.107.203.97:4008/api/Invoices/DetailReport/";
     public String DistributorId, Token;
     public Context mContext;
+    private static final int PERMISSION_REQUEST_CODE = 1;
+
     public ViewPDFRequest(){}
 
     public void viewPDF(Context context, String paymentId) throws JSONException {
@@ -120,7 +126,7 @@ public class ViewPDFRequest {
 
 
         final Context finalcontext = context;
-        InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.POST, URL_PDF_VIEW, new Response.Listener<byte[]>() {
+        InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.POST, URL_PDF_VIEW,map, new Response.Listener<byte[]>() {
             @Override
             public void onResponse(byte[] response) {
                 // TODO handle the response

@@ -20,9 +20,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haball.Distribution_Login.Distribution_Login;
 import com.example.haball.Distributor.ui.payments.Payments_Fragment;
+import com.example.haball.Distributor.ui.payments.ViewVoucherRequest;
 import com.example.haball.R;
 import com.example.haball.Retailor.ui.Dashboard.DashBoardFragment;
 import com.example.haball.Retailor.ui.Make_Payment.Payment_Summary;
+
+import org.json.JSONException;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -155,7 +158,15 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
 
 
                             case R.id.payment_request_ebay:
-                                Toast.makeText(context,"Ebay Clicked",Toast.LENGTH_LONG).show();
+                                Toast.makeText(context,"Epay Clicked",Toast.LENGTH_LONG).show();
+                                break;
+                            case R.id.payment_request_download:
+//                                        Toast.makeText(mContxt, "View PDF", Toast.LENGTH_LONG).show();
+                                try {
+                                    viewPDF(context, paymentsRequestList.get(position).getID());
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                                 break;
 
                         }
@@ -165,6 +176,11 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
                 popup.show();
             }
         });
+    }
+
+    private void viewPDF(Context context, String ID) throws JSONException {
+        ViewVoucherRequest viewPDFRequest = new ViewVoucherRequest();
+        viewPDFRequest.viewPDF(context, ID);
     }
 
     @Override

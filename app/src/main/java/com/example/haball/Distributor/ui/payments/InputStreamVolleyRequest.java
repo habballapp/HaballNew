@@ -5,17 +5,19 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class InputStreamVolleyRequest extends Request<byte[]> {
     private final Response.Listener<byte[]> mListener;
     private Map<String, String> mParams;
-
+    private JSONObject mmap;
     //create a static map for directly accessing headers
     public Map<String, String> responseHeaders ;
 
-    public InputStreamVolleyRequest(int method, String mUrl ,Response.Listener<byte[]> listener,
+    public InputStreamVolleyRequest(int method, String mUrl , JSONObject map, Response.Listener<byte[]> listener,
                                     Response.ErrorListener errorListener, HashMap<String, String> params) {
         // TODO Auto-generated constructor stub
 
@@ -24,6 +26,7 @@ public class InputStreamVolleyRequest extends Request<byte[]> {
         setShouldCache(false);
         mListener = listener;
         mParams=params;
+        mmap=map;
     }
 
     @Override
