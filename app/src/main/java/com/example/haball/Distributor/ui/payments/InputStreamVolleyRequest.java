@@ -28,14 +28,7 @@ public class InputStreamVolleyRequest extends Request<byte[]> {
         mParams=params;
         mmap=map;
     }
-
-    @Override
-    protected Map<String, String> getParams()
-            throws com.android.volley.AuthFailureError {
-        return mParams;
-    };
-
-
+    
     @Override
     protected void deliverResponse(byte[] response) {
         mListener.onResponse(response);

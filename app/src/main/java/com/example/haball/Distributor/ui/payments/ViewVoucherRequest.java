@@ -80,6 +80,7 @@ public class ViewVoucherRequest {
         Log.i("DistributorId ", DistributorId);
         Log.i("Token", Token);
 //        URL_VOUCHER_VIEW = URL_VOUCHER_VIEW+paymentId;
+        Log.i("URL_VOUCHER_VIEW ", URL_VOUCHER_VIEW);
 
         JSONObject map = new JSONObject();
         map.put("ID", Integer.parseInt(paymentId));

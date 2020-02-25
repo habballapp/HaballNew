@@ -2,6 +2,7 @@ package com.example.haball.Distributor.ui.payments;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +13,7 @@ import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.DocumentsContract;
 import android.provider.DocumentsContract.Document;
 import android.util.DisplayMetrics;
@@ -46,6 +48,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Method;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -68,7 +71,7 @@ public class ViewPDFRequest {
 
     public ViewPDFRequest(){}
 
-    public void viewPDF(Context context, String paymentId) throws JSONException {
+    public void viewPDF(final Context context, String paymentId) throws JSONException {
         mContext = context;
         SharedPreferences sharedPreferences = context.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
@@ -142,6 +145,26 @@ public class ViewPDFRequest {
                         fPdf.close();
                         Log.i("Download Complete", "Download complete.");
                         Toast.makeText(mContext, "File saved in Downloads", Toast.LENGTH_LONG).show();
+
+                        File file = new File(name); // Here you declare your pdf path
+                        if(Build.VERSION.SDK_INT>=24){
+                            try{
+                                Method m = StrictMode.class.getMethod("disableDeathOnFileUriExposure");
+                                m.invoke(null);
+                            }catch(Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                        Intent pdfViewIntent = new Intent(Intent.ACTION_VIEW);
+                        pdfViewIntent.setDataAndType(Uri.fromFile(file),"application/pdf");
+                        pdfViewIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+                        Intent intent = Intent.createChooser(pdfViewIntent, "Open File");
+                        try {
+                            context.startActivity(intent);
+                        } catch (ActivityNotFoundException e) {
+                            // Instruct the user to install a PDF reader here, or something
+                        }
                     }
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
