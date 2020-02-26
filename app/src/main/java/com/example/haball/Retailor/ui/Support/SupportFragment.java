@@ -25,8 +25,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.support.MyJsonArrayRequest;
@@ -132,11 +137,11 @@ public class SupportFragment extends Fragment {
 //        spinner_consolidate.setVisibility(View.GONE);
         spinner2.setVisibility(View.GONE);
         conso_edittext.setVisibility(View.GONE);
-        consolidate_felter.add ("Select Criteria");
-        consolidate_felter.add ("Contact Name");
-        consolidate_felter.add ("Issue Type");
-        consolidate_felter.add ("Created Date");
-        consolidate_felter.add ("Status");
+        consolidate_felter.add("Select Criteria");
+        consolidate_felter.add("Contact Name");
+        consolidate_felter.add("Issue Type");
+        consolidate_felter.add("Created Date");
+        consolidate_felter.add("Status");
 
         arrayAdapterPaymentsFilter = new ArrayAdapter<>(root.getContext(),
                 android.R.layout.simple_dropdown_item_1line, consolidate_felter);
@@ -147,34 +152,33 @@ public class SupportFragment extends Fragment {
                 filters = new ArrayList<>();
                 spinner2.setVisibility(View.GONE);
                 conso_edittext.setVisibility(View.GONE);
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                }
-                else{
+                } else {
                     Filter_selected = consolidate_felter.get(i);
 
-                    if(!Filter_selected.equals("Issue Type"))
+                    if (!Filter_selected.equals("Issue Type"))
                         spinner2.setSelection(0);
-                    if(!conso_edittext.getText().equals(""))
+                    if (!conso_edittext.getText().equals(""))
                         conso_edittext.setText("");
 
-                    if(Filter_selected.equals("Contact Name")) {
+                    if (Filter_selected.equals("Contact Name")) {
                         Filter_selected = "ContactName";
                         conso_edittext.setVisibility(View.VISIBLE);
-                    } else if(Filter_selected.equals("Issue Type")) {
+                    } else if (Filter_selected.equals("Issue Type")) {
                         Filter_selected = "IssueType";
                         spinner2.setVisibility(View.VISIBLE);
 
-                        filters.add ("Issue Type");
-                        filters.add ("Main Dashboard");
-                        filters.add ("Connecting with Businesses");
-                        filters.add ("Contracting");
-                        filters.add ("Order");
-                        filters.add ("Invoice");
-                        filters.add ("Shipment");
-                        filters.add ("My Prepaid Account");
-                        filters.add ("My Profile");
-                        filters.add ("Reports");
+                        filters.add("Issue Type");
+                        filters.add("Main Dashboard");
+                        filters.add("Connecting with Businesses");
+                        filters.add("Contracting");
+                        filters.add("Order");
+                        filters.add("Invoice");
+                        filters.add("Shipment");
+                        filters.add("My Prepaid Account");
+                        filters.add("My Profile");
+                        filters.add("Reports");
 
                         arrayAdapterFeltter = new ArrayAdapter<>(getContext(),
                                 android.R.layout.simple_dropdown_item_1line, filters);
@@ -183,15 +187,15 @@ public class SupportFragment extends Fragment {
                         arrayAdapterFeltter.notifyDataSetChanged();
                         spinner2.setAdapter(arrayAdapterFeltter);
 
-                    } else if(Filter_selected.equals("Created Date")) {
-                        Toast.makeText(getContext(),"Created Date selected",Toast.LENGTH_LONG).show();
-                    } else if(Filter_selected.equals("Status")) {
+                    } else if (Filter_selected.equals("Created Date")) {
+                        Toast.makeText(getContext(), "Created Date selected", Toast.LENGTH_LONG).show();
+                    } else if (Filter_selected.equals("Status")) {
                         Filter_selected = "Status";
                         spinner2.setVisibility(View.VISIBLE);
 
-                        filters.add ("Status");
-                        filters.add ("Pending");
-                        filters.add ("Resolved");
+                        filters.add("Status");
+                        filters.add("Pending");
+                        filters.add("Resolved");
 
                         arrayAdapterFeltter = new ArrayAdapter<>(getContext(),
                                 android.R.layout.simple_dropdown_item_1line, filters);
@@ -215,22 +219,21 @@ public class SupportFragment extends Fragment {
         arrayAdapterPaymentsFilter.notifyDataSetChanged();
         spinner_consolidate.setAdapter(arrayAdapterPaymentsFilter);
 
-        filters.add ("Document Type");
-        filters.add ("Invoice");
-        filters.add ("Prepaid ");
-        filters.add ("Shipment");
+        filters.add("Document Type");
+        filters.add("Invoice");
+        filters.add("Prepaid ");
+        filters.add("Shipment");
         arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
                 android.R.layout.simple_dropdown_item_1line, filters);
         Log.i("aaaa1111", String.valueOf(consolidate_felter));
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                }
-                else{
+                } else {
                     Filter_selected_value = String.valueOf(i);
-                    Log.i("Filter_selected_value",Filter_selected_value);
+                    Log.i("Filter_selected_value", Filter_selected_value);
                     try {
                         fetchFilteredSupport();
                     } catch (JSONException e) {
@@ -263,9 +266,11 @@ public class SupportFragment extends Fragment {
                 }
             }
 
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
         });
 
         return root;
@@ -373,21 +378,32 @@ public class SupportFragment extends Fragment {
     }
 
     private void printErrorMessage(VolleyError error) {
-        if(error.networkResponse != null && error.networkResponse.data != null) {
+        if (error instanceof NetworkError) {
+            Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof ServerError) {
+            Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof AuthFailureError) {
+            Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof ParseError) {
+            Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof NoConnectionError) {
+            Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof TimeoutError) {
+            Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+        }
+
+        if (error.networkResponse != null && error.networkResponse.data != null) {
             try {
                 String message = "";
                 String responseBody = new String(error.networkResponse.data, "utf-8");
+                Log.i("responseBody", responseBody);
                 JSONObject data = new JSONObject(responseBody);
+                Log.i("data", String.valueOf(data));
                 Iterator<String> keys = data.keys();
-                while(keys.hasNext()) {
+                while (keys.hasNext()) {
                     String key = keys.next();
-    //                if (data.get(key) instanceof JSONObject) {
-                        message = message + data.get(key) + "\n";
-    //                }
+                    message = message + data.get(key) + "\n";
                 }
-    //                    if(data.has("message"))
-    //                        message = data.getString("message");
-    //                    else if(data. has("Error"))
                 Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();

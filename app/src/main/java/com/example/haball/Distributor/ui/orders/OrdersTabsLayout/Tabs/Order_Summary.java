@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.haball.Distributor.ui.orders.Adapter.OrderSummaryAdapter;
 import com.example.haball.Distributor.ui.orders.Models.OrderItemsModel;
@@ -36,13 +38,34 @@ public class Order_Summary extends Fragment {
     private List<OrderItemsModel> selectedProductsDataList = new ArrayList<>();
     private List<String> selectedProductsQuantityList = new ArrayList<>();
     private String object_string, object_stringqty;
-    private Button btn_confirm;
+    private Button btn_confirm, btn_more_items;
+    private TextView gross_amount, discount_amount, gst_amount, total_amount;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_order__summary, container, false);
+        gross_amount = view.findViewById(R.id.gross_amount);
+        discount_amount = view.findViewById(R.id.discount_amount);
+        gst_amount = view.findViewById(R.id.gst_amount);
+        total_amount = view.findViewById(R.id.total_amount);
+        btn_more_items = view.findViewById(R.id.btn_more_items);
+
+        btn_more_items.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Clicked", Toast.LENGTH_LONG).show();
+                SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = grossamount.edit();
+                editor.putString("grossamount","0");
+                editor.apply();
+
+                getFragmentManager().popBackStack();
+            }
+        });
 
         btn_confirm = view.findViewById(R.id.btn_confirm);
         btn_confirm.setOnClickListener(new View.OnClickListener() {
@@ -63,12 +86,25 @@ public class Order_Summary extends Fragment {
         object_string = selectedProducts.getString("selected_products", "");
         object_stringqty = selectedProducts.getString("selected_products_qty", "");
         Log.i("object_string", object_string);
+        Log.i("object_stringqty", object_stringqty);
         Type type = new TypeToken<List<OrderItemsModel>>() {
         }.getType();
         Type typeQty = new TypeToken<List<String>>() {
         }.getType();
         selectedProductsDataList = gson.fromJson(object_string, type);
         selectedProductsQuantityList = gson.fromJson(object_stringqty, typeQty);
+
+        SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
+                Context.MODE_PRIVATE);
+        gross_amount.setText(grossamount.getString("grossamount", ""));
+        discount_amount.setText(" - ");
+
+        float gstAmount = (Float.parseFloat(grossamount.getString("grossamount", "")) * 17) / 100;
+        float totalAmount = Float.parseFloat(grossamount.getString("grossamount", "")) + gstAmount;
+
+        gst_amount.setText(String.valueOf(gstAmount));
+        total_amount.setText(String.valueOf(totalAmount));
+
 
         recyclerView1 = view.findViewById(R.id.rv_orders_summary);
         recyclerView1.setHasFixedSize(false);

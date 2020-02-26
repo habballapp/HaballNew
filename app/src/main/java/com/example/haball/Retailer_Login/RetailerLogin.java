@@ -23,10 +23,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -48,9 +53,9 @@ import java.util.Map;
 
 public class RetailerLogin extends AppCompatActivity {
 
-    private Button btn_login,btn_signup,btn_support,btn_password,btn_reset;
+    private Button btn_login, btn_signup, btn_support, btn_password, btn_reset;
     public ImageButton btn_back;
-    private EditText et_username,et_password, txt_email;
+    private EditText et_username, et_password, txt_email;
     private Toolbar tb;
     private RequestQueue queue;
     private String URL = "http://175.107.203.97:3020/Token";
@@ -60,6 +65,7 @@ public class RetailerLogin extends AppCompatActivity {
     private String token;
     private String success_text = "";
     ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -192,10 +198,10 @@ public class RetailerLogin extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject result) {
                 try {
-                    if(!result.get("access_token").toString().isEmpty()){
+                    if (!result.get("access_token").toString().isEmpty()) {
                         token = result.get("access_token").toString();
                         JSONObject userAccount = new JSONObject(String.valueOf(result.get("UserAccount")));
-                        Log.i("user account => ",userAccount.get("RetailerID").toString());
+                        Log.i("user account => ", userAccount.get("RetailerID").toString());
                         String RetailerId = userAccount.get("RetailerID").toString();
                         String username = userAccount.get("Username").toString();
                         String CompanyName = userAccount.get("CompanyName").toString();
@@ -203,17 +209,17 @@ public class RetailerLogin extends AppCompatActivity {
                         SharedPreferences login_token = getSharedPreferences("LoginToken",
                                 Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = login_token.edit();
-                        editor.putString("Login_Token",token);
-                        editor.putString("User_Type","Retailer");
-                        editor.putString("Retailer_Id",RetailerId);
-                        editor.putString("username",username);
-                        editor.putString("CompanyName",CompanyName);
-                        editor.putString("UserId",ID);
+                        editor.putString("Login_Token", token);
+                        editor.putString("User_Type", "Retailer");
+                        editor.putString("Retailer_Id", RetailerId);
+                        editor.putString("username", username);
+                        editor.putString("CompanyName", CompanyName);
+                        editor.putString("UserId", ID);
 
                         editor.commit();
 
-                        Toast.makeText(RetailerLogin.this,"Login Success",Toast.LENGTH_LONG).show();
-                        Intent login_intent = new Intent(RetailerLogin.this,RetailorDashboard.class);
+                        Toast.makeText(RetailerLogin.this, "Login Success", Toast.LENGTH_LONG).show();
+                        Intent login_intent = new Intent(RetailerLogin.this, RetailorDashboard.class);
                         startActivity(login_intent);
                         finish();
                     }
@@ -221,7 +227,7 @@ public class RetailerLogin extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                     try {
-                        Toast.makeText(RetailerLogin.this,result.get("ErrorMessage").toString(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(RetailerLogin.this, result.get("ErrorMessage").toString(), Toast.LENGTH_LONG).show();
                     } catch (JSONException ex) {
                         ex.printStackTrace();
                     }
@@ -283,7 +289,7 @@ public class RetailerLogin extends AppCompatActivity {
             public byte[] getBody() {
                 try {
                     JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("EmailAddress",txt_email.getText().toString());
+                    jsonObject.put("EmailAddress", txt_email.getText().toString());
                     return jsonObject.toString().getBytes("utf-8");
                 } catch (Exception e) {
                     return null;
@@ -311,25 +317,41 @@ public class RetailerLogin extends AppCompatActivity {
     }
 
     private void printErrorMessage(VolleyError error) {
-        try {
-            String message = "";
-            String responseBody = new String(error.networkResponse.data, "utf-8");
-            JSONObject data = new JSONObject(responseBody);
-            Iterator<String> keys = data.keys();
-            while(keys.hasNext()) {
-                String key = keys.next();
+        if (error instanceof NetworkError) {
+            Toast.makeText(RetailerLogin.this, "Network Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof ServerError) {
+            Toast.makeText(RetailerLogin.this, "Server Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof AuthFailureError) {
+            Toast.makeText(RetailerLogin.this, "Auth Failure Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof ParseError) {
+            Toast.makeText(RetailerLogin.this, "Parse Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof NoConnectionError) {
+            Toast.makeText(RetailerLogin.this, "No Connection Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof TimeoutError) {
+            Toast.makeText(RetailerLogin.this, "Timeout Error !", Toast.LENGTH_LONG).show();
+        }
+
+        if (error.networkResponse != null && error.networkResponse.data != null) {
+            try {
+                String message = "";
+                String responseBody = new String(error.networkResponse.data, "utf-8");
+                JSONObject data = new JSONObject(responseBody);
+                Iterator<String> keys = data.keys();
+                while (keys.hasNext()) {
+                    String key = keys.next();
 //                if (data.get(key) instanceof JSONObject) {
                     message = message + data.get(key) + "\n";
 //                }
-            }
+                }
 //                    if(data.has("message"))
 //                        message = data.getString("message");
 //                    else if(data. has("Error"))
-            Toast.makeText(RetailerLogin.this, message, Toast.LENGTH_LONG).show();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
+                Toast.makeText(RetailerLogin.this, message, Toast.LENGTH_LONG).show();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

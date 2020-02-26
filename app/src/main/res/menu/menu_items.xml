@@ -4,8 +4,8 @@
     <group android:id="@+id/group_delete">
         <item android:id="@+id/menu_view"
             android:title="View" />
-        <item android:id="@+id/menu_edit"
-            android:title="Edit" />
+<!--        <item android:id="@+id/menu_edit"-->
+<!--            android:title="Edit" />-->
         <item android:id="@+id/menu_delete"
             android:title="Delete" />
 

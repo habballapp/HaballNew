@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,12 +18,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.haball.Distributor.ui.support.DeleteSupport;
 import com.example.haball.R;
+
+import org.json.JSONException;
 
 import java.util.List;
 
 public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboardAdapter.ViewHolder> {
-
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
     Context mContxt;
     Context activity;
     String dashboard, id, pending, createdDate;
@@ -40,13 +45,13 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
     public SupportDashboardAdapter(Context context, List<SupportDashboardModel> supportList) {
         this.mContxt = context;
         this.supportList = supportList;
+        this.recyclerView = recyclerView;
     }
 
     @Override
     public SupportDashboardAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view_inflate = LayoutInflater.from(mContxt).inflate(R.layout.layout_support_rv,parent,false);
         return new SupportDashboardAdapter.ViewHolder(view_inflate);
-
     }
 
     @Override
@@ -101,14 +106,14 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
                                 });
                                 alertDialog.show();
                                 break;
-                            case R.id.menu_edit:
-                                //handle menu2 click
-                                Toast.makeText(mContxt,"Edit Clicked",Toast.LENGTH_LONG).show();
-
-                                break;
+//                            case R.id.menu_edit:
+//                                //handle menu2 click
+//                                Toast.makeText(mContxt,"Edit Clicked",Toast.LENGTH_LONG).show();
+//
+//                                break;
                             case R.id.menu_delete:
                                 //handle menu3 click
-                                Toast.makeText(mContxt,"Delete Clicked",Toast.LENGTH_LONG).show();
+//                                Toast.makeText(mContxt,"Delete Clicked",Toast.LENGTH_LONG).show();
                                 final AlertDialog deleteAlert = new AlertDialog.Builder(mContxt).create();
                                 LayoutInflater delete_inflater = LayoutInflater.from(mContxt);
                                 View delete_alert = delete_inflater.inflate(R.layout.delete_alert, null);
@@ -117,20 +122,27 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
                                 btn_delete.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        deleteAlert.dismiss();
-                                        final AlertDialog delete_successAlert = new AlertDialog.Builder(mContxt).create();
-                                        LayoutInflater delete_inflater = LayoutInflater.from(mContxt);
-                                        View delete_success_alert = delete_inflater.inflate(R.layout.delete_success, null);
-                                        delete_successAlert.setView(delete_success_alert);
 
-                                        ImageButton img_delete = (ImageButton) delete_success_alert.findViewById(R.id.btn_close_success);
-                                        img_delete.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                delete_successAlert.dismiss();
-                                            }
-                                        });
-                                        delete_successAlert.show();
+                                        try {
+                                            deleteAlert.dismiss();
+                                            DeleteSupportTicket(supportList.get(position).getId());
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+
+//                                        final AlertDialog delete_successAlert = new AlertDialog.Builder(mContxt).create();
+//                                        LayoutInflater delete_inflater = LayoutInflater.from(mContxt);
+//                                        View delete_success_alert = delete_inflater.inflate(R.layout.delete_success, null);
+//                                        delete_successAlert.setView(delete_success_alert);
+//
+//                                        ImageButton img_delete = (ImageButton) delete_success_alert.findViewById(R.id.btn_close_success);
+//                                        img_delete.setOnClickListener(new View.OnClickListener() {
+//                                            @Override
+//                                            public void onClick(View v) {
+//                                                delete_successAlert.dismiss();
+//                                            }
+//                                        });
+//                                        delete_successAlert.show();
                                     }
                                 });
                                 ImageButton img_delete_alert = (ImageButton) delete_alert.findViewById(R.id.btn_close);
@@ -149,6 +161,11 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
                 popup.show();
             }
         });
+    }
+
+    private void DeleteSupportTicket(String ID) throws JSONException {
+        DeleteSupport deleteSupport = new DeleteSupport();
+        String response = deleteSupport.DeleteSupportTicket(mContxt, ID);
     }
 
     @Override

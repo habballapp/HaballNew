@@ -24,8 +24,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -69,6 +74,7 @@ public class Registration_Actvity2 extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapterCountry, arrayAdapterCity, arrayAdapterProvince;
 
     ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +97,7 @@ public class Registration_Actvity2 extends AppCompatActivity {
                 android.R.layout.simple_spinner_dropdown_item, provinces);
 
         Bundle extras = getIntent().getExtras();
-        if(extras != null){
+        if (extras != null) {
             username = extras.getString("username");
             password = extras.getString("password");
             confirmpassword = extras.getString("confirmpassword");
@@ -122,8 +128,7 @@ public class Registration_Actvity2 extends AppCompatActivity {
                 check_value = isChecked;
                 if (isChecked) {
                     rl_billing_address.setVisibility(View.GONE);
-                }
-                else{
+                } else {
                     rl_billing_address.setVisibility(View.VISIBLE);
                 }
             }
@@ -147,7 +152,7 @@ public class Registration_Actvity2 extends AppCompatActivity {
         spinner_country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
                 country1 = countries.get(i);
@@ -162,7 +167,7 @@ public class Registration_Actvity2 extends AppCompatActivity {
         spinner_province.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
                 province1 = provinces.get(i);
@@ -178,7 +183,7 @@ public class Registration_Actvity2 extends AppCompatActivity {
         spinner_city.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
                 city1 = cities.get(i);
@@ -192,7 +197,7 @@ public class Registration_Actvity2 extends AppCompatActivity {
         spinner_country2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
                 country2 = countries.get(i);
@@ -207,7 +212,7 @@ public class Registration_Actvity2 extends AppCompatActivity {
         spinner_province2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
                 province2 = provinces.get(i);
@@ -223,7 +228,7 @@ public class Registration_Actvity2 extends AppCompatActivity {
         spinner_city2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
                 city2 = cities.get(i);
@@ -252,7 +257,7 @@ public class Registration_Actvity2 extends AppCompatActivity {
         Address02 = findViewById(R.id.Address02);
         postal_billing = findViewById(R.id.postal_billing);
 
-        btn_back = (ImageButton)customView.findViewById(R.id.btn_back);
+        btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -276,7 +281,7 @@ public class Registration_Actvity2 extends AppCompatActivity {
 
     private void makeRegisterRequest() throws JSONException {
         JSONObject map = new JSONObject();
-        if(check_value){
+        if (check_value) {
             map.put("status", 1);
             map.put("UserType", 0);
             map.put("Username", username);
@@ -302,8 +307,7 @@ public class Registration_Actvity2 extends AppCompatActivity {
             map.put("ShippingPostCode", postal_shipping.getText().toString());
             map.put("BillingPostCode", postal_shipping.getText().toString());
             map.put("IsAgree", true);
-        }
-        else{
+        } else {
             map.put("status", 1);
             map.put("UserType", 0);
             map.put("Username", username);
@@ -338,15 +342,15 @@ public class Registration_Actvity2 extends AppCompatActivity {
             public void onResponse(JSONObject result) {
                 Log.e("RESPONSE", result.toString());
                 try {
-                    if(!result.get("DealerCode").toString().isEmpty()){
+                    if (!result.get("DealerCode").toString().isEmpty()) {
                         Intent i = new Intent(Registration_Actvity2.this, Distribution_Login.class);
-                        Toast.makeText(Registration_Actvity2.this,"You have been registered successfully, please use login credentials to access the Portal.",Toast.LENGTH_LONG).show();
+                        Toast.makeText(Registration_Actvity2.this, "You have been registered successfully, please use login credentials to access the Portal.", Toast.LENGTH_LONG).show();
                         startActivity(i);
                         finish();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(Registration_Actvity2.this,e.toString(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(Registration_Actvity2.this, e.toString(), Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -356,7 +360,7 @@ public class Registration_Actvity2 extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 printErrorMessage(error);
                 error.printStackTrace();
-              //  Toast.makeText(Registration_Actvity2.this,error.toString(),Toast.LENGTH_LONG).show();
+                //  Toast.makeText(Registration_Actvity2.this,error.toString(),Toast.LENGTH_LONG).show();
             }
 
         });
@@ -364,13 +368,13 @@ public class Registration_Actvity2 extends AppCompatActivity {
     }
 
     private void fetch_cities() {
-        final JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNERS_CITY,null, new Response.Listener<JSONArray>() {
+        final JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNERS_CITY, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
                 try {
                     JSONObject obj = result.getJSONObject(0);
                     cities.add(obj.getString("Name"));
-                    Log.i("cities",cities.toString());
+                    Log.i("cities", cities.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -392,15 +396,15 @@ public class Registration_Actvity2 extends AppCompatActivity {
     }
 
     private void fetch_province() {
-        final JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNERS_PROVINCE,null, new Response.Listener<JSONArray>() {
+        final JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNERS_PROVINCE, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
                 try {
-                    for(int i=0;i<result.length();i++) {
+                    for (int i = 0; i < result.length(); i++) {
                         JSONObject obj = result.getJSONObject(i);
                         provinces.add(obj.getString("Name"));
                     }
-                    Log.i("provinces",provinces.toString());
+                    Log.i("provinces", provinces.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -424,13 +428,13 @@ public class Registration_Actvity2 extends AppCompatActivity {
 
     private void fetch_countries() {
 
-        final JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNERS_COUNTRY,null, new Response.Listener<JSONArray>() {
+        final JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNERS_COUNTRY, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
                 try {
                     JSONObject obj = result.getJSONObject(0);
                     countries.add(obj.getString("Name"));
-                    Log.i("countries",countries.toString());
+                    Log.i("countries", countries.toString());
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -454,26 +458,41 @@ public class Registration_Actvity2 extends AppCompatActivity {
     }
 
     private void printErrorMessage(VolleyError error) {
-        try {
-            String message = "";
-            String responseBody = new String(error.networkResponse.data, "utf-8");
-            JSONObject data = new JSONObject(responseBody);
-            Iterator<String> keys = data.keys();
-            while(keys.hasNext()) {
-                String key = keys.next();
+        if (error instanceof NetworkError) {
+            Toast.makeText(Registration_Actvity2.this, "Network Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof ServerError) {
+            Toast.makeText(Registration_Actvity2.this, "Server Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof AuthFailureError) {
+            Toast.makeText(Registration_Actvity2.this, "Auth Failure Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof ParseError) {
+            Toast.makeText(Registration_Actvity2.this, "Parse Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof NoConnectionError) {
+            Toast.makeText(Registration_Actvity2.this, "No Connection Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof TimeoutError) {
+            Toast.makeText(Registration_Actvity2.this, "Timeout Error !", Toast.LENGTH_LONG).show();
+        }
+
+        if (error.networkResponse != null && error.networkResponse.data != null) {
+            try {
+                String message = "";
+                String responseBody = new String(error.networkResponse.data, "utf-8");
+                JSONObject data = new JSONObject(responseBody);
+                Iterator<String> keys = data.keys();
+                while (keys.hasNext()) {
+                    String key = keys.next();
 //                if (data.get(key) instanceof JSONObject) {
                     message = message + data.get(key) + "\n";
 //                }
-            }
+                }
 //                    if(data.has("message"))
 //                        message = data.getString("message");
 //                    else if(data. has("Error"))
-            Toast.makeText(Registration_Actvity2.this, message, Toast.LENGTH_LONG).show();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
+                Toast.makeText(Registration_Actvity2.this, message, Toast.LENGTH_LONG).show();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
-
 }

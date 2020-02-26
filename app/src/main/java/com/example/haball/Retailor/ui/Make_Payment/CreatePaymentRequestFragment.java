@@ -19,10 +19,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
 import com.android.volley.NetworkResponse;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -49,7 +53,7 @@ public class CreatePaymentRequestFragment extends Fragment {
     private String URL_PAYMENT_REQUESTS_SAVE = "http://175.107.203.97:3020/api/prepaidrequests/save";
 
     private List<String> CompanyNames = new ArrayList<>();
-    private HashMap<String,String> companyNameAndId = new HashMap<>();
+    private HashMap<String, String> companyNameAndId = new HashMap<>();
 
     private Spinner spinner_company;
     private ArrayAdapter<String> arrayAdapterPayments;
@@ -74,14 +78,14 @@ public class CreatePaymentRequestFragment extends Fragment {
         spinner_company.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                }
-                else{
+                } else {
                     company_names = CompanyNames.get(i);
                     Log.i("company name and id ", companyNameAndId.get(company_names));
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -92,7 +96,7 @@ public class CreatePaymentRequestFragment extends Fragment {
         btn_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Integer.parseInt(String.valueOf(txt_amount.getText())) >= 500) {
+                if (Integer.parseInt(String.valueOf(txt_amount.getText())) >= 500) {
                     try {
                         makeSaveRequest();
                     } catch (JSONException e) {
@@ -107,7 +111,7 @@ public class CreatePaymentRequestFragment extends Fragment {
         return root;
     }
 
-    private void makeSaveRequest() throws JSONException{
+    private void makeSaveRequest() throws JSONException {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -115,7 +119,7 @@ public class CreatePaymentRequestFragment extends Fragment {
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         ID = sharedPreferences1.getString("ID", "");
-        Log.i("ID  ",ID);
+        Log.i("ID  ", ID);
         Log.i("Token", Token);
 
         JSONObject map = new JSONObject();
@@ -135,7 +139,7 @@ public class CreatePaymentRequestFragment extends Fragment {
                     Log.i("Response PR", e.toString());
                     e.printStackTrace();
                 }
-                Toast.makeText(getContext(), "Payment Request "+prepaid_number+" has been created successfully.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Payment Request " + prepaid_number + " has been created successfully.", Toast.LENGTH_SHORT).show();
                 Log.e("RESPONSE prepaid_number", result.toString());
             }
         }, new Response.ErrorListener() {
@@ -170,7 +174,7 @@ public class CreatePaymentRequestFragment extends Fragment {
                     for (int i = 0; i < result.length(); i++) {
                         jsonObject = result.getJSONObject(i);
                         CompanyNames.add(jsonObject.getString("CompanyName"));
-                        companyNameAndId.put(jsonObject.getString("CompanyName"),jsonObject.getString("DealerCode"));
+                        companyNameAndId.put(jsonObject.getString("CompanyName"), jsonObject.getString("DealerCode"));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -199,25 +203,41 @@ public class CreatePaymentRequestFragment extends Fragment {
 
 
     private void printErrorMessage(VolleyError error) {
-        try {
-            String message = "";
-            String responseBody = new String(error.networkResponse.data, "utf-8");
-            JSONObject data = new JSONObject(responseBody);
-            Iterator<String> keys = data.keys();
-            while(keys.hasNext()) {
-                String key = keys.next();
+        if (error instanceof NetworkError) {
+            Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof ServerError) {
+            Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof AuthFailureError) {
+            Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof ParseError) {
+            Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof NoConnectionError) {
+            Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof TimeoutError) {
+            Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+        }
+
+        if (error.networkResponse != null && error.networkResponse.data != null) {
+            try {
+                String message = "";
+                String responseBody = new String(error.networkResponse.data, "utf-8");
+                JSONObject data = new JSONObject(responseBody);
+                Iterator<String> keys = data.keys();
+                while (keys.hasNext()) {
+                    String key = keys.next();
 //                if (data.get(key) instanceof JSONObject) {
                     message = message + data.get(key) + "\n";
 //                }
-            }
+                }
 //                    if(data.has("message"))
 //                        message = data.getString("message");
 //                    else if(data. has("Error"))
-            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
+                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 //        NetworkResponse response = error.networkResponse;
 //        if (error instanceof ServerError && response != null) {

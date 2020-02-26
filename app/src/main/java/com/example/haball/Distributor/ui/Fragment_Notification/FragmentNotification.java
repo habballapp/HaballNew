@@ -15,8 +15,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -63,7 +68,7 @@ public class FragmentNotification extends Fragment {
         return root;
     }
 
-    private void fetchNotification(){
+    private void fetchNotification() {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -76,7 +81,7 @@ public class FragmentNotification extends Fragment {
         Log.i("DistributorId ", DistributorId);
         Log.i("Token", Token);
 
-        URL_NOTIFICATION = URL_NOTIFICATION+ID;
+        URL_NOTIFICATION = URL_NOTIFICATION + ID;
         Log.i("URL_NOTIFICATION", URL_NOTIFICATION);
 
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_NOTIFICATION, null, new Response.Listener<JSONArray>() {
@@ -84,7 +89,8 @@ public class FragmentNotification extends Fragment {
             public void onResponse(JSONArray result) {
                 Log.i("RESULT NOTIFICATION", result.toString());
                 Gson gson = new Gson();
-                Type type = new TypeToken<List<NotificationModel>>(){}.getType();
+                Type type = new TypeToken<List<NotificationModel>>() {
+                }.getType();
                 notificationLists = gson.fromJson(result.toString(), type);
                 NotificationAdapter = new NotificationAdapter(getContext(), notificationLists, Token);
                 recyclerView.setAdapter(NotificationAdapter);
@@ -107,21 +113,32 @@ public class FragmentNotification extends Fragment {
     }
 
     private void printErrorMessage(VolleyError error) {
-        if(error.networkResponse != null && error.networkResponse.data != null) {
+        if (error instanceof NetworkError) {
+            Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof ServerError) {
+            Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof AuthFailureError) {
+            Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof ParseError) {
+            Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof NoConnectionError) {
+            Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof TimeoutError) {
+            Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+        }
+
+        if (error.networkResponse != null && error.networkResponse.data != null) {
             try {
                 String message = "";
                 String responseBody = new String(error.networkResponse.data, "utf-8");
+                Log.i("responseBody", responseBody);
                 JSONObject data = new JSONObject(responseBody);
+                Log.i("data", String.valueOf(data));
                 Iterator<String> keys = data.keys();
-                while(keys.hasNext()) {
+                while (keys.hasNext()) {
                     String key = keys.next();
-    //                if (data.get(key) instanceof JSONObject) {
-                        message = message + data.get(key) + "\n";
-    //                }
+                    message = message + data.get(key) + "\n";
                 }
-    //                    if(data.has("message"))
-    //                        message = data.getString("message");
-    //                    else if(data. has("Error"))
                 Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -130,5 +147,4 @@ public class FragmentNotification extends Fragment {
             }
         }
     }
-
 }

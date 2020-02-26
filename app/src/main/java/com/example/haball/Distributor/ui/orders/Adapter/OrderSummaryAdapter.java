@@ -1,6 +1,7 @@
 package com.example.haball.Distributor.ui.orders.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
     private String Rs_summary_value;
     private List<OrderItemsModel> selectedProductsDataList;
     private List<String> selectedProductsDataListQty;
-
+    private float grossAmount = 0;
     public OrderSummaryAdapter(Context context, List<OrderItemsModel> selectedProductsDataList, List<String> selectedProductsDataListQty) {
         this.context = context;
         this.selectedProductsDataList = selectedProductsDataList;
@@ -44,8 +45,9 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
         holder.txt_products.setText("| "+selectedProductsDataList.get(position).getTitle());
         holder.price_summary_value.setText(selectedProductsDataList.get(position).getUnitPrice());
         holder.discount_summary_price.setText(selectedProductsDataList.get(position).getDiscountAmount());
-        holder.Rs_summary_value.setText("test value to be changed");
-
+        float totalamount = Float.parseFloat(selectedProductsDataListQty.get(position)) * Float.parseFloat(selectedProductsDataList.get(position).getUnitPrice());
+        holder.Rs_summary_value.setText(String.valueOf(totalamount));
+//        grossAmount += totalamount;
     }
 
     @Override

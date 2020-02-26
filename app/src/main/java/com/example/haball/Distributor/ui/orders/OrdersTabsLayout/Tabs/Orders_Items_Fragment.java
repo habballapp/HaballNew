@@ -14,8 +14,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.orders.Adapter.OrdersItemsAdapter;
@@ -59,10 +65,11 @@ public class Orders_Items_Fragment extends Fragment {
 
     private String Token, DistributorId, object_string, object_stringqty;
     private List<OrderItemsModel> selectedProductsDataList = new ArrayList<>();
-    private List<OrderItemsModel> selectedProductsQuantityList = new ArrayList<>();
+    private List<String> selectedProductsQuantityList = new ArrayList<>();
     private List<OrderItemsModel> ProductsDataList = new ArrayList<>();
     private int i = 0;
     String string_id;
+    private float grossAmount = 0;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -102,12 +109,22 @@ public class Orders_Items_Fragment extends Fragment {
                         Type type = new TypeToken<List<OrderItemsModel>>() {}.getType();
                         Type typeString = new TypeToken<List<String>>() {}.getType();
                         selectedProductsDataList = gson.fromJson(object_string, type);
-                        selectedProductsQuantityList = gson.fromJson(object_stringqty, type);
+                        selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
                         if (selectedProductsDataList.size() > 0) {
-                            Toast.makeText(getContext(), "Clicked", Toast.LENGTH_SHORT).show();
+                            for(int i = 0; i < selectedProductsDataList.size(); i++)
+                                grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
+
+                            SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
+                                    Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = grossamount.edit();
+                            editor.putString("grossamount",String.valueOf(grossAmount));
+                            editor.apply();
+                            Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
+                            grossAmount = 0;
                             viewPager.setCurrentItem(1);
                             FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.add(R.id.main_container, new Order_Summary());
+                            fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();
                         }
                     }
@@ -190,6 +207,7 @@ public class Orders_Items_Fragment extends Fragment {
                 return params;
             }
         };
+
         Volley.newRequestQueue(getContext()).add(sr);
         new MyAsyncTask().execute();
     }
@@ -209,11 +227,27 @@ public class Orders_Items_Fragment extends Fragment {
     }
 
     private void printErrorMessage(VolleyError error) {
+        if (error instanceof NetworkError) {
+            Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof ServerError) {
+            Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof AuthFailureError) {
+            Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof ParseError) {
+            Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof NoConnectionError) {
+            Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof TimeoutError) {
+            Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+        }
+
         if (error.networkResponse != null && error.networkResponse.data != null) {
             try {
                 String message = "";
                 String responseBody = new String(error.networkResponse.data, "utf-8");
+                Log.i("responseBody",responseBody);
                 JSONObject data = new JSONObject(responseBody);
+                Log.i("data",String.valueOf(data));
                 Iterator<String> keys = data.keys();
                 while (keys.hasNext()) {
                     String key = keys.next();
@@ -231,7 +265,7 @@ public class Orders_Items_Fragment extends Fragment {
     private class MyAsyncTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
-            while(true){
+            while(getContext() != null){
                 SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts",
                         Context.MODE_PRIVATE);
                 object_string = selectedProducts.getString("selected_products", "");
@@ -244,7 +278,8 @@ public class Orders_Items_Fragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void result) {
-            enableCheckout();
+            if(getContext() != null)
+                enableCheckout();
         }
     }
 }

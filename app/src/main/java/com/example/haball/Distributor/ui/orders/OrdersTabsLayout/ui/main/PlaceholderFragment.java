@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.orders.Adapter.CompanyFragmentAdapter;
@@ -363,6 +364,23 @@ public class PlaceholderFragment extends Fragment {
                 return params;
             }
         };
+        sr.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 1000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+                printErrorMessage(error);
+
+            }
+        });
         Volley.newRequestQueue(getContext()).add(sr);
     }
 //
@@ -422,7 +440,9 @@ public class PlaceholderFragment extends Fragment {
             try {
                 String message = "";
                 String responseBody = new String(error.networkResponse.data, "utf-8");
+                Log.i("responseBody", responseBody);
                 JSONObject data = new JSONObject(responseBody);
+                Log.i("data", String.valueOf(data));
                 Iterator<String> keys = data.keys();
                 while(keys.hasNext()) {
                     String key = keys.next();

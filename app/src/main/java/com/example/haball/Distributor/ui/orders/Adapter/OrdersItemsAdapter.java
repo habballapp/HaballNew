@@ -82,12 +82,14 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
             public void onClick(View view) {
                 selectedProductsDataList.add(productsDataList.get(position));
                 selectedProductsQuantityList.add(String.valueOf(holder.quantity.getText()));
-                Toast.makeText(context, selectedProductsDataList.get(0).getTitle(), Toast.LENGTH_LONG).show();
+                for(int i = 0; i < selectedProductsDataList.size(); i++)
+                    Toast.makeText(context, selectedProductsDataList.get(i).getTitle() + " - " + selectedProductsQuantityList.get(i), Toast.LENGTH_LONG).show();
 
                 Gson gson = new Gson();
                 String json = gson.toJson(selectedProductsDataList);
                 String jsonqty = gson.toJson(selectedProductsQuantityList);
-
+                Log.i("jsonqty",jsonqty);
+                Log.i("json",json);
                 SharedPreferences selectedProducts = context.getSharedPreferences("selectedProducts",
                         Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = selectedProducts.edit();

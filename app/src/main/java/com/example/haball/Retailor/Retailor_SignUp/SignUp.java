@@ -15,8 +15,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -90,7 +96,7 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
 
     private void makeRegisterRequest() throws JSONException {
         JSONObject map = new JSONObject();
-        if(password_check && confirm_password_check) {
+        if (password_check && confirm_password_check) {
             map.put("ID", 0);
             map.put("Email", txt_email.getText().toString());
             map.put("Username", txt_username.getText().toString());
@@ -113,15 +119,15 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
                 public void onResponse(JSONObject result) {
                     Log.e("RESPONSE", result.toString());
                     try {
-                        if(!result.get("RetailerCode").toString().isEmpty()){
+                        if (!result.get("RetailerCode").toString().isEmpty()) {
                             Intent i = new Intent(SignUp.this, RetailerLogin.class);
-                            Toast.makeText(SignUp.this,"You have been registered successfully, please use login credentials to access the Portal.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(SignUp.this, "You have been registered successfully, please use login credentials to access the Portal.", Toast.LENGTH_LONG).show();
                             startActivity(i);
                             finish();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(SignUp.this,e.toString(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(SignUp.this, e.toString(), Toast.LENGTH_LONG).show();
                     }
 
                 }
@@ -131,25 +137,23 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
                 public void onErrorResponse(VolleyError error) {
                     printErrorMessage(error);
                     error.printStackTrace();
-                  //  Toast.makeText(SignUp.this,error.toString(),Toast.LENGTH_LONG).show();
+                    //  Toast.makeText(SignUp.this,error.toString(),Toast.LENGTH_LONG).show();
                 }
 
             });
             Volley.newRequestQueue(this).add(sr);
         } else {
-            Toast.makeText(SignUp.this,"Password does not match",Toast.LENGTH_LONG).show();
+            Toast.makeText(SignUp.this, "Password does not match", Toast.LENGTH_LONG).show();
         }
     }
 
 
-
-    private void checkPasswords(){
+    private void checkPasswords() {
         String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
-        if(txt_password.getText().toString().matches(reg_ex)) {
+        if (txt_password.getText().toString().matches(reg_ex)) {
             password_check = true;
             txt_password.setError(null);
-        }
-        else{
+        } else {
             txt_password.setError("Please enter password with minimum 6 characters & 1 Numeric or special character");
             password_check = false;
         }
@@ -182,25 +186,41 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
     }
 
     private void printErrorMessage(VolleyError error) {
-        try {
-            String message = "";
-            String responseBody = new String(error.networkResponse.data, "utf-8");
-            JSONObject data = new JSONObject(responseBody);
-            Iterator<String> keys = data.keys();
-            while(keys.hasNext()) {
-                String key = keys.next();
+        if (error instanceof NetworkError) {
+            Toast.makeText(SignUp.this, "Network Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof ServerError) {
+            Toast.makeText(SignUp.this, "Server Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof AuthFailureError) {
+            Toast.makeText(SignUp.this, "Auth Failure Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof ParseError) {
+            Toast.makeText(SignUp.this, "Parse Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof NoConnectionError) {
+            Toast.makeText(SignUp.this, "No Connection Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof TimeoutError) {
+            Toast.makeText(SignUp.this, "Timeout Error !", Toast.LENGTH_LONG).show();
+        }
+
+        if (error.networkResponse != null && error.networkResponse.data != null) {
+            try {
+                String message = "";
+                String responseBody = new String(error.networkResponse.data, "utf-8");
+                JSONObject data = new JSONObject(responseBody);
+                Iterator<String> keys = data.keys();
+                while (keys.hasNext()) {
+                    String key = keys.next();
 //                if (data.get(key) instanceof JSONObject) {
                     message = message + data.get(key) + "\n";
 //                }
-            }
+                }
 //                    if(data.has("message"))
 //                        message = data.getString("message");
 //                    else if(data. has("Error"))
-            Toast.makeText(SignUp.this, message, Toast.LENGTH_LONG).show();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
+                Toast.makeText(SignUp.this, message, Toast.LENGTH_LONG).show();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
