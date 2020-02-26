@@ -34,7 +34,8 @@ public class Order_Summary extends Fragment {
     private RecyclerView.LayoutManager layoutManager1;
     private RecyclerView recyclerView1;
     private List<OrderItemsModel> selectedProductsDataList = new ArrayList<>();
-    private String object_string;
+    private List<String> selectedProductsQuantityList = new ArrayList<>();
+    private String object_string, object_stringqty;
     private Button btn_confirm;
 
     @Override
@@ -51,6 +52,7 @@ public class Order_Summary extends Fragment {
                         Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = selectedProducts.edit();
                 editor.putString("selected_products","");
+                editor.putString("selected_products_qty","");
                 editor.apply();
             }
         });
@@ -59,18 +61,24 @@ public class Order_Summary extends Fragment {
                 Context.MODE_PRIVATE);
         Gson gson = new Gson();
         object_string = selectedProducts.getString("selected_products", "");
+        object_stringqty = selectedProducts.getString("selected_products_qty", "");
         Log.i("object_string", object_string);
         Type type = new TypeToken<List<OrderItemsModel>>() {
         }.getType();
+        Type typeQty = new TypeToken<List<String>>() {
+        }.getType();
         selectedProductsDataList = gson.fromJson(object_string, type);
+        selectedProductsQuantityList = gson.fromJson(object_stringqty, typeQty);
 
         recyclerView1 = view.findViewById(R.id.rv_orders_summary);
         recyclerView1.setHasFixedSize(false);
         layoutManager1 = new LinearLayoutManager(getContext());
         recyclerView1.setLayoutManager(layoutManager1);
 
-        mAdapter1 = new OrderSummaryAdapter(getContext(), selectedProductsDataList);
+        mAdapter1 = new OrderSummaryAdapter(getContext(), selectedProductsDataList, selectedProductsQuantityList);
         recyclerView1.setAdapter(mAdapter1);
+        recyclerView1.setNestedScrollingEnabled(false);
+
         Log.i("aaaaaa", String.valueOf(mAdapter1));
 
         return view;

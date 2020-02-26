@@ -1,5 +1,6 @@
 package com.example.haball.Distributor.ui.orders.Adapter;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.Editable;
@@ -15,10 +16,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.haball.Distributor.ui.orders.Models.OrderItemsModel;
+import com.example.haball.Distributor.ui.orders.OrdersTabsLayout.Tabs.Orders_Items_Fragment;
 import com.example.haball.R;
 import com.google.gson.Gson;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
@@ -30,6 +35,7 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
     private Context context;
     private List<OrderItemsModel> productsDataList;
     private List<OrderItemsModel> selectedProductsDataList = new ArrayList<>();
+    private List<String> selectedProductsQuantityList = new ArrayList<>();
 
     public OrdersItemsAdapter(Context context, List<OrderItemsModel> productsDataList) {
         this.context = context;
@@ -75,17 +81,25 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
             @Override
             public void onClick(View view) {
                 selectedProductsDataList.add(productsDataList.get(position));
+                selectedProductsQuantityList.add(String.valueOf(holder.quantity.getText()));
                 Toast.makeText(context, selectedProductsDataList.get(0).getTitle(), Toast.LENGTH_LONG).show();
 
                 Gson gson = new Gson();
                 String json = gson.toJson(selectedProductsDataList);
+                String jsonqty = gson.toJson(selectedProductsQuantityList);
 
                 SharedPreferences selectedProducts = context.getSharedPreferences("selectedProducts",
                         Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = selectedProducts.edit();
                 editor.putString("selected_products",json);
+                editor.putString("selected_products_qty",jsonqty);
                 editor.apply();
 
+//                FragmentTransaction transaction = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
+//                transaction.replace(R.id.oif_container, new Orders_Items_Fragment());
+//                transaction.setTransition(FragmentTransaction.TRANSIT_NONE);
+//                transaction.addToBackStack(null);
+//                transaction.commit();
             }
         });
     }

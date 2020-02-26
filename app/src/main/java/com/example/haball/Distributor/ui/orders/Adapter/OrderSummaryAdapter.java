@@ -23,10 +23,12 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
     private String discount_summary_price;
     private String Rs_summary_value;
     private List<OrderItemsModel> selectedProductsDataList;
+    private List<String> selectedProductsDataListQty;
 
-    public OrderSummaryAdapter(Context context, List<OrderItemsModel> selectedProductsDataList) {
+    public OrderSummaryAdapter(Context context, List<OrderItemsModel> selectedProductsDataList, List<String> selectedProductsDataListQty) {
         this.context = context;
         this.selectedProductsDataList = selectedProductsDataList;
+        this.selectedProductsDataListQty = selectedProductsDataListQty;
     }
 
     public OrderSummaryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -37,8 +39,9 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
     @Override
     public void onBindViewHolder(@NonNull OrderSummaryAdapter.ViewHolder holder, int position) {
 
+        holder.show_quantity.setText(selectedProductsDataListQty.get(position));
         holder.txt_count.setText(selectedProductsDataList.get(position).getCode());
-        holder.txt_products.setText(selectedProductsDataList.get(position).getTitle());
+        holder.txt_products.setText("| "+selectedProductsDataList.get(position).getTitle());
         holder.price_summary_value.setText(selectedProductsDataList.get(position).getUnitPrice());
         holder.discount_summary_price.setText(selectedProductsDataList.get(position).getDiscountAmount());
         holder.Rs_summary_value.setText("test value to be changed");
@@ -52,7 +55,7 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView txt_count,txt_products,price_summary_value,discount_summary_price,Rs_summary_value;
+        public TextView txt_count,txt_products,price_summary_value,discount_summary_price,Rs_summary_value,show_quantity;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -61,6 +64,7 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
             price_summary_value = itemView.findViewById(R.id.price_summary_value);
             discount_summary_price = itemView.findViewById(R.id. discount_summary_price);
             Rs_summary_value =  itemView.findViewById(R.id.Rs_summary_value);
+            show_quantity =  itemView.findViewById(R.id.show_quantity);
         }
     }
 }
