@@ -65,6 +65,8 @@ public class Orders_Items_Fragment extends Fragment {
 
     private String Token, DistributorId, object_string, object_stringqty;
     private List<OrderItemsModel> selectedProductsDataList = new ArrayList<>();
+    private List<OrderItemsModel> temp_list = new ArrayList<>();
+    private List<String> temp_listqty = new ArrayList<>();
     private List<String> selectedProductsQuantityList = new ArrayList<>();
     private List<OrderItemsModel> ProductsDataList = new ArrayList<>();
     private int i = 0;
@@ -92,7 +94,8 @@ public class Orders_Items_Fragment extends Fragment {
         Log.i("object_string", object_string);
         Type type = new TypeToken<List<OrderItemsModel>>() {
         }.getType();
-        selectedProductsDataList = gson.fromJson(object_string, type);
+        if (!object_string.equals(""))
+            selectedProductsDataList = gson.fromJson(object_string, type);
         if (selectedProductsDataList != null) {
             if (selectedProductsDataList.size() > 0) {
                 place_item_button.setBackgroundResource(R.drawable.button_round);
@@ -106,18 +109,24 @@ public class Orders_Items_Fragment extends Fragment {
                         Gson gson = new Gson();
                         object_stringqty = selectedProducts.getString("selected_products_qty", "");
                         object_string = selectedProducts.getString("selected_products", "");
-                        Type type = new TypeToken<List<OrderItemsModel>>() {}.getType();
-                        Type typeString = new TypeToken<List<String>>() {}.getType();
+                        Type type = new TypeToken<List<OrderItemsModel>>() {
+                        }.getType();
+                        Type typeString = new TypeToken<List<String>>() {
+                        }.getType();
                         selectedProductsDataList = gson.fromJson(object_string, type);
                         selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
                         if (selectedProductsDataList.size() > 0) {
-                            for(int i = 0; i < selectedProductsDataList.size(); i++)
-                                grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
+                            for (int i = 0; i < selectedProductsDataList.size(); i++) {
+                                Log.i("unit price", selectedProductsDataList.get(i).getUnitPrice());
+                                Log.i("qty", selectedProductsQuantityList.get(i));
+                                if (!selectedProductsDataList.get(i).getUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
+                                    grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
+                            }
 
                             SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
                                     Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = grossamount.edit();
-                            editor.putString("grossamount",String.valueOf(grossAmount));
+                            editor.putString("grossamount", String.valueOf(grossAmount));
                             editor.apply();
                             Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
                             grossAmount = 0;
@@ -245,9 +254,9 @@ public class Orders_Items_Fragment extends Fragment {
             try {
                 String message = "";
                 String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody",responseBody);
+                Log.i("responseBody", responseBody);
                 JSONObject data = new JSONObject(responseBody);
-                Log.i("data",String.valueOf(data));
+                Log.i("data", String.valueOf(data));
                 Iterator<String> keys = data.keys();
                 while (keys.hasNext()) {
                     String key = keys.next();
@@ -265,11 +274,27 @@ public class Orders_Items_Fragment extends Fragment {
     private class MyAsyncTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
-            while(getContext() != null){
+            while (getContext() != null) {
                 SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts",
                         Context.MODE_PRIVATE);
                 object_string = selectedProducts.getString("selected_products", "");
-                if(!object_string.equals("")){
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<OrderItemsModel>>() {
+                }.getType();
+//                temp_list = gson.fromJson(object_string, type);
+                object_stringqty = selectedProducts.getString("selected_products_qty", "");
+                Type typestr = new TypeToken<List<String>>() {
+                }.getType();
+//                temp_listqty = gson.fromJson(object_stringqty, typestr);
+                if (!object_string.equals("")) {
+//                    if (selectedProductsDataList != null) {
+
+//                        if (temp_list != selectedProductsDataList) {
+//                            selectedProductsDataList = temp_list;
+//                            selectedProductsQuantityList = temp_listqty;
+//                            break;
+//                        }
+//                    }
                     break;
                 }
             }
@@ -278,7 +303,7 @@ public class Orders_Items_Fragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void result) {
-            if(getContext() != null)
+            if (getContext() != null)
                 enableCheckout();
         }
     }

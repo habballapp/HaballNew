@@ -80,8 +80,26 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
         holder.btn_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectedProductsDataList.add(productsDataList.get(position));
-                selectedProductsQuantityList.add(String.valueOf(holder.quantity.getText()));
+                if(!selectedProductsDataList.contains(productsDataList.get(position))){
+                    selectedProductsDataList.add(productsDataList.get(position));
+                    selectedProductsQuantityList.add(String.valueOf(holder.quantity.getText()));
+                } else {
+                    int foundIndex = -1;
+                    for(int i = 0; i < selectedProductsDataList.size(); i++) {
+                        if(selectedProductsDataList.get(i).equals(productsDataList.get(position))) {
+                            foundIndex = i;
+//                            break;
+                        } else{
+                            holder.quantity.setText("");
+                            holder.btn_cart.setBackgroundResource(R.drawable.button_grey_round);
+                            holder.btn_cart.setEnabled(false);
+                        }
+                    }
+
+                    if(foundIndex != -1)
+                        selectedProductsQuantityList.set(foundIndex, String.valueOf(holder.quantity.getText()));
+                    Log.i("selected updated qty", String.valueOf(selectedProductsQuantityList));
+                }
                 for(int i = 0; i < selectedProductsDataList.size(); i++)
                     Toast.makeText(context, selectedProductsDataList.get(i).getTitle() + " - " + selectedProductsQuantityList.get(i), Toast.LENGTH_LONG).show();
 
@@ -104,6 +122,8 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
 //                transaction.commit();
             }
         });
+
+
     }
     @Override
     public int getItemCount() {

@@ -1,21 +1,23 @@
 package com.example.haball.Distributor.ui.orders.Models;
 
 public class OrderItemsModel {
-    private String ID, CompanyId, Code, Title, UnitPrice, DiscountId, EffectiveDate, ExpiryDate, IsPercentage, DiscountValue, DiscountAmount, CategoryTitle;
+    private String ID, CompanyId, Code, Title, UnitPrice,
+            DiscountId, DiscountValue, DiscountAmount, CategoryTitle,
+            ShortDescription, UOMId, UOMTitle;
 
-    public OrderItemsModel(String ID, String companyId, String code, String title, String unitPrice, String discountId, String effectiveDate, String expiryDate, String isPercentage, String discountValue, String discountAmount, String categoryTitle) {
+    public OrderItemsModel(String ID, String companyId, String code, String title, String unitPrice, String discountId, String discountValue, String discountAmount, String categoryTitle, String shortDescription, String UOMId, String UOMTitle) {
         this.ID = ID;
         CompanyId = companyId;
         Code = code;
         Title = title;
         UnitPrice = unitPrice;
         DiscountId = discountId;
-        EffectiveDate = effectiveDate;
-        ExpiryDate = expiryDate;
-        IsPercentage = isPercentage;
         DiscountValue = discountValue;
         DiscountAmount = discountAmount;
         CategoryTitle = categoryTitle;
+        ShortDescription = shortDescription;
+        this.UOMId = UOMId;
+        this.UOMTitle = UOMTitle;
     }
 
     public String getID() {
@@ -66,30 +68,6 @@ public class OrderItemsModel {
         DiscountId = discountId;
     }
 
-    public String getEffectiveDate() {
-        return EffectiveDate;
-    }
-
-    public void setEffectiveDate(String effectiveDate) {
-        EffectiveDate = effectiveDate;
-    }
-
-    public String getExpiryDate() {
-        return ExpiryDate;
-    }
-
-    public void setExpiryDate(String expiryDate) {
-        ExpiryDate = expiryDate;
-    }
-
-    public String getIsPercentage() {
-        return IsPercentage;
-    }
-
-    public void setIsPercentage(String isPercentage) {
-        IsPercentage = isPercentage;
-    }
-
     public String getDiscountValue() {
         return DiscountValue;
     }
@@ -112,5 +90,29 @@ public class OrderItemsModel {
 
     public void setCategoryTitle(String categoryTitle) {
         CategoryTitle = categoryTitle;
+    }
+
+    public String getShortDescription() {
+        return ShortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        ShortDescription = shortDescription;
+    }
+
+    public String getUOMId() {
+        return UOMId;
+    }
+
+    public void setUOMId(String UOMId) {
+        this.UOMId = UOMId;
+    }
+
+    public String getUOMTitle() {
+        return UOMTitle;
+    }
+
+    public void setUOMTitle(String UOMTitle) {
+        this.UOMTitle = UOMTitle;
     }
 }
