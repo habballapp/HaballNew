@@ -281,20 +281,19 @@ public class Orders_Items_Fragment extends Fragment {
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<OrderItemsModel>>() {
                 }.getType();
-//                temp_list = gson.fromJson(object_string, type);
+                temp_list = gson.fromJson(object_string, type);
                 object_stringqty = selectedProducts.getString("selected_products_qty", "");
                 Type typestr = new TypeToken<List<String>>() {
                 }.getType();
-//                temp_listqty = gson.fromJson(object_stringqty, typestr);
+                temp_listqty = gson.fromJson(object_stringqty, typestr);
                 if (!object_string.equals("")) {
-//                    if (selectedProductsDataList != null) {
-
-//                        if (temp_list != selectedProductsDataList) {
-//                            selectedProductsDataList = temp_list;
-//                            selectedProductsQuantityList = temp_listqty;
-//                            break;
-//                        }
-//                    }
+                    if (selectedProductsDataList != null) {
+                        if (temp_list != selectedProductsDataList) {
+                            selectedProductsDataList = temp_list;
+                            selectedProductsQuantityList = temp_listqty;
+                            break;
+                        }
+                    }
                     break;
                 }
             }
@@ -305,6 +304,9 @@ public class Orders_Items_Fragment extends Fragment {
         protected void onPostExecute(Void result) {
             if (getContext() != null)
                 enableCheckout();
+            mAdapter1 = new OrdersItemsAdapter(getContext(), ProductsDataList);
+            itemsSelect_Rv.setAdapter(mAdapter1);
+
         }
     }
 }

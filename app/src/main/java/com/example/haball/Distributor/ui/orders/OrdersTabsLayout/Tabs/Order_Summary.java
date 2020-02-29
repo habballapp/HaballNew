@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +33,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.orders.Adapter.OrderSummaryAdapter;
 import com.example.haball.Distributor.ui.orders.Adapter.OrdersItemsAdapter;
 import com.example.haball.Distributor.ui.orders.Models.OrderItemsModel;
+import com.example.haball.Distributor.ui.orders.OrdersTabsLayout.ui.main.PageViewModel;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.example.haball.R;
 import com.example.haball.Retailor.ui.Logout.LogoutFragment;
@@ -65,6 +68,8 @@ public class Order_Summary extends Fragment {
     private Button btn_confirm, btn_more_items;
     private TextView gross_amount, discount_amount, gst_amount, total_amount;
     private float totalAmount;
+    private PageViewModel pageViewModel;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,7 +92,15 @@ public class Order_Summary extends Fragment {
                 editor.putString("grossamount","0");
                 editor.apply();
 
-                getFragmentManager().popBackStack();
+//                pageViewModel = ViewModelProviders.of(getActivity()).get(PageViewModel.class);
+//                int index = 0;
+//                pageViewModel.setIndex(index);
+                FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.add(R.id.main_container, new Orders_Items_Fragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+//                getFragmentManager().popBackStack();
             }
         });
 
