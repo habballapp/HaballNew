@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -68,13 +69,13 @@ public class Order_Summary extends Fragment {
     private Button btn_confirm, btn_more_items;
     private TextView gross_amount, discount_amount, gst_amount, total_amount;
     private float totalAmount;
-    private PageViewModel pageViewModel;
+    private ViewPager viewpager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_order__summary, container, false);
+        final View view = inflater.inflate(R.layout.fragment_order__summary, container, false);
         gross_amount = view.findViewById(R.id.gross_amount);
         discount_amount = view.findViewById(R.id.discount_amount);
         gst_amount = view.findViewById(R.id.gst_amount);
@@ -95,6 +96,12 @@ public class Order_Summary extends Fragment {
 //                pageViewModel = ViewModelProviders.of(getActivity()).get(PageViewModel.class);
 //                int index = 0;
 //                pageViewModel.setIndex(index);
+                SharedPreferences sharedPreferences2 = getContext().getSharedPreferences("CompanyId",
+                        Context.MODE_PRIVATE);
+                viewpager = getActivity().findViewById(R.id.view_pager5);
+                viewpager.setCurrentItem(0);
+
+
                 FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.add(R.id.main_container, new Orders_Items_Fragment());
                 fragmentTransaction.addToBackStack(null);

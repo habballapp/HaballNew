@@ -121,6 +121,7 @@ public class CompanyFragmentAdapter extends RecyclerView.Adapter<CompanyFragment
                 SharedPreferences companyId = ((FragmentActivity) context).getSharedPreferences("CompanyId",
                         Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = companyId.edit();
+                editor.putString("viewpager", String.valueOf(mPager));
                 editor.putString("CompanyId", companyList.get(position).getId());
                 editor.commit();
 

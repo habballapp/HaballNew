@@ -114,20 +114,14 @@ public class PlaceholderFragment extends Fragment {
         mycontainer = container;
         myinflater = inflater;
         switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
-
             case 1: {
                 rootView = inflater.inflate(R.layout.activity_distributer_order, container, false);
-                Holderorders(rootView);
-
-                Log.i("aaaaaa", String
-                        .valueOf(mAdapter));
+                final ViewPager pager = getActivity().findViewById(R.id.view_pager5);
+                Holderorders(rootView, pager);
                 break;
-
             }
 
-
             case 2: {
-
                 rootView = inflater.inflate(R.layout.fragment_order__summary, container, false);
                 break;
             }
@@ -139,29 +133,22 @@ public class PlaceholderFragment extends Fragment {
     }
 
 
-    private void Holderorders(final View root) {
-
+    private void Holderorders(final View root, ViewPager pager) {
 
         recyclerView = root.findViewById(R.id.rv_order_ledger);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         try {
-            fetchCompany();
+            fetchCompany(pager);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        Log.i("qqqqqqq", String.valueOf(mPager));
-
-
     }
 
-    private void fetchCompany() throws JSONException {
+    private void fetchCompany(final ViewPager pager) throws JSONException {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -184,7 +171,7 @@ public class PlaceholderFragment extends Fragment {
                 }.getType();
                 CompanyList = gson.fromJson(result.toString(), type);
                 Log.i("CompanyList", String.valueOf(CompanyList));
-                mAdapter = new CompanyFragmentAdapter(getContext(), CompanyList, mPager);
+                mAdapter = new CompanyFragmentAdapter(getContext(), CompanyList, pager);
                 recyclerView.setAdapter(mAdapter);
             }
         }, new Response.ErrorListener() {
@@ -286,13 +273,8 @@ public class PlaceholderFragment extends Fragment {
                 Iterator<String> keys = data.keys();
                 while (keys.hasNext()) {
                     String key = keys.next();
-                    //                if (data.get(key) instanceof JSONObject) {
                     message = message + data.get(key) + "\n";
-                    //                }
                 }
-                //                    if(data.has("message"))
-                //                        message = data.getString("message");
-                //                    else if(data. has("Error"))
                 Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
