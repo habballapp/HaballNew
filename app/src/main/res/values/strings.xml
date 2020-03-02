@@ -24,6 +24,9 @@
     <string name="tab_text_08">\t\tPlace Order\t\t</string>
     <string name="tab_text_09">\t\tOrder Summary\t\t</string>
 
+    <string name="load_more"><u>Load More</u></string>
+
+
     <string name="Forgot_Password">Forgot Password</string>
     <string name="Txt_Dashboard">Dashboard</string>
     <string name="Txt_Payment">Payment Options</string>

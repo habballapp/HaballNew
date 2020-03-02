@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     tools:context=".Payment.Payment_Make_New">
 
     <LinearLayout
@@ -198,6 +199,7 @@
             android:padding="15dp"
             android:layout_weight="1">
             <TextView
+                android:id="@+id/tv_banking_channel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Banking Channel"

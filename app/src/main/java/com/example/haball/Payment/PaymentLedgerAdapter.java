@@ -24,6 +24,10 @@ public class PaymentLedgerAdapter extends RecyclerView.Adapter<PaymentLedgerAdap
         this.PaymentLedgerList = paymentLedgerList;
     }
 
+    public PaymentLedgerAdapter() {
+
+    }
+
     @NonNull
     @Override
     public PaymentLedgerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -69,5 +73,12 @@ public class PaymentLedgerAdapter extends RecyclerView.Adapter<PaymentLedgerAdap
             balance_value = itemView.findViewById(R.id.balance_value);
             transaction = itemView.findViewById(R.id.transaction);
         }
+    }
+
+    public void addListItem(List<PaymentLedgerModel> list) {
+        for(PaymentLedgerModel plm : list){
+            PaymentLedgerList.add(plm);
+        }
+        notifyDataSetChanged();
     }
 }

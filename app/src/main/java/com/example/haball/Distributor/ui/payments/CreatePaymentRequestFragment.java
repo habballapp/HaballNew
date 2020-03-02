@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -58,6 +59,7 @@ public class CreatePaymentRequestFragment extends Fragment {
     private String company_names;
     private EditText txt_amount;
     private String prepaid_number;
+    private FragmentTransaction fragmentTransaction;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -131,6 +133,18 @@ public class CreatePaymentRequestFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+                SharedPreferences PrePaidNumber = getContext().getSharedPreferences("PrePaidNumber",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = PrePaidNumber.edit();
+                editor.putString("PrePaidNumber",prepaid_number);
+                editor.apply();
+
+                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(((ViewGroup)getView().getParent()).getId(), new PaymentScreen3Fragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
                 Toast.makeText(getContext(), "Payment Request "+prepaid_number+" has been created successfully.", Toast.LENGTH_SHORT).show();
                 Log.e("RESPONSE prepaid_number", result.toString());
             }
