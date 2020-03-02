@@ -7,14 +7,18 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,7 +69,7 @@ public class Payments_Fragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-
+    private LinearLayoutManager layoutManager2;
     private HashMap<String,String> companies = new HashMap<>();
     private List<String> company_names = new ArrayList<>();
     private String Token;
@@ -83,9 +87,16 @@ public class Payments_Fragment extends Fragment {
     private List<String> consolidate_felter = new ArrayList<>();
     private List<String> filters = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapterFeltter;
-
+    private Button btn_load_more;
     private String Company_selected, DistributorId;
     private String Filter_selected, Filter_selected_value;
+
+
+    //variables for pagination ...
+    private boolean isLoading = true;
+    private int pastVisibleItems, visibleItemCount, totalItemCount, previousTotal = 0;
+    private int viewThreshold = 10;
+    private int pageNumber = 0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -94,6 +105,13 @@ public class Payments_Fragment extends Fragment {
         View root = inflater.inflate(R.layout.activity_payment_ledger, container, false);
 
         company_names.add("Company ");
+
+        btn_load_more = root.findViewById(R.id.btn_load_more);
+
+        SpannableString content = new SpannableString("Load More");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        btn_load_more.setText(content);
+        btn_load_more.setVisibility(View.GONE);
 
         spinner_criteria = root.findViewById(R.id.spinner_criteria);
         arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
@@ -255,11 +273,93 @@ public class Payments_Fragment extends Fragment {
             }
         });
 
+        btn_load_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pageNumber++;
+                try {
+                    performPagination(companies.get(Company_selected));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         recyclerView = root.findViewById(R.id.rv_payment_ledger);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(getContext());
+        layoutManager2 = new LinearLayoutManager(getContext());
+
         recyclerView.setLayoutManager(layoutManager);
+
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager=LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+
+                int visibleItemCount        = layoutManager.getChildCount();
+                int totalItemCount          = layoutManager.getItemCount();
+                int firstVisibleItemPosition= layoutManager.findFirstVisibleItemPosition();
+
+                // Load more if we have reach the end to the recyclerView
+                if ( (visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
+                    btn_load_more.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                LinearLayoutManager layoutManager=LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+//                int totalItemCount = layoutManager.getItemCount();
+//                int lastVisible = layoutManager.findLastVisibleItemPosition();
+//
+//                boolean endHasBeenReached = lastVisible >= totalItemCount;
+//                if (totalItemCount > 0 && endHasBeenReached) {
+//                    //you have reached to the bottom of your recycler view
+//                    Toast.makeText(getContext(), "end of first page", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        });
+//
+//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//
+//                visibleItemCount = layoutManager.getChildCount();
+//                totalItemCount = layoutManager.getItemCount();
+//                pastVisibleItems = layoutManager2.findFirstVisibleItemPosition();
+//
+//                if(dy>0){
+//                    if(isLoading){
+//                        if(totalItemCount>previousTotal){
+//                            isLoading = false;
+//                            previousTotal = totalItemCount;
+//                        }
+//                    }
+//                    if(!isLoading && (totalItemCount-visibleItemCount)<=(pastVisibleItems+viewThreshold)){
+//                        pageNumber++;
+//                        load_more.setVisibility(View.VISIBLE);
+//                        try {
+//                            performPagination(companies.get(Company_selected));
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                        isLoading = true;
+//                    }
+//                }
+//            }
+//        });
 
         fetchCompanyNames();
 
@@ -331,7 +431,7 @@ public class Payments_Fragment extends Fragment {
         map.put("DistributorId", Integer.parseInt(DistributorId));
         map.put("CompanyId", companyId);
         map.put("TotalRecords", 10);
-        map.put("PageNumber", 0.1);
+        map.put("PageNumber", pageNumber);
 
         MyJsonArrayRequest request = new MyJsonArrayRequest(Request.Method.POST, URL_PAYMENT_LEDGER, map, new Response.Listener<JSONArray>() {
             @Override
@@ -372,6 +472,61 @@ public class Payments_Fragment extends Fragment {
         Volley.newRequestQueue(getContext()).add(request);
         mAdapter = new PaymentLedgerAdapter(getContext(),paymentLedgerList);
         recyclerView.setAdapter(mAdapter);
+    }
+
+    private void performPagination(String companyId) throws JSONException {
+
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+        Log.i("DistributorId ", DistributorId);
+        Log.i("Token pl .. ", Token);
+
+        JSONObject map = new JSONObject();
+        map.put("Status", -1);
+        map.put("DistributorId", Integer.parseInt(DistributorId));
+        map.put("CompanyId", companyId);
+        map.put("TotalRecords", 10);
+        map.put("PageNumber", pageNumber);
+
+        MyJsonArrayRequest request = new MyJsonArrayRequest(Request.Method.POST, URL_PAYMENT_LEDGER, map, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                Log.i(" PAYMENT LEDGER PAGE2", ""+response.toString());
+                JSONObject jsonObject = new JSONObject();
+                for(int i=0;i<response.length();i++){
+                    try {
+                        jsonObject = response.getJSONObject(i);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                btn_load_more.setVisibility(View.GONE);
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<PaymentLedgerModel>>(){}.getType();
+                paymentLedgerList = gson.fromJson(String.valueOf(response),type);
+                ((PaymentLedgerAdapter)recyclerView.getAdapter()).addListItem(paymentLedgerList);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+                error.printStackTrace();
+                Log.i("onErrorResponse", "Error");
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer "+Token);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(request);
     }
 
 
