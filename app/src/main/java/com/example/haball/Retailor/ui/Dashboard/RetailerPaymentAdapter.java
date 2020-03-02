@@ -45,15 +45,16 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
         holder.tv_payment_id.setText(paymentsList.get(position).getPrePaidNumber());
 
         DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
-        String yourFormattedString1 = formatter1.format(Integer.parseInt(paymentsList.get(position).getPaidAmount()));
+        String yourFormattedString1 = formatter1.format(Double.parseDouble(paymentsList.get(position).getPaidAmount()));
         holder.tv_amount.setText(yourFormattedString1);
 
-        if(paymentsList.get(position).getStatus().equals("0")){
-            holder.tv_status.setText("Paid");
-        }
-        else{
-            holder.tv_status.setText("Unpaid");
-        }
+//        if(paymentsList.get(position).getStatus().equals("0")){
+//            holder.tv_status.setText("Paid");
+//        }
+//        else{
+//            holder.tv_status.setText("Unpaid");
+//        }
+        holder.tv_status.setText(paymentsList.get(position).getStatus());
 
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override

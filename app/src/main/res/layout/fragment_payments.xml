@@ -6,6 +6,62 @@
     android:id="@+id/main_container"
     tools:context=".Distributor.ui.main.PaymentsFragment">
 
+    <Button
+        android:id="@+id/consolidate"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/button_round"
+        android:layout_marginTop="15dp"
+        android:text="Consolidate"
+        android:textSize="15sp"
+        android:textColor="#fff"
+        android:stateListAnimator="@null"
+        android:gravity="center"
+        android:textAllCaps="false"
+        />
+
+    <RelativeLayout
+        android:id="@+id/spinner_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edit_text_squared"
+        android:layout_below="@+id/consolidate">
+        <Spinner
+            android:id="@+id/spinner_conso"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/spinner_container1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edit_text_squared"
+        android:layout_below="@+id/spinner_container">
+        <Spinner
+            android:id="@+id/conso_spinner2"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+
+        <EditText
+            android:id="@+id/conso_edittext"
+            android:background="@drawable/edit_text_squared"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+
+    </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_fragment_payments"
         android:layout_width="match_parent"
@@ -13,7 +69,8 @@
         android:layout_marginTop="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginBottom="30dp"/>
+        android:layout_marginBottom="30dp"
+        android:layout_below="@+id/spinner_container1"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

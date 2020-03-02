@@ -1,30 +1,30 @@
 package com.example.haball.Retailor.ui.Dashboard;
 
 public class RetailerPaymentModel {
-    String ID, PrePaidNumber, CompanyName, Status, PaidAmount;
+    String RetailerInvoiceId, InvoiceNumber, CompanyName, Status, TotalPrice;
 
     public RetailerPaymentModel(String ID, String prePaidNumber, String companyName, String status, String paidAmount) {
-        this.ID = ID;
-        PrePaidNumber = prePaidNumber;
+        this.RetailerInvoiceId = ID;
+        InvoiceNumber = prePaidNumber;
         CompanyName = companyName;
         Status = status;
-        PaidAmount = paidAmount;
+        TotalPrice = paidAmount;
     }
 
     public String getID() {
-        return ID;
+        return RetailerInvoiceId;
     }
 
     public void setID(String ID) {
-        this.ID = ID;
+        this.RetailerInvoiceId = ID;
     }
 
     public String getPrePaidNumber() {
-        return PrePaidNumber;
+        return InvoiceNumber;
     }
 
     public void setPrePaidNumber(String prePaidNumber) {
-        PrePaidNumber = prePaidNumber;
+        InvoiceNumber = prePaidNumber;
     }
 
     public String getCompanyName() {
@@ -44,10 +44,10 @@ public class RetailerPaymentModel {
     }
 
     public String getPaidAmount() {
-        return PaidAmount;
+        return TotalPrice;
     }
 
     public void setPaidAmount(String paidAmount) {
-        PaidAmount = paidAmount;
+        TotalPrice = paidAmount;
     }
 }

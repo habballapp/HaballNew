@@ -1,12 +1,20 @@
 package com.example.haball.Distributor.ui.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +29,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Distribution_Login.Distribution_Login;
+import com.example.haball.Distributor.DistributorDashboard;
 import com.example.haball.Distributor.DistributorOrdersAdapter;
 import com.example.haball.Distributor.DistributorOrdersModel;
 import com.example.haball.Distributor.DistributorPaymentsAdapter;
@@ -66,6 +76,16 @@ public class PlaceholderFragment extends Fragment {
 
     private PageViewModel pageViewModel;
 
+    private Spinner spinner_consolidate;
+    private Spinner spinner2;
+    private EditText conso_edittext;
+    private List<String> consolidate_felter = new ArrayList<>();
+    private List<String> filters = new ArrayList<>();
+    private ArrayAdapter<String> arrayAdapterPayments;
+    private ArrayAdapter<String> arrayAdapterFeltter;
+    private Button consolidate;
+    private String Filter_selected, Filter_selected_value;
+
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
         Bundle bundle = new Bundle();
@@ -92,13 +112,6 @@ public class PlaceholderFragment extends Fragment {
 
         switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
             case 1: {
-                rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
-                value_unpaid_amount = rootView.findViewById(R.id.value_unpaid_amount);
-                value_paid_amount = rootView.findViewById(R.id.value_paid_amount);
-                fetchDashboardData();
-                break;
-            }
-            case 2: {
                 rootView = inflater.inflate(R.layout.fragment_payments, container, false);
                 fetchPaymentsData();
                 recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_fragment_payments);
@@ -106,11 +119,175 @@ public class PlaceholderFragment extends Fragment {
                 recyclerView.setHasFixedSize(true);
                 layoutManager = new LinearLayoutManager(rootView.getContext());
                 recyclerView.setLayoutManager(layoutManager);
+                consolidate = rootView.findViewById(R.id.consolidate);
+
+                spinner_consolidate = (Spinner) rootView.findViewById(R.id.spinner_conso);
+                spinner2 = (Spinner) rootView.findViewById(R.id.conso_spinner2);
+                conso_edittext = (EditText) rootView.findViewById(R.id.conso_edittext);
+                spinner2.setVisibility(View.GONE);
+                conso_edittext.setVisibility(View.GONE);
+                consolidate_felter.add ("Select Criteria");
+                consolidate_felter.add ("Payment ID");
+                consolidate_felter.add ("Company");
+                consolidate_felter.add ("Transaction Date");
+                consolidate_felter.add ("Created Date");
+                consolidate_felter.add ("Amount");
+                consolidate_felter.add ("Status");
+
+                arrayAdapterPayments = new ArrayAdapter<>(rootView.getContext(),
+                        android.R.layout.simple_spinner_dropdown_item, consolidate_felter);
+
+                spinner_consolidate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        spinner2.setVisibility(View.GONE);
+                        conso_edittext.setVisibility(View.GONE);
+                        if(i == 0){
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                        }
+                        else{
+                            Filter_selected = consolidate_felter.get(i);
+
+                            if(!Filter_selected.equals("Status"))
+                                spinner2.setSelection(0);
+                            if(!conso_edittext.getText().equals(""))
+                                conso_edittext.setText("");
+
+                            if(Filter_selected.equals("Payment ID")) {
+                                Filter_selected = "PrePaidNumber";
+                                conso_edittext.setVisibility(View.VISIBLE);
+                            } else if(Filter_selected.equals("Company")) {
+                                Filter_selected = "CompanyName";
+                                conso_edittext.setVisibility(View.VISIBLE);
+                            } else if(Filter_selected.equals("Transaction Date")) {
+                                Toast.makeText(getContext(),"Transaction Date selected",Toast.LENGTH_LONG).show();
+                            } else if(Filter_selected.equals("Created Date")) {
+                                Toast.makeText(getContext(),"Created Date selected",Toast.LENGTH_LONG).show();
+                            } else if(Filter_selected.equals("Amount")) {
+                                Toast.makeText(getContext(),"Amount selected",Toast.LENGTH_LONG).show();
+                            } else if(Filter_selected.equals("Status")) {
+                                Filter_selected = "Status";
+                                spinner2.setVisibility(View.VISIBLE);
+                            }
+//                    try {
+//                        fetchPaymentLedgerData(companies.get(Filter_selected));
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+                arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                arrayAdapterPayments.notifyDataSetChanged();
+                spinner_consolidate.setAdapter(arrayAdapterPayments);
+
+                filters.add ("Status");
+                filters.add ("Processing Payment");
+                filters.add ("Unpaid ");
+                filters.add ("Paid");
+                arrayAdapterFeltter = new ArrayAdapter<>(rootView.getContext(),
+                        android.R.layout.simple_spinner_dropdown_item, filters);
+                Log.i("aaaa1111", String.valueOf(consolidate_felter));
+                spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        if(i == 0){
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                        }
+                        else{
+                            Filter_selected_value = String.valueOf(i-2);
+                            Log.i("Filter_selected_value",Filter_selected_value);
+//                            try {
+//                                fetchFilteredPaymentRequests();
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+                        }
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+                arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                arrayAdapterFeltter.notifyDataSetChanged();
+                spinner2.setAdapter(arrayAdapterFeltter);
+
+
+                conso_edittext.addTextChangedListener(new TextWatcher() {
+
+                    public void afterTextChanged(Editable s) {
+                        Log.i("text1", "check");
+                        Log.i("text", String.valueOf(s));
+                        Filter_selected_value = String.valueOf(s);
+//                        try {
+//                            fetchFilteredPaymentRequests();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+                    }
+
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {}
+                });
+
+//        spinner_consolidate("Select Criteria","Invoice No", "Company", "Created Date", "Total Price", "Paid Amount" ,"Status","Created By");
+//        spinner_consolidate.setOnItemSelectedListener(new Spinner().OnItemSelectedListener<String>() {
+//            @Override public void onItemSelected(Spinner view, int position, long id, String item) {
+//                if (position!=6){
+//                    spinner_consolidate.setVisibility(View.GONE);
+//                }
+//                else{
+//                    spinner2.setVisibility(View.VISIBLE);
+//
+//                }
+//                Snackbar.make(view, "Clicked " + item , Snackbar.LENGTH_LONG).show();
+//                Toast.makeText(getActivity(), "id"+position, Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
+//        spinner2.setItems("Pending", "Unpaid", "Partially Paid", "Paid", "Payment Processing");
+//        spinner2.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+//
+//
+//            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+//                Snackbar.make(view, "Clicked " + item , Snackbar.LENGTH_LONG).show();
+//                Toast.makeText(getActivity(), "id"+position, Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
+
+                layoutManager = new LinearLayoutManager(getContext());
+                recyclerView.setLayoutManager(layoutManager);
+
+                consolidate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(getContext(),"Consolidate clicked",Toast.LENGTH_LONG).show();
+//                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                        fragmentTransaction.remove(PaymentRequestDashboard.this);
+//                        fragmentTransaction.replace(((ViewGroup)getView().getParent()).getId(), new CreatePaymentRequestFragment());
+//                        fragmentTransaction.addToBackStack(null);
+//                        fragmentTransaction.commit();
+                    }
+                });
+
+
+
+
 
                 break;
             }
 
-            case 3: {
+            case 2: {
                 rootView = inflater.inflate(R.layout.fragment_orders, container, false);
                 try {
                     fetchOrderData();
@@ -140,6 +317,14 @@ public class PlaceholderFragment extends Fragment {
 //                recyclerView.setAdapter(OrdersAdapter);
 //                break;
             }
+            case 3: {
+                rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
+                value_unpaid_amount = rootView.findViewById(R.id.value_unpaid_amount);
+                value_paid_amount = rootView.findViewById(R.id.value_paid_amount);
+                fetchDashboardData();
+                break;
+            }
+
         }
         return rootView;
     }
@@ -279,6 +464,19 @@ public class PlaceholderFragment extends Fragment {
                 while(keys.hasNext()) {
                     String key = keys.next();
 //                if (data.get(key) instanceof JSONObject) {
+                    Log.i("message", String.valueOf(data.get(key)));
+                    if(data.get(key).equals("TokenExpiredError")) {
+                        SharedPreferences login_token = getContext().getSharedPreferences("LoginToken",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = login_token.edit();
+                        editor.remove("Login_Token");
+                        editor.commit();
+                        Intent login = new Intent(getActivity(), Distribution_Login.class);
+                        startActivity(login);
+                        getActivity().finish();
+
+                    }
+
                     message = message + data.get(key) + "\n";
 //                }
                 }
