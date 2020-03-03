@@ -39,6 +39,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.support.MyJsonArrayRequest;
 import com.example.haball.Payment.PaymentLedger;
@@ -75,6 +76,7 @@ public class Payments_Fragment extends Fragment {
     private String Token;
     private String URL_PAYMENT_LEDGER_COMPANY = "http://175.107.203.97:4008/api/company/ReadActiveCompanyContract/";
     private String URL_PAYMENT_LEDGER = "http://175.107.203.97:4008/api/transactions/search";
+    private String URL_PAYMENT_LEDGER_COUNT = "http://175.107.203.97:4008/api/transactions/searchCount";
     private ArrayAdapter<String> arrayAdapterPayments, arrayAdapterPaymentsFilter;
     private List<PaymentLedgerModel> paymentLedgerList = new ArrayList<>();
     private Spinner spinner_criteria;
@@ -97,13 +99,16 @@ public class Payments_Fragment extends Fragment {
     private int pastVisibleItems, visibleItemCount, totalItemCount, previousTotal = 0;
     private int viewThreshold = 10;
     private int pageNumber = 0;
-
+    private double totalEntries = 0;
+    private double totalPages = 0;
+    private Context mcontext;
+    
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         paymentsViewModel =
                 ViewModelProviders.of(this).get(PaymentsViewModel.class);
         View root = inflater.inflate(R.layout.activity_payment_ledger, container, false);
-
+        mcontext = getContext();
         company_names.add("Company ");
 
         btn_load_more = root.findViewById(R.id.btn_load_more);
@@ -158,28 +163,23 @@ public class Payments_Fragment extends Fragment {
                     } else if(Filter_selected.equals("Date")) {
                         spinner2.setVisibility(View.GONE);
                         conso_edittext.setVisibility(View.GONE);
-                        Toast.makeText(getContext(),"Date selected",Toast.LENGTH_LONG).show();
+                        Toast.makeText(mcontext,"Date selected",Toast.LENGTH_LONG).show();
                     } else if(Filter_selected.equals("Credit")) {
                         spinner2.setVisibility(View.GONE);
                         conso_edittext.setVisibility(View.GONE);
-                        Toast.makeText(getContext(),"Credit selected",Toast.LENGTH_LONG).show();
+                        Toast.makeText(mcontext,"Credit selected",Toast.LENGTH_LONG).show();
                     } else if(Filter_selected.equals("Debit")) {
                         spinner2.setVisibility(View.GONE);
                         conso_edittext.setVisibility(View.GONE);
-                        Toast.makeText(getContext(),"Debit selected",Toast.LENGTH_LONG).show();
+                        Toast.makeText(mcontext,"Debit selected",Toast.LENGTH_LONG).show();
                     } else if(Filter_selected.equals("Balance")) {
                         spinner2.setVisibility(View.GONE);
                         conso_edittext.setVisibility(View.GONE);
-                        Toast.makeText(getContext(),"Balance selected",Toast.LENGTH_LONG).show();
+                        Toast.makeText(mcontext,"Balance selected",Toast.LENGTH_LONG).show();
                     } else {
                         spinner2.setVisibility(View.GONE);
                         conso_edittext.setVisibility(View.GONE);
                     }
-//                    try {
-//                        fetchPaymentLedgerData(companies.get(Filter_selected));
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
                 }
             }
 
@@ -288,8 +288,8 @@ public class Payments_Fragment extends Fragment {
         recyclerView = root.findViewById(R.id.rv_payment_ledger);
         recyclerView.setHasFixedSize(true);
 
-        layoutManager = new LinearLayoutManager(getContext());
-        layoutManager2 = new LinearLayoutManager(getContext());
+        layoutManager = new LinearLayoutManager(mcontext);
+        layoutManager2 = new LinearLayoutManager(mcontext);
 
         recyclerView.setLayoutManager(layoutManager);
 
@@ -311,55 +311,13 @@ public class Payments_Fragment extends Fragment {
 
                 // Load more if we have reach the end to the recyclerView
                 if ( (visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
-                    btn_load_more.setVisibility(View.VISIBLE);
+                    if(totalPages != 0 && pageNumber < totalPages) {
+                        Toast.makeText(mcontext, pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
+                        btn_load_more.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         });
-
-//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-//                LinearLayoutManager layoutManager=LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
-//                int totalItemCount = layoutManager.getItemCount();
-//                int lastVisible = layoutManager.findLastVisibleItemPosition();
-//
-//                boolean endHasBeenReached = lastVisible >= totalItemCount;
-//                if (totalItemCount > 0 && endHasBeenReached) {
-//                    //you have reached to the bottom of your recycler view
-//                    Toast.makeText(getContext(), "end of first page", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//        });
-//
-//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//
-//                visibleItemCount = layoutManager.getChildCount();
-//                totalItemCount = layoutManager.getItemCount();
-//                pastVisibleItems = layoutManager2.findFirstVisibleItemPosition();
-//
-//                if(dy>0){
-//                    if(isLoading){
-//                        if(totalItemCount>previousTotal){
-//                            isLoading = false;
-//                            previousTotal = totalItemCount;
-//                        }
-//                    }
-//                    if(!isLoading && (totalItemCount-visibleItemCount)<=(pastVisibleItems+viewThreshold)){
-//                        pageNumber++;
-//                        load_more.setVisibility(View.VISIBLE);
-//                        try {
-//                            performPagination(companies.get(Company_selected));
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                        isLoading = true;
-//                    }
-//                }
-//            }
-//        });
 
         fetchCompanyNames();
 
@@ -367,7 +325,7 @@ public class Payments_Fragment extends Fragment {
     }
 
     private void fetchCompanyNames() {
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+        SharedPreferences sharedPreferences = mcontext.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token","");
         Log.i("Token", Token);
@@ -387,8 +345,6 @@ public class Payments_Fragment extends Fragment {
                         company_names.add(jsonObject.getString("Name"));
                         companies.put(jsonObject.getString("Name"),jsonObject.getString("ID"));
                     }
-//                    System.out.println("companies values => "+companies.get(company_names.get(0)));
-//                    Log.i("companies values => ",companies.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -409,14 +365,14 @@ public class Payments_Fragment extends Fragment {
                 return params;
             }
         };
-        Volley.newRequestQueue(getContext()).add(sr);
+        Volley.newRequestQueue(mcontext).add(sr);
         arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         arrayAdapterPayments.notifyDataSetChanged();
         spinner_criteria.setAdapter(arrayAdapterPayments);
     }
 
     private void fetchPaymentLedgerData(String companyId) throws JSONException{
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+        SharedPreferences sharedPreferences = mcontext.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
 
@@ -425,6 +381,39 @@ public class Payments_Fragment extends Fragment {
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
         Log.i("Token pl .. ", Token);
+
+        JSONObject mapCount = new JSONObject();
+        mapCount.put("Status", -1);
+        mapCount.put("DistributorId", Integer.parseInt(DistributorId));
+        mapCount.put("CompanyId", companyId);
+
+        JsonObjectRequest countRequest = new JsonObjectRequest(Request.Method.POST, URL_PAYMENT_LEDGER_COUNT, mapCount, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    totalEntries = Double.parseDouble(String.valueOf(response.get("transactionsCount")));
+                    totalPages = Math.ceil(totalEntries / 10);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+
+                error.printStackTrace();
+                Log.i("onErrorResponse", "Error");
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer "+Token);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(mcontext).add(countRequest);
 
         JSONObject map = new JSONObject();
         map.put("Status", -1);
@@ -449,7 +438,7 @@ public class Payments_Fragment extends Fragment {
                 Type type = new TypeToken<List<PaymentLedgerModel>>(){}.getType();
                 paymentLedgerList = gson.fromJson(String.valueOf(response),type);
 
-                mAdapter = new PaymentLedgerAdapter(getContext(),paymentLedgerList);
+                mAdapter = new PaymentLedgerAdapter(mcontext,paymentLedgerList);
                 recyclerView.setAdapter(mAdapter);
 
             }
@@ -469,14 +458,14 @@ public class Payments_Fragment extends Fragment {
                 return params;
             }
         };
-        Volley.newRequestQueue(getContext()).add(request);
-        mAdapter = new PaymentLedgerAdapter(getContext(),paymentLedgerList);
+        Volley.newRequestQueue(mcontext).add(request);
+        mAdapter = new PaymentLedgerAdapter(mcontext,paymentLedgerList);
         recyclerView.setAdapter(mAdapter);
     }
 
     private void performPagination(String companyId) throws JSONException {
 
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+        SharedPreferences sharedPreferences = mcontext.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
 
@@ -526,12 +515,12 @@ public class Payments_Fragment extends Fragment {
                 return params;
             }
         };
-        Volley.newRequestQueue(getContext()).add(request);
+        Volley.newRequestQueue(mcontext).add(request);
     }
 
 
     private void fetchFilteredPaymentLedgerData(String companyId) throws JSONException{
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+        SharedPreferences sharedPreferences = mcontext.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
 
@@ -566,7 +555,7 @@ public class Payments_Fragment extends Fragment {
                 Type type = new TypeToken<List<PaymentLedgerModel>>(){}.getType();
                 paymentLedgerList = gson.fromJson(String.valueOf(response),type);
 
-                mAdapter = new PaymentLedgerAdapter(getContext(),paymentLedgerList);
+                mAdapter = new PaymentLedgerAdapter(mcontext,paymentLedgerList);
                 recyclerView.setAdapter(mAdapter);
 
             }
@@ -586,25 +575,25 @@ public class Payments_Fragment extends Fragment {
                 return params;
             }
         };
-        Volley.newRequestQueue(getContext()).add(request);
-        mAdapter = new PaymentLedgerAdapter(getContext(),paymentLedgerList);
+        Volley.newRequestQueue(mcontext).add(request);
+        mAdapter = new PaymentLedgerAdapter(mcontext,paymentLedgerList);
         recyclerView.setAdapter(mAdapter);
     }
 
 
-        private void printErrorMessage(VolleyError error) {
+    private void printErrorMessage(VolleyError error) {
         if (error instanceof NetworkError) {
-            Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+            Toast.makeText(mcontext, "Network Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof ServerError) {
-            Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+            Toast.makeText(mcontext, "Server Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof AuthFailureError) {
-            Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+            Toast.makeText(mcontext, "Auth Failure Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof ParseError) {
-            Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+            Toast.makeText(mcontext, "Parse Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof NoConnectionError) {
-            Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+            Toast.makeText(mcontext, "No Connection Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof TimeoutError) {
-            Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+            Toast.makeText(mcontext, "Timeout Error !", Toast.LENGTH_LONG).show();
         }
 
         if (error.networkResponse != null && error.networkResponse.data != null) {
@@ -619,7 +608,7 @@ public class Payments_Fragment extends Fragment {
                     String key = keys.next();
                     message = message + data.get(key) + "\n";
                 }
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                Toast.makeText(mcontext, message, Toast.LENGTH_LONG).show();
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
