@@ -101,11 +101,11 @@
                     android:layout_marginLeft="40dp"
                     android:layout_marginRight="40dp"
                     android:hint="Username Or Mobile No"
-                    android:textColorHint="#676a6c"
                     android:theme="@style/TextLabel"
                     app:boxStrokeColor="#e5e5e5"
                     app:boxStrokeWidth="0.5dp"
                     app:boxBackgroundColor="#fff"
+
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -129,7 +129,6 @@
                     android:hint="Password"
                     app:passwordToggleEnabled="true"
                     android:layout_marginTop="30dp"
-                    android:textColorHint="#676a6c"
                     android:theme="@style/TextLabel"
                     app:boxStrokeColor="#e5e5e5"
                     app:boxBackgroundColor="#fff"

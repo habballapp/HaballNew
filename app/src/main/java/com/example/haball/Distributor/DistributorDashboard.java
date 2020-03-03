@@ -12,6 +12,7 @@ import com.example.haball.Distributor.ui.Fragment_Notification.FragmentNotificat
 import com.example.haball.Distributor.ui.home.HomeFragment;
 import com.example.haball.Distributor.ui.orders.OrdersTabsLayout.Orders_Dashboard;
 import com.example.haball.Distributor.ui.payments.ConsolidatedPaymentsFragment;
+import com.example.haball.Distributor.ui.payments.CreatePaymentRequestFragment;
 import com.example.haball.Distributor.ui.payments.PaymentRequestDashboard;
 import com.example.haball.Distributor.ui.payments.PaymentsSummaryFragment;
 import com.example.haball.Distributor.ui.payments.Payments_Fragment;
@@ -101,7 +102,7 @@ public class DistributorDashboard extends AppCompatActivity {
                         .addChildModel(new ChildModel("\tPlace Order")))
                 .addHeaderModel(
                         new HeaderModel("Payment")
-                                .addChildModel(new ChildModel("\tPayments Summary"))
+//                                  .addChildModel(new ChildModel("\tPayments Summary"))
                                 .addChildModel(new ChildModel("\tConsolidate Payments"))
                                 .addChildModel(new ChildModel("\tMake Payment"))
                                 .addChildModel(new ChildModel("\tPayment Ledger"))
@@ -174,31 +175,32 @@ public class DistributorDashboard extends AppCompatActivity {
                     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                         navigationExpandableListView.setSelected(groupPosition, childPosition);
 
+//                        if (groupPosition == 2 && childPosition == ) {
+//                            Log.i("Payments Summary", "Child"); //DONE
+//                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//                            fragmentTransaction.replace(R.id.main_container, new PaymentsSummaryFragment());
+//                            fragmentTransaction.commit();
+//                            drawer.closeDrawer(GravityCompat.START);
+//                        } else
                         if (groupPosition == 2 && childPosition == 0) {
-                            Log.i("Payments Summary", "Child"); //DONE
-                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, new PaymentsSummaryFragment());
-                            fragmentTransaction.commit();
-                            drawer.closeDrawer(GravityCompat.START);
-                        } else if (groupPosition == 2 && childPosition == 1) {
                             Log.i("Consolidate Payments", "Child");//DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new ConsolidatedPaymentsFragment());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        } else if (groupPosition == 2 && childPosition == 2) {
+                        } else if (groupPosition == 2 && childPosition == 1) {
                             Log.i("Make Payment", "Child");//DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, new PaymentRequestDashboard());
+                            fragmentTransaction.replace(R.id.main_container, new CreatePaymentRequestFragment());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        } else if (groupPosition == 2 && childPosition == 3) {
+                        } else if (groupPosition == 2 && childPosition == 2) {
                             Log.i("Payment Ledger", "Child"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new Payments_Fragment());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        } else if (groupPosition == 2 && childPosition == 4) {
+                        } else if (groupPosition == 2 && childPosition == 3) {
                             Log.i("Proof of Payments", "Child"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new ProofOfPaymentsDashboardFragment());
