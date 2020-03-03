@@ -55,8 +55,8 @@ public class PaymentsSummaryFragment extends Fragment {
     private List<DistributorPaymentsModel> PaymentsList = new ArrayList<>();
     private List<DistributorInvoicesModel> InvoicesList = new ArrayList<>();
     private String Token, DistributorId;
-    private String URL_PAYMENTS = "http://175.107.203.97:4008/api/dashboard/ReadDistributorPayments";
-    private String URL_INVOICES = "http://175.107.203.97:4008/api/Invoices/search";
+    private String URL_PAYMENTS = "http://175.107.203.97:4013/api/dashboard/ReadDistributorPayments";
+    private String URL_INVOICES = "http://175.107.203.97:4013/api/Invoices/search";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

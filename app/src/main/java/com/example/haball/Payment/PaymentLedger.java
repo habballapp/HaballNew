@@ -39,7 +39,7 @@ public class PaymentLedger extends AppCompatActivity {
 
     private List<String> companies = new ArrayList<>();
     private String Token;
-    private String URL_PAYMENT_LEDGER_COMPANY = "http://175.107.203.97:4008/api/company/ReadActiveCompanyContract/724";
+    private String URL_PAYMENT_LEDGER_COMPANY = "http://175.107.203.97:4013/api/company/ReadActiveCompanyContract/724";
 
     private Spinner spinner_criteria;
 

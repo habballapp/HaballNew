@@ -65,9 +65,9 @@ public class PlaceholderFragment extends Fragment {
     private RecyclerView.Adapter OrdersAdapter;
 
     private RecyclerView.LayoutManager layoutManager;
-    private String URL_DISTRIBUTOR_DASHBOARD = "http://175.107.203.97:4008/api/dashboard/ReadDistributorDashboard";
-    private String URL_DISTRIBUTOR_PAYMENTS = "http://175.107.203.97:4008/api/dashboard/ReadDistributorPayments";
-    private String URL_DISTRIBUTOR_ORDERS = "http://175.107.203.97:4008/api/orders/search";
+    private String URL_DISTRIBUTOR_DASHBOARD = "http://175.107.203.97:4013/api/dashboard/ReadDistributorDashboard";
+    private String URL_DISTRIBUTOR_PAYMENTS = "http://175.107.203.97:4013/api/dashboard/ReadDistributorPayments";
+    private String URL_DISTRIBUTOR_ORDERS = "http://175.107.203.97:4013/api/orders/search";
 
     private TextView value_unpaid_amount, value_paid_amount;
     private List<DistributorPaymentsModel> PaymentsList = new ArrayList<>();
