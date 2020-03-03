@@ -64,7 +64,7 @@ import java.util.Map;
 public class PlaceholderFragment extends Fragment {
     // invoice data
     private TextView invoice_id, invoice_tv_date, invoice_tv_amount, tv_status;
-    private String INVOICE_URL = "http://175.107.203.97:4008/api/deliverynotes/";
+    private String INVOICE_URL = "http://175.107.203.97:4013/api/deliverynotes/";
     private String Token;
     private String DistributorId;
     private String shipmentID;

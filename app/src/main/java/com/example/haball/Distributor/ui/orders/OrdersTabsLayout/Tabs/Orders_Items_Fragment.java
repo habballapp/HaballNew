@@ -60,8 +60,8 @@ public class Orders_Items_Fragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager1;
     private Button place_item_button;
     String CompanyId = "2";
-    private String PRODUCTS_URL = "http://175.107.203.97:4008/api/products/ReadProductsByCategories/";
-    private String PRODUCTS_CATEGORY_URL = "http://175.107.203.97:4008/api/products/ReadCategories/0/";
+    private String PRODUCTS_URL = "http://175.107.203.97:4013/api/products/ReadProductsByCategories/";
+    private String PRODUCTS_CATEGORY_URL = "http://175.107.203.97:4013/api/products/ReadCategories/0/";
 
     private String Token, DistributorId, object_string, object_stringqty;
     private List<OrderItemsModel> selectedProductsDataList = new ArrayList<>();
@@ -199,7 +199,7 @@ public class Orders_Items_Fragment extends Fragment {
                     };
                     Volley.newRequestQueue(getContext()).add(sr1);
 
-                    PRODUCTS_URL = "http://175.107.203.97:4008/api/products/ReadProductsByCategories/";
+                    PRODUCTS_URL = "http://175.107.203.97:4013/api/products/ReadProductsByCategories/";
                 }
             }
         }, new Response.ErrorListener() {

@@ -64,10 +64,10 @@ public class SupportTicketFormFragment extends Fragment {
     private EditText BName, Email, MobileNo, Comment;
     private ImageButton btn_back;
     private Spinner IssueType, critcicality, Preffered_Contact;
-    private String URL_SPINNER_ISSUETYPE = "http://175.107.203.97:4008/api/lookup/ISSUE_TYPE_PRIVATE";
-    private String URL_SPINNER_CRITICALITY = "http://175.107.203.97:4008/api/lookup/CRITICALITY_PRIVATE";
-    private String URL_SPINNER_PREFFEREDCONTACT = "http://175.107.203.97:4008/api/lookup/public/CONTRACTING_METHOD";
-    private String URL_TICkET = "http://175.107.203.97:4008/api/contact/save";
+    private String URL_SPINNER_ISSUETYPE = "http://175.107.203.97:4013/api/lookup/ISSUE_TYPE_PRIVATE";
+    private String URL_SPINNER_CRITICALITY = "http://175.107.203.97:4013/api/lookup/CRITICALITY_PRIVATE";
+    private String URL_SPINNER_PREFFEREDCONTACT = "http://175.107.203.97:4013/api/lookup/public/CONTRACTING_METHOD";
+    private String URL_TICkET = "http://175.107.203.97:4013/api/contact/save";
 
     private List<String> issue_type = new ArrayList<>();
     private List<String> criticality = new ArrayList<>();
