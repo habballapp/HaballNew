@@ -34,6 +34,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distribution_Login.Distribution_Login;
@@ -81,7 +82,9 @@ public class PlaceholderFragment extends Fragment {
     private String URL_DISTRIBUTOR_DASHBOARD = "http://175.107.203.97:4008/api/dashboard/ReadDistributorDashboard";
     //    private String URL_DISTRIBUTOR_PAYMENTS = "http://175.107.203.97:4008/api/dashboard/ReadDistributorPayments";
     private String URL_DISTRIBUTOR_PAYMENTS = "http://175.107.203.97:4008/api/prepaidrequests/search";
+    private String URL_DISTRIBUTOR_PAYMENTS_COUNT = "http://175.107.203.97:4008/api/prepaidrequests/searchCount";
     private String URL_DISTRIBUTOR_ORDERS = "http://175.107.203.97:4008/api/orders/search";
+    private String URL_DISTRIBUTOR_ORDERS_COUNT = "http://175.107.203.97:4008/api/orders/searchCount";
 
     private TextView value_unpaid_amount, value_paid_amount;
     private List<DistributorPaymentsModel> PaymentsList = new ArrayList<>();
@@ -104,8 +107,12 @@ public class PlaceholderFragment extends Fragment {
     private TextInputLayout search_bar;
     private Button btn_load_more;
     private int pageNumber = 0;
-    private int pageNumberOrder = 0;
     private double totalPages = 0;
+    private double totalEntries = 0;
+
+    private int pageNumberOrder = 0;
+    private double totalPagesOrder = 0;
+    private double totalEntriesOrder = 0;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -183,7 +190,7 @@ public class PlaceholderFragment extends Fragment {
                         // Load more if we have reach the end to the recyclerView
                         if ( (visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
                             if(totalPages != 0 && pageNumber < totalPages) {
-                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
+//                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
                                 btn_load_more.setVisibility(View.VISIBLE);
                             }
                         }
@@ -240,7 +247,7 @@ public class PlaceholderFragment extends Fragment {
                         // Load more if we have reach the end to the recyclerView
                         if ( (visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
                             if(totalPages != 0 && pageNumberOrder < totalPages) {
-                                Toast.makeText(getContext(), pageNumberOrder + " - " + totalPages, Toast.LENGTH_LONG).show();
+//                                Toast.makeText(getContext(), pageNumberOrder + " - " + totalPages, Toast.LENGTH_LONG).show();
                                 btn_load_more.setVisibility(View.VISIBLE);
                             }
                         }
@@ -504,7 +511,6 @@ public class PlaceholderFragment extends Fragment {
 
     }
 
-
     private void orderFragmentTask(View rootView) {
         search_bar = rootView.findViewById(R.id.search_bar);
         spinner_container1 = rootView.findViewById(R.id.spinner_container1);
@@ -638,6 +644,41 @@ public class PlaceholderFragment extends Fragment {
         Token = sharedPreferences.getString("Login_Token", "");
         DistributorId = sharedPreferences.getString("Distributor_Id", "");
         Log.i("Token", Token);
+
+
+        JSONObject mapCount = new JSONObject();
+        mapCount.put("Status", -1);
+        mapCount.put("DistributorId", Integer.parseInt(DistributorId));
+
+        JsonObjectRequest countRequest = new JsonObjectRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS_COUNT, mapCount, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    totalEntriesOrder = Double.parseDouble(String.valueOf(response.get("ordersCount")));
+                    totalPagesOrder = Math.ceil(totalEntriesOrder / 10);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+
+                error.printStackTrace();
+                Log.i("onErrorResponse", "Error");
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer "+Token);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(countRequest);
+
+
         JSONObject map = new JSONObject();
         map.put("Status", -1);
         map.put("OrderState", -1);
@@ -732,6 +773,38 @@ public class PlaceholderFragment extends Fragment {
                 Context.MODE_PRIVATE);
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
+
+        JSONObject mapCount = new JSONObject();
+        mapCount.put("Status", -1);
+        mapCount.put("DistributorId", Integer.parseInt(DistributorId));
+
+        JsonObjectRequest countRequest = new JsonObjectRequest(Request.Method.POST, URL_DISTRIBUTOR_PAYMENTS_COUNT, mapCount, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    totalEntries = Double.parseDouble(String.valueOf(response.get("prepaidrequestsCount")));
+                    totalPages = Math.ceil(totalEntries / 10);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+
+                error.printStackTrace();
+                Log.i("onErrorResponse", "Error");
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer "+Token);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(countRequest);
 
         JSONObject map = new JSONObject();
         map.put("DistributorId", Integer.parseInt(DistributorId));
