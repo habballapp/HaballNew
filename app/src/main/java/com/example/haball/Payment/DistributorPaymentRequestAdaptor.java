@@ -202,4 +202,10 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
             tv_state_value = itemView.findViewById(R.id.tv_state_value);
         }
     }
+    public void addListItem(List<DistributorPaymentRequestModel> list) {
+        for(DistributorPaymentRequestModel plm : list){
+            paymentsRequestList.add(plm);
+        }
+        notifyDataSetChanged();
+    }
 }

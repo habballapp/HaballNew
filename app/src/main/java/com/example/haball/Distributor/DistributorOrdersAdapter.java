@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haball.Distributor.ui.main.PlaceholderFragment;
+import com.example.haball.Payment.DistributorPaymentRequestModel;
 import com.example.haball.R;
 
 import java.util.ArrayList;
@@ -102,5 +103,11 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
             tv_amount = itemView.findViewById(R.id.amount_value);
             menu_btn = itemView.findViewById(R.id.menu_btn_orders);
         }
+    }
+    public void addListItem(List<DistributorOrdersModel> list) {
+        for(DistributorOrdersModel plm : list){
+            OrderList.add(plm);
+        }
+        notifyDataSetChanged();
     }
 }
