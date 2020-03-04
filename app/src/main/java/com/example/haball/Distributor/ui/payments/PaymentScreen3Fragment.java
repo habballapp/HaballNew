@@ -21,7 +21,7 @@ import org.json.JSONException;
 public class PaymentScreen3Fragment extends Fragment {
 
     private TextView tv_banking_channel, payment_id;
-    private String PrePaidNumber = "";
+    private String PrePaidNumber = "", PrePaidId = "";
     private Button btn_voucher;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -32,6 +32,7 @@ public class PaymentScreen3Fragment extends Fragment {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("PrePaidNumber",
                 Context.MODE_PRIVATE);
         PrePaidNumber = sharedPreferences.getString("PrePaidNumber","");
+        PrePaidId = sharedPreferences.getString("PrePaidId","");
 
         payment_id = root.findViewById(R.id.payment_id);
         payment_id.setText(PrePaidNumber);
@@ -40,11 +41,11 @@ public class PaymentScreen3Fragment extends Fragment {
         btn_voucher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                try {
-////                    viewPDF(getContext(), paymentsRequestList.get(position).getID());
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    viewPDF(getContext(), PrePaidId);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 

@@ -69,14 +69,16 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
         holder.unit_price_value.setText(String.valueOf(productsDataList.get(position).getUnitPrice()));
         holder.discount_price.setText(String.valueOf(productsDataList.get(position).getDiscountAmount()));
 
-        for (int j = 0; j < selectedProductsDataList.size(); j++) {
-            Gson gson = new Gson();
-            String json = gson.toJson(selectedProductsDataList);
-            if (selectedProductsDataList.get(j).getTitle().equals(productsDataList.get(position).getTitle())) {
-                Log.i("found", String.valueOf(productsDataList.get(position).getTitle()));
-                holder.btn_cart.setBackgroundResource(R.drawable.button_round);
-                holder.btn_cart.setEnabled(true);
-                holder.quantity.setText(selectedProductsQuantityList.get(j));
+        if(selectedProductsDataList != null){
+            for (int j = 0; j < selectedProductsDataList.size(); j++) {
+                Gson gson = new Gson();
+                String json = gson.toJson(selectedProductsDataList);
+                if (selectedProductsDataList.get(j).getTitle().equals(productsDataList.get(position).getTitle())) {
+                    Log.i("found", String.valueOf(productsDataList.get(position).getTitle()));
+                    holder.btn_cart.setBackgroundResource(R.drawable.button_round);
+                    holder.btn_cart.setEnabled(true);
+                    holder.quantity.setText(selectedProductsQuantityList.get(j));
+                }
             }
         }
 

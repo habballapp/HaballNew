@@ -48,8 +48,8 @@ public class CreatePaymentRequestFragment extends Fragment {
     private String Token, DistributorId;
     private Button btn_create;
 
-    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4013/api/company/ReadActiveCompanyContract/";
-    private String URL_PAYMENT_REQUESTS_SAVE = "http://175.107.203.97:4013/api/prepaidrequests/save";
+    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4008/api/company/ReadActiveCompanyContract/";
+    private String URL_PAYMENT_REQUESTS_SAVE = "http://175.107.203.97:4008/api/prepaidrequests/save";
 
     private List<String> CompanyNames = new ArrayList<>();
     private HashMap<String,String> companyNameAndId = new HashMap<>();
@@ -58,7 +58,7 @@ public class CreatePaymentRequestFragment extends Fragment {
     private ArrayAdapter<String> arrayAdapterPayments;
     private String company_names;
     private EditText txt_amount;
-    private String prepaid_number;
+    private String prepaid_number, prepaid_id;
     private FragmentTransaction fragmentTransaction;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -130,7 +130,7 @@ public class CreatePaymentRequestFragment extends Fragment {
             public void onResponse(JSONObject result) {
                 try {
                     prepaid_number = result.getString("PrePaidNumber");
-                    Log.i("id ",result.getString("ID"));
+                    prepaid_id = result.getString("ID");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -139,6 +139,7 @@ public class CreatePaymentRequestFragment extends Fragment {
                         Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = PrePaidNumber.edit();
                 editor.putString("PrePaidNumber",prepaid_number);
+                editor.putString("PrePaidId",prepaid_id);
                 editor.apply();
 
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
