@@ -45,6 +45,8 @@ import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.example.haball.Payment.DistributorPaymentRequestAdaptor;
 import com.example.haball.Payment.DistributorPaymentRequestModel;
 import com.example.haball.R;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -73,7 +75,7 @@ public class PlaceholderFragment extends Fragment {
 
     private RecyclerView.LayoutManager layoutManager;
     private String URL_DISTRIBUTOR_DASHBOARD = "http://175.107.203.97:4008/api/dashboard/ReadDistributorDashboard";
-//    private String URL_DISTRIBUTOR_PAYMENTS = "http://175.107.203.97:4008/api/dashboard/ReadDistributorPayments";
+    //    private String URL_DISTRIBUTOR_PAYMENTS = "http://175.107.203.97:4008/api/dashboard/ReadDistributorPayments";
     private String URL_DISTRIBUTOR_PAYMENTS = "http://175.107.203.97:4008/api/prepaidrequests/search";
     private String URL_DISTRIBUTOR_ORDERS = "http://175.107.203.97:4008/api/orders/search";
 
@@ -95,6 +97,7 @@ public class PlaceholderFragment extends Fragment {
     private Button consolidate;
     private String Filter_selected, Filter_selected_value;
     private RecyclerView.Adapter mAdapter;
+    private TextInputLayout search_bar;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -150,7 +153,7 @@ public class PlaceholderFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
+                orderFragmentTask(rootView);
                 break;
             }
             case 3: {
@@ -167,7 +170,7 @@ public class PlaceholderFragment extends Fragment {
     }
 
     private void paymentFragmentTask(View rootView) {
-
+        search_bar = rootView.findViewById(R.id.search_bar);
         consolidate = rootView.findViewById(R.id.consolidate);
         spinner_container1 = rootView.findViewById(R.id.spinner_container1);
         spinner_consolidate = (Spinner) rootView.findViewById(R.id.spinner_conso);
@@ -208,9 +211,11 @@ public class PlaceholderFragment extends Fragment {
                         conso_edittext.setText("");
 
                     if (Filter_selected.equals("Payment ID")) {
+                        search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "PrePaidNumber";
                         conso_edittext.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Company")) {
+                        search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "CompanyName";
                         conso_edittext.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Transaction Date")) {
@@ -223,11 +228,6 @@ public class PlaceholderFragment extends Fragment {
                         Filter_selected = "Status";
                         spinner_container1.setVisibility(View.VISIBLE);
                     }
-//                    try {
-//                        fetchPaymentLedgerData(companies.get(Filter_selected));
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
                 }
             }
 
@@ -237,7 +237,6 @@ public class PlaceholderFragment extends Fragment {
             }
         });
         arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        arrayAdapterPayments.notifyDataSetChanged();
 
         spinner_consolidate.setAdapter(arrayAdapterPayments);
 
@@ -255,12 +254,15 @@ public class PlaceholderFragment extends Fragment {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 } else {
                     Filter_selected_value = String.valueOf(i - 2);
-                    Log.i("Filter_selected_value", Filter_selected_value);
-                            try {
-                                fetchFilteredPaymentRequests();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                    Log.i("Filter_selected_value", String.valueOf(i));
+
+                    if (Filter_selected_value != "") {
+                        try {
+                            fetchFilteredPaymentRequests();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
 
             }
@@ -274,17 +276,18 @@ public class PlaceholderFragment extends Fragment {
 //        arrayAdapterFeltter.notifyDataSetChanged();
         spinner2.setAdapter(arrayAdapterFeltter);
 
-
         conso_edittext.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
                 Log.i("text1", "check");
                 Log.i("text", String.valueOf(s));
                 Filter_selected_value = String.valueOf(s);
-                try {
-                    fetchFilteredPaymentRequests();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if(!Filter_selected_value.equals("")) {
+                    try {
+                        fetchFilteredPaymentRequests();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
@@ -294,9 +297,6 @@ public class PlaceholderFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
         });
-
-//        layoutManager = new LinearLayoutManager(getContext());
-//        recyclerView.setLayoutManager(layoutManager);
 
         consolidate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -310,6 +310,134 @@ public class PlaceholderFragment extends Fragment {
             }
         });
 
+    }
+
+
+    private void orderFragmentTask(View rootView) {
+        search_bar = rootView.findViewById(R.id.search_bar);
+        spinner_container1 = rootView.findViewById(R.id.spinner_container1);
+        spinner_consolidate = (Spinner) rootView.findViewById(R.id.spinner_conso);
+        spinner2 = (Spinner) rootView.findViewById(R.id.conso_spinner2);
+        conso_edittext = (EditText) rootView.findViewById(R.id.conso_edittext);
+        spinner_container1.setVisibility(View.GONE);
+        conso_edittext.setVisibility(View.GONE);
+        consolidate_felter = new ArrayList<>();
+        consolidate_felter.add("Select Criteria");
+        consolidate_felter.add("Order No");
+        consolidate_felter.add("Company");
+        consolidate_felter.add("Payment Term");
+        consolidate_felter.add("Created Date");
+        consolidate_felter.add("Amount");
+        consolidate_felter.add("Status");
+
+        arrayAdapterPayments = new ArrayAdapter<>(rootView.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, consolidate_felter);
+
+        spinner_consolidate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                Toast.makeText(getContext(), consolidate_felter.get(i), Toast.LENGTH_LONG).show();
+                spinner_container1.setVisibility(View.GONE);
+                conso_edittext.setVisibility(View.GONE);
+                if (i == 0) {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    Filter_selected = consolidate_felter.get(i);
+
+                    if (!Filter_selected.equals("Status"))
+                        spinner2.setSelection(0);
+                    if (!conso_edittext.getText().equals(""))
+                        conso_edittext.setText("");
+
+                    if (Filter_selected.equals("Order No")) {
+                        search_bar.setHint("Search by " + Filter_selected);
+                        Filter_selected = "OrderNumber";
+                        conso_edittext.setVisibility(View.VISIBLE);
+                    } else if (Filter_selected.equals("Company")) {
+                        search_bar.setHint("Search by " + Filter_selected);
+                        Filter_selected = "CompanyName";
+                        conso_edittext.setVisibility(View.VISIBLE);
+                    } else if (Filter_selected.equals("Created Date")) {
+                        Toast.makeText(getContext(), "Created Date selected", Toast.LENGTH_LONG).show();
+                    } else if (Filter_selected.equals("Amount")) {
+                        Toast.makeText(getContext(), "Amount selected", Toast.LENGTH_LONG).show();
+                    } else if (Filter_selected.equals("Status")) {
+                        Filter_selected = "Status";
+                        spinner_container1.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner_consolidate.setAdapter(arrayAdapterPayments);
+
+        filters.add("Status");
+        filters.add("Pending");
+        filters.add("Approved");
+        filters.add("Rejected");
+        filters.add("Draft");
+        filters.add("Cancelled");
+        arrayAdapterFeltter = new ArrayAdapter<>(rootView.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, filters);
+        Log.i("aaaa1111", String.valueOf(consolidate_felter));
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 0) {
+                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                } else {
+                    Filter_selected_value = String.valueOf(i - 1);
+                    Log.i("Filter_selected_value", Filter_selected_value);
+                    if(!Filter_selected_value.equals("")) {
+                        try {
+                            fetchFilteredPaymentRequests();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner2.setAdapter(arrayAdapterFeltter);
+
+        conso_edittext.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+                Log.i("text1", "check");
+                Log.i("text", String.valueOf(s));
+                Filter_selected_value = String.valueOf(s);
+                if(!Filter_selected_value.equals("")) {
+                    try {
+                        fetchFilteredOrderData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
     }
 
     private void fetchOrderData() throws JSONException {
@@ -357,16 +485,60 @@ public class PlaceholderFragment extends Fragment {
         Volley.newRequestQueue(getContext()).add(sr);
     }
 
-
-    private void fetchPaymentRequests() throws JSONException{
+    private void fetchFilteredOrderData() throws JSONException {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token","");
+        Token = sharedPreferences.getString("Login_Token", "");
+        DistributorId = sharedPreferences.getString("Distributor_Id", "");
+        Log.i("Token", Token);
+        JSONObject map = new JSONObject();
+        map.put("DistributorId", DistributorId);
+        map.put("TotalRecords", 10);
+        map.put("PageNumber", 0);
+        map.put(Filter_selected, Filter_selected_value);
+        Log.i("Map", String.valueOf(map));
+
+        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS, map, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray result) {
+                //                    JSONArray jsonArray = new JSONArray(result);
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<DistributorOrdersModel>>() {
+                }.getType();
+                OrdersList = gson.fromJson(result.toString(), type);
+
+                OrdersAdapter = new DistributorOrdersAdapter(getContext(), OrdersList);
+                recyclerView.setAdapter(OrdersAdapter);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+
+                error.printStackTrace();
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(sr);
+    }
+
+    private void fetchPaymentRequests() throws JSONException {
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
         Log.i("Token", Token);
 
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences1.getString("Distributor_Id","");
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
 
         JSONObject map = new JSONObject();
@@ -374,16 +546,17 @@ public class PlaceholderFragment extends Fragment {
         map.put("TotalRecords", 10);
         map.put("PageNumber", 0.1);
 
-        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_PAYMENTS, map,new Response.Listener<JSONArray>() {
+        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_PAYMENTS, map, new Response.Listener<JSONArray>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
                 Log.i("Payments Requests", result.toString());
                 Gson gson = new Gson();
-                Type type = new TypeToken<List<DistributorPaymentRequestModel>>(){}.getType();
-                PaymentsRequestList = gson.fromJson(result.toString(),type);
+                Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
+                }.getType();
+                PaymentsRequestList = gson.fromJson(result.toString(), type);
 
-                mAdapter = new DistributorPaymentRequestAdaptor(getContext(),PaymentsRequestList);
+                mAdapter = new DistributorPaymentRequestAdaptor(getContext(), PaymentsRequestList);
                 recyclerView.setAdapter(mAdapter);
             }
         }, new Response.ErrorListener() {
@@ -393,12 +566,12 @@ public class PlaceholderFragment extends Fragment {
 
                 error.printStackTrace();
             }
-        }){
+        }) {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer " +Token);
+                params.put("Authorization", "bearer " + Token);
                 return params;
             }
         };
@@ -406,15 +579,15 @@ public class PlaceholderFragment extends Fragment {
     }
 
 
-    private void fetchFilteredPaymentRequests() throws JSONException{
+    private void fetchFilteredPaymentRequests() throws JSONException {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token","");
+        Token = sharedPreferences.getString("Login_Token", "");
         Log.i("Token", Token);
 
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences1.getString("Distributor_Id","");
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
 
         JSONObject map = new JSONObject();
@@ -424,16 +597,17 @@ public class PlaceholderFragment extends Fragment {
         map.put(Filter_selected, Filter_selected_value);
         Log.i("Map", String.valueOf(map));
 
-        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_PAYMENTS, map,new Response.Listener<JSONArray>() {
+        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_PAYMENTS, map, new Response.Listener<JSONArray>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
                 Log.i("Payments Requests", result.toString());
                 Gson gson = new Gson();
-                Type type = new TypeToken<List<DistributorPaymentRequestModel>>(){}.getType();
-                PaymentsRequestList = gson.fromJson(result.toString(),type);
+                Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
+                }.getType();
+                PaymentsRequestList = gson.fromJson(result.toString(), type);
 
-                mAdapter = new DistributorPaymentRequestAdaptor(getContext(),PaymentsRequestList);
+                mAdapter = new DistributorPaymentRequestAdaptor(getContext(), PaymentsRequestList);
                 recyclerView.setAdapter(mAdapter);
             }
         }, new Response.ErrorListener() {
@@ -443,12 +617,12 @@ public class PlaceholderFragment extends Fragment {
 
                 error.printStackTrace();
             }
-        }){
+        }) {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer " +Token);
+                params.put("Authorization", "bearer " + Token);
                 return params;
             }
         };
