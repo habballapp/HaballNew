@@ -130,6 +130,7 @@ public class CreatePaymentRequestFragment extends Fragment {
             public void onResponse(JSONObject result) {
                 try {
                     prepaid_number = result.getString("PrePaidNumber");
+                    Log.i("id ",result.getString("ID"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
