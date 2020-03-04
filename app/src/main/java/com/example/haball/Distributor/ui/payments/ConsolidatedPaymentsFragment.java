@@ -331,7 +331,7 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_CONSOLIDATE_PAYMENTS, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
-                
+
                 btn_load_more.setVisibility(View.GONE);
 
                 Gson gson = new Gson();
