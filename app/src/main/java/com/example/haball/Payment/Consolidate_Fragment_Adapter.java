@@ -131,4 +131,11 @@ public class Consolidate_Fragment_Adapter extends RecyclerView.Adapter<Consolida
 
         }
     }
+    public void addListItem(List<ConsolidatePaymentsModel> list) {
+        for(ConsolidatePaymentsModel plm : list){
+            consolidatePaymentsRequestList.add(plm);
+        }
+        notifyDataSetChanged();
+    }
+
 }
