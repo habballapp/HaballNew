@@ -54,7 +54,7 @@ public class ProofOfPaymentFormViewFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private List<ProofOfPaymentViewFormModel> proofOfPaymentViewFormList = new ArrayList<>();
     private String DistributorId, Token, ProofOfPaymentID;
-    private String URL_PROOF_OF_PAYMENTS = "http://175.107.203.97:4013/api/proofofpayment/";
+    private String URL_PROOF_OF_PAYMENTS = "http://175.107.203.97:4008/api/proofofpayment/";
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,

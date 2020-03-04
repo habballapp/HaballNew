@@ -67,7 +67,7 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
 
     private Button btn_create_proof_of_payment;
     private String Token;
-    private String URL_PROOF_OF_PAYMENTS = "http://175.107.203.97:4013/api/proofofpayment/search";
+    private String URL_PROOF_OF_PAYMENTS = "http://175.107.203.97:4008/api/proofofpayment/search";
     private ArrayAdapter<String> arrayAdapterPayments;
     private List<ProofOfPaymentModel> proofOfPaymentsList = new ArrayList<>();
     private List<ProofOfPaymentModel> proofOfPaymentsList2 = new ArrayList<>();

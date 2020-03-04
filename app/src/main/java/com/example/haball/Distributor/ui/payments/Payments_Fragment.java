@@ -74,9 +74,9 @@ public class Payments_Fragment extends Fragment {
     private HashMap<String,String> companies = new HashMap<>();
     private List<String> company_names = new ArrayList<>();
     private String Token;
-    private String URL_PAYMENT_LEDGER_COMPANY = "http://175.107.203.97:4013/api/company/ReadActiveCompanyContract/";
-    private String URL_PAYMENT_LEDGER = "http://175.107.203.97:4013/api/transactions/search";
-    private String URL_PAYMENT_LEDGER_COUNT = "http://175.107.203.97:4013/api/transactions/searchCount";
+    private String URL_PAYMENT_LEDGER_COMPANY = "http://175.107.203.97:4008/api/company/ReadActiveCompanyContract/";
+    private String URL_PAYMENT_LEDGER = "http://175.107.203.97:4008/api/transactions/search";
+    private String URL_PAYMENT_LEDGER_COUNT = "http://175.107.203.97:4008/api/transactions/searchCount";
     private ArrayAdapter<String> arrayAdapterPayments, arrayAdapterPaymentsFilter;
     private List<PaymentLedgerModel> paymentLedgerList = new ArrayList<>();
     private Spinner spinner_criteria;
