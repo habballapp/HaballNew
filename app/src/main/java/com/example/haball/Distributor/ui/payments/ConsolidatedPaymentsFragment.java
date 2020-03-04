@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -41,6 +43,8 @@ import com.example.haball.Payment.ConsolidatePaymentsModel;
 import com.example.haball.Payment.Consolidate_Fragment_Adapter;
 import com.example.haball.Payment.DistributorPaymentRequestAdaptor;
 import com.example.haball.Payment.DistributorPaymentRequestModel;
+import com.example.haball.Payment.PaymentLedgerAdapter;
+import com.example.haball.Payment.PaymentLedgerModel;
 import com.example.haball.R;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
@@ -76,6 +80,11 @@ public class ConsolidatedPaymentsFragment extends Fragment {
     private String URL_CONSOLIDATE_PAYMENTS = "http://175.107.203.97:4008/api/consolidatedinvoices/search";
     private FragmentTransaction fragmentTransaction;
     private String Filter_selected, Filter_selected_value;
+    private Button btn_load_more;
+
+    private int pageNumber = 0;
+    private double totalEntries = 0;
+    private double totalPages = 0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -83,6 +92,13 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_consolidate_, container, false);
 
         recyclerView = root.findViewById(R.id.rv_consolidate);
+
+        btn_load_more = root.findViewById(R.id.btn_load_more);
+
+        SpannableString content = new SpannableString("Load More");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        btn_load_more.setText(content);
+        btn_load_more.setVisibility(View.GONE);
 
         recyclerView.setHasFixedSize(true);
         spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
@@ -98,6 +114,19 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         consolidate_felter.add ("Paid Amount");
         consolidate_felter.add ("Status");
         consolidate_felter.add ("Created By");
+
+        btn_load_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pageNumber++;
+                try {
+                    performPagination();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
 
         arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, consolidate_felter);
@@ -248,6 +277,30 @@ public class ConsolidatedPaymentsFragment extends Fragment {
 //        });
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager=LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+
+                int visibleItemCount        = layoutManager.getChildCount();
+                int totalItemCount          = layoutManager.getItemCount();
+                int firstVisibleItemPosition= layoutManager.findFirstVisibleItemPosition();
+
+                // Load more if we have reach the end to the recyclerView
+                if ( (visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
+                    if(totalPages != 0 && pageNumber < totalPages) {
+                        Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
+                        btn_load_more.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+        });
 
         try {
             fetchConsolidatePayments();
@@ -256,6 +309,53 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         }
 
         return root;
+    }
+
+    private void performPagination() throws JSONException {
+
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+        Log.i("DistributorId ", DistributorId);
+        Log.i("Token", Token);
+
+        JSONObject map = new JSONObject();
+        map.put("DistributorId", Integer.parseInt(DistributorId));
+        map.put("TotalRecords", 10);
+        map.put("PageNumber", pageNumber);
+
+        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_CONSOLIDATE_PAYMENTS, map, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray result) {
+
+                btn_load_more.setVisibility(View.GONE);
+
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<ConsolidatePaymentsModel>>(){}.getType();
+                ConsolidatePaymentsRequestList = gson.fromJson(result.toString(),type);
+                ((Consolidate_Fragment_Adapter)recyclerView.getAdapter()).addListItem(ConsolidatePaymentsRequestList);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(sr);
     }
 
     private void fetchConsolidatePayments() throws JSONException{
@@ -272,7 +372,7 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         JSONObject map = new JSONObject();
         map.put("DistributorId", Integer.parseInt(DistributorId));
         map.put("TotalRecords", 10);
-        map.put("PageNumber", 0.1);
+        map.put("PageNumber", pageNumber);
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_CONSOLIDATE_PAYMENTS, map, new Response.Listener<JSONArray>() {
             @Override
