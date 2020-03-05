@@ -52,10 +52,12 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
         }.getType();
         Type typeString = new TypeToken<List<String>>() {
         }.getType();
-        selectedProductsDataList = gson.fromJson(object_string, type);
-        selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
-        Log.i("selectedProductsQty", String.valueOf(object_stringqty));
-        Log.i("selectedProducts", String.valueOf(object_string));
+        if(!object_string.equals("")) {
+            selectedProductsDataList = gson.fromJson(object_string, type);
+            selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
+            Log.i("selectedProductsQty", String.valueOf(object_stringqty));
+            Log.i("selectedProducts", String.valueOf(object_string));
+        }
     }
 
     public OrdersItemsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -69,7 +71,7 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
         holder.unit_price_value.setText(String.valueOf(productsDataList.get(position).getUnitPrice()));
         holder.discount_price.setText(String.valueOf(productsDataList.get(position).getDiscountAmount()));
 
-        if(selectedProductsDataList != null){
+        if (selectedProductsDataList != null) {
             for (int j = 0; j < selectedProductsDataList.size(); j++) {
                 Gson gson = new Gson();
                 String json = gson.toJson(selectedProductsDataList);
@@ -108,22 +110,28 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
         holder.btn_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!selectedProductsDataList.contains(productsDataList.get(position))) {
+                if (selectedProductsDataList != null) {
+                    if (!selectedProductsDataList.contains(productsDataList.get(position))) {
+                        selectedProductsDataList.add(productsDataList.get(position));
+                        selectedProductsQuantityList.add(String.valueOf(holder.quantity.getText()));
+                    } else {
+                        int foundIndex = -1;
+                        for (int i = 0; i < selectedProductsDataList.size(); i++) {
+                            if (selectedProductsDataList.get(i).equals(productsDataList.get(position))) {
+                                foundIndex = i;
+                                break;
+                            }
+                        }
+
+                        if (foundIndex != -1)
+                            selectedProductsQuantityList.set(foundIndex, String.valueOf(holder.quantity.getText()));
+                        Log.i("selected updated qty", String.valueOf(selectedProductsQuantityList));
+                    }
+                } else {
                     selectedProductsDataList.add(productsDataList.get(position));
                     selectedProductsQuantityList.add(String.valueOf(holder.quantity.getText()));
-                } else {
-                    int foundIndex = -1;
-                    for (int i = 0; i < selectedProductsDataList.size(); i++) {
-                        if (selectedProductsDataList.get(i).equals(productsDataList.get(position))) {
-                            foundIndex = i;
-                            break;
-                        }
-                    }
-
-                    if (foundIndex != -1)
-                        selectedProductsQuantityList.set(foundIndex, String.valueOf(holder.quantity.getText()));
-                    Log.i("selected updated qty", String.valueOf(selectedProductsQuantityList));
                 }
+
                 for (int i = 0; i < selectedProductsDataList.size(); i++)
                     Toast.makeText(context, selectedProductsDataList.get(i).getTitle() + " - " + selectedProductsQuantityList.get(i), Toast.LENGTH_LONG).show();
 
@@ -138,6 +146,7 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
                 editor.putString("selected_products", json);
                 editor.putString("selected_products_qty", jsonqty);
                 editor.apply();
+
             }
         });
 
