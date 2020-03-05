@@ -48,10 +48,8 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
         Gson gson = new Gson();
         object_stringqty = selectedProducts.getString("selected_products_qty", "");
         object_string = selectedProducts.getString("selected_products", "");
-        Type type = new TypeToken<List<OrderItemsModel>>() {
-        }.getType();
-        Type typeString = new TypeToken<List<String>>() {
-        }.getType();
+        Type type = new TypeToken<List<OrderItemsModel>>() {}.getType();
+        Type typeString = new TypeToken<List<String>>() {}.getType();
         if(!object_string.equals("")) {
             selectedProductsDataList = gson.fromJson(object_string, type);
             selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
