@@ -135,4 +135,10 @@ public class ProofOfPaymentAdapter extends RecyclerView.Adapter<ProofOfPaymentAd
             menu_btn = itemView.findViewById(R.id.menu_btn);
         }
     }
+    public void addListItem(List<ProofOfPaymentModel> list) {
+        for(ProofOfPaymentModel plm : list){
+            proofOfPaymentsList.add(plm);
+        }
+        notifyDataSetChanged();
+    }
 }

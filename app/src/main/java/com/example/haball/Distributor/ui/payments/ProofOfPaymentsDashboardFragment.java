@@ -6,7 +6,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +39,8 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Payment.ConsolidatePaymentsModel;
+import com.example.haball.Payment.Consolidate_Fragment_Adapter;
 import com.example.haball.Payment.PaymentLedgerAdapter;
 import com.example.haball.Payment.PaymentLedgerModel;
 import com.example.haball.Payment.ProofOfPaymentAdapter;
@@ -70,22 +74,10 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
     private String URL_PROOF_OF_PAYMENTS = "http://175.107.203.97:4008/api/proofofpayment/search";
     private ArrayAdapter<String> arrayAdapterPayments;
     private List<ProofOfPaymentModel> proofOfPaymentsList = new ArrayList<>();
-    private List<ProofOfPaymentModel> proofOfPaymentsList2 = new ArrayList<>();
 
     private String DistributorId;
-    private int pageNumber = 0;
-    private int i = 3;
     private ProgressDialog progressDialog;
 
-    private CountDownTimer CDT;
-
-    private int pos_y = 0;
-    private int visibleItemCount, totalItemCount = 1;
-    private int firstVisiblesItems = 0, lastItem = 0;
-    private int totalPages = 1; // get your total pages from web service first response
-    private int current_page = 0;
-
-    boolean canLoadMoreData = true; // make this variable false while your web service call is going on.
     private String Filter_selected, Filter_selected_value = "";
     private Spinner spinner_consolidate;
     private Spinner spinner2;
@@ -95,6 +87,10 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
     private ArrayAdapter<String> arrayAdapterPaymentsFilter;
     private ArrayAdapter<String> arrayAdapterFeltter;
 
+    private Button btn_load_more;
+
+    private int pageNumber = 0;
+    private double totalPages = 0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -105,9 +101,53 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
         recyclerView = root.findViewById(R.id.rv_proof_of_payments);
         recyclerView.setHasFixedSize(true);
 
+
+        btn_load_more = root.findViewById(R.id.btn_load_more);
+
+        SpannableString content = new SpannableString("Load More");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        btn_load_more.setText(content);
+        btn_load_more.setVisibility(View.GONE);
+
+        btn_load_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pageNumber++;
+                try {
+                    performPagination();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         progressDialog = new ProgressDialog(getContext());
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager=LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+
+                int visibleItemCount        = layoutManager.getChildCount();
+                int totalItemCount          = layoutManager.getItemCount();
+                int firstVisibleItemPosition= layoutManager.findFirstVisibleItemPosition();
+
+                // Load more if we have reach the end to the recyclerView
+                if ( (visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
+                    if(totalPages != 0 && pageNumber < totalPages) {
+                        Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
+                        btn_load_more.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+        });
 
         btn_create_proof_of_payment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -260,56 +300,6 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
         });
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (dy > 0){
-                    pos_y = dy;
-
-                    visibleItemCount = layoutManager.getChildCount();
-                    totalItemCount = layoutManager.getItemCount();
-                    firstVisiblesItems = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
-                    lastItem = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastVisibleItemPosition();
-                    if (canLoadMoreData && Filter_selected_value.equals("")) {
-                        if ((visibleItemCount + firstVisiblesItems) >= totalItemCount) {
-                            if (pageNumber < 3) {
-                                Log.i("page", String.valueOf(pageNumber));
-                                try {
-                                    fetchProofOfPaymentsData();
-
-//                                    pageNumber++;
-
-//                                    progressDialog.setTitle("Loading ... ");
-//                                    progressDialog.setMessage("Please wait...");
-//                                    progressDialog.setCancelable(false);
-//                                    progressDialog.setProgress(i);
-//                                    progressDialog.show();
-//                                    CDT = new CountDownTimer(1500, 1000) {
-//                                        public void onTick(long millisUntilFinished) {
-//                                            progressDialog.setMessage("Please wait...");
-//                                            i--;
-//                                        }
-//
-//                                        public void onFinish() {
-//                                            i=8;
-//                                            progressDialog.dismiss();
-//                                            pageNumber++;
-//                                        }
-//                                    }.start();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                                //After completion of web service make 'canLoadMoreData = true'
-                            }
-                            else
-                                canLoadMoreData  = false;
-                        }
-                    }
-                    dy = pos_y;
-                }
-            }
-        });
-
         try {
             fetchProofOfPaymentsData();
         } catch (JSONException e) {
@@ -317,6 +307,56 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
         }
 
         return root;
+    }
+
+    private void performPagination() throws JSONException {
+
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token","");
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id","");
+        Log.i("DistributorId ", DistributorId);
+
+        Log.i("Token", Token);
+
+        JSONObject map = new JSONObject();
+        map.put("DistributorId", Integer.parseInt(DistributorId));
+        map.put("TotalRecords", 10);
+        map.put("PageNumber", pageNumber);
+
+        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_PROOF_OF_PAYMENTS,map,new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray result) {
+
+                btn_load_more.setVisibility(View.GONE);
+
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<ProofOfPaymentModel>>(){}.getType();
+                proofOfPaymentsList = gson.fromJson(String.valueOf(result),type);
+                ((ProofOfPaymentAdapter)recyclerView.getAdapter()).addListItem(proofOfPaymentsList);
+
+                Log.e("RESPONSE OF P_O_P", result.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+
+                error.printStackTrace();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer "+Token);
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(sr);
     }
 
     private void fetchProofOfPaymentsData() throws JSONException{
@@ -347,8 +387,7 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
                     Gson gson = new Gson();
                     Type type = new TypeToken<List<ProofOfPaymentModel>>(){}.getType();
                     proofOfPaymentsList = gson.fromJson(String.valueOf(result),type);
-                    proofOfPaymentsList2.addAll(proofOfPaymentsList) ;
-                    mAdapter = new ProofOfPaymentAdapter(getContext(),proofOfPaymentsList2);
+                    mAdapter = new ProofOfPaymentAdapter(getContext(),proofOfPaymentsList);
                     recyclerView.setAdapter(mAdapter);
 
                 } catch (JSONException e) {
@@ -373,12 +412,11 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
             }
         };
         Volley.newRequestQueue(getContext()).add(sr);
-        pageNumber++;
+
     }
 
 
     private void fetchFilteredProofOfPaymentsData() throws JSONException{
-        pageNumber = 0;
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token","");
