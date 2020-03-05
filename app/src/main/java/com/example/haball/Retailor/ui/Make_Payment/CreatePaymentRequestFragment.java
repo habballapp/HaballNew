@@ -49,7 +49,8 @@ public class CreatePaymentRequestFragment extends Fragment {
     private String Token, DistributorId, ID;
     private Button btn_create;
 
-    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:3020/api/kyc/KYCDistributorList";
+    //    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:3020/api/kyc/KYCDistributorList";
+    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:3020/api/prepaidrequests/GetByRetailerCode";
     private String URL_PAYMENT_REQUESTS_SAVE = "http://175.107.203.97:3020/api/prepaidrequests/save";
 
     private List<String> CompanyNames = new ArrayList<>();
@@ -167,7 +168,7 @@ public class CreatePaymentRequestFragment extends Fragment {
 
         Log.i("Token", Token);
 
-        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.POST, URL_PAYMENT_REQUESTS_SELECT_COMPANY, null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PAYMENT_REQUESTS_SELECT_COMPANY, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
                 try {
@@ -230,6 +231,8 @@ public class CreatePaymentRequestFragment extends Fragment {
                     message = message + data.get(key) + "\n";
 //                }
                 }
+                if(message.equals(""))
+                    message = responseBody;
 //                    if(data.has("message"))
 //                        message = data.getString("message");
 //                    else if(data. has("Error"))

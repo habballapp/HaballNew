@@ -74,7 +74,7 @@ public class DashBoardFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private String Token,DistributorId;;
-    private String URL = "http://175.107.203.97:3020/api/prepaidrequests/Search";
+    private String URL = "http://175.107.203.97:3020/api/prepaidrequests/search";
     private List<RetailerPaymentModel> PaymentsList = new ArrayList<>();
     //spiner1
     private Spinner payment_retailer_spiner1;
@@ -254,12 +254,12 @@ public class DashBoardFragment extends Fragment {
         Token = sharedPreferences.getString("Login_Token","");
         Log.i("Token", Token);
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("CompanyName", null);
-        jsonObject.put("CreateDateFrom", null);
-        jsonObject.put("CreateDateTo", null);
-        jsonObject.put("Status", null);
-        jsonObject.put("AmountMin", null);
-        jsonObject.put("AmountMax", null);
+//        jsonObject.put("CompanyName", null);
+//        jsonObject.put("CreateDateFrom", null);
+//        jsonObject.put("CreateDateTo", null);
+//        jsonObject.put("Status", null);
+//        jsonObject.put("AmountMin", null);
+//        jsonObject.put("AmountMax", null);
         jsonObject.put("TotalRecords", 10);
         jsonObject.put("PageNumber", 0);
 
