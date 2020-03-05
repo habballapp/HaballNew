@@ -38,6 +38,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Payment.ConsolidatePaymentsModel;
 import com.example.haball.Payment.Consolidate_Fragment_Adapter;
@@ -72,6 +73,7 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
     private Button btn_create_proof_of_payment;
     private String Token;
     private String URL_PROOF_OF_PAYMENTS = "http://175.107.203.97:4008/api/proofofpayment/search";
+    private String URL_PROOF_OF_PAYMENTS_COUNT = "http://175.107.203.97:4008/api/proofofpayment/searchCount";
     private ArrayAdapter<String> arrayAdapterPayments;
     private List<ProofOfPaymentModel> proofOfPaymentsList = new ArrayList<>();
 
@@ -91,6 +93,7 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
 
     private int pageNumber = 0;
     private double totalPages = 0;
+    private double totalEntries = 0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -142,7 +145,7 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
                 // Load more if we have reach the end to the recyclerView
                 if ( (visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
                     if(totalPages != 0 && pageNumber < totalPages) {
-                        Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
                         btn_load_more.setVisibility(View.VISIBLE);
                     }
                 }
@@ -370,6 +373,37 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
         Log.i("DistributorId ", DistributorId);
 
         Log.i("Token", Token);
+
+        JSONObject mapCount = new JSONObject();
+        mapCount.put("DistributorId", Integer.parseInt(DistributorId));
+
+        JsonObjectRequest countRequest = new JsonObjectRequest(Request.Method.POST, URL_PROOF_OF_PAYMENTS_COUNT, mapCount, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    totalEntries = Double.parseDouble(String.valueOf(response.get("ProofOfPaymentCount")));
+                    totalPages = Math.ceil(totalEntries / 10);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+
+                error.printStackTrace();
+                Log.i("onErrorResponse", "Error");
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer "+Token);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(countRequest);
 
         JSONObject map = new JSONObject();
         map.put("DistributorId", Integer.parseInt(DistributorId));
