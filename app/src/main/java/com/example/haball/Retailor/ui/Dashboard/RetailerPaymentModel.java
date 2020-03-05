@@ -1,14 +1,28 @@
 package com.example.haball.Retailor.ui.Dashboard;
 
 public class RetailerPaymentModel {
-    String RetailerInvoiceId, InvoiceNumber, CompanyName, Status, TotalPrice;
+    String RetailerInvoiceId;
+    String InvoiceNumber;
+    String CompanyName;
+    String Status;
+    String TotalPrice;
+    String IsEditable;
 
-    public RetailerPaymentModel(String ID, String prePaidNumber, String companyName, String status, String paidAmount) {
+    public RetailerPaymentModel(String ID, String prePaidNumber, String companyName, String status, String paidAmount, String isEditable) {
         this.RetailerInvoiceId = ID;
         InvoiceNumber = prePaidNumber;
         CompanyName = companyName;
         Status = status;
         TotalPrice = paidAmount;
+        IsEditable = isEditable;
+    }
+
+    public String getIsEditable() {
+        return IsEditable;
+    }
+
+    public void setIsEditable(String isEditable) {
+        IsEditable = isEditable;
     }
 
     public String getID() {

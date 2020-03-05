@@ -260,6 +260,7 @@ public class PlaceholderFragment extends Fragment {
                     e.printStackTrace();
                 }
                 orderFragmentTask(rootView);
+
                 break;
             }
             case 3: {

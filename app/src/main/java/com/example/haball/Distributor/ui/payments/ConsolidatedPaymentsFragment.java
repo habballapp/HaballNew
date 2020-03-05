@@ -78,6 +78,7 @@ public class ConsolidatedPaymentsFragment extends Fragment {
     private String Token, DistributorId;
     private Button create_payment;
     private String URL_CONSOLIDATE_PAYMENTS = "http://175.107.203.97:4008/api/consolidatedinvoices/search";
+    private String URL_CONSOLIDATE_PAYMENTS_COUNT = "http://175.107.203.97:4008/api/consolidatedinvoices/searchCount";
     private FragmentTransaction fragmentTransaction;
     private String Filter_selected, Filter_selected_value;
     private Button btn_load_more;
@@ -106,14 +107,14 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
         spinner2.setVisibility(View.GONE);
         conso_edittext.setVisibility(View.GONE);
-        consolidate_felter.add ("Select Criteria");
-        consolidate_felter.add ("Invoice No");
-        consolidate_felter.add ("Company");
-        consolidate_felter.add ("Created Date");
-        consolidate_felter.add ("Total Price");
-        consolidate_felter.add ("Paid Amount");
-        consolidate_felter.add ("Status");
-        consolidate_felter.add ("Created By");
+        consolidate_felter.add("Select Criteria");
+        consolidate_felter.add("Invoice No");
+        consolidate_felter.add("Company");
+        consolidate_felter.add("Created Date");
+        consolidate_felter.add("Total Price");
+        consolidate_felter.add("Paid Amount");
+        consolidate_felter.add("Status");
+        consolidate_felter.add("Created By");
 
         btn_load_more.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,42 +135,41 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         spinner_consolidate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                }
-                else{
+                } else {
                     Filter_selected = consolidate_felter.get(i);
 
-                    if(!Filter_selected.equals("Status"))
+                    if (!Filter_selected.equals("Status"))
                         spinner2.setSelection(0);
-                    if(!conso_edittext.getText().equals(""))
+                    if (!conso_edittext.getText().equals(""))
                         conso_edittext.setText("");
 
-                    if(Filter_selected.equals("Invoice No")) {
+                    if (Filter_selected.equals("Invoice No")) {
                         Filter_selected = "ConsolidatedInvoiceNumber";
                         spinner2.setVisibility(View.GONE);
                         conso_edittext.setVisibility(View.VISIBLE);
-                    } else if(Filter_selected.equals("Company")) {
+                    } else if (Filter_selected.equals("Company")) {
                         Filter_selected = "CompanyName";
                         spinner2.setVisibility(View.GONE);
                         conso_edittext.setVisibility(View.VISIBLE);
-                    } else if(Filter_selected.equals("Created Date")) {
+                    } else if (Filter_selected.equals("Created Date")) {
                         spinner2.setVisibility(View.GONE);
                         conso_edittext.setVisibility(View.GONE);
-                        Toast.makeText(getContext(),"Created Date selected",Toast.LENGTH_LONG).show();
-                    } else if(Filter_selected.equals("Total Price")) {
+                        Toast.makeText(getContext(), "Created Date selected", Toast.LENGTH_LONG).show();
+                    } else if (Filter_selected.equals("Total Price")) {
                         spinner2.setVisibility(View.GONE);
                         conso_edittext.setVisibility(View.GONE);
-                        Toast.makeText(getContext(),"Total Price selected",Toast.LENGTH_LONG).show();
-                    } else if(Filter_selected.equals("Paid Amount")) {
+                        Toast.makeText(getContext(), "Total Price selected", Toast.LENGTH_LONG).show();
+                    } else if (Filter_selected.equals("Paid Amount")) {
                         spinner2.setVisibility(View.GONE);
                         conso_edittext.setVisibility(View.GONE);
-                        Toast.makeText(getContext(),"Paid Amount selected",Toast.LENGTH_LONG).show();
-                    } else if(Filter_selected.equals("Status")) {
+                        Toast.makeText(getContext(), "Paid Amount selected", Toast.LENGTH_LONG).show();
+                    } else if (Filter_selected.equals("Status")) {
                         Filter_selected = "Status";
                         spinner2.setVisibility(View.VISIBLE);
                         conso_edittext.setVisibility(View.GONE);
-                    } else if(Filter_selected.equals("Created By")) {
+                    } else if (Filter_selected.equals("Created By")) {
                         Filter_selected = "CreatedBy";
                         spinner2.setVisibility(View.GONE);
                         conso_edittext.setVisibility(View.VISIBLE);
@@ -195,24 +195,23 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         arrayAdapterPayments.notifyDataSetChanged();
         spinner_consolidate.setAdapter(arrayAdapterPayments);
 
-        filters.add ("Status");
-        filters.add ("Pending");
-        filters.add ("Unpaid ");
-        filters.add ("Partially Paid");
-        filters.add ("Paid");
-        filters.add ("Payment Processing");
+        filters.add("Status");
+        filters.add("Pending");
+        filters.add("Unpaid ");
+        filters.add("Partially Paid");
+        filters.add("Paid");
+        filters.add("Payment Processing");
         arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, filters);
-            Log.i("aaaa1111", String.valueOf(consolidate_felter));
+        Log.i("aaaa1111", String.valueOf(consolidate_felter));
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                }
-                else{
-                    Filter_selected_value = String.valueOf(i-1);
-                    Log.i("Filter_selected_value",Filter_selected_value);
+                } else {
+                    Filter_selected_value = String.valueOf(i - 1);
+                    Log.i("Filter_selected_value", Filter_selected_value);
                     try {
                         fetchFilteredConsolidatePayments();
                     } catch (JSONException e) {
@@ -245,9 +244,11 @@ public class ConsolidatedPaymentsFragment extends Fragment {
                 }
             }
 
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
         });
 
 //        spinner_consolidate("Select Criteria","Invoice No", "Company", "Created Date", "Total Price", "Paid Amount" ,"Status","Created By");
@@ -286,16 +287,16 @@ public class ConsolidatedPaymentsFragment extends Fragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                LinearLayoutManager layoutManager=LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+                LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
 
-                int visibleItemCount        = layoutManager.getChildCount();
-                int totalItemCount          = layoutManager.getItemCount();
-                int firstVisibleItemPosition= layoutManager.findFirstVisibleItemPosition();
+                int visibleItemCount = layoutManager.getChildCount();
+                int totalItemCount = layoutManager.getItemCount();
+                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
 
                 // Load more if we have reach the end to the recyclerView
-                if ( (visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
-                    if(totalPages != 0 && pageNumber < totalPages) {
-                        Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
+                if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
+                    if (totalPages != 0 && pageNumber < totalPages) {
+//                        Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
                         btn_load_more.setVisibility(View.VISIBLE);
                     }
                 }
@@ -323,6 +324,38 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         Log.i("DistributorId ", DistributorId);
         Log.i("Token", Token);
 
+        JSONObject mapCount = new JSONObject();
+        mapCount.put("Status", -1);
+        mapCount.put("DistributorId", Integer.parseInt(DistributorId));
+
+        JsonObjectRequest countRequest = new JsonObjectRequest(Request.Method.POST, URL_CONSOLIDATE_PAYMENTS_COUNT, mapCount, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    totalEntries = Double.parseDouble(String.valueOf(response.get("ConsolidateCount")));
+                    totalPages = Math.ceil(totalEntries / 10);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+
+                error.printStackTrace();
+                Log.i("onErrorResponse", "Error");
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(countRequest);
+
         JSONObject map = new JSONObject();
         map.put("DistributorId", Integer.parseInt(DistributorId));
         map.put("TotalRecords", 10);
@@ -335,9 +368,10 @@ public class ConsolidatedPaymentsFragment extends Fragment {
                 btn_load_more.setVisibility(View.GONE);
 
                 Gson gson = new Gson();
-                Type type = new TypeToken<List<ConsolidatePaymentsModel>>(){}.getType();
-                ConsolidatePaymentsRequestList = gson.fromJson(result.toString(),type);
-                ((Consolidate_Fragment_Adapter)recyclerView.getAdapter()).addListItem(ConsolidatePaymentsRequestList);
+                Type type = new TypeToken<List<ConsolidatePaymentsModel>>() {
+                }.getType();
+                ConsolidatePaymentsRequestList = gson.fromJson(result.toString(), type);
+                ((Consolidate_Fragment_Adapter) recyclerView.getAdapter()).addListItem(ConsolidatePaymentsRequestList);
 
             }
         }, new Response.ErrorListener() {
@@ -358,7 +392,7 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         Volley.newRequestQueue(getContext()).add(sr);
     }
 
-    private void fetchConsolidatePayments() throws JSONException{
+    private void fetchConsolidatePayments() throws JSONException {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -380,10 +414,11 @@ public class ConsolidatedPaymentsFragment extends Fragment {
                 Log.i("ConsolidatePayments", result.toString());
 
                 Gson gson = new Gson();
-                Type type = new TypeToken<List<ConsolidatePaymentsModel>>(){}.getType();
-                ConsolidatePaymentsRequestList = gson.fromJson(result.toString(),type);
+                Type type = new TypeToken<List<ConsolidatePaymentsModel>>() {
+                }.getType();
+                ConsolidatePaymentsRequestList = gson.fromJson(result.toString(), type);
 
-                mAdapter = new Consolidate_Fragment_Adapter(getContext(),ConsolidatePaymentsRequestList);
+                mAdapter = new Consolidate_Fragment_Adapter(getContext(), ConsolidatePaymentsRequestList);
                 recyclerView.setAdapter(mAdapter);
             }
         }, new Response.ErrorListener() {
@@ -404,7 +439,7 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         Volley.newRequestQueue(getContext()).add(sr);
     }
 
-    private void fetchFilteredConsolidatePayments() throws JSONException{
+    private void fetchFilteredConsolidatePayments() throws JSONException {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -427,10 +462,11 @@ public class ConsolidatedPaymentsFragment extends Fragment {
                 Log.i("ConsolidatePayments", result.toString());
 
                 Gson gson = new Gson();
-                Type type = new TypeToken<List<ConsolidatePaymentsModel>>(){}.getType();
-                ConsolidatePaymentsRequestList = gson.fromJson(result.toString(),type);
+                Type type = new TypeToken<List<ConsolidatePaymentsModel>>() {
+                }.getType();
+                ConsolidatePaymentsRequestList = gson.fromJson(result.toString(), type);
 
-                mAdapter = new Consolidate_Fragment_Adapter(getContext(),ConsolidatePaymentsRequestList);
+                mAdapter = new Consolidate_Fragment_Adapter(getContext(), ConsolidatePaymentsRequestList);
                 recyclerView.setAdapter(mAdapter);
             }
         }, new Response.ErrorListener() {
@@ -453,7 +489,7 @@ public class ConsolidatedPaymentsFragment extends Fragment {
     }
 
 
-        private void printErrorMessage(VolleyError error) {
+    private void printErrorMessage(VolleyError error) {
         if (error instanceof NetworkError) {
             Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof ServerError) {
@@ -472,9 +508,9 @@ public class ConsolidatedPaymentsFragment extends Fragment {
             try {
                 String message = "";
                 String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody",responseBody);
+                Log.i("responseBody", responseBody);
                 JSONObject data = new JSONObject(responseBody);
-                Log.i("data",String.valueOf(data));
+                Log.i("data", String.valueOf(data));
                 Iterator<String> keys = data.keys();
                 while (keys.hasNext()) {
                     String key = keys.next();
