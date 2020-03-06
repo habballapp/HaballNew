@@ -60,7 +60,7 @@
             <EditText
                 android:id="@+id/BName"
                 android:hint="Business Name"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
@@ -72,7 +72,7 @@
             <EditText
                 android:id="@+id/Email"
                 android:layout_width="match_parent"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:layout_below="@+id/BName"
                 android:hint="Email"
                 android:layout_height="40dp"
@@ -86,7 +86,7 @@
             <EditText
                 android:id="@+id/MobileNo"
                 android:hint="Mobile No"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:layout_width="match_parent"
                 android:background="@drawable/edit_round"
                 android:layout_height="40dp"
@@ -156,7 +156,7 @@
                 android:background="@drawable/edit_round"
                 android:padding="10dp"
                 android:hint="Comment"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:layout_marginTop="20dp"
                 android:layout_below="@+id/relative_Preffered_Contact"
                 android:layout_marginLeft="40dp"

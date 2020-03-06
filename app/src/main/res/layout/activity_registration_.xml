@@ -58,7 +58,7 @@
                         android:layout_weight="1"
                         android:justificationMode="inter_word"
                         android:text="@string/Txt_Description_Distributer"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
 
 
                 </LinearLayout>
@@ -126,7 +126,7 @@
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/txt_password"
@@ -145,7 +145,7 @@
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/txt_confirm"
@@ -164,7 +164,7 @@
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -188,7 +188,7 @@
                         android:stateListAnimator="@null"
                         android:textAllCaps="false"
                         android:textColor="#fff"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
 
                 </LinearLayout>
                 <RelativeLayout

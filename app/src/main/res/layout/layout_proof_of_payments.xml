@@ -33,7 +33,7 @@
         android:layout_below="@+id/tv_status"
         android:layout_marginTop="20dp"
         android:text="POP ID: "
-        android:textSize="15sp"/>
+        android:textSize="14sp"/>
     <TextView
         android:id="@+id/pop_id_value"
         android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
         android:layout_below="@+id/tv_status"
         android:layout_marginTop="20dp"
         android:text="1002312324251524"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/pop_id"
         android:textStyle="bold"
@@ -52,14 +52,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/created_date"
         android:text="Payment Mode: "
-        android:textSize="15sp"/>
+        android:textSize="14sp"/>
     <TextView
         android:id="@+id/payment_mode_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/created_date"
         android:text="ATM"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/payment_mode"
         android:textStyle="bold"
@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/pop_id"
         android:text="Created Date: "
-        android:textSize="15sp"/>
+        android:textSize="14sp"/>
     <TextView
         android:id="@+id/created_date_value"
         android:layout_width="wrap_content"
@@ -78,7 +78,7 @@
         android:layout_below="@+id/pop_id"
         android:text="01/01/2020"
         android:layout_toRightOf="@+id/created_date"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:layout_marginLeft="5dp"
         android:textStyle="bold"
         android:textColor="#676a6c"/>
@@ -88,14 +88,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/payment_mode"
         android:text="Payment Id: "
-        android:textSize="15sp"/>
+        android:textSize="14sp"/>
     <TextView
         android:id="@+id/payment_id_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/payment_mode"
         android:text="51247895354254780369"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/payment_id"
         android:textStyle="bold"

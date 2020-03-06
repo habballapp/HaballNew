@@ -19,7 +19,7 @@
         android:text="Consolidate"
         android:textAllCaps="false"
         android:textColor="#fff"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
     <RelativeLayout
         android:id="@+id/spinner_container_main"
@@ -83,7 +83,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:textColor="#676a6c"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

@@ -61,7 +61,7 @@
                         android:layout_weight="1"
                         android:justificationMode="inter_word"
                         android:text="@string/Txt_Description_Retailer"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
 
 
                 </LinearLayout>
@@ -109,7 +109,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_username"
-                            android:textSize="15sp"
+                            android:textSize="14sp"
                             android:textColor="#676a6c"
                             android:paddingTop="5dp"
                             android:paddingLeft="20dp"
@@ -139,7 +139,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_password"
                             android:drawableRight="@drawable/ic_remove_red_eye_black_24dp"
-                            android:textSize="15sp"
+                            android:textSize="14sp"
                             android:textColor="#676a6c"
                             android:paddingTop="5dp"
                             android:paddingLeft="20dp"
@@ -176,7 +176,7 @@
                         android:text="Login"
                         android:textAllCaps="false"
                         android:textColor="#fff"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
 
                     <Button
                         android:id="@+id/ret_btn_password"
@@ -192,7 +192,7 @@
                         android:text="@string/Forgot_Password"
                         android:textAllCaps="false"
                         android:textColor="#fff"
-                        android:textSize="15sp"
+                        android:textSize="14sp"
 
                         />
 
@@ -221,7 +221,7 @@
                         android:text="Need Support"
                         android:textAllCaps="false"
                         android:textColor="#fff"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
 
                     <Button
                         android:id="@+id/ret_btn_signup"
@@ -239,7 +239,7 @@
                         android:text="Sign Up"
                         android:textAllCaps="false"
                         android:textColor="#fff"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
                 <TextView
                     android:id="@+id/footer"

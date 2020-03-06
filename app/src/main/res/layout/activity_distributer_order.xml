@@ -34,7 +34,7 @@
         android:layout_below="@id/spinner_container">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_test"
-            android:textSize="15sp"
+            android:textSize="14sp"
             android:layout_marginTop="20dp"
             android:textColor="#676a6c"
             android:layout_width="match_parent"

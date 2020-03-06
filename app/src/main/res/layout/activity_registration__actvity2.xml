@@ -54,7 +54,7 @@
                     android:layout_weight="1"
                     android:justificationMode="inter_word"
                     android:text="@string/Txt_Description_Distributer"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
 
             </LinearLayout>
@@ -126,7 +126,7 @@
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
-                        android:textSize="15sp"
+                        android:textSize="14sp"
                         android:gravity="top|left"/>
 
 
@@ -194,7 +194,7 @@
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
                         android:maxLength="5"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
 
                 </RelativeLayout>
 
@@ -270,7 +270,7 @@
                             android:paddingLeft="20dp"
                             android:paddingRight="20dp"
                             android:paddingBottom="5dp"
-                            android:textSize="15sp"
+                            android:textSize="14sp"
                             android:gravity="top|left" />
 
                         <RelativeLayout
@@ -336,7 +336,7 @@
                             android:paddingRight="20dp"
                             android:paddingBottom="5dp"
                             android:maxLength="5"
-                            android:textSize="15sp" />
+                            android:textSize="14sp" />
 
                     </RelativeLayout>
                 </RelativeLayout>
@@ -354,7 +354,7 @@
                     android:text="Register"
                     android:textAllCaps="false"
                     android:textColor="#fff"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:layout_marginBottom="40dp"/>
                 <TextView
                     android:layout_width="match_parent"

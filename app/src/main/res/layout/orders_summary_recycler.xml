@@ -106,7 +106,7 @@
         android:layout_height="40dp"
         android:gravity="center"
         android:layout_marginTop="30dp"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:layout_below="@id/Rs"
         android:background="@drawable/edit_round"
         />

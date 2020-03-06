@@ -54,7 +54,7 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:layout_marginBottom="20dp"
-            android:textSize="15sp"
+            android:textSize="14sp"
             android:stateListAnimator="@null"
             android:text="English"
             android:textColor="@android:color/white"

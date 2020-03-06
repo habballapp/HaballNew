@@ -54,7 +54,7 @@
                         android:paddingLeft="20dp"
                         android:hint="20191232"
                         android:background="@drawable/distribution_login"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -80,7 +80,7 @@
                         android:gravity="center_vertical"
                         android:hint="karam"
                         android:background="@drawable/distribution_login"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                         android:hint="Khan"
                         android:gravity="center_vertical"
                         android:background="@drawable/distribution_login"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -131,7 +131,7 @@
                         android:gravity="center_vertical"
                         android:hint="kamranKhan@gmail.com"
                         android:background="@drawable/distribution_login"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -157,7 +157,7 @@
                         android:gravity="center_vertical"
                         android:text="0343-3323433"
                         android:background="@drawable/distribution_login"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -182,7 +182,7 @@
                         android:gravity="center_vertical"
                         android:text="232-22323233"
                         android:background="@drawable/distribution_login"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -207,7 +207,7 @@
                         android:gravity="center_vertical"
                         android:text="2323-343"
                         android:background="@drawable/distribution_login"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -233,7 +233,7 @@
                         android:gravity="center_vertical"
                         android:text="Kamran Traders"
                         android:background="@drawable/distribution_login"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -258,7 +258,7 @@
                         android:gravity="center_vertical"
                         android:text="25/12/2020"
                         android:background="@drawable/distribution_login"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
 
 
                 </LinearLayout>
@@ -283,7 +283,7 @@
                         android:text="Next"
                         android:textAllCaps="false"
                         android:textColor="#fff"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
 
                 </LinearLayout>
                 <RelativeLayout

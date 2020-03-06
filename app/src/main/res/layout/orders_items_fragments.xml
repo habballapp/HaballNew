@@ -61,7 +61,7 @@
                         android:paddingRight="10dp"
                         android:paddingBottom="15dp"
                         android:textColor="#676a6c"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 

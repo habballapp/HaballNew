@@ -58,7 +58,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_dist_code"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
@@ -87,7 +87,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_firstname"
                     android:drawableRight="@drawable/editprofile"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
@@ -116,7 +116,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_lastname"
                     android:drawableRight="@drawable/editprofile"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
@@ -144,7 +144,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_email"
                     android:drawableRight="@drawable/editprofile"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
@@ -172,7 +172,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tv_cnic"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
@@ -201,7 +201,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_dist_mobile"
                     android:drawableRight="@drawable/editprofile"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
@@ -233,7 +233,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tv_NTN"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
@@ -261,7 +261,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tv_companyname"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
@@ -291,7 +291,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tv_created_date"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
@@ -329,7 +329,7 @@
                 android:text="Change Password"
                 android:textAllCaps="false"
                 android:textColor="#fff"
-                android:textSize="15sp"
+                android:textSize="14sp"
 
                 />
 
@@ -346,7 +346,7 @@
                 android:enabled="false"
                 android:textAllCaps="false"
                 android:textColor="#fff"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
         </RelativeLayout>
 
 

@@ -44,7 +44,7 @@
         android:layout_below="@+id/ll_heading"
         android:layout_marginTop="20dp"
         android:text="Invoice No:"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/consolidate_invoice_no"
@@ -57,7 +57,7 @@
         android:text="1002312324251524"
         android:textColor="#676a6c"
         android:textStyle="bold"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/company"
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/consolidate_invoice_no"
         android:text="Company: "
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/consolidate_company_name"
@@ -77,7 +77,7 @@
         android:text="Shield"
         android:textStyle="bold"
         android:textColor="#676a6c"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/tv_createdate"
@@ -85,7 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/company"
         android:text="Created Date: "
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/tv_consolidated_date"
@@ -97,7 +97,7 @@
         android:text="24/12/2019"
         android:textColor="#676a6c"
         android:textStyle="bold"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/tv_consolidate_amount"
@@ -105,7 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_createdate"
         android:text="Amount:"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
 
 
@@ -118,7 +118,7 @@
         android:layout_toRightOf="@+id/tv_consolidate_amount"
         android:text="PKR "
         android:textColor="#676a6c"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
     <TextView
         android:id="@+id/consolidate_amount_value"
@@ -129,7 +129,7 @@
         android:layout_toRightOf="@+id/tv_pkr_amount"
         android:text=" 600,000.00"
         android:textColor="#676a6c"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
 
     <TextView
@@ -138,7 +138,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_consolidate_amount"
         android:text="Remaining Amount:"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
 
     <TextView
@@ -150,7 +150,7 @@
         android:layout_toRightOf="@+id/tv_consolidate_remamount"
         android:text="PKR "
         android:textColor="#676a6c"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
     <TextView
         android:id="@+id/tv_amount_remvalue"
@@ -161,7 +161,7 @@
         android:layout_toRightOf="@+id/tv_pkr1_ramaining"
         android:text="600,000.00"
         android:textColor="#676a6c"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
     <TextView
         android:id="@+id/consolidate_status"
@@ -169,7 +169,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_consolidate_remamount"
         android:text="Status: "
-        android:textSize="15sp"
+        android:textSize="14sp"
         />
     <TextView
         android:id="@+id/consolidate_sat"
@@ -181,7 +181,7 @@
         android:text="Paid"
         android:textColor="#96bb3c"
         android:textStyle="bold"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
 
 </RelativeLayout>

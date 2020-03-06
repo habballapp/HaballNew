@@ -63,7 +63,7 @@
                 android:paddingLeft="20dp"
                 android:hint="555551223455"
                 android:background="@drawable/distribution_login"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
 

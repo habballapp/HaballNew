@@ -40,7 +40,7 @@
         android:layout_below="@+id/ll_heading"
         android:layout_marginTop="10dp"
         android:text="Shipment No: "
-        android:textSize="15sp"/>
+        android:textSize="14sp"/>
     <TextView
         android:id="@+id/shipment_no_value"
         android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
         android:layout_toRightOf="@+id/shipment_no"
         android:textColor="#676a6c"
         android:textStyle="bold"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/delivery_date"
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/shipment_no"
         android:text="Delivery Date: "
-        android:textSize="15sp"/>
+        android:textSize="14sp"/>
     <TextView
         android:id="@+id/tv_date"
         android:layout_width="wrap_content"
@@ -71,14 +71,14 @@
         android:layout_toRightOf="@+id/delivery_date"
         android:textColor="#676a6c"
         android:textStyle="bold"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
     <TextView
         android:id="@+id/receiving_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/delivery_date"
         android:text="Receiving Date: "
-        android:textSize="15sp"/>
+        android:textSize="14sp"/>
     <TextView
         android:id="@+id/tv_recv_date"
         android:layout_width="wrap_content"
@@ -89,7 +89,7 @@
         android:layout_toRightOf="@+id/receiving_date"
         android:textColor="#676a6c"
         android:textStyle="bold"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/tv_quantity"
@@ -97,7 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/receiving_date"
         android:text="Quantity: "
-        android:textSize="15sp"/>
+        android:textSize="14sp"/>
     <TextView
         android:id="@+id/tv_quantity_value"
         android:layout_width="wrap_content"
@@ -108,7 +108,7 @@
         android:layout_toRightOf="@+id/tv_quantity"
         android:textColor="#676a6c"
         android:textStyle="bold"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/tv_status"
@@ -116,7 +116,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_quantity"
         android:text="Status: "
-        android:textSize="15sp"/>
+        android:textSize="14sp"/>
     <TextView
         android:id="@+id/tv_option"
         android:layout_width="wrap_content"
@@ -126,7 +126,7 @@
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/tv_status"
         android:textStyle="bold"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:textColor="#96bb3c"/>
 
 

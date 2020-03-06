@@ -56,7 +56,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/Rcode"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
@@ -84,7 +84,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/Rfirstname"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
@@ -113,7 +113,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/Remail"
                     android:drawableRight="@drawable/editprofile"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
@@ -141,7 +141,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/Rcnic"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
@@ -170,7 +170,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/Rmobile"
                     android:drawableRight="@drawable/editprofile"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
@@ -197,7 +197,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/R_created_date"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
@@ -225,7 +225,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/R_Address"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
@@ -264,7 +264,7 @@
                 android:text="Change Password"
                 android:textAllCaps="false"
                 android:textColor="#fff"
-                android:textSize="15sp"
+                android:textSize="14sp"
 
                 />
 
@@ -281,7 +281,7 @@
                 android:enabled="false"
                 android:textAllCaps="false"
                 android:textColor="#fff"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
         </RelativeLayout>
 
 

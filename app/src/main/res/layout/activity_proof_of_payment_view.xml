@@ -67,7 +67,7 @@
                 android:background="@drawable/distribution_login"
                 android:gravity="center_vertical"
                 android:paddingLeft="20dp"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -93,7 +93,7 @@
                 android:drawablePadding="10dp"
                 android:gravity="center_vertical"
                 android:background="@drawable/distribution_login"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -118,7 +118,7 @@
                 android:drawablePadding="10dp"
                 android:gravity="center_vertical"
                 android:background="@drawable/distribution_login"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -144,7 +144,7 @@
                 android:paddingRight="10dp"
                 android:drawablePadding="10dp"
                 android:background="@drawable/distribution_login"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -170,7 +170,7 @@
                 android:paddingRight="10dp"
                 android:drawablePadding="10dp"
                 android:background="@drawable/distribution_login"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -196,7 +196,7 @@
                 android:paddingRight="10dp"
                 android:drawablePadding="10dp"
                 android:background="@drawable/distribution_login"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -222,7 +222,7 @@
                 android:paddingRight="10dp"
                 android:drawablePadding="10dp"
                 android:background="@drawable/distribution_login"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -248,7 +248,7 @@
                 android:paddingRight="10dp"
                 android:drawablePadding="10dp"
                 android:background="@drawable/distribution_login"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -274,7 +274,7 @@
                 android:paddingRight="10dp"
                 android:drawablePadding="10dp"
                 android:background="@drawable/distribution_login"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout

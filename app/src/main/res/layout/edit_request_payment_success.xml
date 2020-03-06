@@ -50,7 +50,7 @@
                 android:gravity="center_vertical"
                 android:justificationMode="inter_word"
                 android:layout_below="@id/txt_header1"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:text="@string/pr8"
                 android:inputType="textMultiLine"/>
 

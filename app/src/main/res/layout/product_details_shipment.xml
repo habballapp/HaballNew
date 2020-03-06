@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_heading"
         android:text="Product Code:"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/shipment_productCode"
@@ -29,7 +29,7 @@
         android:text="PC_1002312324251524"
         android:textColor="#676a6c"
         android:textStyle="bold"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/product"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/shipment_productCode"
         android:text="Product: "
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/shipment_productName"
@@ -49,7 +49,7 @@
         android:text="ABC"
         android:textStyle="bold"
         android:textColor="#676a6c"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/product_quantity"
@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/product"
         android:text="Quantity: "
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/shipment_quantity"
@@ -69,7 +69,7 @@
         android:text="10"
         android:textColor="#676a6c"
         android:textStyle="bold"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/tv_consolidate_amount"
@@ -77,7 +77,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/product_quantity"
         android:text="Unit Price:"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
 
 
@@ -90,7 +90,7 @@
         android:layout_toRightOf="@+id/tv_consolidate_amount"
         android:text="PKR "
         android:textColor="#676a6c"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
     <TextView
         android:id="@+id/shipment_unitPrice"
@@ -101,7 +101,7 @@
         android:layout_toRightOf="@+id/unit_pkr"
         android:text=" 750.00"
         android:textColor="#676a6c"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
 
     <TextView
@@ -110,7 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_consolidate_amount"
         android:text="Discount:"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
 
     <TextView
@@ -122,7 +122,7 @@
         android:layout_toRightOf="@+id/tv_consolidate_remamount"
         android:text="PKR "
         android:textColor="#676a6c"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
     <TextView
         android:id="@+id/shipment_discount"
@@ -133,7 +133,7 @@
         android:layout_toRightOf="@+id/discount_pkr"
         android:text="0.00"
         android:textColor="#676a6c"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
     <TextView
         android:id="@+id/consolidate_status"
@@ -141,7 +141,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_consolidate_remamount"
         android:text="Amount: "
-        android:textSize="15sp"
+        android:textSize="14sp"
         />
 
     <TextView
@@ -153,7 +153,7 @@
         android:layout_toRightOf="@+id/consolidate_status"
         android:text="PKR "
         android:textColor="#676a6c"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
     <TextView
         android:id="@+id/shipment_amount"
@@ -164,7 +164,7 @@
         android:layout_toRightOf="@+id/PKR"
         android:text="750.00"
         android:textStyle="bold"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
 
 </RelativeLayout>
