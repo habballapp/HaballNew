@@ -80,23 +80,24 @@ public class PaymentsSummaryFragment extends Fragment {
     private void fetchPaymentsSummary() {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token","");
+        Token = sharedPreferences.getString("Login_Token", "");
         Log.i("Token", Token);
 
         StringRequest sr = new StringRequest(Request.Method.POST, URL_PAYMENTS, new Response.Listener<String>() {
             @Override
             public void onResponse(String result) {
-                try{
+                try {
                     JSONArray jsonArray = new JSONArray(result);
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<DistributorPaymentsModel>>(){}.getType();
-                    PaymentsList = gson.fromJson(jsonArray.toString(),type);
+                    Type type = new TypeToken<List<DistributorPaymentsModel>>() {
+                    }.getType();
+                    PaymentsList = gson.fromJson(jsonArray.toString(), type);
                     try {
                         fetchInvoicesSummary();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }catch (JSONException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
@@ -107,82 +108,75 @@ public class PaymentsSummaryFragment extends Fragment {
 
                 error.printStackTrace();
             }
-        }){
+        }) {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer " +Token);
+                params.put("Authorization", "bearer " + Token);
                 return params;
             }
         };
-        sr.setRetryPolicy(new RetryPolicy() {
-            @Override
-            public int getCurrentTimeout() {
-                return 50000;
-            }
-
-            @Override
-            public int getCurrentRetryCount() {
-                return 50000;
-            }
-
-            @Override
-            public void retry(VolleyError error) throws VolleyError {
-
-            }
-        });
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
     }
 
-    private void fetchInvoicesSummary() throws JSONException{
-            SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
-                    Context.MODE_PRIVATE);
-            Token = sharedPreferences.getString("Login_Token", "");
+    private void fetchInvoicesSummary() throws JSONException {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
 
-            SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
-                    Context.MODE_PRIVATE);
-            DistributorId = sharedPreferences1.getString("Distributor_Id", "");
-            Log.i("DistributorId ", DistributorId);
-            Log.i("Token", Token);
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+        Log.i("DistributorId ", DistributorId);
+        Log.i("Token", Token);
 
-            JSONObject map = new JSONObject();
-            map.put("DistributorId", Integer.parseInt(DistributorId));
-            map.put("TotalRecords", 10);
-            map.put("PageNumber", 0.1);
+        JSONObject map = new JSONObject();
+        map.put("DistributorId", Integer.parseInt(DistributorId));
+        map.put("TotalRecords", 10);
+        map.put("PageNumber", 0.1);
 
-            MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_INVOICES, map, new Response.Listener<JSONArray>() {
-                @Override
-                public void onResponse(JSONArray result) {
-                    Log.i("ConsolidatePayments", result.toString());
+        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_INVOICES, map, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray result) {
+                Log.i("ConsolidatePayments", result.toString());
 
-                    Gson gson = new Gson();
-                    Type type = new TypeToken<List<DistributorInvoicesModel>>(){}.getType();
-                    InvoicesList = gson.fromJson(result.toString(),type);
-                    mAdapter = new DistributorPaymentsAdapter(getContext(),PaymentsList, InvoicesList);
-                    recyclerView.setAdapter(mAdapter);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    printErrorMessage(error);
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<DistributorInvoicesModel>>() {
+                }.getType();
+                InvoicesList = gson.fromJson(result.toString(), type);
+                mAdapter = new DistributorPaymentsAdapter(getContext(), PaymentsList, InvoicesList);
+                recyclerView.setAdapter(mAdapter);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
 
-                    error.printStackTrace();
-                }
-            }) {
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("Authorization", "bearer " + Token);
-                    params.put("Content-Type", "application/json; charset=UTF-8");
-                    return params;
-                }
-            };
-            Volley.newRequestQueue(getContext()).add(sr);
-        }
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                return params;
+            }
+        };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(getContext()).add(sr);
+    }
 
 
-        private void printErrorMessage(VolleyError error) {
+    private void printErrorMessage(VolleyError error) {
         if (error instanceof NetworkError) {
             Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof ServerError) {
@@ -201,9 +195,9 @@ public class PaymentsSummaryFragment extends Fragment {
             try {
                 String message = "";
                 String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody",responseBody);
+                Log.i("responseBody", responseBody);
                 JSONObject data = new JSONObject(responseBody);
-                Log.i("data",String.valueOf(data));
+                Log.i("data", String.valueOf(data));
                 Iterator<String> keys = data.keys();
                 while (keys.hasNext()) {
                     String key = keys.next();

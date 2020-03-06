@@ -29,11 +29,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
@@ -136,15 +138,15 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                LinearLayoutManager layoutManager=LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+                LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
 
-                int visibleItemCount        = layoutManager.getChildCount();
-                int totalItemCount          = layoutManager.getItemCount();
-                int firstVisibleItemPosition= layoutManager.findFirstVisibleItemPosition();
+                int visibleItemCount = layoutManager.getChildCount();
+                int totalItemCount = layoutManager.getItemCount();
+                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
 
                 // Load more if we have reach the end to the recyclerView
-                if ( (visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
-                    if(totalPages != 0 && pageNumber < totalPages) {
+                if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
+                    if (totalPages != 0 && pageNumber < totalPages) {
 //                        Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
                         btn_load_more.setVisibility(View.VISIBLE);
                     }
@@ -157,7 +159,7 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
             public void onClick(View view) {
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.remove(ProofOfPaymentsDashboardFragment.this);
-                fragmentTransaction.replace(((ViewGroup)getView().getParent()).getId(), new ProofOfPaymentForm());
+                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new ProofOfPaymentForm());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
@@ -168,12 +170,12 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
         spinner2.setVisibility(View.GONE);
         conso_edittext.setVisibility(View.GONE);
-        consolidate_felter.add ("Select Criteria");
-        consolidate_felter.add ("POP ID");
-        consolidate_felter.add ("Created Date");
-        consolidate_felter.add ("Payment Mode");
-        consolidate_felter.add ("Payment ID");
-        consolidate_felter.add ("Status");
+        consolidate_felter.add("Select Criteria");
+        consolidate_felter.add("POP ID");
+        consolidate_felter.add("Created Date");
+        consolidate_felter.add("Payment Mode");
+        consolidate_felter.add("Payment ID");
+        consolidate_felter.add("Status");
 
         arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, consolidate_felter);
@@ -184,32 +186,31 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 spinner2.setVisibility(View.GONE);
                 conso_edittext.setVisibility(View.GONE);
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                }
-                else{
+                } else {
                     Filter_selected = consolidate_felter.get(i);
                     Log.i("Filter_selected", Filter_selected);
-                    if(!Filter_selected.equals("Status"))
+                    if (!Filter_selected.equals("Status"))
                         spinner2.setSelection(0);
-                    if(!Filter_selected.equals("Payment Mode"))
+                    if (!Filter_selected.equals("Payment Mode"))
                         spinner2.setSelection(0);
-                    if(!conso_edittext.getText().equals(""))
+                    if (!conso_edittext.getText().equals(""))
                         conso_edittext.setText("");
 
-                    if(Filter_selected.equals("POP ID")) {
+                    if (Filter_selected.equals("POP ID")) {
                         Filter_selected = "POPNumber";
                         conso_edittext.setVisibility(View.VISIBLE);
-                    } else if(Filter_selected.equals("Created Date")) {
-                        Toast.makeText(getContext(),"Created Date selected",Toast.LENGTH_LONG).show();
-                    } else if(Filter_selected.equals("Payment Mode")) {
+                    } else if (Filter_selected.equals("Created Date")) {
+                        Toast.makeText(getContext(), "Created Date selected", Toast.LENGTH_LONG).show();
+                    } else if (Filter_selected.equals("Payment Mode")) {
                         Filter_selected = "PaymentMode";
                         filters = new ArrayList<>();
-                        filters.add ("Select Mode");
-                        filters.add ("ATM");
-                        filters.add ("Internet Banking");
-                        filters.add ("Mobile Banking");
-                        filters.add ("OTC");
+                        filters.add("Select Mode");
+                        filters.add("ATM");
+                        filters.add("Internet Banking");
+                        filters.add("Mobile Banking");
+                        filters.add("OTC");
                         arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
                                 android.R.layout.simple_dropdown_item_1line, filters);
                         arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -217,19 +218,19 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
                         spinner2.setAdapter(arrayAdapterFeltter);
 
                         spinner2.setVisibility(View.VISIBLE);
-                    } else if(Filter_selected.equals("Transaction Date")) {
-                        Toast.makeText(getContext(),"Transaction Date selected",Toast.LENGTH_LONG).show();
-                    } else if(Filter_selected.equals("Amount")) {
-                        Toast.makeText(getContext(),"Amount selected",Toast.LENGTH_LONG).show();
-                    } else if(Filter_selected.equals("Status")) {
+                    } else if (Filter_selected.equals("Transaction Date")) {
+                        Toast.makeText(getContext(), "Transaction Date selected", Toast.LENGTH_LONG).show();
+                    } else if (Filter_selected.equals("Amount")) {
+                        Toast.makeText(getContext(), "Amount selected", Toast.LENGTH_LONG).show();
+                    } else if (Filter_selected.equals("Status")) {
                         Filter_selected = "Status";
                         filters = new ArrayList<>();
-                        filters.add ("Status");
-                        filters.add ("Pending");
-                        filters.add ("Amended");
-                        filters.add ("Rejected");
-                        filters.add ("Returned");
-                        filters.add ("Approved");
+                        filters.add("Status");
+                        filters.add("Pending");
+                        filters.add("Amended");
+                        filters.add("Rejected");
+                        filters.add("Returned");
+                        filters.add("Approved");
                         arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
                                 android.R.layout.simple_spinner_dropdown_item, filters);
 
@@ -260,12 +261,11 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                }
-                else{
-                    Filter_selected_value = String.valueOf(i-1);
-                    Log.i("Filter_selected_value",Filter_selected_value);
+                } else {
+                    Filter_selected_value = String.valueOf(i - 1);
+                    Log.i("Filter_selected_value", Filter_selected_value);
                     try {
                         fetchFilteredProofOfPaymentsData();
                     } catch (JSONException e) {
@@ -298,9 +298,11 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
                 }
             }
 
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
         });
 
         try {
@@ -316,11 +318,11 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token","");
+        Token = sharedPreferences.getString("Login_Token", "");
 
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences1.getString("Distributor_Id","");
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
 
         Log.i("Token", Token);
@@ -330,16 +332,17 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
         map.put("TotalRecords", 10);
         map.put("PageNumber", pageNumber);
 
-        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_PROOF_OF_PAYMENTS,map,new Response.Listener<JSONArray>() {
+        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_PROOF_OF_PAYMENTS, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
 
                 btn_load_more.setVisibility(View.GONE);
 
                 Gson gson = new Gson();
-                Type type = new TypeToken<List<ProofOfPaymentModel>>(){}.getType();
-                proofOfPaymentsList = gson.fromJson(String.valueOf(result),type);
-                ((ProofOfPaymentAdapter)recyclerView.getAdapter()).addListItem(proofOfPaymentsList);
+                Type type = new TypeToken<List<ProofOfPaymentModel>>() {
+                }.getType();
+                proofOfPaymentsList = gson.fromJson(String.valueOf(result), type);
+                ((ProofOfPaymentAdapter) recyclerView.getAdapter()).addListItem(proofOfPaymentsList);
 
                 Log.e("RESPONSE OF P_O_P", result.toString());
             }
@@ -350,26 +353,30 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
 
                 error.printStackTrace();
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer "+Token);
+                params.put("Authorization", "bearer " + Token);
                 params.put("Content-Type", "application/json; charset=UTF-8");
                 return params;
             }
         };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
     }
 
-    private void fetchProofOfPaymentsData() throws JSONException{
+    private void fetchProofOfPaymentsData() throws JSONException {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token","");
+        Token = sharedPreferences.getString("Login_Token", "");
 
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences1.getString("Distributor_Id","");
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
 
         Log.i("Token", Token);
@@ -395,11 +402,11 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
                 error.printStackTrace();
                 Log.i("onErrorResponse", "Error");
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer "+Token);
+                params.put("Authorization", "bearer " + Token);
                 return params;
             }
         };
@@ -410,18 +417,19 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
         map.put("TotalRecords", 10);
         map.put("PageNumber", pageNumber);
 
-        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_PROOF_OF_PAYMENTS,map,new Response.Listener<JSONArray>() {
+        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_PROOF_OF_PAYMENTS, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
                 try {
                     JSONObject jsonObject = null;
-                    for(int i=0;i<result.length();i++){
-                        jsonObject  = result.getJSONObject(i);
+                    for (int i = 0; i < result.length(); i++) {
+                        jsonObject = result.getJSONObject(i);
                     }
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<ProofOfPaymentModel>>(){}.getType();
-                    proofOfPaymentsList = gson.fromJson(String.valueOf(result),type);
-                    mAdapter = new ProofOfPaymentAdapter(getContext(),proofOfPaymentsList);
+                    Type type = new TypeToken<List<ProofOfPaymentModel>>() {
+                    }.getType();
+                    proofOfPaymentsList = gson.fromJson(String.valueOf(result), type);
+                    mAdapter = new ProofOfPaymentAdapter(getContext(), proofOfPaymentsList);
                     recyclerView.setAdapter(mAdapter);
 
                 } catch (JSONException e) {
@@ -436,28 +444,32 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
 
                 error.printStackTrace();
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer "+Token);
+                params.put("Authorization", "bearer " + Token);
                 params.put("Content-Type", "application/json; charset=UTF-8");
                 return params;
             }
         };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
 
     }
 
 
-    private void fetchFilteredProofOfPaymentsData() throws JSONException{
+    private void fetchFilteredProofOfPaymentsData() throws JSONException {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token","");
+        Token = sharedPreferences.getString("Login_Token", "");
 
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences1.getString("Distributor_Id","");
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
 
         Log.i("Token", Token);
@@ -468,18 +480,19 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
         map.put("PageNumber", pageNumber);
         map.put(Filter_selected, Filter_selected_value);
         Log.i("Map", String.valueOf(map));
-        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_PROOF_OF_PAYMENTS,map,new Response.Listener<JSONArray>() {
+        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_PROOF_OF_PAYMENTS, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
                 try {
                     JSONObject jsonObject = null;
-                    for(int i=0;i<result.length();i++){
-                        jsonObject  = result.getJSONObject(i);
+                    for (int i = 0; i < result.length(); i++) {
+                        jsonObject = result.getJSONObject(i);
                     }
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<ProofOfPaymentModel>>(){}.getType();
-                    proofOfPaymentsList = gson.fromJson(String.valueOf(result),type);
-                    mAdapter = new ProofOfPaymentAdapter(getContext(),proofOfPaymentsList);
+                    Type type = new TypeToken<List<ProofOfPaymentModel>>() {
+                    }.getType();
+                    proofOfPaymentsList = gson.fromJson(String.valueOf(result), type);
+                    mAdapter = new ProofOfPaymentAdapter(getContext(), proofOfPaymentsList);
                     recyclerView.setAdapter(mAdapter);
 
                 } catch (JSONException e) {
@@ -494,19 +507,22 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
 
                 error.printStackTrace();
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer "+Token);
+                params.put("Authorization", "bearer " + Token);
                 params.put("Content-Type", "application/json; charset=UTF-8");
                 return params;
             }
         };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         Volley.newRequestQueue(getContext()).add(sr);
     }
-
-
 
 
 //    private void fetchPaymentLedgerData(String companyId) throws JSONException{
@@ -567,7 +583,7 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
 //    }
 
 
-        private void printErrorMessage(VolleyError error) {
+    private void printErrorMessage(VolleyError error) {
         if (error instanceof NetworkError) {
             Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof ServerError) {
@@ -586,9 +602,9 @@ public class ProofOfPaymentsDashboardFragment extends Fragment {
             try {
                 String message = "";
                 String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody",responseBody);
+                Log.i("responseBody", responseBody);
                 JSONObject data = new JSONObject(responseBody);
-                Log.i("data",String.valueOf(data));
+                Log.i("data", String.valueOf(data));
                 Iterator<String> keys = data.keys();
                 while (keys.hasNext()) {
                     String key = keys.next();

@@ -24,8 +24,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -260,6 +262,10 @@ public class Support_Ticket_Form extends AppCompatActivity {
                 return params;
             }
         };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(this).add(sr);
         arrayAdapterIssueType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         arrayAdapterIssueType.notifyDataSetChanged();
@@ -306,6 +312,10 @@ public class Support_Ticket_Form extends AppCompatActivity {
                 return params;
             }
         };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(this).add(sr);
         arrayAdapterCriticality.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         arrayAdapterCriticality.notifyDataSetChanged();
@@ -353,6 +363,10 @@ public class Support_Ticket_Form extends AppCompatActivity {
                 return params;
             }
         };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(this).add(sr);
         arrayAdapterPreferredContact.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         arrayAdapterPreferredContact.notifyDataSetChanged();

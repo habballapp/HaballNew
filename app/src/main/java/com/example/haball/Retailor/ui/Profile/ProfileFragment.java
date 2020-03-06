@@ -24,11 +24,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
@@ -79,9 +81,9 @@ public class ProfileFragment extends Fragment {
         btn_changepwd = root.findViewById(R.id.btn_changepwd);
         btn_save_password = root.findViewById(R.id.btn_save_password);
 
-        Remail.setInputType( InputType.TYPE_NULL );
-        Rmobile.setInputType( InputType.TYPE_NULL );
-        R_Address.setInputType( InputType.TYPE_NULL );
+        Remail.setInputType(InputType.TYPE_NULL);
+        Rmobile.setInputType(InputType.TYPE_NULL);
+        R_Address.setInputType(InputType.TYPE_NULL);
 
         Remail.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -91,10 +93,10 @@ public class ProfileFragment extends Fragment {
                 final int DRAWABLE_RIGHT = 2;
                 final int DRAWABLE_BOTTOM = 3;
 
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getRawX() >= (Remail.getRight() - Remail.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (Remail.getRight() - Remail.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         // your action here
-                        Remail.setInputType( InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS );
+                        Remail.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
                         Remail.requestFocus();
                         Remail.setFocusable(true);
                         Remail.setFocusableInTouchMode(true);
@@ -115,10 +117,10 @@ public class ProfileFragment extends Fragment {
                 final int DRAWABLE_RIGHT = 2;
                 final int DRAWABLE_BOTTOM = 3;
 
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getRawX() >= (Rmobile.getRight() - Rmobile.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (Rmobile.getRight() - Rmobile.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         // your action here
-                        Rmobile.setInputType( InputType.TYPE_CLASS_NUMBER );
+                        Rmobile.setInputType(InputType.TYPE_CLASS_NUMBER);
                         Rmobile.requestFocus();
                         Rmobile.setFocusable(true);
                         Rmobile.setFocusableInTouchMode(true);
@@ -139,10 +141,10 @@ public class ProfileFragment extends Fragment {
                 final int DRAWABLE_RIGHT = 2;
                 final int DRAWABLE_BOTTOM = 3;
 
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getRawX() >= (R_Address.getRight() - R_Address.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (R_Address.getRight() - R_Address.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         // your action here
-                        R_Address.setInputType( InputType.TYPE_TEXT_FLAG_IME_MULTI_LINE );
+                        R_Address.setInputType(InputType.TYPE_TEXT_FLAG_IME_MULTI_LINE);
                         R_Address.requestFocus();
                         R_Address.setFocusable(true);
                         R_Address.setFocusableInTouchMode(true);
@@ -203,7 +205,7 @@ public class ProfileFragment extends Fragment {
         return root;
     }
 
-    private void saveProfileData() throws JSONException{
+    private void saveProfileData() throws JSONException {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -224,11 +226,11 @@ public class ProfileFragment extends Fragment {
         jsonObject.put("Address", R_Address.getText().toString());
         jsonObject.put("Email", Remail.getText().toString());
 
-        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, PROFILE_EDIT_URL,jsonObject, new Response.Listener<JSONObject>() {
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, PROFILE_EDIT_URL, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
                 try {
-                    Toast.makeText(getContext(), "Profile Information Successfully updated for "+result.getString("RetailerCode"), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Profile Information Successfully updated for " + result.getString("RetailerCode"), Toast.LENGTH_LONG).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -247,14 +249,18 @@ public class ProfileFragment extends Fragment {
                 return params;
             }
         };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
 
     }
 
-    private void updatePassword() throws JSONException{
+    private void updatePassword() throws JSONException {
         checkPasswords();
         checkConfirmPassword();
-        if(password_check && confirm_password_check) {
+        if (password_check && confirm_password_check) {
 
             SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                     Context.MODE_PRIVATE);
@@ -281,7 +287,7 @@ public class ProfileFragment extends Fragment {
                 public void onResponse(JSONObject result) {
                     Log.i("response", String.valueOf(result));
                     try {
-                        if(result.has("message")){
+                        if (result.has("message")) {
                             Toast.makeText(getActivity(), result.get("message").toString(), Toast.LENGTH_SHORT).show();
                         } else {
                             final Dialog fbDialogue = new Dialog(getActivity());
@@ -302,7 +308,7 @@ public class ProfileFragment extends Fragment {
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
 
                     }
                 }
@@ -314,19 +320,35 @@ public class ProfileFragment extends Fragment {
 //                    Toast.makeText(getActivity(), String.valueOf(error),Toast.LENGTH_LONG).show();
                 }
 
-            }){
+            }) {
 
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("Authorization", "bearer " +Token);
+                    params.put("Authorization", "bearer " + Token);
                     params.put("Content-Type", "application/json; charset=UTF-8");
                     return params;
                 }
             };
+            sr.setRetryPolicy(new RetryPolicy() {
+                @Override
+                public int getCurrentTimeout() {
+                    return 50000;
+                }
+
+                @Override
+                public int getCurrentRetryCount() {
+                    return 1000;
+                }
+
+                @Override
+                public void retry(VolleyError error) throws VolleyError {
+
+                }
+            });
             Volley.newRequestQueue(getActivity()).add(sr);
         } else {
-            Toast.makeText(getActivity(), "Password do not Match",Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Password do not Match", Toast.LENGTH_LONG).show();
         }
 
     }
@@ -364,7 +386,7 @@ public class ProfileFragment extends Fragment {
         Log.i("RetailerId ", RetailerId);
         PROFILE_URL = PROFILE_URL + RetailerId;
         Log.i("Token Retailer ", Token);
-        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, PROFILE_URL,null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, PROFILE_URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
                 try {
@@ -403,12 +425,28 @@ public class ProfileFragment extends Fragment {
                 return params;
             }
         };
+        sr.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 1000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
         Volley.newRequestQueue(getContext()).add(sr);
 
 
     }
 
-        private void printErrorMessage(VolleyError error) {
+    private void printErrorMessage(VolleyError error) {
         if (error instanceof NetworkError) {
             Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof ServerError) {
@@ -427,9 +465,9 @@ public class ProfileFragment extends Fragment {
             try {
                 String message = "";
                 String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody",responseBody);
+                Log.i("responseBody", responseBody);
                 JSONObject data = new JSONObject(responseBody);
-                Log.i("data",String.valueOf(data));
+                Log.i("data", String.valueOf(data));
                 Iterator<String> keys = data.keys();
                 while (keys.hasNext()) {
                     String key = keys.next();

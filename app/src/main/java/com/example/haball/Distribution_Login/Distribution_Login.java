@@ -23,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
@@ -54,9 +55,9 @@ import java.util.Map;
 
 public class Distribution_Login extends AppCompatActivity {
 
-    private Button btn_login,btn_signup,btn_support,btn_password,btn_reset;
+    private Button btn_login, btn_signup, btn_support, btn_password, btn_reset;
     public ImageButton btn_back;
-    private EditText et_username,et_password, txt_email;
+    private EditText et_username, et_password, txt_email;
     private Toolbar tb;
     private RequestQueue queue;
     private String URL = "http://175.107.203.97:4008/Token";
@@ -190,7 +191,7 @@ public class Distribution_Login extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 printErrorMessage(error);
                 error.printStackTrace();
-               // Toast.makeText(Distribution_Login.this,error.toString(),Toast.LENGTH_LONG).show();
+                // Toast.makeText(Distribution_Login.this,error.toString(),Toast.LENGTH_LONG).show();
             }
         }) {
 
@@ -205,7 +206,7 @@ public class Distribution_Login extends AppCompatActivity {
             public byte[] getBody() {
                 try {
                     JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("EmailAddress",txt_email.getText().toString());
+                    jsonObject.put("EmailAddress", txt_email.getText().toString());
                     return jsonObject.toString().getBytes("utf-8");
                 } catch (Exception e) {
                     return null;
@@ -232,21 +233,21 @@ public class Distribution_Login extends AppCompatActivity {
         return success_text;
     }
 
-    private void makeLoginRequest(){
+    private void makeLoginRequest() {
 
         queue = Volley.newRequestQueue(this);
         StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(Distribution_Login.this,response,Toast.LENGTH_LONG).show();
-                if(!response.equals("Invalid username or password!")){
+                Toast.makeText(Distribution_Login.this, response, Toast.LENGTH_LONG).show();
+                if (!response.equals("Invalid username or password!")) {
 
-                    SharedPreferences sharedPref = getSharedPreferences("Login_Check",Context.MODE_PRIVATE);
+                    SharedPreferences sharedPref = getSharedPreferences("Login_Check", Context.MODE_PRIVATE);
                     SharedPreferences.Editor login_check = sharedPref.edit();
-                    login_check.putBoolean("login_success",true);
+                    login_check.putBoolean("login_success", true);
                     login_check.commit();
 
-                    Intent login_intent = new Intent(Distribution_Login.this,DistributorDashboard.class);
+                    Intent login_intent = new Intent(Distribution_Login.this, DistributorDashboard.class);
                     startActivity(login_intent);
                     finish();
                 }
@@ -257,7 +258,7 @@ public class Distribution_Login extends AppCompatActivity {
                 printErrorMessage(error);
 //                Toast.makeText(Distribution_Login.this,error.toString(), Toast.LENGTH_LONG).show();
             }
-        }){
+        }) {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
@@ -266,8 +267,11 @@ public class Distribution_Login extends AppCompatActivity {
                 params.put("Password", "Force@321");
                 params.put("grant_type", "password");
                 return params;
-            };
+            }
+
+            ;
         };
+
         queue.add(request);
     }
 
@@ -277,16 +281,16 @@ public class Distribution_Login extends AppCompatActivity {
         map.put("Username", et_username.getText().toString());
         map.put("Password", et_password.getText().toString());
         map.put("grant_type", "password");
-
+        Log.i("map", String.valueOf(map));
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONObject result) {
                 try {
-                    if(!result.get("access_token").toString().isEmpty()){
+                    if (!result.get("access_token").toString().isEmpty()) {
                         token = result.get("access_token").toString();
                         JSONObject userAccount = new JSONObject(String.valueOf(result.get("UserAccount")));
-                        Log.i("user account => ",userAccount.get("DistributorID").toString());
+                        Log.i("user account => ", userAccount.get("DistributorID").toString());
                         String DistributorId = userAccount.get("DistributorID").toString();
                         String username = userAccount.get("Username").toString();
                         String CompanyName = userAccount.get("CompanyName").toString();
@@ -294,17 +298,17 @@ public class Distribution_Login extends AppCompatActivity {
                         SharedPreferences login_token = getSharedPreferences("LoginToken",
                                 Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = login_token.edit();
-                        editor.putString("Login_Token",token);
-                        editor.putString("User_Type","Distributor");
-                        editor.putString("Distributor_Id",DistributorId);
-                        editor.putString("username",username);
-                        editor.putString("CompanyName",CompanyName);
-                        editor.putString("ID",ID);
+                        editor.putString("Login_Token", token);
+                        editor.putString("User_Type", "Distributor");
+                        editor.putString("Distributor_Id", DistributorId);
+                        editor.putString("username", username);
+                        editor.putString("CompanyName", CompanyName);
+                        editor.putString("ID", ID);
 
                         editor.commit();
 
-                        Toast.makeText(Distribution_Login.this,"Login Success",Toast.LENGTH_LONG).show();
-                        Intent login_intent = new Intent(Distribution_Login.this,DistributorDashboard.class);
+                        Toast.makeText(Distribution_Login.this, "Login Success", Toast.LENGTH_LONG).show();
+                        Intent login_intent = new Intent(Distribution_Login.this, DistributorDashboard.class);
                         startActivity(login_intent);
                         finish();
                     }
@@ -312,7 +316,7 @@ public class Distribution_Login extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                     try {
-                        Toast.makeText(Distribution_Login.this,result.get("ErrorMessage").toString(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(Distribution_Login.this, result.get("ErrorMessage").toString(), Toast.LENGTH_LONG).show();
                     } catch (JSONException ex) {
                         ex.printStackTrace();
                     }
@@ -329,7 +333,12 @@ public class Distribution_Login extends AppCompatActivity {
                 printErrorMessage(error);
             }
         });
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(this).add(sr);
+
 //        RequestQueue requestQueue = Volley.newRequestQueue(this);
 //        requestQueue.add(sr);
     }
@@ -350,7 +359,7 @@ public class Distribution_Login extends AppCompatActivity {
             Toast.makeText(Distribution_Login.this, "Timeout Error !", Toast.LENGTH_LONG).show();
         }
 
-        if(error.networkResponse != null && error.networkResponse.data != null) {
+        if (error.networkResponse != null && error.networkResponse.data != null) {
             try {
                 String message = "";
                 String responseBody = new String(error.networkResponse.data, "utf-8");

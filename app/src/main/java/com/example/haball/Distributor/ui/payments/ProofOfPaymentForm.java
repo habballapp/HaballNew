@@ -33,11 +33,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
@@ -108,34 +110,35 @@ public class ProofOfPaymentForm extends Fragment {
 
     private ProgressDialog progressDialog;
     private CountDownTimer CDT;
-    private int i=8;
+    private int i = 8;
     private String selectedFileType, imageName;
     private TextView FileName;
     private EditText txt_bank, txt_branch, txt_transaction;
 
     public static String encodeTobase64(Bitmap image) {
-        Bitmap immagex=image;
+        Bitmap immagex = image;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         immagex.compress(Bitmap.CompressFormat.JPEG, 30, baos);
         byte[] b = baos.toByteArray();
 
-        String imageEncoded = Base64.encodeToString(baos.toByteArray(),Base64.NO_WRAP);
+        String imageEncoded = Base64.encodeToString(baos.toByteArray(), Base64.NO_WRAP);
 
         Log.e("LOOK", imageEncoded);
         return imageEncoded;
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
-            case SELECT_FILE:{
+        switch (requestCode) {
+            case SELECT_FILE: {
                 if (resultCode == RESULT_OK && data != null) {
                     final Uri imageUri = data.getData();
-                    System.out.println("data"+data.getData());
+                    System.out.println("data" + data.getData());
 
                     Bundle extras = data.getExtras();
                     Bitmap bmp = (Bitmap) extras.get("data");
-                    System.out.println("bmp "+bmp);
+                    System.out.println("bmp " + bmp);
 
                     InputStream imageStream = null;
                     try {
@@ -143,22 +146,22 @@ public class ProofOfPaymentForm extends Fragment {
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
-                    System.out.println("imageStream  "+imageStream);
+                    System.out.println("imageStream  " + imageStream);
 
                     Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
-                    System.out.println("yourSelectedImage  "+yourSelectedImage);
+                    System.out.println("yourSelectedImage  " + yourSelectedImage);
 
                     imageBitmapBase64.add(encodeTobase64(yourSelectedImage));
                     imageName = getRealPathFromURI(imageUri);
                     FileName.setText(imageName);
                     Toast.makeText(getContext(), imageName, Toast.LENGTH_LONG).show();
-                }else {
-                    Toast.makeText(getContext(), "You haven't picked Image",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getContext(), "You haven't picked Image", Toast.LENGTH_LONG).show();
                 }
                 break;
 
             }
-            case REQUEST_CAMERA:{
+            case REQUEST_CAMERA: {
                 if (resultCode == RESULT_OK && data != null) {
                     Bundle extras = data.getExtras();
                     // Get the returned image from extra
@@ -169,11 +172,11 @@ public class ProofOfPaymentForm extends Fragment {
                     String datetime = dateformat.format(c.getTime());
                     System.out.println(datetime);
 
-                    imageName = datetime+".jpg";
+                    imageName = datetime + ".jpg";
                     FileName.setText(imageName);
                     Toast.makeText(getContext(), imageName, Toast.LENGTH_LONG).show();
-                }else {
-                    Toast.makeText(getContext(), "You haven't picked Image",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getContext(), "You haven't picked Image", Toast.LENGTH_LONG).show();
                 }
                 break;
             }
@@ -233,13 +236,13 @@ public class ProofOfPaymentForm extends Fragment {
         spinner_payment_id.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                }
-                else{
+                } else {
                     selected_paymentid = payment_ids.get(i);
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -248,19 +251,19 @@ public class ProofOfPaymentForm extends Fragment {
         spinner_mode_of_payments.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                }
-                else{
+                } else {
                     selected_paymentmode = payment_modes.get(i);
-                    if(selected_paymentmode.equals("OTC"))
+                    if (selected_paymentmode.equals("OTC"))
                         ImageFileTypes.add("Cheque");
-                    else{
-                        if(ImageFileTypes.contains("Cheque"))
+                    else {
+                        if (ImageFileTypes.contains("Cheque"))
                             ImageFileTypes.remove("Cheque");
                     }
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -278,43 +281,43 @@ public class ProofOfPaymentForm extends Fragment {
         return root;
     }
 
-    private void makePOPRequest() throws JSONException{
+    private void makePOPRequest() throws JSONException {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token","");
-        DistributorId = sharedPreferences.getString("Distributor_Id","");
+        Token = sharedPreferences.getString("Login_Token", "");
+        DistributorId = sharedPreferences.getString("Distributor_Id", "");
 
         JSONArray array = new JSONArray();
-        for(int i=0;i<DocumentNames.size();i++){
+        for (int i = 0; i < DocumentNames.size(); i++) {
             JSONObject obj = new JSONObject();
             obj.put("ID", 0);
             obj.put("ImageType", "image/png");
             obj.put("Title", DocumentNames.get(i));
             obj.put("FileType", FileTypeIdValue.get(selectedImageFileTypes.get(i)));
             obj.put("FileTypeValue", selectedImageFileTypes.get(i));
-            obj.put("ImageData", "data:image/png;base64,"+imageBitmapBase64.get(i));
+            obj.put("ImageData", "data:image/png;base64," + imageBitmapBase64.get(i));
             array.put(obj);
         }
 
-        System.out.println("JSON ARRAY"+array);
+        System.out.println("JSON ARRAY" + array);
         JSONObject map = new JSONObject();
-        map.put("ID",0);
-        map.put("Status",0);
-        map.put("CompanyId",null);
-        map.put("DistributorId",DistributorId);
-        map.put("PaymentId",PaymentIdNumber.get(selected_paymentid));
-        map.put("ModeOfPayment",PaymentModeAndID.get(selected_paymentmode));
-        map.put("Bank",txt_bank.getText().toString());
-        map.put("BranchCode",txt_branch.getText().toString());
-        map.put("ChecqueNo",txt_transaction.getText().toString());
-        map.put("ProofOfPaymentDetails",array);
+        map.put("ID", 0);
+        map.put("Status", 0);
+        map.put("CompanyId", null);
+        map.put("DistributorId", DistributorId);
+        map.put("PaymentId", PaymentIdNumber.get(selected_paymentid));
+        map.put("ModeOfPayment", PaymentModeAndID.get(selected_paymentmode));
+        map.put("Bank", txt_bank.getText().toString());
+        map.put("BranchCode", txt_branch.getText().toString());
+        map.put("ChecqueNo", txt_transaction.getText().toString());
+        map.put("ProofOfPaymentDetails", array);
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PROOF_OF_PAYMENTS_SUBMIT, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
                 Log.e("RESPONSE", result.toString());
                 try {
-                    Toast.makeText(getContext(), "Proof Of payment ID "+result.getString("POPNumber")+" has been created successfully.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Proof Of payment ID " + result.getString("POPNumber") + " has been created successfully.", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -328,7 +331,7 @@ public class ProofOfPaymentForm extends Fragment {
                 error.printStackTrace();
             }
 
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
@@ -337,6 +340,10 @@ public class ProofOfPaymentForm extends Fragment {
                 return params;
             }
         };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
     }
 
@@ -362,17 +369,16 @@ public class ProofOfPaymentForm extends Fragment {
         spinner_upload_types.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                     selectedFileType = "";
-                }
-                else{
+                } else {
                     selectedFileType = ImageFileTypes.get(i);
                     selectedImageFileTypes.add(selectedFileType);
                     btn_choose.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            if(!selectedFileType.isEmpty()) {
+                            if (!selectedFileType.isEmpty()) {
                                 openImageChooserDialog();
 //                                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
 //                                photoPickerIntent.setType("image/*");
@@ -384,6 +390,7 @@ public class ProofOfPaymentForm extends Fragment {
                 }
 
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -393,7 +400,7 @@ public class ProofOfPaymentForm extends Fragment {
         btn_attach.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(DocumentNames != null){
+                if (DocumentNames != null) {
 
                     alertDialog.dismiss();
                     progressDialog.setTitle("Uploading ... ");
@@ -402,19 +409,16 @@ public class ProofOfPaymentForm extends Fragment {
                     progressDialog.setProgress(i);
                     progressDialog.show();
 
-                    CDT = new CountDownTimer(8000, 1000)
-                    {
-                        public void onTick(long millisUntilFinished)
-                        {
+                    CDT = new CountDownTimer(8000, 1000) {
+                        public void onTick(long millisUntilFinished) {
                             progressDialog.setMessage("Please wait...");
                             i--;
                         }
 
-                        public void onFinish()
-                        {
-                            i=8;
+                        public void onFinish() {
+                            i = 8;
                             DocumentNames.add(imageName);
-                            mAdapter = new ProofOfPaymentsFormAdapter(getContext(),DocumentNames, selectedImageFileTypes, imageBitmapBase64);
+                            mAdapter = new ProofOfPaymentsFormAdapter(getContext(), DocumentNames, selectedImageFileTypes, imageBitmapBase64);
                             recyclerView.setAdapter(mAdapter);
                             progressDialog.dismiss();
                             //Your Code ...
@@ -443,7 +447,7 @@ public class ProofOfPaymentForm extends Fragment {
                     Intent intent = new Intent(
                             Intent.ACTION_PICK,
                             MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(intent,SELECT_FILE);
+                    startActivityForResult(intent, SELECT_FILE);
                 } else if (items[item].equals("Cancel")) {
                     dialog.dismiss();
                 }
@@ -498,6 +502,10 @@ public class ProofOfPaymentForm extends Fragment {
                 return params;
             }
         };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
         arrayAdapterPaymentModes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         arrayAdapterPaymentModes.notifyDataSetChanged();
@@ -505,71 +513,75 @@ public class ProofOfPaymentForm extends Fragment {
     }
 
     private void fetchPaymentsId() {
-            SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
-                    Context.MODE_PRIVATE);
-            Token = sharedPreferences.getString("Login_Token", "");
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
 
-            SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
-                    Context.MODE_PRIVATE);
-            DistributorId = sharedPreferences1.getString("Distributor_Id", "");
-            Log.i("DistributorId ", DistributorId);
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+        Log.i("DistributorId ", DistributorId);
 
-            URL_PROOF_OF_PAYMENTS = URL_PROOF_OF_PAYMENTS + DistributorId;
-            Log.i("URL_PROOF_OF_PAYMENTS ", URL_PROOF_OF_PAYMENTS);
+        URL_PROOF_OF_PAYMENTS = URL_PROOF_OF_PAYMENTS + DistributorId;
+        Log.i("URL_PROOF_OF_PAYMENTS ", URL_PROOF_OF_PAYMENTS);
 
-            Log.i("Token", Token);
+        Log.i("Token", Token);
 
-            JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PROOF_OF_PAYMENTS, null, new Response.Listener<JSONArray>() {
-                @Override
-                public void onResponse(JSONArray result) {
-                    try {
-                        JSONObject jsonObject = null;
-                        for (int i = 0; i < result.length(); i++) {
-                            jsonObject = result.getJSONObject(i);
-                            payment_ids.add(jsonObject.getString("PaymentNumber"));
-                            PaymentIdNumber.put(jsonObject.getString("PaymentNumber"), jsonObject.getString("PaymentId"));
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PROOF_OF_PAYMENTS, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray result) {
+                try {
+                    JSONObject jsonObject = null;
+                    for (int i = 0; i < result.length(); i++) {
+                        jsonObject = result.getJSONObject(i);
+                        payment_ids.add(jsonObject.getString("PaymentNumber"));
+                        PaymentIdNumber.put(jsonObject.getString("PaymentNumber"), jsonObject.getString("PaymentId"));
                     }
-                    Log.e("RESPONSE OF PAYMENT ID", result.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    printErrorMessage(error);
+                Log.e("RESPONSE OF PAYMENT ID", result.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
 
-                    error.printStackTrace();
-                }
-            }) {
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("Authorization", "bearer " + Token);
-                    return params;
-                }
-            };
-            Volley.newRequestQueue(getContext()).add(sr);
-            arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            arrayAdapterPayments.notifyDataSetChanged();
-            spinner_payment_id.setAdapter(arrayAdapterPayments);
-        }
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(getContext()).add(sr);
+        arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapterPayments.notifyDataSetChanged();
+        spinner_payment_id.setAdapter(arrayAdapterPayments);
+    }
 
     private String getRealPathFromURI(Uri contentURI) {
 
         String thePath = "no-path-found";
         String[] filePathColumn = {MediaStore.Images.Media.DISPLAY_NAME};
         Cursor cursor = getContext().getContentResolver().query(contentURI, filePathColumn, null, null, null);
-        if(cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
             thePath = cursor.getString(columnIndex);
         }
         cursor.close();
-        return  thePath;
+        return thePath;
     }
 
 
-        private void printErrorMessage(VolleyError error) {
+    private void printErrorMessage(VolleyError error) {
         if (error instanceof NetworkError) {
             Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof ServerError) {
@@ -588,9 +600,9 @@ public class ProofOfPaymentForm extends Fragment {
             try {
                 String message = "";
                 String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody",responseBody);
+                Log.i("responseBody", responseBody);
                 JSONObject data = new JSONObject(responseBody);
-                Log.i("data",String.valueOf(data));
+                Log.i("data", String.valueOf(data));
                 Iterator<String> keys = data.keys();
                 while (keys.hasNext()) {
                     String key = keys.next();

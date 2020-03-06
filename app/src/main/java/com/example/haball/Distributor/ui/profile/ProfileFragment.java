@@ -23,11 +23,13 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
@@ -79,10 +81,10 @@ public class ProfileFragment extends Fragment {
         tv_created_date = root.findViewById(R.id.tv_created_date);
         distri_btn_save = root.findViewById(R.id.distri_btn_save);
 
-        edt_firstname.setInputType( InputType.TYPE_NULL );
-        edt_lastname.setInputType( InputType.TYPE_NULL );
-        edt_email.setInputType( InputType.TYPE_NULL );
-        edt_dist_mobile.setInputType( InputType.TYPE_NULL );
+        edt_firstname.setInputType(InputType.TYPE_NULL);
+        edt_lastname.setInputType(InputType.TYPE_NULL);
+        edt_email.setInputType(InputType.TYPE_NULL);
+        edt_dist_mobile.setInputType(InputType.TYPE_NULL);
 
         edt_firstname.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -92,10 +94,10 @@ public class ProfileFragment extends Fragment {
                 final int DRAWABLE_RIGHT = 2;
                 final int DRAWABLE_BOTTOM = 3;
 
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getRawX() >= (edt_firstname.getRight() - edt_firstname.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (edt_firstname.getRight() - edt_firstname.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         // your action here
-                        edt_firstname.setInputType( InputType.TYPE_CLASS_TEXT );
+                        edt_firstname.setInputType(InputType.TYPE_CLASS_TEXT);
                         edt_firstname.requestFocus();
                         edt_firstname.setFocusable(true);
                         edt_firstname.setFocusableInTouchMode(true);
@@ -116,10 +118,10 @@ public class ProfileFragment extends Fragment {
                 final int DRAWABLE_RIGHT = 2;
                 final int DRAWABLE_BOTTOM = 3;
 
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getRawX() >= (edt_lastname.getRight() - edt_lastname.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (edt_lastname.getRight() - edt_lastname.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         // your action here
-                        edt_lastname.setInputType( InputType.TYPE_CLASS_TEXT );
+                        edt_lastname.setInputType(InputType.TYPE_CLASS_TEXT);
                         edt_lastname.requestFocus();
                         edt_lastname.setFocusable(true);
                         edt_lastname.setFocusableInTouchMode(true);
@@ -140,10 +142,10 @@ public class ProfileFragment extends Fragment {
                 final int DRAWABLE_RIGHT = 2;
                 final int DRAWABLE_BOTTOM = 3;
 
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getRawX() >= (edt_email.getRight() - edt_email.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (edt_email.getRight() - edt_email.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         // your action here
-                        edt_email.setInputType( InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS );
+                        edt_email.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
                         edt_email.requestFocus();
                         edt_email.setFocusable(true);
                         edt_email.setFocusableInTouchMode(true);
@@ -164,10 +166,10 @@ public class ProfileFragment extends Fragment {
                 final int DRAWABLE_RIGHT = 2;
                 final int DRAWABLE_BOTTOM = 3;
 
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getRawX() >= (edt_dist_mobile.getRight() - edt_dist_mobile.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (edt_dist_mobile.getRight() - edt_dist_mobile.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         // your action here
-                        edt_dist_mobile.setInputType( InputType.TYPE_CLASS_NUMBER );
+                        edt_dist_mobile.setInputType(InputType.TYPE_CLASS_NUMBER);
                         edt_dist_mobile.requestFocus();
                         edt_dist_mobile.setFocusable(true);
                         edt_dist_mobile.setFocusableInTouchMode(true);
@@ -193,34 +195,34 @@ public class ProfileFragment extends Fragment {
         change_pwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-        change_password_dail = new Dialog(getActivity());
-        //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
-        change_password_dail.setContentView(R.layout.pasword_change);
-        change_password_dail.setCancelable(true);
-        change_password_dail.show();
-        ImageButton close_button = change_password_dail.findViewById(R.id.image_button);
-        txt_password = change_password_dail.findViewById(R.id.txt_password);
-        txt_newpassword = change_password_dail.findViewById(R.id.txt_newpassword);
-        txt_cfmpassword = change_password_dail.findViewById(R.id.txt_cfmpassword);
-        close_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                change_password_dail.dismiss();
-            }
-        });
-        update_password = change_password_dail.findViewById(R.id.update_password);
-        update_password.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View v) {
-                try {
-                    updatePassword();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                change_password_dail = new Dialog(getActivity());
+                //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                change_password_dail.setContentView(R.layout.pasword_change);
+                change_password_dail.setCancelable(true);
+                change_password_dail.show();
+                ImageButton close_button = change_password_dail.findViewById(R.id.image_button);
+                txt_password = change_password_dail.findViewById(R.id.txt_password);
+                txt_newpassword = change_password_dail.findViewById(R.id.txt_newpassword);
+                txt_cfmpassword = change_password_dail.findViewById(R.id.txt_cfmpassword);
+                close_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        change_password_dail.dismiss();
+                    }
+                });
+                update_password = change_password_dail.findViewById(R.id.update_password);
+                update_password.setOnClickListener(new View.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            updatePassword();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
-            }
-        });
+                    }
+                });
             }
 
         });
@@ -228,7 +230,7 @@ public class ProfileFragment extends Fragment {
         return root;
     }
 
-    private void saveProfileData() throws JSONException{
+    private void saveProfileData() throws JSONException {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -251,11 +253,11 @@ public class ProfileFragment extends Fragment {
         jsonObject.put("DealerCode", edt_dist_code.getText().toString());
         jsonObject.put("UserType", 0);
 
-        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, PROFILE_EDIT_URL,jsonObject, new Response.Listener<JSONObject>() {
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, PROFILE_EDIT_URL, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
                 try {
-                    Toast.makeText(getContext(), "Profile Information Successfully updated for "+result.getString("DealerCode"), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Profile Information Successfully updated for " + result.getString("DealerCode"), Toast.LENGTH_LONG).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -275,6 +277,10 @@ public class ProfileFragment extends Fragment {
                 return params;
             }
         };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
 
     }
@@ -293,7 +299,7 @@ public class ProfileFragment extends Fragment {
         StringRequest sr = new StringRequest(Request.Method.GET, PROFILE_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String result) {
-                Log.i("aaaaa",result);
+                Log.i("aaaaa", result);
                 try {
                     if (result != null && !result.equals("")) {
                         Gson gson = new Gson();
@@ -336,6 +342,22 @@ public class ProfileFragment extends Fragment {
                 return params;
             }
         };
+        sr.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 1000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
         Volley.newRequestQueue(getContext()).add(sr);
 
     }
@@ -344,7 +366,7 @@ public class ProfileFragment extends Fragment {
     private void updatePassword() throws JSONException {
         checkPasswords();
         checkConfirmPassword();
-        if(password_check && confirm_password_check) {
+        if (password_check && confirm_password_check) {
 
             SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                     Context.MODE_PRIVATE);
@@ -362,9 +384,9 @@ public class ProfileFragment extends Fragment {
             map.put("Password", txt_password.getText().toString());
             map.put("NewPassword", txt_newpassword.getText().toString());
             map.put("NewPassword1", txt_cfmpassword.getText().toString());
-    //        map.put("Password", "Force@123");
-    //        map.put("NewPassword", "Force@123");
-    //        map.put("NewPassword1", "Force@123");
+            //        map.put("Password", "Force@123");
+            //        map.put("NewPassword", "Force@123");
+            //        map.put("NewPassword1", "Force@123");
             map.put("ID", ID);
             map.put("Username", Username);
             Log.i("Map", map.toString());
@@ -374,7 +396,7 @@ public class ProfileFragment extends Fragment {
                 public void onResponse(JSONObject result) {
                     Log.i("response", String.valueOf(result));
                     try {
-                        if(result.has("message")){
+                        if (result.has("message")) {
                             Toast.makeText(getActivity(), result.get("message").toString(), Toast.LENGTH_SHORT).show();
                         } else {
                             final Dialog fbDialogue = new Dialog(getActivity());
@@ -395,11 +417,11 @@ public class ProfileFragment extends Fragment {
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
 
                     }
-    //                Log.e("RESPONSE", result.toString());
-    //                Toast.makeText(Distribution_Login.this,result.toString(),Toast.LENGTH_LONG).show();
+                    //                Log.e("RESPONSE", result.toString());
+                    //                Toast.makeText(Distribution_Login.this,result.toString(),Toast.LENGTH_LONG).show();
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -407,22 +429,38 @@ public class ProfileFragment extends Fragment {
                     printErrorMessage(error);
 
                     error.printStackTrace();
-                   // Toast.makeText(getActivity(), String.valueOf(error),Toast.LENGTH_LONG).show();
+                    // Toast.makeText(getActivity(), String.valueOf(error),Toast.LENGTH_LONG).show();
                 }
 
-            }){
+            }) {
 
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("Authorization", "bearer " +Token);
+                    params.put("Authorization", "bearer " + Token);
                     params.put("Content-Type", "application/json; charset=UTF-8");
                     return params;
                 }
             };
+            sr.setRetryPolicy(new RetryPolicy() {
+                @Override
+                public int getCurrentTimeout() {
+                    return 50000;
+                }
+
+                @Override
+                public int getCurrentRetryCount() {
+                    return 1000;
+                }
+
+                @Override
+                public void retry(VolleyError error) throws VolleyError {
+
+                }
+            });
             Volley.newRequestQueue(getActivity()).add(sr);
         } else {
-            Toast.makeText(getActivity(), "Password do not Match",Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Password do not Match", Toast.LENGTH_LONG).show();
         }
 
     }
@@ -449,7 +487,7 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-        private void printErrorMessage(VolleyError error) {
+    private void printErrorMessage(VolleyError error) {
         if (error instanceof NetworkError) {
             Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof ServerError) {
@@ -468,9 +506,9 @@ public class ProfileFragment extends Fragment {
             try {
                 String message = "";
                 String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody",responseBody);
+                Log.i("responseBody", responseBody);
                 JSONObject data = new JSONObject(responseBody);
-                Log.i("data",String.valueOf(data));
+                Log.i("data", String.valueOf(data));
                 Iterator<String> keys = data.keys();
                 while (keys.hasNext()) {
                     String key = keys.next();
