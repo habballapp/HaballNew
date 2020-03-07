@@ -134,34 +134,34 @@ public class Distribution_Login extends AppCompatActivity {
         btn_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                final AlertDialog alertDialog = new AlertDialog.Builder(Distribution_Login.this).create();
-                LayoutInflater inflater = LayoutInflater.from(Distribution_Login.this);
-                View view_popup = inflater.inflate(R.layout.forget_password, null);
-                alertDialog.setView(view_popup);
-                txt_email = view_popup.findViewById(R.id.txt_email);
-                btn_reset = view_popup.findViewById(R.id.btn_reset);
-                final ImageButton img_btn = view_popup.findViewById(R.id.image_button);
-                btn_reset.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        final AlertDialog alertDialog1 = new AlertDialog.Builder(Distribution_Login.this).create();
-                        LayoutInflater inflater = LayoutInflater.from(Distribution_Login.this);
-                        View view_popup = inflater.inflate(R.layout.email_sent, null);
-                        alertDialog1.setView(view_popup);
-                        ImageButton img_email = view_popup.findViewById(R.id.image_email);
-                        forgotPasswordRequest(alertDialog, alertDialog1, img_email);
-                    }
-                });
-                img_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
-                    }
-                });
-                alertDialog.show();
+                if (!txt_email.getText().toString().equals("")) {
+                    final AlertDialog alertDialog = new AlertDialog.Builder(Distribution_Login.this).create();
+                    LayoutInflater inflater = LayoutInflater.from(Distribution_Login.this);
+                    View view_popup = inflater.inflate(R.layout.forget_password, null);
+                    alertDialog.setView(view_popup);
+                    txt_email = view_popup.findViewById(R.id.txt_email);
+                    btn_reset = view_popup.findViewById(R.id.btn_reset);
+                    final ImageButton img_btn = view_popup.findViewById(R.id.image_button);
+                    btn_reset.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            final AlertDialog alertDialog1 = new AlertDialog.Builder(Distribution_Login.this).create();
+                            LayoutInflater inflater = LayoutInflater.from(Distribution_Login.this);
+                            View view_popup = inflater.inflate(R.layout.email_sent, null);
+                            alertDialog1.setView(view_popup);
+                            ImageButton img_email = view_popup.findViewById(R.id.image_email);
+                            forgotPasswordRequest(alertDialog, alertDialog1, img_email);
+                        }
+                    });
+                    img_btn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.dismiss();
+                        }
+                    });
+                    alertDialog.show();
+                }
             }
-
         });
     }
 
