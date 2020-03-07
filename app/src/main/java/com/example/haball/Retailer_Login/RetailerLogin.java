@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,6 +84,26 @@ public class RetailerLogin extends AppCompatActivity {
 
         et_username = findViewById(R.id.txt_username);
         et_password = findViewById(R.id.txt_password);
+
+
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                checkFieldsForEmptyValues();
+
+            }
+        };
 
 
 //        ActionBar actionBar = getSupportActionBar();
@@ -185,6 +207,21 @@ public class RetailerLogin extends AppCompatActivity {
         });
 
 
+    }
+
+    private void checkFieldsForEmptyValues(){
+
+        String username = et_username.getText().toString();
+        String password = et_password.getText().toString();
+
+        if(username.equals("") || password.equals("")){
+            btn_login.setEnabled(false);
+            btn_login.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+        }
+        else{
+            btn_login.setEnabled(false);
+            btn_login.setBackground(getResources().getDrawable(R.drawable.button_background));
+        }
     }
 
     private void loginRequest() throws JSONException {
