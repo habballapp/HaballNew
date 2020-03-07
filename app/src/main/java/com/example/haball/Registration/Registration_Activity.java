@@ -120,7 +120,7 @@ public class Registration_Activity extends AppCompatActivity implements View.OnF
         else {
             txt_username.setError(null);
 
-            String URL = "http://175.107.203.97:4008/api/users/CheckField";
+            String URL = "http://175.107.203.97:4007/api/users/CheckField";
 
             JSONObject map = new JSONObject();
             map.put("CName", "Username");

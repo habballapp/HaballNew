@@ -65,7 +65,7 @@ public class Order_Summary extends Fragment {
     private List<OrderItemsModel> selectedProductsDataList = new ArrayList<>();
     private List<String> selectedProductsQuantityList = new ArrayList<>();
     private String object_string, object_stringqty, Token, DistributorId, CompanyId;
-    private String URL_CONFIRM_ORDERS = "http://175.107.203.97:4008/api/Orders/save";
+    private String URL_CONFIRM_ORDERS = "http://175.107.203.97:4007/api/Orders/save";
     private Button btn_confirm, btn_more_items;
     private TextView gross_amount, discount_amount, gst_amount, total_amount;
     private float totalAmount;
