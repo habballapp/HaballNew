@@ -12,6 +12,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -73,6 +74,7 @@ public class RetailorDashboard extends AppCompatActivity  {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
+        drawer.setScrimColor(Color.parseColor("#33000000"));
 
         toggle.syncState();
         toggle.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);

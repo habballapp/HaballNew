@@ -95,6 +95,7 @@
                     android:weightSum="2">
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_username"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_marginLeft="40dp"
@@ -122,6 +123,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_password"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_marginLeft="40dp"

@@ -10,10 +10,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +45,7 @@ import com.example.haball.R;
 import com.example.haball.Registration.Registration_Activity;
 import com.example.haball.Select_User.Register_Activity;
 import com.example.haball.Support.Support_Ticket_Form;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,6 +62,7 @@ public class Distribution_Login extends AppCompatActivity {
     private Button btn_login, btn_signup, btn_support, btn_password, btn_reset;
     public ImageButton btn_back;
     private EditText et_username, et_password, txt_email;
+    private TextInputLayout layout_username, layout_password;
     private Toolbar tb;
     private RequestQueue queue;
     private String URL = "http://175.107.203.97:4007/Token";
@@ -83,7 +88,28 @@ public class Distribution_Login extends AppCompatActivity {
 
         et_username = findViewById(R.id.txt_username);
         et_password = findViewById(R.id.txt_password);
+        layout_username = findViewById(R.id.layout_username );
+        layout_password = findViewById(R.id.layout_password);
+        layout_username.setBoxStrokeColor(getResources().getColor(R.color.color_text));
+        layout_password.setBoxStrokeColor(getResources().getColor(R.color.color_text));
 
+        et_password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                layout_password.setBoxStrokeColor(getResources().getColor(R.color.color_text));
+                layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
@@ -317,6 +343,9 @@ public class Distribution_Login extends AppCompatActivity {
                     e.printStackTrace();
                     try {
                         Toast.makeText(Distribution_Login.this, result.get("ErrorMessage").toString(), Toast.LENGTH_LONG).show();
+                        layout_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+                        layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+
                     } catch (JSONException ex) {
                         ex.printStackTrace();
                     }

@@ -92,6 +92,8 @@ public class DistributorDashboard extends AppCompatActivity {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
+        drawer.setScrimColor(Color.parseColor("#33000000"));
+
 
         toggle.syncState();
         navigationExpandableListView = findViewById(R.id.expandable_navigation);
