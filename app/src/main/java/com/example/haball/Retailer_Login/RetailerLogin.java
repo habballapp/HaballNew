@@ -4,10 +4,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +45,7 @@ import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Retailor.Retailor_SignUp.SignUp;
 import com.example.haball.Select_User.Register_Activity;
 import com.example.haball.Support.Support_Ticket_Form;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,6 +61,7 @@ public class RetailerLogin extends AppCompatActivity {
     private Button btn_login, btn_signup, btn_support, btn_password, btn_reset;
     public ImageButton btn_back;
     private EditText et_username, et_password, txt_email;
+    private TextInputLayout layout_username, layout_password;
     private Toolbar tb;
     private RequestQueue queue;
     private String URL = "http://175.107.203.97:3020/Token";
@@ -77,11 +82,53 @@ public class RetailerLogin extends AppCompatActivity {
         btn_signup = findViewById(R.id.ret_btn_signup);
         btn_support = findViewById(R.id.ret_btn_support);
         btn_password = findViewById(R.id.ret_btn_password);
+        layout_username = findViewById(R.id.layout_username );
+        layout_password = findViewById(R.id.layout_password);
+
+        layout_username.setBoxStrokeColor(getResources().getColor(R.color.color_text));
+        layout_password.setBoxStrokeColor(getResources().getColor(R.color.color_text));
 
         progressDialog = new ProgressDialog(this);
 
         et_username = findViewById(R.id.txt_username);
         et_password = findViewById(R.id.txt_password);
+
+        et_password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                layout_password.setBoxStrokeColor(getResources().getColor(R.color.color_text));
+                layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                checkFieldsForEmptyValues();
+
+            }
+        };
 
 
 //        ActionBar actionBar = getSupportActionBar();
@@ -187,6 +234,21 @@ public class RetailerLogin extends AppCompatActivity {
 
     }
 
+    private void checkFieldsForEmptyValues(){
+
+        String username = et_username.getText().toString();
+        String password = et_password.getText().toString();
+
+        if(username.equals("") || password.equals("")){
+            btn_login.setEnabled(false);
+            btn_login.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+        }
+        else{
+            btn_login.setEnabled(false);
+            btn_login.setBackground(getResources().getDrawable(R.drawable.button_background));
+        }
+    }
+
     private void loginRequest() throws JSONException {
 
         JSONObject map = new JSONObject();
@@ -228,6 +290,8 @@ public class RetailerLogin extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                     try {
+                        layout_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+                        layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
                         Toast.makeText(RetailerLogin.this, result.get("ErrorMessage").toString(), Toast.LENGTH_LONG).show();
                     } catch (JSONException ex) {
                         ex.printStackTrace();
