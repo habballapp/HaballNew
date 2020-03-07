@@ -10,8 +10,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -45,10 +46,10 @@ import com.example.haball.R;
 import com.example.haball.Registration.Registration_Activity;
 import com.example.haball.Select_User.Register_Activity;
 import com.example.haball.Support.Support_Ticket_Form;
-import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -62,7 +63,6 @@ public class Distribution_Login extends AppCompatActivity {
     private Button btn_login, btn_signup, btn_support, btn_password, btn_reset;
     public ImageButton btn_back;
     private EditText et_username, et_password, txt_email;
-    private TextInputLayout layout_username, layout_password;
     private Toolbar tb;
     private RequestQueue queue;
     private String URL = "http://175.107.203.97:4007/Token";
@@ -79,37 +79,41 @@ public class Distribution_Login extends AppCompatActivity {
         setContentView(R.layout.activity_distribution__login);
         getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
 
+        et_username = findViewById(R.id.txt_username);
+        et_password = findViewById(R.id.txt_password);
+
         btn_login = findViewById(R.id.btn_login);
+        btn_login.setEnabled(false);
+        btn_login.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+
         btn_signup = findViewById(R.id.btn_signup);
         btn_support = findViewById(R.id.btn_support);
         btn_password = findViewById(R.id.btn_password);
 
         progressDialog = new ProgressDialog(this);
 
-        et_username = findViewById(R.id.txt_username);
-        et_password = findViewById(R.id.txt_password);
-        layout_username = findViewById(R.id.layout_username );
-        layout_password = findViewById(R.id.layout_password);
-        layout_username.setBoxStrokeColor(getResources().getColor(R.color.color_text));
-        layout_password.setBoxStrokeColor(getResources().getColor(R.color.color_text));
 
-        et_password.addTextChangedListener(new TextWatcher() {
+
+        TextWatcher  textWatcher = new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                layout_password.setBoxStrokeColor(getResources().getColor(R.color.color_text));
-                layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {
+            public void afterTextChanged(Editable s) {
+                checkFieldsForEmptyValues();
 
             }
-        });
+        };
+
+        et_username.addTextChangedListener(textWatcher);
+        et_password.addTextChangedListener(textWatcher);
 
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
@@ -189,6 +193,24 @@ public class Distribution_Login extends AppCompatActivity {
                 }
             }
         });
+
+    }
+
+    private void checkFieldsForEmptyValues() {
+        String username_ = et_username.getText().toString();
+        String password = et_password.getText().toString();
+
+        if(username_.equals("") || password.equals("")){
+            btn_login.setEnabled(false);
+            btn_login.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+
+        }
+        else {
+            btn_login.setEnabled(true);
+            btn_login.setBackground(getResources().getDrawable(R.drawable.button_background));
+        }
+
+
     }
 
     private String forgotPasswordRequest(final AlertDialog alertDialog, final AlertDialog alertDialog1, final ImageButton img_email) {
@@ -259,47 +281,47 @@ public class Distribution_Login extends AppCompatActivity {
         return success_text;
     }
 
-    private void makeLoginRequest() {
-
-        queue = Volley.newRequestQueue(this);
-        StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Toast.makeText(Distribution_Login.this, response, Toast.LENGTH_LONG).show();
-                if (!response.equals("Invalid username or password!")) {
-
-                    SharedPreferences sharedPref = getSharedPreferences("Login_Check", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor login_check = sharedPref.edit();
-                    login_check.putBoolean("login_success", true);
-                    login_check.commit();
-
-                    Intent login_intent = new Intent(Distribution_Login.this, DistributorDashboard.class);
-                    startActivity(login_intent);
-                    finish();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
-//                Toast.makeText(Distribution_Login.this,error.toString(), Toast.LENGTH_LONG).show();
-            }
-        }) {
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> params = new HashMap<String, String>();
-                params.put("Username", "test-user-02");
-                params.put("Password", "Force@321");
-                params.put("grant_type", "password");
-                return params;
-            }
-
-            ;
-        };
-
-        queue.add(request);
-    }
+//    private void makeLoginRequest() {
+//
+//        queue = Volley.newRequestQueue(this);
+//        StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                Toast.makeText(Distribution_Login.this, response, Toast.LENGTH_LONG).show();
+//                if (!response.equals("Invalid username or password!")) {
+//
+//                    SharedPreferences sharedPref = getSharedPreferences("Login_Check", Context.MODE_PRIVATE);
+//                    SharedPreferences.Editor login_check = sharedPref.edit();
+//                    login_check.putBoolean("login_success", true);
+//                    login_check.commit();
+//
+//                    Intent login_intent = new Intent(Distribution_Login.this, DistributorDashboard.class);
+//                    startActivity(login_intent);
+//                    finish();
+//                }
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                printErrorMessage(error);
+////                Toast.makeText(Distribution_Login.this,error.toString(), Toast.LENGTH_LONG).show();
+//            }
+//        }) {
+//
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                HashMap<String, String> params = new HashMap<String, String>();
+//                params.put("Username", "test-user-02");
+//                params.put("Password", "Force@321");
+//                params.put("grant_type", "password");
+//                return params;
+//            }
+//
+//            ;
+//        };
+//
+//        queue.add(request);
+//    }
 
     private void loginRequest() throws JSONException {
 
@@ -343,9 +365,6 @@ public class Distribution_Login extends AppCompatActivity {
                     e.printStackTrace();
                     try {
                         Toast.makeText(Distribution_Login.this, result.get("ErrorMessage").toString(), Toast.LENGTH_LONG).show();
-                        layout_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
-                        layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
-
                     } catch (JSONException ex) {
                         ex.printStackTrace();
                     }

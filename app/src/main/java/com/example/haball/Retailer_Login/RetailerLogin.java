@@ -111,6 +111,26 @@ public class RetailerLogin extends AppCompatActivity {
             }
         });
 
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                checkFieldsForEmptyValues();
+
+            }
+        };
+
+
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.setDisplayShowHomeEnabled(false);
 //        actionBar.setDisplayShowTitleEnabled(false);
@@ -212,6 +232,21 @@ public class RetailerLogin extends AppCompatActivity {
         });
 
 
+    }
+
+    private void checkFieldsForEmptyValues(){
+
+        String username = et_username.getText().toString();
+        String password = et_password.getText().toString();
+
+        if(username.equals("") || password.equals("")){
+            btn_login.setEnabled(false);
+            btn_login.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+        }
+        else{
+            btn_login.setEnabled(false);
+            btn_login.setBackground(getResources().getDrawable(R.drawable.button_background));
+        }
     }
 
     private void loginRequest() throws JSONException {
