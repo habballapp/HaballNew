@@ -51,7 +51,7 @@ public class FragmentNotification extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private List<NotificationModel> notificationLists = new ArrayList<>();
     private String Token, DistributorId, ID;
-    private String URL_NOTIFICATION = "http://175.107.203.97:4008/api/useralert/ShowAll/";
+    private String URL_NOTIFICATION = "http://175.107.203.97:4007/api/useralert/ShowAll/";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

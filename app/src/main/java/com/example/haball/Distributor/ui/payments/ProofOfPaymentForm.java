@@ -85,9 +85,9 @@ public class ProofOfPaymentForm extends Fragment {
     private static final int SELECT_FILE = 1;
 
     private String Token;
-    private String URL_PROOF_OF_PAYMENTS = "http://175.107.203.97:4008/api/prepaidrequests/PrepaidPOP/";
-    private String URL_MODE_OF_PAYMENTS = "http://175.107.203.97:4008/api/lookup/PROOF_OF_PAYMENT";
-    private String URL_PROOF_OF_PAYMENTS_SUBMIT = "http://175.107.203.97:4008/api/proofofpayment/save";
+    private String URL_PROOF_OF_PAYMENTS = "http://175.107.203.97:4007/api/prepaidrequests/PrepaidPOP/";
+    private String URL_MODE_OF_PAYMENTS = "http://175.107.203.97:4007/api/lookup/PROOF_OF_PAYMENT";
+    private String URL_PROOF_OF_PAYMENTS_SUBMIT = "http://175.107.203.97:4007/api/proofofpayment/save";
 
     private Spinner spinner_payment_id, spinner_mode_of_payments;
     private ArrayAdapter<String> arrayAdapterPayments;

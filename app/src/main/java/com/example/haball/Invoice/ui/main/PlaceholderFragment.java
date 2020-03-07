@@ -71,7 +71,7 @@ public class PlaceholderFragment extends Fragment {
     //invoice Details
     private TextView distri_invoiceID, distri_invoiceDate, distri_invoiceAmount, distri_payment_date, distri_Transaction_amount, distri_status, distri_state;
 //    private TextView invoice_shipment_id, invoice_shpDelivery_date, invoice_shpRecieving_date, invoice_shpstatus;
-    private String INVOICE_URL = "http://175.107.203.97:4008/api/Invoices/";
+    private String INVOICE_URL = "http://175.107.203.97:4007/api/Invoices/";
 
     //Dealer Details
     private TextView dealer_Code ,dealer_first_name ,dealer_last_name,dealer_email,dealer_mobile_no ,dealer_landline,dealer_NTN,dealer_company_name,dealer_created_date;
