@@ -10,6 +10,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -46,6 +47,7 @@ import com.example.haball.R;
 import com.example.haball.Registration.Registration_Activity;
 import com.example.haball.Select_User.Register_Activity;
 import com.example.haball.Support.Support_Ticket_Form;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,6 +74,7 @@ public class Distribution_Login extends AppCompatActivity {
     private String token;
     private String success_text = "";
     ProgressDialog progressDialog;
+    private TextInputLayout layout_username, layout_password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +84,29 @@ public class Distribution_Login extends AppCompatActivity {
 
         et_username = findViewById(R.id.txt_username);
         et_password = findViewById(R.id.txt_password);
+        layout_username = findViewById(R.id.layout_username );
+        layout_password = findViewById(R.id.layout_password);
+
+//        layout_username.setBoxStrokeColor(getResources().getColor(R.color.color_text));
+//        layout_password.setBoxStrokeColor(getResources().getColor(R.color.color_text));
+
+        et_password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                layout_password.setBoxStrokeColor(getResources().getColor(R.color.color_text));
+                layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         btn_login = findViewById(R.id.btn_login);
         btn_login.setEnabled(false);
@@ -93,8 +119,7 @@ public class Distribution_Login extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
 
 
-
-        TextWatcher  textWatcher = new TextWatcher() {
+        TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -164,33 +189,35 @@ public class Distribution_Login extends AppCompatActivity {
         btn_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!txt_email.getText().toString().equals("")) {
-                    final AlertDialog alertDialog = new AlertDialog.Builder(Distribution_Login.this).create();
-                    LayoutInflater inflater = LayoutInflater.from(Distribution_Login.this);
-                    View view_popup = inflater.inflate(R.layout.forget_password, null);
-                    alertDialog.setView(view_popup);
-                    txt_email = view_popup.findViewById(R.id.txt_email);
-                    btn_reset = view_popup.findViewById(R.id.btn_reset);
-                    final ImageButton img_btn = view_popup.findViewById(R.id.image_button);
-                    btn_reset.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
+                final AlertDialog alertDialog = new AlertDialog.Builder(Distribution_Login.this).create();
+                LayoutInflater inflater = LayoutInflater.from(Distribution_Login.this);
+                View view_popup = inflater.inflate(R.layout.forget_password, null);
+                alertDialog.setView(view_popup);
+                txt_email = view_popup.findViewById(R.id.txt_email);
+                btn_reset = view_popup.findViewById(R.id.btn_reset);
+                final ImageButton img_btn = view_popup.findViewById(R.id.image_button);
+                btn_reset.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!txt_email.getText().toString().equals("")) {
                             final AlertDialog alertDialog1 = new AlertDialog.Builder(Distribution_Login.this).create();
                             LayoutInflater inflater = LayoutInflater.from(Distribution_Login.this);
                             View view_popup = inflater.inflate(R.layout.email_sent, null);
                             alertDialog1.setView(view_popup);
                             ImageButton img_email = view_popup.findViewById(R.id.image_email);
                             forgotPasswordRequest(alertDialog, alertDialog1, img_email);
+                        } else {
+                            Toast.makeText(getApplication(), "Please enter Email Address!", Toast.LENGTH_LONG).show();
                         }
-                    });
-                    img_btn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            alertDialog.dismiss();
-                        }
-                    });
-                    alertDialog.show();
-                }
+                    }
+                });
+                img_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+                alertDialog.show();
             }
         });
 
@@ -200,17 +227,14 @@ public class Distribution_Login extends AppCompatActivity {
         String username_ = et_username.getText().toString();
         String password = et_password.getText().toString();
 
-        if(username_.equals("") || password.equals("")){
+        if (username_.equals("") || password.equals("")) {
             btn_login.setEnabled(false);
             btn_login.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
-        }
-        else {
+        } else {
             btn_login.setEnabled(true);
             btn_login.setBackground(getResources().getDrawable(R.drawable.button_background));
         }
-
-
     }
 
     private String forgotPasswordRequest(final AlertDialog alertDialog, final AlertDialog alertDialog1, final ImageButton img_email) {
@@ -237,6 +261,7 @@ public class Distribution_Login extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
                 printErrorMessage(error);
                 error.printStackTrace();
                 // Toast.makeText(Distribution_Login.this,error.toString(),Toast.LENGTH_LONG).show();

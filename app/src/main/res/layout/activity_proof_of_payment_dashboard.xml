@@ -54,6 +54,8 @@
         android:layout_below="@+id/btn_create_proof_of_payment">
         <Spinner
             android:id="@+id/spinner_conso"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"/>
     </RelativeLayout>
@@ -69,6 +71,8 @@
         android:layout_below="@+id/spinner_container">
         <Spinner
             android:id="@+id/conso_spinner2"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"/>
 

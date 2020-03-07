@@ -54,7 +54,7 @@ public class CreatePaymentRequestFragment extends Fragment {
     private String URL_PAYMENT_REQUESTS_SAVE = "http://175.107.203.97:4007/api/prepaidrequests/save";
 
     private List<String> CompanyNames = new ArrayList<>();
-    private HashMap<String,String> companyNameAndId = new HashMap<>();
+    private HashMap<String, String> companyNameAndId = new HashMap<>();
 
     private Spinner spinner_company;
     private ArrayAdapter<String> arrayAdapterPayments;
@@ -80,14 +80,14 @@ public class CreatePaymentRequestFragment extends Fragment {
         spinner_company.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                }
-                else{
+                } else {
                     company_names = CompanyNames.get(i);
                     Log.i("company name and id ", companyNameAndId.get(company_names));
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -98,10 +98,14 @@ public class CreatePaymentRequestFragment extends Fragment {
         btn_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    makeSaveRequest();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (!company_names.equals("") && !String.valueOf(txt_amount.getText()).equals("")) {
+                    try {
+                        makeSaveRequest();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(getContext(), "All fields are required!", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -109,7 +113,7 @@ public class CreatePaymentRequestFragment extends Fragment {
         return root;
     }
 
-    private void makeSaveRequest() throws JSONException{
+    private void makeSaveRequest() throws JSONException {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -140,16 +144,16 @@ public class CreatePaymentRequestFragment extends Fragment {
                 SharedPreferences PrePaidNumber = getContext().getSharedPreferences("PrePaidNumber",
                         Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = PrePaidNumber.edit();
-                editor.putString("PrePaidNumber",prepaid_number);
-                editor.putString("PrePaidId",prepaid_id);
+                editor.putString("PrePaidNumber", prepaid_number);
+                editor.putString("PrePaidId", prepaid_id);
                 editor.apply();
 
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(((ViewGroup)getView().getParent()).getId(), new PaymentScreen3Fragment());
+                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new PaymentScreen3Fragment());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
 
-                Toast.makeText(getContext(), "Payment Request "+prepaid_number+" has been created successfully.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Payment Request " + prepaid_number + " has been created successfully.", Toast.LENGTH_SHORT).show();
                 Log.e("RESPONSE prepaid_number", result.toString());
             }
         }, new Response.ErrorListener() {
@@ -197,7 +201,7 @@ public class CreatePaymentRequestFragment extends Fragment {
                     for (int i = 0; i < result.length(); i++) {
                         jsonObject = result.getJSONObject(i);
                         CompanyNames.add(jsonObject.getString("Name"));
-                        companyNameAndId.put(jsonObject.getString("Name"),jsonObject.getString("ID"));
+                        companyNameAndId.put(jsonObject.getString("Name"), jsonObject.getString("ID"));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -230,7 +234,7 @@ public class CreatePaymentRequestFragment extends Fragment {
     }
 
 
-        private void printErrorMessage(VolleyError error) {
+    private void printErrorMessage(VolleyError error) {
         if (error instanceof NetworkError) {
             Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof ServerError) {
@@ -249,9 +253,9 @@ public class CreatePaymentRequestFragment extends Fragment {
             try {
                 String message = "";
                 String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody",responseBody);
+                Log.i("responseBody", responseBody);
                 JSONObject data = new JSONObject(responseBody);
-                Log.i("data",String.valueOf(data));
+                Log.i("data", String.valueOf(data));
                 Iterator<String> keys = data.keys();
                 while (keys.hasNext()) {
                     String key = keys.next();
