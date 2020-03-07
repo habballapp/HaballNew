@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +43,7 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
     private ImageButton btn_back;
     private String URL = "http://175.107.203.97:3020/api/retailer/Register";
     private EditText txt_username, txt_password, txt_confirmpass, txt_fullname, txt_email, txt_cnic, txt_mobile_number, txt_business_name, txt_address;
-    private Button btn_register_signup;
+    private Button btn_register_signup, btn_register_close;
     private Boolean password_check = false, confirm_password_check = false;
 
     @Override
@@ -71,6 +74,20 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
         txt_mobile_number = findViewById(R.id.txt_mobile_number);
         txt_business_name = findViewById(R.id.txt_business_name);
         txt_address = findViewById(R.id.txt_address);
+        btn_register_signup = findViewById(R.id.btn_register_signup);
+
+        txt_username.addTextChangedListener(watcher);
+        txt_password.addTextChangedListener(watcher);
+        txt_confirmpass.addTextChangedListener(watcher);
+        txt_fullname.addTextChangedListener(watcher);
+        txt_email.addTextChangedListener(watcher);
+        txt_cnic.addTextChangedListener(watcher);
+        txt_mobile_number.addTextChangedListener(watcher);
+        txt_business_name.addTextChangedListener(watcher);
+        txt_address.addTextChangedListener(watcher);
+
+        btn_register_signup.setEnabled(false);
+        btn_register_signup.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
         (findViewById(R.id.txt_password)).setOnFocusChangeListener(this);
         (findViewById(R.id.txt_confirmpass)).setOnFocusChangeListener(this);
@@ -81,7 +98,6 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
                 finish();
             }
         });
-        btn_register_signup = findViewById(R.id.btn_register_signup);
         btn_register_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,7 +108,44 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
                 }
             }
         });
+        btn_register_close = findViewById(R.id.btn_register_close);
+        btn_register_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
+
+    private final TextWatcher watcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after)
+        { }
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count)
+        {}
+        @Override
+        public void afterTextChanged(Editable s) {
+            if(TextUtils.isEmpty(txt_username.getText())
+                    || TextUtils.isEmpty(txt_password.getText())
+                    || TextUtils.isEmpty(txt_confirmpass.getText())
+                    || TextUtils.isEmpty(txt_fullname.getText())
+                    || TextUtils.isEmpty(txt_email.getText())
+                    || TextUtils.isEmpty(txt_cnic.getText())
+                    || TextUtils.isEmpty(txt_mobile_number.getText())
+                    || TextUtils.isEmpty(txt_business_name.getText())
+                    || TextUtils.isEmpty(txt_address.getText())
+                    || (!password_check && !confirm_password_check)){
+                btn_register_signup.setEnabled(false);
+                btn_register_signup.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+
+            }
+            else{
+                btn_register_signup.setEnabled(true);
+                btn_register_signup.setBackground(getResources().getDrawable(R.drawable.button_background));
+            }
+        }
+    };
 
     private void makeRegisterRequest() throws JSONException {
         JSONObject map = new JSONObject();

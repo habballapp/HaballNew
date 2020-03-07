@@ -6,5 +6,6 @@
     <color name="colorAppHeader">#fff</color>
     <color name="green_color">#96bb3c</color>
     <color name="orange_color">#F8981D</color>
+    <color name="error_stroke_color">#FF0000</color>
 
 </resources>
