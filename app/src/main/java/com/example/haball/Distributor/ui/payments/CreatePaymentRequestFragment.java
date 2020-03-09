@@ -2,6 +2,7 @@ package com.example.haball.Distributor.ui.payments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +35,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,6 +64,7 @@ public class CreatePaymentRequestFragment extends Fragment {
     private EditText txt_amount;
     private String prepaid_number, prepaid_id;
     private FragmentTransaction fragmentTransaction;
+    private TextInputLayout layout_txt_amount;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -72,6 +75,8 @@ public class CreatePaymentRequestFragment extends Fragment {
         spinner_company = root.findViewById(R.id.spinner_company);
         txt_amount = root.findViewById(R.id.txt_amount);
 
+        layout_txt_amount = root.findViewById(R.id.layout_txt_amount);
+        layout_txt_amount.setBoxStrokeColor(Color.parseColor("#e5e5e5"));
         CompanyNames.add("Company *");
 
         arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
