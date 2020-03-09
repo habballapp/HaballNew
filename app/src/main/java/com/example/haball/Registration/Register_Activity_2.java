@@ -249,8 +249,10 @@ public class Register_Activity_2 extends AppCompatActivity implements View.OnFoc
                 TextUtils.isEmpty(txt_mobile_number.getText().toString()) ||
                 TextUtils.isEmpty(txt_phone_number.getText().toString()) ||
                 TextUtils.isEmpty(txt_ntn.getText().toString()) ||
-                TextUtils.isEmpty(txt_conpany_name.getText().toString()) ||
-                TextUtils.isEmpty(txt_website.getText().toString()))
+                TextUtils.isEmpty(txt_conpany_name.getText().toString())
+//                ||
+//                TextUtils.isEmpty(txt_website.getText().toString())
+        )
             return true;
         else
             return false;

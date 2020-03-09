@@ -190,11 +190,16 @@ public class ProfileFragment extends Fragment {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onClick(View v) {
-                        try {
-                            updatePassword();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        if (!String.valueOf(txt_password.getText()).equals("")) {
+                            try {
+                                updatePassword();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            Toast.makeText(getContext(), "Please fill Old Password", Toast.LENGTH_LONG).show();
                         }
+
                     }
                 });
             }

@@ -109,6 +109,8 @@
                 android:background="@drawable/edit_round">
                 <Spinner
                     android:id="@+id/IssueType"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     />
@@ -127,6 +129,8 @@
                 android:background="@drawable/edit_round">
                 <Spinner
                     android:id="@+id/critcicality"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     />
@@ -144,6 +148,8 @@
                 android:background="@drawable/edit_round">
                 <Spinner
                     android:id="@+id/Preffered_Contact"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     />

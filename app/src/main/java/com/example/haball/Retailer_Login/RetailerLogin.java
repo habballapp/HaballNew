@@ -65,7 +65,8 @@ public class RetailerLogin extends AppCompatActivity {
     private Toolbar tb;
     private RequestQueue queue;
     private String URL = "http://175.107.203.97:3020/Token";
-    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:3020/api/Users/forgot";
+//    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:3020/api/Users/forgot";
+    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4007/api/users/forgot";
     private HttpURLConnection urlConnection = null;
     private java.net.URL url;
     private String token;
@@ -79,10 +80,12 @@ public class RetailerLogin extends AppCompatActivity {
 
         setContentView(R.layout.activity_retailer_login);
         btn_login = findViewById(R.id.retailer_btn_login);
+        btn_login.setEnabled(false);
+        btn_login.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
         btn_signup = findViewById(R.id.ret_btn_signup);
         btn_support = findViewById(R.id.ret_btn_support);
         btn_password = findViewById(R.id.ret_btn_password);
-        layout_username = findViewById(R.id.layout_username );
+        layout_username = findViewById(R.id.layout_username);
         layout_password = findViewById(R.id.layout_password);
 
         layout_username.setBoxStrokeColor(getResources().getColor(R.color.color_text));
@@ -110,6 +113,27 @@ public class RetailerLogin extends AppCompatActivity {
 
             }
         });
+
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkFieldsForEmptyValues();
+
+            }
+        };
+
+        et_username.addTextChangedListener(textWatcher);
+        et_password.addTextChangedListener(textWatcher);
 
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.setDisplayShowHomeEnabled(false);
@@ -172,46 +196,122 @@ public class RetailerLogin extends AppCompatActivity {
         btn_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 final AlertDialog alertDialog = new AlertDialog.Builder(RetailerLogin.this).create();
                 LayoutInflater inflater = LayoutInflater.from(RetailerLogin.this);
                 View view_popup = inflater.inflate(R.layout.forget_password, null);
                 alertDialog.setView(view_popup);
+                txt_email = view_popup.findViewById(R.id.txt_email);
                 btn_reset = view_popup.findViewById(R.id.btn_reset);
-                ImageButton img_btn = view_popup.findViewById(R.id.image_button);
+                final ImageButton img_btn = view_popup.findViewById(R.id.image_button);
                 btn_reset.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        alertDialog.dismiss();
-                        final AlertDialog alertDialog1 = new AlertDialog.Builder(RetailerLogin.this).create();
-                        LayoutInflater inflater = LayoutInflater.from(RetailerLogin.this);
-                        View view_popup = inflater.inflate(R.layout.email_sent, null);
-                        alertDialog1.setView(view_popup);
-                        ImageButton img_email = view_popup.findViewById(R.id.image_email);
-                        img_email.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                alertDialog1.dismiss();
-                            }
-                        });
-                        alertDialog1.show();
-
+                        if (!txt_email.getText().toString().equals("")) {
+                            final AlertDialog alertDialog1 = new AlertDialog.Builder(RetailerLogin.this).create();
+                            LayoutInflater inflater = LayoutInflater.from(RetailerLogin.this);
+                            View view_popup = inflater.inflate(R.layout.email_sent, null);
+                            alertDialog1.setView(view_popup);
+                            ImageButton img_email = view_popup.findViewById(R.id.image_email);
+                            forgotPasswordRequest(alertDialog, alertDialog1, img_email);
+                        } else {
+                            Toast.makeText(getApplication(), "Please enter Email Address!", Toast.LENGTH_LONG).show();
+                        }
                     }
                 });
                 img_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         alertDialog.dismiss();
-
                     }
                 });
                 alertDialog.show();
-
             }
-
         });
 
 
+    }
+
+    private void checkFieldsForEmptyValues() {
+        String username_ = et_username.getText().toString();
+        String password = et_password.getText().toString();
+
+        if (username_.equals("") || password.equals("")) {
+            btn_login.setEnabled(false);
+            btn_login.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+
+        } else {
+            btn_login.setEnabled(true);
+            btn_login.setBackground(getResources().getDrawable(R.drawable.button_background));
+        }
+    }
+
+    private String forgotPasswordRequest(final AlertDialog alertDialog, final AlertDialog alertDialog1, final ImageButton img_email) {
+
+        progressDialog.setTitle("Resetting Password");
+        progressDialog.setMessage("Loading, Please Wait..");
+        progressDialog.show();
+        StringRequest sr = new StringRequest(Request.Method.POST, URL_FORGOT_PASSWORD, new Response.Listener<String>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onResponse(String result) {
+                success_text = result;
+                Log.e("RESPONSE", result);
+                progressDialog.dismiss();
+                alertDialog.dismiss();
+                img_email.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog1.dismiss();
+                    }
+                });
+                alertDialog1.show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                printErrorMessage(error);
+                error.printStackTrace();
+                // Toast.makeText(Distribution_Login.this,error.toString(),Toast.LENGTH_LONG).show();
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                return params;
+            }
+
+            @Override
+            public byte[] getBody() {
+                try {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("Email", txt_email.getText().toString());
+                    return jsonObject.toString().getBytes("utf-8");
+                } catch (Exception e) {
+                    return null;
+                }
+            }
+        };
+        sr.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 1000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
+        Volley.newRequestQueue(this).add(sr);
+        return success_text;
     }
 
     private void loginRequest() throws JSONException {
@@ -275,63 +375,6 @@ public class RetailerLogin extends AppCompatActivity {
         Volley.newRequestQueue(this).add(sr);
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(sr);
-    }
-
-    private String forgotPasswordRequest(final AlertDialog alertDialog, final AlertDialog alertDialog1, final ImageButton img_email) {
-
-        progressDialog.setTitle("Resetting Password");
-        progressDialog.setMessage("Loading, Please Wait..");
-        progressDialog.show();
-        StringRequest sr = new StringRequest(Request.Method.POST, URL_FORGOT_PASSWORD, new Response.Listener<String>() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-            @Override
-            public void onResponse(String result) {
-                success_text = result;
-                Log.e("RESPONSE", result);
-                progressDialog.dismiss();
-                alertDialog.dismiss();
-                img_email.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog1.dismiss();
-                    }
-                });
-                alertDialog1.show();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
-
-                error.printStackTrace();
-//                Toast.makeText(RetailerLogin.this,error.toString(),Toast.LENGTH_LONG).show();
-            }
-        }) {
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> params = new HashMap<String, String>();
-                params.put("Content-Type", "application/json; charset=UTF-8");
-                return params;
-            }
-
-            @Override
-            public byte[] getBody() {
-                try {
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("EmailAddress", txt_email.getText().toString());
-                    return jsonObject.toString().getBytes("utf-8");
-                } catch (Exception e) {
-                    return null;
-                }
-            }
-        };
-        sr.setRetryPolicy(new DefaultRetryPolicy(
-                15000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(this).add(sr);
-        return success_text;
     }
 
     private void printErrorMessage(VolleyError error) {

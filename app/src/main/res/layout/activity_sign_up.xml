@@ -70,25 +70,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="2"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:orientation="vertical"
-            android:layout_below="@id/text_ln">
+            android:layout_below="@id/text_ln"
+            android:background="@drawable/border_set"
+            >
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="match_parent"
                 android:text="Register"
+                android:padding="10dp"
                 android:layout_weight="1"
-                android:textSize="25sp"
-                android:paddingTop="5dp"
+                android:textSize="22sp"
+                android:layout_marginLeft="20dp"
                 android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:paddingBottom="5dp"
                 android:textColor="#96bb3c"
                 android:textStyle="bold"
-                android:background="@drawable/side_line"
+
                 />
 
         </LinearLayout>
@@ -194,7 +194,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/edit_text_squared"
-                android:inputType="phone"
+                android:inputType="number"
                 android:paddingTop="5dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
@@ -204,6 +204,7 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:layout_weight="1"
+                android:maxLength="15"
                 android:hint="CNIC *"
                 />
             <EditText
@@ -211,7 +212,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/edit_text_squared"
-                android:inputType="phone"
+                android:inputType="number"
                 android:paddingTop="5dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
@@ -221,6 +222,7 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:layout_weight="1"
+                android:maxLength="12"
                 android:hint="Mobile No *"
                 />
             <EditText

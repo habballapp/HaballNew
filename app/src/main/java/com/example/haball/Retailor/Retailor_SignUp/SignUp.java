@@ -11,6 +11,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -45,6 +46,7 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
     private EditText txt_username, txt_password, txt_confirmpass, txt_fullname, txt_email, txt_cnic, txt_mobile_number, txt_business_name, txt_address;
     private Button btn_register_signup, btn_register_close;
     private Boolean password_check = false, confirm_password_check = false;
+    private int keyDel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,78 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
         txt_mobile_number.addTextChangedListener(watcher);
         txt_business_name.addTextChangedListener(watcher);
         txt_address.addTextChangedListener(watcher);
+        txt_mobile_number.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                txt_mobile_number.setOnKeyListener(new View.OnKeyListener() {
+                    @Override
+                    public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                        if (keyCode == KeyEvent.KEYCODE_DEL)
+                            keyDel = 1;
+                        return false;
+                    }
+                });
+
+                if (keyDel == 0) {
+                    int len = txt_mobile_number.getText().length();
+                    if(len == 4) {
+                        txt_mobile_number.setText(txt_mobile_number.getText() + "-");
+                        txt_mobile_number.setSelection(txt_mobile_number.getText().length());
+                    }
+                } else {
+                    keyDel = 0;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+                // TODO Auto-generated method stub
+            }
+        });
+        txt_cnic.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                txt_cnic.setOnKeyListener(new View.OnKeyListener() {
+                    @Override
+                    public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                        if (keyCode == KeyEvent.KEYCODE_DEL)
+                            keyDel = 1;
+                        return false;
+                    }
+                });
+
+                if (keyDel == 0) {
+                    int len = txt_cnic.getText().length();
+                    if(len == 5 || len == 13) {
+                        txt_cnic.setText(txt_cnic.getText() + "-");
+                        txt_cnic.setSelection(txt_cnic.getText().length());
+                    }
+                } else {
+                    keyDel = 0;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+                // TODO Auto-generated method stub
+            }
+        });
 
         btn_register_signup.setEnabled(false);
         btn_register_signup.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));

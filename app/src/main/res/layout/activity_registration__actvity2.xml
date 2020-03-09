@@ -142,6 +142,8 @@
 
                         <Spinner
                             android:id="@+id/spinner_country"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"/>
                     </RelativeLayout>
@@ -158,6 +160,8 @@
 
                         <Spinner
                             android:id="@+id/spinner_province"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"/>
                     </RelativeLayout>
@@ -174,6 +178,8 @@
 
                         <Spinner
                             android:id="@+id/spinner_city"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"/>
                     </RelativeLayout>
@@ -285,6 +291,8 @@
 
                             <Spinner
                                 android:id="@+id/spinner_country2"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent" />
                         </RelativeLayout>
@@ -301,6 +309,8 @@
 
                             <Spinner
                                 android:id="@+id/spinner_province2"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent" />
                         </RelativeLayout>
@@ -317,6 +327,8 @@
 
                             <Spinner
                                 android:id="@+id/spinner_city2"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent" />
                         </RelativeLayout>
