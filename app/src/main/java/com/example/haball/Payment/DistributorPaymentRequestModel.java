@@ -1,7 +1,25 @@
 package com.example.haball.Payment;
 
 public class DistributorPaymentRequestModel {
-    String CompanyName, PrePaidNumber, PaidAmount, Status, ID;
+    String CompanyName;
+    String PrePaidNumber;
+    String PaidAmount;
+    String Status;
+    String ID;
+    String PrepaidStatusValue;
+
+    public DistributorPaymentRequestModel() {
+    }
+
+    public DistributorPaymentRequestModel(String companyName, String prePaidNumber, String paidAmount, String status, String ID, String PrepaidStatusValue) {
+        CompanyName = companyName;
+        PrePaidNumber = prePaidNumber;
+        PaidAmount = paidAmount;
+        Status = status;
+        this.ID = ID;
+        this.PrepaidStatusValue = PrepaidStatusValue;
+
+    }
 
     public String getCompanyName() {
         return CompanyName;
@@ -43,11 +61,12 @@ public class DistributorPaymentRequestModel {
         this.ID = ID;
     }
 
-    public DistributorPaymentRequestModel(String companyName, String prePaidNumber, String paidAmount, String status, String ID) {
-        CompanyName = companyName;
-        PrePaidNumber = prePaidNumber;
-        PaidAmount = paidAmount;
-        Status = status;
-        this.ID = ID;
+    public String getPrepaidStatusValue() {
+        return PrepaidStatusValue;
     }
+
+    public void setPrepaidStatusValue(String prepaidStatusValue) {
+        PrepaidStatusValue = prepaidStatusValue;
+    }
+
 }
