@@ -98,60 +98,97 @@
                             />
                     </RelativeLayout>
 
-                    <EditText
-                        android:id="@+id/txt_bank"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_txt_bank"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_height="45dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
-                        android:layout_below="@id/rl_mode"
-                        android:textSize="14sp"
-                        android:background="@drawable/edit_round"
+                        android:layout_marginTop="15dp"
                         android:hint="Bank *"
-                        android:maxLength="25"
-                        android:inputType="text"
-                        />
-                    <EditText
-                        android:id="@+id/txt_branch"
+                        android:theme="@style/TextLabel"
+                        android:layout_below="@id/rl_mode"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_bank"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:maxLength="25"
+                            android:inputType="text"
+                            android:textColor="#676a6c"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_txt_branch"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
+                        android:layout_height="45dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
                         android:layout_marginTop="15dp"
-                        android:layout_weight="1"
-                        android:maxLength="10"
-                        android:layout_below="@id/txt_bank"
-                        android:textSize="14sp"
-                        android:background="@drawable/edit_round"
                         android:hint="Branch Code *"
-                        android:inputType="number"
-                        />
-                    <EditText
-                        android:id="@+id/txt_transaction"
+                        android:theme="@style/TextLabel"
+                        android:layout_below="@id/layout_txt_bank"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_branch"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="#676a6c"
+                            android:inputType="number"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_txt_transaction"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
+                        android:layout_height="45dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
                         android:layout_marginTop="15dp"
-                        android:layout_below="@id/txt_branch"
-                        android:textSize="14sp"
-                        android:maxLength="25"
-                        android:background="@drawable/edit_round"
                         android:hint="Transaction No *"
-                        android:inputType="number"
-                        />
+                        android:theme="@style/TextLabel"
+                        android:layout_below="@id/layout_txt_branch"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_transaction"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="#676a6c"
+                            android:maxLength="25"
+                            android:inputType="number"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
                     <TextView
                         android:id="@+id/txt_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/txt_transaction"
+                        android:layout_below="@+id/layout_txt_transaction"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
                         android:layout_marginTop="15dp"

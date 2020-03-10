@@ -114,27 +114,43 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="0dp">
 
-                    <EditText
-                        android:id="@+id/Address"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_Address"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
-                        android:background="@drawable/edit_text_squared"
+                        android:layout_marginTop="10dp"
                         android:hint="Address01 *"
-                        android:paddingTop="5dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="5dp"
-                        android:textSize="14sp"
-                        android:gravity="top|left"/>
+                        android:theme="@style/TextLabel"
+                        app:boxBackgroundColor="#fff"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/Address"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="#676a6c"
+                            android:gravity="top|left"
+                            android:inputType="textMultiLine"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
 
 
                     <RelativeLayout
                         android:id="@+id/relative_issuetype"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:layout_below="@+id/Address"
+                        android:layout_below="@+id/layout_Address"
                         android:layout_marginTop="20dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
@@ -184,23 +200,36 @@
                             android:layout_height="match_parent"/>
                     </RelativeLayout>
 
-
-                    <EditText
-                        android:id="@+id/postal_shipping"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_postal_shipping"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_below="@+id/relative_Preffered_Contact"
-                        android:layout_marginTop="20dp"
+                        android:layout_height="45dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
-                        android:background="@drawable/edit_text_squared"
+                        android:layout_marginTop="10dp"
                         android:hint="Postal Code *"
-                        android:paddingTop="5dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="5dp"
-                        android:maxLength="5"
-                        android:textSize="14sp" />
+                        android:theme="@style/TextLabel"
+                        android:layout_below="@+id/relative_Preffered_Contact"
+                        app:boxBackgroundColor="#fff"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/postal_shipping"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="#676a6c"
+                            android:maxLength="5"
+                            android:inputType="number"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
 
                 </RelativeLayout>
 
@@ -263,27 +292,43 @@
                         android:id="@+id/rl_billing"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                        <EditText
-                            android:id="@+id/Address02"
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/layout_Address02"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="100dp"
-                            android:layout_marginTop="30dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
                             android:layout_marginLeft="40dp"
                             android:layout_marginRight="40dp"
-                            android:background="@drawable/edit_text_squared"
+                            android:layout_marginTop="10dp"
                             android:hint="Address02 *"
-                            android:paddingTop="5dp"
-                            android:paddingLeft="20dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
-                            android:textSize="14sp"
-                            android:gravity="top|left" />
+                            android:theme="@style/TextLabel"
+                            app:boxBackgroundColor="#fff"
+                            app:boxStrokeColor="#e5e5e5"
+                            app:boxStrokeWidth="1.75dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/Address02"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:paddingLeft="20dp"
+                                android:paddingTop="5dp"
+                                android:paddingRight="20dp"
+                                android:paddingBottom="5dp"
+                                android:textColor="#676a6c"
+                                android:gravity="top|left"
+                                android:inputType="textMultiLine"
+                                android:textSize="14sp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
 
                         <RelativeLayout
                             android:id="@+id/select_country"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:layout_below="@+id/Address02"
+                            android:layout_below="@+id/layout_Address02"
                             android:layout_marginTop="20dp"
                             android:layout_marginLeft="40dp"
                             android:layout_marginRight="40dp"
@@ -333,22 +378,36 @@
                                 android:layout_height="match_parent" />
                         </RelativeLayout>
 
-                        <EditText
-                            android:id="@+id/postal_billing"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/layout_postal_billing"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_below="@+id/select_city"
-                            android:layout_marginTop="20dp"
+                            android:layout_height="45dp"
                             android:layout_marginLeft="40dp"
                             android:layout_marginRight="40dp"
-                            android:background="@drawable/edit_text_squared"
+                            android:layout_marginTop="10dp"
                             android:hint="Postal Code *"
-                            android:paddingTop="5dp"
-                            android:paddingLeft="20dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
-                            android:maxLength="5"
-                            android:textSize="14sp" />
+                            android:theme="@style/TextLabel"
+                            android:layout_below="@+id/select_city"
+                            app:boxBackgroundColor="#fff"
+                            app:boxStrokeColor="#e5e5e5"
+                            app:boxStrokeWidth="1.75dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/postal_billing"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:paddingLeft="20dp"
+                                android:paddingTop="5dp"
+                                android:paddingRight="20dp"
+                                android:paddingBottom="5dp"
+                                android:textColor="#676a6c"
+                                android:maxLength="5"
+                                android:inputType="number"
+                                android:textSize="14sp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
 
                     </RelativeLayout>
                 </RelativeLayout>
