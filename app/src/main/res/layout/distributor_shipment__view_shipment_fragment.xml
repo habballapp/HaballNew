@@ -33,134 +33,149 @@
                     android:orientation="vertical"
                     android:weightSum="8">
 
-                    <TextView
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_shipment_id"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
+                        android:hint="Shipment ID"
+                        android:theme="@style/TextLabel"
                         android:layout_weight="1"
-                        android:padding="5dp"
-                        android:text="Shipment ID"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#96bb3c"
-                        android:textSize="12sp" />
+                        app:boxBackgroundColor="#fff"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
 
-                    <TextView
-                        android:id="@+id/shipment_id"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:gravity="center_vertical"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="1"
-                        android:paddingLeft="20dp"
-                        android:hint="555551223455"
-                        android:background="@drawable/distribution_login"
-                        android:textSize="14sp" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/shipment_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="#676a6c"
+                            android:enabled="false"
+                            android:textSize="14sp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_weight="1"
-                        android:padding="5dp"
-                        android:text="Delivery Date"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#96bb3c"
-                        android:textSize="12sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <TextView
-                        android:id="@+id/shipment_delivery_date"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_shipment_delivery_date"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
-                        android:layout_marginTop="5dp"
+                        android:hint="Delivery Date"
+                        android:theme="@style/TextLabel"
                         android:layout_weight="1"
-                        android:paddingLeft="20dp"
-                        android:gravity="center_vertical"
-                        android:hint="24/12/2019"
-                        android:background="@drawable/distribution_login"
-                        android:textSize="14sp" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_weight="1"
-                        android:padding="5dp"
-                        android:text="Recieving Date"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#96bb3c"
-                        android:textSize="12sp" />
+                        app:boxBackgroundColor="#fff"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
 
-                    <TextView
-                        android:id="@+id/shipment_recieving_date"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="1"
-                        android:paddingLeft="20dp"
-                        android:hint="12/2/2020"
-                        android:gravity="center_vertical"
-                        android:background="@drawable/distribution_login"
-                        android:textSize="14sp" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/shipment_delivery_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="#676a6c"
+                            android:enabled="false"
+                            android:textSize="14sp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_weight="1"
-                        android:padding="5dp"
-                        android:text="Quantity"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#96bb3c"
-                        android:textSize="12sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <TextView
-                        android:id="@+id/shipment_tv_quantity"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_shipment_recieving_date"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
-                        android:layout_marginTop="5dp"
+                        android:hint="Recieving Date"
+                        android:theme="@style/TextLabel"
                         android:layout_weight="1"
-                        android:paddingLeft="20dp"
-                        android:gravity="center_vertical"
-                        android:hint="100"
-                        android:background="@drawable/distribution_login"
-                        android:textSize="14sp" />
+                        app:boxBackgroundColor="#fff"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_weight="1"
-                        android:padding="5dp"
-                        android:text="Shipment Status"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#96bb3c"
-                        android:textSize="12sp" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/shipment_recieving_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="#676a6c"
+                            android:enabled="false"
+                            android:textSize="14sp" />
 
-                    <TextView
-                        android:id="@+id/shipment_tv_shstatus"
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_shipment_tv_quantity"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
-                        android:layout_marginTop="5dp"
+                        android:hint="Quantity"
+                        android:theme="@style/TextLabel"
                         android:layout_weight="1"
-                        android:paddingLeft="20dp"
-                        android:gravity="center_vertical"
-                        android:text="Recieved"
-                        android:background="@drawable/distribution_login"
-                        android:textSize="14sp" />
+                        app:boxBackgroundColor="#fff"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/shipment_tv_quantity"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="#676a6c"
+                            android:enabled="false"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_shipment_tv_shstatus"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:hint="Shipment Status"
+                        android:theme="@style/TextLabel"
+                        android:layout_weight="1"
+                        app:boxBackgroundColor="#fff"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/shipment_tv_shstatus"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="#676a6c"
+                            android:enabled="false"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
 

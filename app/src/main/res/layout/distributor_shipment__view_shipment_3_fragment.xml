@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Distributor.ui.shipments.main.DistributorShipment_ProductDetails">
 
     <LinearLayout
@@ -40,30 +41,35 @@
             android:orientation="vertical"
             android:weightSum="8">
 
-            <TextView
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_total_price"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
+                android:hint="Total Amount"
+                android:theme="@style/TextLabel"
                 android:layout_weight="1"
-                android:text="Total Amount"
-                android:textColor="#96bb3c"
-                android:textSize="12sp" />
+                app:boxBackgroundColor="#fff"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="1.75dp">
 
-            <TextView
-                android:id="@+id/total_price"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:paddingLeft="20dp"
-                android:hint="555551223455"
-                android:background="@drawable/distribution_login"
-                android:textSize="14sp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/total_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="#676a6c"
+                    android:enabled="false"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
 
 

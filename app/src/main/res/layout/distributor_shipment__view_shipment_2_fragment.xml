@@ -33,212 +33,237 @@
                     android:orientation="vertical"
                     android:weightSum="8">
 
-                    <TextView
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_order_id"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
+                        android:hint="Order ID"
+                        android:theme="@style/TextLabel"
                         android:layout_weight="1"
-                        android:text="Order ID"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#96bb3c"
-                        android:textSize="12sp" />
+                        app:boxBackgroundColor="#fff"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
 
-                    <TextView
-                        android:id="@+id/order_id"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:gravity="center_vertical"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="1"
-                        android:paddingLeft="20dp"
-                        android:hint="555551223455"
-                        android:background="@drawable/distribution_login"
-                        android:textSize="14sp" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/order_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="#676a6c"
+                            android:enabled="false"
+                            android:textSize="14sp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_weight="1"
-                        android:text="Company Name"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#96bb3c"
-                        android:textSize="12sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <TextView
-                        android:id="@+id/order_company_name"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_order_company_name"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
-                        android:layout_marginTop="5dp"
+                        android:hint="Company Name"
+                        android:theme="@style/TextLabel"
                         android:layout_weight="1"
-                        android:paddingLeft="20dp"
-                        android:gravity="center_vertical"
-                        android:hint="24/12/2019"
-                        android:background="@drawable/distribution_login"
-                        android:textSize="14sp" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_weight="1"
-                        android:text="Transport Mode"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#96bb3c"
-                        android:textSize="12sp" />
+                        app:boxBackgroundColor="#fff"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
 
-                    <TextView
-                        android:id="@+id/order_tr_mode"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="1"
-                        android:paddingLeft="20dp"
-                        android:hint="15000"
-                        android:gravity="center_vertical"
-                        android:background="@drawable/distribution_login"
-                        android:textSize="14sp" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/order_company_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="#676a6c"
+                            android:enabled="false"
+                            android:textSize="14sp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_weight="1"
-                        android:text="Payment Term"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#96bb3c"
-                        android:textSize="12sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <TextView
-                        android:id="@+id/order_payment_term"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_order_tr_mode"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
-                        android:layout_marginTop="5dp"
+                        android:hint="Transport Mode"
+                        android:theme="@style/TextLabel"
                         android:layout_weight="1"
-                        android:paddingLeft="20dp"
-                        android:gravity="center_vertical"
-                        android:hint="100"
-                        android:background="@drawable/distribution_login"
-                        android:textSize="14sp" />
+                        app:boxBackgroundColor="#fff"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_weight="1"
-                        android:text="Created Date"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#96bb3c"
-                        android:textSize="12sp" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/order_tr_mode"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="#676a6c"
+                            android:enabled="false"
+                            android:textSize="14sp" />
 
-                    <TextView
-                        android:id="@+id/order_tv_cdate"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="1"
-                        android:paddingLeft="20dp"
-                        android:gravity="center_vertical"
-                        android:text="Recieved"
-                        android:background="@drawable/distribution_login"
-                        android:textSize="14sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <TextView
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_order_payment_term"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
+                        android:hint="Payment Term"
+                        android:theme="@style/TextLabel"
                         android:layout_weight="1"
-                        android:text="Status"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#96bb3c"
-                        android:textSize="12sp" />
-                    <TextView
-                        android:id="@+id/order_tv_status"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="1"
-                        android:paddingLeft="20dp"
-                        android:gravity="center_vertical"
-                        android:text="Recieved"
-                        android:background="@drawable/distribution_login"
-                        android:textSize="14sp" />
+                        app:boxBackgroundColor="#fff"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
 
-                    <TextView
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/order_payment_term"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="#676a6c"
+                            android:enabled="false"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_order_tv_cdate"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
+                        android:hint="Created Date"
+                        android:theme="@style/TextLabel"
                         android:layout_weight="1"
-                        android:text="Shipment Address"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#96bb3c"
-                        android:textSize="12sp" />
+                        app:boxBackgroundColor="#fff"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
 
-                    <TextView
-                        android:id="@+id/order_tv_shaddress"
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/order_tv_cdate"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="#676a6c"
+                            android:enabled="false"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_order_tv_status"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
-                        android:layout_marginTop="5dp"
+                        android:hint="Status"
+                        android:theme="@style/TextLabel"
                         android:layout_weight="1"
-                        android:paddingLeft="20dp"
-                        android:gravity="center_vertical"
-                        android:text="karachi Pakistan"
-                        android:background="@drawable/distribution_login"
-                        android:textSize="14sp" />
+                        app:boxBackgroundColor="#fff"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
 
-                    <TextView
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/order_tv_status"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="#676a6c"
+                            android:enabled="false"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_order_tv_shaddress"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
+                        android:hint="Shipment Address"
+                        android:theme="@style/TextLabel"
                         android:layout_weight="1"
-                        android:text="Billing Address"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#96bb3c"
-                        android:textSize="12sp" />
+                        app:boxBackgroundColor="#fff"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
 
-                    <TextView
-                        android:id="@+id/order_tv_billingAdd"
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/order_tv_shaddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="#676a6c"
+                            android:enabled="false"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_order_tv_billingAdd"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
-                        android:layout_marginTop="5dp"
+                        android:hint="Billing Address"
+                        android:theme="@style/TextLabel"
                         android:layout_weight="1"
-                        android:paddingLeft="20dp"
-                        android:gravity="center_vertical"
-                        android:text="karachi Pakistan"
-                        android:background="@drawable/distribution_login"
-                        android:textSize="14sp" />
+                        app:boxBackgroundColor="#fff"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
 
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/order_tv_billingAdd"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="#676a6c"
+                            android:enabled="false"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
 

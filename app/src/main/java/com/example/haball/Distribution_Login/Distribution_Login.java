@@ -391,6 +391,7 @@ public class Distribution_Login extends AppCompatActivity {
                     try {
                         layout_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
                         layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+                        et_password.setTextColor(getResources().getColor(R.color.error_stroke_color));
                         Toast.makeText(Distribution_Login.this, result.get("ErrorMessage").toString(), Toast.LENGTH_LONG).show();
                     } catch (JSONException ex) {
                         ex.printStackTrace();

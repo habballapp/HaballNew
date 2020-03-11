@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <RelativeLayout
@@ -33,59 +35,62 @@
             android:background="@drawable/border_set"/>
 
 
-        <TextView
-            android:id="@+id/payment_request_cname"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_edt_payment_request_company"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="Company *"
             android:layout_below="@id/txt_header1"
-            android:text="Company *"
+            android:theme="@style/TextLabel"
+            app:boxBackgroundColor="#fff"
+            app:boxStrokeColor="#e5e5e5"
+            app:boxStrokeWidth="1.75dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_payment_request_company"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:textColor="#676a6c"
+                android:textSize="14sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_tv_edt_payment_request_amount"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:textAlignment="gravity"
-            android:justificationMode="inter_word"
-            />
+            android:hint="Payment Amount *"
+            android:layout_below="@id/layout_edt_payment_request_company"
+            android:theme="@style/TextLabel"
+            app:boxBackgroundColor="#fff"
+            app:boxStrokeColor="#e5e5e5"
+            app:boxStrokeWidth="1.75dp">
 
-        <EditText
-            android:id="@+id/edt_payment_request_company"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_below="@id/payment_request_cname"
-            android:textSize="14sp"
-            android:paddingLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/distribution_login"
-            android:hint="Shield"
-            />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tv_edt_payment_request_amount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:textColor="#676a6c"
+                android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/payment_request_amount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/edt_payment_request_company"
-            android:text="Payment Amount *"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:textAlignment="gravity"
-            android:justificationMode="inter_word"
-            />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/tv_edt_payment_request_amount"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_below="@id/payment_request_amount"
-            android:layout_marginTop="5dp"
-            android:textSize="14sp"
-            android:paddingLeft="10dp"
-            android:background="@drawable/distribution_login"
-            android:hint="10000"
-            />
 
         <Button
             android:id="@+id/btn_payment_request_update"
@@ -100,7 +105,7 @@
             android:textColor="#fff"
             android:gravity="center"
             android:layout_weight="1"
-            android:layout_below="@id/tv_edt_payment_request_amount"
+            android:layout_below="@id/layout_tv_edt_payment_request_amount"
             android:textAllCaps="false"
             android:layout_marginBottom="30dp"
             />

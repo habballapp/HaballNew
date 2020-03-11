@@ -96,7 +96,7 @@
                         android:background="@drawable/border_set"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
-                        android:text="ACCOUNT CREDENTIALS"
+                        android:text="ACCOUNT INFORMATION"
                         android:textColor="#96bb3c"
                         android:textSize="10sp" />
 
