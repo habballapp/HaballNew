@@ -3,6 +3,7 @@ package com.example.haball.Retailor.ui.Make_Payment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -99,14 +100,20 @@ public class CreatePaymentRequestFragment extends Fragment {
         btn_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Integer.parseInt(String.valueOf(txt_amount.getText())) >= 500) {
-                    try {
-                        makeSaveRequest();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                if(TextUtils.isEmpty(txt_amount.getText())){
+                    Toast.makeText(finalroot.getContext(), "Please enter amount to be paid", Toast.LENGTH_SHORT).show();
+
+                }
+                else{
+                    if (Integer.parseInt(String.valueOf(txt_amount.getText())) >= 500) {
+                        try {
+                            makeSaveRequest();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        Toast.makeText(finalroot.getContext(), "Paid Amount must be larger than or equal to 500", Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    Toast.makeText(finalroot.getContext(), "Paid Amount must be larger than or equal to 500", Toast.LENGTH_SHORT).show();
                 }
             }
         });
