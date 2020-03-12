@@ -33,108 +33,122 @@
                     android:orientation="vertical"
                     android:weightSum="8">
 
-                    <TextView
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_shipment_invoice_id"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
+                        android:hint="Invoice ID"
+                        android:theme="@style/TextLabel"
                         android:layout_weight="1"
-                        android:text="Invoice ID"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#96bb3c"
-                        android:textSize="12sp" />
+                        app:boxBackgroundColor="#fff"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
 
-                    <TextView
-                        android:id="@+id/shipment_invoice_id"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:gravity="center_vertical"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="1"
-                        android:paddingLeft="20dp"
-                        android:hint=""
-                        android:background="@drawable/distribution_login"
-                        android:textSize="14sp" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/shipment_invoice_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="#676a6c"
+                            android:enabled="false"
+                            android:textSize="14sp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_weight="1"
-                        android:text="Created Date"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#96bb3c"
-                        android:textSize="12sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <TextView
-                        android:id="@+id/invoice_tv_date"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_invoice_tv_date"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
-                        android:layout_marginTop="5dp"
+                        android:hint="Created Date"
+                        android:theme="@style/TextLabel"
                         android:layout_weight="1"
-                        android:paddingLeft="20dp"
-                        android:gravity="center_vertical"
-                        android:hint=""
-                        android:background="@drawable/distribution_login"
-                        android:textSize="14sp" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_weight="1"
-                        android:text="Invoice Amount"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#96bb3c"
-                        android:textSize="12sp" />
+                        app:boxBackgroundColor="#fff"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
 
-                    <TextView
-                        android:id="@+id/invoice_tv_amount"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="1"
-                        android:paddingLeft="20dp"
-                        android:hint=""
-                        android:gravity="center_vertical"
-                        android:background="@drawable/distribution_login"
-                        android:textSize="14sp" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/invoice_tv_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="#676a6c"
+                            android:enabled="false"
+                            android:textSize="14sp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_weight="1"
-                        android:text="Status"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#96bb3c"
-                        android:textSize="12sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <TextView
-                        android:id="@+id/shipment_tv_status"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_invoice_tv_amount"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
-                        android:layout_marginTop="5dp"
+                        android:hint="Invoice Amount"
+                        android:theme="@style/TextLabel"
                         android:layout_weight="1"
-                        android:paddingLeft="20dp"
-                        android:gravity="center_vertical"
-                        android:text=""
-                        android:background="@drawable/distribution_login"
-                        android:textSize="14sp" />
+                        app:boxBackgroundColor="#fff"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/invoice_tv_amount"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="#676a6c"
+                            android:enabled="false"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_shipment_tv_status"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:hint="Status"
+                        android:theme="@style/TextLabel"
+                        android:layout_weight="1"
+                        app:boxBackgroundColor="#fff"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/shipment_tv_status"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="#676a6c"
+                            android:enabled="false"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
                 </LinearLayout>
 
 

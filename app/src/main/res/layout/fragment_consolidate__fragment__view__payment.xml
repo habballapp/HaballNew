@@ -45,132 +45,151 @@
             android:orientation="vertical"
             android:weightSum="10">
 
-            <TextView
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_consolidated_view_invoice_id"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="Invoice ID"
                 android:layout_weight="1"
-                android:text="Invoice ID"
-                android:layout_marginTop="5dp"
-                android:textColor="#96bb3c"
-                android:textSize="14sp" />
+                android:theme="@style/TextLabel"
+                app:boxBackgroundColor="#fff"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="1.75dp">
 
-            <TextView
-                android:id="@+id/consolidated_view_invoice_id"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:background="@drawable/distribution_login"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:textSize="14sp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/consolidated_view_invoice_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:enabled="false"
+                    android:textColor="#676a6c"
+                    android:textSize="14sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:text="Invoice Date"
-                android:layout_marginTop="15dp"
-                android:textColor="#96bb3c"
-                android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/consolidated_view_invoice_date"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_consolidated_view_invoice_date"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="Invoice Date"
                 android:layout_weight="1"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:background="@drawable/distribution_login"
-                android:textSize="14sp" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:text="Invoice Amount"
-                android:layout_marginTop="15dp"
-                android:textColor="#96bb3c"
-                android:textSize="14sp" />
+                android:theme="@style/TextLabel"
+                app:boxBackgroundColor="#fff"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="1.75dp">
 
-            <TextView
-                android:id="@+id/consolidated_view_invoice_amount"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:background="@drawable/distribution_login"
-                android:textSize="14sp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/consolidated_view_invoice_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:enabled="false"
+                    android:textColor="#676a6c"
+                    android:textSize="14sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:text="Company"
-                android:layout_marginTop="15dp"
-                android:textColor="#96bb3c"
-                android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/consolidated_view_company"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_consolidated_view_invoice_amount"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="Invoice Amount"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:drawablePadding="10dp"
-                android:background="@drawable/distribution_login"
-                android:textSize="14sp" />
+                android:theme="@style/TextLabel"
+                app:boxBackgroundColor="#fff"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="1.75dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:text="Status"
-                android:layout_marginTop="15dp"
-                android:textColor="#96bb3c"
-                android:textSize="14sp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/consolidated_view_invoice_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:enabled="false"
+                    android:textColor="#676a6c"
+                    android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/consolidated_view_status"
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_consolidated_view_company"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="Company"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:drawablePadding="10dp"
-                android:background="@drawable/distribution_login"
-                android:textSize="14sp" />
+                android:theme="@style/TextLabel"
+                app:boxBackgroundColor="#fff"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="1.75dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/consolidated_view_company"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:enabled="false"
+                    android:textColor="#676a6c"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_consolidated_view_status"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="Status"
+                android:layout_weight="1"
+                android:theme="@style/TextLabel"
+                app:boxBackgroundColor="#fff"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="1.75dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/consolidated_view_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:enabled="false"
+                    android:textColor="#676a6c"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
 
         <LinearLayout

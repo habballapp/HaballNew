@@ -7,6 +7,9 @@
     <color name="green_color">#96bb3c</color>
     <color name="orange_color">#F8981D</color>
     <color name="error_stroke_color">#FF0000</color>
+    <color name="textcolor">#676a6c</color>
+    <color name="textcolorhint">#A9A9A9</color>
+
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#e5e5e5</color>
     <color name="mtrl_textinput_default_text_color_hint" tools:override="true">#e5e5e5</color>
 

@@ -45,236 +45,260 @@
             android:orientation="vertical"
             android:weightSum="10">
 
-            <TextView
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_tv_pop_id"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_weight="1"
-                android:text="POP ID"
+                android:layout_height="45dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginTop="10dp"
-                android:textColor="#96bb3c"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tv_pop_id"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="40dp"
                 android:layout_weight="1"
-                android:background="@drawable/distribution_login"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:textSize="14sp" />
+                android:hint="POP ID"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="1.75dp">
 
-            <TextView
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_pop_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="#676a6c"
+                    android:enabled="false"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+              <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_tv_distributor_name"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_weight="1"
-                android:text="Distributor Name"
+                android:layout_height="45dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginTop="15dp"
-                android:textColor="#96bb3c"
-                android:textSize="14sp" />
+                android:layout_weight="1"
+                android:hint="Distributor Name"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="1.75dp">
 
-            <TextView
-                android:id="@+id/tv_distributor_name"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_distributor_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="#676a6c"
+                    android:enabled="false"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_tv_created_date"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:background="@drawable/distribution_login"
-                android:textSize="14sp" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_weight="1"
-                android:text="Created Date"
+                android:layout_height="45dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginTop="15dp"
-                android:textColor="#96bb3c"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tv_created_date"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:background="@drawable/distribution_login"
-                android:textSize="14sp" />
+                android:hint="Created Date"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="1.75dp">
 
-            <TextView
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_created_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="#676a6c"
+                    android:enabled="false"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_tv_payment_mode"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_weight="1"
-                android:text="Mode of Payment"
+                android:layout_height="45dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginTop="15dp"
-                android:textColor="#96bb3c"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tv_payment_mode"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:drawablePadding="10dp"
-                android:background="@drawable/distribution_login"
-                android:textSize="14sp" />
+                android:hint="Mode of Payment"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="1.75dp">
 
-            <TextView
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_payment_mode"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="#676a6c"
+                    android:enabled="false"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_tv_bank"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_weight="1"
-                android:text="Bank"
+                android:layout_height="45dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginTop="15dp"
-                android:textColor="#96bb3c"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tv_bank"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:drawablePadding="10dp"
-                android:background="@drawable/distribution_login"
-                android:textSize="14sp" />
+                android:hint="Bank"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="1.75dp">
 
-            <TextView
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_bank"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="#676a6c"
+                    android:enabled="false"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_tv_branch_code"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_weight="1"
-                android:text="Branch Code"
+                android:layout_height="45dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginTop="15dp"
-                android:textColor="#96bb3c"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tv_branch_code"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:drawablePadding="10dp"
-                android:background="@drawable/distribution_login"
-                android:textSize="14sp" />
+                android:hint="Branch Code"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="1.75dp">
 
-            <TextView
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_branch_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="#676a6c"
+                    android:enabled="false"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_tv_transaction_no"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_weight="1"
-                android:text="Transaction No"
+                android:layout_height="45dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginTop="15dp"
-                android:textColor="#96bb3c"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tv_transaction_no"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:drawablePadding="10dp"
-                android:background="@drawable/distribution_login"
-                android:textSize="14sp" />
+                android:hint="Transaction No"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="1.75dp">
 
-            <TextView
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_transaction_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="#676a6c"
+                    android:enabled="false"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_tv_payment_id"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_weight="1"
-                android:text="Payment ID"
+                android:layout_height="45dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginTop="15dp"
-                android:textColor="#96bb3c"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tv_payment_id"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:drawablePadding="10dp"
-                android:background="@drawable/distribution_login"
-                android:textSize="14sp" />
+                android:hint="Payment ID"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="1.75dp">
 
-            <TextView
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_payment_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="#676a6c"
+                    android:enabled="false"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_tv_proof_of_payment_view_status"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_weight="1"
-                android:text="Status"
+                android:layout_height="45dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginTop="15dp"
-                android:textColor="#96bb3c"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tv_proof_of_payment_view_status"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:drawablePadding="10dp"
-                android:background="@drawable/distribution_login"
-                android:textSize="14sp" />
+                android:hint="Status"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="1.75dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_proof_of_payment_view_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="#676a6c"
+                    android:enabled="false"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
 
         <LinearLayout

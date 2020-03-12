@@ -102,14 +102,8 @@ public class RetailorDashboard extends AppCompatActivity  {
                 .init(this)
                 .addHeaderModel(new HeaderModel("Dashboard"))
                 .addHeaderModel(new HeaderModel("My Network"))
-                .addHeaderModel(new HeaderModel("Place Order")
-                        .addChildModel(new ChildModel("\tPlace Order")))
-                .addHeaderModel(
-                        new HeaderModel("Make Payment")
-                                .addChildModel(new ChildModel("\tPayments Summary"))
-                                .addChildModel(new ChildModel("\tPayment Request"))
-
-                )
+                .addHeaderModel(new HeaderModel("Place Order"))
+                .addHeaderModel(new HeaderModel("Make Payment"))
                 .addHeaderModel(new HeaderModel("Profile"))
                 .addHeaderModel(new HeaderModel("Support"))
                 .addHeaderModel(new HeaderModel("Logout"))
@@ -137,9 +131,17 @@ public class RetailorDashboard extends AppCompatActivity  {
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 2) {
                             Log.i("Place Order", "Place Order Activity");
+                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container_ret, new PlaceOrderFragment());
+                            fragmentTransaction.commit();
+                            drawer.closeDrawer(GravityCompat.START);
 
                         } else if (id == 3) {
                             Log.i("Make Payment", "Make Payment Activity");
+                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment());
+                            fragmentTransaction.commit();
+                            drawer.closeDrawer(GravityCompat.START);
 
                         } else if (id == 4) {
                             Log.i("Profile", "Profile Activity");
