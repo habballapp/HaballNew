@@ -54,6 +54,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="15dp"
+            android:visibility="gone"
             android:background="@drawable/edit_text_squared">
 
             <Spinner
@@ -70,6 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/spinner_container"
             android:layout_marginLeft="30dp"
+            android:visibility="gone"
             android:layout_marginRight="30dp">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -103,6 +105,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="15dp"
+            android:visibility="visible"
             android:orientation="horizontal"
             android:weightSum="4">
 
@@ -174,6 +177,96 @@
 
         </LinearLayout>
         <!--        date filter layout-->
+
+        <!--        amount filter layout-->
+
+        <LinearLayout
+            android:id="@+id/amount_filter_rl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spinner_container"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="15dp"
+            android:visibility="gone"
+                android:orientation="horizontal"
+            android:weightSum="4">
+
+            <LinearLayout
+                android:id="@+id/amount_filter1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="5dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:weightSum="2"
+                android:paddingBottom="10dp"
+                android:background="@drawable/line_bottom"
+                android:layout_weight="1.125"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:textColor="#676A6C"
+                    android:text="PKR "/>
+                <EditText
+                    android:id="@+id/et_amount1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:textSize="14sp"
+                    android:textColor="#676A6C"
+                    android:textColorHint="#676A6C"
+                    android:background="@android:color/transparent"
+                    android:text="60,000"/>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.75"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+                <RelativeLayout
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:background="#676A6C"
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/amount_filter2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingRight="5dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:weightSum="2"
+                android:background="@drawable/line_bottom"
+                android:layout_weight="1.125">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:textColor="#676A6C"
+                    android:text="PKR "/>
+                <EditText
+                    android:id="@+id/et_amount2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:textSize="14sp"
+                    android:textColor="#676A6C"
+                    android:textColorHint="#676A6C"
+                    android:background="@android:color/transparent"
+                    android:text="60,000"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--        amount filter layout-->
+
 
     </RelativeLayout>
 
