@@ -1,5 +1,6 @@
 package com.example.haball.Distributor.ui.main;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,7 +18,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -65,15 +69,17 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class PlaceholderFragment extends Fragment {
+public class PlaceholderFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     private RecyclerView recyclerView;
@@ -112,6 +118,12 @@ public class PlaceholderFragment extends Fragment {
     private double totalPages = 0;
     private double totalEntries = 0;
 
+    private String dateType = "";
+    private int year1, year2, month1, month2, date1, date2;
+
+    private ImageButton first_date_btn, second_date_btn;
+    private LinearLayout date_filter_rl;
+    private TextView first_date, second_date;
     private int pageNumberOrder = 0;
     private double totalPagesOrder = 0;
     private double totalEntriesOrder = 0;
@@ -382,6 +394,13 @@ public class PlaceholderFragment extends Fragment {
     private void paymentFragmentTask(View rootView) {
         search_bar = rootView.findViewById(R.id.search_bar);
         consolidate = rootView.findViewById(R.id.consolidate);
+
+        date_filter_rl = rootView.findViewById(R.id.date_filter_rl);
+        first_date = rootView.findViewById(R.id.first_date);
+        first_date_btn = rootView.findViewById(R.id.first_date_btn);
+        second_date = rootView.findViewById(R.id.second_date);
+        second_date_btn = rootView.findViewById(R.id.second_date_btn);
+
         spinner_container1 = rootView.findViewById(R.id.spinner_container1);
         spinner_consolidate = (Spinner) rootView.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) rootView.findViewById(R.id.conso_spinner2);
@@ -406,6 +425,7 @@ public class PlaceholderFragment extends Fragment {
 //                Toast.makeText(getContext(), consolidate_felter.get(i), Toast.LENGTH_LONG).show();
                 spinner_container1.setVisibility(View.GONE);
                 conso_edittext.setVisibility(View.GONE);
+                date_filter_rl.setVisibility(View.GONE);
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
@@ -429,9 +449,27 @@ public class PlaceholderFragment extends Fragment {
                         Filter_selected = "CompanyName";
                         conso_edittext.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Transaction Date")) {
-                        Toast.makeText(getContext(), "Transaction Date selected", Toast.LENGTH_LONG).show();
+                        date_filter_rl.setVisibility(View.VISIBLE);
+                        first_date_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openCalenderPopup("first date");
+                            }
+                        });
+                        second_date_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openCalenderPopup("second date");
+                            }
+                        });
                     } else if (Filter_selected.equals("Created Date")) {
-                        Toast.makeText(getContext(), "Created Date selected", Toast.LENGTH_LONG).show();
+                        date_filter_rl.setVisibility(View.VISIBLE);
+                        second_date_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openCalenderPopup("second date");
+                            }
+                        });
                     } else if (Filter_selected.equals("Amount")) {
                         Toast.makeText(getContext(), "Amount selected", Toast.LENGTH_LONG).show();
                     } else if (Filter_selected.equals("Status")) {
@@ -520,6 +558,16 @@ public class PlaceholderFragment extends Fragment {
             }
         });
 
+    }
+
+    private void openCalenderPopup(String date_type) {
+        dateType = date_type;
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+
+        DatePickerDialog dialog = new DatePickerDialog(getContext(), this,
+                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+        dialog.show();
     }
 
     private void orderFragmentTask(View rootView) {
@@ -1009,6 +1057,35 @@ public class PlaceholderFragment extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+        if(dateType.equals("first date")){
+            year1 = i;
+            month1 = i1;
+            date1 = i2;
+            updateDisplay(dateType);
+        }
+        else if(dateType.equals("second date")){
+            year2 = i;
+            month2 = i1;
+            date2 = i2;
+            updateDisplay(dateType);
+        }
+    }
+
+    private void updateDisplay(String date_type) {
+        if(date_type.equals("first date")){
+            first_date.setText(new StringBuilder()
+                    // Month is 0 based so add 1
+                    .append(date1).append("/").append(month1+ 1).append("/").append(year1).append(" "));
+        }
+        else if(date_type.equals("second date")){
+            second_date.setText(new StringBuilder()
+                    // Month is 0 based so add 1
+                    .append(date2).append("/").append(month2+ 1).append("/").append(year2).append(" "));
         }
     }
 }
