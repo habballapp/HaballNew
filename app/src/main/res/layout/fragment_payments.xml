@@ -70,7 +70,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/spinner_container"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="10dp"
             android:layout_marginRight="30dp">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -93,12 +92,96 @@
             </com.google.android.material.textfield.TextInputLayout>
 
         </RelativeLayout>
+
+<!--        date filter layout-->
+
+        <LinearLayout
+            android:id="@+id/date_filter_rl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spinner_container"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <LinearLayout
+                android:id="@+id/date_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="5dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@drawable/line_bottom"
+                android:layout_weight="1.125"
+                android:weightSum="2"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/first_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.25"
+                    android:text="22/12/2020"/>
+                <ImageButton
+                    android:id="@+id/first_date_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_weight="1.75"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_date_range_black_24dp"/>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.75"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+                <RelativeLayout
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:background="#676A6C"
+
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/date1_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingRight="5dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:weightSum="2"
+                android:background="@drawable/line_bottom"
+                android:layout_weight="1.125">
+                <TextView
+                    android:id="@+id/second_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="22/12/2020"
+                    android:layout_weight="0.25"/>
+                <ImageButton
+                    android:id="@+id/second_date_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_weight="1.75"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_date_range_black_24dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+        <!--        date filter layout-->
+
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/line_bottom"
         android:layout_width="match_parent"
         android:layout_height="5dp"
+        android:layout_marginTop="15dp"
         android:layout_below="@+id/spinner_container_main"
         android:background="@drawable/line_seperator" />
 
