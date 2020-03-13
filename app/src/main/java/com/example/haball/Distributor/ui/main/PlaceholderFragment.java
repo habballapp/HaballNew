@@ -122,8 +122,10 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private int year1, year2, month1, month2, date1, date2;
 
     private ImageButton first_date_btn, second_date_btn;
-    private LinearLayout date_filter_rl;
+    private LinearLayout date_filter_rl, amount_filter_rl;
     private TextView first_date, second_date;
+    private EditText et_amount1, et_amount2;
+
     private int pageNumberOrder = 0;
     private double totalPagesOrder = 0;
     private double totalEntriesOrder = 0;
@@ -395,11 +397,17 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         search_bar = rootView.findViewById(R.id.search_bar);
         consolidate = rootView.findViewById(R.id.consolidate);
 
+        // DATE FILTERS ......
         date_filter_rl = rootView.findViewById(R.id.date_filter_rl);
         first_date = rootView.findViewById(R.id.first_date);
         first_date_btn = rootView.findViewById(R.id.first_date_btn);
         second_date = rootView.findViewById(R.id.second_date);
         second_date_btn = rootView.findViewById(R.id.second_date_btn);
+
+        // AMOUNT FILTERS ......
+        amount_filter_rl = rootView.findViewById(R.id.amount_filter_rl);
+        et_amount1 = rootView.findViewById(R.id.et_amount1);
+        et_amount2 = rootView.findViewById(R.id.et_amount2);
 
         spinner_container1 = rootView.findViewById(R.id.spinner_container1);
         spinner_consolidate = (Spinner) rootView.findViewById(R.id.spinner_conso);
@@ -426,6 +434,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 spinner_container1.setVisibility(View.GONE);
                 conso_edittext.setVisibility(View.GONE);
                 date_filter_rl.setVisibility(View.GONE);
+                amount_filter_rl.setVisibility(View.GONE);
+
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
@@ -471,7 +481,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                             }
                         });
                     } else if (Filter_selected.equals("Amount")) {
-                        Toast.makeText(getContext(), "Amount selected", Toast.LENGTH_LONG).show();
+                        amount_filter_rl.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Status")) {
                         Filter_selected = "Status";
                         spinner_container1.setVisibility(View.VISIBLE);
