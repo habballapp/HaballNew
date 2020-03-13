@@ -70,6 +70,7 @@ import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -110,7 +111,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private ArrayAdapter<String> arrayAdapterPayments;
     private ArrayAdapter<String> arrayAdapterFeltter;
     private Button consolidate;
-    private String Filter_selected, Filter_selected_value;
+    private String Filter_selected, Filter_selected1, Filter_selected2, Filter_selected_value;
     private RecyclerView.Adapter mAdapter;
     private TextInputLayout search_bar;
     private Button btn_load_more;
@@ -127,6 +128,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private int pageNumberOrder = 0;
     private double totalPagesOrder = 0;
     private double totalEntriesOrder = 0;
+    private String fromDate, toDate;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -195,15 +197,15 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     @Override
                     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                         super.onScrolled(recyclerView, dx, dy);
-                        LinearLayoutManager layoutManager=LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+                        LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
 
-                        int visibleItemCount        = layoutManager.getChildCount();
-                        int totalItemCount          = layoutManager.getItemCount();
-                        int firstVisibleItemPosition= layoutManager.findFirstVisibleItemPosition();
+                        int visibleItemCount = layoutManager.getChildCount();
+                        int totalItemCount = layoutManager.getItemCount();
+                        int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
 
                         // Load more if we have reach the end to the recyclerView
-                        if ( (visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
-                            if(totalPages != 0 && pageNumber < totalPages) {
+                        if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
+                            if (totalPages != 0 && pageNumber < totalPages) {
 //                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
                                 btn_load_more.setVisibility(View.VISIBLE);
                             }
@@ -252,15 +254,15 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     @Override
                     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                         super.onScrolled(recyclerView, dx, dy);
-                        LinearLayoutManager layoutManager=LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+                        LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
 
-                        int visibleItemCount        = layoutManager.getChildCount();
-                        int totalItemCount          = layoutManager.getItemCount();
-                        int firstVisibleItemPosition= layoutManager.findFirstVisibleItemPosition();
+                        int visibleItemCount = layoutManager.getChildCount();
+                        int totalItemCount = layoutManager.getItemCount();
+                        int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
 
                         // Load more if we have reach the end to the recyclerView
-                        if ( (visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
-                            if(totalPages != 0 && pageNumberOrder < totalPages) {
+                        if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
+                            if (totalPages != 0 && pageNumberOrder < totalPages) {
 //                                Toast.makeText(getContext(), pageNumberOrder + " - " + totalPages, Toast.LENGTH_LONG).show();
                                 btn_load_more.setVisibility(View.VISIBLE);
                             }
@@ -289,6 +291,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         }
         return rootView;
     }
+
     private void performPaginationOrder() throws JSONException {
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
@@ -312,7 +315,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 Type type = new TypeToken<List<DistributorOrdersModel>>() {
                 }.getType();
                 OrdersList = gson.fromJson(result.toString(), type);
-                ((DistributorOrdersAdapter)recyclerView.getAdapter()).addListItem(OrdersList);
+                ((DistributorOrdersAdapter) recyclerView.getAdapter()).addListItem(OrdersList);
 
             }
         }, new Response.ErrorListener() {
@@ -337,6 +340,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
     }
+
     private void performPagination() throws JSONException {
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
@@ -365,7 +369,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
                 }.getType();
                 PaymentsRequestList = gson.fromJson(result.toString(), type);
-                ((DistributorPaymentRequestAdaptor)recyclerView.getAdapter()).addListItem(PaymentsRequestList);
+                ((DistributorPaymentRequestAdaptor) recyclerView.getAdapter()).addListItem(PaymentsRequestList);
 
             }
         }, new Response.ErrorListener() {
@@ -450,6 +454,9 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         conso_edittext.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Transaction Date")) {
                         date_filter_rl.setVisibility(View.VISIBLE);
+                        Filter_selected = "date";
+                        Filter_selected1 = "PrepaidDateFrom";
+                        Filter_selected2 = "PrepaidDateTo";
                         first_date_btn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -464,6 +471,15 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         });
                     } else if (Filter_selected.equals("Created Date")) {
                         date_filter_rl.setVisibility(View.VISIBLE);
+                        Filter_selected = "date";
+                        Filter_selected1 = "CreateDateFrom";
+                        Filter_selected2 = "CreateDateTo";
+                        first_date_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openCalenderPopup("first date");
+                            }
+                        });
                         second_date_btn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -530,7 +546,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 Log.i("text1", "check");
                 Log.i("text", String.valueOf(s));
                 Filter_selected_value = String.valueOf(s);
-                if(!Filter_selected_value.equals("")) {
+                if (!Filter_selected_value.equals("")) {
                     try {
                         fetchFilteredPaymentRequests();
                     } catch (JSONException e) {
@@ -655,7 +671,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 } else {
                     Filter_selected_value = String.valueOf(i - 1);
                     Log.i("Filter_selected_value", Filter_selected_value);
-                    if(!Filter_selected_value.equals("")) {
+                    if (!Filter_selected_value.equals("")) {
                         try {
                             fetchFilteredPaymentRequests();
                         } catch (JSONException e) {
@@ -680,7 +696,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 Log.i("text1", "check");
                 Log.i("text", String.valueOf(s));
                 Filter_selected_value = String.valueOf(s);
-                if(!Filter_selected_value.equals("")) {
+                if (!Filter_selected_value.equals("")) {
                     try {
                         fetchFilteredOrderData();
                     } catch (JSONException e) {
@@ -727,11 +743,11 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 error.printStackTrace();
                 Log.i("onErrorResponse", "Error");
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer "+Token);
+                params.put("Authorization", "bearer " + Token);
                 return params;
             }
         };
@@ -868,11 +884,11 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 error.printStackTrace();
                 Log.i("onErrorResponse", "Error");
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer "+Token);
+                params.put("Authorization", "bearer " + Token);
                 return params;
             }
         };
@@ -923,7 +939,6 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         Volley.newRequestQueue(getContext()).add(sr);
     }
 
-
     private void fetchFilteredPaymentRequests() throws JSONException {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
@@ -939,7 +954,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         map.put("DistributorId", Integer.parseInt(DistributorId));
         map.put("TotalRecords", 10);
         map.put("PageNumber", 0.1);
-        map.put(Filter_selected, Filter_selected_value);
+        if(!Filter_selected.equals("date"))
+            map.put(Filter_selected, Filter_selected_value);
+        else {
+            map.put(Filter_selected1, fromDate);
+            map.put(Filter_selected2, toDate);
+        }
         Log.i("Map", String.valueOf(map));
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_PAYMENTS, map, new Response.Listener<JSONArray>() {
@@ -1062,13 +1082,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-        if(dateType.equals("first date")){
+        if (dateType.equals("first date")) {
             year1 = i;
             month1 = i1;
             date1 = i2;
             updateDisplay(dateType);
-        }
-        else if(dateType.equals("second date")){
+        } else if (dateType.equals("second date")) {
             year2 = i;
             month2 = i1;
             date2 = i2;
@@ -1077,15 +1096,21 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     }
 
     private void updateDisplay(String date_type) {
-        if(date_type.equals("first date")){
+        if (date_type.equals("first date")) {
+            fromDate = year1 + "-" + String.format("%02d", (month1 + 1)) + "-" + String.format("%02d", date1) + "T00:00:00.000Z";
+            Log.i("fromDate", fromDate);
+
             first_date.setText(new StringBuilder()
-                    // Month is 0 based so add 1
-                    .append(date1).append("/").append(month1+ 1).append("/").append(year1).append(" "));
-        }
-        else if(date_type.equals("second date")){
+                    .append(date1).append("/").append(month1 + 1).append("/").append(year1).append(" "));
+        } else if (date_type.equals("second date")) {
+            toDate = year2 + "-" + String.format("%02d", (month2 + 1)) + "-" + String.format("%02d", date2) + "T00:00:00.000Z";
             second_date.setText(new StringBuilder()
-                    // Month is 0 based so add 1
-                    .append(date2).append("/").append(month2+ 1).append("/").append(year2).append(" "));
+                    .append(date2).append("/").append(month2 + 1).append("/").append(year2).append(" "));
+        }
+        try {
+            fetchFilteredPaymentRequests();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 }
