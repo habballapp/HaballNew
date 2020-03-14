@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.haball">
-
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -16,6 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".Distributor.ui.retailer.Payment.ViewPayment.RetailerPaymentView"
+            android:label="@string/title_activity_retailer_payment_view"
+            android:theme="@style/NoActionBar"></activity>
         <activity
             android:name=".Distributor.ui.orders.OrdersTabsLayout.Orders_Dashboard"
             android:label="@string/title_activity_orders__dashboard"
