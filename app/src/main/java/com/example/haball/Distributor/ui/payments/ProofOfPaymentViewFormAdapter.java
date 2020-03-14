@@ -105,8 +105,8 @@ public class ProofOfPaymentViewFormAdapter extends RecyclerView.Adapter<ProofOfP
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_pop_detail_title_view_value = itemView.findViewById(R.id.tv_pop_detail_title_view_value);
-            tv_pop_created_date_value = itemView.findViewById(R.id.tv_pop_created_date_value);
-            tv_filetype = itemView.findViewById(R.id.tv_filetype);
+            tv_pop_created_date_value = itemView.findViewById(R.id.tv_consolidated_date);
+            tv_filetype = itemView.findViewById(R.id.consolidate_company_name);
             pop_menu_btn = itemView.findViewById(R.id.pop_menu_btn);
 
         }
