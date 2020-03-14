@@ -23,8 +23,12 @@
     <string name="tab_text_10">\t\tReceived\t\t</string>
     <string name="tab_text_08">\t\tPlace Order\t\t</string>
     <string name="tab_text_09">\t\tOrder Summary\t\t</string>
+    //retailer_place_order in distributor
+    <string name="tab_text_rpoid_01">\t\tPlace Order\t\t</string>
+    <string name="tab_text_rpoid_02">\t\tOrder Summary\t\t</string>
 
-    <string name="load_more"><u>Load More</u></string>
+        
+    <string name="load_more"><u>Load More</u></string>
 
 
     <string name="Forgot_Password">Forgot Password</string>
@@ -87,4 +91,5 @@
     </string>
     <string name="title_activity_my__network">My_Network</string>
     <string name="title_activity_orders__dashboard">Orders_Dashboard</string>
+    <string name="title_activity_retailer_place_order">RetailerPlaceOrder</string>
 </resources>
