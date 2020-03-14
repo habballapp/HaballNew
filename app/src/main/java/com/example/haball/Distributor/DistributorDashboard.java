@@ -18,6 +18,7 @@ import com.example.haball.Distributor.ui.payments.PaymentsSummaryFragment;
 import com.example.haball.Distributor.ui.payments.Payments_Fragment;
 import com.example.haball.Distributor.ui.payments.ProofOfPaymentsDashboardFragment;
 import com.example.haball.Distributor.ui.profile.ProfileFragment;
+import com.example.haball.Distributor.ui.retailer.Payment.RetailerPaymentDashboard;
 import com.example.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrderDashboard;
 import com.example.haball.Distributor.ui.shipments.Shipments_Fragments;
 import com.example.haball.Distributor.ui.support.SupportFragment;
@@ -149,6 +150,7 @@ public class DistributorDashboard extends AppCompatActivity {
                         } else if (id == 4) {
                             Log.i("Retailer", "Retailer Activity");
 
+
                         } else if (id == 5) {
                             Log.i("Profile", "Profile Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -245,6 +247,10 @@ public class DistributorDashboard extends AppCompatActivity {
                         else if (groupPosition ==4 && childPosition ==2)
                         {
                             Toast.makeText(DistributorDashboard.this, "Retailer Payment", Toast.LENGTH_SHORT).show();
+                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container, new RetailerPaymentDashboard());
+                            fragmentTransaction.commit();
+                            drawer.closeDrawer(GravityCompat.START);
                             drawer.closeDrawer(GravityCompat.START);
                         }
                         drawer.closeDrawer(GravityCompat.START);

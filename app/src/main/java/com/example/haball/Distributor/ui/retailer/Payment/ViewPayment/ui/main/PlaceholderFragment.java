@@ -53,6 +53,7 @@ public class PlaceholderFragment extends Fragment {
             case 1: {
 
                 rootView = inflater.inflate(R.layout.dist_retailer_payment, container, false);
+
                 break;
             }
             case 2: {
