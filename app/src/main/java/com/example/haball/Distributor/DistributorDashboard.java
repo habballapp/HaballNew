@@ -18,6 +18,7 @@ import com.example.haball.Distributor.ui.payments.PaymentsSummaryFragment;
 import com.example.haball.Distributor.ui.payments.Payments_Fragment;
 import com.example.haball.Distributor.ui.payments.ProofOfPaymentsDashboardFragment;
 import com.example.haball.Distributor.ui.profile.ProfileFragment;
+import com.example.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrderDashboard;
 import com.example.haball.Distributor.ui.shipments.Shipments_Fragments;
 import com.example.haball.Distributor.ui.support.SupportFragment;
 import com.example.haball.Distributor.ui.terms_and_conditions.TermsAndConditionsFragment;
@@ -236,7 +237,9 @@ public class DistributorDashboard extends AppCompatActivity {
                         }
                         else  if (groupPosition ==4 && childPosition == 1)
                         {
-                            Toast.makeText(DistributorDashboard.this, "retailer Order", Toast.LENGTH_SHORT).show();
+                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container, new RetailerOrderDashboard());
+                            fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         }
                         else if (groupPosition ==4 && childPosition ==2)
