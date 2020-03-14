@@ -91,4 +91,10 @@
     </string>
     <string name="title_activity_my__network">My_Network</string>
     <string name="title_activity_orders__dashboard">Orders_Dashboard</string>
+    <string name="title_activity_retailer_payment_view">RetailerPaymentView</string>
+    <string name="title_activity_retailer_place_order">RetailerPlaceOrder</string>
+    // Dist_RetailerDashboard
+    <string name="retailer_Payment">\t\tPayment\t\t</string>
+    <string name="retailer_Order">\t\t Order \t\t</string>
+    <string name="retailer_OrderDetails">\t\t Order Details\t\t</string>
 </resources>
