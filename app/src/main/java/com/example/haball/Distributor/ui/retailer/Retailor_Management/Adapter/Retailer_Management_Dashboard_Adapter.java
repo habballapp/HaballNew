@@ -21,18 +21,22 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 
 public class Retailer_Management_Dashboard_Adapter extends RecyclerView.Adapter<Retailer_Management_Dashboard_Adapter.ViewHolder> {
 
     private Context mContext;
     private String heading,retailer_code_no,tv_retailerdate_date_no,retailer_status_value;
+    private List<Retailer_Management_Dashboard_Model> retailerList;
 
-    public Retailer_Management_Dashboard_Adapter(Context mContext, String heading, String retailer_code_no, String tv_retailerdate_date_no, String retailer_status_value) {
+    public Retailer_Management_Dashboard_Adapter(Context mContext, List<Retailer_Management_Dashboard_Model> retailerList) {
         this.mContext = mContext;
-        this.heading = heading;
-        this.retailer_code_no = retailer_code_no;
-        this.tv_retailerdate_date_no = tv_retailerdate_date_no;
-        this.retailer_status_value = retailer_status_value;
+        this.retailerList = retailerList;
+//        this.heading = heading;
+//        this.retailer_code_no = retailer_code_no;
+//        this.tv_retailerdate_date_no = tv_retailerdate_date_no;
+//        this.retailer_status_value = retailer_status_value;
     }
 
     @NonNull
@@ -47,10 +51,10 @@ public class Retailer_Management_Dashboard_Adapter extends RecyclerView.Adapter<
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        holder.tv_heading.setText(heading);
-        holder.retailer_code_no.setText(retailer_code_no);
-        holder.tv_retailerdate_date_no.setText(tv_retailerdate_date_no);
-        holder.retailer_status_value.setText(retailer_status_value);
+        holder.tv_heading.setText(retailerList.get(position).getCompanyName());
+        holder.retailer_code_no.setText(retailerList.get(position).getRetailerCode());
+        holder.tv_retailerdate_date_no.setText(retailerList.get(position).getCreatedDate());
+        holder.retailer_status_value.setText(retailerList.get(position).getStatus());
 
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +90,7 @@ public class Retailer_Management_Dashboard_Adapter extends RecyclerView.Adapter<
 
     @Override
     public int getItemCount() {
-        return 1;
+        return retailerList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
