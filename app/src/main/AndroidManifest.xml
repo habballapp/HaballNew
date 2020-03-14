@@ -16,13 +16,17 @@
         android:theme="@style/Theme.AppCompat.Light"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Distributor.ui.retailer.RetailerOrder.RetailerViewOrder"
+            android:label="@string/title_activity_retailer_view_order"
+            android:theme="@style/NoActionBar"></activity>
+        <activity
             android:name=".Distributor.ui.retailer.Payment.ViewPayment.RetailerPaymentView"
             android:label="@string/title_activity_retailer_payment_view"
-            android:theme="@style/NoActionBar"></activity>
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".Distributor.ui.retailer.RetailerPlaceOrder.RetailerPlaceOrder"
             android:label="@string/title_activity_retailer_place_order"
-            android:theme="@style/NoActionBar"/>
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".Distributor.ui.orders.OrdersTabsLayout.Orders_Dashboard"
             android:label="@string/title_activity_orders__dashboard"

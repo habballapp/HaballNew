@@ -97,4 +97,5 @@
     <string name="retailer_Payment">\t\tPayment\t\t</string>
     <string name="retailer_Order">\t\t Order \t\t</string>
     <string name="retailer_OrderDetails">\t\t Order Details\t\t</string>
+    <string name="title_activity_retailer_view_order">RetailerViewOrder</string>
 </resources>
