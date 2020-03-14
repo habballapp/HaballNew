@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_container2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Retailor.ui.Network.My_NetworkDashboard">
+    tools:context=".Distributor.ui.retailer.RetailerOrder.RetailerViewOrder">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#fff">
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs4"
+            android:id="@+id/tabs_ret_view_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:background="#fff"
@@ -27,11 +26,17 @@
             app:tabTextAppearance="@style/CustomTextAppearanceTab" />
 
         <androidx.viewpager.widget.ViewPager
-            android:id="@+id/view_pager4"
+            android:id="@+id/view_pager_ret_view_order"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/tabs4"
+            android:layout_below="@id/tabs_ret_view_order"
             android:layout_marginTop="10dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </RelativeLayout>
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+
+
+

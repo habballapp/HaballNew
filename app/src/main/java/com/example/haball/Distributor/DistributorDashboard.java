@@ -19,6 +19,8 @@ import com.example.haball.Distributor.ui.payments.Payments_Fragment;
 import com.example.haball.Distributor.ui.payments.ProofOfPaymentsDashboardFragment;
 import com.example.haball.Distributor.ui.profile.ProfileFragment;
 import com.example.haball.Distributor.ui.retailer.Payment.RetailerPaymentDashboard;
+import com.example.haball.Distributor.ui.retailer.RetailerFragment;
+import com.example.haball.Distributor.ui.retailer.RetailerFragment;
 import com.example.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrderDashboard;
 import com.example.haball.Distributor.ui.shipments.Shipments_Fragments;
 import com.example.haball.Distributor.ui.support.SupportFragment;
@@ -145,7 +147,12 @@ public class DistributorDashboard extends AppCompatActivity {
                             Log.i("Shipment", "Shipment Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new Shipments_Fragments());
-                            fragmentTransaction.commit();
+                            fragmentTransaction.commit();   jsonObject.put("CompanyName", null);
+//        jsonObject.put("CreateDateFrom", null);
+//        jsonObject.put("CreateDateTo", null);
+//        jsonObject.put("Status", null);
+//        jsonObject.put("AmountMin", null);
+//        jsonObject.put("AmountMax", null);
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 4) {
                             Log.i("Retailer", "Retailer Activity");
@@ -235,6 +242,9 @@ public class DistributorDashboard extends AppCompatActivity {
                         else if (groupPosition == 4 && childPosition ==0)
                         {
                             Toast.makeText(DistributorDashboard.this, "retialer Managment", Toast.LENGTH_SHORT).show();
+                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container, new RetailerFragment());
+                            fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         }
                         else  if (groupPosition ==4 && childPosition == 1)

@@ -30,6 +30,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,6 +52,8 @@ import com.example.haball.Distributor.DistributorPaymentsAdapter;
 
 import com.example.haball.Distributor.DistributorPaymentsModel;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
+import com.example.haball.Distributor.ui.retailer.RetailerFragment;
+import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.RetailerPlaceOrder;
 import com.example.haball.Payment.DistributorPaymentRequestAdaptor;
 import com.example.haball.Payment.DistributorPaymentRequestModel;
 import com.example.haball.Payment.PaymentLedgerAdapter;
@@ -131,6 +134,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private double totalPagesOrder = 0;
     private double totalEntriesOrder = 0;
     private String fromDate, toDate;
+    private FragmentTransaction fragmentTransaction;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -575,6 +579,9 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         consolidate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.replace(R.id.main_container, new RetailerPlaceOrder());
+//                fragmentTransaction.commit();
                 Toast.makeText(getContext(), "Consolidate clicked", Toast.LENGTH_LONG).show();
 //                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                        fragmentTransaction.remove(PaymentRequestDashboard.this);
