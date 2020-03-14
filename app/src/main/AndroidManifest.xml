@@ -18,7 +18,7 @@
         <activity
             android:name=".Distributor.ui.retailer.Payment.ViewPayment.RetailerPaymentView"
             android:label="@string/title_activity_retailer_payment_view"
-            android:theme="@style/NoActionBar"></activity>
+            android:theme="@style/NoActionBar"/>
         <activity
             android:name=".Distributor.ui.retailer.RetailerPlaceOrder.RetailerPlaceOrder"
             android:label="@string/title_activity_retailer_place_order"

@@ -21,7 +21,7 @@ public class RetailerOrderDashboard extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private Button btn_place_order;
-
+    private String URL_ORDER = "http://175.107.203.97:4007/api/retailerorder/search";
     private FragmentTransaction fragmentTransaction;
 
     public RetailerOrderDashboard() {}
