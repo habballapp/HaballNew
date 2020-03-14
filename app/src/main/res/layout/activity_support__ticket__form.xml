@@ -57,45 +57,94 @@
             android:layout_below="@+id/header"
             android:layout_marginTop="20dp"
             >
-            <EditText
-                android:id="@+id/BName"
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_BName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
                 android:hint="Business Name"
-                android:textSize="14sp"
+                android:textColorHint="#A9A9A9"
+                android:theme="@style/TextLabel"
+                app:boxBackgroundColor="#fff"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="1.75dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/BName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="#676a6c"
+                    android:inputType="text|textCapSentences"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_Email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
-                android:padding="10dp"
-                android:inputType="text|textCapSentences"
-                android:background="@drawable/edit_round"/>
-            <EditText
-                android:id="@+id/Email"
-                android:layout_width="match_parent"
-                android:textSize="14sp"
-                android:layout_below="@+id/BName"
                 android:hint="Email"
-                android:layout_height="40dp"
-                android:padding="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:inputType="textEmailAddress"
-                android:background="@drawable/edit_round"
-                />
-            <EditText
-                android:id="@+id/MobileNo"
-                android:hint="Mobile No"
-                android:textSize="14sp"
+                android:theme="@style/TextLabel"
+                android:layout_below="@+id/layout_BName"
+                android:textColorHint="#A9A9A9"
+                app:boxBackgroundColor="#fff"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="1.75dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/Email"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="#676a6c"
+                    android:inputType="textEmailAddress"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_MobileNo"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:background="@drawable/edit_round"
-                android:layout_height="40dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
-                android:layout_marginTop="20dp"
-                android:padding="10dp"
-                android:inputType="number"
-                android:layout_below="@+id/Email"/>
+                android:hint="Mobile No"
+                android:textColorHint="#A9A9A9"
+                android:theme="@style/TextLabel"
+                android:layout_below="@+id/layout_Email"
+                app:boxBackgroundColor="#fff"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="1.75dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/MobileNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="#676a6c"
+                    android:inputType="number"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <RelativeLayout
                 android:id="@+id/relative_issuetype"
@@ -104,11 +153,13 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="20dp"
-                android:layout_below="@+id/MobileNo"
+                android:layout_below="@+id/layout_MobileNo"
                 android:padding="10dp"
                 android:background="@drawable/edit_round">
                 <Spinner
                     android:id="@+id/IssueType"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     />
@@ -127,6 +178,8 @@
                 android:background="@drawable/edit_round">
                 <Spinner
                     android:id="@+id/critcicality"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     />
@@ -144,26 +197,43 @@
                 android:background="@drawable/edit_round">
                 <Spinner
                     android:id="@+id/Preffered_Contact"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     />
             </RelativeLayout>
 
-            <EditText
-                android:id="@+id/Comment"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_Comment"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:background="@drawable/edit_round"
-                android:padding="10dp"
-                android:hint="Comment"
-                android:textSize="14sp"
-                android:layout_marginTop="20dp"
-                android:layout_below="@+id/relative_Preffered_Contact"
+                android:layout_marginTop="15dp"
                 android:layout_marginLeft="40dp"
-                android:gravity="left"
-                android:inputType="textMultiLine|textCapSentences"
-                android:layout_marginRight="40dp"/>
+                android:layout_marginRight="40dp"
+                android:hint="Comment"
+                android:theme="@style/TextLabel"
+                android:layout_below="@+id/relative_Preffered_Contact"
+                android:textColorHint="#A9A9A9"
+                app:boxBackgroundColor="#fff"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="1.75dp">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/Comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="#676a6c"
+                    android:gravity="top|left"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
         </RelativeLayout>
 

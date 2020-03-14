@@ -20,6 +20,7 @@ import com.example.haball.Distributor.ui.payments.ProofOfPaymentsDashboardFragme
 import com.example.haball.Distributor.ui.profile.ProfileFragment;
 import com.example.haball.Distributor.ui.shipments.Shipments_Fragments;
 import com.example.haball.Distributor.ui.support.SupportFragment;
+import com.example.haball.Distributor.ui.terms_and_conditions.TermsAndConditionsFragment;
 import com.example.haball.R;
 
 import android.util.Log;
@@ -116,6 +117,7 @@ public class DistributorDashboard extends AppCompatActivity {
                 .addHeaderModel(new HeaderModel("Profile"))
                 .addHeaderModel(new HeaderModel("Support"))
                 .addHeaderModel(new HeaderModel("Logout"))
+                .addHeaderModel(new HeaderModel("\n\n\n\nTerms And Conditions"))
                 .build()
                 .addOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
                     @Override
@@ -166,6 +168,14 @@ public class DistributorDashboard extends AppCompatActivity {
                                 startActivity(login);
                                 finish();
                             }
+                            drawer.closeDrawer(GravityCompat.START);
+                        }
+                        else if (id == 8) {
+                            Log.i("terms and conditions", "terms and conditions");
+                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container, new TermsAndConditionsFragment());
+                            fragmentTransaction.commit();
+
                             drawer.closeDrawer(GravityCompat.START);
                         }
 

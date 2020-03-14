@@ -72,7 +72,7 @@ public class SupportFragment extends Fragment {
     private String Token, DistributorId;
     private String URL_SUPPORT = "http://175.107.203.97:3020/api/support/Search";
     private SupportViewModel supportViewModel;
-    private List<SupportDashboardModel> SupportList = new ArrayList<>();
+    private List<SupportDashboardRetailerModel> SupportList = new ArrayList<>();
     //spinner1
     private Spinner support_retailer_spiner1;
     private List<String> supportspinner_List = new ArrayList<>();
@@ -298,7 +298,7 @@ public class SupportFragment extends Fragment {
                 }
 //
                 Gson gson = new Gson();
-                Type type = new TypeToken<List<SupportDashboardModel>>() {
+                Type type = new TypeToken<List<SupportDashboardRetailerModel>>() {
                 }.getType();
                 try {
                     SupportList = gson.fromJson(String.valueOf(response.get(0)), type);
@@ -306,7 +306,7 @@ public class SupportFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                mAdapter = new SupportDashboardAdapter(getContext(), SupportList);
+                mAdapter = new SupportDashboardRetailerAdapter(getContext(), SupportList);
                 recyclerView.setAdapter(mAdapter);
 
             }
@@ -361,7 +361,7 @@ public class SupportFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                mAdapter = new SupportDashboardAdapter(getContext(), SupportList);
+                mAdapter = new SupportDashboardRetailerAdapter(getContext(), SupportList);
                 recyclerView.setAdapter(mAdapter);
 
             }

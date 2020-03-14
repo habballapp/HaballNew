@@ -88,7 +88,6 @@ public class Register_Activity_2 extends AppCompatActivity implements View.OnFoc
         (findViewById(R.id.txt_firstname)).setOnFocusChangeListener(this);
         (findViewById(R.id.txt_lastname)).setOnFocusChangeListener(this);
         (findViewById(R.id.txt_conpany_name)).setOnFocusChangeListener(this);
-        (findViewById(R.id.txt_website)).setOnFocusChangeListener(this);
         (findViewById(R.id.txt_email)).setOnFocusChangeListener(this);
         (findViewById(R.id.txt_cnic)).setOnFocusChangeListener(this);
         (findViewById(R.id.txt_mobile_number)).setOnFocusChangeListener(this);
@@ -249,8 +248,10 @@ public class Register_Activity_2 extends AppCompatActivity implements View.OnFoc
                 TextUtils.isEmpty(txt_mobile_number.getText().toString()) ||
                 TextUtils.isEmpty(txt_phone_number.getText().toString()) ||
                 TextUtils.isEmpty(txt_ntn.getText().toString()) ||
-                TextUtils.isEmpty(txt_conpany_name.getText().toString()) ||
-                TextUtils.isEmpty(txt_website.getText().toString()))
+                TextUtils.isEmpty(txt_conpany_name.getText().toString())
+//                ||
+//                TextUtils.isEmpty(txt_website.getText().toString())
+        )
             return true;
         else
             return false;
@@ -449,11 +450,6 @@ public class Register_Activity_2 extends AppCompatActivity implements View.OnFoc
                     break;
                 case R.id.txt_lastname:
                     checkEmpty(txt_lastname);
-
-                    break;
-                case R.id.txt_website:
-                    checkEmpty(txt_website);
-
                     break;
                 case R.id.txt_conpany_name:
                     checkEmpty(txt_conpany_name);

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
 
     <!-- Base application theme. -->
@@ -18,11 +18,26 @@
         <item name="android:textColorHint">#96bb3c</item>
         <item name="android:textColor">#676a6c</item>
         <!--        <item name="android:textSize">20sp</item>-->
-        <item name="colorAccent">#96bb3c</item>
-        <item name="colorControlNormal">#000000</item>
+        <item name="colorAccent">#A9A9A9</item>
+        <item name="colorControlNormal">#A9A9A9</item>
         <item name="colorControlActivated">#96bb3c</item>
+        <item name="boxStrokeWidth">1.75dp</item>
         <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
     </style>
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">#96BA3C</item>
+
+        <item name="android:datePickerStyle">@style/MyDatePickerStyle</item>
+        <item name="android:textColorPrimaryInverse">#000</item> <!-- header date, month color && calendar text highlight color -->
+        <item name="android:textColorSecondaryInverse">#000</item> <!-- header year color -->
+
+    </style>
+
+    <style name="MyDatePickerStyle" parent="@android:style/Widget.Material.Light.DatePicker" tools:targetApi="lollipop">
+        <item name="android:headerBackground">#fff</item> <!-- header background color -->
+    </style>
+
     <style name="TextAppearance.App.TextInputLayout" parent="@android:style/TextAppearance">
         <!-- Customize your theme here. -->
         <item name="android:textColor">#96bb3c</item>

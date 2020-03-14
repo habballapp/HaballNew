@@ -68,6 +68,32 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (paymentsRequestList.get(position).getPrepaidStatusValue().equals("Unpaid"))
+                {
+                    final PopupMenu popup = new PopupMenu(context, view);
+                    MenuInflater inflater = popup.getMenuInflater();
+                    inflater.inflate(R.menu.payment_request_menu_items_status, popup.getMenu());
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.payment_request_view:
+                                    Toast.makeText(context,"View Clicked",Toast.LENGTH_LONG).show();
+                                    fragmentTransaction = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
+                                    fragmentTransaction.replace(R.id.main_container, new View_Payment_Fragment());
+                                    fragmentTransaction.commit();
+                                    break;
+                                case R.id.payment_request_ebay:
+                                    Toast.makeText(context,"Epay Clicked",Toast.LENGTH_LONG).show();
+                                    break;
+                            }
+                            return false;
+                        }
+                    });
+                    popup.show();
+
+                }
+                else if(paymentsRequestList.get(position).getPrepaidStatusValue().equals("Paid")){
                 final PopupMenu popup = new PopupMenu(context, view);
                 MenuInflater inflater = popup.getMenuInflater();
                 inflater.inflate(R.menu.payment_request_menu_items, popup.getMenu());
@@ -174,6 +200,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
                     }
                 });
                 popup.show();
+            }
             }
         });
     }

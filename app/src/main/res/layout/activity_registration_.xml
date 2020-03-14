@@ -96,7 +96,7 @@
                         android:background="@drawable/border_set"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
-                        android:text="ACCOUNT CREDENTIALS"
+                        android:text="ACCOUNT INFORMATION"
                         android:textColor="#96bb3c"
                         android:textSize="10sp" />
 
@@ -112,59 +112,94 @@
                     android:orientation="vertical"
                     android:weightSum="3">
 
-                    <EditText
-                        android:id="@+id/txt_username"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_txt_username"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="45dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="40dp"
+                        android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:background="@drawable/distribution_login"
                         android:hint="Username Or Mobile No"
-                        android:inputType="textEmailAddress"
-                        android:paddingTop="5dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="5dp"
-                        android:textSize="14sp" />
+                        android:theme="@style/TextLabel"
+                        app:boxBackgroundColor="#fff"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
 
-                    <EditText
-                        android:id="@+id/txt_password"
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_username"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="#676a6c"
+                            android:inputType="textEmailAddress"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_txt_password"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="45dp"
                         android:layout_marginLeft="40dp"
-                        android:layout_marginTop="20dp"
                         android:layout_marginRight="40dp"
+                        android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:background="@drawable/distribution_login"
-                        android:drawableEnd="@drawable/ic_remove_red_eye_black_24dp"
-                        android:drawableRight="@drawable/ic_remove_red_eye_black_24dp"
                         android:hint="Password"
-                        android:inputType="textPassword"
-                        android:paddingTop="5dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="5dp"
-                        android:textSize="14sp" />
+                        android:theme="@style/TextLabel"
+                        app:boxBackgroundColor="#fff"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
 
-                    <EditText
-                        android:id="@+id/txt_confirm"
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="#676a6c"
+                            android:inputType="textPassword"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_txt_confirm"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="45dp"
                         android:layout_marginLeft="40dp"
-                        android:layout_marginTop="20dp"
                         android:layout_marginRight="40dp"
+                        android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:background="@drawable/distribution_login"
-                        android:drawableEnd="@drawable/ic_remove_red_eye_black_24dp"
-                        android:drawableRight="@drawable/ic_remove_red_eye_black_24dp"
-                        android:hint="Confirm Password  *"
-                        android:inputType="textPassword"
-                        android:paddingTop="5dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="5dp"
-                        android:textSize="14sp" />
+                        android:hint="Confirm Password *"
+                        android:theme="@style/TextLabel"
+                        app:boxBackgroundColor="#fff"
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="1.75dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_confirm"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="#676a6c"
+                            android:inputType="textPassword"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
