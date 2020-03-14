@@ -39,7 +39,6 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
         this.paymentsList = paymentsList;
     }
 
-
     @NonNull
     @Override
     public RetailerPaymentAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
