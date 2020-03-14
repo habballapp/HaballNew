@@ -46,7 +46,7 @@
             <com.google.android.material.textfield.TextInputLayout
 
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="45dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:hint="Retailer Code"
@@ -57,7 +57,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_dist_code"
+                    android:id="@+id/mg_rt_code"
                     android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
@@ -73,11 +73,11 @@
             <com.google.android.material.textfield.TextInputLayout
 
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="45dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="15dp"
-                android:hint="First Name *"
+                android:hint="Full Name *"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 app:boxStrokeColor="#e5e5e5"
@@ -85,8 +85,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_firstname"
-                    android:drawableRight="@drawable/editprofile"
+                    android:id="@+id/mg_rt_firstname"
                     android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
@@ -102,11 +101,11 @@
             <com.google.android.material.textfield.TextInputLayout
 
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="45dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="15dp"
-                android:hint="Last Name *"
+                android:hint="Email Address"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 app:boxStrokeColor="#e5e5e5"
@@ -114,8 +113,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_lastname"
-                    android:drawableRight="@drawable/editprofile"
+                    android:id="@+id/mg_rt_email"
                     android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
@@ -130,11 +128,11 @@
             <com.google.android.material.textfield.TextInputLayout
 
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="45dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="15dp"
-                android:hint="Email Address *"
+                android:hint="CNIC No"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 app:boxStrokeColor="#e5e5e5"
@@ -142,8 +140,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_email"
-                    android:drawableRight="@drawable/editprofile"
+                    android:id="@+id/mg_cnic_no"
                     android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
@@ -159,11 +156,11 @@
             <com.google.android.material.textfield.TextInputLayout
 
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="45dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="15dp"
-                android:hint="CNIC Number"
+                android:hint="Mobile No"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 app:boxStrokeColor="#e5e5e5"
@@ -171,7 +168,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tv_cnic"
+                    android:id="@+id/mg_mobile_no"
                     android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
@@ -187,11 +184,11 @@
             <com.google.android.material.textfield.TextInputLayout
 
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="45dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="15dp"
-                android:hint="Mobile No *"
+                android:hint="Company"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 app:boxStrokeColor="#e5e5e5"
@@ -199,8 +196,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_dist_mobile"
-                    android:drawableRight="@drawable/editprofile"
+                    android:id="@+id/mg_rt_company"
                     android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
@@ -213,46 +209,14 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-
-
-
             <com.google.android.material.textfield.TextInputLayout
 
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="100dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="15dp"
-                android:hint="NTN"
-                android:textColorHint="#96bb3c"
-                android:theme="@style/TextLabel"
-                android:enabled="false"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tv_NTN"
-                    android:textSize="14sp"
-                    android:textColor="#676a6c"
-                    android:paddingTop="5dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="5dp"
-                    android:enabled="false"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="15dp"
-                android:hint="Company Name"
+                android:hint="Address"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 app:boxStrokeColor="#e5e5e5"
@@ -260,94 +224,22 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tv_companyname"
+                    android:id="@+id/mg_tr_address"
+                    android:gravity="top|left"
                     android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
+                    android:maxLength="12"
                     android:layout_width="match_parent"
-                    android:enabled="false"
                     android:layout_height="match_parent"/>
 
             </com.google.android.material.textfield.TextInputLayout>
-
-
-
-            <com.google.android.material.textfield.TextInputLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="15dp"
-                android:hint="Created Date"
-                android:textColorHint="#96bb3c"
-                android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tv_created_date"
-                    android:textSize="14sp"
-                    android:textColor="#676a6c"
-                    android:paddingTop="5dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="5dp"
-                    android:layout_width="match_parent"
-                    android:enabled="false"
-                    android:layout_height="match_parent"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
 
         </LinearLayout>
 
-
-        <RelativeLayout
-            android:id="@+id/ln_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ln_txt"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            android:weightSum="2">
-
-            <Button
-                android:id="@+id/btn_changepwd"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_background"
-                android:gravity="center"
-                android:text="Change Password"
-                android:textAllCaps="false"
-                android:textColor="#fff"
-                android:textSize="14sp"
-
-                />
-
-            <Button
-                android:id="@+id/distri_btn_save"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_below="@id/btn_changepwd"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="20sp"
-                android:layout_marginRight="30dp"
-                android:background="@drawable/disabled_button_background"
-                android:text="Save"
-                android:enabled="false"
-                android:textAllCaps="false"
-                android:textColor="#fff"
-                android:textSize="14sp" />
-        </RelativeLayout>
 
 
         <TextView
