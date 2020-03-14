@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light"
         android:usesCleartextTraffic="true">
+        <activity android:name=".Distributor.ui.retailer.Retailor_Management.Retailer_Dashboard"></activity>
         <activity
             android:name=".Distributor.ui.retailer.RetailerOrder.RetailerViewOrder"
             android:label="@string/title_activity_retailer_view_order"
