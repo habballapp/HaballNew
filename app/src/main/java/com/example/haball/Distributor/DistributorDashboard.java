@@ -43,6 +43,7 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DistributorDashboard extends AppCompatActivity {
 
@@ -113,7 +114,10 @@ public class DistributorDashboard extends AppCompatActivity {
 
                 )
                 .addHeaderModel(new HeaderModel("Shipment"))
-                .addHeaderModel(new HeaderModel("Retailer"))
+                .addHeaderModel(new HeaderModel("Retailer")
+                        .addChildModel(new ChildModel("\tRetailer Management"))
+                        .addChildModel(new ChildModel("\t Retailer Order"))
+                        .addChildModel(new ChildModel("\tRetailer Payment")))
                 .addHeaderModel(new HeaderModel("Profile"))
                 .addHeaderModel(new HeaderModel("Support"))
                 .addHeaderModel(new HeaderModel("Logout"))
@@ -143,7 +147,7 @@ public class DistributorDashboard extends AppCompatActivity {
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 4) {
                             Log.i("Retailer", "Retailer Activity");
-                            drawer.closeDrawer(GravityCompat.START);
+
                         } else if (id == 5) {
                             Log.i("Profile", "Profile Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -223,6 +227,21 @@ public class DistributorDashboard extends AppCompatActivity {
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new Orders_Dashboard());
                             fragmentTransaction.commit();
+                            drawer.closeDrawer(GravityCompat.START);
+                        }
+                        else if (groupPosition == 4 && childPosition ==0)
+                        {
+                            Toast.makeText(DistributorDashboard.this, "retialer Managment", Toast.LENGTH_SHORT).show();
+                            drawer.closeDrawer(GravityCompat.START);
+                        }
+                        else  if (groupPosition ==4 && childPosition == 1)
+                        {
+                            Toast.makeText(DistributorDashboard.this, "retailer Order", Toast.LENGTH_SHORT).show();
+                            drawer.closeDrawer(GravityCompat.START);
+                        }
+                        else if (groupPosition ==4 && childPosition ==2)
+                        {
+                            Toast.makeText(DistributorDashboard.this, "Retailer Payment", Toast.LENGTH_SHORT).show();
                             drawer.closeDrawer(GravityCompat.START);
                         }
                         drawer.closeDrawer(GravityCompat.START);
