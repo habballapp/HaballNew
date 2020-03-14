@@ -24,8 +24,6 @@ public class RetailerFragment extends Fragment {
                 ViewModelProviders.of(this).get(RetailerViewModel.class);
         View root = inflater.inflate(R.layout.fragment_share, container, false);
 
-
-
         return root;
     }
 }
