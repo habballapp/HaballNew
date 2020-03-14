@@ -579,10 +579,10 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         consolidate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, new RetailerPlaceOrder());
-                fragmentTransaction.commit();
-//                Toast.makeText(getContext(), "Consolidate clicked", Toast.LENGTH_LONG).show();
+//                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.replace(R.id.main_container, new RetailerPlaceOrder());
+//                fragmentTransaction.commit();
+                Toast.makeText(getContext(), "Consolidate clicked", Toast.LENGTH_LONG).show();
 //                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                        fragmentTransaction.remove(PaymentRequestDashboard.this);
 //                        fragmentTransaction.replace(((ViewGroup)getView().getParent()).getId(), new CreatePaymentRequestFragment());

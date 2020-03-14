@@ -23,17 +23,16 @@ import android.view.ViewGroup;
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.SectionsPagerAdapter;
 
 public class RetailerPlaceOrder extends Fragment {
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.activity_retailer_place_order, container, false);
-
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getActivity(), getChildFragmentManager());
         final ViewPager viewPager = root.findViewById(R.id.view_pager_rpoid);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = root.findViewById(R.id.tabs_rpoid);
         tabs.setupWithViewPager(viewPager);
+
 
         return root;
     }
