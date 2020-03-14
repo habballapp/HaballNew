@@ -17,7 +17,7 @@
         android:weightSum="3">
 
         <TextView
-            android:id="@+id/consolidate_heading"
+            android:id="@+id/tv_pop_detail_title_view_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
