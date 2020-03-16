@@ -3,7 +3,7 @@
     <!-- menu group -->
     <group android:id="@+id/group_delete">
         <item android:id="@+id/view_payment"
-            android:title="View Payment" />
+            android:title="View" />
 
     </group>
 </menu>

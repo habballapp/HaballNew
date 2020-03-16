@@ -54,9 +54,9 @@ public class ProfileFragment extends Fragment {
     private Button change_pwd, update_password, distri_btn_save;
     private EditText edt_firstname, edt_lastname, edt_email, edt_dist_mobile, et_test, txt_password, txt_newpassword, txt_cfmpassword;
     public TextView edt_dist_code, tv_cnic, tv_NTN, tv_companyname, tv_created_date, tv_pr1;
-    private String PROFILE_URL = "http://175.107.203.97:4007/api/distributor/";
-    private String ChangePass_URL = "http://175.107.203.97:4007/api/Users/ChangePassword";
-    private String PROFILE_EDIT_URL = "http://175.107.203.97:4007/api/distributor/save";
+    private String PROFILE_URL = "http://175.107.203.97:4013/api/distributor/";
+    private String ChangePass_URL = "http://175.107.203.97:4013/api/Users/ChangePassword";
+    private String PROFILE_EDIT_URL = "http://175.107.203.97:4013/api/distributor/save";
     private String Token;
     private String DistributorId, ID, Username, Phone;
     private Dialog change_password_dail;

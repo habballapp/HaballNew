@@ -17,8 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.SectionsPagerAdapter;
 
@@ -32,6 +34,16 @@ public class RetailerPlaceOrder extends Fragment {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = root.findViewById(R.id.tabs_rpoid);
         tabs.setupWithViewPager(viewPager);
+
+        LinearLayout tabStrip = ((LinearLayout)tabs.getChildAt(0));
+        for(int i = 0; i < tabStrip.getChildCount(); i++) {
+            tabStrip.getChildAt(i).setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    return true;
+                }
+            });
+        }
 
 
         return root;
