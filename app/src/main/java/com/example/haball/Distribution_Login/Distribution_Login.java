@@ -67,8 +67,8 @@ public class Distribution_Login extends AppCompatActivity {
     private EditText et_username, et_password, txt_email;
     private Toolbar tb;
     private RequestQueue queue;
-    private String URL = "http://175.107.203.97:4007/Token";
-    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4007/api/Users/forgot";
+    private String URL = "http://175.107.203.97:4013/Token";
+    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4013/api/Users/forgot";
     private HttpURLConnection urlConnection = null;
     private URL url;
     private String token;

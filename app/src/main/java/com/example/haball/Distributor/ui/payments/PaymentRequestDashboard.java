@@ -75,7 +75,7 @@ public class PaymentRequestDashboard extends Fragment {
     private List<DistributorPaymentRequestModel> PaymentsRequestList = new ArrayList<>();
     private String Token, DistributorId;
     private Button create_payment;
-    private String URL_PAYMENT_REQUESTS = "http://175.107.203.97:4007/api/prepaidrequests/search";
+    private String URL_PAYMENT_REQUESTS = "http://175.107.203.97:4013/api/prepaidrequests/search";
     private FragmentTransaction fragmentTransaction;
     private String Filter_selected, Filter_selected_value;
 

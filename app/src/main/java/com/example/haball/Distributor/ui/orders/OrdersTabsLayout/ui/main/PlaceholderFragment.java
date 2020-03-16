@@ -71,7 +71,7 @@ public class PlaceholderFragment extends Fragment {
     private Button create_payment;
     private Spinner spinner_consolidate;
     private List<Company_Fragment_Model> CompanyList;
-    private String URL_Company = "http://175.107.203.97:4007/api/company/ReadActiveCompanyOrders/";
+    private String URL_Company = "http://175.107.203.97:4013/api/company/ReadActiveCompanyOrders/";
     private String Token, DistributorId;
     private String Filter_selected, Filter_selected_value;
     private Spinner spinner2;

@@ -59,10 +59,10 @@ public class Support_Ticket_Form extends AppCompatActivity {
     private EditText BName, Email, MobileNo, Comment;
     private ImageButton btn_back;
     private Spinner IssueType, critcicality, Preffered_Contact;
-    private String URL_SPINNER_ISSUETYPE = "http://175.107.203.97:4007/api/lookup/public/ISSUE_TYPE_PUBLIC";
-    private String URL_SPINNER_CRITICALITY = "http://175.107.203.97:4007/api/lookup/public/CRITICALITY_PUBLIC";
-    private String URL_SPINNER_PREFFEREDCONTACT = "http://175.107.203.97:4007/api/lookup/public/CONTRACTING_METHOD";
-    private String URL_TICkET = "http://175.107.203.97:4007/api/contact/save";
+    private String URL_SPINNER_ISSUETYPE = "http://175.107.203.97:4013/api/lookup/public/ISSUE_TYPE_PUBLIC";
+    private String URL_SPINNER_CRITICALITY = "http://175.107.203.97:4013/api/lookup/public/CRITICALITY_PUBLIC";
+    private String URL_SPINNER_PREFFEREDCONTACT = "http://175.107.203.97:4013/api/lookup/public/CONTRACTING_METHOD";
+    private String URL_TICkET = "http://175.107.203.97:4013/api/contact/save";
 
     private List<String> issue_type = new ArrayList<>();
     private List<String> criticality = new ArrayList<>();

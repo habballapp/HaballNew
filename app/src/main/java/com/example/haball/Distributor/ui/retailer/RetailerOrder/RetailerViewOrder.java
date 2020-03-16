@@ -27,7 +27,7 @@ public class RetailerViewOrder extends Fragment {
         View root = inflater.inflate(R.layout.activity_retailer_view_order, container, false);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getActivity(), getChildFragmentManager());
         final ViewPager viewPager = root.findViewById(R.id.view_pager_ret_view_order);
-        viewPager.setOffscreenPageLimit(2);
+        viewPager.setOffscreenPageLimit(3);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = root.findViewById(R.id.tabs_ret_view_order);
         tabs.setupWithViewPager(viewPager);

@@ -53,7 +53,7 @@ public class RetailerPaymentDashboard extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private String Token,DistributorId;;
-    private String URL = "http://175.107.203.97:4007/api/retailerprepaidrequest/search";
+    private String URL = "http://175.107.203.97:4013/api/retailerprepaidrequest/search";
     private List<Dist_Retailer_Dashboard_Model> PaymentsList = new ArrayList<>();
     //spiner1
     private Spinner sp_payment_dist_retailer;

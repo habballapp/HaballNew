@@ -147,7 +147,8 @@ public class DistributorDashboard extends AppCompatActivity {
                             Log.i("Shipment", "Shipment Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new Shipments_Fragments());
-                            fragmentTransaction.commit();   jsonObject.put("CompanyName", null);
+                            fragmentTransaction.commit();
+                            //jsonObject.put("CompanyName", null);
 //        jsonObject.put("CreateDateFrom", null);
 //        jsonObject.put("CreateDateTo", null);
 //        jsonObject.put("Status", null);
@@ -241,7 +242,7 @@ public class DistributorDashboard extends AppCompatActivity {
                         }
                         else if (groupPosition == 4 && childPosition ==0)
                         {
-                            Toast.makeText(DistributorDashboard.this, "retialer Managment", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(DistributorDashboard.this, "retialer Managment", Toast.LENGTH_SHORT).show();
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new RetailerFragment());
                             fragmentTransaction.commit();
@@ -256,7 +257,7 @@ public class DistributorDashboard extends AppCompatActivity {
                         }
                         else if (groupPosition ==4 && childPosition ==2)
                         {
-                            Toast.makeText(DistributorDashboard.this, "Retailer Payment", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(DistributorDashboard.this, "Retailer Payment", Toast.LENGTH_SHORT).show();
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new RetailerPaymentDashboard());
                             fragmentTransaction.commit();

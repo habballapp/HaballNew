@@ -1,6 +1,7 @@
 package com.example.haball.Distributor.ui.retailer.Retailor_Management.Adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -55,7 +56,7 @@ public class Retailer_Management_Dashboard_Adapter extends RecyclerView.Adapter<
         holder.retailer_code_no.setText(retailerList.get(position).getRetailerCode());
         holder.tv_retailerdate_date_no.setText(retailerList.get(position).getCreatedDate());
         holder.retailer_status_value.setText(retailerList.get(position).getStatus());
-
+        final int finalPosition = position;
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,9 +71,15 @@ public class Retailer_Management_Dashboard_Adapter extends RecyclerView.Adapter<
                         switch(item.getItemId()){
 
                             case R.id.view_retailer:
-                                Toast.makeText(mContext,"Popup",Toast.LENGTH_LONG).show();
+//                                Toast.makeText(mContext,"Popup",Toast.LENGTH_LONG).show();
+                                ViewRetailer viewRetailer = new ViewRetailer();
+                                Bundle args = new Bundle();
+                                args.putString("RetailerId", retailerList.get(finalPosition).getID());
+                                viewRetailer.setArguments(args);
+
+
                                 FragmentTransaction fragmentTransaction= ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction.add(R.id.main_container,new ViewRetailer());
+                                fragmentTransaction.add(R.id.main_container,viewRetailer);
                                 fragmentTransaction.commit();
                                 break;
                         }
