@@ -31,7 +31,6 @@ import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
@@ -40,8 +39,7 @@ import com.example.haball.Distributor.ui.support.MyJsonArrayRequest;
 import com.example.haball.Distributor.ui.support.SupportTicketFormFragment;
 import com.example.haball.Distributor.ui.support.SupportViewModel;
 import com.example.haball.R;
-import com.example.haball.Support.SupportDashboardAdapter;
-import com.example.haball.Support.SupportDashboardModel;
+import com.example.haball.Support.Support_Retailer.Model.SupportDashboardModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -56,8 +54,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import javax.xml.transform.Templates;
 
 /**
  * A simple {@link Fragment} subclass.

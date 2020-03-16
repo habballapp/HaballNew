@@ -1,11 +1,9 @@
 package com.example.haball.Distributor.ui.support;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -23,7 +21,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -38,15 +35,10 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.haball.Distributor.ui.payments.CreatePaymentRequestFragment;
-import com.example.haball.Distributor.ui.payments.PaymentRequestDashboard;
-import com.example.haball.Distributor.ui.shipments.DistributorShipment_ViewDashboard;
 import com.example.haball.R;
-import com.example.haball.Support.SupportDashboardAdapter;
-import com.example.haball.Support.SupportDashboardModel;
-import com.example.haball.Support.Support_Ticket_Form;
+import com.example.haball.Support.Support_Retailer.Adapter.SupportDashboardAdapter;
+import com.example.haball.Support.Support_Retailer.Model.SupportDashboardModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -57,10 +49,8 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class SupportFragment extends Fragment {
 
@@ -70,7 +60,7 @@ public class SupportFragment extends Fragment {
     private ArrayList<String> array = new ArrayList<>();
     private Button btn_add_ticket;
     private String Token;
-    private String URL_SUPPORT = "http://175.107.203.97:4007/api/contact/search";
+    private String URL_SUPPORT = "http://175.107.203.97:4013/api/contact/search";
     private SupportViewModel supportViewModel;
     private List<SupportDashboardModel> SupportList = new ArrayList<>();
     private Spinner spinner_criteria;

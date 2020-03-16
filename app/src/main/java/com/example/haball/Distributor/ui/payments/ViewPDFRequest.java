@@ -64,7 +64,7 @@ import java.util.Map;
 import static com.google.android.gms.plus.PlusOneDummyView.TAG;
 
 public class ViewPDFRequest {
-    public String URL_PDF_VIEW = "http://175.107.203.97:4007/api/Invoices/DetailReport/";
+    public String URL_PDF_VIEW = "http://175.107.203.97:4013/api/Invoices/DetailReport/";
     public String DistributorId, Token;
     public Context mContext;
     private static final int PERMISSION_REQUEST_CODE = 1;

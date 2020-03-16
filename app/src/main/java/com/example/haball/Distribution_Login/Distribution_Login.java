@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,7 +23,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -46,13 +44,11 @@ import com.example.haball.Distributor.DistributorDashboard;
 import com.example.haball.R;
 import com.example.haball.Registration.Registration_Activity;
 import com.example.haball.Select_User.Register_Activity;
-import com.example.haball.Support.Need_Support;
-import com.example.haball.Support.Support_Ticket_Form;
+import com.example.haball.Support.Support_Retailer.Support_Ticket_Form;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -68,8 +64,8 @@ public class Distribution_Login extends AppCompatActivity {
     private EditText et_username, et_password, txt_email;
     private Toolbar tb;
     private RequestQueue queue;
-    private String URL = "http://175.107.203.97:4007/Token";
-    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4007/api/Users/forgot";
+    private String URL = "http://175.107.203.97:4013/Token";
+    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4013/api/Users/forgot";
     private HttpURLConnection urlConnection = null;
     private URL url;
     private String token;
@@ -184,7 +180,7 @@ public class Distribution_Login extends AppCompatActivity {
         btn_support.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Distribution_Login.this, Need_Support.class);
+                Intent intent = new Intent(Distribution_Login.this, Support_Ticket_Form.class);
                 startActivity(intent);
 
             }

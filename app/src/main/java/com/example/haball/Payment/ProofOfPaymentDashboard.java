@@ -10,8 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.haball.R;
-import com.example.haball.Support.SupportDashboardAdapter;
-import com.example.haball.Support.Support_dashboard;
 
 public class ProofOfPaymentDashboard extends AppCompatActivity {
     private RecyclerView recyclerView;

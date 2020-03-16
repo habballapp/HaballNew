@@ -70,7 +70,7 @@ public class Shipments_Fragments extends Fragment {
 
     private List<ShipmentModel> ShipmentList = new ArrayList<>();
     private String Token, DistributorId;
-    private String URL_SHIPMENTS = "http://175.107.203.97:4007/api/deliverynotes/search";
+    private String URL_SHIPMENTS = "http://175.107.203.97:4013/api/deliverynotes/search";
     private FragmentTransaction fragmentTransaction;
     private String Filter_selected, Filter_selected_value;
 

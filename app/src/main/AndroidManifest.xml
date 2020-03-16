@@ -15,7 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Support.Need_Support"></activity>
         <activity android:name=".Distributor.ui.retailer.Retailor_Management.Retailer_Dashboard" />
         <activity
             android:name=".Distributor.ui.retailer.RetailerOrder.RetailerViewOrder"
@@ -24,6 +23,7 @@
         <activity
             android:name=".Distributor.ui.retailer.Payment.ViewPayment.RetailerPaymentView"
             android:label="@string/title_activity_retailer_payment_view"
+            android:theme="@style/NoActionBar"/>
             android:theme="@style/NoActionBar" />
         <activity
             android:name=".Distributor.ui.retailer.RetailerPlaceOrder.RetailerPlaceOrder"
@@ -65,7 +65,7 @@
         <activity android:name=".Registration.Registration_Activity" />
         <activity android:name=".Registration.Register_Activity_2" />
         <activity android:name=".Registration.Registration_Actvity2" />
-        <activity android:name=".Support.Support_Ticket_Form" />
+        <activity android:name=".Support.Support_Retailer.Support_Ticket_Form" />
         <activity android:name=".Distributor.ui.support.SupportTicketFormFragment" />
         <activity
             android:name=".Select_User.Register_Activity"
@@ -73,7 +73,6 @@
         <activity
             android:name=".Language_Selection.Language_Selection"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".Support.Support_view" />
         <activity android:name=".Support.Support_dashboard" />
         <activity android:name=".MainActivity" />
         <activity

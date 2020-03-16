@@ -1,4 +1,4 @@
-package com.example.haball.Support;
+package com.example.haball.Support.Support_Retailer.Adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haball.Distributor.ui.support.DeleteSupport;
 import com.example.haball.R;
+import com.example.haball.Support.Support_Retailer.Model.SupportDashboardModel;
 
 import org.json.JSONException;
 

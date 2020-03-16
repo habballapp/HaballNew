@@ -54,7 +54,7 @@ public class Consolidate_Fragment_View_Payment extends Fragment {
     private TextView consolidated_view_invoice_id, consolidated_view_invoice_date, consolidated_view_invoice_amount, consolidated_view_company, consolidated_view_status;
     private String Token, DistributorId;
     private RecyclerView rv_payment_consolidate;
-    private String URL_CONSOLIDATE_PAYMENTS_DETAILS = "http://175.107.203.97:4007/api/consolidatedinvoices/GetConsolidatedInvoiceByID/";
+    private String URL_CONSOLIDATE_PAYMENTS_DETAILS = "http://175.107.203.97:4013/api/consolidatedinvoices/GetConsolidatedInvoiceByID/";
     private String ConsolidatedInvoiceId;
     private List<Consolidate_Fragment_Model> ConsolidatePaymentsDetailsList = new ArrayList<>();
     private RecyclerView.Adapter mAdapter;
@@ -68,7 +68,7 @@ public class Consolidate_Fragment_View_Payment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_consolidate__fragment__view__payment, container, false);
 
         ConsolidatedInvoiceId = getArguments().getString("ConsolidateInvoiceId");
-        Toast.makeText(getContext(), ConsolidatedInvoiceId, Toast.LENGTH_LONG).show();
+//        Toast.makeText(getContext(), ConsolidatedInvoiceId, Toast.LENGTH_LONG).show();
         consolidated_view_invoice_id = root.findViewById(R.id.consolidated_view_invoice_id);
         consolidated_view_invoice_date = root.findViewById(R.id.consolidated_view_invoice_date);
         consolidated_view_invoice_amount = root.findViewById(R.id.consolidated_view_invoice_amount);

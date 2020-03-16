@@ -1,66 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
     tools:context=".Distributor.ui.retailer.RetailerPlaceOrder.RetailerPlaceOrder">
-
     <RelativeLayout
-        android:id="@+id/spinner_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/edit_text_border_bottom">
+        android:layout_height="match_parent">
 
-        <Spinner
-            android:id="@+id/spinner_conso"
+        <TextView
+            android:id="@+id/select_retailer_heading"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="30dp"
+            android:text="Select Retailer"
+            android:textColor="#898989"
+            android:textSize="20sp" />
+
+        <RelativeLayout
+            android:id="@+id/spinner_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/select_retailer_heading"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/edit_text_squared">
+
+            <Spinner
+                android:id="@+id/spinner_conso"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/spinner_retailer_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spinner_container"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="30dp">
+
+            <TextView
+                android:id="@+id/retailer_heading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Madina General Super Store"
+                android:textColor="#898989"
+                android:textSize="20sp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_name"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_below="@+id/retailer_heading"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:hint="Name"
+                android:layout_marginTop="15dp"
+                android:textColorHint="#A9A9A9"
+                android:theme="@style/TextLabel"
+                app:boxBackgroundColor="#fff"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="#676a6c"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_mobile_no"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_below="@+id/layout_name"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:hint="Mobile No"
+                android:layout_marginTop="15dp"
+                android:textColorHint="#A9A9A9"
+                android:theme="@style/TextLabel"
+                app:boxBackgroundColor="#fff"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_mobile_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="#676a6c"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_email_address"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_below="@+id/layout_mobile_no"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:hint="Email Address"
+                android:layout_marginTop="15dp"
+                android:textColorHint="#A9A9A9"
+                android:theme="@style/TextLabel"
+                app:boxBackgroundColor="#fff"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_email_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="#676a6c"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_cnic_no"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_below="@+id/layout_email_address"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:hint="CNIC No"
+                android:layout_marginTop="15dp"
+                android:textColorHint="#A9A9A9"
+                android:theme="@style/TextLabel"
+                app:boxBackgroundColor="#fff"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_cnic_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="#676a6c"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_txt_address"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="15dp"
+                android:layout_below="@+id/layout_cnic_no"
+                android:hint="Address"
+                android:theme="@style/TextLabel"
+                android:textColorHint="#A9A9A9"
+                android:inputType="textMultiLine"
+                app:boxBackgroundColor="#fff"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="1.75dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textPassword"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="10dp"
+                    android:gravity="top|left"
+                    android:textColor="#676a6c"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_next"
+                android:layout_below="@+id/layout_txt_address"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/button_round"
+                android:gravity="center"
+                android:stateListAnimator="@null"
+                android:text="Next"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+
     </RelativeLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/search_bar"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_below="@id/spinner_container"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="30dp"
-        android:hint="Search by Item"
-        android:textColorHint="#676a6c">
+</ScrollView>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_test"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:drawableRight="@drawable/ic_search_black_24dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="15dp"
-            android:textColor="#676a6c"
-            android:textSize="14sp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <RelativeLayout
-        android:id="@+id/line_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:layout_below="@+id/search_bar"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/line_seperator" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_order_ledger"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/line_bottom"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" />
-</RelativeLayout>
