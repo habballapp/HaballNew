@@ -43,7 +43,7 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
     public OrdersItemsAdapter(Context context, List<OrderItemsModel> productsDataList) {
         this.context = context;
         this.productsDataList = productsDataList;
-        SharedPreferences selectedProducts = context.getSharedPreferences("selectedProducts",
+        SharedPreferences selectedProducts = this.context.getSharedPreferences("selectedProducts",
                 Context.MODE_PRIVATE);
         Gson gson = new Gson();
         object_stringqty = selectedProducts.getString("selected_products_qty", "");
