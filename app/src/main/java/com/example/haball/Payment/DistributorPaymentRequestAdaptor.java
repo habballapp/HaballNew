@@ -98,7 +98,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
                                     editor.commit();
 
                                     fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                                    fragmentTransaction.replace(R.id.main_container, view_Payment_Fragment);
+                                    fragmentTransaction.replace(R.id.main_container, new View_Payment_Fragment());
                                     fragmentTransaction.commit();
                                     break;
                                 case R.id.payment_request_ebay:

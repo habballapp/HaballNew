@@ -8,8 +8,10 @@ public class RetailerViewOrderProductModel {
     String ProductUnitPrice;
     String DiscountedAmount;
     String Totalamount;
+    String UOM;
+    String PackSize;
 
-    public RetailerViewOrderProductModel(String productId, String productCode, String productTitle, String orderedQty, String productUnitPrice, String discountedAmount, String totalamount) {
+    public RetailerViewOrderProductModel(String productId, String productCode, String productTitle, String orderedQty, String productUnitPrice, String discountedAmount, String totalamount, String UOM, String packSize) {
         ProductId = productId;
         ProductCode = productCode;
         ProductTitle = productTitle;
@@ -17,6 +19,8 @@ public class RetailerViewOrderProductModel {
         ProductUnitPrice = productUnitPrice;
         DiscountedAmount = discountedAmount;
         Totalamount = totalamount;
+        this.UOM = UOM;
+        PackSize = packSize;
     }
 
     public String getProductId() {
@@ -73,5 +77,21 @@ public class RetailerViewOrderProductModel {
 
     public void setTotalamount(String totalamount) {
         Totalamount = totalamount;
+    }
+
+    public String getUOM() {
+        return UOM;
+    }
+
+    public void setUOM(String UOM) {
+        this.UOM = UOM;
+    }
+
+    public String getPackSize() {
+        return PackSize;
+    }
+
+    public void setPackSize(String packSize) {
+        PackSize = packSize;
     }
 }

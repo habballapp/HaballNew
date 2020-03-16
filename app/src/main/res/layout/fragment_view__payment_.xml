@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:backgroundTint="#80FFFFFF"
     android:background="@color/colorPrimary"
-    android:backgroundTintMode="src_over"
-    tools:context=".Registration.Register_Activity_2">
+    android:backgroundTintMode="src_over">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -24,8 +23,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
                 android:layout_marginTop="10dp"
                 android:text="Payment"
                 android:layout_weight="1"
@@ -51,8 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@drawable/button_background"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:text="Make New Payment"
             android:textSize="14sp"
             android:textColor="#fff"
@@ -74,184 +73,287 @@
 
             >
 
-            <TextView
-                android:id="@+id/txt_heading"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:text="Ghullam Rabbani And Sons"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_weight="1"
-                android:textSize="14sp"
-                android:background="@drawable/edit_text_squared"
-                android:inputType="textCapSentences"
-                />
-            <TextView
-                android:id="@+id/txt_paymentid"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/edit_text_squared"
-                android:inputType="textCapSentences"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:text="Payment ID: 321885888699685"
-                android:textSize="14sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_weight="1"
-                />
 
-            <TextView
-                android:id="@+id/txt_created_date"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/edit_text_squared"
-                android:inputType="number"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:text="Created Date:27/12/2019"
-                android:textSize="14sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_weight="1"
-                />
+            <com.google.android.material.textfield.TextInputLayout
 
-            <TextView
-                android:id="@+id/txt_transaction_date"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/edit_text_squared"
-                android:inputType="number"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:text="Transaction Date:27/12/2019"
-                android:textSize="14sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_weight="1"
-                />
-            <TextView
-                android:id="@+id/txt_bname"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/edit_text_squared"
-                android:inputType="text"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:textSize="14sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_weight="1"
-                android:maxLength="12"
-                android:hint="Bnak:Meezan Bank Ltd"
-                />
-            <TextView
-                android:id="@+id/txt_authorization"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/edit_text_squared"
-                android:inputType="text"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:textSize="14sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_weight="1"
-                android:maxLength="12"
-                android:hint="Authorization ID: 45868695949393030404"
-                />
-            <TextView
-                android:id="@+id/txt_settlement"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/edit_text_squared"
-                android:inputType="text"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:textSize="14sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_weight="1"
-                android:maxLength="12"
-                android:hint="Settlement ID:6797905040403030"
-                />
-            <TextView
-                android:id="@+id/txt_amount"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/edit_text_squared"
-                android:inputType="text"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:textSize="14sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_weight="1"
-                android:maxLength="12"
-                android:hint="Amount PKR:6797905040403030"
-                />
-            <TextView
-                android:id="@+id/txt_status"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/edit_text_squared"
-                android:inputType="text"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:textSize="14sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_weight="1"
-                android:maxLength="12"
-                android:hint="Status: Paid"
-                />
+                android:layout_height="45dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:hint="Retailer Code"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <TextView
-                android:id="@+id/txt_transaction_charges"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_heading"
+                    android:textSize="14sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:enabled="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/edit_text_squared"
-                android:inputType="text"
-                android:paddingTop="10dp"
-                android:paddingBottom="5dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:textSize="14sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_weight="1"
-                android:maxLength="12"
-                android:hint="Transaction Charges: PKR 350.00"
-                />
+                android:layout_height="45dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:hint="Payment ID"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                android:layout_marginTop="15dp"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_paymentid"
+                    android:textSize="14sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:enabled="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:hint="Created Date"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                android:layout_marginTop="15dp"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_created_date"
+                    android:textSize="14sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:enabled="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:hint="Transaction Date"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_transaction_date"
+                    android:textSize="14sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:enabled="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:hint="Bank"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_bname"
+                    android:textSize="14sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:enabled="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:hint="Authorization ID"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_authorization"
+                    android:textSize="14sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:enabled="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:hint="Settlement ID"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_settlement"
+                    android:textSize="14sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:enabled="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:hint="Amount"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_amount"
+                    android:textSize="14sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:enabled="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:hint="Status"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_status"
+                    android:textSize="14sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:enabled="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:hint="Transaction Charges"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_transaction_charges"
+                    android:textSize="14sp"
+                    android:textColor="#676a6c"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:enabled="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -259,7 +361,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/ln_txt"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:weightSum="2"
             android:orientation="vertical"
             >
@@ -269,8 +371,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/button_background"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:text="View Receipt"
                 android:textSize="14sp"
                 android:textColor="#fff"
@@ -286,8 +388,8 @@
                 android:layout_height="40dp"
                 android:background="@drawable/button_background"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:text="Back"
                 android:textSize="14sp"
                 android:textColor="#fff"
@@ -295,7 +397,7 @@
                 android:stateListAnimator="@null"
                 android:layout_weight="1"
                 android:textAllCaps="false"
-                android:layout_marginBottom="60dp"
+                android:layout_marginBottom="20dp"
                 />
         </LinearLayout>
 
