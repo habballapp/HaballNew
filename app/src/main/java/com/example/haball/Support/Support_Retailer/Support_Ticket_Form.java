@@ -1,16 +1,9 @@
-package com.example.haball.Support;
+package com.example.haball.Support.Support_Retailer;
 
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Paint;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,32 +20,23 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.haball.Distribution_Login.Distribution_Login;
-import com.example.haball.Distributor.DistributorDashboard;
 import com.example.haball.R;
-import com.example.haball.Registration.Registration_Actvity2;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static android.app.PendingIntent.getActivity;
-import static java.security.AccessController.getContext;
 
 public class Support_Ticket_Form extends AppCompatActivity {
 
@@ -72,14 +56,14 @@ public class Support_Ticket_Form extends AppCompatActivity {
     private String Token;
     private ArrayAdapter<String> arrayAdapterIssueType, arrayAdapterCriticality, arrayAdapterPreferredContact;
 
-    private Button ticket_btn;
+    private Button login_submit,login_btn;
 
     private String DistributorId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_support__ticket__form);
+        setContentView(R.layout.activity_need__support);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(false);
@@ -99,7 +83,8 @@ public class Support_Ticket_Form extends AppCompatActivity {
         IssueType = findViewById(R.id.IssueType);
         critcicality = findViewById(R.id.critcicality);
         Preffered_Contact = findViewById(R.id.Preffered_Contact);
-        ticket_btn = findViewById(R.id.ticket_btn);
+        login_submit= findViewById(R.id.login_submit);
+        login_btn = findViewById(R.id.login_btn);
         btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
 
         issue_type.add("Issue Type *");
@@ -169,7 +154,14 @@ public class Support_Ticket_Form extends AppCompatActivity {
             }
         });
 
-        ticket_btn.setOnClickListener(new View.OnClickListener() {
+        login_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        login_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {

@@ -26,7 +26,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
@@ -44,7 +43,7 @@ import com.example.haball.R;
 import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Retailor.Retailor_SignUp.SignUp;
 import com.example.haball.Select_User.Register_Activity;
-import com.example.haball.Support.Support_Ticket_Form;
+import com.example.haball.Support.Support_Retailer.Support_Ticket_Form;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
