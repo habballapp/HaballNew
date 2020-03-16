@@ -26,6 +26,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.haball.Distribution_Login.Distribution_Login;
 import com.example.haball.R;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,7 +36,7 @@ public class Registration_Activity extends AppCompatActivity implements View.OnF
 
     private Button btn_next;
     private ImageButton btn_back;
-    private EditText txt_username,txt_password,txt_confirm;
+    private TextInputEditText txt_username,txt_password,txt_confirm;
     ProgressDialog progressDialog;
     private Boolean username_check = false, password_check = false, confirm_password_check = false;
 
@@ -130,6 +131,7 @@ public class Registration_Activity extends AppCompatActivity implements View.OnF
             BooleanRequest booleanRequest = new BooleanRequest(Request.Method.POST, URL, requestBody, new Response.Listener<Boolean>() {
                 @Override
                 public void onResponse(Boolean response) {
+                    Log.i("response", String.valueOf(response));
                     if (response.toString().equals("true")) {
                         txt_username.setError("Username Already Exists.");
                     }
