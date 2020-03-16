@@ -15,11 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Distributor.ui.retailer.Retailor_Management.Retailer_Dashboard"></activity>
+        <activity android:name=".Support.Need_Support"></activity>
+        <activity android:name=".Distributor.ui.retailer.Retailor_Management.Retailer_Dashboard" />
         <activity
             android:name=".Distributor.ui.retailer.RetailerOrder.RetailerViewOrder"
             android:label="@string/title_activity_retailer_view_order"
-            android:theme="@style/NoActionBar"></activity>
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".Distributor.ui.retailer.Payment.ViewPayment.RetailerPaymentView"
             android:label="@string/title_activity_retailer_payment_view"

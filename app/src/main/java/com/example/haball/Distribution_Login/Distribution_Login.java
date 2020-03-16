@@ -46,6 +46,7 @@ import com.example.haball.Distributor.DistributorDashboard;
 import com.example.haball.R;
 import com.example.haball.Registration.Registration_Activity;
 import com.example.haball.Select_User.Register_Activity;
+import com.example.haball.Support.Need_Support;
 import com.example.haball.Support.Support_Ticket_Form;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -183,7 +184,7 @@ public class Distribution_Login extends AppCompatActivity {
         btn_support.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Distribution_Login.this, Support_Ticket_Form.class);
+                Intent intent = new Intent(Distribution_Login.this, Need_Support.class);
                 startActivity(intent);
 
             }
