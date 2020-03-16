@@ -5,7 +5,7 @@
     android:background="@android:color/white">
 
     <RelativeLayout
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -13,8 +13,8 @@
             android:id="@+id/rv_dist_retailer_order_details"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:layout_marginBottom="30dp"/>
     </RelativeLayout>
     <TextView

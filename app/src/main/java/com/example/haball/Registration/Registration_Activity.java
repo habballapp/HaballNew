@@ -26,6 +26,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.haball.Distribution_Login.Distribution_Login;
 import com.example.haball.R;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -114,7 +115,7 @@ public class Registration_Activity extends AppCompatActivity implements View.OnF
 
     private void checkUsername(final View view) throws JSONException {
 
-        if(TextUtils.isEmpty(txt_username.getText().toString())){
+        if(txt_username.getText().toString().equals("")){
             txt_username.setError("This field is required");
         }
         else {
@@ -130,6 +131,7 @@ public class Registration_Activity extends AppCompatActivity implements View.OnF
             BooleanRequest booleanRequest = new BooleanRequest(Request.Method.POST, URL, requestBody, new Response.Listener<Boolean>() {
                 @Override
                 public void onResponse(Boolean response) {
+                    Log.i("response", String.valueOf(response));
                     if (response.toString().equals("true")) {
                         txt_username.setError("Username Already Exists.");
                     }

@@ -1,40 +1,37 @@
 package com.example.haball.Distributor.ui.retailer.Payment.ViewPayment;
 
-import android.os.Bundle;
+        import android.os.Bundle;
 
-import com.example.haball.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
+        import com.example.haball.R;
+        import com.google.android.material.floatingactionbutton.FloatingActionButton;
+        import com.google.android.material.snackbar.Snackbar;
+        import com.google.android.material.tabs.TabLayout;
 
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
+        import androidx.annotation.NonNull;
+        import androidx.fragment.app.Fragment;
+        import androidx.viewpager.widget.ViewPager;
+        import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+        import android.view.LayoutInflater;
+        import android.view.Menu;
+        import android.view.MenuItem;
+        import android.view.View;
+        import android.view.ViewGroup;
 
-import com.example.haball.Distributor.ui.retailer.Payment.ViewPayment.ui.main.SectionsPagerAdapter;
+        import com.example.haball.Distributor.ui.retailer.Payment.ViewPayment.ui.main.SectionsPagerAdapter;
 
-public class RetailerPaymentView extends AppCompatActivity {
+public class RetailerPaymentView extends Fragment {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_retailer_payment_view);
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        ViewPager viewPager = findViewById(R.id.view_pager);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.activity_retailer_payment_view, container, false);
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getActivity(), getChildFragmentManager());
+        final ViewPager viewPager = root.findViewById(R.id.view_pager_ret_view_payment);
+        viewPager.setOffscreenPageLimit(3);
         viewPager.setAdapter(sectionsPagerAdapter);
-        TabLayout tabs = findViewById(R.id.tabs);
+        TabLayout tabs = root.findViewById(R.id.tabs_ret_view_payment);
         tabs.setupWithViewPager(viewPager);
-        FloatingActionButton fab = findViewById(R.id.fab);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        return root;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.haball.Distributor.ui.retailer.Payment.Adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,10 +13,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haball.Distributor.ui.retailer.Payment.Models.Dist_Retailer_Dashboard_Model;
+import com.example.haball.Distributor.ui.retailer.Payment.ViewPayment.RetailerPaymentView;
 import com.example.haball.R;
 
 import java.text.DecimalFormat;
@@ -52,7 +55,7 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
 //            holder.tv_status.setText("Unpaid");
 //        }
         holder.tv_status.setText(paymentsList.get(position).getInvoiceStatusValue());
-
+        final int finalPosition = position;
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,10 +67,21 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
                                 case R.id.view_payment:
-                                    Toast.makeText(context, "View payments", Toast.LENGTH_LONG).show();
+//                                    Toast.makeText(context, "View payments", Toast.LENGTH_LONG).show();
 //                                FragmentTransaction fragmentTransaction= ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
 //                                fragmentTransaction.add(R.id.main_container,new Distributor_Invoice_DashBoard());
 //                                fragmentTransaction.commit();
+                                    FragmentTransaction fragmentTransaction= ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
+                                    fragmentTransaction.add(R.id.main_container,new RetailerPaymentView());
+                                    fragmentTransaction.commit();
+                                    SharedPreferences PaymentId = ((FragmentActivity)context).getSharedPreferences("PaymentId",
+                                            Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = PaymentId.edit();
+                                    editor.putString("PaymentId", paymentsList.get(finalPosition).getRetailerInvoiceId());
+                                    editor.putString("Status", paymentsList.get(finalPosition).getInvoiceStatusValue());
+                                    editor.putString("IsEditable", paymentsList.get(finalPosition).getIsEditable());
+                                    editor.commit();
+
 
                                     break;
                             }
