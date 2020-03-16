@@ -147,7 +147,8 @@ public class DistributorDashboard extends AppCompatActivity {
                             Log.i("Shipment", "Shipment Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new Shipments_Fragments());
-                            fragmentTransaction.commit();   jsonObject.put("CompanyName", null);
+                            fragmentTransaction.commit();
+
 //        jsonObject.put("CreateDateFrom", null);
 //        jsonObject.put("CreateDateTo", null);
 //        jsonObject.put("Status", null);
