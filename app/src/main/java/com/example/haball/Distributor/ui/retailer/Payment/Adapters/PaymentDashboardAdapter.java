@@ -79,6 +79,7 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
                                     SharedPreferences.Editor editor = PaymentId.edit();
                                     editor.putString("PaymentId", paymentsList.get(finalPosition).getRetailerInvoiceId());
                                     editor.putString("Status", paymentsList.get(finalPosition).getInvoiceStatusValue());
+                                    editor.putString("IsEditable", paymentsList.get(finalPosition).getIsEditable());
                                     editor.commit();
 
 

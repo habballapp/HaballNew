@@ -54,7 +54,7 @@ import java.util.Map;
 public class PlaceholderFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private String PaymentId;
+    private String PaymentId, isEditable;
     private String URL_Payment_Data = "http://175.107.203.97:4013/api/retailerinvoice/";
     private TextInputEditText txt_orderID, txt_company_order, txt_created_date_order, txt_status_order, txt_comments;
     private TextInputEditText txt_companyName, txt_paymentID, txt_created_date, txt_confirm, txt_bank, txt_authorization_id, txt_settlement_id, txt_status, txt_amount, txt_transaction_charges, txt_total_amount;
@@ -93,6 +93,12 @@ public class PlaceholderFragment extends Fragment {
         SharedPreferences sharedPreferences3 = getContext().getSharedPreferences("PaymentId",
                 Context.MODE_PRIVATE);
         PaymentId = sharedPreferences3.getString("PaymentId", "");
+        isEditable = sharedPreferences3.getString("IsEditable", "");
+        if(isEditable.equals("0")) {
+            URL_Payment_Data = "http://175.107.203.97:4013/api/retailerinvoice/";
+        } else {
+            URL_Payment_Data = "http://175.107.203.97:4013/api/retailerprepaidrequest/";
+        }
         Log.i("PaymentId", PaymentId);
         if (!URL_Payment_Data.contains(PaymentId)) {
             URL_Payment_Data = URL_Payment_Data + PaymentId;
