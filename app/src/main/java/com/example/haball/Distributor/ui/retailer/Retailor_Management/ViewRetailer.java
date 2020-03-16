@@ -70,6 +70,16 @@ public class ViewRetailer extends Fragment {
         mg_rt_company = root.findViewById(R.id.mg_rt_company);
         mg_tr_address = root.findViewById(R.id.mg_tr_address);
 
+        mg_rt_code.setEnabled(false);
+        mg_rt_firstname.setEnabled(false);
+        mg_rt_email.setEnabled(false);
+        mg_cnic_no.setEnabled(false);
+        mg_mobile_no.setEnabled(false);
+        mg_rt_company.setEnabled(false);
+        mg_tr_address.setEnabled(false);
+
+
+
         try {
             fetchRetailerData();
         } catch (JSONException e) {

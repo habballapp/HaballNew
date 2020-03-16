@@ -113,16 +113,27 @@ public class PlaceholderFragment extends Fragment {
 
                 rootView = inflater.inflate(R.layout.dist_retailer_payment, container, false);
                 txt_companyName = rootView.findViewById(R.id.txt_companyName);
+                txt_companyName.setEnabled(false);
                 txt_paymentID = rootView.findViewById(R.id.txt_paymentID);
+                txt_paymentID.setEnabled(false);
                 txt_created_date = rootView.findViewById(R.id.txt_created_date);
+                txt_created_date.setEnabled(false);
                 txt_confirm = rootView.findViewById(R.id.txt_confirm);
+                txt_confirm.setEnabled(false);
                 txt_bank = rootView.findViewById(R.id.txt_bank);
+                txt_bank.setEnabled(false);
                 txt_authorization_id = rootView.findViewById(R.id.txt_authorization_id);
+                txt_authorization_id.setEnabled(false);
                 txt_settlement_id = rootView.findViewById(R.id.txt_settlement_id);
+                txt_settlement_id.setEnabled(false);
                 txt_status = rootView.findViewById(R.id.txt_status);
+                txt_status.setEnabled(false);
                 txt_amount = rootView.findViewById(R.id.txt_amount);
+                txt_amount.setEnabled(false);
                 txt_transaction_charges = rootView.findViewById(R.id.txt_transaction_charges);
+                txt_transaction_charges.setEnabled(false);
                 txt_total_amount = rootView.findViewById(R.id.txt_total_amount);
+                txt_total_amount.setEnabled(false);
 
                 getPaymentData();
 
@@ -135,6 +146,12 @@ public class PlaceholderFragment extends Fragment {
                 txt_created_date_order = rootView.findViewById(R.id.txt_created_date_order);
                 txt_status_order = rootView.findViewById(R.id.txt_status_order);
                 txt_comments = rootView.findViewById(R.id.txt_comments);
+
+                txt_orderID.setEnabled(false);
+                txt_company_order.setEnabled(false);
+                txt_created_date_order.setEnabled(false);
+                txt_status_order.setEnabled(false);
+                txt_comments.setEnabled(false);
                 getOrderData();
                 break;
             }
@@ -145,6 +162,7 @@ public class PlaceholderFragment extends Fragment {
                 rv_dist_retailer_order_details.setHasFixedSize(true);
                 layoutManager = new LinearLayoutManager(rootView.getContext());
                 rv_dist_retailer_order_details.setLayoutManager(layoutManager);
+
 
                 getOrderDetailsData();
                 break;
