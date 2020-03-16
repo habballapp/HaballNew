@@ -70,7 +70,7 @@ public class RetailerOrdersAdapter extends RecyclerView.Adapter<RetailerOrdersAd
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.view_payment:
-                                Toast.makeText(context, "View order - " + OrdersList.get(finalPosition).getOrderId(), Toast.LENGTH_LONG).show();
+//                                Toast.makeText(context, "View order - " + OrdersList.get(finalPosition).getOrderId(), Toast.LENGTH_LONG).show();
 //                                FragmentTransaction fragmentTransaction= ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
 //                                fragmentTransaction.add(R.id.main_container,new Distributor_Invoice_DashBoard());
 //                                fragmentTransaction.commit();
@@ -82,6 +82,7 @@ public class RetailerOrdersAdapter extends RecyclerView.Adapter<RetailerOrdersAd
                                         Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = OrderId.edit();
                                 editor.putString("OrderId", OrdersList.get(finalPosition).getOrderId());
+                                editor.putString("Status", OrdersList.get(finalPosition).getOrderStatus());
                                 editor.commit();
 
                                 break;

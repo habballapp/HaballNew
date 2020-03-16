@@ -29,14 +29,18 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrdersAdapter.RetailerViewOrderProductAdapter;
 import com.example.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrdersModel.RetailerViewOrderProductModel;
 import com.example.haball.R;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -57,7 +61,6 @@ public class PlaceholderFragment extends Fragment {
     private List<RetailerViewOrderProductModel> invo_productList = new ArrayList<>();
     private String Token;
     private String DistributorId;
-    private JSONObject orderData = null;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -193,12 +196,14 @@ public class PlaceholderFragment extends Fragment {
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Order_Data, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.i("Order Data response", String.valueOf(response));
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<RetailerViewOrderProductModel>>() {
+                }.getType();
                 try {
-                    txt_orderID.setText(String.valueOf(response.get("RetailerOrderNumber")));
-                    txt_company_order.setText(String.valueOf(response.get("RetailerCompanyName")));
-                    txt_created_date_order.setText(String.valueOf(response.get("RetailerOrderCreatedDate")).split("T")[0]);
-                    txt_status_order.setText(String.valueOf(response.get("RetailerOrderStatusValue")));
+                    invo_productList = gson.fromJson(response.get("OrderDetails").toString(), type);
+                    Log.i("OrderDetails", String.valueOf(response.get("OrderDetails")));
+                    RetailerViewOrderProductAdapter productAdapter = new RetailerViewOrderProductAdapter(getContext(), invo_productList);
+                    rv_fragment_retailer_order_details.setAdapter(productAdapter);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -240,19 +245,11 @@ public class PlaceholderFragment extends Fragment {
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Order_Data, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.i("Order Data response", String.valueOf(response));
+                Log.i("Order Data response2", String.valueOf(response));
                 try {
                     txt_companyName.setText(String.valueOf(response.get("RetailerCompanyName")));
                     txt_paymentID.setText(String.valueOf(response.get("RetailerInvoiceNumber")));
                     txt_created_date.setText(String.valueOf(response.get("RetailerInvoiceCreateDate")));
-                    txt_confirm.setText(String.valueOf(response.get("RetailerOrderNumber")));
-                    txt_bank.setText(String.valueOf(response.get("RetailerOrderNumber")));
-                    txt_authorization_id.setText(String.valueOf(response.get("RetailerOrderNumber")));
-                    txt_settlement_id.setText(String.valueOf(response.get("RetailerOrderNumber")));
-                    txt_status.setText(String.valueOf(response.get("RetailerOrderNumber")));
-                    txt_amount.setText(String.valueOf(response.get("RetailerOrderNumber")));
-                    txt_transaction_charges.setText(String.valueOf(response.get("RetailerOrderNumber")));
-                    txt_total_amount.setText(String.valueOf(response.get("RetailerOrderNumber")));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
