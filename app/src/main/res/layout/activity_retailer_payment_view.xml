@@ -4,31 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     tools:context=".Distributor.ui.retailer.Payment.ViewPayment.RetailerPaymentView">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#fff">
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabspayment"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#fff"
-        app:tabMode="scrollable"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        app:tabIndicatorColor="#96bb3c"
-        app:tabSelectedTextColor="#96bb3c"
-        app:tabBackground="@drawable/custom_indicator"
-        app:tabTextAppearance="@style/CustomTextAppearanceTab"/>
+        android:background="#fff">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager_payment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs_ret_view_payment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:background="#fff"
+            app:tabMode="scrollable"
+            app:tabBackground="@drawable/custom_indicator"
+            app:tabIndicatorColor="#96bb3c"
+            app:tabSelectedTextColor="#96bb3c"
+            app:tabTextAppearance="@style/CustomTextAppearanceTab" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager_ret_view_payment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tabs_ret_view_payment"
+            android:layout_marginTop="10dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+
+
+
