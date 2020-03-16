@@ -36,7 +36,7 @@ public class Registration_Activity extends AppCompatActivity implements View.OnF
 
     private Button btn_next;
     private ImageButton btn_back;
-    private TextInputEditText txt_username,txt_password,txt_confirm;
+    private EditText txt_username,txt_password,txt_confirm;
     ProgressDialog progressDialog;
     private Boolean username_check = false, password_check = false, confirm_password_check = false;
 
@@ -115,7 +115,7 @@ public class Registration_Activity extends AppCompatActivity implements View.OnF
 
     private void checkUsername(final View view) throws JSONException {
 
-        if(TextUtils.isEmpty(txt_username.getText().toString())){
+        if(txt_username.getText().toString().equals("")){
             txt_username.setError("This field is required");
         }
         else {
