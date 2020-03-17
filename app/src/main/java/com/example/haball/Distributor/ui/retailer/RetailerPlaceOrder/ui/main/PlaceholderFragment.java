@@ -79,6 +79,8 @@ public class PlaceholderFragment extends Fragment {
     private Spinner spinner_conso;
     private RelativeLayout spinner_retailer_details;
     private PageViewModel pageViewModel;
+    private TextView retailer_heading;
+
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -107,6 +109,7 @@ public class PlaceholderFragment extends Fragment {
         switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
             case 1: {
                 rootView = inflater.inflate(R.layout.fragment_rpoid_place_order, container, false);
+                company_names.add("Company ");
                 spinner_conso = rootView.findViewById(R.id.spinner_conso);
                 spinner_retailer_details = rootView.findViewById(R.id.spinner_retailer_details);
                 arrayAdapterPayments = new ArrayAdapter<>(rootView.getContext(),
@@ -121,8 +124,10 @@ public class PlaceholderFragment extends Fragment {
                         }
                         else{
                             Company_selected = company_names.get(i);
+                            spinner_retailer_details.setVisibility(View.VISIBLE);
 //                            try {
-                                Toast.makeText(getContext(), "Retailer Code: " + companies.get(Company_selected) + "\nCompany Name: " + Company_selected, Toast.LENGTH_LONG).show();
+//                                Toast.makeText(getContext(), "Retailer Code: " + companies.get(Company_selected) + "\nCompany Name: " + Company_selected, Toast.LENGTH_LONG).show();
+                            Log.i("Retailer", "Retailer Code: " + companies.get(Company_selected) + "\nCompany Name: " + Company_selected);
 //                                fetchPaymentLedgerData(companies.get(Company_selected));
 //                            } catch (JSONException e) {
 //                                e.printStackTrace();
