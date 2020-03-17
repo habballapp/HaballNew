@@ -246,7 +246,7 @@ public class PlaceholderFragment extends Fragment {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "thek hai", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "thek hai", Toast.LENGTH_SHORT).show();
                 FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.add(R.id.main_container, new OrderPlace_retailer_dashboarad());
                 fragmentTransaction.addToBackStack(null);
