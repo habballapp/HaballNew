@@ -37,6 +37,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Adapters.RetailerFragmentAdapter;
@@ -120,6 +121,13 @@ public class PlaceholderFragment extends Fragment {
                 txt_email_address = rootView.findViewById(R.id.txt_email_address);
                 txt_cnic_no = rootView.findViewById(R.id.txt_cnic_no);
                 txt_address = rootView.findViewById(R.id.txt_address);
+
+                txt_name.setEnabled(false);
+                txt_mobile_no.setEnabled(false);
+                txt_email_address.setEnabled(false);
+                txt_cnic_no.setEnabled(false);
+                txt_address.setEnabled(false);
+
                 arrayAdapterPayments = new ArrayAdapter<>(rootView.getContext(),
                         android.R.layout.simple_spinner_dropdown_item, company_names);
                 spinner_retailer_details.setVisibility(View.GONE);
@@ -142,6 +150,11 @@ public class PlaceholderFragment extends Fragment {
 //                            }
                             retailer_heading.setText(Company_selected);
                             txt_name.setText(Company_selected);
+                            try {
+                                getRetailerDetail();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
 
@@ -163,6 +176,63 @@ public class PlaceholderFragment extends Fragment {
 
         }
         return rootView;
+    }
+
+    private void getRetailerDetail() throws JSONException {
+        String retailerID = companies.get(Company_selected);
+
+
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+        Log.i("DistributorId ", DistributorId);
+        Log.i("Token", Token);
+        URL_Retailer_Details = "http://175.107.203.97:4013/api/retailer/";
+        URL_Retailer_Details = URL_Retailer_Details + retailerID;
+        Log.i("URL_RETAILER_DETAILS ", URL_Retailer_Details);
+
+        JSONObject map = new JSONObject();
+        map.put("DistributorId", Integer.parseInt(DistributorId));
+        Log.i("Map", String.valueOf(map));
+
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_Retailer_Details, map, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject result) {
+                try {
+//                    Log.i("result", String.valueOf(result));
+                    txt_name.setText(result.getString("Name"));
+                    txt_email_address.setText(result.getString("Email"));
+                    txt_cnic_no.setText(result.getString("CNIC"));
+                    txt_mobile_no.setText(result.getString("Mobile"));
+                    txt_address.setText(result.getString("Address"));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(getContext()).add(sr);
     }
 
     private void Holderorders(final View root, ViewPager pager) {
@@ -222,7 +292,7 @@ public class PlaceholderFragment extends Fragment {
                     for(int i=0;i<result.length();i++){
                         jsonObject  = result.getJSONObject(i);
                         company_names.add(jsonObject.getString("CompanyName"));
-                        companies.put(jsonObject.getString("CompanyName"),jsonObject.getString("RetailerCode"));
+                        companies.put(jsonObject.getString("CompanyName"),jsonObject.getString("RetailerID"));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
