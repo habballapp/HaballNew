@@ -53,6 +53,8 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
 
         String yourFormattedString2 = formatter1.format(Double.parseDouble(OrdersList.get(position).getDiscountedAmount()));
         holder.discount_value.setText("Rs. " + yourFormattedString2);
+        holder.UOM_value.setText(OrdersList.get(position).getUOM());
+        holder.pack_size_value.setText(OrdersList.get(position).getPackSize());
 
         holder.Quantity_value.setText(OrdersList.get(position).getOrderedQty());
 

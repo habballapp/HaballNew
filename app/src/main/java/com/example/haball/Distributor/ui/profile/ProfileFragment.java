@@ -38,6 +38,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -52,7 +53,8 @@ import java.util.Map;
 public class ProfileFragment extends Fragment {
 
     private Button change_pwd, update_password, distri_btn_save;
-    private EditText edt_firstname, edt_lastname, edt_email, edt_dist_mobile, et_test, txt_password, txt_newpassword, txt_cfmpassword;
+    private EditText edt_firstname, edt_lastname, edt_email, edt_dist_mobile, et_test;
+    private TextInputEditText  txt_password, txt_newpassword, txt_cfmpassword;
     public TextView edt_dist_code, tv_cnic, tv_NTN, tv_companyname, tv_created_date, tv_pr1;
     private String PROFILE_URL = "http://175.107.203.97:4013/api/distributor/";
     private String ChangePass_URL = "http://175.107.203.97:4013/api/Users/ChangePassword";
