@@ -151,7 +151,7 @@ public class DistributorDashboard extends AppCompatActivity {
 
 
                             //jsonObject.put("CompanyName", null);
-                            fragmentTransaction.commit();
+//                            fragmentTransaction.commit();
                             //jsonObject.put("CompanyName", null);
 //        jsonObject.put("CreateDateFrom", null);
 //        jsonObject.put("CreateDateTo", null);

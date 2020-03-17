@@ -81,6 +81,7 @@ public class Shipments_Fragments extends Fragment {
     private List<String> filters = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapterPayments;
     private ArrayAdapter<String> arrayAdapterFeltter;
+    private TextView tv_shipment_no_data;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -90,18 +91,20 @@ public class Shipments_Fragments extends Fragment {
                 ViewModelProviders.of(this).get(ShipmentsViewModel.class);
         recyclerView = (RecyclerView) root.findViewById(R.id.rv_shipment);
         recyclerView.setHasFixedSize(true);
+        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
+        tv_shipment_no_data.setVisibility(View.GONE);
         spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
         spinner2.setVisibility(View.GONE);
         conso_edittext.setVisibility(View.GONE);
-        consolidate_felter.add ("Select Criteria");
-        consolidate_felter.add ("Shipment No");
-        consolidate_felter.add ("Company");
-        consolidate_felter.add ("Delivery Date");
-        consolidate_felter.add ("Receiving Date");
-        consolidate_felter.add ("Quantity");
-        consolidate_felter.add ("Status");
+        consolidate_felter.add("Select Criteria");
+        consolidate_felter.add("Shipment No");
+        consolidate_felter.add("Company");
+        consolidate_felter.add("Delivery Date");
+        consolidate_felter.add("Receiving Date");
+        consolidate_felter.add("Quantity");
+        consolidate_felter.add("Status");
 
         arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
                 android.R.layout.simple_dropdown_item_1line, consolidate_felter);
@@ -111,30 +114,29 @@ public class Shipments_Fragments extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 spinner2.setVisibility(View.GONE);
                 conso_edittext.setVisibility(View.GONE);
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                }
-                else{
+                } else {
                     Filter_selected = consolidate_felter.get(i);
 
-                    if(!Filter_selected.equals("Status"))
+                    if (!Filter_selected.equals("Status"))
                         spinner2.setSelection(0);
-                    if(!conso_edittext.getText().equals(""))
+                    if (!conso_edittext.getText().equals(""))
                         conso_edittext.setText("");
 
-                    if(Filter_selected.equals("Shipment No")) {
+                    if (Filter_selected.equals("Shipment No")) {
                         Filter_selected = "DeliveryNumber";
                         conso_edittext.setVisibility(View.VISIBLE);
-                    } else if(Filter_selected.equals("Company")) {
+                    } else if (Filter_selected.equals("Company")) {
                         Filter_selected = "CompanyName";
                         conso_edittext.setVisibility(View.VISIBLE);
-                    } else if(Filter_selected.equals("Delivery Date")) {
-                        Toast.makeText(getContext(),"Delivery Date selected",Toast.LENGTH_LONG).show();
-                    } else if(Filter_selected.equals("Receiving Date")) {
-                        Toast.makeText(getContext(),"Receiving Date selected",Toast.LENGTH_LONG).show();
-                    } else if(Filter_selected.equals("Quantity")) {
-                        Toast.makeText(getContext(),"Quantity selected",Toast.LENGTH_LONG).show();
-                    } else if(Filter_selected.equals("Status")) {
+                    } else if (Filter_selected.equals("Delivery Date")) {
+                        Toast.makeText(getContext(), "Delivery Date selected", Toast.LENGTH_LONG).show();
+                    } else if (Filter_selected.equals("Receiving Date")) {
+                        Toast.makeText(getContext(), "Receiving Date selected", Toast.LENGTH_LONG).show();
+                    } else if (Filter_selected.equals("Quantity")) {
+                        Toast.makeText(getContext(), "Quantity selected", Toast.LENGTH_LONG).show();
+                    } else if (Filter_selected.equals("Status")) {
                         Filter_selected = "Status";
                         spinner2.setVisibility(View.VISIBLE);
                     }
@@ -155,12 +157,12 @@ public class Shipments_Fragments extends Fragment {
         arrayAdapterPayments.notifyDataSetChanged();
         spinner_consolidate.setAdapter(arrayAdapterPayments);
 
-        filters.add ("Status");
-        filters.add ("Pending");
-        filters.add ("Delivered");
-        filters.add ("Received");
-        filters.add ("Returned");
-        filters.add ("Revised");
+        filters.add("Status");
+        filters.add("Pending");
+        filters.add("Delivered");
+        filters.add("Received");
+        filters.add("Returned");
+        filters.add("Revised");
 
         arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
                 android.R.layout.simple_dropdown_item_1line, filters);
@@ -168,12 +170,11 @@ public class Shipments_Fragments extends Fragment {
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                }
-                else{
-                    Filter_selected_value = String.valueOf(i-1);
-                    Log.i("Filter_selected_value",Filter_selected_value);
+                } else {
+                    Filter_selected_value = String.valueOf(i - 1);
+                    Log.i("Filter_selected_value", Filter_selected_value);
                     try {
                         fetchFilteredShipments();
                     } catch (JSONException e) {
@@ -206,9 +207,11 @@ public class Shipments_Fragments extends Fragment {
                 }
             }
 
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
         });
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -222,15 +225,15 @@ public class Shipments_Fragments extends Fragment {
         return root;
     }
 
-    private void fetchShipments() throws JSONException{
+    private void fetchShipments() throws JSONException {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token","");
+        Token = sharedPreferences.getString("Login_Token", "");
         Log.i("Token", Token);
 
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences1.getString("Distributor_Id","");
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
 
         JSONObject map = new JSONObject();
@@ -238,17 +241,23 @@ public class Shipments_Fragments extends Fragment {
         map.put("TotalRecords", 10);
         map.put("PageNumber", 0.1);
 
-        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_SHIPMENTS, map,new Response.Listener<JSONArray>() {
+        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_SHIPMENTS, map, new Response.Listener<JSONArray>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
-                Log.i("Shipment", result.toString());
-                Gson gson = new Gson();
-                Type type = new TypeToken<List<ShipmentModel>>(){}.getType();
-                ShipmentList = gson.fromJson(result.toString(),type);
+                if (result.length() != 0) {
+                    Log.i("Shipment", result.toString());
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<ShipmentModel>>() {
+                    }.getType();
+                    ShipmentList = gson.fromJson(result.toString(), type);
 
-                mAdapter = new DistributorShipmentAdapter(getContext(),ShipmentList);
-                recyclerView.setAdapter(mAdapter);
+                    mAdapter = new DistributorShipmentAdapter(getContext(), ShipmentList);
+                    recyclerView.setAdapter(mAdapter);
+                } else {
+//                    Toast.makeText(getContext(), "No Data Available", Toast.LENGTH_LONG).show();
+                    tv_shipment_no_data.setVisibility(View.VISIBLE);
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -257,12 +266,12 @@ public class Shipments_Fragments extends Fragment {
 
                 error.printStackTrace();
             }
-        }){
+        }) {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer " +Token);
+                params.put("Authorization", "bearer " + Token);
                 params.put("Content-Type", "application/json; charset=UTF-8");
                 return params;
             }
@@ -274,15 +283,15 @@ public class Shipments_Fragments extends Fragment {
         Volley.newRequestQueue(getContext()).add(sr);
     }
 
-    private void fetchFilteredShipments() throws JSONException{
+    private void fetchFilteredShipments() throws JSONException {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token","");
+        Token = sharedPreferences.getString("Login_Token", "");
         Log.i("Token", Token);
 
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences1.getString("Distributor_Id","");
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
 
         JSONObject map = new JSONObject();
@@ -292,17 +301,23 @@ public class Shipments_Fragments extends Fragment {
         map.put(Filter_selected, Filter_selected_value);
         Log.i("Map", String.valueOf(map));
 
-        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_SHIPMENTS, map,new Response.Listener<JSONArray>() {
+        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_SHIPMENTS, map, new Response.Listener<JSONArray>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
-                Log.i("Shipment Filtered", result.toString());
-                Gson gson = new Gson();
-                Type type = new TypeToken<List<ShipmentModel>>(){}.getType();
-                ShipmentList = gson.fromJson(result.toString(),type);
+                if (result.length() != 0) {
+                    Log.i("Shipment Filtered", result.toString());
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<ShipmentModel>>() {
+                    }.getType();
+                    ShipmentList = gson.fromJson(result.toString(), type);
 
-                mAdapter = new DistributorShipmentAdapter(getContext(),ShipmentList);
-                recyclerView.setAdapter(mAdapter);
+                    mAdapter = new DistributorShipmentAdapter(getContext(), ShipmentList);
+                    recyclerView.setAdapter(mAdapter);
+                } else {
+//                    Toast.makeText(getContext(), "No Data Available", Toast.LENGTH_LONG).show();
+                    tv_shipment_no_data.setVisibility(View.VISIBLE);
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -311,12 +326,12 @@ public class Shipments_Fragments extends Fragment {
 
                 error.printStackTrace();
             }
-        }){
+        }) {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer " +Token);
+                params.put("Authorization", "bearer " + Token);
                 params.put("Content-Type", "application/json; charset=UTF-8");
                 return params;
             }
@@ -328,7 +343,7 @@ public class Shipments_Fragments extends Fragment {
         Volley.newRequestQueue(getContext()).add(sr);
     }
 
-        private void printErrorMessage(VolleyError error) {
+    private void printErrorMessage(VolleyError error) {
         if (error instanceof NetworkError) {
             Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof ServerError) {
@@ -347,9 +362,9 @@ public class Shipments_Fragments extends Fragment {
             try {
                 String message = "";
                 String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody",responseBody);
+                Log.i("responseBody", responseBody);
                 JSONObject data = new JSONObject(responseBody);
-                Log.i("data",String.valueOf(data));
+                Log.i("data", String.valueOf(data));
                 Iterator<String> keys = data.keys();
                 while (keys.hasNext()) {
                     String key = keys.next();

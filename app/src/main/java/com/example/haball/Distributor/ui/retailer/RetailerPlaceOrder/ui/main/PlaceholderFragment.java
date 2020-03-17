@@ -37,6 +37,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Adapters.RetailerFragmentAdapter;
@@ -45,6 +46,7 @@ import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Tab
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Tabs.Order_Item;
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Tabs.Order_Summary;
 import com.example.haball.R;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -70,6 +72,7 @@ public class PlaceholderFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager, layoutManager1;
     private String Token, DistributorId;
     private String URL_Retailer = "http://175.107.203.97:4013/api/retailer/retailerById/"; // To be done
+    private String URL_Retailer_Details = "http://175.107.203.97:4013/api/retailer/"; // To be done
     private List<Retailer_Fragment_Model> RetailerList;
     private Button btn_next;
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -81,7 +84,7 @@ public class PlaceholderFragment extends Fragment {
     private RelativeLayout spinner_retailer_details;
     private PageViewModel pageViewModel;
     private TextView retailer_heading;
-
+    private TextInputEditText txt_name, txt_mobile_no, txt_email_address, txt_cnic_no, txt_address;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -113,6 +116,19 @@ public class PlaceholderFragment extends Fragment {
                 company_names.add("Company ");
                 spinner_conso = rootView.findViewById(R.id.spinner_conso);
                 spinner_retailer_details = rootView.findViewById(R.id.spinner_retailer_details);
+                retailer_heading = rootView.findViewById(R.id.retailer_heading);
+                txt_name = rootView.findViewById(R.id.txt_name);
+                txt_mobile_no = rootView.findViewById(R.id.txt_mobile_no);
+                txt_email_address = rootView.findViewById(R.id.txt_email_address);
+                txt_cnic_no = rootView.findViewById(R.id.txt_cnic_no);
+                txt_address = rootView.findViewById(R.id.txt_address);
+
+                txt_name.setEnabled(false);
+                txt_mobile_no.setEnabled(false);
+                txt_email_address.setEnabled(false);
+                txt_cnic_no.setEnabled(false);
+                txt_address.setEnabled(false);
+
                 arrayAdapterPayments = new ArrayAdapter<>(rootView.getContext(),
                         android.R.layout.simple_spinner_dropdown_item, company_names);
                 spinner_retailer_details.setVisibility(View.GONE);
@@ -128,11 +144,18 @@ public class PlaceholderFragment extends Fragment {
                             spinner_retailer_details.setVisibility(View.VISIBLE);
 //                            try {
 //                                Toast.makeText(getContext(), "Retailer Code: " + companies.get(Company_selected) + "\nCompany Name: " + Company_selected, Toast.LENGTH_LONG).show();
-                            Log.i("Retailer", "Retailer Code: " + companies.get(Company_selected) + "\nCompany Name: " + Company_selected);
+//                            Log.i("Retailer", "Retailer Code: " + companies.get(Company_selected) + "\nCompany Name: " + Company_selected);
 //                                fetchPaymentLedgerData(companies.get(Company_selected));
 //                            } catch (JSONException e) {
 //                                e.printStackTrace();
 //                            }
+                            retailer_heading.setText(Company_selected);
+                            txt_name.setText(Company_selected);
+                            try {
+                                getRetailerDetail();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
 
@@ -154,6 +177,63 @@ public class PlaceholderFragment extends Fragment {
 
         }
         return rootView;
+    }
+
+    private void getRetailerDetail() throws JSONException {
+        String retailerID = companies.get(Company_selected);
+
+
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+        Log.i("DistributorId ", DistributorId);
+        Log.i("Token", Token);
+        URL_Retailer_Details = "http://175.107.203.97:4013/api/retailer/";
+        URL_Retailer_Details = URL_Retailer_Details + retailerID;
+        Log.i("URL_RETAILER_DETAILS ", URL_Retailer_Details);
+
+        JSONObject map = new JSONObject();
+        map.put("DistributorId", Integer.parseInt(DistributorId));
+        Log.i("Map", String.valueOf(map));
+
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_Retailer_Details, map, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject result) {
+                try {
+//                    Log.i("result", String.valueOf(result));
+                    txt_name.setText(result.getString("Name"));
+                    txt_email_address.setText(result.getString("Email"));
+                    txt_cnic_no.setText(result.getString("CNIC"));
+                    txt_mobile_no.setText(result.getString("Mobile"));
+                    txt_address.setText(result.getString("Address"));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(getContext()).add(sr);
     }
 
     private void Holderorders(final View root, ViewPager pager) {
@@ -209,12 +289,13 @@ public class PlaceholderFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
+                Log.i("result", String.valueOf(result));
                 try {
                     JSONObject jsonObject = null;
                     for(int i=0;i<result.length();i++){
                         jsonObject  = result.getJSONObject(i);
                         company_names.add(jsonObject.getString("CompanyName"));
-                        companies.put(jsonObject.getString("CompanyName"),jsonObject.getString("RetailerCode"));
+                        companies.put(jsonObject.getString("CompanyName"),jsonObject.getString("RetailerID"));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
