@@ -116,7 +116,7 @@ public class PlaceholderFragment extends Fragment {
         myinflater = inflater;
         switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
             case 1: {
-                rootView = inflater.inflate(R.layout.activity_distributer_order, container, false);
+                rootView = inflater.inflate(R.layout.fragment_place_order, container, false);
                 final ViewPager pager = getActivity().findViewById(R.id.view_pager5);
                 Holderorders(rootView, pager);
                 break;

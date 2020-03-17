@@ -123,18 +123,7 @@ public class PlaceholderFragment extends Fragment {
 
             }
         });
-//        recyclerView = root.findViewById(R.id.rv_order_ledger);
-//        recyclerView.setHasFixedSize(true);
-//
-//        layoutManager = new LinearLayoutManager(getContext());
-//        recyclerView.setLayoutManager(layoutManager);
-//        try {
-//            fetchRetailers(pager);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        mAdapter = new RetailerFragmentAdapter(getContext(), RetailerList, pager);
-//        recyclerView.setAdapter(mAdapter);
+
 
     }
 
