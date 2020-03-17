@@ -41,6 +41,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Adapters.RetailerFragmentAdapter;
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models.Retailer_Fragment_Model;
+import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Tabs.OrderPlace_retailer_dashboarad;
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Tabs.Order_Item;
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Tabs.Order_Summary;
 import com.example.haball.R;
@@ -165,10 +166,11 @@ public class PlaceholderFragment extends Fragment {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.add(R.id.main_container, new Order_Item());
-//                fragmentTransaction.addToBackStack(null);
-//                fragmentTransaction.commit();
+                Toast.makeText(getContext(), "thek hai", Toast.LENGTH_SHORT).show();
+                FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.add(R.id.main_container, new OrderPlace_retailer_dashboarad());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
 
             }
         });
