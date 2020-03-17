@@ -44,6 +44,7 @@ import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Mod
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Tabs.Order_Item;
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Tabs.Order_Summary;
 import com.example.haball.R;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -69,6 +70,7 @@ public class PlaceholderFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager, layoutManager1;
     private String Token, DistributorId;
     private String URL_Retailer = "http://175.107.203.97:4013/api/retailer/retailerById/"; // To be done
+    private String URL_Retailer_Details = "http://175.107.203.97:4013/api/retailer/"; // To be done
     private List<Retailer_Fragment_Model> RetailerList;
     private Button btn_next;
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -80,7 +82,7 @@ public class PlaceholderFragment extends Fragment {
     private RelativeLayout spinner_retailer_details;
     private PageViewModel pageViewModel;
     private TextView retailer_heading;
-
+    private TextInputEditText txt_name, txt_mobile_no, txt_email_address, txt_cnic_no, txt_address;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -112,6 +114,12 @@ public class PlaceholderFragment extends Fragment {
                 company_names.add("Company ");
                 spinner_conso = rootView.findViewById(R.id.spinner_conso);
                 spinner_retailer_details = rootView.findViewById(R.id.spinner_retailer_details);
+                retailer_heading = rootView.findViewById(R.id.retailer_heading);
+                txt_name = rootView.findViewById(R.id.txt_name);
+                txt_mobile_no = rootView.findViewById(R.id.txt_mobile_no);
+                txt_email_address = rootView.findViewById(R.id.txt_email_address);
+                txt_cnic_no = rootView.findViewById(R.id.txt_cnic_no);
+                txt_address = rootView.findViewById(R.id.txt_address);
                 arrayAdapterPayments = new ArrayAdapter<>(rootView.getContext(),
                         android.R.layout.simple_spinner_dropdown_item, company_names);
                 spinner_retailer_details.setVisibility(View.GONE);
@@ -127,11 +135,13 @@ public class PlaceholderFragment extends Fragment {
                             spinner_retailer_details.setVisibility(View.VISIBLE);
 //                            try {
 //                                Toast.makeText(getContext(), "Retailer Code: " + companies.get(Company_selected) + "\nCompany Name: " + Company_selected, Toast.LENGTH_LONG).show();
-                            Log.i("Retailer", "Retailer Code: " + companies.get(Company_selected) + "\nCompany Name: " + Company_selected);
+//                            Log.i("Retailer", "Retailer Code: " + companies.get(Company_selected) + "\nCompany Name: " + Company_selected);
 //                                fetchPaymentLedgerData(companies.get(Company_selected));
 //                            } catch (JSONException e) {
 //                                e.printStackTrace();
 //                            }
+                            retailer_heading.setText(Company_selected);
+                            txt_name.setText(Company_selected);
                         }
                     }
 
@@ -206,6 +216,7 @@ public class PlaceholderFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
+                Log.i("result", String.valueOf(result));
                 try {
                     JSONObject jsonObject = null;
                     for(int i=0;i<result.length();i++){
