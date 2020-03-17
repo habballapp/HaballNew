@@ -112,14 +112,14 @@ public class ViewRetailer extends Fragment {
             @Override
             public void onResponse(JSONObject result) {
                 try {
-                    Log.i("result", String.valueOf(result));
+//                    Log.i("result", String.valueOf(result));
                     mg_rt_code.setText(result.getString("RetailerCode"));
-//                    mg_rt_firstname.setText(result.getString("ConsolidatedInvoiceNumber"));
-//                    mg_rt_email.setText(result.getString("ConsolidatedInvoiceNumber"));
-//                    mg_cnic_no.setText(result.getString("ConsolidatedInvoiceNumber"));
-//                    mg_mobile_no.setText(result.getString("ConsolidatedInvoiceNumber"));
+                    mg_rt_firstname.setText(result.getString("Name"));
+                    mg_rt_email.setText(result.getString("Email"));
+                    mg_cnic_no.setText(result.getString("CNIC"));
+                    mg_mobile_no.setText(result.getString("Mobile"));
                     mg_rt_company.setText(result.getString("CompanyName"));
-//                    mg_tr_address.setText(result.getString("ConsolidatedInvoiceNumber"));
+                    mg_tr_address.setText(result.getString("Address"));
 
                 } catch (JSONException e) {
                     e.printStackTrace();

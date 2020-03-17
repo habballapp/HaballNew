@@ -118,10 +118,10 @@ public class DistributorDashboard extends AppCompatActivity {
 
                 )
                 .addHeaderModel(new HeaderModel("Shipment"))
-                .addHeaderModel(new HeaderModel("Retailer")
-                        .addChildModel(new ChildModel("\tRetailer Management"))
-                        .addChildModel(new ChildModel("\t Retailer Order"))
-                        .addChildModel(new ChildModel("\tRetailer Payment")))
+                .addHeaderModel(new HeaderModel("Retailer Management")
+                        .addChildModel(new ChildModel("\tRetailer"))
+                        .addChildModel(new ChildModel("\tOrder on Behalf"))
+                        .addChildModel(new ChildModel("\tRetailer Payments")))
                 .addHeaderModel(new HeaderModel("Profile"))
                 .addHeaderModel(new HeaderModel("Support"))
                 .addHeaderModel(new HeaderModel("Logout"))
@@ -151,7 +151,7 @@ public class DistributorDashboard extends AppCompatActivity {
 
 
                             //jsonObject.put("CompanyName", null);
-                            fragmentTransaction.commit();
+//                            fragmentTransaction.commit();
                             //jsonObject.put("CompanyName", null);
 //        jsonObject.put("CreateDateFrom", null);
 //        jsonObject.put("CreateDateTo", null);

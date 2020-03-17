@@ -8,7 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +44,7 @@ import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Mod
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Tabs.Order_Item;
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Tabs.Order_Summary;
 import com.example.haball.R;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -49,6 +54,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -63,12 +69,20 @@ public class PlaceholderFragment extends Fragment {
     private RecyclerView.Adapter mAdapter1;
     private RecyclerView.LayoutManager layoutManager, layoutManager1;
     private String Token, DistributorId;
-    private String URL_Retailer = "TO BE DONE"; // To be done
+    private String URL_Retailer = "http://175.107.203.97:4013/api/retailer/retailerById/"; // To be done
+    private String URL_Retailer_Details = "http://175.107.203.97:4013/api/retailer/"; // To be done
     private List<Retailer_Fragment_Model> RetailerList;
     private Button btn_next;
     private static final String ARG_SECTION_NUMBER = "section_number";
-
+    private HashMap<String,String> companies = new HashMap<>();
+    private List<String> company_names = new ArrayList<>();
+    private String Company_selected;
+    private ArrayAdapter<String> arrayAdapterPayments, arrayAdapterPaymentsFilter;
+    private Spinner spinner_conso;
+    private RelativeLayout spinner_retailer_details;
     private PageViewModel pageViewModel;
+    private TextView retailer_heading;
+    private TextInputEditText txt_name, txt_mobile_no, txt_email_address, txt_cnic_no, txt_address;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -97,6 +111,46 @@ public class PlaceholderFragment extends Fragment {
         switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
             case 1: {
                 rootView = inflater.inflate(R.layout.fragment_rpoid_place_order, container, false);
+                company_names.add("Company ");
+                spinner_conso = rootView.findViewById(R.id.spinner_conso);
+                spinner_retailer_details = rootView.findViewById(R.id.spinner_retailer_details);
+                retailer_heading = rootView.findViewById(R.id.retailer_heading);
+                txt_name = rootView.findViewById(R.id.txt_name);
+                txt_mobile_no = rootView.findViewById(R.id.txt_mobile_no);
+                txt_email_address = rootView.findViewById(R.id.txt_email_address);
+                txt_cnic_no = rootView.findViewById(R.id.txt_cnic_no);
+                txt_address = rootView.findViewById(R.id.txt_address);
+                arrayAdapterPayments = new ArrayAdapter<>(rootView.getContext(),
+                        android.R.layout.simple_spinner_dropdown_item, company_names);
+                spinner_retailer_details.setVisibility(View.GONE);
+
+                spinner_conso.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        if(i == 0){
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                        }
+                        else{
+                            Company_selected = company_names.get(i);
+                            spinner_retailer_details.setVisibility(View.VISIBLE);
+//                            try {
+//                                Toast.makeText(getContext(), "Retailer Code: " + companies.get(Company_selected) + "\nCompany Name: " + Company_selected, Toast.LENGTH_LONG).show();
+//                            Log.i("Retailer", "Retailer Code: " + companies.get(Company_selected) + "\nCompany Name: " + Company_selected);
+//                                fetchPaymentLedgerData(companies.get(Company_selected));
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+                            retailer_heading.setText(Company_selected);
+                            txt_name.setText(Company_selected);
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+
                 final ViewPager pager = getActivity().findViewById(R.id.view_pager_rpoid);
                 Holderorders(rootView, pager);
                 break;
@@ -112,6 +166,11 @@ public class PlaceholderFragment extends Fragment {
     }
 
     private void Holderorders(final View root, ViewPager pager) {
+        try {
+            fetchRetailers(pager);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         btn_next = root.findViewById(R.id.btn_next);
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +182,7 @@ public class PlaceholderFragment extends Fragment {
 
             }
         });
+
 //        recyclerView = root.findViewById(R.id.rv_order_ledger);
 //        recyclerView.setHasFixedSize(true);
 //
@@ -150,19 +210,23 @@ public class PlaceholderFragment extends Fragment {
         Log.i("DistributorId ", DistributorId);
         if (!URL_Retailer.contains(DistributorId))
             URL_Retailer = URL_Retailer + DistributorId;
+        Log.i("URL_Retailer ", URL_Retailer);
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.GET, URL_Retailer, null, new Response.Listener<JSONArray>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
-                Log.i("Retailer List", result.toString());
-                Gson gson = new Gson();
-                Type type = new TypeToken<List<Retailer_Fragment_Model>>() {
-                }.getType();
-                RetailerList = gson.fromJson(result.toString(), type);
-                Log.i("RetailerList", String.valueOf(RetailerList));
-                mAdapter = new RetailerFragmentAdapter(getContext(), RetailerList, pager);
-                recyclerView.setAdapter(mAdapter);
+                Log.i("result", String.valueOf(result));
+                try {
+                    JSONObject jsonObject = null;
+                    for(int i=0;i<result.length();i++){
+                        jsonObject  = result.getJSONObject(i);
+                        company_names.add(jsonObject.getString("CompanyName"));
+                        companies.put(jsonObject.getString("CompanyName"),jsonObject.getString("RetailerCode"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -186,6 +250,9 @@ public class PlaceholderFragment extends Fragment {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
+        arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapterPayments.notifyDataSetChanged();
+        spinner_conso.setAdapter(arrayAdapterPayments);
     }
 
 
