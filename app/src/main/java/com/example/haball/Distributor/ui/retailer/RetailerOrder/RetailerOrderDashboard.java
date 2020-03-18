@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -52,6 +53,7 @@ public class RetailerOrderDashboard extends Fragment {
     private String Token, DistributorId;
     private String URL_FETCH_ORDERS = "http://175.107.203.97:4013/api/retailerorder/search";
     private List<RetailerOrdersModel> OrdersList;
+    private Spinner spinner_order_ret;
 
     private FragmentTransaction fragmentTransaction;
 
@@ -62,6 +64,8 @@ public class RetailerOrderDashboard extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_retailer_order_dashboard, container, false);
         btn_place_order = root.findViewById(R.id.btn_place_order);
+        spinner_order_ret =root.findViewById(R.id.spinner_order_ret);
+
 
         recyclerView = root.findViewById(R.id.rv_retailer_order_dashboard);
         recyclerView.setHasFixedSize(true);

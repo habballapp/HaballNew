@@ -56,7 +56,7 @@ import java.util.Map;
  * A simple {@link Fragment} subclass.
  */
 public class OrderPlace_retailer_dashboarad extends Fragment {
-    RecyclerView recyclerView;
+    RecyclerView recyclerView , subchlid_RV;
     private List<OrderParentlist_Model> titles = new ArrayList<>();
     private List<ParentObject> parentObjects = new ArrayList<>();
     private String URL_PRODUCT_CATEGORY = "http://175.107.203.97:4013/api/productcategory/categorieshavingproduct";
@@ -75,8 +75,9 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_order_place_retailer_dashboarad, container, false);
         recyclerView = view.findViewById(R.id.rv_order_list);
+        subchlid_RV = view.findViewById(R.id.subchlid_RV);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        subchlid_RV.setLayoutManager(new LinearLayoutManager(getActivity()));
 //        ParentListAdapter adapter = new ParentListAdapter(getActivity(), (List<ParentObject>) initData());
 //        adapter.setParentClickableViewAnimationDefaultDuration();
 //        adapter.setParentAndIconExpandOnClick(true);
@@ -154,12 +155,10 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
     }
 
     private List<ParentObject> initData() {
-//        TitleCreator titleCreator = TitleCreator.get(getActivity());
-//        List<OrderParentlist_Model> titles = titleCreator.getAll();
         List<ParentObject> parentObjects = new ArrayList<>();
         for (OrderParentlist_Model title : titles) {
             List<Object> childlist = new ArrayList<>();
-            childlist.add(new OrderChildlist_Model("Shabbir Abbas", "rahawa"));
+           // childlist.add(new OrderChildlist_Model());
             title.setChildObjectList(childlist);
             parentObjects.add(title);
         }
