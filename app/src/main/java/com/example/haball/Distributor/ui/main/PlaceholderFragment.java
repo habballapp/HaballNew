@@ -317,6 +317,19 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             public void onResponse(JSONArray result) {
                 btn_load_more.setVisibility(View.GONE);
 
+                if(result.length()!=0) {
+
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<DistributorOrdersModel>>() {
+                    }.getType();
+                    OrdersList = gson.fromJson(result.toString(), type);
+                    ((DistributorOrdersAdapter) recyclerView.getAdapter()).addListItem(OrdersList);
+
+
+
+                }
+
+
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<DistributorOrdersModel>>() {
                 }.getType();

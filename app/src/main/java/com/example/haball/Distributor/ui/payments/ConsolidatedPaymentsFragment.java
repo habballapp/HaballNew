@@ -76,6 +76,7 @@ public class ConsolidatedPaymentsFragment extends Fragment {
     private List<String> filters = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapterPayments;
     private ArrayAdapter<String> arrayAdapterFeltter;
+    private TextView tv_shipment_no_data;
     private List<ConsolidatePaymentsModel> ConsolidatePaymentsRequestList = new ArrayList<>();
     private String Token, DistributorId;
     private Button create_payment;
@@ -106,6 +107,8 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
+        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
+        tv_shipment_no_data.setVisibility(View.GONE);
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
         spinner2.setVisibility(View.GONE);
         conso_edittext.setVisibility(View.GONE);
@@ -416,20 +419,29 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         JSONObject map = new JSONObject();
         map.put("DistributorId", Integer.parseInt(DistributorId));
         map.put("TotalRecords", 10);
-        map.put("PageNumber", pageNumber);
+        map.put("PageNumber", 0);
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_CONSOLIDATE_PAYMENTS, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
                 Log.i("ConsolidatePayments", result.toString());
+                if(result.length()!=0){
 
-                Gson gson = new Gson();
-                Type type = new TypeToken<List<ConsolidatePaymentsModel>>() {
-                }.getType();
-                ConsolidatePaymentsRequestList = gson.fromJson(result.toString(), type);
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<ConsolidatePaymentsModel>>() {
+                    }.getType();
+                    ConsolidatePaymentsRequestList = gson.fromJson(result.toString(), type);
 
-                mAdapter = new Consolidate_Fragment_Adapter(getContext(), ConsolidatePaymentsRequestList);
-                recyclerView.setAdapter(mAdapter);
+                    mAdapter = new Consolidate_Fragment_Adapter(getContext(), ConsolidatePaymentsRequestList);
+                    recyclerView.setAdapter(mAdapter);
+                }
+                else{
+
+
+                    tv_shipment_no_data.setVisibility(View.VISIBLE);
+
+                }
+
             }
         }, new Response.ErrorListener() {
             @Override
