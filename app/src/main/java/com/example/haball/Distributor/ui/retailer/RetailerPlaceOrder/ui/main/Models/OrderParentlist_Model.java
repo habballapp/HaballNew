@@ -7,12 +7,32 @@ import java.util.UUID;
 
 public class OrderParentlist_Model implements ParentObject {
     private List<Object> myCHildrenList;
-    private UUID  _id;
-    private String title;
+    private UUID _id;
+    private String CategoryId;
+    private String Title;
+    private String ParentId;
 
-    public OrderParentlist_Model(String title) {
-        this.title = title;
+    public OrderParentlist_Model(String categoryId, String title, String parentId) {
+        this.CategoryId = categoryId;
+        this.Title = title;
+        this.ParentId = parentId;
         _id = UUID.randomUUID();
+    }
+
+    public String getCategoryId() {
+        return CategoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        CategoryId = categoryId;
+    }
+
+    public String getParentId() {
+        return ParentId;
+    }
+
+    public void setParentId(String parentId) {
+        ParentId = parentId;
     }
 
     public UUID get_id() {
@@ -24,11 +44,11 @@ public class OrderParentlist_Model implements ParentObject {
     }
 
     public String getTitle() {
-        return title;
+        return Title;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.Title = title;
     }
 
     @Override
