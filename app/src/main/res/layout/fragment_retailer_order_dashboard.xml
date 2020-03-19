@@ -59,7 +59,7 @@
             android:background="@drawable/edit_text_squared">
 
             <Spinner
-                android:id="@+id/spinner_conso"
+                android:id="@+id/spinner_order_ret"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:layout_width="match_parent"
@@ -81,6 +81,7 @@
                 android:id="@+id/conso_spinner2"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="40dp" />
         </RelativeLayout>

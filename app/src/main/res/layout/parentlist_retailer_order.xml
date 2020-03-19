@@ -22,6 +22,13 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:layout_toRightOf="@+id/plus_icon"/>
-
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/subchlid_RV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/orderName_retailer"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                />
         </RelativeLayout>
 </androidx.cardview.widget.CardView>

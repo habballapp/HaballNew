@@ -106,8 +106,9 @@ public class DistributorDashboard extends AppCompatActivity {
         navigationExpandableListView
                 .init(this)
                 .addHeaderModel(new HeaderModel("Dashboard"))
-                .addHeaderModel(new HeaderModel("Orders")
-                        .addChildModel(new ChildModel("\tPlace Order")))
+                .addHeaderModel(
+                        new HeaderModel("Orders")
+                                .addChildModel(new ChildModel("\tPlace Order")))
                 .addHeaderModel(
                         new HeaderModel("Payment")
 //                                  .addChildModel(new ChildModel("\tPayments Summary"))
@@ -177,7 +178,7 @@ public class DistributorDashboard extends AppCompatActivity {
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 7) {
                             Log.i("Logout", "Logout Activity");
-                            if (Token != null){
+                            if (Token != null) {
                                 SharedPreferences login_token = getSharedPreferences("LoginToken",
                                         Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = login_token.edit();
@@ -188,8 +189,7 @@ public class DistributorDashboard extends AppCompatActivity {
                                 finish();
                             }
                             drawer.closeDrawer(GravityCompat.START);
-                        }
-                        else if (id == 8) {
+                        } else if (id == 8) {
                             Log.i("terms and conditions", "terms and conditions");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new TermsAndConditionsFragment());
@@ -243,24 +243,18 @@ public class DistributorDashboard extends AppCompatActivity {
                             fragmentTransaction.replace(R.id.main_container, new Orders_Dashboard());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        }
-                        else if (groupPosition == 4 && childPosition ==0)
-                        {
+                        } else if (groupPosition == 4 && childPosition == 0) {
 //                            Toast.makeText(DistributorDashboard.this, "retialer Managment", Toast.LENGTH_SHORT).show();
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new RetailerFragment());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        }
-                        else  if (groupPosition ==4 && childPosition == 1)
-                        {
+                        } else if (groupPosition == 4 && childPosition == 1) {
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new RetailerOrderDashboard());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        }
-                        else if (groupPosition ==4 && childPosition ==2)
-                        {
+                        } else if (groupPosition == 4 && childPosition == 2) {
 //                            Toast.makeText(DistributorDashboard.this, "Retailer Payment", Toast.LENGTH_SHORT).show();
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new RetailerPaymentDashboard());

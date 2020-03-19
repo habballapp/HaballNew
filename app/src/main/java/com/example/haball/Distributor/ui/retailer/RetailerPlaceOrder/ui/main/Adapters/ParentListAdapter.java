@@ -5,17 +5,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bignerdranch.expandablerecyclerview.Adapter.ExpandableRecyclerAdapter;
 import com.bignerdranch.expandablerecyclerview.Model.ParentObject;
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models.OrderChildlist_Model;
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models.OrderParentlist_Model;
 import com.example.haball.R;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst_VH ,OrderChildList_VH> {
     LayoutInflater inflater;
-
     public ParentListAdapter(Context context, List<ParentObject> parentItemList) {
         super(context, parentItemList);
         inflater  = LayoutInflater.from(context);
@@ -31,7 +33,7 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
 
     @Override
     public OrderChildList_VH onCreateChildViewHolder(ViewGroup viewGroup) {
-        View view  = inflater.inflate(R.layout.childlist_retailer_order , viewGroup ,false);
+        View view  = inflater.inflate(R.layout.orderchildlist_expand , viewGroup ,false);
         return  new OrderChildList_VH(view);
 
     }
@@ -45,8 +47,18 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
 
     @Override
     public void onBindChildViewHolder(OrderChildList_VH orderChildList_vh, int i, Object o) {
-        OrderChildlist_Model orderChildlist_model = (OrderChildlist_Model) o;
-        orderChildList_vh.option1.setText(orderChildlist_model.getOption1());
-        orderChildList_vh.option2.setText(orderChildlist_model.getOption2());
+//        OrderChildlist_Model orderChildlist_model = (OrderChildlist_Model) o;
+//        orderChildList_vh.list_txt_products.setText(orderChildlist_model.);
+//        orderChildList_vh.list_product_code_value.setText(orderChildlist_model.);
+//        DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
+//        String yourFormattedString1 = formatter1.format(Double.parseDouble(orderChildlist_model.getProductUnitPrice()));
+//        orderChildList_vh.list_price_value.setText("Rs. " + yourFormattedString1);
+//        String yourFormattedString2 = formatter1.format(Double.parseDouble(orderChildlist_model.getDiscountedAmount()));
+//        orderChildList_vh.list_discount_value.setText("Rs. " + yourFormattedString2);
+//        orderChildList_vh.list_UOM_value.setText(orderChildlist_model.);
+//        orderChildList_vh.list_pack_size_value.setText(orderChildlist_model.);
+//        orderChildList_vh.list_Quantity_value.setText(orderChildlist_model.);
+//        String yourFormattedString3 = formatter1.format(Double.parseDouble(orderChildlist_model.getTotalamount()));
+//        orderChildList_vh.list_amount_value.setText("Rs. " + yourFormattedString3);
     }
 }
