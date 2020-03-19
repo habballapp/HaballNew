@@ -32,6 +32,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrderDashboard;
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Adapters.Order_Summary_Adapter;
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models.OrderChildlist_Model;
 import com.example.haball.R;
@@ -56,6 +57,7 @@ import java.util.Map;
  */
 public class Order_Summary extends Fragment {
 
+    private FragmentTransaction fragmentTransaction;
     private RecyclerView.Adapter mAdapter1;
     private RecyclerView.LayoutManager layoutManager1;
     private RecyclerView recyclerView1;
@@ -102,6 +104,7 @@ public class Order_Summary extends Fragment {
             }
         });
         qtyChanged();
+        new MyAsyncTask().execute();
 
         recyclerView1 = view.findViewById(R.id.rv_orders_summary);
         recyclerView1.setHasFixedSize(false);
@@ -187,6 +190,12 @@ public class Order_Summary extends Fragment {
         editor.putString("RetailerCode", "");
         editor.putString("RetailerID", "");
         editor.apply();
+
+
+        fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_container, new RetailerOrderDashboard());
+        fragmentTransaction.commit();
+
     }
 
     private class MyAsyncTask extends AsyncTask<Void, Void, Void> {
@@ -202,6 +211,7 @@ public class Order_Summary extends Fragment {
                 }.getType();
                 temp_list = gson.fromJson(object_string, type);
                 object_stringqty = selectedProducts.getString("selected_products_qty", "");
+                Log.i("qty_async", object_stringqty);
                 Type typestr = new TypeToken<List<String>>() {
                 }.getType();
                 temp_listqty = gson.fromJson(object_stringqty, typestr);
@@ -212,7 +222,7 @@ public class Order_Summary extends Fragment {
                             break;
                         }
                     }
-                    break;
+//                    break;
                 }
             }
             return null;
@@ -223,6 +233,7 @@ public class Order_Summary extends Fragment {
             if (getContext() != null) {
                 Log.i("async", "in async else");
                 qtyChanged();
+                new MyAsyncTask().execute();
             }
 //            mAdapter1 = new OrdersItemsAdapter(getContext(), ProductsDataList);
 //            itemsSelect_Rv.setAdapter(mAdapter1);
@@ -261,6 +272,7 @@ public class Order_Summary extends Fragment {
 
 //        gst_amount.setText(String.valueOf(gstAmount));
         total_amount.setText(String.valueOf(totalAmount));
+
 
     }
 

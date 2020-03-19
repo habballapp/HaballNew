@@ -126,8 +126,8 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
         if (holder.list_numberOFitems.getText() != null && selectedProductsDataListQty.size() > position) {
             selectedProductsDataListQty.set(position, String.valueOf(holder.list_numberOFitems.getText()));
 
-            for (int i = 0; i < selectedProductsDataList.size(); i++)
-                Toast.makeText(context, selectedProductsDataList.get(i).getTitle() + " - " + selectedProductsDataListQty.get(i), Toast.LENGTH_LONG).show();
+//            for (int i = 0; i < selectedProductsDataList.size(); i++)
+//                Toast.makeText(context, selectedProductsDataList.get(i).getTitle() + " - " + selectedProductsDataListQty.get(i), Toast.LENGTH_LONG).show();
 
             Gson gson = new Gson();
             String json = gson.toJson(selectedProductsDataList);
@@ -140,6 +140,21 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
             editor.putString("selected_products", json);
             editor.putString("selected_products_qty", jsonqty);
             editor.apply();
+
+            if (selectedProductsDataList.size() > 0) {
+                for (int i = 0; i < selectedProductsDataList.size(); i++) {
+                    Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+                    Log.i("qty", selectedProductsDataListQty.get(i));
+                    if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsDataListQty.get(i).equals(""))
+                        grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsDataListQty.get(i));
+                }
+                SharedPreferences grossamount = context.getSharedPreferences("grossamount",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor_grossamount = grossamount.edit();
+                editor_grossamount.putString("grossamount", String.valueOf(grossAmount));
+                editor_grossamount.apply();
+                grossAmount = 0;
+            }
         }
     }
 }
