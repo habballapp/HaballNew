@@ -37,8 +37,8 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
-import com.example.haball.Support.Support_Retailer.Adapter.SupportDashboardAdapter;
-import com.example.haball.Support.Support_Retailer.Model.SupportDashboardModel;
+import com.example.haball.Support.Support_Ditributor.Adapter.SupportDashboardAdapter;
+import com.example.haball.Support.Support_Ditributor.Model.SupportDashboardModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

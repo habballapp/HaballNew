@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.haball" >
+    package="com.example.haball">
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -14,8 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light"
-        android:usesCleartextTraffic="true" >
-
+        android:usesCleartextTraffic="true">
+        <activity android:name=".Retailor.Retailer_Support.Support_Ticket_Form_Retailer"></activity>
         <activity android:name=".Distributor.ui.retailer.Retailor_Management.Retailer_Dashboard" />
         <activity
             android:name=".Distributor.ui.retailer.RetailerOrder.RetailerViewOrder"
@@ -65,7 +65,7 @@
         <activity android:name=".Registration.Registration_Activity" />
         <activity android:name=".Registration.Register_Activity_2" />
         <activity android:name=".Registration.Registration_Actvity2" />
-        <activity android:name=".Support.Support_Retailer.Support_Ticket_Form" />
+        <activity android:name=".Support.Support_Ditributor.Support_Ticket_Form" />
         <activity android:name=".Distributor.ui.support.SupportTicketFormFragment" />
         <activity
             android:name=".Select_User.Register_Activity"
@@ -78,7 +78,7 @@
         <activity
             android:name=".SplashScreen.SplashScreen"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:windowSoftInputMode="adjustNothing" >
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

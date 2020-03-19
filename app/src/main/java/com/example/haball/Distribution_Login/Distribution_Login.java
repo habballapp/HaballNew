@@ -44,7 +44,7 @@ import com.example.haball.Distributor.DistributorDashboard;
 import com.example.haball.R;
 import com.example.haball.Registration.Registration_Activity;
 import com.example.haball.Select_User.Register_Activity;
-import com.example.haball.Support.Support_Retailer.Support_Ticket_Form;
+import com.example.haball.Support.Support_Ditributor.Support_Ticket_Form;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
