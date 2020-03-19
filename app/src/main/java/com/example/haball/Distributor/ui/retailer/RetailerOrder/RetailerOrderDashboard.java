@@ -29,6 +29,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -67,6 +68,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
     private Button btn_place_order;
     private String URL_ORDER = "http://175.107.203.97:4013/api/retailerorder/search";
     private String Token, DistributorId;
+    private TextView tv_shipment_no_data;
     private String URL_FETCH_ORDERS = "http://175.107.203.97:4013/api/retailerorder/search";
     private List<RetailerOrdersModel> OrdersList;
     private Spinner spinner_order_ret;
@@ -86,6 +88,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
     private TextInputLayout search_bar;
     public String dateType = "";
     private int year1, year2, month1, month2, date1, date2;
+
 
     private ImageButton first_date_btn, second_date_btn;
     private LinearLayout date_filter_rl, amount_filter_rl;
@@ -162,6 +165,10 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                     if (!conso_edittext.getText().equals(""))
                         conso_edittext.setText("");
 
+        recyclerView = root.findViewById(R.id.rv_retailer_order_dashboard);
+        recyclerView.setHasFixedSize(true);
+        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
+        tv_shipment_no_data.setVisibility(View.GONE);
                     if (Filter_selected.equals("Order ID")) {
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "PrePaidNumber";
@@ -323,14 +330,21 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
-                Log.i("ORDERS DATA - ", result.toString());
-                Gson gson = new Gson();
-                Type type = new TypeToken<List<RetailerOrdersModel>>() {
-                }.getType();
-                OrdersList = gson.fromJson(result.toString(), type);
-                Log.i("OrdersList", String.valueOf(OrdersList));
-                mAdapter = new RetailerOrdersAdapter(getContext(), OrdersList);
-                recyclerView.setAdapter(mAdapter);
+                if(result.length()!=0){
+
+                    Log.i("ORDERS DATA - ", result.toString());
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<RetailerOrdersModel>>() {
+                    }.getType();
+                    OrdersList = gson.fromJson(result.toString(), type);
+                    Log.i("OrdersList", String.valueOf(OrdersList));
+                    mAdapter = new RetailerOrdersAdapter(getContext(), OrdersList);
+                    recyclerView.setAdapter(mAdapter);
+                }
+                else{
+                    tv_shipment_no_data.setVisibility(View.VISIBLE);
+                }
+
             }
         }, new Response.ErrorListener() {
             @Override

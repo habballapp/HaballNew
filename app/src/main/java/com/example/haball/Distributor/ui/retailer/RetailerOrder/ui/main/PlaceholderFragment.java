@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -56,6 +57,7 @@ public class PlaceholderFragment extends Fragment {
     private TextInputEditText txt_orderID, txt_company_order, txt_created_date_order, txt_status_order, txt_comments;
     private TextInputEditText txt_companyName, txt_paymentID, txt_created_date, txt_confirm, txt_bank, txt_authorization_id, txt_settlement_id, txt_status, txt_amount, txt_transaction_charges, txt_total_amount;
     private RecyclerView rv_fragment_retailer_order_details;
+    private TextView tv_shipment_no_data;
     private RecyclerView.Adapter rv_productAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private List<RetailerViewOrderProductModel> invo_productList = new ArrayList<>();
@@ -87,6 +89,8 @@ public class PlaceholderFragment extends Fragment {
             Bundle savedInstanceState) {
         SharedPreferences sharedPreferences3 = getContext().getSharedPreferences("OrderId",
                 Context.MODE_PRIVATE);
+
+
         orderID = sharedPreferences3.getString("OrderId", "");
         Log.i("OrderId", orderID);
         if (!URL_Order_Data.contains(orderID)) {
@@ -119,7 +123,8 @@ public class PlaceholderFragment extends Fragment {
                 layoutManager = new LinearLayoutManager(rootView.getContext());
                 rv_fragment_retailer_order_details.setLayoutManager(layoutManager);
 
-                getOrderDetailsData();
+
+                getOrderDetailsData(rootView);
                 break;
             }
             case 3: {
@@ -203,10 +208,13 @@ public class PlaceholderFragment extends Fragment {
 
     }
 
-    private void getOrderDetailsData() {
+    private void getOrderDetailsData( View rootView) {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
+
+        tv_shipment_no_data = rootView.findViewById(R.id.tv_shipment_no_data);
+        tv_shipment_no_data.setVisibility(View.GONE);
 
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
@@ -221,9 +229,13 @@ public class PlaceholderFragment extends Fragment {
                 }.getType();
                 try {
                     invo_productList = gson.fromJson(response.get("OrderDetails").toString(), type);
-                    Log.i("OrderDetails", String.valueOf(response.get("OrderDetails")));
-                    RetailerViewOrderProductAdapter productAdapter = new RetailerViewOrderProductAdapter(getContext(), invo_productList);
-                    rv_fragment_retailer_order_details.setAdapter(productAdapter);
+                    if(invo_productList.size() != 0) {
+                        Log.i("OrderDetails", String.valueOf(response.get("OrderDetails")));
+                        RetailerViewOrderProductAdapter productAdapter = new RetailerViewOrderProductAdapter(getContext(), invo_productList);
+                        rv_fragment_retailer_order_details.setAdapter(productAdapter);
+                    } else {
+                                 tv_shipment_no_data.setVisibility(View.VISIBLE);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

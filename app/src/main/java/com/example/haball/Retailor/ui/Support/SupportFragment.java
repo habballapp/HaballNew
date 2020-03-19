@@ -39,7 +39,7 @@ import com.example.haball.Distributor.ui.support.MyJsonArrayRequest;
 import com.example.haball.Distributor.ui.support.SupportTicketFormFragment;
 import com.example.haball.Distributor.ui.support.SupportViewModel;
 import com.example.haball.R;
-import com.example.haball.Support.Support_Retailer.Model.SupportDashboardModel;
+import com.example.haball.Support.Support_Ditributor.Model.SupportDashboardModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

@@ -1,4 +1,4 @@
-package com.example.haball.Support.Support_Retailer;
+package com.example.haball.Support.Support_Ditributor;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;

@@ -89,7 +89,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private RecyclerView recyclerView;
     private RecyclerView.Adapter PaymentsAdapter;
     private RecyclerView.Adapter OrdersAdapter;
-
+    private  TextView tv_shipment_no_data,tv_shipment_no_data1;
     private RecyclerView.LayoutManager layoutManager;
     private String URL_DISTRIBUTOR_DASHBOARD = "http://175.107.203.97:4013/api/dashboard/ReadDistributorDashboard";
     //    private String URL_DISTRIBUTOR_PAYMENTS = "http://175.107.203.97:4013/api/dashboard/ReadDistributorPayments";
@@ -146,6 +146,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
         int index = 1;
         if (getArguments() != null) {
@@ -173,6 +174,9 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
                 btn_load_more.setText(content);
                 btn_load_more.setVisibility(View.GONE);
+                tv_shipment_no_data1 = rootView.findViewById(R.id.tv_shipment_no_data1);
+                tv_shipment_no_data1.setVisibility(View.GONE);
+
 
                 btn_load_more.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -233,9 +237,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
                 btn_load_more = rootView.findViewById(R.id.btn_load_more);
 
+
                 SpannableString content = new SpannableString("Load More");
                 content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
                 btn_load_more.setText(content);
+                tv_shipment_no_data = rootView.findViewById(R.id.tv_shipment_no_data);
+                tv_shipment_no_data.setVisibility(View.GONE);
                 btn_load_more.setVisibility(View.GONE);
 
                 btn_load_more.setOnClickListener(new View.OnClickListener() {
@@ -316,6 +323,21 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             public void onResponse(JSONArray result) {
                 btn_load_more.setVisibility(View.GONE);
 
+                if(result.length()!=0) {
+
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<DistributorOrdersModel>>() {
+                    }.getType();
+                    OrdersList = gson.fromJson(result.toString(), type);
+                    ((DistributorOrdersAdapter) recyclerView.getAdapter()).addListItem(OrdersList);
+
+                }
+                else {
+
+                         tv_shipment_no_data.setVisibility(View.VISIBLE);
+                }
+
+
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<DistributorOrdersModel>>() {
                 }.getType();
@@ -370,11 +392,17 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 Log.i("Payments Requests", result.toString());
                 btn_load_more.setVisibility(View.GONE);
 
-                Gson gson = new Gson();
-                Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
-                }.getType();
-                PaymentsRequestList = gson.fromJson(result.toString(), type);
-                ((DistributorPaymentRequestAdaptor) recyclerView.getAdapter()).addListItem(PaymentsRequestList);
+                if(result.length()!=0){
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
+                    }.getType();
+                    PaymentsRequestList = gson.fromJson(result.toString(), type);
+                    ((DistributorPaymentRequestAdaptor) recyclerView.getAdapter()).addListItem(PaymentsRequestList);
+                }
+                else{
+                    tv_shipment_no_data1.setVisibility(View.VISIBLE);
+                }
+
 
             }
         }, new Response.ErrorListener() {
@@ -786,13 +814,20 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @Override
             public void onResponse(JSONArray result) {
                 //                    JSONArray jsonArray = new JSONArray(result);
-                Gson gson = new Gson();
-                Type type = new TypeToken<List<DistributorOrdersModel>>() {
-                }.getType();
-                OrdersList = gson.fromJson(result.toString(), type);
+                if(result.length()!=0){
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<DistributorOrdersModel>>() {
+                    }.getType();
+                    OrdersList = gson.fromJson(result.toString(), type);
 
-                OrdersAdapter = new DistributorOrdersAdapter(getContext(), OrdersList);
-                recyclerView.setAdapter(OrdersAdapter);
+                    OrdersAdapter = new DistributorOrdersAdapter(getContext(), OrdersList);
+                    recyclerView.setAdapter(OrdersAdapter);
+                }
+                else{
+
+                    Toast.makeText(getContext(),"No Orders Available",Toast.LENGTH_SHORT);
+                }
+
 
             }
         }, new Response.ErrorListener() {

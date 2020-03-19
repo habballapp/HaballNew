@@ -37,8 +37,8 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
-import com.example.haball.Support.Support_Retailer.Adapter.SupportDashboardAdapter;
-import com.example.haball.Support.Support_Retailer.Model.SupportDashboardModel;
+import com.example.haball.Support.Support_Ditributor.Adapter.SupportDashboardAdapter;
+import com.example.haball.Support.Support_Ditributor.Model.SupportDashboardModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -59,6 +59,7 @@ public class SupportFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<String> array = new ArrayList<>();
     private Button btn_add_ticket;
+    private TextView tv_shipment_no_data;
     private String Token;
     private String URL_SUPPORT = "http://175.107.203.97:4013/api/contact/search";
     private SupportViewModel supportViewModel;
@@ -113,6 +114,8 @@ public class SupportFragment extends Fragment {
         spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
+        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
+        tv_shipment_no_data.setVisibility(View.GONE);
 //        spinner_consolidate.setVisibility(View.GONE);
         spinner2.setVisibility(View.GONE);
         conso_edittext.setVisibility(View.GONE);
@@ -148,6 +151,7 @@ public class SupportFragment extends Fragment {
                     } else if(Filter_selected.equals("Issue Type")) {
                         Filter_selected = "IssueType";
                         spinner2.setVisibility(View.VISIBLE);
+                        tv_shipment_no_data.setVisibility(View.GONE);
 
                         filters.add ("Issue Type");
                         filters.add ("Main Dashboard");
@@ -169,8 +173,11 @@ public class SupportFragment extends Fragment {
 
                     } else if(Filter_selected.equals("Created Date")) {
                         Toast.makeText(getContext(),"Created Date selected",Toast.LENGTH_LONG).show();
+                        tv_shipment_no_data.setVisibility(View.GONE);
                     } else if(Filter_selected.equals("Status")) {
+
                         Filter_selected = "Status";
+                        tv_shipment_no_data.setVisibility(View.GONE);
                         spinner2.setVisibility(View.VISIBLE);
 
                         filters.add ("Status");
@@ -260,21 +267,31 @@ public class SupportFragment extends Fragment {
         MyJsonArrayRequest request = new MyJsonArrayRequest(Request.Method.POST, URL_SUPPORT, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                Log.i("onResponse => SUPPORT ", ""+response.toString());
-                JSONObject jsonObject = new JSONObject();
-                for(int i=0;i<response.length();i++){
-                    try {
-                        jsonObject = response.getJSONObject(i);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                Gson gson = new Gson();
-                Type type = new TypeToken<List<SupportDashboardModel>>(){}.getType();
-                SupportList = gson.fromJson(String.valueOf(response),type);
 
-                mAdapter = new SupportDashboardAdapter(getContext(),SupportList);
-                recyclerView.setAdapter(mAdapter);
+                if(response.length()!=0){
+
+                    Log.i("onResponse => SUPPORT ", ""+response.toString());
+                    JSONObject jsonObject = new JSONObject();
+                    for(int i=0;i<response.length();i++){
+                        try {
+                            jsonObject = response.getJSONObject(i);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<SupportDashboardModel>>(){}.getType();
+                    SupportList = gson.fromJson(String.valueOf(response),type);
+
+                    mAdapter = new SupportDashboardAdapter(getContext(),SupportList);
+                    recyclerView.setAdapter(mAdapter);
+
+                }
+                else {
+
+                    tv_shipment_no_data.setVisibility(View.VISIBLE);
+                }
+
 
             }
         }, new Response.ErrorListener() {

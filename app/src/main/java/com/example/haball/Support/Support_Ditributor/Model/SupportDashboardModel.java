@@ -1,4 +1,4 @@
-package com.example.haball.Support.Support_Retailer.Model;
+package com.example.haball.Support.Support_Ditributor.Model;
 
 public class SupportDashboardModel {
     String Id, IssueType, Status, CreatedDate, Criticality, PreferredContactMethod, Description, ContactName, Email, MobileNumber;

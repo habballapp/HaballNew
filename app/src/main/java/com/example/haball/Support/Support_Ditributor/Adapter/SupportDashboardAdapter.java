@@ -1,4 +1,4 @@
-package com.example.haball.Support.Support_Retailer.Adapter;
+package com.example.haball.Support.Support_Ditributor.Adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haball.Distributor.ui.support.DeleteSupport;
 import com.example.haball.R;
-import com.example.haball.Support.Support_Retailer.Model.SupportDashboardModel;
+import com.example.haball.Support.Support_Ditributor.Model.SupportDashboardModel;
 
 import org.json.JSONException;
 

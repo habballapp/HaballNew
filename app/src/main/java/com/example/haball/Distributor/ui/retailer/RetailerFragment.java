@@ -56,6 +56,7 @@ public class RetailerFragment extends Fragment {
     private String URL_Retailers = "http://175.107.203.97:4013/api/retailer/search";
     RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
+    private TextView tv_shipment_no_data;
     private RecyclerView.LayoutManager layoutManager;
     private List<Retailer_Management_Dashboard_Model> RetailerList = new ArrayList<>();
     private String Token, DistributorId;
@@ -70,6 +71,8 @@ public class RetailerFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
+        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
+        tv_shipment_no_data.setVisibility(View.GONE);
 
         // use a linear layout manager
 
@@ -107,13 +110,21 @@ public class RetailerFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
-                Log.i("Payments Requests", result.toString());
-                Gson gson = new Gson();
-                Type type = new TypeToken<List<Retailer_Management_Dashboard_Model>>(){}.getType();
-                RetailerList = gson.fromJson(result.toString(),type);
+                if(result.length()!=0)
+                {
+                    Log.i("Payments Requests", result.toString());
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<Retailer_Management_Dashboard_Model>>(){}.getType();
+                    RetailerList = gson.fromJson(result.toString(),type);
 
-                mAdapter = new Retailer_Management_Dashboard_Adapter(getContext(),RetailerList);
-                recyclerView.setAdapter(mAdapter);
+                    mAdapter = new Retailer_Management_Dashboard_Adapter(getContext(),RetailerList);
+                    recyclerView.setAdapter(mAdapter);
+
+                }
+                else{
+                    tv_shipment_no_data.setVisibility(View.VISIBLE);
+                }
+
             }
         }, new Response.ErrorListener() {
             @Override
