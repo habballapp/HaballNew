@@ -33,6 +33,13 @@ public class SplashScreen extends AppCompatActivity {
 
             @Override
             public void run() {
+                SharedPreferences selectedProducts = getSharedPreferences("selectedProducts_retailer",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = selectedProducts.edit();
+                editor.remove("selected_products_qty");
+                editor.remove("selected_products");
+                editor.commit();
+
                 SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("LoginToken",
                         Context.MODE_PRIVATE);
                 if(!sharedPreferences.getString("Login_Token","").equals(""))

@@ -4,24 +4,20 @@ public class OrderChildlist_Model {
 
     String ProductId;
     String ProductCode;
-    String ProductTitle;
-    String OrderedQty;
+    String Title;
     String ProductUnitPrice;
-    String DiscountedAmount;
-    String Totalamount;
-    String UOM;
-    String PackSize;
+    String ProductCategoryId;
+    String UnitOFMeasure;
+    String DiscountAmount;
 
-    public OrderChildlist_Model(String productId, String productCode, String productTitle, String orderedQty, String productUnitPrice, String discountedAmount, String totalamount, String UOM, String packSize) {
+    public OrderChildlist_Model(String productId, String productCode, String title, String productUnitPrice, String productCategoryId, String unitOFMeasure, String discountAmount) {
         ProductId = productId;
         ProductCode = productCode;
-        ProductTitle = productTitle;
-        OrderedQty = orderedQty;
+        Title = title;
         ProductUnitPrice = productUnitPrice;
-        DiscountedAmount = discountedAmount;
-        Totalamount = totalamount;
-        this.UOM = UOM;
-        PackSize = packSize;
+        ProductCategoryId = productCategoryId;
+        UnitOFMeasure = unitOFMeasure;
+        DiscountAmount = discountAmount;
     }
 
     public String getProductId() {
@@ -40,20 +36,12 @@ public class OrderChildlist_Model {
         ProductCode = productCode;
     }
 
-    public String getProductTitle() {
-        return ProductTitle;
+    public String getTitle() {
+        return Title;
     }
 
-    public void setProductTitle(String productTitle) {
-        ProductTitle = productTitle;
-    }
-
-    public String getOrderedQty() {
-        return OrderedQty;
-    }
-
-    public void setOrderedQty(String orderedQty) {
-        OrderedQty = orderedQty;
+    public void setTitle(String title) {
+        Title = title;
     }
 
     public String getProductUnitPrice() {
@@ -64,35 +52,27 @@ public class OrderChildlist_Model {
         ProductUnitPrice = productUnitPrice;
     }
 
-    public String getDiscountedAmount() {
-        return DiscountedAmount;
+    public String getProductCategoryId() {
+        return ProductCategoryId;
     }
 
-    public void setDiscountedAmount(String discountedAmount) {
-        DiscountedAmount = discountedAmount;
+    public void setProductCategoryId(String productCategoryId) {
+        ProductCategoryId = productCategoryId;
     }
 
-    public String getTotalamount() {
-        return Totalamount;
+    public String getUnitOFMeasure() {
+        return UnitOFMeasure;
     }
 
-    public void setTotalamount(String totalamount) {
-        Totalamount = totalamount;
+    public void setUnitOFMeasure(String unitOFMeasure) {
+        UnitOFMeasure = unitOFMeasure;
     }
 
-    public String getUOM() {
-        return UOM;
+    public String getDiscountAmount() {
+        return DiscountAmount;
     }
 
-    public void setUOM(String UOM) {
-        this.UOM = UOM;
-    }
-
-    public String getPackSize() {
-        return PackSize;
-    }
-
-    public void setPackSize(String packSize) {
-        PackSize = packSize;
+    public void setDiscountAmount(String discountAmount) {
+        DiscountAmount = discountAmount;
     }
 }
