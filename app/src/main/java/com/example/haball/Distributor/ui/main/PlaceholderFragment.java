@@ -99,7 +99,6 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private String URL_DISTRIBUTOR_ORDERS_COUNT = "http://175.107.203.97:4013/api/orders/searchCount";
 
     private TextView value_unpaid_amount, value_paid_amount;
-    private List<DistributorPaymentsModel> PaymentsList = new ArrayList<>();
     private List<DistributorPaymentRequestModel> PaymentsRequestList = new ArrayList<>();
     private List<DistributorOrdersModel> OrdersList = new ArrayList<>();
     private String Token, DistributorId;
