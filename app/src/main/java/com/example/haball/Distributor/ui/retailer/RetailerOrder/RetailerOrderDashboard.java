@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -50,8 +51,10 @@ public class RetailerOrderDashboard extends Fragment {
     private Button btn_place_order;
     private String URL_ORDER = "http://175.107.203.97:4013/api/retailerorder/search";
     private String Token, DistributorId;
+    private TextView tv_shipment_no_data;
     private String URL_FETCH_ORDERS = "http://175.107.203.97:4013/api/retailerorder/search";
     private List<RetailerOrdersModel> OrdersList;
+
 
     private FragmentTransaction fragmentTransaction;
 
@@ -65,6 +68,8 @@ public class RetailerOrderDashboard extends Fragment {
 
         recyclerView = root.findViewById(R.id.rv_retailer_order_dashboard);
         recyclerView.setHasFixedSize(true);
+        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
+        tv_shipment_no_data.setVisibility(View.GONE);
 
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -108,14 +113,21 @@ public class RetailerOrderDashboard extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
-                Log.i("ORDERS DATA - ", result.toString());
-                Gson gson = new Gson();
-                Type type = new TypeToken<List<RetailerOrdersModel>>() {
-                }.getType();
-                OrdersList = gson.fromJson(result.toString(), type);
-                Log.i("OrdersList", String.valueOf(OrdersList));
-                mAdapter = new RetailerOrdersAdapter(getContext(), OrdersList);
-                recyclerView.setAdapter(mAdapter);
+                if(result.length()!=0){
+
+                    Log.i("ORDERS DATA - ", result.toString());
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<RetailerOrdersModel>>() {
+                    }.getType();
+                    OrdersList = gson.fromJson(result.toString(), type);
+                    Log.i("OrdersList", String.valueOf(OrdersList));
+                    mAdapter = new RetailerOrdersAdapter(getContext(), OrdersList);
+                    recyclerView.setAdapter(mAdapter);
+                }
+                else{
+                    tv_shipment_no_data.setVisibility(View.VISIBLE);
+                }
+
             }
         }, new Response.ErrorListener() {
             @Override

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.haball">
+    package="com.example.haball" >
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true" >
+
         <activity android:name=".Distributor.ui.retailer.Retailor_Management.Retailer_Dashboard" />
         <activity
             android:name=".Distributor.ui.retailer.RetailerOrder.RetailerViewOrder"
@@ -23,7 +24,6 @@
         <activity
             android:name=".Distributor.ui.retailer.Payment.ViewPayment.RetailerPaymentView"
             android:label="@string/title_activity_retailer_payment_view"
-            android:theme="@style/NoActionBar"/>
             android:theme="@style/NoActionBar" />
         <activity
             android:name=".Distributor.ui.retailer.RetailerPlaceOrder.RetailerPlaceOrder"
@@ -78,7 +78,7 @@
         <activity
             android:name=".SplashScreen.SplashScreen"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:windowSoftInputMode="adjustNothing">
+            android:windowSoftInputMode="adjustNothing" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

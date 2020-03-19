@@ -1,24 +1,22 @@
-package com.example.haball.Distributor.ui.retailer;
+package com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Tabs;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -30,10 +28,14 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bignerdranch.expandablerecyclerview.Model.ParentObject;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
-import com.example.haball.Distributor.ui.retailer.Retailor_Management.Adapter.Retailer_Management_Dashboard_Adapter;
-import com.example.haball.Distributor.ui.retailer.Retailor_Management.Model.Retailer_Management_Dashboard_Model;
+import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Adapters.ParentListAdapter;
+import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models.OrderChildlist_Model;
+import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models.OrderParentlist_Model;
+import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models.TitleCreator;
 import com.example.haball.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -50,81 +52,82 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class RetailerFragment extends Fragment {
-
-    private RetailerViewModel shareViewModel;
-    private String URL_Retailers = "http://175.107.203.97:4013/api/retailer/search";
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class OrderPlace_retailer_dashboarad extends Fragment {
     RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private TextView tv_shipment_no_data;
-    private RecyclerView.LayoutManager layoutManager;
-    private List<Retailer_Management_Dashboard_Model> RetailerList = new ArrayList<>();
+    private List<OrderParentlist_Model> titles = new ArrayList<>();
+    private List<ParentObject> parentObjects = new ArrayList<>();
+    private String URL_PRODUCT_CATEGORY = "http://175.107.203.97:4013/api/productcategory/categorieshavingproduct";
+    private String URL_PRODUCT = "http://175.107.203.97:4013/api/product/ReadByDistributorId";
     private String Token, DistributorId;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        shareViewModel =
-                ViewModelProviders.of(this).get(RetailerViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_retailer__dashboard, container, false);
-
-        recyclerView = (RecyclerView) root.findViewById(R.id.rv_retailer_dashboard);
-        layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
-        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
-        tv_shipment_no_data.setVisibility(View.GONE);
-
-        // use a linear layout manager
-
-
-
-        // specify an adapter (see also next example)
-//        mAdapter = new Retailer_Management_Dashboard_Adapter(getContext(), "Ghulam Rabani & Sons Traders & Distributors","1002312324251524","12/3/20","Paid");
-//        recyclerView.setAdapter(mAdapter);
-        try {
-            fetchRetailer();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return root;
+    public OrderPlace_retailer_dashboarad() {
+        // Required empty public constructor
     }
 
 
-    private void fetchRetailer() throws JSONException {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_order_place_retailer_dashboarad, container, false);
+        recyclerView = view.findViewById(R.id.rv_order_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+//        ParentListAdapter adapter = new ParentListAdapter(getActivity(), (List<ParentObject>) initData());
+//        adapter.setParentClickableViewAnimationDefaultDuration();
+//        adapter.setParentAndIconExpandOnClick(true);
+//        recyclerView.setAdapter(adapter);
+
+        try {
+            getProductCategory();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return view;
+
+    }
+
+    private void getProductCategory() throws JSONException {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token","");
+        Token = sharedPreferences.getString("Login_Token", "");
         Log.i("Token", Token);
 
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences1.getString("Distributor_Id","");
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
+
 
         JSONObject map = new JSONObject();
         map.put("DistributorId", Integer.parseInt(DistributorId));
-        map.put("TotalRecords", 10);
-        map.put("PageNumber", 0.1);
+        Log.i("Map", String.valueOf(map));
 
-        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_Retailers, map,new Response.Listener<JSONArray>() {
+
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PRODUCT_CATEGORY, map, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
-            public void onResponse(JSONArray result) {
-                if(result.length()!=0)
-                {
-                    Log.i("Payments Requests", result.toString());
-                    Gson gson = new Gson();
-                    Type type = new TypeToken<List<Retailer_Management_Dashboard_Model>>(){}.getType();
-                    RetailerList = gson.fromJson(result.toString(),type);
+            public void onResponse(JSONObject result) {
+                Log.i("result", String.valueOf(result));
 
-                    mAdapter = new Retailer_Management_Dashboard_Adapter(getContext(),RetailerList);
-                    recyclerView.setAdapter(mAdapter);
-
-                }
-                else{
-                    tv_shipment_no_data.setVisibility(View.VISIBLE);
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<OrderParentlist_Model>>() {
+                }.getType();
+                try {
+                    titles = gson.fromJson(String.valueOf(result.get("SubCategory")), type);
+                    Log.i("productList", String.valueOf(titles));
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
 
+                ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData());
+                adapter.setParentClickableViewAnimationDefaultDuration();
+                adapter.setParentAndIconExpandOnClick(true);
+                recyclerView.setAdapter(adapter);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -133,12 +136,13 @@ public class RetailerFragment extends Fragment {
 
                 error.printStackTrace();
             }
-        }){
+        }) {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer " +Token);
+                params.put("Authorization", "bearer " + Token);
+                params.put("Content-Type", "application/json; charset=UTF-8");
                 return params;
             }
         };
@@ -148,6 +152,20 @@ public class RetailerFragment extends Fragment {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
     }
+
+    private List<ParentObject> initData() {
+//        TitleCreator titleCreator = TitleCreator.get(getActivity());
+//        List<OrderParentlist_Model> titles = titleCreator.getAll();
+        List<ParentObject> parentObjects = new ArrayList<>();
+        for (OrderParentlist_Model title : titles) {
+            List<Object> childlist = new ArrayList<>();
+            childlist.add(new OrderChildlist_Model("Shabbir Abbas", "rahawa"));
+            title.setChildObjectList(childlist);
+            parentObjects.add(title);
+        }
+        return parentObjects;
+    }
+
 
     private void printErrorMessage(VolleyError error) {
         if (error instanceof NetworkError) {
@@ -168,9 +186,9 @@ public class RetailerFragment extends Fragment {
             try {
                 String message = "";
                 String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody",responseBody);
+                Log.i("responseBody", responseBody);
                 JSONObject data = new JSONObject(responseBody);
-                Log.i("data",String.valueOf(data));
+                Log.i("data", String.valueOf(data));
                 Iterator<String> keys = data.keys();
                 while (keys.hasNext()) {
                     String key = keys.next();

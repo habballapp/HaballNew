@@ -98,11 +98,5 @@
     <string name="retailer_Order">\t\t Order \t\t</string>
     <string name="retailer_OrderDetails">\t\t Order Details\t\t</string>
     <string name="title_activity_retailer_view_order">RetailerViewOrder</string>
-
-    <string-array name="array_name">
-        <item>Array Item One</item>
-        <item>Array Item Two</item>
-        <item>Array Item Three</item>
-    </string-array>
-
+    <string name="title_activity_place_order_retailer">PlaceOrder_retailer</string>
 </resources>

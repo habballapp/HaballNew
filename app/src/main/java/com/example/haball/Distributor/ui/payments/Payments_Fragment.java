@@ -65,7 +65,7 @@ public class Payments_Fragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private LinearLayoutManager layoutManager2;
-    private HashMap<String,String> companies = new HashMap<>();
+    private HashMap<String, String> companies = new HashMap<>();
     private List<String> company_names = new ArrayList<>();
     private String Token;
     private String URL_PAYMENT_LEDGER_COMPANY = "http://175.107.203.97:4013/api/company/ReadActiveCompanyContract/";
@@ -78,6 +78,7 @@ public class Payments_Fragment extends Fragment {
 
     private PaymentsViewModel paymentsViewModel;
     private Spinner spinner_consolidate;
+    private TextView tv_shipment_no_data;
     private Spinner spinner2;
     private EditText conso_edittext;
     private List<String> consolidate_felter = new ArrayList<>();
@@ -96,7 +97,7 @@ public class Payments_Fragment extends Fragment {
     private double totalEntries = 0;
     private double totalPages = 0;
     private Context mcontext;
-    
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         paymentsViewModel =
@@ -118,16 +119,19 @@ public class Payments_Fragment extends Fragment {
         spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
+        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
+        tv_shipment_no_data.setVisibility(View.GONE);
+
         spinner_consolidate.setVisibility(View.GONE);
         spinner2.setVisibility(View.GONE);
         conso_edittext.setVisibility(View.GONE);
-        consolidate_felter.add ("Select Criteria");
-        consolidate_felter.add ("Ledger ID");
-        consolidate_felter.add ("Document Type");
-        consolidate_felter.add ("Date");
-        consolidate_felter.add ("Credit");
-        consolidate_felter.add ("Debit");
-        consolidate_felter.add ("Balance");
+        consolidate_felter.add("Select Criteria");
+        consolidate_felter.add("Ledger ID");
+        consolidate_felter.add("Document Type");
+        consolidate_felter.add("Date");
+        consolidate_felter.add("Credit");
+        consolidate_felter.add("Debit");
+        consolidate_felter.add("Balance");
 
         arrayAdapterPaymentsFilter = new ArrayAdapter<>(root.getContext(),
                 android.R.layout.simple_dropdown_item_1line, consolidate_felter);
@@ -135,41 +139,40 @@ public class Payments_Fragment extends Fragment {
         spinner_consolidate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                }
-                else{
+                } else {
                     Filter_selected = consolidate_felter.get(i);
 
-                    if(!Filter_selected.equals("Document Type"))
+                    if (!Filter_selected.equals("Document Type"))
                         spinner2.setSelection(0);
-                    if(!conso_edittext.getText().equals(""))
+                    if (!conso_edittext.getText().equals(""))
                         conso_edittext.setText("");
 
-                    if(Filter_selected.equals("Ledger ID")) {
+                    if (Filter_selected.equals("Ledger ID")) {
                         Filter_selected = "DocumentNumber";
                         spinner2.setVisibility(View.GONE);
                         conso_edittext.setVisibility(View.VISIBLE);
-                    } else if(Filter_selected.equals("Document Type")) {
+                    } else if (Filter_selected.equals("Document Type")) {
                         Filter_selected = "DocumentType";
                         spinner2.setVisibility(View.VISIBLE);
                         conso_edittext.setVisibility(View.GONE);
-                    } else if(Filter_selected.equals("Date")) {
+                    } else if (Filter_selected.equals("Date")) {
                         spinner2.setVisibility(View.GONE);
                         conso_edittext.setVisibility(View.GONE);
-                        Toast.makeText(mcontext,"Date selected",Toast.LENGTH_LONG).show();
-                    } else if(Filter_selected.equals("Credit")) {
+                        Toast.makeText(mcontext, "Date selected", Toast.LENGTH_LONG).show();
+                    } else if (Filter_selected.equals("Credit")) {
                         spinner2.setVisibility(View.GONE);
                         conso_edittext.setVisibility(View.GONE);
-                        Toast.makeText(mcontext,"Credit selected",Toast.LENGTH_LONG).show();
-                    } else if(Filter_selected.equals("Debit")) {
+                        Toast.makeText(mcontext, "Credit selected", Toast.LENGTH_LONG).show();
+                    } else if (Filter_selected.equals("Debit")) {
                         spinner2.setVisibility(View.GONE);
                         conso_edittext.setVisibility(View.GONE);
-                        Toast.makeText(mcontext,"Debit selected",Toast.LENGTH_LONG).show();
-                    } else if(Filter_selected.equals("Balance")) {
+                        Toast.makeText(mcontext, "Debit selected", Toast.LENGTH_LONG).show();
+                    } else if (Filter_selected.equals("Balance")) {
                         spinner2.setVisibility(View.GONE);
                         conso_edittext.setVisibility(View.GONE);
-                        Toast.makeText(mcontext,"Balance selected",Toast.LENGTH_LONG).show();
+                        Toast.makeText(mcontext, "Balance selected", Toast.LENGTH_LONG).show();
                     } else {
                         spinner2.setVisibility(View.GONE);
                         conso_edittext.setVisibility(View.GONE);
@@ -186,22 +189,21 @@ public class Payments_Fragment extends Fragment {
         arrayAdapterPaymentsFilter.notifyDataSetChanged();
         spinner_consolidate.setAdapter(arrayAdapterPaymentsFilter);
 
-        filters.add ("Document Type");
-        filters.add ("Invoice");
-        filters.add ("Prepaid ");
-        filters.add ("Shipment");
+        filters.add("Document Type");
+        filters.add("Invoice");
+        filters.add("Prepaid ");
+        filters.add("Shipment");
         arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
                 android.R.layout.simple_dropdown_item_1line, filters);
         Log.i("aaaa1111", String.valueOf(consolidate_felter));
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                }
-                else{
+                } else {
                     Filter_selected_value = String.valueOf(i);
-                    Log.i("Filter_selected_value",Filter_selected_value);
+                    Log.i("Filter_selected_value", Filter_selected_value);
                     try {
                         fetchFilteredPaymentLedgerData(companies.get(Company_selected));
                     } catch (JSONException e) {
@@ -234,21 +236,22 @@ public class Payments_Fragment extends Fragment {
                 }
             }
 
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
         });
 
         spinner_criteria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                     spinner_consolidate.setVisibility(View.GONE);
                     spinner2.setVisibility(View.GONE);
                     conso_edittext.setVisibility(View.GONE);
-                }
-                else{
+                } else {
                     Company_selected = company_names.get(i);
                     spinner_consolidate.setVisibility(View.VISIBLE);
                     spinner2.setVisibility(View.GONE);
@@ -297,15 +300,15 @@ public class Payments_Fragment extends Fragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                LinearLayoutManager layoutManager=LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+                LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
 
-                int visibleItemCount        = layoutManager.getChildCount();
-                int totalItemCount          = layoutManager.getItemCount();
-                int firstVisibleItemPosition= layoutManager.findFirstVisibleItemPosition();
+                int visibleItemCount = layoutManager.getChildCount();
+                int totalItemCount = layoutManager.getItemCount();
+                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
 
                 // Load more if we have reach the end to the recyclerView
-                if ( (visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
-                    if(totalPages != 0 && pageNumber < totalPages) {
+                if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
+                    if (totalPages != 0 && pageNumber < totalPages) {
                         Toast.makeText(mcontext, pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
                         btn_load_more.setVisibility(View.VISIBLE);
                     }
@@ -321,23 +324,23 @@ public class Payments_Fragment extends Fragment {
     private void fetchCompanyNames() {
         SharedPreferences sharedPreferences = mcontext.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token","");
+        Token = sharedPreferences.getString("Login_Token", "");
         Log.i("Token", Token);
 
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
 
-        URL_PAYMENT_LEDGER_COMPANY = URL_PAYMENT_LEDGER_COMPANY+DistributorId;
-        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PAYMENT_LEDGER_COMPANY,null,new Response.Listener<JSONArray>() {
+        URL_PAYMENT_LEDGER_COMPANY = URL_PAYMENT_LEDGER_COMPANY + DistributorId;
+        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PAYMENT_LEDGER_COMPANY, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
                 try {
                     JSONObject jsonObject = null;
-                    for(int i=0;i<result.length();i++){
-                        jsonObject  = result.getJSONObject(i);
+                    for (int i = 0; i < result.length(); i++) {
+                        jsonObject = result.getJSONObject(i);
                         company_names.add(jsonObject.getString("Name"));
-                        companies.put(jsonObject.getString("Name"),jsonObject.getString("ID"));
+                        companies.put(jsonObject.getString("Name"), jsonObject.getString("ID"));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -351,11 +354,11 @@ public class Payments_Fragment extends Fragment {
 
                 error.printStackTrace();
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer "+Token);
+                params.put("Authorization", "bearer " + Token);
                 return params;
             }
         };
@@ -369,7 +372,7 @@ public class Payments_Fragment extends Fragment {
         spinner_criteria.setAdapter(arrayAdapterPayments);
     }
 
-    private void fetchPaymentLedgerData(String companyId) throws JSONException{
+    private void fetchPaymentLedgerData(String companyId) throws JSONException {
         SharedPreferences sharedPreferences = mcontext.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -403,11 +406,11 @@ public class Payments_Fragment extends Fragment {
                 error.printStackTrace();
                 Log.i("onErrorResponse", "Error");
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer "+Token);
+                params.put("Authorization", "bearer " + Token);
                 return params;
             }
         };
@@ -427,21 +430,31 @@ public class Payments_Fragment extends Fragment {
         MyJsonArrayRequest request = new MyJsonArrayRequest(Request.Method.POST, URL_PAYMENT_LEDGER, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                Log.i(" PAYMENT LEDGER => ", ""+response.toString());
+                Log.i(" PAYMENT LEDGER => ", "" + response.toString());
                 JSONObject jsonObject = new JSONObject();
-                for(int i=0;i<response.length();i++){
-                    try {
-                        jsonObject = response.getJSONObject(i);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                Gson gson = new Gson();
-                Type type = new TypeToken<List<PaymentLedgerModel>>(){}.getType();
-                paymentLedgerList = gson.fromJson(String.valueOf(response),type);
+                if (response.length() != 0) {
+                    for (int i = 0; i < response.length(); i++) {
+                        try {
 
-                mAdapter = new PaymentLedgerAdapter(mcontext,paymentLedgerList);
-                recyclerView.setAdapter(mAdapter);
+                            Gson gson = new Gson();
+                            Type type = new TypeToken<List<PaymentLedgerModel>>() {
+                            }.getType();
+                            paymentLedgerList = gson.fromJson(String.valueOf(response), type);
+
+                            mAdapter = new PaymentLedgerAdapter(mcontext, paymentLedgerList);
+                            recyclerView.setAdapter(mAdapter);
+
+                            jsonObject = response.getJSONObject(i);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } else {
+                  //  Toast.makeText(getContext(), "Response", Toast.LENGTH_LONG);
+                    tv_shipment_no_data.setVisibility(View.VISIBLE);
+
+                }
+
 
             }
         }, new Response.ErrorListener() {
@@ -452,11 +465,11 @@ public class Payments_Fragment extends Fragment {
                 error.printStackTrace();
                 Log.i("onErrorResponse", "Error");
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer "+Token);
+                params.put("Authorization", "bearer " + Token);
                 return params;
             }
         };
@@ -465,7 +478,7 @@ public class Payments_Fragment extends Fragment {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(mcontext).add(request);
-        mAdapter = new PaymentLedgerAdapter(mcontext,paymentLedgerList);
+        mAdapter = new PaymentLedgerAdapter(mcontext, paymentLedgerList);
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -491,9 +504,9 @@ public class Payments_Fragment extends Fragment {
         MyJsonArrayRequest request = new MyJsonArrayRequest(Request.Method.POST, URL_PAYMENT_LEDGER, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                Log.i(" PAYMENT LEDGER PAGE2", ""+response.toString());
+                Log.i(" PAYMENT LEDGER PAGE2", "" + response.toString());
                 JSONObject jsonObject = new JSONObject();
-                for(int i=0;i<response.length();i++){
+                for (int i = 0; i < response.length(); i++) {
                     try {
                         jsonObject = response.getJSONObject(i);
                     } catch (JSONException e) {
@@ -502,9 +515,10 @@ public class Payments_Fragment extends Fragment {
                 }
                 btn_load_more.setVisibility(View.GONE);
                 Gson gson = new Gson();
-                Type type = new TypeToken<List<PaymentLedgerModel>>(){}.getType();
-                paymentLedgerList = gson.fromJson(String.valueOf(response),type);
-                ((PaymentLedgerAdapter)recyclerView.getAdapter()).addListItem(paymentLedgerList);
+                Type type = new TypeToken<List<PaymentLedgerModel>>() {
+                }.getType();
+                paymentLedgerList = gson.fromJson(String.valueOf(response), type);
+                ((PaymentLedgerAdapter) recyclerView.getAdapter()).addListItem(paymentLedgerList);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -513,11 +527,11 @@ public class Payments_Fragment extends Fragment {
                 error.printStackTrace();
                 Log.i("onErrorResponse", "Error");
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer "+Token);
+                params.put("Authorization", "bearer " + Token);
                 return params;
             }
         };
@@ -529,7 +543,7 @@ public class Payments_Fragment extends Fragment {
     }
 
 
-    private void fetchFilteredPaymentLedgerData(String companyId) throws JSONException{
+    private void fetchFilteredPaymentLedgerData(String companyId) throws JSONException {
         SharedPreferences sharedPreferences = mcontext.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -552,9 +566,9 @@ public class Payments_Fragment extends Fragment {
         MyJsonArrayRequest request = new MyJsonArrayRequest(Request.Method.POST, URL_PAYMENT_LEDGER, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                Log.i(" PAYMENT LEDGER => ", ""+response.toString());
+                Log.i(" PAYMENT LEDGER => ", "" + response.toString());
                 JSONObject jsonObject = new JSONObject();
-                for(int i=0;i<response.length();i++){
+                for (int i = 0; i < response.length(); i++) {
                     try {
                         jsonObject = response.getJSONObject(i);
                     } catch (JSONException e) {
@@ -562,10 +576,11 @@ public class Payments_Fragment extends Fragment {
                     }
                 }
                 Gson gson = new Gson();
-                Type type = new TypeToken<List<PaymentLedgerModel>>(){}.getType();
-                paymentLedgerList = gson.fromJson(String.valueOf(response),type);
+                Type type = new TypeToken<List<PaymentLedgerModel>>() {
+                }.getType();
+                paymentLedgerList = gson.fromJson(String.valueOf(response), type);
 
-                mAdapter = new PaymentLedgerAdapter(mcontext,paymentLedgerList);
+                mAdapter = new PaymentLedgerAdapter(mcontext, paymentLedgerList);
                 recyclerView.setAdapter(mAdapter);
 
             }
@@ -577,11 +592,11 @@ public class Payments_Fragment extends Fragment {
                 error.printStackTrace();
                 Log.i("onErrorResponse", "Error");
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer "+Token);
+                params.put("Authorization", "bearer " + Token);
                 return params;
             }
         };
@@ -590,7 +605,7 @@ public class Payments_Fragment extends Fragment {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(mcontext).add(request);
-        mAdapter = new PaymentLedgerAdapter(mcontext,paymentLedgerList);
+        mAdapter = new PaymentLedgerAdapter(mcontext, paymentLedgerList);
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -614,9 +629,9 @@ public class Payments_Fragment extends Fragment {
             try {
                 String message = "";
                 String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody",responseBody);
+                Log.i("responseBody", responseBody);
                 JSONObject data = new JSONObject(responseBody);
-                Log.i("data",String.valueOf(data));
+                Log.i("data", String.valueOf(data));
                 Iterator<String> keys = data.keys();
                 while (keys.hasNext()) {
                     String key = keys.next();
