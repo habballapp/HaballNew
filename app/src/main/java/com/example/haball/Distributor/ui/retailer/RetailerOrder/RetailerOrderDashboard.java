@@ -105,7 +105,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_retailer_order_dashboard, container, false);
+        final View root = inflater.inflate(R.layout.fragment_retailer_order_dashboard, container, false);
         recyclerView = root.findViewById(R.id.rv_retailer_order_dashboard);
         btn_place_order = root.findViewById(R.id.btn_place_order);
         search_bar = root.findViewById(R.id.search_bar);
