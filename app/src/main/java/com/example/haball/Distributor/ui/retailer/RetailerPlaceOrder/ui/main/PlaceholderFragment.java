@@ -209,6 +209,12 @@ public class PlaceholderFragment extends Fragment {
                     txt_cnic_no.setText(result.getString("CNIC"));
                     txt_mobile_no.setText(result.getString("Mobile"));
                     txt_address.setText(result.getString("Address"));
+                    SharedPreferences retailerInfo = getContext().getSharedPreferences("RetailerInfo",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = retailerInfo.edit();
+                    editor.putString("RetailerCode", result.getString("RetailerCode"));
+                    editor.putString("RetailerID", result.getString("ID"));
+                    editor.apply();
 
                 } catch (JSONException e) {
                     e.printStackTrace();

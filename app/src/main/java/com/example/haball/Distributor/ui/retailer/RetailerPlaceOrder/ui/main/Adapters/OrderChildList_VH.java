@@ -19,10 +19,7 @@ public class OrderChildList_VH extends ChildViewHolder {
             list_discount_value = itemView.findViewById(R.id.list_discount_value);
             list_UOM_value = itemView.findViewById(R.id.list_UOM_value);
             list_pack_size_value = itemView.findViewById(R.id.list_pack_size_value);
-            list_Quantity_value = itemView.findViewById(R.id.list_Quantity_value);
-            list_amount_value = itemView.findViewById(R.id.list_amount_value);
             list_numberOFitems = itemView.findViewById(R.id.list_numberOFitems);
-
         }
     }
 
