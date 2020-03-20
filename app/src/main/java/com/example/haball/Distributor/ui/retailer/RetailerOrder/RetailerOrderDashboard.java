@@ -273,6 +273,12 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                } else {
+                    try {
+                        fetchRetailerOrdersData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
 //                else {
 //                    if(!Filter_selected.equals(""))

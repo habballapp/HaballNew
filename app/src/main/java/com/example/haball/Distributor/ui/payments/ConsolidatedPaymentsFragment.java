@@ -242,10 +242,18 @@ public class ConsolidatedPaymentsFragment extends Fragment {
                 Log.i("text1", "check");
                 Log.i("text", String.valueOf(s));
                 Filter_selected_value = String.valueOf(s);
-                try {
-                    fetchFilteredConsolidatePayments();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if(!Filter_selected_value.equals("")) {
+                    try {
+                        fetchFilteredConsolidatePayments();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        fetchConsolidatePayments();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 

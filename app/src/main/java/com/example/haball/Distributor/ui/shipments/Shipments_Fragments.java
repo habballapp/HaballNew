@@ -200,10 +200,19 @@ public class Shipments_Fragments extends Fragment {
                 Log.i("text1", "check");
                 Log.i("text", String.valueOf(s));
                 Filter_selected_value = String.valueOf(s);
-                try {
-                    fetchFilteredShipments();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (!Filter_selected_value.equals("")) {
+
+                    try {
+                        fetchFilteredShipments();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        fetchShipments();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 

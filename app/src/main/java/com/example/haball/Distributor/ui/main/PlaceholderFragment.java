@@ -399,7 +399,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         Volley.newRequestQueue(getContext()).add(sr);
     }
 
-    private void paymentFragmentTask(View rootView) {
+    private void paymentFragmentTask(final View rootView) {
         search_bar = rootView.findViewById(R.id.search_bar);
         consolidate = rootView.findViewById(R.id.consolidate);
 
@@ -567,6 +567,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                } else {
+                    try {
+                        fetchPaymentRequests(rootView);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
@@ -604,7 +610,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         dialog.show();
     }
 
-    private void orderFragmentTask(View rootView) {
+    private void orderFragmentTask(final View rootView) {
         search_bar = rootView.findViewById(R.id.search_bar);
         spinner_container1 = rootView.findViewById(R.id.spinner_container1);
         spinner_consolidate = (Spinner) rootView.findViewById(R.id.spinner_conso);
@@ -717,6 +723,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 if (!Filter_selected_value.equals("")) {
                     try {
                         fetchFilteredOrderData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        fetchOrderData(rootView);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

@@ -277,6 +277,12 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                } else {
+                    try {
+                        fetchPaymentsData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 

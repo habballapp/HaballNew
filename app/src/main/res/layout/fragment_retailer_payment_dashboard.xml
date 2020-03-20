@@ -34,7 +34,7 @@
         android:id="@+id/spinner_container_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/consolidate">
+        android:layout_below="@+id/tv_paymentDashboard">
 
         <RelativeLayout
             android:id="@+id/spinner_container"

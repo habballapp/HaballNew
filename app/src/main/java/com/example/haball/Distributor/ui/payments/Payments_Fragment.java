@@ -50,6 +50,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -229,10 +230,19 @@ public class Payments_Fragment extends Fragment {
                 Log.i("text1", "check");
                 Log.i("text", String.valueOf(s));
                 Filter_selected_value = String.valueOf(s);
-                try {
-                    fetchFilteredPaymentLedgerData(companies.get(Company_selected));
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if(!Filter_selected_value.equals("")) {
+
+                    try {
+                        fetchFilteredPaymentLedgerData(companies.get(Company_selected));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        fetchPaymentLedgerData(companies.get(Company_selected));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
