@@ -89,7 +89,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
     private RelativeLayout spinner_container1;
 
     private Button consolidate;
-    private String  Filter_selected1, Filter_selected2;
+    private String Filter_selected1, Filter_selected2;
     private TextInputLayout search_bar;
     private Button btn_load_more;
     private int pageNumber = 0;
@@ -122,7 +122,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
             @Override
             public void onClick(View view) {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(((ViewGroup)getView().getParent()).getId(), new SupportTicketFormFragment());
+                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new SupportTicketFormFragment());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
@@ -157,13 +157,12 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         spinner_container1 = root.findViewById(R.id.spinner_container1);
         spinner_container1.setVisibility(View.GONE);
         date_filter_rl.setVisibility(View.GONE);
-        spinner2.setVisibility(View.GONE);
         conso_edittext.setVisibility(View.GONE);
-        consolidate_felter.add ("Select Criteria");
-        consolidate_felter.add ("Contact Name");
-        consolidate_felter.add ("Issue Type");
-        consolidate_felter.add ("Created Date");
-        consolidate_felter.add ("Status");
+        consolidate_felter.add("Select Criteria");
+        consolidate_felter.add("Contact Name");
+        consolidate_felter.add("Issue Type");
+        consolidate_felter.add("Created Date");
+        consolidate_felter.add("Status");
 
         arrayAdapterPaymentsFilter = new ArrayAdapter<>(root.getContext(),
                 android.R.layout.simple_dropdown_item_1line, consolidate_felter);
@@ -172,38 +171,34 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 filters = new ArrayList<>();
-//                spinner_container1.setVisibility(View.GONE);
-//                conso_edittext.setVisibility(View.GONE);
-//                date_filter_rl.setVisibility(View.GONE);
+                spinner_container1.setVisibility(View.GONE);
+                date_filter_rl.setVisibility(View.GONE);
+                conso_edittext.setVisibility(View.GONE);
 
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                }
-                else{
+                } else {
                     Filter_selected = consolidate_felter.get(i);
 
-                    if(!Filter_selected.equals("Issue Type")){
-                        spinner2.setSelection(0);}
-                    else if(!conso_edittext.getText().equals(""))
-                        conso_edittext.setText("");
-                    else if (Filter_selected.equals("Contact Name")) {
+                    spinner2.setSelection(0);
+                    conso_edittext.setText("");
+                    if (Filter_selected.equals("Contact Name")) {
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "CompanyName";
                         conso_edittext.setVisibility(View.VISIBLE);
-                    } else if(Filter_selected.equals("Issue Type")) {
+                    } else if (Filter_selected.equals("Issue Type")) {
                         Filter_selected = "IssueType";
-                        spinner2.setVisibility(View.VISIBLE);
-                        tv_shipment_no_data.setVisibility(View.GONE);
-                        filters.add ("Issue Type");
-                        filters.add ("Main Dashboard");
-                        filters.add ("Connecting with Businesses");
-                        filters.add ("Contracting");
-                        filters.add ("Order");
-                        filters.add ("Invoice");
-                        filters.add ("Shipment");
-                        filters.add ("My Prepaid Account");
-                        filters.add ("My Profile");
-                        filters.add ("Reports");
+                        spinner_container1.setVisibility(View.VISIBLE);
+                        filters.add("Issue Type");
+                        filters.add("Main Dashboard");
+                        filters.add("Connecting with Businesses");
+                        filters.add("Contracting");
+                        filters.add("Order");
+                        filters.add("Invoice");
+                        filters.add("Shipment");
+                        filters.add("My Prepaid Account");
+                        filters.add("My Profile");
+                        filters.add("Reports");
 
                         arrayAdapterFeltter = new ArrayAdapter<>(getContext(),
                                 android.R.layout.simple_dropdown_item_1line, filters);
@@ -230,15 +225,15 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                                 openCalenderPopup("second date");
                             }
                         });
-                    } else if(Filter_selected.equals("Status")) {
+                    } else if (Filter_selected.equals("Status")) {
 
                         Filter_selected = "Status";
                         tv_shipment_no_data.setVisibility(View.GONE);
-                        spinner2.setVisibility(View.VISIBLE);
+                        spinner_container1.setVisibility(View.VISIBLE);
 
-                        filters.add ("Status");
-                        filters.add ("Pending");
-                        filters.add ("Resolved");
+                        filters.add("Status");
+                        filters.add("Pending");
+                        filters.add("Resolved");
 
                         arrayAdapterFeltter = new ArrayAdapter<>(getContext(),
                                 android.R.layout.simple_dropdown_item_1line, filters);
@@ -266,12 +261,11 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                }
-                else{
+                } else {
                     Filter_selected_value = filters.get(i);
-                    Log.i("Filter_selected_value",Filter_selected_value);
+                    Log.i("Filter_selected_value", Filter_selected_value);
                     try {
                         fetchFilteredSupport();
                     } catch (JSONException e) {
@@ -294,7 +288,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 Log.i("text1", "check");
                 Log.i("text", String.valueOf(s));
                 Filter_selected_value = String.valueOf(s);
-                if(!Filter_selected_value.equals("")) {
+                if (!Filter_selected_value.equals("")) {
 
                     try {
                         fetchFilteredSupport();
@@ -310,9 +304,11 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 }
             }
 
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
         });
 
         return root;
@@ -321,7 +317,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
     private void fetchSupport() throws JSONException {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences.getString("Distributor_Id","");
+        DistributorId = sharedPreferences.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
 
         final JSONObject map = new JSONObject();
@@ -334,26 +330,26 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
             public void onResponse(JSONArray response) {
 
 
-                    Log.i("onResponse => SUPPORT ", ""+response.toString());
-                    JSONObject jsonObject = new JSONObject();
-                    for(int i=0;i<response.length();i++){
-                        try {
-                            jsonObject = response.getJSONObject(i);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                Log.i("onResponse => SUPPORT ", "" + response.toString());
+                JSONObject jsonObject = new JSONObject();
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        jsonObject = response.getJSONObject(i);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    Gson gson = new Gson();
-                    Type type = new TypeToken<List<SupportDashboardModel>>(){}.getType();
-                    SupportList = gson.fromJson(String.valueOf(response),type);
+                }
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<SupportDashboardModel>>() {
+                }.getType();
+                SupportList = gson.fromJson(String.valueOf(response), type);
 
-                    mAdapter = new SupportDashboardAdapter(getContext(),SupportList);
-                    recyclerView.setAdapter(mAdapter);
-                if(response.length()!=0){
+                mAdapter = new SupportDashboardAdapter(getContext(), SupportList);
+                recyclerView.setAdapter(mAdapter);
+                if (response.length() != 0) {
                     tv_shipment_no_data.setVisibility(View.GONE);
 
-                }
-                else {
+                } else {
 
                     tv_shipment_no_data.setVisibility(View.VISIBLE);
                 }
@@ -377,32 +373,38 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences.getString("Distributor_Id","");
+        DistributorId = sharedPreferences.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
 
         JSONObject map = new JSONObject();
         map.put("DistributorId", Integer.parseInt(DistributorId));
         map.put("TotalRecords", 10);
         map.put("PageNumber", 0);
-        map.put(Filter_selected, Filter_selected_value);
+        if (Filter_selected.equals("date")) {
+            map.put(Filter_selected1, fromDate);
+            map.put(Filter_selected2, toDate);
+        } else {
+            map.put(Filter_selected, Filter_selected_value);
+        }
         Log.i("map", String.valueOf(map));
         MyJsonArrayRequest request = new MyJsonArrayRequest(Request.Method.POST, URL_SUPPORT, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                Log.i("onResponse => SUPPORT ", ""+response.toString());
-                JSONObject jsonObject = new JSONObject();
-                for(int i=0;i<response.length();i++){
-                    try {
-                        jsonObject = response.getJSONObject(i);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
+                Log.i("onResponse => SUPPORT ", "" + response.toString());
+//                JSONObject jsonObject = new JSONObject();
+//                for (int i = 0; i < response.length(); i++) {
+//                    try {
+//                        jsonObject = response.getJSONObject(i);
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
                 Gson gson = new Gson();
-                Type type = new TypeToken<List<SupportDashboardModel>>(){}.getType();
-                SupportList = gson.fromJson(String.valueOf(response),type);
+                Type type = new TypeToken<List<SupportDashboardModel>>() {
+                }.getType();
+                SupportList = gson.fromJson(String.valueOf(response), type);
 
-                mAdapter = new SupportDashboardAdapter(getContext(),SupportList);
+                mAdapter = new SupportDashboardAdapter(getContext(), SupportList);
                 recyclerView.setAdapter(mAdapter);
 
             }
@@ -419,7 +421,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
     }
 
 
-        private void printErrorMessage(VolleyError error) {
+    private void printErrorMessage(VolleyError error) {
         if (error instanceof NetworkError) {
             Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof ServerError) {
@@ -438,9 +440,9 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
             try {
                 String message = "";
                 String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody",responseBody);
+                Log.i("responseBody", responseBody);
                 JSONObject data = new JSONObject(responseBody);
-                Log.i("data",String.valueOf(data));
+                Log.i("data", String.valueOf(data));
                 Iterator<String> keys = data.keys();
                 while (keys.hasNext()) {
                     String key = keys.next();
@@ -454,6 +456,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
             }
         }
     }
+
     private void openCalenderPopup(String date_type) {
         dateType = date_type;
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
@@ -463,6 +466,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 calendar.get(Calendar.DAY_OF_MONTH));
         dialog.show();
     }
+
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         if (dateType.equals("first date")) {
@@ -491,10 +495,10 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                     .append(date2).append("/").append(month2 + 1).append("/").append(year2).append(" "));
         }
 
-            try {
-                fetchFilteredSupport();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+        try {
+            fetchFilteredSupport();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
+}

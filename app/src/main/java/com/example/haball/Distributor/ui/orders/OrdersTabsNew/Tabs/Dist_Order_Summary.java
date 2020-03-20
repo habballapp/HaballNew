@@ -2,6 +2,7 @@ package com.example.haball.Distributor.ui.orders.OrdersTabsNew.Tabs;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Distributor.DistributorDashboard;
 import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Adapters.Order_Summary_Adapter_DistOrder;
 import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderChildlist_Model_DistOrder;
 import com.example.haball.R;
@@ -203,6 +205,10 @@ public class Dist_Order_Summary extends Fragment {
                 Log.i("RESPONSE ORDER .. ", result.toString());
                 try {
                     Toast.makeText(getContext(), "Order Request ID " + result.get("OrderNumber") + " has been submitted successfully and sent for approval.", Toast.LENGTH_LONG).show();
+                    Intent login_intent = new Intent(getActivity(), DistributorDashboard.class);
+                    startActivity(login_intent);
+                    getActivity().finish();
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
