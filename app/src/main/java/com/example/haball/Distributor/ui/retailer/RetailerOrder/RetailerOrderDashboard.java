@@ -112,6 +112,8 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         btn_place_order = root.findViewById(R.id.btn_place_order);
         search_bar = root.findViewById(R.id.search_bar);
         consolidate = root.findViewById(R.id.consolidate);
+        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
+        tv_shipment_no_data.setVisibility(View.GONE);
 
         // DATE FILTERS ......
         date_filter_rl = root.findViewById(R.id.date_filter_rl);
@@ -169,8 +171,8 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
 
                     recyclerView = root.findViewById(R.id.rv_retailer_order_dashboard);
                     recyclerView.setHasFixedSize(true);
-                    tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
-                    tv_shipment_no_data.setVisibility(View.GONE);
+
+
                     if (Filter_selected.equals("Order ID")) {
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "OrderNumber";
@@ -339,22 +341,26 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONObject result) {
-                if (result.length() != 0) {
-
+                try {
                     Log.i("ORDERS DATA - ", result.toString());
                     Gson gson = new Gson();
                     Type type = new TypeToken<List<RetailerOrdersModel>>() {
                     }.getType();
-                    try {
-                        OrdersList = gson.fromJson(result.get("Data").toString(), type);
+                    OrdersList = gson.fromJson(result.get("Data").toString(), type);
+                    if(OrdersList.size()!=0){
+                        tv_shipment_no_data.setVisibility(View.GONE);
                         Log.i("OrdersList", String.valueOf(OrdersList));
                         mAdapter = new RetailerOrdersAdapter(getContext(), OrdersList);
                         recyclerView.setAdapter(mAdapter);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+
+
                     }
-                } else {
-                    tv_shipment_no_data.setVisibility(View.VISIBLE);
+                    else{
+                        tv_shipment_no_data.setVisibility(View.VISIBLE);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
 
             }
@@ -402,23 +408,20 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONObject result) {
-                if (result.length() != 0) {
-
-                    Log.i("ORDERS DATA - ", result.toString());
-                    Gson gson = new Gson();
-                    Type type = new TypeToken<List<RetailerOrdersModel>>() {
-                    }.getType();
                     try {
+                        Log.i("ORDERS DATA - ", result.toString());
+                        Gson gson = new Gson();
+                        Type type = new TypeToken<List<RetailerOrdersModel>>() {
+                        }.getType();
                         OrdersList = gson.fromJson(result.get("Data").toString(), type);
-                        Log.i("OrdersList", String.valueOf(OrdersList));
-                        mAdapter = new RetailerOrdersAdapter(getContext(), OrdersList);
-                        recyclerView.setAdapter(mAdapter);
+                            tv_shipment_no_data.setVisibility(View.GONE);
+                            Log.i("OrdersList", String.valueOf(OrdersList));
+                            mAdapter = new RetailerOrdersAdapter(getContext(), OrdersList);
+                            recyclerView.setAdapter(mAdapter);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                } else {
-                    tv_shipment_no_data.setVisibility(View.VISIBLE);
-                }
+
 
             }
         }, new Response.ErrorListener() {
