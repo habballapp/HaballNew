@@ -421,6 +421,9 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         conso_edittext = (EditText) rootView.findViewById(R.id.conso_edittext);
         spinner_container1.setVisibility(View.GONE);
         conso_edittext.setVisibility(View.GONE);
+        date_filter_rl.setVisibility(View.GONE);
+        amount_filter_rl.setVisibility(View.GONE);
+
         consolidate_felter = new ArrayList<>();
         consolidate_felter.add("Select Criteria");
         consolidate_felter.add("Payment ID");

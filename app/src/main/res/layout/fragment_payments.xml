@@ -54,7 +54,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="15dp"
-            android:visibility="gone"
+            android:visibility="visible"
             android:background="@drawable/edit_text_squared">
 
             <Spinner
@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/spinner_container"
             android:layout_marginLeft="30dp"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_marginRight="30dp">
 
             <com.google.android.material.textfield.TextInputLayout
