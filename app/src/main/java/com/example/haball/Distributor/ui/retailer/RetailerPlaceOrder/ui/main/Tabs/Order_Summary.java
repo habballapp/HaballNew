@@ -191,11 +191,9 @@ public class Order_Summary extends Fragment {
         editor.putString("RetailerID", "");
         editor.apply();
 
-
         fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_container, new RetailerOrderDashboard());
         fragmentTransaction.commit();
-
     }
 
     private class MyAsyncTask extends AsyncTask<Void, Void, Void> {
