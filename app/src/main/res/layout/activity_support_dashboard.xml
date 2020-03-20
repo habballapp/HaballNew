@@ -96,6 +96,7 @@
         android:layout_below="@+id/line_bottom"
         android:text="No Data Available"
         android:textStyle="bold"
+        android:layout_centerInParent="true"
         android:textSize="30sp"
         android:gravity="center"
         android:layout_marginLeft="30dp"
