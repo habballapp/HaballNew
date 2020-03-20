@@ -433,7 +433,6 @@ public class ConsolidatedPaymentsFragment extends Fragment {
             @Override
             public void onResponse(JSONArray result) {
                 Log.i("ConsolidatePayments", result.toString());
-                if(result.length()!=0){
 
                     Gson gson = new Gson();
                     Type type = new TypeToken<List<ConsolidatePaymentsModel>>() {
@@ -442,12 +441,10 @@ public class ConsolidatedPaymentsFragment extends Fragment {
 
                     mAdapter = new Consolidate_Fragment_Adapter(getContext(), ConsolidatePaymentsRequestList);
                     recyclerView.setAdapter(mAdapter);
-                }
-                else{
-
-
+                if (result.length() != 0) {
+                    tv_shipment_no_data.setVisibility(View.GONE);
+                } else {
                     tv_shipment_no_data.setVisibility(View.VISIBLE);
-
                 }
 
             }

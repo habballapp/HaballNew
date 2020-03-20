@@ -216,10 +216,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:textSize="14sp"
+                    android:inputType="number"
                     android:textColor="#676A6C"
                     android:textColorHint="#676A6C"
-                    android:background="@android:color/transparent"
-                    android:text="60,000"/>
+                    android:background="@android:color/transparent"/>
             </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -256,11 +256,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
+                    android:inputType="number"
                     android:textSize="14sp"
                     android:textColor="#676A6C"
                     android:textColorHint="#676A6C"
-                    android:background="@android:color/transparent"
-                    android:text="60,000"/>
+                    android:background="@android:color/transparent"/>
             </LinearLayout>
 
         </LinearLayout>

@@ -353,11 +353,12 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                     Type type = new TypeToken<List<RetailerOrdersModel>>() {
                     }.getType();
                     OrdersList = gson.fromJson(result.get("Data").toString(), type);
-                    if(OrdersList.size()!=0){
                         tv_shipment_no_data.setVisibility(View.GONE);
                         Log.i("OrdersList", String.valueOf(OrdersList));
                         mAdapter = new RetailerOrdersAdapter(getContext(), OrdersList);
                         recyclerView.setAdapter(mAdapter);
+                    if(OrdersList.size()!=0){
+                        tv_shipment_no_data.setVisibility(View.GONE);
 
 
                     }

@@ -229,10 +229,11 @@ public class PlaceholderFragment extends Fragment {
                 }.getType();
                 try {
                     invo_productList = gson.fromJson(response.get("OrderDetails").toString(), type);
-                    if(invo_productList.size() != 0) {
                         Log.i("OrderDetails", String.valueOf(response.get("OrderDetails")));
                         RetailerViewOrderProductAdapter productAdapter = new RetailerViewOrderProductAdapter(getContext(), invo_productList);
                         rv_fragment_retailer_order_details.setAdapter(productAdapter);
+                    if(invo_productList.size() != 0) {
+                                 tv_shipment_no_data.setVisibility(View.GONE);
                     } else {
                                  tv_shipment_no_data.setVisibility(View.VISIBLE);
                     }

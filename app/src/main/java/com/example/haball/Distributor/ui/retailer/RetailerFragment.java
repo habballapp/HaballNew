@@ -110,8 +110,6 @@ public class RetailerFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
-                if(result.length()!=0)
-                {
                     Log.i("Payments Requests", result.toString());
                     Gson gson = new Gson();
                     Type type = new TypeToken<List<Retailer_Management_Dashboard_Model>>(){}.getType();
@@ -119,6 +117,9 @@ public class RetailerFragment extends Fragment {
 
                     mAdapter = new Retailer_Management_Dashboard_Adapter(getContext(),RetailerList);
                     recyclerView.setAdapter(mAdapter);
+                if(result.length()!=0)
+                {
+                    tv_shipment_no_data.setVisibility(View.GONE);
 
                 }
                 else{

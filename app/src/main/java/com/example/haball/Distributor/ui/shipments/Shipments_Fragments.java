@@ -254,7 +254,6 @@ public class Shipments_Fragments extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
-                if (result.length() != 0) {
                     Log.i("Shipment", result.toString());
                     Gson gson = new Gson();
                     Type type = new TypeToken<List<ShipmentModel>>() {
@@ -263,6 +262,9 @@ public class Shipments_Fragments extends Fragment {
 
                     mAdapter = new DistributorShipmentAdapter(getContext(), ShipmentList);
                     recyclerView.setAdapter(mAdapter);
+                    recyclerView.setAdapter(mAdapter);
+                if (result.length() != 0) {
+                    tv_shipment_no_data.setVisibility(View.GONE);
                 } else {
 //                    Toast.makeText(getContext(), "No Data Available", Toast.LENGTH_LONG).show();
                     tv_shipment_no_data.setVisibility(View.VISIBLE);
@@ -314,7 +316,6 @@ public class Shipments_Fragments extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
-                if (result.length() != 0) {
                     Log.i("Shipment Filtered", result.toString());
                     Gson gson = new Gson();
                     Type type = new TypeToken<List<ShipmentModel>>() {
@@ -323,6 +324,8 @@ public class Shipments_Fragments extends Fragment {
 
                     mAdapter = new DistributorShipmentAdapter(getContext(), ShipmentList);
                     recyclerView.setAdapter(mAdapter);
+                if (result.length() != 0) {
+                    tv_shipment_no_data.setVisibility(View.GONE);
                 } else {
 //                    Toast.makeText(getContext(), "No Data Available", Toast.LENGTH_LONG).show();
                     tv_shipment_no_data.setVisibility(View.VISIBLE);

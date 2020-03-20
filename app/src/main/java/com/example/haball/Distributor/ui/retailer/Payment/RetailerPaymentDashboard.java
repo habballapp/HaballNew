@@ -93,7 +93,7 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
 
     private ImageButton first_date_btn, second_date_btn;
     private LinearLayout date_filter_rl, amount_filter_rl;
-    private TextView first_date, second_date;
+    private TextView first_date, second_date, tv_shipment_no_data;
     private EditText et_amount1, et_amount2;
 
     private int pageNumberOrder = 0;
@@ -115,7 +115,7 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
         rv_paymentDashBoard = (RecyclerView) rootView.findViewById(R.id.rv_dist_payment_retailer);
         search_bar = rootView.findViewById(R.id.search_bar);
         consolidate = rootView.findViewById(R.id.consolidate);
-
+        tv_shipment_no_data = rootView.findViewById(R.id.tv_shipment_no_data);
         // DATE FILTERS ......
         date_filter_rl = rootView.findViewById(R.id.date_filter_rl);
         first_date = rootView.findViewById(R.id.first_date);
@@ -328,12 +328,13 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
                     Type type = new TypeToken<List<Dist_Retailer_Dashboard_Model>>() {
                     }.getType();
                     PaymentsList = gson.fromJson(result.getJSONArray("PrePaidRequestData").toString(), type);
-                    if (PaymentsList.size() != 0) {
 
                         mAdapter = new PaymentDashboardAdapter(getContext(), PaymentsList);
                         rv_paymentDashBoard.setAdapter(mAdapter);
+                    if (PaymentsList.size() != 0) {
+                        tv_shipment_no_data.setVisibility(View.GONE);
                     } else {
-                        //tv_shipment_no_data.setVisibility(View.VISIBLE);
+                        tv_shipment_no_data.setVisibility(View.VISIBLE);
                     }
 
                 } catch (JSONException e) {

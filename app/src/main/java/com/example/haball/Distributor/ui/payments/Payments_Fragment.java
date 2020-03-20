@@ -1,5 +1,6 @@
 package com.example.haball.Distributor.ui.payments;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -15,7 +16,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +48,7 @@ import com.example.haball.Distributor.ui.support.MyJsonArrayRequest;
 import com.example.haball.Payment.PaymentLedgerAdapter;
 import com.example.haball.Payment.PaymentLedgerModel;
 import com.example.haball.R;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -54,13 +60,15 @@ import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 
-public class Payments_Fragment extends Fragment {
+public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -89,14 +97,31 @@ public class Payments_Fragment extends Fragment {
     private String Company_selected, DistributorId;
     private String Filter_selected, Filter_selected_value;
 
+    private RelativeLayout spinner_container1;
+    private String Filter_selected1, Filter_selected2;
+    private TextInputLayout search_bar;
+    private int pageNumber = 0;
+    private double totalPages = 0;
+    private double totalEntries = 0;
+
+    private String dateType = "";
+    private int year1, year2, month1, month2, date1, date2;
+
+    private ImageButton first_date_btn, second_date_btn;
+    private LinearLayout date_filter_rl, amount_filter_rl;
+    private TextView first_date, second_date;
+    private EditText et_amount1, et_amount2;
+
+    private int pageNumberOrder = 0;
+    private double totalPagesOrder = 0;
+    private double totalEntriesOrder = 0;
+    private String fromDate, toDate, fromAmount, toAmount;
 
     //variables for pagination ...
     private boolean isLoading = true;
     private int pastVisibleItems, visibleItemCount, totalItemCount, previousTotal = 0;
     private int viewThreshold = 10;
-    private int pageNumber = 0;
-    private double totalEntries = 0;
-    private double totalPages = 0;
+
     private Context mcontext;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -113,6 +138,25 @@ public class Payments_Fragment extends Fragment {
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         btn_load_more.setText(content);
         btn_load_more.setVisibility(View.GONE);
+        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data1);
+        search_bar = root.findViewById(R.id.search_bar);
+
+        // DATE FILTERS ......
+        date_filter_rl = root.findViewById(R.id.date_filter_rl);
+        first_date = root.findViewById(R.id.first_date);
+        first_date_btn = root.findViewById(R.id.first_date_btn);
+        second_date = root.findViewById(R.id.second_date);
+        second_date_btn = root.findViewById(R.id.second_date_btn);
+
+        // AMOUNT FILTERS ......
+        amount_filter_rl = root.findViewById(R.id.amount_filter_rl);
+        et_amount1 = root.findViewById(R.id.et_amount1);
+        et_amount2 = root.findViewById(R.id.et_amount2);
+
+        spinner_container1 = root.findViewById(R.id.spinner_container1);
+        spinner_container1.setVisibility(View.GONE);
+        date_filter_rl.setVisibility(View.GONE);
+        amount_filter_rl.setVisibility(View.GONE);
 
         spinner_criteria = root.findViewById(R.id.spinner_criteria);
         arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
@@ -123,8 +167,11 @@ public class Payments_Fragment extends Fragment {
         tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
         tv_shipment_no_data.setVisibility(View.GONE);
 
+        spinner_container1.setVisibility(View.GONE);
+        conso_edittext.setVisibility(View.GONE);
+        date_filter_rl.setVisibility(View.GONE);
+        amount_filter_rl.setVisibility(View.GONE);
         spinner_consolidate.setVisibility(View.GONE);
-        spinner2.setVisibility(View.GONE);
         conso_edittext.setVisibility(View.GONE);
         consolidate_felter.add("Select Criteria");
         consolidate_felter.add("Ledger ID");
@@ -140,43 +187,65 @@ public class Payments_Fragment extends Fragment {
         spinner_consolidate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                spinner_container1.setVisibility(View.GONE);
+                conso_edittext.setVisibility(View.GONE);
+                date_filter_rl.setVisibility(View.GONE);
+                amount_filter_rl.setVisibility(View.GONE);
+
                 if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 } else {
                     Filter_selected = consolidate_felter.get(i);
 
-                    if (!Filter_selected.equals("Document Type"))
-                        spinner2.setSelection(0);
-                    if (!conso_edittext.getText().equals(""))
-                        conso_edittext.setText("");
+                    spinner2.setSelection(0);
+                    conso_edittext.setText("");
 
                     if (Filter_selected.equals("Ledger ID")) {
+                        search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "DocumentNumber";
-                        spinner2.setVisibility(View.GONE);
                         conso_edittext.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Document Type")) {
                         Filter_selected = "DocumentType";
-                        spinner2.setVisibility(View.VISIBLE);
-                        conso_edittext.setVisibility(View.GONE);
+                        spinner_container1.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Date")) {
-                        spinner2.setVisibility(View.GONE);
-                        conso_edittext.setVisibility(View.GONE);
-                        Toast.makeText(mcontext, "Date selected", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(mcontext, "Date selected", Toast.LENGTH_LONG).show();
+                        date_filter_rl.setVisibility(View.VISIBLE);
+                        Filter_selected = "date";
+                        Filter_selected1 = "DateFrom";
+                        Filter_selected2 = "DateTo";
+                        first_date_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openCalenderPopup("first date");
+                            }
+                        });
+                        second_date_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openCalenderPopup("second date");
+                            }
+                        });
                     } else if (Filter_selected.equals("Credit")) {
-                        spinner2.setVisibility(View.GONE);
-                        conso_edittext.setVisibility(View.GONE);
-                        Toast.makeText(mcontext, "Credit selected", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(mcontext, "Credit selected", Toast.LENGTH_LONG).show();
+                        amount_filter_rl.setVisibility(View.VISIBLE);
+                        Filter_selected = "amount";
+                        Filter_selected1 = "CreditAmountMin";
+                        Filter_selected2 = "CreditAmountMax";
+                        checkAmountChanged();
                     } else if (Filter_selected.equals("Debit")) {
-                        spinner2.setVisibility(View.GONE);
-                        conso_edittext.setVisibility(View.GONE);
-                        Toast.makeText(mcontext, "Debit selected", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(mcontext, "Debit selected", Toast.LENGTH_LONG).show();
+                        amount_filter_rl.setVisibility(View.VISIBLE);
+                        Filter_selected = "amount";
+                        Filter_selected1 = "DebitAmountMin";
+                        Filter_selected2 = "DebitAmountMax";
+                        checkAmountChanged();
                     } else if (Filter_selected.equals("Balance")) {
-                        spinner2.setVisibility(View.GONE);
-                        conso_edittext.setVisibility(View.GONE);
-                        Toast.makeText(mcontext, "Balance selected", Toast.LENGTH_LONG).show();
-                    } else {
-                        spinner2.setVisibility(View.GONE);
-                        conso_edittext.setVisibility(View.GONE);
+//                        Toast.makeText(mcontext, "Balance selected", Toast.LENGTH_LONG).show();
+                        amount_filter_rl.setVisibility(View.VISIBLE);
+                        Filter_selected = "amount";
+                        Filter_selected1 = "BalanceMin";
+                        Filter_selected2 = "BalanceMax";
+                        checkAmountChanged();
                     }
                 }
             }
@@ -230,7 +299,7 @@ public class Payments_Fragment extends Fragment {
                 Log.i("text1", "check");
                 Log.i("text", String.valueOf(s));
                 Filter_selected_value = String.valueOf(s);
-                if(!Filter_selected_value.equals("")) {
+                if (!Filter_selected_value.equals("")) {
 
                     try {
                         fetchFilteredPaymentLedgerData(companies.get(Company_selected));
@@ -256,16 +325,16 @@ public class Payments_Fragment extends Fragment {
         spinner_criteria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                spinner_container1.setVisibility(View.GONE);
+                conso_edittext.setVisibility(View.GONE);
+                date_filter_rl.setVisibility(View.GONE);
+                amount_filter_rl.setVisibility(View.GONE);
                 if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                     spinner_consolidate.setVisibility(View.GONE);
-                    spinner2.setVisibility(View.GONE);
-                    conso_edittext.setVisibility(View.GONE);
                 } else {
                     Company_selected = company_names.get(i);
                     spinner_consolidate.setVisibility(View.VISIBLE);
-                    spinner2.setVisibility(View.GONE);
-                    conso_edittext.setVisibility(View.GONE);
                     try {
                         fetchPaymentLedgerData(companies.get(Company_selected));
                     } catch (JSONException e) {
@@ -442,25 +511,26 @@ public class Payments_Fragment extends Fragment {
             public void onResponse(JSONArray response) {
                 Log.i(" PAYMENT LEDGER => ", "" + response.toString());
                 JSONObject jsonObject = new JSONObject();
-                if (response.length() != 0) {
-                    for (int i = 0; i < response.length(); i++) {
-                        try {
+                for (int i = 0; i < response.length(); i++) {
+                    try {
 
-                            Gson gson = new Gson();
-                            Type type = new TypeToken<List<PaymentLedgerModel>>() {
-                            }.getType();
-                            paymentLedgerList = gson.fromJson(String.valueOf(response), type);
+                        Gson gson = new Gson();
+                        Type type = new TypeToken<List<PaymentLedgerModel>>() {
+                        }.getType();
+                        paymentLedgerList = gson.fromJson(String.valueOf(response), type);
 
-                            mAdapter = new PaymentLedgerAdapter(mcontext, paymentLedgerList);
-                            recyclerView.setAdapter(mAdapter);
+                        mAdapter = new PaymentLedgerAdapter(mcontext, paymentLedgerList);
+                        recyclerView.setAdapter(mAdapter);
 
-                            jsonObject = response.getJSONObject(i);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        jsonObject = response.getJSONObject(i);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
+                }
+                if (response.length() != 0) {
+                    tv_shipment_no_data.setVisibility(View.GONE);
                 } else {
-                  //  Toast.makeText(getContext(), "Response", Toast.LENGTH_LONG);
+                    //  Toast.makeText(getContext(), "Response", Toast.LENGTH_LONG);
                     tv_shipment_no_data.setVisibility(View.VISIBLE);
 
                 }
@@ -570,7 +640,15 @@ public class Payments_Fragment extends Fragment {
         map.put("CompanyId", companyId);
         map.put("TotalRecords", 10);
         map.put("PageNumber", 0.1);
-        map.put(Filter_selected, Filter_selected_value);
+        if (Filter_selected.equals("date")) {
+            map.put(Filter_selected1, fromDate);
+            map.put(Filter_selected2, toDate);
+        } else if (Filter_selected.equals("amount")) {
+            map.put(Filter_selected1, fromAmount);
+            map.put(Filter_selected2, toAmount);
+        } else {
+            map.put(Filter_selected, Filter_selected_value);
+        }
         Log.i("Map", String.valueOf(map));
 
         MyJsonArrayRequest request = new MyJsonArrayRequest(Request.Method.POST, URL_PAYMENT_LEDGER, map, new Response.Listener<JSONArray>() {
@@ -619,6 +697,104 @@ public class Payments_Fragment extends Fragment {
         recyclerView.setAdapter(mAdapter);
     }
 
+    private void openCalenderPopup(String date_type) {
+        dateType = date_type;
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+
+        DatePickerDialog dialog = new DatePickerDialog(getContext(), R.style.DialogTheme, this,
+                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+        dialog.show();
+    }
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+        if (dateType.equals("first date")) {
+            year1 = i;
+            month1 = i1;
+            date1 = i2;
+            updateDisplay(dateType);
+        } else if (dateType.equals("second date")) {
+            year2 = i;
+            month2 = i1;
+            date2 = i2;
+            updateDisplay(dateType);
+        }
+    }
+
+    private void updateDisplay(String date_type) {
+        if (date_type.equals("first date")) {
+            fromDate = year1 + "-" + String.format("%02d", (month1 + 1)) + "-" + String.format("%02d", date1) + "T00:00:00.000Z";
+            Log.i("fromDate", fromDate);
+
+            first_date.setText(new StringBuilder()
+                    .append(date1).append("/").append(month1 + 1).append("/").append(year1).append(" "));
+        } else if (date_type.equals("second date")) {
+            toDate = year2 + "-" + String.format("%02d", (month2 + 1)) + "-" + String.format("%02d", date2) + "T00:00:00.000Z";
+            second_date.setText(new StringBuilder()
+                    .append(date2).append("/").append(month2 + 1).append("/").append(year2).append(" "));
+        }
+        try {
+            fetchFilteredPaymentLedgerData(companies.get(Company_selected));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void checkAmountChanged() {
+        et_amount1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!String.valueOf(et_amount1.getText()).equals("") && !String.valueOf(et_amount2.getText()).equals("")) {
+                    fromAmount = String.valueOf(et_amount1.getText());
+                    toAmount = String.valueOf(et_amount2.getText());
+                    try {
+                        fetchFilteredPaymentLedgerData(companies.get(Company_selected));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        et_amount2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!String.valueOf(et_amount1.getText()).equals("") && !String.valueOf(et_amount2.getText()).equals("")) {
+                    fromAmount = String.valueOf(et_amount1.getText());
+                    toAmount = String.valueOf(et_amount2.getText());
+                    try {
+                        fetchFilteredPaymentLedgerData(companies.get(Company_selected));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+        });
+
+    }
 
     private void printErrorMessage(VolleyError error) {
         if (error instanceof NetworkError) {

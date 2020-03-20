@@ -277,7 +277,6 @@ public class SupportFragment extends Fragment {
             @Override
             public void onResponse(JSONArray response) {
 
-                if(response.length()!=0){
 
                     Log.i("onResponse => SUPPORT ", ""+response.toString());
                     JSONObject jsonObject = new JSONObject();
@@ -294,6 +293,8 @@ public class SupportFragment extends Fragment {
 
                     mAdapter = new SupportDashboardAdapter(getContext(),SupportList);
                     recyclerView.setAdapter(mAdapter);
+                if(response.length()!=0){
+                    tv_shipment_no_data.setVisibility(View.GONE);
 
                 }
                 else {
