@@ -88,7 +88,6 @@ public class ProofOfPaymentsDashboardFragment extends Fragment implements DatePi
     private List<ProofOfPaymentModel> proofOfPaymentsList = new ArrayList<>();
 
     private String DistributorId;
-    private ProgressDialog progressDialog;
 
     private String Filter_selected, Filter_selected_value = "";
     private Spinner spinner_consolidate;
@@ -96,7 +95,6 @@ public class ProofOfPaymentsDashboardFragment extends Fragment implements DatePi
     private EditText conso_edittext;
     private List<String> consolidate_felter = new ArrayList<>();
     private List<String> filters = new ArrayList<>();
-    private ArrayAdapter<String> arrayAdapterPaymentsFilter;
     private ArrayAdapter<String> arrayAdapterFeltter;
 
     private Button btn_load_more;
@@ -105,7 +103,6 @@ public class ProofOfPaymentsDashboardFragment extends Fragment implements DatePi
     private double totalPages = 0;
     private double totalEntries = 0;
     private TextView tv_shipment_no_data;
-    private String Company_selected;
 
     private RelativeLayout spinner_container1;
     private String Filter_selected1, Filter_selected2;
@@ -119,9 +116,6 @@ public class ProofOfPaymentsDashboardFragment extends Fragment implements DatePi
     private TextView first_date, second_date;
     private EditText et_amount1, et_amount2;
 
-    private int pageNumberOrder = 0;
-    private double totalPagesOrder = 0;
-    private double totalEntriesOrder = 0;
     private String fromDate, toDate, fromAmount, toAmount;
 
 
@@ -154,7 +148,6 @@ public class ProofOfPaymentsDashboardFragment extends Fragment implements DatePi
             }
         });
 
-        progressDialog = new ProgressDialog(getContext());
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {

@@ -14,6 +14,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +49,7 @@ import com.example.haball.Payment.DistributorPaymentRequestAdaptor;
 import com.example.haball.Payment.DistributorPaymentRequestModel;
 import com.example.haball.R;
 import com.example.haball.Shipment.Adapters.DistributorShipmentAdapter;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -83,6 +87,24 @@ public class Shipments_Fragments extends Fragment {
     private ArrayAdapter<String> arrayAdapterFeltter;
     private TextView tv_shipment_no_data;
 
+
+    private RelativeLayout spinner_container1;
+    private String Filter_selected1, Filter_selected2;
+    private TextInputLayout search_bar;
+
+    private String dateType = "";
+    private int year1, year2, month1, month2, date1, date2;
+
+    private ImageButton first_date_btn, second_date_btn;
+    private LinearLayout date_filter_rl, amount_filter_rl;
+    private TextView first_date, second_date;
+    private EditText et_amount1, et_amount2;
+
+    private int pageNumberOrder = 0;
+    private double totalPagesOrder = 0;
+    private double totalEntriesOrder = 0;
+    private String fromDate, toDate, fromAmount, toAmount;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -91,13 +113,36 @@ public class Shipments_Fragments extends Fragment {
                 ViewModelProviders.of(this).get(ShipmentsViewModel.class);
         recyclerView = (RecyclerView) root.findViewById(R.id.rv_shipment);
         recyclerView.setHasFixedSize(true);
-        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
-        tv_shipment_no_data.setVisibility(View.GONE);
+
+        search_bar = root.findViewById(R.id.search_bar);
+
+        // DATE FILTERS ......
+        date_filter_rl = root.findViewById(R.id.date_filter_rl);
+        first_date = root.findViewById(R.id.first_date);
+        first_date_btn = root.findViewById(R.id.first_date_btn);
+        second_date = root.findViewById(R.id.second_date);
+        second_date_btn = root.findViewById(R.id.second_date_btn);
+
+        // AMOUNT FILTERS ......
+        amount_filter_rl = root.findViewById(R.id.amount_filter_rl);
+        et_amount1 = root.findViewById(R.id.et_amount1);
+        et_amount2 = root.findViewById(R.id.et_amount2);
+
+        spinner_container1 = root.findViewById(R.id.spinner_container1);
+        spinner_container1.setVisibility(View.GONE);
+        date_filter_rl.setVisibility(View.GONE);
+        amount_filter_rl.setVisibility(View.GONE);
+
         spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
-        spinner2.setVisibility(View.GONE);
+        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
+        tv_shipment_no_data.setVisibility(View.GONE);
+
+        spinner_container1.setVisibility(View.GONE);
         conso_edittext.setVisibility(View.GONE);
+        date_filter_rl.setVisibility(View.GONE);
+        amount_filter_rl.setVisibility(View.GONE);
         consolidate_felter.add("Select Criteria");
         consolidate_felter.add("Shipment No");
         consolidate_felter.add("Company");
