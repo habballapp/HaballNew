@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".Distributor.ui.retailer.RetailerOrder.RetailerOrderDashboard">
+    tools:context=".Distributor.ui.orders.OrderMain_Dashboard">
 
     <LinearLayout
-        android:id="@+id/tv_retailer_order_dashboard"
+        android:id="@+id/tv_order_dashboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="2"
@@ -40,7 +40,7 @@
         android:textSize="14sp"
         android:textColor="#fff"
         android:textAllCaps="false"
-        android:layout_below="@+id/tv_retailer_order_dashboard"
+        android:layout_below="@+id/tv_order_dashboard"
         android:background="@drawable/button_background"/>
 
     <RelativeLayout

@@ -43,8 +43,7 @@ import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Adapters.RetailerFragmentAdapter;
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models.Retailer_Fragment_Model;
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Tabs.OrderPlace_retailer_dashboarad;
-import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Tabs.Order_Item;
-import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Tabs.Order_Summary;
+
 import com.example.haball.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
