@@ -147,6 +147,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
         int index = 1;
         if (getArguments() != null) {
@@ -164,7 +165,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             case 1: {
                 rootView = inflater.inflate(R.layout.fragment_payments, container, false);
                 try {
-                    fetchPaymentRequests();
+                    fetchPaymentRequests(rootView);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -174,8 +175,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
                 btn_load_more.setText(content);
                 btn_load_more.setVisibility(View.GONE);
-                tv_shipment_no_data1 = rootView.findViewById(R.id.tv_shipment_no_data1);
-                tv_shipment_no_data1.setVisibility(View.GONE);
+
 
 
                 btn_load_more.setOnClickListener(new View.OnClickListener() {
@@ -241,8 +241,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 SpannableString content = new SpannableString("Load More");
                 content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
                 btn_load_more.setText(content);
-                tv_shipment_no_data = rootView.findViewById(R.id.tv_shipment_no_data);
-                tv_shipment_no_data.setVisibility(View.GONE);
+
                 btn_load_more.setVisibility(View.GONE);
 
                 btn_load_more.setOnClickListener(new View.OnClickListener() {
@@ -283,7 +282,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 });
 
                 try {
-                    fetchOrderData();
+                    fetchOrderData(rootView);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -322,22 +321,6 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @Override
             public void onResponse(JSONArray result) {
                 btn_load_more.setVisibility(View.GONE);
-
-                if(result.length()!=0) {
-
-                    Gson gson = new Gson();
-                    Type type = new TypeToken<List<DistributorOrdersModel>>() {
-                    }.getType();
-                    OrdersList = gson.fromJson(result.toString(), type);
-                    ((DistributorOrdersAdapter) recyclerView.getAdapter()).addListItem(OrdersList);
-
-                }
-                else {
-
-                         tv_shipment_no_data.setVisibility(View.VISIBLE);
-                }
-
-
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<DistributorOrdersModel>>() {
                 }.getType();
@@ -391,18 +374,6 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             public void onResponse(JSONArray result) {
                 Log.i("Payments Requests", result.toString());
                 btn_load_more.setVisibility(View.GONE);
-
-                if(result.length()!=0){
-                    Gson gson = new Gson();
-                    Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
-                    }.getType();
-                    PaymentsRequestList = gson.fromJson(result.toString(), type);
-                    ((DistributorPaymentRequestAdaptor) recyclerView.getAdapter()).addListItem(PaymentsRequestList);
-                }
-                else{
-                    tv_shipment_no_data1.setVisibility(View.VISIBLE);
-                }
-
 
             }
         }, new Response.ErrorListener() {
@@ -760,12 +731,14 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         });
     }
 
-    private void fetchOrderData() throws JSONException {
+    private void fetchOrderData(View rootView) throws JSONException {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
         DistributorId = sharedPreferences.getString("Distributor_Id", "");
         Log.i("Token", Token);
+        tv_shipment_no_data = rootView.findViewById(R.id.tv_shipment_no_data);
+        tv_shipment_no_data.setVisibility(View.GONE);
 
 
         JSONObject mapCount = new JSONObject();
@@ -828,7 +801,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 }
                 else{
 
-                    Toast.makeText(getContext(),"No Orders Available",Toast.LENGTH_SHORT);
+                    tv_shipment_no_data.setVisibility(View.VISIBLE);
                 }
 
 
@@ -905,9 +878,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         Volley.newRequestQueue(getContext()).add(sr);
     }
 
-    private void fetchPaymentRequests() throws JSONException {
+    private void fetchPaymentRequests(View rootView) throws JSONException {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
+        tv_shipment_no_data1 = rootView.findViewById(R.id.tv_shipment_no_data1);
+        tv_shipment_no_data1.setVisibility(View.GONE);
+
         Token = sharedPreferences.getString("Login_Token", "");
         Log.i("Token", Token);
 
@@ -961,14 +937,26 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
-                Log.i("Payments Requests", result.toString());
-                Gson gson = new Gson();
-                Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
-                }.getType();
-                PaymentsRequestList = gson.fromJson(result.toString(), type);
+                if(result.length()!=0)
+                {
+                    Log.i("Payments Requests", result.toString());
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
+                    }.getType();
+                    PaymentsRequestList = gson.fromJson(result.toString(), type);
 
-                mAdapter = new DistributorPaymentRequestAdaptor(getContext(), PaymentsRequestList);
-                recyclerView.setAdapter(mAdapter);
+                    mAdapter = new DistributorPaymentRequestAdaptor(getContext(), PaymentsRequestList);
+                    recyclerView.setAdapter(mAdapter);
+
+                }
+                else
+                {
+                    tv_shipment_no_data1.setVisibility(View.VISIBLE);
+                }
+
+
+
+
             }
         }, new Response.ErrorListener() {
             @Override
