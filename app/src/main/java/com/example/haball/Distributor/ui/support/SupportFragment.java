@@ -1,5 +1,6 @@
 package com.example.haball.Distributor.ui.support;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -13,7 +14,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +44,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
 import com.example.haball.Support.Support_Ditributor.Adapter.SupportDashboardAdapter;
 import com.example.haball.Support.Support_Ditributor.Model.SupportDashboardModel;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -49,10 +55,12 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.TimeZone;
 
-public class SupportFragment extends Fragment {
+public class SupportFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -77,6 +85,31 @@ public class SupportFragment extends Fragment {
     private String Filter_selected, Filter_selected_value;
     private List<String> company_names = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapterPayments, arrayAdapterPaymentsFilter;
+
+    private RelativeLayout spinner_container1;
+
+    private Button consolidate;
+    private String  Filter_selected1, Filter_selected2;
+    private TextInputLayout search_bar;
+    private Button btn_load_more;
+    private int pageNumber = 0;
+    private double totalPages = 0;
+    private double totalEntries = 0;
+
+    private String dateType = "";
+    private int year1, year2, month1, month2, date1, date2;
+
+    private ImageButton first_date_btn, second_date_btn;
+    private LinearLayout date_filter_rl, amount_filter_rl;
+    private TextView first_date, second_date;
+    private EditText et_amount1, et_amount2;
+
+    private int pageNumberOrder = 0;
+    private double totalPagesOrder = 0;
+    private double totalEntriesOrder = 0;
+    private String fromDate, toDate, fromAmount, toAmount;
+    private FragmentTransaction fragmentTransaction;
+    private String tabName;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -106,17 +139,24 @@ public class SupportFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
+        search_bar = root.findViewById(R.id.search_bar);
 
+        // DATE FILTERS ......
+        date_filter_rl = root.findViewById(R.id.date_filter_rl);
+        first_date = root.findViewById(R.id.first_date);
+        first_date_btn = root.findViewById(R.id.first_date_btn);
+        second_date = root.findViewById(R.id.second_date);
+        second_date_btn = root.findViewById(R.id.second_date_btn);
 
-//        spinner_criteria = root.findViewById(R.id.spinner_criteria);
-//        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
-//                android.R.layout.simple_spinner_dropdown_item, company_names);
         spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
         tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
         tv_shipment_no_data.setVisibility(View.GONE);
-//        spinner_consolidate.setVisibility(View.GONE);
+        spinner_container1 = root.findViewById(R.id.spinner_container1);
+        spinner_container1.setVisibility(View.GONE);
+        date_filter_rl.setVisibility(View.GONE);
         spinner2.setVisibility(View.GONE);
         conso_edittext.setVisibility(View.GONE);
         consolidate_felter.add ("Select Criteria");
@@ -132,27 +172,28 @@ public class SupportFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 filters = new ArrayList<>();
-                spinner2.setVisibility(View.GONE);
-                conso_edittext.setVisibility(View.GONE);
+//                spinner_container1.setVisibility(View.GONE);
+//                conso_edittext.setVisibility(View.GONE);
+//                date_filter_rl.setVisibility(View.GONE);
+
                 if(i == 0){
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
                 else{
                     Filter_selected = consolidate_felter.get(i);
 
-                    if(!Filter_selected.equals("Issue Type"))
-                        spinner2.setSelection(0);
-                    if(!conso_edittext.getText().equals(""))
+                    if(!Filter_selected.equals("Issue Type")){
+                        spinner2.setSelection(0);}
+                    else if(!conso_edittext.getText().equals(""))
                         conso_edittext.setText("");
-
-                    if(Filter_selected.equals("Contact Name")) {
-                        Filter_selected = "ContactName";
+                    else if (Filter_selected.equals("Contact Name")) {
+                        search_bar.setHint("Search by " + Filter_selected);
+                        Filter_selected = "CompanyName";
                         conso_edittext.setVisibility(View.VISIBLE);
                     } else if(Filter_selected.equals("Issue Type")) {
                         Filter_selected = "IssueType";
                         spinner2.setVisibility(View.VISIBLE);
                         tv_shipment_no_data.setVisibility(View.GONE);
-
                         filters.add ("Issue Type");
                         filters.add ("Main Dashboard");
                         filters.add ("Connecting with Businesses");
@@ -171,9 +212,24 @@ public class SupportFragment extends Fragment {
                         arrayAdapterFeltter.notifyDataSetChanged();
                         spinner2.setAdapter(arrayAdapterFeltter);
 
-                    } else if(Filter_selected.equals("Created Date")) {
-                        Toast.makeText(getContext(),"Created Date selected",Toast.LENGTH_LONG).show();
-                        tv_shipment_no_data.setVisibility(View.GONE);
+                    } else if (Filter_selected.equals("Created Date")) {
+                        date_filter_rl.setVisibility(View.VISIBLE);
+//                        Toast.makeText(getContext(), "Created Date selected", Toast.LENGTH_LONG).show();
+                        Filter_selected = "date";
+                        Filter_selected1 = "DateFrom";
+                        Filter_selected2 = "DateTo";
+                        first_date_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openCalenderPopup("first date");
+                            }
+                        });
+                        second_date_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openCalenderPopup("second date");
+                            }
+                        });
                     } else if(Filter_selected.equals("Status")) {
 
                         Filter_selected = "Status";
@@ -318,6 +374,7 @@ public class SupportFragment extends Fragment {
 
 
     private void fetchFilteredSupport() throws JSONException {
+
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         DistributorId = sharedPreferences.getString("Distributor_Id","");
@@ -397,4 +454,47 @@ public class SupportFragment extends Fragment {
             }
         }
     }
-}
+    private void openCalenderPopup(String date_type) {
+        dateType = date_type;
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+
+        DatePickerDialog dialog = new DatePickerDialog(getContext(), R.style.DialogTheme, this,
+                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+        dialog.show();
+    }
+    @Override
+    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+        if (dateType.equals("first date")) {
+            year1 = i;
+            month1 = i1;
+            date1 = i2;
+            updateDisplay(dateType);
+        } else if (dateType.equals("second date")) {
+            year2 = i;
+            month2 = i1;
+            date2 = i2;
+            updateDisplay(dateType);
+        }
+    }
+
+    private void updateDisplay(String date_type) {
+        if (date_type.equals("first date")) {
+            fromDate = year1 + "-" + String.format("%02d", (month1 + 1)) + "-" + String.format("%02d", date1) + "T00:00:00.000Z";
+            Log.i("fromDate", fromDate);
+
+            first_date.setText(new StringBuilder()
+                    .append(date1).append("/").append(month1 + 1).append("/").append(year1).append(" "));
+        } else if (date_type.equals("second date")) {
+            toDate = year2 + "-" + String.format("%02d", (month2 + 1)) + "-" + String.format("%02d", date2) + "T00:00:00.000Z";
+            second_date.setText(new StringBuilder()
+                    .append(date2).append("/").append(month2 + 1).append("/").append(year2).append(" "));
+        }
+
+            try {
+                fetchFilteredSupport();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
