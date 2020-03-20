@@ -1,5 +1,6 @@
 package com.example.haball.Distributor.ui.shipments;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -13,7 +14,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +51,7 @@ import com.example.haball.Payment.DistributorPaymentRequestAdaptor;
 import com.example.haball.Payment.DistributorPaymentRequestModel;
 import com.example.haball.R;
 import com.example.haball.Shipment.Adapters.DistributorShipmentAdapter;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -56,12 +62,14 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
-public class Shipments_Fragments extends Fragment {
+public class Shipments_Fragments extends Fragment implements DatePickerDialog.OnDateSetListener {
 
     private ShipmentsViewModel sendViewModel;
     private RecyclerView recyclerView;
@@ -83,6 +91,21 @@ public class Shipments_Fragments extends Fragment {
     private ArrayAdapter<String> arrayAdapterFeltter;
     private TextView tv_shipment_no_data;
 
+
+    private RelativeLayout spinner_container1;
+    private String Filter_selected1, Filter_selected2;
+    private TextInputLayout search_bar;
+
+    private String dateType = "";
+    private int year1, year2, month1, month2, date1, date2;
+
+    private ImageButton first_date_btn, second_date_btn;
+    private LinearLayout date_filter_rl, amount_filter_rl;
+    private TextView first_date, second_date;
+    private EditText et_amount1, et_amount2;
+
+    private String fromDate, toDate, fromAmount, toAmount;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -91,17 +114,40 @@ public class Shipments_Fragments extends Fragment {
                 ViewModelProviders.of(this).get(ShipmentsViewModel.class);
         recyclerView = (RecyclerView) root.findViewById(R.id.rv_shipment);
         recyclerView.setHasFixedSize(true);
-        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
-        tv_shipment_no_data.setVisibility(View.GONE);
+
+        search_bar = root.findViewById(R.id.search_bar);
+
+        // DATE FILTERS ......
+        date_filter_rl = root.findViewById(R.id.date_filter_rl);
+        first_date = root.findViewById(R.id.first_date);
+        first_date_btn = root.findViewById(R.id.first_date_btn);
+        second_date = root.findViewById(R.id.second_date);
+        second_date_btn = root.findViewById(R.id.second_date_btn);
+
+        // AMOUNT FILTERS ......
+        amount_filter_rl = root.findViewById(R.id.amount_filter_rl);
+        et_amount1 = root.findViewById(R.id.et_amount1);
+        et_amount2 = root.findViewById(R.id.et_amount2);
+
+        spinner_container1 = root.findViewById(R.id.spinner_container1);
+        spinner_container1.setVisibility(View.GONE);
+        date_filter_rl.setVisibility(View.GONE);
+        amount_filter_rl.setVisibility(View.GONE);
+
         spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
-        spinner2.setVisibility(View.GONE);
+        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
+        tv_shipment_no_data.setVisibility(View.GONE);
+
+        spinner_container1.setVisibility(View.GONE);
         conso_edittext.setVisibility(View.GONE);
+        date_filter_rl.setVisibility(View.GONE);
+        amount_filter_rl.setVisibility(View.GONE);
         consolidate_felter.add("Select Criteria");
         consolidate_felter.add("Shipment No");
         consolidate_felter.add("Company");
-        consolidate_felter.add("Delivery Date");
+        consolidate_felter.add("Shipment Date");
         consolidate_felter.add("Receiving Date");
         consolidate_felter.add("Quantity");
         consolidate_felter.add("Status");
@@ -112,33 +158,73 @@ public class Shipments_Fragments extends Fragment {
         spinner_consolidate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                spinner2.setVisibility(View.GONE);
+                spinner_container1.setVisibility(View.GONE);
                 conso_edittext.setVisibility(View.GONE);
+                date_filter_rl.setVisibility(View.GONE);
+                amount_filter_rl.setVisibility(View.GONE);
                 if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 } else {
                     Filter_selected = consolidate_felter.get(i);
 
-                    if (!Filter_selected.equals("Status"))
-                        spinner2.setSelection(0);
-                    if (!conso_edittext.getText().equals(""))
-                        conso_edittext.setText("");
+                    spinner2.setSelection(0);
+                    conso_edittext.setText("");
 
                     if (Filter_selected.equals("Shipment No")) {
+                        search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "DeliveryNumber";
                         conso_edittext.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Company")) {
+                        search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "CompanyName";
                         conso_edittext.setVisibility(View.VISIBLE);
-                    } else if (Filter_selected.equals("Delivery Date")) {
-                        Toast.makeText(getContext(), "Delivery Date selected", Toast.LENGTH_LONG).show();
+                    } else if (Filter_selected.equals("Shipment Date")) {
+//                        Toast.makeText(getContext(), "Delivery Date selected", Toast.LENGTH_LONG).show();
+                        date_filter_rl.setVisibility(View.VISIBLE);
+                        Filter_selected = "date";
+                        Filter_selected1 = "DeliveryDateFrom";
+                        Filter_selected2 = "DeliveryDateTo";
+                        first_date_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openCalenderPopup("first date");
+                            }
+                        });
+                        second_date_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openCalenderPopup("second date");
+                            }
+                        });
                     } else if (Filter_selected.equals("Receiving Date")) {
-                        Toast.makeText(getContext(), "Receiving Date selected", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getContext(), "Receiving Date selected", Toast.LENGTH_LONG).show();
+                        date_filter_rl.setVisibility(View.VISIBLE);
+                        Filter_selected = "date";
+                        Filter_selected1 = "ReceivingDateFrom";
+                        Filter_selected2 = "ReceivingDateTo";
+                        first_date_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openCalenderPopup("first date");
+                            }
+                        });
+                        second_date_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openCalenderPopup("second date");
+                            }
+                        });
                     } else if (Filter_selected.equals("Quantity")) {
-                        Toast.makeText(getContext(), "Quantity selected", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getContext(), "Quantity selected", Toast.LENGTH_LONG).show();
+                        amount_filter_rl.setVisibility(View.VISIBLE);
+                        Filter_selected = "amount";
+                        Filter_selected1 = "QuantityFrom";
+                        Filter_selected2 = "QuantityTo";
+                        checkAmountChanged();
+
                     } else if (Filter_selected.equals("Status")) {
                         Filter_selected = "Status";
-                        spinner2.setVisibility(View.VISIBLE);
+                        spinner_container1.setVisibility(View.VISIBLE);
                     }
 //                    try {
 //                        fetchPaymentLedgerData(companies.get(Filter_selected));
@@ -254,15 +340,15 @@ public class Shipments_Fragments extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
-                    Log.i("Shipment", result.toString());
-                    Gson gson = new Gson();
-                    Type type = new TypeToken<List<ShipmentModel>>() {
-                    }.getType();
-                    ShipmentList = gson.fromJson(result.toString(), type);
+                Log.i("Shipment", result.toString());
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<ShipmentModel>>() {
+                }.getType();
+                ShipmentList = gson.fromJson(result.toString(), type);
 
-                    mAdapter = new DistributorShipmentAdapter(getContext(), ShipmentList);
-                    recyclerView.setAdapter(mAdapter);
-                    recyclerView.setAdapter(mAdapter);
+                mAdapter = new DistributorShipmentAdapter(getContext(), ShipmentList);
+                recyclerView.setAdapter(mAdapter);
+                recyclerView.setAdapter(mAdapter);
                 if (result.length() != 0) {
                     tv_shipment_no_data.setVisibility(View.GONE);
                 } else {
@@ -309,21 +395,29 @@ public class Shipments_Fragments extends Fragment {
         map.put("DistributorId", Integer.parseInt(DistributorId));
         map.put("TotalRecords", 10);
         map.put("PageNumber", 0.1);
-        map.put(Filter_selected, Filter_selected_value);
+        if (Filter_selected.equals("date")) {
+            map.put(Filter_selected1, fromDate);
+            map.put(Filter_selected2, toDate);
+        } else if (Filter_selected.equals("amount")) {
+            map.put(Filter_selected1, fromAmount);
+            map.put(Filter_selected2, toAmount);
+        } else {
+            map.put(Filter_selected, Filter_selected_value);
+        }
         Log.i("Map", String.valueOf(map));
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_SHIPMENTS, map, new Response.Listener<JSONArray>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
-                    Log.i("Shipment Filtered", result.toString());
-                    Gson gson = new Gson();
-                    Type type = new TypeToken<List<ShipmentModel>>() {
-                    }.getType();
-                    ShipmentList = gson.fromJson(result.toString(), type);
+                Log.i("Shipment Filtered", result.toString());
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<ShipmentModel>>() {
+                }.getType();
+                ShipmentList = gson.fromJson(result.toString(), type);
 
-                    mAdapter = new DistributorShipmentAdapter(getContext(), ShipmentList);
-                    recyclerView.setAdapter(mAdapter);
+                mAdapter = new DistributorShipmentAdapter(getContext(), ShipmentList);
+                recyclerView.setAdapter(mAdapter);
                 if (result.length() != 0) {
                     tv_shipment_no_data.setVisibility(View.GONE);
                 } else {
@@ -353,6 +447,105 @@ public class Shipments_Fragments extends Fragment {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
+    }
+
+    private void openCalenderPopup(String date_type) {
+        dateType = date_type;
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+
+        DatePickerDialog dialog = new DatePickerDialog(getContext(), R.style.DialogTheme, this,
+                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+        dialog.show();
+    }
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+        if (dateType.equals("first date")) {
+            year1 = i;
+            month1 = i1;
+            date1 = i2;
+            updateDisplay(dateType);
+        } else if (dateType.equals("second date")) {
+            year2 = i;
+            month2 = i1;
+            date2 = i2;
+            updateDisplay(dateType);
+        }
+    }
+
+    private void updateDisplay(String date_type) {
+        if (date_type.equals("first date")) {
+            fromDate = year1 + "-" + String.format("%02d", (month1 + 1)) + "-" + String.format("%02d", date1) + "T00:00:00.000Z";
+            Log.i("fromDate", fromDate);
+
+            first_date.setText(new StringBuilder()
+                    .append(date1).append("/").append(month1 + 1).append("/").append(year1).append(" "));
+        } else if (date_type.equals("second date")) {
+            toDate = year2 + "-" + String.format("%02d", (month2 + 1)) + "-" + String.format("%02d", date2) + "T00:00:00.000Z";
+            second_date.setText(new StringBuilder()
+                    .append(date2).append("/").append(month2 + 1).append("/").append(year2).append(" "));
+        }
+        try {
+            fetchFilteredShipments();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void checkAmountChanged() {
+        et_amount1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!String.valueOf(et_amount1.getText()).equals("") && !String.valueOf(et_amount2.getText()).equals("")) {
+                    fromAmount = String.valueOf(et_amount1.getText());
+                    toAmount = String.valueOf(et_amount2.getText());
+                    try {
+                        fetchFilteredShipments();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        et_amount2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!String.valueOf(et_amount1.getText()).equals("") && !String.valueOf(et_amount2.getText()).equals("")) {
+                    fromAmount = String.valueOf(et_amount1.getText());
+                    toAmount = String.valueOf(et_amount2.getText());
+                    try {
+                        fetchFilteredShipments();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+        });
+
     }
 
     private void printErrorMessage(VolleyError error) {

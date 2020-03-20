@@ -33,8 +33,13 @@ import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -53,10 +58,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
@@ -101,6 +108,8 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
     private String fromDate, toDate;
     private FragmentTransaction fragmentTransaction;
 
+    private String fromAmount, toAmount;
+
     public RetailerOrderDashboard() {
     }
 
@@ -112,8 +121,8 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         btn_place_order = root.findViewById(R.id.btn_place_order);
         search_bar = root.findViewById(R.id.search_bar);
         consolidate = root.findViewById(R.id.consolidate);
-        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
-        tv_shipment_no_data.setVisibility(View.GONE);
+
+        search_bar = root.findViewById(R.id.search_bar);
 
         // DATE FILTERS ......
         date_filter_rl = root.findViewById(R.id.date_filter_rl);
@@ -128,11 +137,20 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         et_amount2 = root.findViewById(R.id.et_amount2);
 
         spinner_container1 = root.findViewById(R.id.spinner_container1);
+        spinner_container1.setVisibility(View.GONE);
+        date_filter_rl.setVisibility(View.GONE);
+        amount_filter_rl.setVisibility(View.GONE);
+
         spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
+        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
+        tv_shipment_no_data.setVisibility(View.GONE);
+
         spinner_container1.setVisibility(View.GONE);
         conso_edittext.setVisibility(View.GONE);
+        date_filter_rl.setVisibility(View.GONE);
+        amount_filter_rl.setVisibility(View.GONE);
         consolidate_felter = new ArrayList<>();
         consolidate_felter = new ArrayList<>();
         consolidate_felter.add("Select Criteria");
@@ -164,10 +182,8 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                 } else {
                     Filter_selected = consolidate_felter.get(i);
 
-                    if (!Filter_selected.equals("Status"))
-                        spinner2.setSelection(0);
-                    if (!conso_edittext.getText().equals(""))
-                        conso_edittext.setText("");
+                    spinner2.setSelection(0);
+                    conso_edittext.setText("");
 
                     recyclerView = root.findViewById(R.id.rv_retailer_order_dashboard);
                     recyclerView.setHasFixedSize(true);
@@ -203,6 +219,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                         Filter_selected = "amount";
                         Filter_selected1 = "AmountMin";
                         Filter_selected2 = "AmountMax";
+                        checkAmountChanged();
                     } else if (Filter_selected.equals("Submitter")) {
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "Submitter";
@@ -409,7 +426,15 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         jsonObject.put("DistributorId", DistributorId);
         jsonObject.put("TotalRecords", 10);
         jsonObject.put("PageNumber", 0);
-        jsonObject.put(Filter_selected, Filter_selected_value);
+        if (Filter_selected.equals("date")) {
+            jsonObject.put(Filter_selected1, fromDate);
+            jsonObject.put(Filter_selected2, toDate);
+        } else if (Filter_selected.equals("amount")) {
+            jsonObject.put(Filter_selected1, fromAmount);
+            jsonObject.put(Filter_selected2, toAmount);
+        } else {
+            jsonObject.put(Filter_selected, Filter_selected_value);
+        }
         Log.i("map", String.valueOf(jsonObject));
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_FETCH_ORDERS, jsonObject, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -480,10 +505,100 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
             second_date.setText(new StringBuilder()
                     .append(date2).append("/").append(month2 + 1).append("/").append(year2).append(" "));
         }
-//        try {
-//            fetchRetailerOrdersData();
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            fetchFilteredOrderData();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void checkAmountChanged() {
+        et_amount1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!String.valueOf(et_amount1.getText()).equals("") && !String.valueOf(et_amount2.getText()).equals("")) {
+                    fromAmount = String.valueOf(et_amount1.getText());
+                    toAmount = String.valueOf(et_amount2.getText());
+                    try {
+                        fetchFilteredOrderData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        et_amount2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!String.valueOf(et_amount1.getText()).equals("") && !String.valueOf(et_amount2.getText()).equals("")) {
+                    fromAmount = String.valueOf(et_amount1.getText());
+                    toAmount = String.valueOf(et_amount2.getText());
+                    try {
+                        fetchFilteredOrderData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+        });
+
+    }
+
+    private void printErrorMessage(VolleyError error) {
+        if (error instanceof NetworkError) {
+            Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof ServerError) {
+            Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof AuthFailureError) {
+            Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof ParseError) {
+            Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof NoConnectionError) {
+            Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof TimeoutError) {
+            Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+        }
+
+        if (error.networkResponse != null && error.networkResponse.data != null) {
+            try {
+                String message = "";
+                String responseBody = new String(error.networkResponse.data, "utf-8");
+                Log.i("responseBody", responseBody);
+                JSONObject data = new JSONObject(responseBody);
+                Log.i("data", String.valueOf(data));
+                Iterator<String> keys = data.keys();
+                while (keys.hasNext()) {
+                    String key = keys.next();
+                    message = message + data.get(key) + "\n";
+                }
+                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
