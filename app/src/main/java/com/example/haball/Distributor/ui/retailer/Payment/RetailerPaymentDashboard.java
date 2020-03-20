@@ -1,5 +1,6 @@
 package com.example.haball.Distributor.ui.retailer.Payment;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,7 +20,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,9 +37,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Distributor.ui.main.PageViewModel;
 import com.example.haball.Distributor.ui.retailer.Payment.Adapters.PaymentDashboardAdapter;
 import com.example.haball.Distributor.ui.retailer.Payment.Models.Dist_Retailer_Dashboard_Model;
 import com.example.haball.R;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -41,14 +50,16 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RetailerPaymentDashboard extends Fragment {
+public class RetailerPaymentDashboard extends Fragment implements DatePickerDialog.OnDateSetListener {
     private RecyclerView rv_paymentDashBoard;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -57,16 +68,39 @@ public class RetailerPaymentDashboard extends Fragment {
     private String URL = "http://175.107.203.97:4013/api/retailerprepaidrequest/search";
     private List<Dist_Retailer_Dashboard_Model> PaymentsList = new ArrayList<>();
     //spiner1
-    private Spinner sp_payment_dist_retailer;
-    private List<String> dist_ret_payment = new ArrayList<>();
-    private ArrayAdapter<String> arrayAdapterPayments_Ret;
-    private String Filter_selected, Filter_selected_value;
-    //spinner2
-    private Spinner payment_retailer_spiner2;
-    private List<String> payment_filters = new ArrayList<>();
-    private ArrayAdapter<String> arrayAdapter_PaymentFeltter;
-    private EditText edt_payment_ret;
-    private TextView tv_shipment_no_data;
+
+    private TextView value_unpaid_amount, value_paid_amount;
+
+    private PageViewModel pageViewModel;
+    private RelativeLayout spinner_container1;
+    private Spinner spinner_consolidate;
+    private Spinner spinner2;
+    private EditText conso_edittext;
+    private List<String> consolidate_felter;
+    private List<String> filters = new ArrayList<>();
+    private ArrayAdapter<String> arrayAdapterPayments;
+    private ArrayAdapter<String> arrayAdapterFeltter;
+    private Button consolidate;
+    private String Filter_selected, Filter_selected1, Filter_selected2, Filter_selected_value;
+    private TextInputLayout search_bar;
+    private Button btn_load_more;
+    private int pageNumber = 0;
+    private double totalPages = 0;
+    private double totalEntries = 0;
+
+    private String dateType = "";
+    private int year1, year2, month1, month2, date1, date2;
+
+    private ImageButton first_date_btn, second_date_btn;
+    private LinearLayout date_filter_rl, amount_filter_rl;
+    private TextView first_date, second_date;
+    private EditText et_amount1, et_amount2;
+
+    private int pageNumberOrder = 0;
+    private double totalPagesOrder = 0;
+    private double totalEntriesOrder = 0;
+    private String fromDate, toDate;
+    private FragmentTransaction fragmentTransaction;
 
     public RetailerPaymentDashboard() {
         // Required empty public constructor
@@ -77,132 +111,172 @@ public class RetailerPaymentDashboard extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout  create_payment = root.findViewById(R.id.create_payment); for this fragment
-        View root = inflater.inflate(R.layout.fragment_retailer_payment_dashboard, container, false);
-        rv_paymentDashBoard = (RecyclerView) root.findViewById(R.id.rv_dist_payment_retailer);
-        sp_payment_dist_retailer = root.findViewById(R.id.spinner_dashboard_retailor);
-        edt_payment_ret = root.findViewById(R.id.edt_dist_payment_ret);
-        payment_retailer_spiner2 = root.findViewById(R.id.payment_dist_retailer_spiner);
-        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
-        tv_shipment_no_data.setVisibility(View.GONE);
+        View rootView = inflater.inflate(R.layout.fragment_retailer_payment_dashboard, container, false);
+        rv_paymentDashBoard = (RecyclerView) rootView.findViewById(R.id.rv_dist_payment_retailer);
+        search_bar = rootView.findViewById(R.id.search_bar);
+        consolidate = rootView.findViewById(R.id.consolidate);
 
-        payment_retailer_spiner2.setVisibility(View.GONE);
-        edt_payment_ret.setVisibility(View.GONE);
-        dist_ret_payment.add("Select Criteria");
-        dist_ret_payment.add("Company");
-        dist_ret_payment.add("Payment Id");
-        dist_ret_payment.add("Amount");
-        dist_ret_payment.add("Status");
+        // DATE FILTERS ......
+        date_filter_rl = rootView.findViewById(R.id.date_filter_rl);
+        first_date = rootView.findViewById(R.id.first_date);
+        first_date_btn = rootView.findViewById(R.id.first_date_btn);
+        second_date = rootView.findViewById(R.id.second_date);
+        second_date_btn = rootView.findViewById(R.id.second_date_btn);
 
-        arrayAdapterPayments_Ret = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, dist_ret_payment);
-        sp_payment_dist_retailer.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        // AMOUNT FILTERS ......
+        amount_filter_rl = rootView.findViewById(R.id.amount_filter_rl);
+        et_amount1 = rootView.findViewById(R.id.et_amount1);
+        et_amount2 = rootView.findViewById(R.id.et_amount2);
+
+        spinner_container1 = rootView.findViewById(R.id.spinner_container1);
+        spinner_consolidate = (Spinner) rootView.findViewById(R.id.spinner_conso);
+        spinner2 = (Spinner) rootView.findViewById(R.id.conso_spinner2);
+        conso_edittext = (EditText) rootView.findViewById(R.id.conso_edittext);
+        spinner_container1.setVisibility(View.GONE);
+        conso_edittext.setVisibility(View.GONE);
+        consolidate_felter = new ArrayList<>();
+        consolidate_felter.add("Select Criteria");
+        consolidate_felter.add("Payment ID");
+        consolidate_felter.add("Company");
+        consolidate_felter.add("Transaction Date");
+        consolidate_felter.add("Created Date");
+        consolidate_felter.add("Amount");
+        consolidate_felter.add("Status");
+
+        arrayAdapterPayments = new ArrayAdapter<>(rootView.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, consolidate_felter);
+
+        spinner_consolidate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                Toast.makeText(getContext(), consolidate_felter.get(i), Toast.LENGTH_LONG).show();
+                spinner_container1.setVisibility(View.GONE);
+                conso_edittext.setVisibility(View.GONE);
+                date_filter_rl.setVisibility(View.GONE);
+                amount_filter_rl.setVisibility(View.GONE);
+
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
                 } else {
-                    Filter_selected = dist_ret_payment.get(i);
+                    Filter_selected = consolidate_felter.get(i);
 
                     if (!Filter_selected.equals("Status"))
-                        payment_retailer_spiner2.setSelection(0);
-                    if (!edt_payment_ret.getText().equals(""))
-                        edt_payment_ret.setText("");
+                        spinner2.setSelection(0);
+                    if (!conso_edittext.getText().equals(""))
+                        conso_edittext.setText("");
 
-                    if (Filter_selected.equals("Invoice No")) {
-                        Filter_selected = "ConsolidatedInvoiceNumber";
-                        payment_retailer_spiner2.setVisibility(View.GONE);
-                        edt_payment_ret.setVisibility(View.VISIBLE);
+                    if (Filter_selected.equals("Payment ID")) {
+                        search_bar.setHint("Search by " + Filter_selected);
+                        Filter_selected = "PrePaidNumber";
+                        conso_edittext.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Company")) {
+                        search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "CompanyName";
-                        payment_retailer_spiner2.setVisibility(View.GONE);
-                        edt_payment_ret.setVisibility(View.VISIBLE);
+                        conso_edittext.setVisibility(View.VISIBLE);
+                    } else if (Filter_selected.equals("Transaction Date")) {
+                        date_filter_rl.setVisibility(View.VISIBLE);
+                        Filter_selected = "date";
+                        Filter_selected1 = "PrepaidDateFrom";
+                        Filter_selected2 = "PrepaidDateTo";
+                        first_date_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openCalenderPopup("first date");
+                            }
+                        });
+                        second_date_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openCalenderPopup("second date");
+                            }
+                        });
                     } else if (Filter_selected.equals("Created Date")) {
-                        payment_retailer_spiner2.setVisibility(View.GONE);
-                        edt_payment_ret.setVisibility(View.GONE);
-                        Toast.makeText(getContext(), "Created Date selected", Toast.LENGTH_LONG).show();
-                    } else if (Filter_selected.equals("Total Price")) {
-                        payment_retailer_spiner2.setVisibility(View.GONE);
-                        edt_payment_ret.setVisibility(View.GONE);
-                        Toast.makeText(getContext(), "Total Price selected", Toast.LENGTH_LONG).show();
-                    } else if (Filter_selected.equals("Paid Amount")) {
-                        payment_retailer_spiner2.setVisibility(View.GONE);
-                        edt_payment_ret.setVisibility(View.GONE);
-                        Toast.makeText(getContext(), "Paid Amount selected", Toast.LENGTH_LONG).show();
+                        date_filter_rl.setVisibility(View.VISIBLE);
+                        Filter_selected = "date";
+                        Filter_selected1 = "CreateDateFrom";
+                        Filter_selected2 = "CreateDateTo";
+                        first_date_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openCalenderPopup("first date");
+                            }
+                        });
+                        second_date_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openCalenderPopup("second date");
+                            }
+                        });
+                    } else if (Filter_selected.equals("Amount")) {
+                        amount_filter_rl.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Status")) {
                         Filter_selected = "Status";
-                        payment_retailer_spiner2.setVisibility(View.VISIBLE);
-                        edt_payment_ret.setVisibility(View.GONE);
-                    } else if (Filter_selected.equals("Created By")) {
-                        Filter_selected = "CreatedBy";
-                        payment_retailer_spiner2.setVisibility(View.GONE);
-                        edt_payment_ret.setVisibility(View.VISIBLE);
-                    } else {
-                        payment_retailer_spiner2.setVisibility(View.GONE);
-                        edt_payment_ret.setVisibility(View.GONE);
-
+                        spinner_container1.setVisibility(View.VISIBLE);
                     }
                 }
-//                    try {
-//                        fetchPaymentLedgerData(companies.get(Filter_selected));
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
             }
-
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
-        arrayAdapterPayments_Ret.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        arrayAdapterPayments_Ret.notifyDataSetChanged();
-        sp_payment_dist_retailer.setAdapter(arrayAdapterPayments_Ret);
+        arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        //filter payment
-        payment_filters.add("Status");
-        payment_filters.add("Paid");
-        payment_filters.add("Unpaid ");
-        arrayAdapter_PaymentFeltter = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, payment_filters);
+        spinner_consolidate.setAdapter(arrayAdapterPayments);
 
-        payment_retailer_spiner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        filters.add("Status");
+        filters.add("Processing Payment");
+        filters.add("Unpaid ");
+        filters.add("Paid");
+        arrayAdapterFeltter = new ArrayAdapter<>(rootView.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, filters);
+        Log.i("aaaa1111", String.valueOf(consolidate_felter));
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 } else {
-                    Filter_selected_value = String.valueOf(i - 1);
-                    Log.i("Filter_selected_value", Filter_selected_value);
+                    Filter_selected_value = String.valueOf(i - 2);
+                    Log.i("Filter_selected_value", String.valueOf(i));
+
+                    if (Filter_selected_value != "") {
+                        try {
+                            fetchFilteredRetailerPayments();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        arrayAdapterFeltter.notifyDataSetChanged();
+        spinner2.setAdapter(arrayAdapterFeltter);
+
+        conso_edittext.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+                Log.i("text1", "check");
+                Log.i("text", String.valueOf(s));
+                Filter_selected_value = String.valueOf(s);
+                if (!Filter_selected_value.equals("")) {
                     try {
                         fetchFilteredRetailerPayments();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-        arrayAdapter_PaymentFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        arrayAdapter_PaymentFeltter.notifyDataSetChanged();
-        payment_retailer_spiner2.setAdapter(arrayAdapter_PaymentFeltter);
-
-        edt_payment_ret.addTextChangedListener(new TextWatcher() {
-
-            public void afterTextChanged(Editable s) {
-
-                Log.i("text1", "check");
-                Log.i("text", String.valueOf(s));
-                Filter_selected_value = String.valueOf(s);
-                try {
-                    fetchFilteredRetailerPayments();
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
             }
 
@@ -213,8 +287,6 @@ public class RetailerPaymentDashboard extends Fragment {
             }
         });
 
-
-        //recyclerview
         rv_paymentDashBoard.setHasFixedSize(true);
 
         // use a linear layout manager
@@ -226,7 +298,8 @@ public class RetailerPaymentDashboard extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return root;
+
+        return rootView;
     }
 
     private void fetchPaymentsData() throws JSONException {
@@ -254,7 +327,7 @@ public class RetailerPaymentDashboard extends Fragment {
                         mAdapter = new PaymentDashboardAdapter(getContext(), PaymentsList);
                         rv_paymentDashBoard.setAdapter(mAdapter);
                     } else {
-                        tv_shipment_no_data.setVisibility(View.VISIBLE);
+                        //tv_shipment_no_data.setVisibility(View.VISIBLE);
                     }
 
                 } catch (JSONException e) {
@@ -299,7 +372,12 @@ public class RetailerPaymentDashboard extends Fragment {
 
         map.put("TotalRecords", 10);
         map.put("PageNumber", 0);
-        map.put(Filter_selected, Filter_selected_value);
+        if(!Filter_selected.equals("date"))
+            map.put(Filter_selected, Filter_selected_value);
+        else {
+            map.put(Filter_selected1, fromDate);
+            map.put(Filter_selected2, toDate);
+        }
         Log.i("Mapsssss", String.valueOf(map));
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
             @Override
@@ -337,6 +415,47 @@ public class RetailerPaymentDashboard extends Fragment {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
+    }
+    private void openCalenderPopup(String date_type) {
+        dateType = date_type;
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+
+        DatePickerDialog dialog = new DatePickerDialog(getContext(),  R.style.DialogTheme, this,
+                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+        dialog.show();
+    }
+    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+        if (dateType.equals("first date")) {
+            year1 = i;
+            month1 = i1;
+            date1 = i2;
+            updateDisplay(dateType);
+        } else if (dateType.equals("second date")) {
+            year2 = i;
+            month2 = i1;
+            date2 = i2;
+            updateDisplay(dateType);
+        }
+    }
+
+    private void updateDisplay(String date_type) {
+        if (date_type.equals("first date")) {
+            fromDate = year1 + "-" + String.format("%02d", (month1 + 1)) + "-" + String.format("%02d", date1) + "T00:00:00.000Z";
+            Log.i("fromDate", fromDate);
+
+            first_date.setText(new StringBuilder()
+                    .append(date1).append("/").append(month1 + 1).append("/").append(year1).append(" "));
+        } else if (date_type.equals("second date")) {
+            toDate = year2 + "-" + String.format("%02d", (month2 + 1)) + "-" + String.format("%02d", date2) + "T00:00:00.000Z";
+            second_date.setText(new StringBuilder()
+                    .append(date2).append("/").append(month2 + 1).append("/").append(year2).append(" "));
+        }
+        try {
+            fetchFilteredRetailerPayments();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 }
