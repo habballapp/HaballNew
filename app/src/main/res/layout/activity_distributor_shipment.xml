@@ -213,12 +213,7 @@
                 android:background="@drawable/line_bottom"
                 android:layout_weight="1.125"
                 android:orientation="horizontal">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.5"
-                    android:textColor="#676A6C"
-                    android:text="PKR "/>
+
                 <EditText
                     android:id="@+id/et_amount1"
                     android:layout_width="match_parent"
@@ -254,12 +249,7 @@
                 android:weightSum="2"
                 android:background="@drawable/line_bottom"
                 android:layout_weight="1.125">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.5"
-                    android:textColor="#676A6C"
-                    android:text="PKR "/>
+
                 <EditText
                     android:id="@+id/et_amount2"
                     android:layout_width="match_parent"

@@ -102,6 +102,8 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
     private String fromDate, toDate;
     private FragmentTransaction fragmentTransaction;
 
+    private String fromAmount, toAmount;
+
     public RetailerPaymentDashboard() {
         // Required empty public constructor
     }
@@ -138,7 +140,6 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
         consolidate_felter.add("Select Criteria");
         consolidate_felter.add("Payment ID");
         consolidate_felter.add("Company");
-        consolidate_felter.add("Transaction Date");
         consolidate_felter.add("Created Date");
         consolidate_felter.add("Amount");
         consolidate_felter.add("Status");
@@ -171,34 +172,17 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
 
                     if (Filter_selected.equals("Payment ID")) {
                         search_bar.setHint("Search by " + Filter_selected);
-                        Filter_selected = "PrePaidNumber";
+                        Filter_selected = "InvoiceNumber";
                         conso_edittext.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Company")) {
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "CompanyName";
                         conso_edittext.setVisibility(View.VISIBLE);
-                    } else if (Filter_selected.equals("Transaction Date")) {
-                        date_filter_rl.setVisibility(View.VISIBLE);
-                        Filter_selected = "date";
-                        Filter_selected1 = "PrepaidDateFrom";
-                        Filter_selected2 = "PrepaidDateTo";
-                        first_date_btn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                openCalenderPopup("first date");
-                            }
-                        });
-                        second_date_btn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                openCalenderPopup("second date");
-                            }
-                        });
                     } else if (Filter_selected.equals("Created Date")) {
                         date_filter_rl.setVisibility(View.VISIBLE);
                         Filter_selected = "date";
-                        Filter_selected1 = "CreateDateFrom";
-                        Filter_selected2 = "CreateDateTo";
+                        Filter_selected1 = "DateTo";
+                        Filter_selected2 = "DateTo";
                         first_date_btn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -213,6 +197,10 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
                         });
                     } else if (Filter_selected.equals("Amount")) {
                         amount_filter_rl.setVisibility(View.VISIBLE);
+                        Filter_selected = "amount";
+                        Filter_selected1 = "PaymentAmountMin";
+                        Filter_selected2 = "PaymentAmountMax";
+                        checkAmountChanged();
                     } else if (Filter_selected.equals("Status")) {
                         Filter_selected = "Status";
                         spinner_container1.setVisibility(View.VISIBLE);
@@ -230,9 +218,11 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
         spinner_consolidate.setAdapter(arrayAdapterPayments);
 
         filters.add("Status");
-        filters.add("Processing Payment");
+        filters.add("Pending");
         filters.add("Unpaid ");
+        filters.add("Partially Paid");
         filters.add("Paid");
+        filters.add("Payment Processing");
         arrayAdapterFeltter = new ArrayAdapter<>(rootView.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, filters);
         Log.i("aaaa1111", String.valueOf(consolidate_felter));
@@ -379,11 +369,14 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
 
         map.put("TotalRecords", 10);
         map.put("PageNumber", 0);
-        if(!Filter_selected.equals("date"))
-            map.put(Filter_selected, Filter_selected_value);
-        else {
+        if (Filter_selected.equals("date")) {
             map.put(Filter_selected1, fromDate);
             map.put(Filter_selected2, toDate);
+        } else if (Filter_selected.equals("amount")) {
+            map.put(Filter_selected1, fromAmount);
+            map.put(Filter_selected2, toAmount);
+        } else {
+            map.put(Filter_selected, Filter_selected_value);
         }
         Log.i("Mapsssss", String.valueOf(map));
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
@@ -463,6 +456,61 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+
+    private void checkAmountChanged() {
+        et_amount1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!String.valueOf(et_amount1.getText()).equals("") && !String.valueOf(et_amount2.getText()).equals("")) {
+                    fromAmount = String.valueOf(et_amount1.getText());
+                    toAmount = String.valueOf(et_amount2.getText());
+                    try {
+                        fetchFilteredRetailerPayments();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        et_amount2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!String.valueOf(et_amount1.getText()).equals("") && !String.valueOf(et_amount2.getText()).equals("")) {
+                    fromAmount = String.valueOf(et_amount1.getText());
+                    toAmount = String.valueOf(et_amount2.getText());
+                    try {
+                        fetchFilteredRetailerPayments();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+        });
+
     }
 
 }

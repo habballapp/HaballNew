@@ -227,8 +227,7 @@
                     android:textSize="14sp"
                     android:textColor="#676A6C"
                     android:textColorHint="#676A6C"
-                    android:background="@android:color/transparent"
-                    android:text="60,000"/>
+                    android:background="@android:color/transparent"/>
             </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -268,8 +267,7 @@
                     android:textSize="14sp"
                     android:textColor="#676A6C"
                     android:textColorHint="#676A6C"
-                    android:background="@android:color/transparent"
-                    android:text="60,000"/>
+                    android:background="@android:color/transparent"/>
             </LinearLayout>
 
         </LinearLayout>

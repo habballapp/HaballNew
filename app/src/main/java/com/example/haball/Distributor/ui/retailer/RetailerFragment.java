@@ -1,13 +1,24 @@
 package com.example.haball.Distributor.ui.retailer;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,11 +41,13 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.example.haball.Distributor.ui.retailer.Retailor_Management.Adapter.Retailer_Management_Dashboard_Adapter;
 import com.example.haball.Distributor.ui.retailer.Retailor_Management.Model.Retailer_Management_Dashboard_Model;
 import com.example.haball.R;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -45,12 +58,14 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
-public class RetailerFragment extends Fragment {
+public class RetailerFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
     private RetailerViewModel shareViewModel;
     private String URL_Retailers = "http://175.107.203.97:4013/api/retailer/search";
@@ -60,6 +75,30 @@ public class RetailerFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private List<Retailer_Management_Dashboard_Model> RetailerList = new ArrayList<>();
     private String Token, DistributorId;
+    private String Filter_selected, Filter_selected_value;
+
+    private Spinner spinner_consolidate;
+    private Spinner spinner2;
+    private EditText conso_edittext;
+    private List<String> consolidate_felter = new ArrayList<>();
+    private List<String> filters = new ArrayList<>();
+    private ArrayAdapter<String> arrayAdapterPayments;
+    private ArrayAdapter<String> arrayAdapterFeltter;
+
+
+    private RelativeLayout spinner_container1;
+    private String Filter_selected1, Filter_selected2;
+    private TextInputLayout search_bar;
+
+    private String dateType = "";
+    private int year1, year2, month1, month2, date1, date2;
+
+    private ImageButton first_date_btn, second_date_btn;
+    private LinearLayout date_filter_rl, amount_filter_rl;
+    private TextView first_date, second_date;
+    private EditText et_amount1, et_amount2;
+
+    private String fromDate, toDate, fromAmount, toAmount;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -74,8 +113,170 @@ public class RetailerFragment extends Fragment {
         tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
         tv_shipment_no_data.setVisibility(View.GONE);
 
-        // use a linear layout manager
+        search_bar = root.findViewById(R.id.search_bar);
 
+        // DATE FILTERS ......
+        date_filter_rl = root.findViewById(R.id.date_filter_rl);
+        first_date = root.findViewById(R.id.first_date);
+        first_date_btn = root.findViewById(R.id.first_date_btn);
+        second_date = root.findViewById(R.id.second_date);
+        second_date_btn = root.findViewById(R.id.second_date_btn);
+
+        // AMOUNT FILTERS ......
+        amount_filter_rl = root.findViewById(R.id.amount_filter_rl);
+        et_amount1 = root.findViewById(R.id.et_amount1);
+        et_amount2 = root.findViewById(R.id.et_amount2);
+
+        spinner_container1 = root.findViewById(R.id.spinner_container1);
+        spinner_container1.setVisibility(View.GONE);
+        date_filter_rl.setVisibility(View.GONE);
+        amount_filter_rl.setVisibility(View.GONE);
+
+        spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
+        spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
+        conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
+        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
+        tv_shipment_no_data.setVisibility(View.GONE);
+
+        spinner_container1.setVisibility(View.GONE);
+        conso_edittext.setVisibility(View.GONE);
+        date_filter_rl.setVisibility(View.GONE);
+        amount_filter_rl.setVisibility(View.GONE);
+        consolidate_felter.add("Select Criteria");
+        consolidate_felter.add("Retailer Code");
+        consolidate_felter.add("Company");
+        consolidate_felter.add("Creation Date");
+        consolidate_felter.add("Status");
+
+        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
+                android.R.layout.simple_dropdown_item_1line, consolidate_felter);
+
+        spinner_consolidate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                spinner_container1.setVisibility(View.GONE);
+                conso_edittext.setVisibility(View.GONE);
+                date_filter_rl.setVisibility(View.GONE);
+                amount_filter_rl.setVisibility(View.GONE);
+                if (i == 0) {
+                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                } else {
+                    Filter_selected = consolidate_felter.get(i);
+
+                    spinner2.setSelection(0);
+                    conso_edittext.setText("");
+
+                    if (Filter_selected.equals("Retailer Code")) {
+                        search_bar.setHint("Search by " + Filter_selected);
+                        Filter_selected = "RetailerCode";
+                        conso_edittext.setVisibility(View.VISIBLE);
+                    } else if (Filter_selected.equals("Company")) {
+                        search_bar.setHint("Search by " + Filter_selected);
+                        Filter_selected = "CompanyName";
+                        conso_edittext.setVisibility(View.VISIBLE);
+                    } else if (Filter_selected.equals("Creation Date")) {
+//                        Toast.makeText(getContext(), "Delivery Date selected", Toast.LENGTH_LONG).show();
+                        date_filter_rl.setVisibility(View.VISIBLE);
+                        Filter_selected = "date";
+                        Filter_selected1 = "DateFrom";
+                        Filter_selected2 = "DateTo";
+                        first_date_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openCalenderPopup("first date");
+                            }
+                        });
+                        second_date_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openCalenderPopup("second date");
+                            }
+                        });
+                    } else if (Filter_selected.equals("Status")) {
+                        Filter_selected = "Status";
+                        spinner_container1.setVisibility(View.VISIBLE);
+                    }
+//                    try {
+//                        fetchPaymentLedgerData(companies.get(Filter_selected));
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapterPayments.notifyDataSetChanged();
+        spinner_consolidate.setAdapter(arrayAdapterPayments);
+
+        filters.add("Status");
+        filters.add("Disconnected");
+        filters.add("Connected");
+        filters.add("Pending");
+
+        arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
+                android.R.layout.simple_dropdown_item_1line, filters);
+        Log.i("aaaa1111", String.valueOf(consolidate_felter));
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 0) {
+                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                } else {
+                    Filter_selected_value = String.valueOf(i - 1);
+                    Log.i("Filter_selected_value", Filter_selected_value);
+                    try {
+                        fetchFilteredRetailer();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapterFeltter.notifyDataSetChanged();
+        spinner2.setAdapter(arrayAdapterFeltter);
+
+
+        conso_edittext.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+                Log.i("text1", "check");
+                Log.i("text", String.valueOf(s));
+                Filter_selected_value = String.valueOf(s);
+                if (!Filter_selected_value.equals("")) {
+
+                    try {
+                        fetchFilteredRetailer();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        fetchRetailer();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+        // use a linear layout manager
 
 
         // specify an adapter (see also next example)
@@ -93,12 +294,12 @@ public class RetailerFragment extends Fragment {
     private void fetchRetailer() throws JSONException {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token","");
+        Token = sharedPreferences.getString("Login_Token", "");
         Log.i("Token", Token);
 
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences1.getString("Distributor_Id","");
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
 
         JSONObject map = new JSONObject();
@@ -106,25 +307,29 @@ public class RetailerFragment extends Fragment {
         map.put("TotalRecords", 10);
         map.put("PageNumber", 0.1);
 
-        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_Retailers, map,new Response.Listener<JSONArray>() {
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_Retailers, map, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
-            public void onResponse(JSONArray result) {
-                    Log.i("Payments Requests", result.toString());
-                    Gson gson = new Gson();
-                    Type type = new TypeToken<List<Retailer_Management_Dashboard_Model>>(){}.getType();
-                    RetailerList = gson.fromJson(result.toString(),type);
+            public void onResponse(JSONObject result) {
+                Log.i("Payments Requests", result.toString());
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<Retailer_Management_Dashboard_Model>>() {
+                }.getType();
+                try {
+                    RetailerList = gson.fromJson(result.get("Data").toString(), type);
 
-                    mAdapter = new Retailer_Management_Dashboard_Adapter(getContext(),RetailerList);
+                    mAdapter = new Retailer_Management_Dashboard_Adapter(getContext(), RetailerList);
                     recyclerView.setAdapter(mAdapter);
-                if(result.length()!=0)
-                {
-                    tv_shipment_no_data.setVisibility(View.GONE);
+                    if (RetailerList.size() != 0) {
+                        tv_shipment_no_data.setVisibility(View.GONE);
 
+                    } else {
+                        tv_shipment_no_data.setVisibility(View.VISIBLE);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                else{
-                    tv_shipment_no_data.setVisibility(View.VISIBLE);
-                }
+
 
             }
         }, new Response.ErrorListener() {
@@ -134,12 +339,12 @@ public class RetailerFragment extends Fragment {
 
                 error.printStackTrace();
             }
-        }){
+        }) {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer " +Token);
+                params.put("Authorization", "bearer " + Token);
                 return params;
             }
         };
@@ -150,6 +355,178 @@ public class RetailerFragment extends Fragment {
         Volley.newRequestQueue(getContext()).add(sr);
     }
 
+
+    private void fetchFilteredRetailer() throws JSONException {
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+        Log.i("Token", Token);
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+        Log.i("DistributorId ", DistributorId);
+
+        JSONObject map = new JSONObject();
+        map.put("DistributorId", Integer.parseInt(DistributorId));
+        map.put("TotalRecords", 10);
+        map.put("PageNumber", 0.1);
+        if (Filter_selected.equals("date")) {
+            map.put(Filter_selected1, fromDate);
+            map.put(Filter_selected2, toDate);
+        } else if (Filter_selected.equals("amount")) {
+            map.put(Filter_selected1, fromAmount);
+            map.put(Filter_selected2, toAmount);
+        } else {
+            map.put(Filter_selected, Filter_selected_value);
+        }
+
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_Retailers, map, new Response.Listener<JSONObject>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onResponse(JSONObject result) {
+                Log.i("Payments Requests", result.toString());
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<Retailer_Management_Dashboard_Model>>() {
+                }.getType();
+                try {
+                    RetailerList = gson.fromJson(result.get("Data").toString(), type);
+
+                    mAdapter = new Retailer_Management_Dashboard_Adapter(getContext(), RetailerList);
+                    recyclerView.setAdapter(mAdapter);
+                    if (RetailerList.size() != 0) {
+                        tv_shipment_no_data.setVisibility(View.GONE);
+
+                    } else {
+                        tv_shipment_no_data.setVisibility(View.VISIBLE);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+
+                error.printStackTrace();
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(getContext()).add(sr);
+    }
+
+    private void openCalenderPopup(String date_type) {
+        dateType = date_type;
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+
+        DatePickerDialog dialog = new DatePickerDialog(getContext(), R.style.DialogTheme, this,
+                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+        dialog.show();
+    }
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+        if (dateType.equals("first date")) {
+            year1 = i;
+            month1 = i1;
+            date1 = i2;
+            updateDisplay(dateType);
+        } else if (dateType.equals("second date")) {
+            year2 = i;
+            month2 = i1;
+            date2 = i2;
+            updateDisplay(dateType);
+        }
+    }
+
+    private void updateDisplay(String date_type) {
+        if (date_type.equals("first date")) {
+            fromDate = year1 + "-" + String.format("%02d", (month1 + 1)) + "-" + String.format("%02d", date1) + "T00:00:00.000Z";
+            Log.i("fromDate", fromDate);
+
+            first_date.setText(new StringBuilder()
+                    .append(date1).append("/").append(month1 + 1).append("/").append(year1).append(" "));
+        } else if (date_type.equals("second date")) {
+            toDate = year2 + "-" + String.format("%02d", (month2 + 1)) + "-" + String.format("%02d", date2) + "T00:00:00.000Z";
+            second_date.setText(new StringBuilder()
+                    .append(date2).append("/").append(month2 + 1).append("/").append(year2).append(" "));
+        }
+        try {
+            fetchFilteredRetailer();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void checkAmountChanged() {
+        et_amount1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!String.valueOf(et_amount1.getText()).equals("") && !String.valueOf(et_amount2.getText()).equals("")) {
+                    fromAmount = String.valueOf(et_amount1.getText());
+                    toAmount = String.valueOf(et_amount2.getText());
+                    try {
+                        fetchFilteredRetailer();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        et_amount2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!String.valueOf(et_amount1.getText()).equals("") && !String.valueOf(et_amount2.getText()).equals("")) {
+                    fromAmount = String.valueOf(et_amount1.getText());
+                    toAmount = String.valueOf(et_amount2.getText());
+                    try {
+                        fetchFilteredRetailer();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+        });
+
+    }
     private void printErrorMessage(VolleyError error) {
         if (error instanceof NetworkError) {
             Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
@@ -169,9 +546,9 @@ public class RetailerFragment extends Fragment {
             try {
                 String message = "";
                 String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody",responseBody);
+                Log.i("responseBody", responseBody);
                 JSONObject data = new JSONObject(responseBody);
-                Log.i("data",String.valueOf(data));
+                Log.i("data", String.valueOf(data));
                 Iterator<String> keys = data.keys();
                 while (keys.hasNext()) {
                     String key = keys.next();

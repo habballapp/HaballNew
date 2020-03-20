@@ -61,10 +61,9 @@
             <Spinner
                 android:id="@+id/spinner_conso"
                 android:layout_width="match_parent"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
                 android:layout_height="40dp"
-                />
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -76,7 +75,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="15dp"
-            android:visibility="gone"
+            android:visibility="visible"
             android:background="@drawable/edit_text_squared">
 
             <Spinner
@@ -94,7 +93,6 @@
             android:layout_below="@+id/spinner_container"
             android:layout_marginLeft="30dp"
             android:visibility="visible"
-            android:layout_marginTop="5dp"
             android:layout_marginRight="30dp">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -227,22 +225,17 @@
                 android:background="@drawable/line_bottom"
                 android:layout_weight="1.125"
                 android:orientation="horizontal">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.5"
-                    android:textColor="#676A6C"
-                    android:text="PKR "/>
+
                 <EditText
                     android:id="@+id/et_amount1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:textSize="14sp"
+                    android:inputType="number"
                     android:textColor="#676A6C"
                     android:textColorHint="#676A6C"
-                    android:background="@android:color/transparent"
-                    android:text="60,000"/>
+                    android:background="@android:color/transparent"/>
             </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -268,28 +261,20 @@
                 android:weightSum="2"
                 android:background="@drawable/line_bottom"
                 android:layout_weight="1.125">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.5"
-                    android:textColor="#676A6C"
-                    android:text="PKR "/>
+
                 <EditText
                     android:id="@+id/et_amount2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
+                    android:inputType="number"
                     android:textSize="14sp"
                     android:textColor="#676A6C"
                     android:textColorHint="#676A6C"
-                    android:background="@android:color/transparent"
-                    android:text="60,000"/>
+                    android:background="@android:color/transparent"/>
             </LinearLayout>
 
         </LinearLayout>
-
-        <!--        amount filter layout-->
-
 
     </RelativeLayout>
 

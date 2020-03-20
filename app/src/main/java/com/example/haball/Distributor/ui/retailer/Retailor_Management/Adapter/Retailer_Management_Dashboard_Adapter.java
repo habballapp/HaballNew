@@ -54,7 +54,8 @@ public class Retailer_Management_Dashboard_Adapter extends RecyclerView.Adapter<
 
         holder.tv_heading.setText(retailerList.get(position).getCompanyName());
         holder.retailer_code_no.setText(retailerList.get(position).getRetailerCode());
-        holder.tv_retailerdate_date_no.setText(retailerList.get(position).getCreatedDate());
+        if(retailerList.get(position).getCreatedDate() != null)
+        holder.tv_retailerdate_date_no.setText(retailerList.get(position).getCreatedDate().split("T")[0]);
         holder.retailer_status_value.setText(retailerList.get(position).getStatus());
         final int finalPosition = position;
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
