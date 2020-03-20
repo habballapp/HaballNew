@@ -170,7 +170,6 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                     recyclerView = root.findViewById(R.id.rv_retailer_order_dashboard);
                     recyclerView.setHasFixedSize(true);
                     tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
-                    tv_shipment_no_data.setVisibility(View.GONE);
                     if (Filter_selected.equals("Order ID")) {
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "OrderNumber";
@@ -339,25 +338,31 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONObject result) {
-                if (result.length() != 0) {
-
-                    Log.i("ORDERS DATA - ", result.toString());
-                    Gson gson = new Gson();
-                    Type type = new TypeToken<List<RetailerOrdersModel>>() {
-                    }.getType();
-                    try {
-                        OrdersList = gson.fromJson(result.get("Data").toString(), type);
-                        Log.i("OrdersList", String.valueOf(OrdersList));
-                        mAdapter = new RetailerOrdersAdapter(getContext(), OrdersList);
-                        recyclerView.setAdapter(mAdapter);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    if (result.length() == 0){
+                        Log.i("condtion" , String.valueOf(result));
+                        Toast.makeText(getContext(), "Kuch nhi hai is me", Toast.LENGTH_SHORT).show();
+                        tv_shipment_no_data.setVisibility(View.VISIBLE);
                     }
-                } else {
-                    tv_shipment_no_data.setVisibility(View.VISIBLE);
+                    else {
+
+
+                        Log.i("ORDERS DATA - ", result.toString());
+                        Gson gson = new Gson();
+                        Type type = new TypeToken<List<RetailerOrdersModel>>() {
+                        }.getType();
+                        try {
+                            OrdersList = gson.fromJson(result.get("Data").toString(), type);
+                            Log.i("OrdersList", String.valueOf(OrdersList));
+                            mAdapter = new RetailerOrdersAdapter(getContext(), OrdersList);
+                            recyclerView.setAdapter(mAdapter);
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
 
-            }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import com.example.haball.Distribution_Login.Distribution_Login;
 import com.example.haball.Distributor.ui.Fragment_Notification.FragmentNotification;
 import com.example.haball.Distributor.ui.home.HomeFragment;
+import com.example.haball.Distributor.ui.orders.OrderMain_Dashboard;
 import com.example.haball.Distributor.ui.orders.OrdersTabsLayout.Orders_Dashboard;
 import com.example.haball.Distributor.ui.payments.ConsolidatedPaymentsFragment;
 import com.example.haball.Distributor.ui.payments.CreatePaymentRequestFragment;
@@ -240,7 +241,7 @@ public class DistributorDashboard extends AppCompatActivity {
                         } else if (groupPosition == 1 && childPosition == 0) {
                             Log.i("Place order", "Child"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, new Orders_Dashboard());
+                            fragmentTransaction.replace(R.id.main_container, new OrderMain_Dashboard());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (groupPosition == 4 && childPosition == 0) {

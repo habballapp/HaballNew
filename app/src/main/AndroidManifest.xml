@@ -15,7 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Retailor.Retailer_Support.Support_Ticket_Form_Retailer"></activity>
+        <activity
+            android:name=".Distributor.ui.orders.OrdersTabsNew.Order_PlaceOrder"
+            android:label="@string/title_activity_order__place_order"
+            android:theme="@style/NoActionBar"></activity>
+        <activity android:name=".Retailor.Retailer_Support.Support_Ticket_Form_Retailer" />
         <activity android:name=".Distributor.ui.retailer.Retailor_Management.Retailer_Dashboard" />
         <activity
             android:name=".Distributor.ui.retailer.RetailerOrder.RetailerViewOrder"

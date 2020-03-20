@@ -26,12 +26,14 @@
         <item name="boxStrokeWidth">1.75dp</item>
         <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
     </style>
+
     <style name="ErrorTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:textColor">#ffff0000</item>
         <item name="android:textColorHint">#ffff0000</item>
         <item name="android:textSize">18sp</item>
         <item name="colorAccent">#ffff0000</item>
     </style>
+
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">#96BA3C</item>
 
