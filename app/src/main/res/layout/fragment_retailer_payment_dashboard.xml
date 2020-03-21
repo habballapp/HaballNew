@@ -29,12 +29,22 @@
             android:textSize="20sp" />
 
     </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tv_paymentDashboard"
+        android:layout_marginTop="5dp"
+        >
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
     <RelativeLayout
         android:id="@+id/spinner_container_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_paymentDashboard">
+       >
 
         <RelativeLayout
             android:id="@+id/spinner_container"
@@ -298,5 +308,6 @@
         android:layout_marginTop="15dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="10dp" />
-
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
