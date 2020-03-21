@@ -42,12 +42,22 @@
         android:textAllCaps="false"
         android:layout_below="@+id/tv_retailer_order_dashboard"
         android:background="@drawable/button_background"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/btn_place_order"
+        android:layout_marginTop="5dp"
+        >
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
     <RelativeLayout
         android:id="@+id/spinner_container_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_place_order">
+        >
 
         <RelativeLayout
             android:id="@+id/spinner_container"
@@ -317,5 +327,6 @@
         android:layout_marginBottom="10dp"
         android:gravity="center"
         android:text="© Haball | All rights reserved" />
-
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

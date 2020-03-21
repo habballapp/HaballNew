@@ -29,13 +29,21 @@
             android:textSize="22sp" />
 
     </LinearLayout>
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_below="@+id/tv_shipment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
+        <RelativeLayout
+            android:id="@+id/rl_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
     <RelativeLayout
         android:id="@+id/spinner_container_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_shipment">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:id="@+id/spinner_container"
@@ -283,6 +291,7 @@
         android:textStyle="bold"
         android:textSize="30sp"
         android:gravity="center"
+        android:layout_centerInParent="true"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="30dp" />
@@ -297,10 +306,13 @@
         android:layout_marginBottom="30dp" />
 
     <TextView
+        android:id="@+id/com_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
         android:gravity="center"
         android:text="© Haball | All rights reserved" />
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
