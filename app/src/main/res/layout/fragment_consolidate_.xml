@@ -6,141 +6,160 @@
     android:layout_height="match_parent"
     android:background="#fff"
     tools:context=".Payment.Consolidate_Fragment">
+
     <TextView
         android:id="@+id/tv_consolidate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Consolidate Payments"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/half_underline"
         android:paddingTop="5dp"
         android:paddingBottom="10dp"
-        android:layout_marginTop="30dp"
-        android:textSize="20sp"
+        android:text="Consolidate Payments"
         android:textColor="#96bb3c"
-        android:layout_marginLeft="30dp"
-        android:background="@drawable/half_underline"/>
+        android:textSize="20sp" />
 
     <RelativeLayout
         android:id="@+id/line_"
         android:layout_width="match_parent"
         android:layout_height="1.5dp"
-        android:layout_marginRight="30dp"
         android:layout_below="@+id/tv_consolidate"
+        android:layout_marginTop="-2dp"
+        android:layout_marginRight="30dp"
         android:layout_toRightOf="@+id/tv_consolidate"
-        android:background="@drawable/line"
-        android:layout_marginTop="-2dp"/>
+        android:background="@drawable/line" />
 
-    <RelativeLayout
-        android:id="@+id/spinner_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/edit_text_squared"
-        android:layout_below="@+id/line_">
-        <Spinner
-            android:id="@+id/spinner_conso"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/spinner_container1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/edit_text_squared"
-        android:layout_below="@+id/spinner_container">
-        <Spinner
-            android:id="@+id/conso_spinner2"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"/>
-
-        <EditText
-            android:id="@+id/conso_edittext"
-            android:background="@drawable/edit_text_squared"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/line_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:layout_below="@+id/spinner_container1"
-        android:background="@drawable/line_seperator"
-        android:layout_marginTop="15dp"/>
-
-    <TextView
-        android:id="@+id/tv_shipment_no_data"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/line_bottom"
-        android:text="No Data Available"
-        android:textStyle="bold"
-        android:textSize="30sp"
-        android:gravity="center"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="30dp" />
+        android:layout_below="@+id/line_"
+        android:layout_marginTop="5dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/line_bottom"
-        android:orientation="vertical"
-        android:layout_marginBottom="40dp"
-        android:weightSum="3">
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_consolidate"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginRight="30dp"
-            android:layout_weight="2"
-            android:layout_marginLeft="30dp"/>
         <RelativeLayout
-            android:layout_weight="0.25"
             android:layout_width="match_parent"
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_height="0dp"
-            android:layout_gravity="center_horizontal">
-            <!--            <ProgressBar-->
-            <!--                android:id="@+id/load_more"-->
-            <!--                android:layout_width="30dp"-->
-            <!--                android:layout_height="30dp"-->
-            <!--                android:layout_centerInParent="true"/>-->
-            <Button
-                android:id="@+id/btn_load_more"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/spinner_container_main"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_centerInParent="true"
-                android:background="@android:color/transparent"
-                android:textAllCaps="false"
-                android:textSize="18sp"
-                android:text="@string/load_more"/>
+                android:layout_height="wrap_content">
 
+                <RelativeLayout
+                    android:id="@+id/spinner_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/edit_text_squared">
+
+                    <Spinner
+                        android:id="@+id/spinner_conso"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/spinner_container1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/spinner_container"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/edit_text_squared">
+
+                    <Spinner
+                        android:id="@+id/conso_spinner2"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp" />
+
+                    <EditText
+                        android:id="@+id/conso_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text_squared"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="5dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="5dp" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/line_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_below="@+id/spinner_container_main"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/line_seperator" />
+
+            <TextView
+                android:id="@+id/tv_shipment_no_data"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="30dp"
+                android:gravity="center"
+                android:layout_below="@+id/line_bottom"
+                android:text="No Data Available"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/line_bottom"
+                android:layout_marginBottom="40dp"
+                android:orientation="vertical"
+                android:weightSum="3">
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_consolidate"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="2" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="0.25">
+                    <Button
+                        android:id="@+id/btn_load_more"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_centerInParent="true"
+                        android:background="@android:color/transparent"
+                        android:text="@string/load_more"
+                        android:textAllCaps="false"
+                        android:textSize="18sp" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/footer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="© Haball | All rights reserved" />
         </RelativeLayout>
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/footer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginBottom="10dp"
-        android:layout_alignParentBottom="true"
-        android:text="© Haball | All rights reserved" />
+    </ScrollView>
 </RelativeLayout>

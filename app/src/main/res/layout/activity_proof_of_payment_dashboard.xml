@@ -42,13 +42,23 @@
         android:textColor="@android:color/white"
         android:layout_below="@+id/tv_proof_payment"
         android:layout_marginTop="15dp"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/btn_create_proof_of_payment"
+        android:layout_marginTop="5dp"
+        >
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
 
     <RelativeLayout
         android:id="@+id/spinner_container_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_create_proof_of_payment">
+        >
 
         <RelativeLayout
             android:id="@+id/spinner_container"
@@ -357,4 +367,7 @@
         android:layout_marginBottom="10dp"
         android:text="© Haball | All rights reserved"
         android:gravity="center"/>
+
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
