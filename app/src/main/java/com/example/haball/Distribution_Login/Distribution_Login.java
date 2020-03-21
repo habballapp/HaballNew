@@ -4,8 +4,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -28,10 +28,8 @@ import android.widget.Toast;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
@@ -50,28 +48,21 @@ import com.google.android.material.textfield.TextInputLayout;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 public class Distribution_Login extends AppCompatActivity {
 
-    private Button btn_login, btn_signup, btn_support, btn_password, btn_reset;
+    private Button btn_login;
+    private Button btn_reset;
     public ImageButton btn_back;
     private EditText et_username, et_password, txt_email;
-    private Toolbar tb;
-    private RequestQueue queue;
-    private String URL = "http://175.107.203.97:4013/Token";
     private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4013/api/Users/forgot";
-    private HttpURLConnection urlConnection = null;
-    private URL url;
     private String token;
-    private String success_text = "";
     ProgressDialog progressDialog;
-    private TextInputLayout layout_username, layout_password;
+    private TextInputLayout layout_password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,11 +72,7 @@ public class Distribution_Login extends AppCompatActivity {
 
         et_username = findViewById(R.id.txt_username);
         et_password = findViewById(R.id.txt_password);
-        layout_username = findViewById(R.id.layout_username );
         layout_password = findViewById(R.id.layout_password);
-
-//        layout_username.setBoxStrokeColor(getResources().getColor(R.color.color_text));
-//        layout_password.setBoxStrokeColor(getResources().getColor(R.color.color_text));
 
         et_password.addTextChangedListener(new TextWatcher() {
             @Override
@@ -111,9 +98,9 @@ public class Distribution_Login extends AppCompatActivity {
         btn_login.setEnabled(false);
         btn_login.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
-        btn_signup = findViewById(R.id.btn_signup);
-        btn_support = findViewById(R.id.btn_support);
-        btn_password = findViewById(R.id.btn_password);
+        Button btn_signup = findViewById(R.id.btn_signup);
+        Button btn_support = findViewById(R.id.btn_support);
+        Button btn_password = findViewById(R.id.btn_password);
 
         progressDialog = new ProgressDialog(this);
 
@@ -140,17 +127,18 @@ public class Distribution_Login extends AppCompatActivity {
         et_password.addTextChangedListener(textWatcher);
 
         ActionBar bar = getSupportActionBar();
+        assert bar != null;
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
 
         LayoutInflater inflater = LayoutInflater.from(this);
 
-        View customView = inflater.inflate(R.layout.action_bar_main, null);
+        @SuppressLint("InflateParams") View customView = inflater.inflate(R.layout.action_bar_main, null);
 
         bar.setCustomView(customView);
         bar.setDisplayShowCustomEnabled(true);
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
         bar.setTitle("");
-        btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
+        btn_back = customView.findViewById(R.id.btn_back);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,7 +178,7 @@ public class Distribution_Login extends AppCompatActivity {
             public void onClick(View view) {
                 final AlertDialog alertDialog = new AlertDialog.Builder(Distribution_Login.this).create();
                 LayoutInflater inflater = LayoutInflater.from(Distribution_Login.this);
-                View view_popup = inflater.inflate(R.layout.forget_password, null);
+                @SuppressLint("InflateParams") View view_popup = inflater.inflate(R.layout.forget_password, null);
                 alertDialog.setView(view_popup);
                 txt_email = view_popup.findViewById(R.id.txt_email);
                 btn_reset = view_popup.findViewById(R.id.btn_reset);
@@ -201,7 +189,7 @@ public class Distribution_Login extends AppCompatActivity {
                         if (!txt_email.getText().toString().equals("")) {
                             final AlertDialog alertDialog1 = new AlertDialog.Builder(Distribution_Login.this).create();
                             LayoutInflater inflater = LayoutInflater.from(Distribution_Login.this);
-                            View view_popup = inflater.inflate(R.layout.email_sent, null);
+                            @SuppressLint("InflateParams") View view_popup = inflater.inflate(R.layout.email_sent, null);
                             alertDialog1.setView(view_popup);
                             ImageButton img_email = view_popup.findViewById(R.id.image_email);
                             forgotPasswordRequest(alertDialog, alertDialog1, img_email);
@@ -236,7 +224,7 @@ public class Distribution_Login extends AppCompatActivity {
         }
     }
 
-    private String forgotPasswordRequest(final AlertDialog alertDialog, final AlertDialog alertDialog1, final ImageButton img_email) {
+    private void forgotPasswordRequest(final AlertDialog alertDialog, final AlertDialog alertDialog1, final ImageButton img_email) {
 
         progressDialog.setTitle("Resetting Password");
         progressDialog.setMessage("Loading, Please Wait..");
@@ -245,7 +233,6 @@ public class Distribution_Login extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(String result) {
-                success_text = result;
                 Log.e("RESPONSE", result);
                 progressDialog.dismiss();
                 alertDialog.dismiss();
@@ -258,6 +245,7 @@ public class Distribution_Login extends AppCompatActivity {
                 alertDialog1.show();
             }
         }, new Response.ErrorListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
@@ -268,18 +256,19 @@ public class Distribution_Login extends AppCompatActivity {
         }) {
 
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> params = new HashMap<String, String>();
+            public Map<String, String> getHeaders() {
+                HashMap<String, String> params = new HashMap<>();
                 params.put("Content-Type", "application/json; charset=UTF-8");
                 return params;
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public byte[] getBody() {
                 try {
                     JSONObject jsonObject = new JSONObject();
                     jsonObject.put("EmailAddress", txt_email.getText().toString());
-                    return jsonObject.toString().getBytes("utf-8");
+                    return jsonObject.toString().getBytes(StandardCharsets.UTF_8);
                 } catch (Exception e) {
                     return null;
                 }
@@ -297,12 +286,11 @@ public class Distribution_Login extends AppCompatActivity {
             }
 
             @Override
-            public void retry(VolleyError error) throws VolleyError {
+            public void retry(VolleyError error) {
 
             }
         });
         Volley.newRequestQueue(this).add(sr);
-        return success_text;
     }
 
 //    private void makeLoginRequest() {
@@ -354,6 +342,7 @@ public class Distribution_Login extends AppCompatActivity {
         map.put("Password", et_password.getText().toString());
         map.put("grant_type", "password");
         Log.i("map", String.valueOf(map));
+        String URL = "http://175.107.203.97:4013/Token";
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
@@ -379,7 +368,7 @@ public class Distribution_Login extends AppCompatActivity {
                         editor.putString("DealerCode", DealerCode);
                         editor.putString("ID", ID);
 
-                        editor.commit();
+                        editor.apply();
 
                         Toast.makeText(Distribution_Login.this, "Login Success", Toast.LENGTH_LONG).show();
                         Intent login_intent = new Intent(Distribution_Login.this, DistributorDashboard.class);
@@ -404,6 +393,7 @@ public class Distribution_Login extends AppCompatActivity {
 //                Toast.makeText(Distribution_Login.this,result.toString(),Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
@@ -422,6 +412,7 @@ public class Distribution_Login extends AppCompatActivity {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void printErrorMessage(VolleyError error) {
         if (error instanceof NetworkError) {
             Toast.makeText(Distribution_Login.this, "Network Error !", Toast.LENGTH_LONG).show();
@@ -431,30 +422,26 @@ public class Distribution_Login extends AppCompatActivity {
             Toast.makeText(Distribution_Login.this, "Auth Failure Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof ParseError) {
             Toast.makeText(Distribution_Login.this, "Parse Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof NoConnectionError) {
-            Toast.makeText(Distribution_Login.this, "No Connection Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof TimeoutError) {
             Toast.makeText(Distribution_Login.this, "Timeout Error !", Toast.LENGTH_LONG).show();
         }
 
         if (error.networkResponse != null && error.networkResponse.data != null) {
             try {
-                String message = "";
-                String responseBody = new String(error.networkResponse.data, "utf-8");
+                StringBuilder message = new StringBuilder();
+                String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
                 JSONObject data = new JSONObject(responseBody);
                 Iterator<String> keys = data.keys();
                 while (keys.hasNext()) {
                     String key = keys.next();
                     //                if (data.get(key) instanceof JSONObject) {
-                    message = message + data.get(key) + "\n";
+                    message.append(data.get(key)).append("\n");
                     //                }
                 }
                 //                    if(data.has("message"))
                 //                        message = data.getString("message");
                 //                    else if(data. has("Error"))
-                Toast.makeText(Distribution_Login.this, message, Toast.LENGTH_LONG).show();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
+                Toast.makeText(Distribution_Login.this, message.toString(), Toast.LENGTH_LONG).show();
             } catch (JSONException e) {
                 e.printStackTrace();
             }

@@ -3,9 +3,11 @@ package com.example.haball.Registration;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ import com.example.haball.Distribution_Login.Distribution_Login;
 import com.example.haball.R;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,13 +37,10 @@ import org.w3c.dom.Text;
 
 public class Registration_Activity extends AppCompatActivity implements View.OnFocusChangeListener {
 
-    private Button btn_next;
-    private ImageButton btn_back;
-    private EditText txt_username,txt_password,txt_confirm;
-    ProgressDialog progressDialog;
+    private EditText txt_username, txt_password, txt_confirm;
     private Boolean username_check = false, password_check = false, confirm_password_check = false;
+    private TextInputLayout layout_txt_username, layout_txt_password, layout_txt_confirm;
 
-    private Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,13 +48,13 @@ public class Registration_Activity extends AppCompatActivity implements View.OnF
         getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
 
 
-        context = getApplicationContext();
         ActionBar bar = getSupportActionBar();
+        assert bar != null;
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
 
         final LayoutInflater inflater = LayoutInflater.from(this);
 
-        View customView = inflater.inflate(R.layout.action_bar_main, null);
+        @SuppressLint("InflateParams") View customView = inflater.inflate(R.layout.action_bar_main, null);
 
         bar.setCustomView(customView);
         bar.setDisplayShowCustomEnabled(true);
@@ -62,14 +62,17 @@ public class Registration_Activity extends AppCompatActivity implements View.OnF
         bar.setTitle("");
 
         txt_username = findViewById(R.id.txt_username);
+        layout_txt_username = findViewById(R.id.layout_txt_username);
         txt_password = findViewById(R.id.txt_password);
+        layout_txt_password = findViewById(R.id.layout_txt_password);
         txt_confirm = findViewById(R.id.txt_confirm);
+        layout_txt_confirm = findViewById(R.id.layout_txt_confirm);
 
         (findViewById(R.id.txt_username)).setOnFocusChangeListener(this);
         (findViewById(R.id.txt_password)).setOnFocusChangeListener(this);
         (findViewById(R.id.txt_confirm)).setOnFocusChangeListener(this);
 
-        btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
+        ImageButton btn_back = customView.findViewById(R.id.btn_back);
 
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +82,7 @@ public class Registration_Activity extends AppCompatActivity implements View.OnF
             }
         });
 
-        btn_next = findViewById(R.id.btn_next);
+        Button btn_next = findViewById(R.id.btn_next);
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,7 +91,7 @@ public class Registration_Activity extends AppCompatActivity implements View.OnF
                         TextUtils.isEmpty(txt_confirm.getText().toString())) {
                     Snackbar.make(view, "Please Enter All Required Fields", Snackbar.LENGTH_SHORT).show();
                 } else {
-                    if(!username_check && password_check && confirm_password_check){
+                    if (!username_check && password_check && confirm_password_check) {
                         Intent intent = new Intent(Registration_Activity.this, Register_Activity_2.class);
                         intent.putExtra("username", txt_username.getText().toString());
                         intent.putExtra("password", txt_password.getText().toString());
@@ -101,24 +104,31 @@ public class Registration_Activity extends AppCompatActivity implements View.OnF
         });
     }
 
-    private void checkPasswords(){
+    private void checkPasswords() {
         String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
-        if(txt_password.getText().toString().matches(reg_ex)) {
+        if (txt_password.getText().toString().matches(reg_ex)) {
             password_check = true;
-            txt_password.setError(null);
-        }
-        else{
-            txt_password.setError("Please enter password with minimum 6 characters & 1 Numeric or special character");
-            password_check = false;
+//            txt_password.setError(null);
+            layout_txt_password.setBoxStrokeColor(getResources().getColor(R.color.textboxstrokecolor));
+            layout_txt_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+            layout_txt_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolor)));
+            txt_password.setTextColor(getResources().getColor(R.color.textcolor));
+        } else {
+            layout_txt_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+            layout_txt_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            layout_txt_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            txt_password.setTextColor(getResources().getColor(R.color.error_stroke_color));
+            Toast.makeText(this, "Please enter password with minimum 6 characters & 1 Numeric or special character", Toast.LENGTH_LONG).show();
+//            txt_password.setError("Please enter password with minimum 6 characters & 1 Numeric or special character");
+//            password_check = false;
         }
     }
 
     private void checkUsername(final View view) throws JSONException {
 
-        if(txt_username.getText().toString().equals("")){
+        if (txt_username.getText().toString().equals("")) {
             txt_username.setError("This field is required");
-        }
-        else {
+        } else {
             txt_username.setError(null);
 
             String URL = "http://175.107.203.97:4013/api/users/CheckField";
@@ -180,8 +190,8 @@ public class Registration_Activity extends AppCompatActivity implements View.OnF
         }
     }
 
-    private void checkEmpty(EditText et_id){
-        if(TextUtils.isEmpty(et_id.getText().toString()))
+    private void checkEmpty(EditText et_id) {
+        if (TextUtils.isEmpty(et_id.getText().toString()))
             et_id.setError("This field is required");
         else
             et_id.setError(null);
