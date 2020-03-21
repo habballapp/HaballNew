@@ -4,6 +4,8 @@
     <group android:id="@+id/group_delete">
         <item android:id="@+id/view_payment"
             android:title="View" />
+        <item android:id="@+id/view_payment_cancel"
+            android:title="Cancel" />
 
     </group>
 </menu>
