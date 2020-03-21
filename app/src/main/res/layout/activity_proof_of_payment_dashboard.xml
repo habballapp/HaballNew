@@ -29,35 +29,35 @@
         android:background="@drawable/line"
         android:layout_marginTop="-2dp"/>
 
-    <Button
-        android:id="@+id/btn_create_proof_of_payment"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@drawable/button_background"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:text="Create Proof of Payment"
-        android:textAllCaps="false"
-        android:stateListAnimator="@null"
-        android:textColor="@android:color/white"
-        android:layout_below="@+id/tv_proof_payment"
-        android:layout_marginTop="15dp"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/btn_create_proof_of_payment"
         android:layout_marginTop="5dp"
+        android:layout_below="@+id/line_"
         >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
-
+            <Button
+                android:id="@+id/btn_create_proof_of_payment"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/button_background"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:text="Create Proof of Payment"
+                android:textAllCaps="false"
+                android:stateListAnimator="@null"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="15dp"/>
     <RelativeLayout
         android:id="@+id/spinner_container_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_create_proof_of_payment"
         >
 
         <RelativeLayout
@@ -342,11 +342,6 @@
             android:layout_marginLeft="30dp"
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal">
-            <!--            <ProgressBar-->
-            <!--                android:id="@+id/load_more"-->
-            <!--                android:layout_width="30dp"-->
-            <!--                android:layout_height="30dp"-->
-            <!--                android:layout_centerInParent="true"/>-->
             <Button
                 android:id="@+id/btn_load_more"
                 android:layout_width="match_parent"
