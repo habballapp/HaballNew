@@ -84,8 +84,10 @@ public class RetailerOrdersAdapter extends RecyclerView.Adapter<RetailerOrdersAd
                                 editor.putString("OrderId", OrdersList.get(finalPosition).getOrderId());
                                 editor.putString("Status", OrdersList.get(finalPosition).getOrderStatus());
                                 editor.commit();
-
                                 break;
+
+                            case R.id.view_payment_cancel:
+                                Toast.makeText(context,"Cancel",Toast.LENGTH_SHORT).show();
                         }
                         return false;
                     }

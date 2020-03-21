@@ -61,7 +61,7 @@ public class Retailer_Management_Dashboard_Adapter extends RecyclerView.Adapter<
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext,"View Retailer",Toast.LENGTH_LONG).show();
+                //Toast.makeText(mContext,"View Retailer",Toast.LENGTH_LONG).show();
                 final androidx.appcompat.widget.PopupMenu popup = new PopupMenu(mContext, view);
                 MenuInflater inflater = popup.getMenuInflater();
                 inflater.inflate(R.menu.fragment_view_management_retailer_menu, popup.getMenu());
@@ -72,7 +72,7 @@ public class Retailer_Management_Dashboard_Adapter extends RecyclerView.Adapter<
                         switch(item.getItemId()){
 
                             case R.id.view_retailer:
-//                                Toast.makeText(mContext,"Popup",Toast.LENGTH_LONG).show();
+                           //     Toast.makeText(mContext,"Popup",Toast.LENGTH_LONG).show();
                                 ViewRetailer viewRetailer = new ViewRetailer();
                                 Bundle args = new Bundle();
                                 args.putString("RetailerId", retailerList.get(finalPosition).getID());
@@ -83,6 +83,14 @@ public class Retailer_Management_Dashboard_Adapter extends RecyclerView.Adapter<
                                 fragmentTransaction.add(R.id.main_container,viewRetailer);
                                 fragmentTransaction.commit();
                                 break;
+
+
+
+                            case R.id.view_disconnect:
+
+                                Toast.makeText(mContext ,"Disconnect",Toast.LENGTH_SHORT).show();
+                                break;
+
                         }
 
                         return false;
