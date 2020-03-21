@@ -30,25 +30,12 @@
         android:layout_marginRight="30dp"
         android:background="@drawable/horizontal_black_line" />
 
-    <Button
-        android:id="@+id/btn_add_ticket"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@+id/line"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/button_background"
-        android:clickable="true"
-        android:text="Add Ticket"
-        android:textAllCaps="false"
-        android:textColor="#fff"
-        android:textSize="18sp" />
+
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/btn_add_ticket"
+        android:layout_below="@+id/line"
         android:layout_marginTop="5dp"
         >
 
@@ -56,10 +43,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
+            <Button
+                android:id="@+id/btn_add_ticket"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/button_background"
+                android:clickable="true"
+                android:text="Add Ticket"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="18sp" />
         <RelativeLayout
             android:id="@+id/spinner_container_main"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_add_ticket">
     <RelativeLayout
         android:id="@+id/spinner_container"
         android:layout_width="match_parent"

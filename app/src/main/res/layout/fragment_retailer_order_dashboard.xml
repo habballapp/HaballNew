@@ -29,23 +29,11 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_place_order"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="15dp"
-        android:text="Place Order"
-        android:textSize="14sp"
-        android:textColor="#fff"
-        android:textAllCaps="false"
-        android:layout_below="@+id/tv_retailer_order_dashboard"
-        android:background="@drawable/button_background"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/btn_place_order"
+        android:layout_below="@+id/tv_retailer_order_dashboard"
         android:layout_marginTop="5dp"
         >
 
@@ -53,10 +41,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
+            <Button
+                android:id="@+id/btn_place_order"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="15dp"
+                android:text="Place Order"
+                android:textSize="14sp"
+                android:textColor="#fff"
+                android:textAllCaps="false"
+                android:background="@drawable/button_background"/>
     <RelativeLayout
         android:id="@+id/spinner_container_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_place_order"
         >
 
         <RelativeLayout
