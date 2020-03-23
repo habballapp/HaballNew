@@ -18,8 +18,13 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haball.Distributor.ui.main.PlaceholderFragment;
+import com.example.haball.Distributor.ui.orders.CancelOrder;
+import com.example.haball.Distributor.ui.orders.DeleteOrderDraft;
+import com.example.haball.Distributor.ui.orders.EditOrderDraft;
 import com.example.haball.Payment.DistributorPaymentRequestModel;
 import com.example.haball.R;
+
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,28 +68,111 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
         holder.tv_status.setText(OrderList.get(position).getOrderStatusValue());
         holder.tv_amount.setText(OrderList.get(position).getTotalPrice());
 
-        final int finalPosition = position;
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final PopupMenu popup = new PopupMenu(mContxt, view);
-                MenuInflater inflater = popup.getMenuInflater();
-                inflater.inflate(R.menu.orders_fragment_menu, popup.getMenu());
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.orders_view:
-                                String ID = OrderList.get(position).getID();
-                                Toast.makeText(mContxt, "View Order ID - " + ID, Toast.LENGTH_LONG).show();
-                                break;
-                        }
-                        return false;
-                    }
-                });
-                popup.show();
+                if(OrderList.get(position).getOrderStatusValue().equals("Draft"))
+                    setMenuDraft(popup, position);
+                else if(OrderList.get(position).getOrderStatusValue().equals("Cancelled"))
+                    setMenuCancelled(popup, position);
+                else
+                    setMenuAll(popup, position);
             }
         });
+    }
+
+    private void setMenuDraft(PopupMenu popup, final int position) {
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.dist_order_draft_menu, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.orders_edit:
+                        try {
+                            editOrderDraft(mContxt, OrderList.get(position).getID(), OrderList.get(position).getOrderNumber());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                                Toast.makeText(mContxt, "View Order ID - " + OrderList.get(position).getOrderNumber(), Toast.LENGTH_LONG).show();
+                        break;
+                    case R.id.orders_delete:
+                        try {
+                            deleteOrderDraft(mContxt, OrderList.get(position).getID(), OrderList.get(position).getOrderNumber());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+//                                Toast.makeText(mContxt, "View Order ID - " + ID, Toast.LENGTH_LONG).show();
+                        break;
+                }
+                return false;
+            }
+        });
+        popup.show();
+
+    }
+
+    private void setMenuCancelled(PopupMenu popup, final int position) {
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.orders_fragment_menu, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.orders_view:
+                        String ID = OrderList.get(position).getID();
+                        Toast.makeText(mContxt, "View Order ID - " + ID, Toast.LENGTH_LONG).show();
+                        break;
+                }
+                return false;
+            }
+        });
+        popup.show();
+
+    }
+
+    private void setMenuAll(PopupMenu popup, final int position) {
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.dist_order_menu, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.orders_view:
+                        String ID = OrderList.get(position).getID();
+                        Toast.makeText(mContxt, "View Order ID - " + ID, Toast.LENGTH_LONG).show();
+                        break;
+                    case R.id.orders_cancel:
+                        String orderID = OrderList.get(position).getID();
+                        try {
+                            cancelOrder(mContxt, OrderList.get(position).getID(), OrderList.get(position).getOrderNumber());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+//                                Toast.makeText(mContxt, "View Order ID - " + ID, Toast.LENGTH_LONG).show();
+                        break;
+                }
+                return false;
+            }
+        });
+        popup.show();
+
+    }
+
+    private void cancelOrder(Context context, String ID, String OrderNumber) throws JSONException {
+        CancelOrder cancelOrder = new CancelOrder();
+        cancelOrder.cancelOrder(context, ID, OrderNumber);
+    }
+
+    private void deleteOrderDraft(Context context, String ID, String OrderNumber) throws JSONException {
+        DeleteOrderDraft deleteDraft = new DeleteOrderDraft();
+        deleteDraft.deleteDraft(context, ID, OrderNumber);
+    }
+
+    private void editOrderDraft(Context context, String ID, String OrderNumber) throws JSONException {
+        EditOrderDraft editDraft = new EditOrderDraft();
+        editDraft.editDraft(context, ID, OrderNumber);
     }
 
     @Override

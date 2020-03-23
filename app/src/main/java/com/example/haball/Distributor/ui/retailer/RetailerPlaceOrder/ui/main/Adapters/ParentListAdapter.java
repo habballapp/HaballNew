@@ -76,10 +76,13 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
     }
 
     @Override
-    public void onBindChildViewHolder(final OrderChildList_VH orderChildList_vh, final int i, Object o) {
+    public void onBindChildViewHolder(OrderChildList_VH orderChildList_vh, int i, Object o) {
 
         Log.i("o", String.valueOf(o));
-        final OrderChildlist_Model orderChildlist_model = (OrderChildlist_Model) o;
+        OrderChildlist_Model orderChildlist_model = (OrderChildlist_Model) o;
+        final OrderChildList_VH temp_orderChildList_vh = orderChildList_vh;
+        final int temp_i = i;
+        final OrderChildlist_Model temp_orderChildlist_model = orderChildlist_model;
 
 
         if (selectedProductsDataList != null) {
@@ -100,10 +103,14 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
             String yourFormattedString1 = formatter1.format(Double.parseDouble(orderChildlist_model.getProductUnitPrice()));
             orderChildList_vh.list_price_value.setText("Rs. " + yourFormattedString1);
         }
-        if (orderChildlist_model.getDiscountAmount() != null) {
-            String yourFormattedString2 = formatter1.format(Double.parseDouble(orderChildlist_model.getDiscountAmount()));
-            orderChildList_vh.list_discount_value.setText("Rs. " + yourFormattedString2);
-        }
+        String yourFormattedString2;
+        if (orderChildlist_model.getDiscountAmount() != null)
+            yourFormattedString2 = formatter1.format(Double.parseDouble(orderChildlist_model.getDiscountAmount()));
+        else
+            yourFormattedString2 = formatter1.format(Double.parseDouble(orderChildlist_model.getProductUnitPrice()));
+        orderChildList_vh.list_discount_value.setText("Rs. " + yourFormattedString2);
+        if(orderChildlist_model.getPackSize() != null)
+            orderChildList_vh.list_pack_size_value.setText(orderChildlist_model.getPackSize());
         orderChildList_vh.list_UOM_value.setText(orderChildlist_model.getUnitOFMeasure());
         orderChildList_vh.list_numberOFitems.addTextChangedListener(new TextWatcher() {
             @Override
@@ -113,16 +120,26 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                checkOutEnabler(orderChildList_vh, i, orderChildlist_model);
+//                checkOutEnabler(orderChildList_vh, i, orderChildlist_model);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+
+//                Log.i("textChanged12", "check");
+//                Log.i("textChanged11", String.valueOf(s));
+                if (!String.valueOf(s).equals("")) {
+                    if(temp_orderChildList_vh.list_txt_products.getText().equals(temp_orderChildlist_model.getTitle())) {
+                        Log.i("textChanged", String.valueOf(temp_orderChildlist_model.getTitle()));
+                        Log.i("textChanged11", String.valueOf(temp_orderChildList_vh.list_txt_products.getText()));
+                        checkOutEnabler(temp_orderChildList_vh, temp_i, temp_orderChildlist_model, String.valueOf(s));
+                    }
+                }
             }
         });
     }
 
-    private void checkOutEnabler(OrderChildList_VH holder, int position, OrderChildlist_Model orderChildlist_model) {
+    private void checkOutEnabler(OrderChildList_VH holder, int position, OrderChildlist_Model orderChildlist_model, String s) {
         if (selectedProductsDataList != null) {
             if (!selectedProductsDataList.contains(orderChildlist_model)) {
                 selectedProductsDataList.add(orderChildlist_model);

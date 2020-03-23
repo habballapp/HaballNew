@@ -267,6 +267,7 @@ public class Dist_OrderPlace extends Fragment {
                 Log.i("productList", String.valueOf(productList));
 
                 ParentList_Adapter_DistOrder adapter = new ParentList_Adapter_DistOrder(getActivity(), initData());
+//                adapter.setCustomParentAnimationViewId(R.id.parent_list_item_expand_arrow);
                 adapter.setParentClickableViewAnimationDefaultDuration();
                 adapter.setParentAndIconExpandOnClick(true);
                 recyclerView.setAdapter(adapter);

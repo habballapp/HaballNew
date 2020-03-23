@@ -1,29 +1,29 @@
 package com.example.haball.Distributor.ui.orders.OrdersTabsNew.Adapters;
 
-        import android.content.Context;
-        import android.content.SharedPreferences;
-        import android.text.Editable;
-        import android.text.TextWatcher;
-        import android.util.Log;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.Toast;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
-        import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
-        import com.bignerdranch.expandablerecyclerview.Adapter.ExpandableRecyclerAdapter;
-        import com.bignerdranch.expandablerecyclerview.Model.ParentObject;
-        import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderChildlist_Model_DistOrder;
-        import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderParentlist_Model_DistOrder;
-        import com.example.haball.R;
-        import com.google.gson.Gson;
-        import com.google.gson.reflect.TypeToken;
+import com.bignerdranch.expandablerecyclerview.Adapter.ExpandableRecyclerAdapter;
+import com.bignerdranch.expandablerecyclerview.Model.ParentObject;
+import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderChildlist_Model_DistOrder;
+import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderParentlist_Model_DistOrder;
+import com.example.haball.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-        import java.lang.reflect.Type;
-        import java.text.DecimalFormat;
-        import java.util.ArrayList;
-        import java.util.List;
+import java.lang.reflect.Type;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<OrderParentList_VH_DistOrder, OrderChildList_VH_DistOrder> {
     LayoutInflater inflater;
@@ -31,6 +31,7 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
     private List<OrderChildlist_Model_DistOrder> selectedProductsDataList = new ArrayList<>();
     private List<String> selectedProductsQuantityList = new ArrayList<>();
     private String object_string, object_stringqty;
+//    private List<OrderParentlist_Model_DistOrder> orderParentlist_modelList = new ArrayList<>();
 
     public ParentList_Adapter_DistOrder(Context context, List<ParentObject> parentItemList) {
         super(context, parentItemList);
@@ -41,9 +42,11 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
         Gson gson = new Gson();
         object_stringqty = selectedProducts.getString("selected_products_qty", "");
         object_string = selectedProducts.getString("selected_products", "");
-        Type type = new TypeToken<List<OrderChildlist_Model_DistOrder>>() {}.getType();
-        Type typeString = new TypeToken<List<String>>() {}.getType();
-        if(!object_string.equals("")) {
+        Type type = new TypeToken<List<OrderChildlist_Model_DistOrder>>() {
+        }.getType();
+        Type typeString = new TypeToken<List<String>>() {
+        }.getType();
+        if (!object_string.equals("")) {
             selectedProductsDataList = gson.fromJson(object_string, type);
             selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
             Log.i("selectedProductsQty", String.valueOf(object_stringqty));
@@ -66,6 +69,7 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
 
     }
 
+
     @Override
     public void onBindParentViewHolder(OrderParentList_VH_DistOrder orderParentLIst_vh, int i, Object o) {
         Log.i("objAdapter", String.valueOf(o));
@@ -75,21 +79,19 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
     }
 
     @Override
-    public void onBindChildViewHolder(final OrderChildList_VH_DistOrder orderChildList_vh, final int i, Object o) {
+    public void onBindChildViewHolder(OrderChildList_VH_DistOrder orderChildList_vh, int i, Object o) {
 
         Log.i("objAdapter", String.valueOf(o));
-        final OrderChildlist_Model_DistOrder orderChildlist_model = (OrderChildlist_Model_DistOrder) o;
+        OrderChildlist_Model_DistOrder orderChildlist_model = (OrderChildlist_Model_DistOrder) o;
+
+        final OrderChildList_VH_DistOrder temp_orderChildList_vh = orderChildList_vh;
+        final int temp_i = i;
+        final OrderChildlist_Model_DistOrder temp_orderChildlist_model = orderChildlist_model;
 
 
+        orderChildList_vh.list_numberOFitems.setText("");
         if (selectedProductsDataList != null) {
-            for (int j = 0; j < selectedProductsDataList.size(); j++) {
-                Gson gson = new Gson();
-                String json = gson.toJson(selectedProductsDataList);
-                if (selectedProductsDataList.get(j).getTitle().equals(orderChildlist_model.getTitle())) {
-                    Log.i("found", String.valueOf(orderChildlist_model.getTitle()));
-                    orderChildList_vh.list_numberOFitems.setText(selectedProductsQuantityList.get(j));
-                }
-            }
+            setQuantity(orderChildList_vh, orderChildlist_model);
         }
 
         orderChildList_vh.list_txt_products.setText(orderChildlist_model.getTitle());
@@ -102,11 +104,16 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
         String yourFormattedString2 = "0";
         if (orderChildlist_model.getDiscountAmount() != null) {
             yourFormattedString2 = formatter1.format(Double.parseDouble(orderChildlist_model.getDiscountAmount()));
+        } else {
+            yourFormattedString2 = formatter1.format(Double.parseDouble(orderChildlist_model.getUnitPrice()));
         }
-        orderChildList_vh.list_discount_value.setText(yourFormattedString2);
+//        if (orderChildlist_model.getUOMTitle() != null)
+            orderChildList_vh.list_discount_value.setText("Rs. " + yourFormattedString2);
         if (orderChildlist_model.getUOMTitle() != null)
-        orderChildList_vh.list_UOM_value.setText(orderChildlist_model.getUOMTitle());
-        orderChildList_vh.list_numberOFitems.addTextChangedListener(new TextWatcher() {
+            orderChildList_vh.list_UOM_value.setText(orderChildlist_model.getUOMTitle());
+        if (orderChildlist_model.getPackSize() != null)
+            orderChildList_vh.list_pack_size_value.setText(orderChildlist_model.getPackSize());
+        TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -114,36 +121,65 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                checkOutEnabler(orderChildList_vh, i, orderChildlist_model);
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+
+//                Log.i("textChanged12", "check");
+//                Log.i("textChanged11", String.valueOf(s));
+                if (!String.valueOf(s).equals("")) {
+                    if(temp_orderChildList_vh.list_txt_products.getText().equals(temp_orderChildlist_model.getTitle())) {
+                        Log.i("textChanged", String.valueOf(temp_orderChildlist_model.getTitle()));
+                        Log.i("textChanged11", String.valueOf(temp_orderChildList_vh.list_txt_products.getText()));
+                        checkOutEnabler(temp_orderChildList_vh, temp_i, temp_orderChildlist_model, String.valueOf(s));
+                    }
+                }
             }
-        });
+        };
+        orderChildList_vh.list_numberOFitems.addTextChangedListener(textWatcher);
+//        orderChildList_vh.list_numberOFitems.removeTextChangedListener(textWatcher);
     }
 
-    private void checkOutEnabler(OrderChildList_VH_DistOrder holder, int position, OrderChildlist_Model_DistOrder orderChildlist_model) {
+    private void setQuantity(OrderChildList_VH_DistOrder orderChildList_vh, OrderChildlist_Model_DistOrder orderChildlist_model) {
+        for (int j = 0; j < selectedProductsDataList.size(); j++) {
+            if (selectedProductsDataList.get(j).getTitle().equals(orderChildlist_model.getTitle()) && selectedProductsDataList.get(j).getCode().equals(orderChildlist_model.getCode())) {
+                Log.i("foundItem", String.valueOf(orderChildlist_model.getTitle()));
+                orderChildList_vh.list_numberOFitems.setText(selectedProductsQuantityList.get(j));
+            }
+        }
+
+    }
+
+    private void checkOutEnabler(OrderChildList_VH_DistOrder holder, int position, OrderChildlist_Model_DistOrder orderChildlist_model, String s) {
+
         if (selectedProductsDataList != null) {
+//            Gson gson = new Gson();
+//            String json = gson.toJson(selectedProductsDataList);
+//            String jsonqty = gson.toJson(selectedProductsQuantityList);
+//            Log.i("jsonqtyBefore", jsonqty);
+//            Log.i("jsonBefore", json);
+
             if (!selectedProductsDataList.contains(orderChildlist_model)) {
                 selectedProductsDataList.add(orderChildlist_model);
-                selectedProductsQuantityList.add(String.valueOf(holder.list_numberOFitems.getText()));
+                selectedProductsQuantityList.add(String.valueOf(s));
             } else {
                 int foundIndex = -1;
                 for (int i = 0; i < selectedProductsDataList.size(); i++) {
-                    if (selectedProductsDataList.get(i).equals(orderChildlist_model)) {
+                    if (selectedProductsDataList.get(i).getTitle().equals(orderChildlist_model.getTitle()) && selectedProductsDataList.get(i).getCode().equals(orderChildlist_model.getCode())) {
                         foundIndex = i;
                         break;
                     }
                 }
 
                 if (foundIndex != -1)
-                    selectedProductsQuantityList.set(foundIndex, String.valueOf(holder.list_numberOFitems.getText()));
+                    selectedProductsQuantityList.set(foundIndex, String.valueOf(s));
                 Log.i("selected updated qty", String.valueOf(selectedProductsQuantityList));
             }
         } else {
             selectedProductsDataList.add(orderChildlist_model);
-            selectedProductsQuantityList.add(String.valueOf(holder.list_numberOFitems.getText()));
+            selectedProductsQuantityList.add(String.valueOf(s));
         }
 
         for (int i = 0; i < selectedProductsDataList.size(); i++)
@@ -153,7 +189,9 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
         String json = gson.toJson(selectedProductsDataList);
         String jsonqty = gson.toJson(selectedProductsQuantityList);
         Log.i("jsonqty", jsonqty);
+        Log.i("jsonqtySize", String.valueOf(selectedProductsQuantityList.size()));
         Log.i("json", json);
+        Log.i("jsonSize", String.valueOf(selectedProductsDataList.size()));
         SharedPreferences selectedProducts = context.getSharedPreferences("selectedProducts_distributor",
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = selectedProducts.edit();
