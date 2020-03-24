@@ -28,7 +28,7 @@ import java.util.List;
 public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst_VH, OrderChildList_VH> {
     LayoutInflater inflater;
     private Context context;
-    private List<OrderChildlist_Model> selectedProductsDataList = new ArrayList<>();
+    public List<OrderChildlist_Model> selectedProductsDataList = new ArrayList<>();
     private List<String> selectedProductsQuantityList = new ArrayList<>();
     private String object_string, object_stringqty;
 
@@ -58,6 +58,7 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
         return new OrderParentLIst_VH(view);
 
     }
+
 
     @Override
     public OrderChildList_VH onCreateChildViewHolder(ViewGroup viewGroup) {
