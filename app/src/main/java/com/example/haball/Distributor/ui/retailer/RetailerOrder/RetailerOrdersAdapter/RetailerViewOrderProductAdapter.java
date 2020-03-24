@@ -50,8 +50,11 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
         DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
         String yourFormattedString1 = formatter1.format(Double.parseDouble(OrdersList.get(position).getProductUnitPrice()));
         holder.price_value.setText("Rs. " + yourFormattedString1);
-
-        String yourFormattedString2 = formatter1.format(Double.parseDouble(OrdersList.get(position).getDiscountedAmount()));
+        String yourFormattedString2;
+        if(OrdersList.get(position).getDiscountedAmount() != null)
+            yourFormattedString2 = formatter1.format(Double.parseDouble(OrdersList.get(position).getDiscountedAmount()));
+        else
+            yourFormattedString2 = formatter1.format(Double.parseDouble(OrdersList.get(position).getProductUnitPrice()));
         holder.discount_value.setText("Rs. " + yourFormattedString2);
         holder.UOM_value.setText(OrdersList.get(position).getUOM());
         holder.pack_size_value.setText(OrdersList.get(position).getPackSize());

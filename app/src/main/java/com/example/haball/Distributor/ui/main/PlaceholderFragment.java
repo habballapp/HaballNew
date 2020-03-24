@@ -1,5 +1,7 @@
 package com.example.haball.Distributor.ui.main;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -135,6 +138,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private String fromDate, toDate, fromAmount, toAmount;
     private FragmentTransaction fragmentTransaction;
     private String tabName;
+    private RelativeLayout rv_filter;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -173,6 +177,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     e.printStackTrace();
                 }
                 btn_load_more = rootView.findViewById(R.id.btn_load_more);
+                rv_filter = rootView.findViewById(R.id.rv_filter);
 
                 SpannableString content = new SpannableString("Load More");
                 content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
@@ -208,12 +213,44 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     @Override
                     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                         super.onScrolled(recyclerView, dx, dy);
-                        LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
 
+//                        if(dy > 2) {
+//                            rv_filter.setVisibility(View.GONE);
+//                        } else {
+//                            rv_filter.setVisibility(View.VISIBLE);
+//                        }
+                        LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+                        Log.i("scrolldy", String.valueOf(dy));
                         int visibleItemCount = layoutManager.getChildCount();
                         int totalItemCount = layoutManager.getItemCount();
                         int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
-
+                        Log.i("firstVisibleItem", String.valueOf(firstVisibleItemPosition));
+                        if (firstVisibleItemPosition > 1) {
+                            if (rv_filter.getVisibility() == View.VISIBLE) {
+//                            rv_filter.setVisibility(View.GONE);
+                                rv_filter.setVisibility(View.GONE);
+                                TranslateAnimation animate = new TranslateAnimation(
+                                        0,                 // fromXDelta
+                                        0,                 // toXDelta
+                                        0,                 // fromYDelta
+                                        -rv_filter.getHeight()); // toYDelta
+                                animate.setDuration(500);
+                                animate.setFillAfter(true);
+                                rv_filter.startAnimation(animate);
+                            }
+                        } else if (firstVisibleItemPosition == 0) {
+                            if (rv_filter.getVisibility() == View.GONE) {
+                                rv_filter.setVisibility(View.VISIBLE);
+                                TranslateAnimation animate = new TranslateAnimation(
+                                        0,                 // fromXDelta
+                                        0,                 // toXDelta
+                                        -rv_filter.getHeight(),  // fromYDelta
+                                        0);                // toYDelta
+                                animate.setDuration(500);
+                                animate.setFillAfter(true);
+                                rv_filter.startAnimation(animate);
+                            }
+                        }
                         // Load more if we have reach the end to the recyclerView
                         if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
                             if (totalPages != 0 && pageNumber < totalPages) {

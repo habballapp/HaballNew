@@ -63,6 +63,17 @@ public class DistributorDashboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        SharedPreferences grossamount = getApplication().getSharedPreferences("grossamount",
+//                Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = grossamount.edit();
+//        editor.clear();
+//        editor.apply();
+//        SharedPreferences selectedProducts_distributor = getApplication().getSharedPreferences("selectedProducts_distributor",
+//                Context.MODE_PRIVATE);
+//        SharedPreferences.Editor selectedProducts_distributor_editor = selectedProducts_distributor.edit();
+//        selectedProducts_distributor_editor.clear();
+//        selectedProducts_distributor_editor.apply();
+
         setContentView(R.layout.activity_distributor_dashboard);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

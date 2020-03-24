@@ -91,7 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/product_code"
         android:layout_toRightOf="@id/separator_1"
-        android:text="Discount: "
+        android:text="Disc Amt: "
         android:textSize="16sp" />
     <TextView
         android:id="@+id/list_discount_value"

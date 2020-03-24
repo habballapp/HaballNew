@@ -9,8 +9,9 @@ public class OrderChildlist_Model {
     String ProductCategoryId;
     String UnitOFMeasure;
     String DiscountAmount;
+    String PackSize;
 
-    public OrderChildlist_Model(String productId, String productCode, String title, String productUnitPrice, String productCategoryId, String unitOFMeasure, String discountAmount) {
+    public OrderChildlist_Model(String productId, String productCode, String title, String productUnitPrice, String productCategoryId, String unitOFMeasure, String discountAmount, String packSize) {
         ProductId = productId;
         ProductCode = productCode;
         Title = title;
@@ -18,6 +19,7 @@ public class OrderChildlist_Model {
         ProductCategoryId = productCategoryId;
         UnitOFMeasure = unitOFMeasure;
         DiscountAmount = discountAmount;
+        PackSize = packSize;
     }
 
     public String getProductId() {
@@ -74,5 +76,13 @@ public class OrderChildlist_Model {
 
     public void setDiscountAmount(String discountAmount) {
         DiscountAmount = discountAmount;
+    }
+
+    public String getPackSize() {
+        return PackSize;
+    }
+
+    public void setPackSize(String packSize) {
+        PackSize = packSize;
     }
 }
