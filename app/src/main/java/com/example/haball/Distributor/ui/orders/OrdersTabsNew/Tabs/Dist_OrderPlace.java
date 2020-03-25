@@ -100,7 +100,7 @@ public class Dist_OrderPlace extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-//
+
         return view;
 
     }
@@ -268,8 +268,8 @@ public class Dist_OrderPlace extends Fragment {
 
                 ParentList_Adapter_DistOrder adapter = new ParentList_Adapter_DistOrder(getActivity(), initData());
 //                adapter.setCustomParentAnimationViewId(R.id.parent_list_item_expand_arrow);
-                adapter.setParentClickableViewAnimationDefaultDuration();
-                adapter.setParentAndIconExpandOnClick(true);
+//                adapter.setParentClickableViewAnimationDefaultDuration();
+//                adapter.setParentAndIconExpandOnClick(true);
                 recyclerView.setAdapter(adapter);
 //                ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData());
 //                adapter.setParentClickableViewAnimationDefaultDuration();

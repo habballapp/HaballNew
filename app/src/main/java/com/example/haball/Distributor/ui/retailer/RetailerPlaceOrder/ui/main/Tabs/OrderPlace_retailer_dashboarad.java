@@ -165,7 +165,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
         }
         return false;
     }
-
+    boolean bool = true;
     private void getProductCategory() throws JSONException {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
@@ -188,7 +188,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
             @Override
             public void onResponse(JSONObject result) {
                 Log.i("result", String.valueOf(result));
-
+                if(bool){
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<OrderParentlist_Model>>() {
                 }.getType();
@@ -203,7 +203,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
                     getProductsFromCategory();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
+                }}
             }
         }, new Response.ErrorListener() {
             @Override
@@ -259,13 +259,10 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
                 Log.i("productList", String.valueOf(productList));
 
                 ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData());
-                adapter.setParentClickableViewAnimationDefaultDuration();
-                adapter.setParentAndIconExpandOnClick(true);
+                //adapter.setParentClickableViewAnimationDefaultDuration();
+                //adapter.setParentAndIconExpandOnClick(false);
                 recyclerView.setAdapter(adapter);
-//                ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData());
-//                adapter.setParentClickableViewAnimationDefaultDuration();
-//                adapter.setParentAndIconExpandOnClick(true);
-//                recyclerView.setAdapter(adapter);
+//
             }
         }, new Response.ErrorListener() {
             @Override

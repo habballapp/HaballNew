@@ -31,6 +31,7 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
     private List<OrderChildlist_Model_DistOrder> selectedProductsDataList = new ArrayList<>();
     private List<String> selectedProductsQuantityList = new ArrayList<>();
     private String object_string, object_stringqty;
+    private int parentPosition = -1;
 //    private List<OrderParentlist_Model_DistOrder> orderParentlist_modelList = new ArrayList<>();
 
     public ParentList_Adapter_DistOrder(Context context, List<ParentObject> parentItemList) {
@@ -76,10 +77,20 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
         OrderParentlist_Model_DistOrder orderParentlist_model = (OrderParentlist_Model_DistOrder) o;
         orderParentLIst_vh._textview.setText(orderParentlist_model.getTitle());
 
+//        if(parentPosition == 2){
+//            orderParentLIst_vh._textview.setVisibility(View.GONE);
+//            Toast.makeText(context, "parentPosition"+parentPosition +" "+i, Toast.LENGTH_SHORT).show();
+//        }else{
+//            orderParentLIst_vh.layout_expandable.setVisibility(View.VISIBLE);
+//
+//            Toast.makeText(context, "parentPosition"+parentPosition +" "+i, Toast.LENGTH_SHORT).show();
+//        }
+
     }
 
     @Override
     public void onBindChildViewHolder(OrderChildList_VH_DistOrder orderChildList_vh, int i, Object o) {
+
 
         Log.i("objAdapter", String.valueOf(o));
         OrderChildlist_Model_DistOrder orderChildlist_model = (OrderChildlist_Model_DistOrder) o;
@@ -198,5 +209,24 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
         editor.putString("selected_products", json);
         editor.putString("selected_products_qty", jsonqty);
         editor.apply();
+    }
+
+//    @Override
+//    public void onParentItemClickListener(int position) {
+//        super.onParentItemClickListener(position);
+//        // Open only one parent list at a time
+//        Toast.makeText(context, "Clicked"+position,Toast.LENGTH_LONG).show();
+//        parentPosition = position;
+//    }
+
+
+    @Override
+    public void onParentItemClickListener(int position) {
+        super.onParentItemClickListener(position);
+        parentPosition=position;
+    }
+
+    public int getParentPosition() {
+        return parentPosition;
     }
 }

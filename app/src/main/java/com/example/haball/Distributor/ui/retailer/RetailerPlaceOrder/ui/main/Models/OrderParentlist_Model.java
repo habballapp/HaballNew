@@ -11,16 +11,27 @@ public class OrderParentlist_Model implements ParentObject {
     private String CategoryId;
     private String Title;
     private String ParentId;
+    public Boolean expanded = false;
 
-    public OrderParentlist_Model(String categoryId, String title, String parentId) {
-        this.CategoryId = categoryId;
-        this.Title = title;
-        this.ParentId = parentId;
-        _id = UUID.randomUUID();
+    public OrderParentlist_Model(List<Object> myCHildrenList, UUID _id, String categoryId, String title, String parentId, Boolean expanded) {
+        this.myCHildrenList = myCHildrenList;
+        this._id = _id;
+        CategoryId = categoryId;
+        Title = title;
+        ParentId = parentId;
+        this.expanded = expanded;
     }
 
     public String getCategoryId() {
         return CategoryId;
+    }
+
+    public Boolean getExpanded() {
+        return expanded;
+    }
+
+    public void setExpanded(Boolean expanded) {
+        this.expanded = expanded;
     }
 
     public void setCategoryId(String categoryId) {

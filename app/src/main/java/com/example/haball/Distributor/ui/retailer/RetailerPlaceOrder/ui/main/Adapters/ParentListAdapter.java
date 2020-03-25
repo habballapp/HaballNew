@@ -31,6 +31,7 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
     public List<OrderChildlist_Model> selectedProductsDataList = new ArrayList<>();
     private List<String> selectedProductsQuantityList = new ArrayList<>();
     private String object_string, object_stringqty;
+    private int pre_expanded = -1;
 
     public ParentListAdapter(Context context, List<ParentObject> parentItemList) {
         super(context, parentItemList);
@@ -69,12 +70,14 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
     }
 
     @Override
-    public void onBindParentViewHolder(OrderParentLIst_VH orderParentLIst_vh, int i, Object o) {
+    public void onBindParentViewHolder(final OrderParentLIst_VH orderParentLIst_vh, final int position, Object o) {
         Log.i("obj", String.valueOf(o));
-        OrderParentlist_Model orderParentlist_model = (OrderParentlist_Model) o;
+        final OrderParentlist_Model orderParentlist_model = (OrderParentlist_Model) o;
         orderParentLIst_vh._textview.setText(orderParentlist_model.getTitle());
 
     }
+
+
 
     @Override
     public void onBindChildViewHolder(OrderChildList_VH orderChildList_vh, int i, Object o) {
@@ -178,4 +181,6 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
         editor.putString("selected_products_qty", jsonqty);
         editor.apply();
     }
+
+
 }
