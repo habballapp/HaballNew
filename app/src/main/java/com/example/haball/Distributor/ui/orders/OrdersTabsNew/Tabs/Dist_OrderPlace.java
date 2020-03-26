@@ -46,6 +46,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import net.cachapa.expandablelayout.ExpandableLayout;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -485,8 +487,8 @@ public class Dist_OrderPlace extends Fragment {
 
                 ParentList_Adapter_DistOrder adapter = new ParentList_Adapter_DistOrder(getActivity(), initData());
 //                adapter.setCustomParentAnimationViewId(R.id.parent_list_item_expand_arrow);
-                adapter.setParentClickableViewAnimationDefaultDuration();
-                adapter.setParentAndIconExpandOnClick(true);
+//                adapter.setParentClickableViewAnimationDefaultDuration();
+//                adapter.setParentAndIconExpandOnClick(true);
                 recyclerView.setAdapter(adapter);
 //                ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData());
 //                adapter.setParentClickableViewAnimationDefaultDuration();
@@ -765,7 +767,6 @@ public class Dist_OrderPlace extends Fragment {
             if (getContext() != null)
                 enableCheckout();
         }
-
     }
 
     private void printErrorMessage(VolleyError error) {
