@@ -166,11 +166,6 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
     private void checkOutEnabler(OrderChildList_VH_DistOrder holder, int position, OrderChildlist_Model_DistOrder orderChildlist_model, String s) {
 
         if (selectedProductsDataList != null) {
-//            Gson gson = new Gson();
-//            String json = gson.toJson(selectedProductsDataList);
-//            String jsonqty = gson.toJson(selectedProductsQuantityList);
-//            Log.i("jsonqtyBefore", jsonqty);
-//            Log.i("jsonBefore", json);
 
             if (!selectedProductsDataList.contains(orderChildlist_model)) {
                 selectedProductsDataList.add(orderChildlist_model);
@@ -223,10 +218,9 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
     @Override
     public void onParentItemClickListener(int position) {
         super.onParentItemClickListener(position);
+        Toast.makeText(context, "position"+position +" parentpostion"+parentPosition, Toast.LENGTH_SHORT).show();
+
         parentPosition=position;
     }
 
-    public int getParentPosition() {
-        return parentPosition;
-    }
 }

@@ -40,6 +40,8 @@ import com.example.haball.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import net.cachapa.expandablelayout.ExpandableLayout;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,7 +74,6 @@ public class Dist_OrderPlace extends Fragment {
     private float grossAmount = 0;
     private Button btn_checkout;
     private String CompanyId;
-
     public Dist_OrderPlace() {
         // Required empty public constructor
     }
