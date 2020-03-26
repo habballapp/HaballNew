@@ -588,7 +588,7 @@ public class Dist_Order_Summary extends Fragment {
 
         SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
                 Context.MODE_PRIVATE);
-        gross_amount.setText(grossamount.getString("grossamount", ""));
+        gross_amount.setText(grossamount.getString("grossamount", "0"));
         discount_amount.setText(" - ");
 
 //        float gstAmount = (Float.parseFloat(grossamount.getString("grossamount", "")) * 17) / 100;

@@ -52,7 +52,6 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
             Log.i("selectedProductsQty", String.valueOf(object_stringqty));
             Log.i("selectedProducts", String.valueOf(object_string));
         }
-
     }
 
     @Override
@@ -90,7 +89,7 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
 
 
         orderChildList_vh.list_numberOFitems.setText("");
-        if (selectedProductsDataList != null) {
+        if (selectedProductsDataList != null && selectedProductsQuantityList != null) {
             setQuantity(orderChildList_vh, orderChildlist_model);
         }
 
@@ -131,6 +130,9 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
 //                Log.i("textChanged11", String.valueOf(s));
                 if (!String.valueOf(s).equals("")) {
                     if(temp_orderChildList_vh.list_txt_products.getText().equals(temp_orderChildlist_model.getTitle())) {
+                        if(Float.parseFloat(String.valueOf(s)) <= 0) {
+                            Toast.makeText(context, "Quantity must be greater than 0", Toast.LENGTH_LONG).show();
+                        }
                         Log.i("textChanged", String.valueOf(temp_orderChildlist_model.getTitle()));
                         Log.i("textChanged11", String.valueOf(temp_orderChildList_vh.list_txt_products.getText()));
                         checkOutEnabler(temp_orderChildList_vh, temp_i, temp_orderChildlist_model, String.valueOf(s));
@@ -143,24 +145,19 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
     }
 
     private void setQuantity(OrderChildList_VH_DistOrder orderChildList_vh, OrderChildlist_Model_DistOrder orderChildlist_model) {
-        for (int j = 0; j < selectedProductsDataList.size(); j++) {
-            if (selectedProductsDataList.get(j).getTitle().equals(orderChildlist_model.getTitle()) && selectedProductsDataList.get(j).getCode().equals(orderChildlist_model.getCode())) {
-                Log.i("foundItem", String.valueOf(orderChildlist_model.getTitle()));
-                orderChildList_vh.list_numberOFitems.setText(selectedProductsQuantityList.get(j));
+        if(selectedProductsQuantityList != null && selectedProductsDataList != null) {
+            for (int j = 0; j < selectedProductsDataList.size(); j++) {
+                if (selectedProductsDataList.get(j).getTitle().equals(orderChildlist_model.getTitle()) && selectedProductsDataList.get(j).getCode().equals(orderChildlist_model.getCode())) {
+                    Log.i("foundItem", String.valueOf(orderChildlist_model.getTitle()));
+                    orderChildList_vh.list_numberOFitems.setText(selectedProductsQuantityList.get(j));
+                }
             }
         }
-
     }
 
     private void checkOutEnabler(OrderChildList_VH_DistOrder holder, int position, OrderChildlist_Model_DistOrder orderChildlist_model, String s) {
 
         if (selectedProductsDataList != null) {
-//            Gson gson = new Gson();
-//            String json = gson.toJson(selectedProductsDataList);
-//            String jsonqty = gson.toJson(selectedProductsQuantityList);
-//            Log.i("jsonqtyBefore", jsonqty);
-//            Log.i("jsonBefore", json);
-
             if (!selectedProductsDataList.contains(orderChildlist_model)) {
                 selectedProductsDataList.add(orderChildlist_model);
                 selectedProductsQuantityList.add(String.valueOf(s));

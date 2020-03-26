@@ -2,6 +2,7 @@ package com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Ta
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Distributor.DistributorDashboard;
 import com.example.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrderDashboard;
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Adapters.Order_Summary_Adapter;
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models.OrderChildlist_Model;
@@ -65,7 +67,9 @@ public class Order_Summary extends Fragment {
     private List<String> selectedProductsQuantityList = new ArrayList<>();
     private String object_string, object_stringqty, Token, DistributorId, CompanyId;
     private String URL_CONFIRM_ORDERS = "http://175.107.203.97:4013/api/retailerorder/save";
-    private Button btn_confirm, btn_more_items;
+//    private String URL_SAVE_TEMPLATE = "http://175.107.203.97:4013/api/ordertemplate/save";
+    private String URL_SAVE_DRAFT = "http://175.107.203.97:4013/api/retailerorder/draft";
+    private Button btn_confirm, btn_template, btn_draft;
     private TextView gross_amount, discount_amount, gst_amount, total_amount;
     private float totalAmount;
     private ViewPager viewpager;
@@ -106,6 +110,69 @@ public class Order_Summary extends Fragment {
         qtyChanged();
         new MyAsyncTask().execute();
 
+
+        btn_template = view.findViewById(R.id.btn_template);
+        btn_draft = view.findViewById(R.id.place_item_button);
+        btn_confirm = view.findViewById(R.id.btn_confirm);
+        btn_confirm.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NewApi")
+            @Override
+            public void onClick(View view) {
+
+                try {
+                    requestConfirmOrder();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = selectedProducts.edit();
+                editor.putString("selected_products", "");
+                editor.putString("selected_products_qty", "");
+                editor.apply();
+            }
+        });
+        btn_template.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NewApi")
+            @Override
+            public void onClick(View view) {
+
+//                try {
+//                    requestSaveTemplate();
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer",
+//                        Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = selectedProducts.edit();
+//                editor.putString("selected_products", "");
+//                editor.putString("selected_products_qty", "");
+//                editor.apply();
+            }
+        });
+        btn_draft.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NewApi")
+            @Override
+            public void onClick(View view) {
+
+                try {
+                    requestSaveDraft();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_distributor",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = selectedProducts.edit();
+                editor.putString("selected_products", "");
+                editor.putString("selected_products_qty", "");
+                editor.apply();
+            }
+        });
+
+
         recyclerView1 = view.findViewById(R.id.rv_orders_summary);
         recyclerView1.setHasFixedSize(false);
         layoutManager1 = new LinearLayoutManager(getContext());
@@ -119,6 +186,191 @@ public class Order_Summary extends Fragment {
 
         return view;
 
+    }
+
+//
+//    private void requestSaveTemplate() throws JSONException {
+//        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+//                Context.MODE_PRIVATE);
+//        Token = sharedPreferences.getString("Login_Token", "");
+//
+//        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+//                Context.MODE_PRIVATE);
+//        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+//
+//        SharedPreferences sharedPreferences4 = this.getActivity().getSharedPreferences("LoginToken",
+//                Context.MODE_PRIVATE);
+//        DealerCode = sharedPreferences4.getString("DealerCode", "");
+//
+//        SharedPreferences sharedPreferences2 = this.getActivity().getSharedPreferences("CompanyInfo",
+//                Context.MODE_PRIVATE);
+//        CompanyId = sharedPreferences2.getString("CompanyId", "");
+//
+//        JSONArray jsonArray = new JSONArray();
+//        for (int i = 0; i < selectedProductsDataList.size(); i++) {
+//            JSONObject obj = new JSONObject();
+//
+//            if (!selectedProductsQuantityList.get(i).equals("0") && !selectedProductsQuantityList.get(i).equals("")) {
+//                float tempAmount = Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice());
+//                if (selectedProductsDataList.get(i).getDiscountAmount() != null)
+//                    tempAmount = Float.parseFloat(selectedProductsDataList.get(i).getDiscountAmount());
+//                tempAmount *= Float.parseFloat(selectedProductsQuantityList.get(i));
+//
+//                float totalProductAmount = Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice());
+//                totalProductAmount *= Float.parseFloat(selectedProductsQuantityList.get(i));
+//
+//                obj.put("ID", 0);
+//                obj.put("ProductId", selectedProductsDataList.get(i).getID());
+//                obj.put("ProductCode", selectedProductsDataList.get(i).getCode());
+//                obj.put("ProductName", selectedProductsDataList.get(i).getTitle());
+//                obj.put("ProductShortDescription", selectedProductsDataList.get(i).getShortDescription());
+//                obj.put("UnitPrice", selectedProductsDataList.get(i).getUnitPrice());
+//                obj.put("IsSelected", true);
+//                obj.put("DiscountedAmount", tempAmount);
+//                obj.put("OrderQty", selectedProductsQuantityList.get(i));
+//                obj.put("DiscountAmount", selectedProductsDataList.get(i).getDiscountAmount());
+//                obj.put("UOM", selectedProductsDataList.get(i).getUOMId());
+//                obj.put("UOMTitle", selectedProductsDataList.get(i).getUOMTitle());
+//                obj.put("Discount", selectedProductsDataList.get(i).getDiscountId());
+//                obj.put("TotalPrice", totalProductAmount);
+//                jsonArray.put(obj);
+//            }
+//        }
+//        Log.i("Array", String.valueOf(jsonArray));
+//
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("DistributorId", DistributorId);
+//        jsonObject.put("CompanyId", CompanyId);
+//        jsonObject.put("Name", "name");
+//        jsonObject.put("Status", 1);
+//        jsonObject.put("OrderTemplateDetails", jsonArray);
+//
+//
+//        Log.i("jsonObject", String.valueOf(jsonObject));
+//        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_SAVE_TEMPLATE, jsonObject, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(final JSONObject result) {
+//                Log.i("RESPONSE ORDER .. ", result.toString());
+//                SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
+//                        Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = grossamount.edit();
+//                editor.clear();
+//                editor.apply();
+//                SharedPreferences selectedProducts_distributor = getContext().getSharedPreferences("selectedProducts_distributor",
+//                        Context.MODE_PRIVATE);
+//                SharedPreferences.Editor selectedProducts_distributor_editor = selectedProducts_distributor.edit();
+//                selectedProducts_distributor_editor.clear();
+//                selectedProducts_distributor_editor.apply();
+//
+//                Toast.makeText(getContext(), "Order has been saved as template successfully", Toast.LENGTH_LONG).show();
+//                Intent login_intent = new Intent(getActivity(), DistributorDashboard.class);
+//                startActivity(login_intent);
+//                getActivity().finish();
+//
+//                refreshRetailerInfo();
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                printErrorMessage(error);
+//                error.printStackTrace();
+//                refreshRetailerInfo();
+//            }
+//        }) {
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                Map<String, String> params = new HashMap<String, String>();
+//                params.put("Authorization", "bearer " + Token);
+//                params.put("Content-Type", "application/json");
+//                return params;
+//            }
+//        };
+//
+//        Volley.newRequestQueue(getContext()).add(sr);
+//    }
+
+    private void requestSaveDraft() throws JSONException {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("RetailerInfo",
+                Context.MODE_PRIVATE);
+        RetailerCode = sharedPreferences1.getString("RetailerCode", "");
+        RetailerID = sharedPreferences1.getString("RetailerID", "");
+
+        SharedPreferences sharedPreferences2 = this.getActivity().getSharedPreferences("CompanyInfo",
+                Context.MODE_PRIVATE);
+        CompanyId = sharedPreferences2.getString("CompanyId", "");
+
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < selectedProductsDataList.size(); i++) {
+            JSONObject obj = new JSONObject();
+
+            if (!selectedProductsQuantityList.get(i).equals("0") && !selectedProductsQuantityList.get(i).equals("")) {
+                obj.put("ProductId", selectedProductsDataList.get(i).getProductId());
+                obj.put("OrderQty", selectedProductsQuantityList.get(i));
+                jsonArray.put(obj);
+            }
+        }
+        Log.i("Array", String.valueOf(jsonArray));
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("Id", 0);
+        jsonObject.put("RetailerID", RetailerID);
+        jsonObject.put("RetailerCode", RetailerCode);
+        jsonObject.put("OrderDetails", jsonArray);
+        jsonObject.put("NetPrice", totalAmount);
+        jsonObject.put("Discount", totalAmount);
+        jsonObject.put("TotalPrice", totalAmount);
+        jsonObject.put("TotalGST", gst_amount);
+        jsonObject.put("TotalDiscountAmount", 0);
+
+        Log.i("jsonObject", String.valueOf(jsonObject));
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_SAVE_DRAFT, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(final JSONObject result) {
+                Log.i("RESPONSE ORDER .. ", result.toString());
+                try {
+                    SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = grossamount.edit();
+                    editor.clear();
+                    editor.apply();
+                    SharedPreferences selectedProducts_distributor = getContext().getSharedPreferences("selectedProducts_distributor",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor selectedProducts_distributor_editor = selectedProducts_distributor.edit();
+                    selectedProducts_distributor_editor.clear();
+                    selectedProducts_distributor_editor.apply();
+
+                    Toast.makeText(getContext(), "Order Request ID " + result.get("OrderNumber") + " has been saved as draft successfully.", Toast.LENGTH_LONG).show();
+                    Intent login_intent = new Intent(getActivity(), DistributorDashboard.class);
+                    startActivity(login_intent);
+                    getActivity().finish();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                refreshRetailerInfo();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+                error.printStackTrace();
+                refreshRetailerInfo();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                params.put("Content-Type", "application/json");
+                return params;
+            }
+        };
+
+        Volley.newRequestQueue(getContext()).add(sr);
     }
 
     private void requestConfirmOrder() throws JSONException {
@@ -261,12 +513,12 @@ public class Order_Summary extends Fragment {
 
         SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
                 Context.MODE_PRIVATE);
-        gross_amount.setText(grossamount.getString("grossamount", ""));
+        gross_amount.setText(grossamount.getString("grossamount", "0"));
         discount_amount.setText(" - ");
 
 //        float gstAmount = (Float.parseFloat(grossamount.getString("grossamount", "")) * 17) / 100;
         float gstAmount = 0;
-        totalAmount = Float.parseFloat(grossamount.getString("grossamount", "")) + gstAmount;
+        totalAmount = Float.parseFloat(grossamount.getString("grossamount", "0")) + gstAmount;
 
 //        gst_amount.setText(String.valueOf(gstAmount));
         total_amount.setText(String.valueOf(totalAmount));

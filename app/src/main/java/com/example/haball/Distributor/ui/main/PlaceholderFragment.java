@@ -26,6 +26,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +63,9 @@ import com.example.haball.Payment.DistributorPaymentRequestModel;
 import com.example.haball.Payment.PaymentLedgerAdapter;
 import com.example.haball.Payment.PaymentLedgerModel;
 import com.example.haball.R;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -76,11 +80,14 @@ import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 
 /**
@@ -139,6 +146,11 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private FragmentTransaction fragmentTransaction;
     private String tabName;
     private RelativeLayout rv_filter;
+    //    private ScrollView scroll_view_main;
+    private ObservableScrollView scroll_view_main;
+    private static int y;
+    private List<String> scrollEvent = new ArrayList<>();
+    private RelativeLayout line_bottom;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -165,7 +177,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = null;
-        Log.i("SECTION NO", String.valueOf(getArguments().getInt(ARG_SECTION_NUMBER)));
+//        Log.i("SECTION NO", String.valueOf(getArguments().getInt(ARG_SECTION_NUMBER)));
         switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
             case 1: {
                 tabName = "Payment";
@@ -176,8 +188,10 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+//                scroll_view_main = rootView.findViewById(R.id.scroll_view_main);
                 btn_load_more = rootView.findViewById(R.id.btn_load_more);
                 rv_filter = rootView.findViewById(R.id.rv_filter);
+                line_bottom = rootView.findViewById(R.id.line_bottom);
 
                 SpannableString content = new SpannableString("Load More");
                 content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
@@ -203,54 +217,75 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 recyclerView.setHasFixedSize(true);
                 layoutManager = new LinearLayoutManager(rootView.getContext());
                 recyclerView.setLayoutManager(layoutManager);
+//                recyclerView.setNestedScrollingEnabled(false);
+
+//                scroll_view_main.setSmoothScrollingEnabled(true);
+//                scroll_view_main.setScrollViewCallbacks(this);
+                LinearLayoutManager layoutManager1 = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
 
                 recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                     @Override
                     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                         super.onScrollStateChanged(recyclerView, newState);
+//                        String tempEvent = "";
+//                        if (scrollEvent.size() > 0)
+//                            tempEvent = scrollEvent.get(scrollEvent.size() - 1);
+                        scrollEvent = new ArrayList<>();
+//                        scrollEvent.add(tempEvent);
+
+//                        Log.i("scrolldy123", String.valueOf(newState));
+//                        Log.i("scrolldy12345", String.valueOf(y));
                     }
 
                     @Override
                     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                         super.onScrolled(recyclerView, dx, dy);
-
-//                        if(dy > 2) {
-//                            rv_filter.setVisibility(View.GONE);
-//                        } else {
-//                            rv_filter.setVisibility(View.VISIBLE);
-//                        }
                         LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
-                        Log.i("scrolldy", String.valueOf(dy));
-                        int visibleItemCount = layoutManager.getChildCount();
-                        int totalItemCount = layoutManager.getItemCount();
-                        int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
-                        Log.i("firstVisibleItem", String.valueOf(firstVisibleItemPosition));
-                        if (firstVisibleItemPosition > 1) {
-                            if (rv_filter.getVisibility() == View.VISIBLE) {
-//                            rv_filter.setVisibility(View.GONE);
-                                rv_filter.setVisibility(View.GONE);
-                                TranslateAnimation animate = new TranslateAnimation(
-                                        0,                 // fromXDelta
-                                        0,                 // toXDelta
-                                        0,                 // fromYDelta
-                                        -rv_filter.getHeight()); // toYDelta
-                                animate.setDuration(500);
-                                animate.setFillAfter(true);
-                                rv_filter.startAnimation(animate);
-                            }
-                        } else if (firstVisibleItemPosition == 0) {
+                        y = dy;
+                        if (dy <= -5) {
+                            scrollEvent.add("ScrollDown");
+//                            Log.i("scrolling", "Scroll Down");
+                        } else if (dy > 5) {
+                            scrollEvent.add("ScrollUp");
+//                            Log.i("scrolling", "Scroll Up");
+                        }
+                        String scroll = getScrollEvent();
+
+                        if (scroll.equals("ScrollDown")) {
                             if (rv_filter.getVisibility() == View.GONE) {
+//                                line_bottom.setVisibility(View.VISIBLE);
                                 rv_filter.setVisibility(View.VISIBLE);
-                                TranslateAnimation animate = new TranslateAnimation(
+                                TranslateAnimation animate1 = new TranslateAnimation(
                                         0,                 // fromXDelta
                                         0,                 // toXDelta
                                         -rv_filter.getHeight(),  // fromYDelta
                                         0);                // toYDelta
-                                animate.setDuration(500);
+                                animate1.setDuration(250);
+                                animate1.setFillAfter(true);
+                                rv_filter.clearAnimation();
+                                rv_filter.startAnimation(animate1);
+                            }
+                        } else if (scroll.equals("ScrollUp")) {
+                            y = 0;
+                            if (rv_filter.getVisibility() == View.VISIBLE) {
+//                                line_bottom.setVisibility(View.INVISIBLE);
+                                TranslateAnimation animate = new TranslateAnimation(
+                                        0,                 // fromXDelta
+                                        0,                 // toXDelta
+                                        0,  // fromYDelta
+                                        -rv_filter.getHeight()); // toYDelta
+                                animate.setDuration(100);
                                 animate.setFillAfter(true);
+                                rv_filter.clearAnimation();
                                 rv_filter.startAnimation(animate);
+                                rv_filter.setVisibility(View.GONE);
                             }
                         }
+
+                        int visibleItemCount = layoutManager.getChildCount();
+                        int totalItemCount = layoutManager.getItemCount();
+                        int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+//                        Log.i("firstVisibleItem", String.valueOf(firstVisibleItemPosition));
                         // Load more if we have reach the end to the recyclerView
                         if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
                             if (totalPages != 0 && pageNumber < totalPages) {
@@ -343,13 +378,45 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         return rootView;
     }
 
+    private String getScrollEvent() {
+        String scroll = "";
+//        Log.i("distinct123", String.valueOf(scrollEvent));
+//        Log.i("distinctUp", String.valueOf(Collections.frequency(scrollEvent, "ScrollUp")));
+//        Log.i("distinctDown", String.valueOf(Collections.frequency(scrollEvent, "ScrollDown")));
+
+//        for (String s: distinct) {
+//            Log.i("distinct", s + ": " + Collections.frequency(scrollEvent, s));
+//        }
+        if (scrollEvent.size() > 0) {
+            if (scrollEvent.size() > 15)
+                scrollEvent = new ArrayList<>();
+            if (Collections.frequency(scrollEvent, "ScrollUp") > Collections.frequency(scrollEvent, "ScrollDown")) {
+                if (Collections.frequency(scrollEvent, "ScrollDown") > 0) {
+                    if (Collections.frequency(scrollEvent, "ScrollUp") > 3)
+                        scroll = "ScrollUp";
+                } else {
+                    scroll = "ScrollUp";
+                }
+            } else if (Collections.frequency(scrollEvent, "ScrollUp") < Collections.frequency(scrollEvent, "ScrollDown")) {
+                if (Collections.frequency(scrollEvent, "ScrollUp") > 0) {
+                    if (Collections.frequency(scrollEvent, "ScrollDown") > 3)
+                        scroll = "ScrollDown";
+                } else {
+                    scroll = "ScrollDown";
+                }
+            }
+        }
+//        Log.i("distinct", scroll);
+        return scroll;
+    }
+
     private void performPaginationOrder() throws JSONException {
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
         DistributorId = sharedPreferences.getString("Distributor_Id", "");
-        Log.i("Token", Token);
+//        Log.i("Token", Token);
         JSONObject map = new JSONObject();
         map.put("Status", -1);
         map.put("OrderState", -1);
@@ -396,12 +463,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
-        Log.i("Token", Token);
+//        Log.i("Token", Token);
 
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
-        Log.i("DistributorId ", DistributorId);
+//        Log.i("DistributorId ", DistributorId);
 
         JSONObject map = new JSONObject();
         map.put("DistributorId", Integer.parseInt(DistributorId));
@@ -412,7 +479,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
-                Log.i("Payments Requests", result.toString());
+//                Log.i("Payments Requests", result.toString());
                 btn_load_more.setVisibility(View.GONE);
 
             }
@@ -570,7 +637,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         filters.add("Paid");
         arrayAdapterFeltter = new ArrayAdapter<>(rootView.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, filters);
-        Log.i("aaaa1111", String.valueOf(consolidate_felter));
+//        Log.i("aaaa1111", String.valueOf(consolidate_felter));
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -578,7 +645,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 } else {
                     Filter_selected_value = String.valueOf(i - 2);
-                    Log.i("Filter_selected_value", String.valueOf(i));
+//                    Log.i("Filter_selected_value", String.valueOf(i));
 
                     if (Filter_selected_value != "") {
                         try {
@@ -603,8 +670,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         conso_edittext.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
-                Log.i("text1", "check");
-                Log.i("text", String.valueOf(s));
+//                Log.i("text1", "check");
+//                Log.i("text", String.valueOf(s));
                 Filter_selected_value = String.valueOf(s);
                 if (!Filter_selected_value.equals("")) {
                     try {
@@ -848,7 +915,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
         arrayAdapterFeltter = new ArrayAdapter<>(rootView.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, filters);
-        Log.i("aaaa1111", String.valueOf(consolidate_felter));
+//        Log.i("aaaa1111", String.valueOf(consolidate_felter));
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -856,7 +923,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 } else {
                     Filter_selected_value = String.valueOf(i - 1);
-                    Log.i("Filter_selected_value", Filter_selected_value);
+//                    Log.i("Filter_selected_value", Filter_selected_value);
                     if (!Filter_selected_value.equals("")) {
                         try {
                             fetchFilteredOrderData();
@@ -879,8 +946,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         conso_edittext.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
-                Log.i("text1", "check");
-                Log.i("text", String.valueOf(s));
+//                Log.i("text1", "check");
+//                Log.i("text", String.valueOf(s));
                 Filter_selected_value = String.valueOf(s);
                 if (!Filter_selected_value.equals("")) {
                     try {
@@ -910,7 +977,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
         DistributorId = sharedPreferences.getString("Distributor_Id", "");
-        Log.i("Token", Token);
+//        Log.i("Token", Token);
         tv_shipment_no_data.setVisibility(View.GONE);
 
 
@@ -934,7 +1001,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 printErrorMessage(error);
 
                 error.printStackTrace();
-                Log.i("onErrorResponse", "Error");
+//                Log.i("onErrorResponse", "Error");
             }
         }) {
             @Override
@@ -1006,7 +1073,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
         DistributorId = sharedPreferences.getString("Distributor_Id", "");
-        Log.i("Token", Token);
+//        Log.i("Token", Token);
 
         JSONObject map = new JSONObject();
         map.put("DistributorId", Integer.parseInt(DistributorId));
@@ -1021,7 +1088,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         } else {
             map.put(Filter_selected, Filter_selected_value);
         }
-        Log.i("Map", String.valueOf(map));
+//        Log.i("Map", String.valueOf(map));
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS, map, new Response.Listener<JSONArray>() {
             @Override
@@ -1070,12 +1137,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 Context.MODE_PRIVATE);
 
         Token = sharedPreferences.getString("Login_Token", "");
-        Log.i("Token", Token);
+//        Log.i("Token", Token);
 
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
-        Log.i("DistributorId ", DistributorId);
+//        Log.i("DistributorId ", DistributorId);
 
         JSONObject mapCount = new JSONObject();
         mapCount.put("Status", -1);
@@ -1097,7 +1164,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 printErrorMessage(error);
 
                 error.printStackTrace();
-                Log.i("onErrorResponse", "Error");
+//                Log.i("onErrorResponse", "Error");
             }
         }) {
             @Override
@@ -1123,7 +1190,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @Override
             public void onResponse(JSONArray result) {
                 if (result.length() != 0) {
-                    Log.i("Payments Requests", result.toString());
+//                    Log.i("Payments Requests", result.toString());
                     Gson gson = new Gson();
                     Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
                     }.getType();
@@ -1167,12 +1234,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
-        Log.i("Token", Token);
+//        Log.i("Token", Token);
 
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
-        Log.i("DistributorId ", DistributorId);
+//        Log.i("DistributorId ", DistributorId);
 
         JSONObject map = new JSONObject();
         map.put("DistributorId", Integer.parseInt(DistributorId));
@@ -1188,13 +1255,13 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             map.put(Filter_selected, Filter_selected_value);
         }
 
-        Log.i("Map", String.valueOf(map));
+//        Log.i("Map", String.valueOf(map));
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_PAYMENTS, map, new Response.Listener<JSONArray>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
-                Log.i("Payments Requests", result.toString());
+//                Log.i("Payments Requests", result.toString());
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
                 }.getType();
@@ -1285,7 +1352,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 while (keys.hasNext()) {
                     String key = keys.next();
 //                if (data.get(key) instanceof JSONObject) {
-                    Log.i("message", String.valueOf(data.get(key)));
+//                    Log.i("message", String.valueOf(data.get(key)));
                     if (data.get(key).equals("TokenExpiredError")) {
                         SharedPreferences login_token = getContext().getSharedPreferences("LoginToken",
                                 Context.MODE_PRIVATE);
@@ -1331,7 +1398,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private void updateDisplay(String date_type) {
         if (date_type.equals("first date")) {
             fromDate = year1 + "-" + String.format("%02d", (month1 + 1)) + "-" + String.format("%02d", date1) + "T00:00:00.000Z";
-            Log.i("fromDate", fromDate);
+//            Log.i("fromDate", fromDate);
 
             first_date.setText(new StringBuilder()
                     .append(date1).append("/").append(month1 + 1).append("/").append(year1).append(" "));
