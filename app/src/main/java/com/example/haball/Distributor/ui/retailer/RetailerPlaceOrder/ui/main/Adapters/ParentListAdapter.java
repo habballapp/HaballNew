@@ -89,15 +89,9 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
         final OrderChildlist_Model temp_orderChildlist_model = orderChildlist_model;
 
 
-        if (selectedProductsDataList != null) {
-            for (int j = 0; j < selectedProductsDataList.size(); j++) {
-                Gson gson = new Gson();
-                String json = gson.toJson(selectedProductsDataList);
-                if (selectedProductsDataList.get(j).getTitle().equals(orderChildlist_model.getTitle())) {
-                    Log.i("found", String.valueOf(orderChildlist_model.getTitle()));
-                    orderChildList_vh.list_numberOFitems.setText(selectedProductsQuantityList.get(j));
-                }
-            }
+        orderChildList_vh.list_numberOFitems.setText("");
+        if (selectedProductsDataList != null && selectedProductsQuantityList != null) {
+            setQuantity(orderChildList_vh, orderChildlist_model);
         }
 
         orderChildList_vh.list_txt_products.setText(orderChildlist_model.getTitle());
@@ -113,10 +107,10 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
         else
             yourFormattedString2 = formatter1.format(Double.parseDouble(orderChildlist_model.getProductUnitPrice()));
         orderChildList_vh.list_discount_value.setText("Rs. " + yourFormattedString2);
-        if(orderChildlist_model.getPackSize() != null)
+        if (orderChildlist_model.getPackSize() != null)
             orderChildList_vh.list_pack_size_value.setText(orderChildlist_model.getPackSize());
         orderChildList_vh.list_UOM_value.setText(orderChildlist_model.getUnitOFMeasure());
-        orderChildList_vh.list_numberOFitems.addTextChangedListener(new TextWatcher() {
+        TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -124,7 +118,7 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                checkOutEnabler(orderChildList_vh, i, orderChildlist_model);
+
             }
 
             @Override
@@ -133,18 +127,30 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
 //                Log.i("textChanged12", "check");
 //                Log.i("textChanged11", String.valueOf(s));
                 if (!String.valueOf(s).equals("")) {
-                    if(temp_orderChildList_vh.list_txt_products.getText().equals(temp_orderChildlist_model.getTitle())) {
-                        if(Float.parseFloat(String.valueOf(s)) <= 0) {
+                    if (temp_orderChildList_vh.list_txt_products.getText().equals(temp_orderChildlist_model.getTitle())) {
+                        if (Float.parseFloat(String.valueOf(s)) <= 0) {
                             Toast.makeText(context, "Quantity must be greater than 0", Toast.LENGTH_LONG).show();
                         }
-
                         Log.i("textChanged", String.valueOf(temp_orderChildlist_model.getTitle()));
                         Log.i("textChanged11", String.valueOf(temp_orderChildList_vh.list_txt_products.getText()));
                         checkOutEnabler(temp_orderChildList_vh, temp_i, temp_orderChildlist_model, String.valueOf(s));
                     }
                 }
             }
-        });
+        };
+        orderChildList_vh.list_numberOFitems.addTextChangedListener(textWatcher);
+//        orderChildList_vh.list_numberOFitems.removeTextChangedListener(textWatcher);    }
+    }
+
+    private void setQuantity(OrderChildList_VH orderChildList_vh, OrderChildlist_Model orderChildlist_model) {
+        if(selectedProductsQuantityList != null && selectedProductsDataList != null) {
+            for (int j = 0; j < selectedProductsDataList.size(); j++) {
+                if (selectedProductsDataList.get(j).getTitle().equals(orderChildlist_model.getTitle()) && selectedProductsDataList.get(j).getProductCode().equals(orderChildlist_model.getProductCode())) {
+                    Log.i("foundItem", String.valueOf(orderChildlist_model.getTitle()));
+                    orderChildList_vh.list_numberOFitems.setText(selectedProductsQuantityList.get(j));
+                }
+            }
+        }
     }
 
     private void checkOutEnabler(OrderChildList_VH holder, int position, OrderChildlist_Model orderChildlist_model, String s) {
