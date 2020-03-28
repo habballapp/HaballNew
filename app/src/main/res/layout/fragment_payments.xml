@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".Distributor.ui.main.PaymentsFragment">
 
+    <!--    <com.github.ksoichiro.android.observablescrollview.ObservableScrollView-->
+    <!--        android:id="@+id/scroll_view_main"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content">-->
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -296,6 +301,7 @@
                 android:layout_marginTop="15dp"
                 android:background="@drawable/line_seperator" />
         </RelativeLayout>
+        <!--    </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>-->
 
         <TextView
             android:id="@+id/tv_shipment_no_data1"
@@ -322,11 +328,13 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_fragment_payments"
                 android:layout_width="match_parent"
-                android:background="#fff"
                 android:layout_height="0dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_weight="2.75" />
+                android:layout_weight="2.75"
+                android:background="#fff"
+                android:isScrollContainer="false"
+                android:nestedScrollingEnabled="false" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
