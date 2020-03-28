@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#fff"
     android:theme="@style/AppTheme"
-    tools:context=".Support.Support_dashboard">
+    tools:context="Distributor.ui.support.SupportFragment">
 
     <TextView
         android:id="@+id/tv_support"
@@ -31,6 +31,7 @@
         android:background="@drawable/horizontal_black_line" />
 
         <RelativeLayout
+            android:layout_below="@+id/line"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
