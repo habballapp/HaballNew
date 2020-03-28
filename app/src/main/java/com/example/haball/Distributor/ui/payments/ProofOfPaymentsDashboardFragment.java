@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -66,6 +67,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -117,6 +119,9 @@ public class ProofOfPaymentsDashboardFragment extends Fragment implements DatePi
     private EditText et_amount1, et_amount2;
 
     private String fromDate, toDate, fromAmount, toAmount;
+    private RelativeLayout spinner_container_main;
+    private static int y;
+    private List<String> scrollEvent = new ArrayList<>();
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -126,6 +131,7 @@ public class ProofOfPaymentsDashboardFragment extends Fragment implements DatePi
 
         btn_create_proof_of_payment = root.findViewById(R.id.btn_create_proof_of_payment);
         recyclerView = root.findViewById(R.id.rv_proof_of_payments);
+        spinner_container_main = root.findViewById(R.id.spinner_container_main);
         recyclerView.setHasFixedSize(true);
 
 
@@ -371,7 +377,71 @@ public class ProofOfPaymentsDashboardFragment extends Fragment implements DatePi
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
         });
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                scrollEvent = new ArrayList<>();
 
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+                y = dy;
+                if (dy <= -5) {
+                    scrollEvent.add("ScrollDown");
+//                            Log.i("scrolling", "Scroll Down");
+                } else if (dy > 5) {
+                    scrollEvent.add("ScrollUp");
+//                            Log.i("scrolling", "Scroll Up");
+                }
+                String scroll = getScrollEvent();
+
+                if (scroll.equals("ScrollDown")) {
+                    if (spinner_container_main.getVisibility() == View.GONE) {
+
+                        spinner_container_main.setVisibility(View.VISIBLE);
+                        TranslateAnimation animate1 = new TranslateAnimation(
+                                0,                 // fromXDelta
+                                0,                 // toXDelta
+                                -spinner_container_main.getHeight(),  // fromYDelta
+                                0);                // toYDelta
+                        animate1.setDuration(250);
+                        animate1.setFillAfter(true);
+                        spinner_container_main.clearAnimation();
+                        spinner_container_main.startAnimation(animate1);
+                    }
+                } else if (scroll.equals("ScrollUp")) {
+                    y = 0;
+                    if (spinner_container_main.getVisibility() == View.VISIBLE) {
+//                                line_bottom.setVisibility(View.INVISIBLE);
+                        TranslateAnimation animate = new TranslateAnimation(
+                                0,                 // fromXDelta
+                                0,                 // toXDelta
+                                0,  // fromYDelta
+                                -spinner_container_main.getHeight()); // toYDelta
+                        animate.setDuration(100);
+                        animate.setFillAfter(true);
+                        spinner_container_main.clearAnimation();
+                        spinner_container_main.startAnimation(animate);
+                        spinner_container_main.setVisibility(View.GONE);
+                    }
+                }
+
+//                int visibleItemCount = layoutManager.getChildCount();
+//                int totalItemCount = layoutManager.getItemCount();
+//                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+//                if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
+//                    if (totalPages != 0 && pageNumber < totalPages) {
+////                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
+//                        btn_load_more.setVisibility(View.VISIBLE);
+//                    }
+//                }
+            }
+
+        });
         try {
             fetchProofOfPaymentsData();
         } catch (JSONException e) {
@@ -733,5 +803,29 @@ public class ProofOfPaymentsDashboardFragment extends Fragment implements DatePi
                 e.printStackTrace();
             }
         }
+    }
+    private String getScrollEvent() {
+        String scroll = "";
+        if (scrollEvent.size() > 0) {
+            if (scrollEvent.size() > 15)
+                scrollEvent = new ArrayList<>();
+            if (Collections.frequency(scrollEvent, "ScrollUp") > Collections.frequency(scrollEvent, "ScrollDown")) {
+                if (Collections.frequency(scrollEvent, "ScrollDown") > 0) {
+                    if (Collections.frequency(scrollEvent, "ScrollUp") > 3)
+                        scroll = "ScrollUp";
+                } else {
+                    scroll = "ScrollUp";
+                }
+            } else if (Collections.frequency(scrollEvent, "ScrollUp") < Collections.frequency(scrollEvent, "ScrollDown")) {
+                if (Collections.frequency(scrollEvent, "ScrollUp") > 0) {
+                    if (Collections.frequency(scrollEvent, "ScrollDown") > 3)
+                        scroll = "ScrollDown";
+                } else {
+                    scroll = "ScrollDown";
+                }
+            }
+        }
+//        Log.i("distinct", scroll);
+        return scroll;
     }
 }

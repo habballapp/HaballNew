@@ -5,20 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Distributor.ui.main.OrdersFragment">
-
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-       >
-
+        android:layout_height="wrap_content">
         <RelativeLayout
-            android:id="@+id/main_rl"
+            android:id="@+id/spinner_container_main"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-
+            android:layout_height="wrap_content">
             <RelativeLayout
-                android:id="@+id/spinner_container_main"
+                android:id="@+id/spinner_container_main_inner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -282,9 +277,9 @@
                 android:id="@+id/line_bottom"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                android:layout_below="@+id/spinner_container_main"
+                android:layout_below="@+id/spinner_container_main_inner"
                 android:background="@drawable/line_seperator" />
-
+        </RelativeLayout>
             <TextView
                 android:id="@+id/tv_shipment_no_data"
                 android:layout_width="match_parent"
@@ -301,7 +296,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/line_bottom"
+                android:layout_below="@+id/spinner_container_main"
                 android:layout_marginBottom="40dp"
                 android:orientation="vertical"
                 android:weightSum="3">
@@ -341,6 +336,5 @@
         android:layout_marginBottom="10dp"
         android:gravity="center"
         android:text="© Haball | All rights reserved" />
-        </RelativeLayout>
-    </ScrollView>
+</RelativeLayout>
 </RelativeLayout>

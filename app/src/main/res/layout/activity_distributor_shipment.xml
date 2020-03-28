@@ -29,19 +29,18 @@
             android:textSize="22sp" />
 
     </LinearLayout>
-    <ScrollView
-        android:id="@+id/scrollview"
-        android:layout_below="@+id/tv_shipment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
         <RelativeLayout
             android:id="@+id/rl_main"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tv_shipment">
+            <RelativeLayout
+                android:id="@+id/spinner_container_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:id="@+id/spinner_container_main"
+        android:id="@+id/spinner_container_main_inner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -278,15 +277,16 @@
         android:id="@+id/line_bottom"
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:layout_below="@+id/spinner_container_main"
+        android:layout_below="@+id/spinner_container_main_inner"
         android:layout_marginTop="15dp"
         android:background="@drawable/line_seperator" />
+            </RelativeLayout>
 
     <TextView
         android:id="@+id/tv_shipment_no_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/line_bottom"
+        android:layout_below="@+id/spinner_container_main"
         android:text="No Data Available"
         android:textStyle="bold"
         android:textSize="30sp"
@@ -299,7 +299,7 @@
         android:id="@+id/rv_shipment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/line_bottom"
+        android:layout_below="@+id/spinner_container_main"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="30dp" />
@@ -313,5 +313,4 @@
         android:gravity="center"
         android:text="© Haball | All rights reserved" />
         </RelativeLayout>
-    </ScrollView>
 </RelativeLayout>

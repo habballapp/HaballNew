@@ -145,7 +145,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private String fromDate, toDate, fromAmount, toAmount;
     private FragmentTransaction fragmentTransaction;
     private String tabName;
-    private RelativeLayout rv_filter;
+    private RelativeLayout rv_filter,spinner_container_main;
     //    private ScrollView scroll_view_main;
 //    private ObservableScrollView scroll_view_main;
     private static int y;
@@ -217,24 +217,13 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 recyclerView.setHasFixedSize(true);
                 layoutManager = new LinearLayoutManager(rootView.getContext());
                 recyclerView.setLayoutManager(layoutManager);
-//                recyclerView.setNestedScrollingEnabled(false);
-
-//                scroll_view_main.setSmoothScrollingEnabled(true);
-//                scroll_view_main.setScrollViewCallbacks(this);
-                LinearLayoutManager layoutManager1 = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
 
                 recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                     @Override
                     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                         super.onScrollStateChanged(recyclerView, newState);
-//                        String tempEvent = "";
-//                        if (scrollEvent.size() > 0)
-//                            tempEvent = scrollEvent.get(scrollEvent.size() - 1);
-                        scrollEvent = new ArrayList<>();
-//                        scrollEvent.add(tempEvent);
 
-//                        Log.i("scrolldy123", String.valueOf(newState));
-//                        Log.i("scrolldy12345", String.valueOf(y));
+                        scrollEvent = new ArrayList<>();
                     }
 
                     @Override
@@ -253,7 +242,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
                         if (scroll.equals("ScrollDown")) {
                             if (rv_filter.getVisibility() == View.GONE) {
-//                                line_bottom.setVisibility(View.VISIBLE);
+
                                 rv_filter.setVisibility(View.VISIBLE);
                                 TranslateAnimation animate1 = new TranslateAnimation(
                                         0,                 // fromXDelta
@@ -285,8 +274,6 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         int visibleItemCount = layoutManager.getChildCount();
                         int totalItemCount = layoutManager.getItemCount();
                         int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
-//                        Log.i("firstVisibleItem", String.valueOf(firstVisibleItemPosition));
-                        // Load more if we have reach the end to the recyclerView
                         if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
                             if (totalPages != 0 && pageNumber < totalPages) {
 //                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
@@ -305,6 +292,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 rootView = inflater.inflate(R.layout.fragment_orders, container, false);
                 orderFragmentTask(rootView);
                 recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_fragment_orders);
+                spinner_container_main = rootView.findViewById(R.id.spinner_container_main);
 
                 recyclerView.setHasFixedSize(true);
                 layoutManager = new LinearLayoutManager(rootView.getContext());
@@ -335,26 +323,67 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     @Override
                     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                         super.onScrollStateChanged(recyclerView, newState);
+                        scrollEvent = new ArrayList<>();
+
                     }
 
                     @Override
                     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                         super.onScrolled(recyclerView, dx, dy);
                         LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+                            y = dy;
+                            if (dy <= -5) {
+                                scrollEvent.add("ScrollDown");
+//                            Log.i("scrolling", "Scroll Down");
+                            } else if (dy > 5) {
+                                scrollEvent.add("ScrollUp");
+//                            Log.i("scrolling", "Scroll Up");
+                            }
+                            String scroll = getScrollEvent();
 
-                        int visibleItemCount = layoutManager.getChildCount();
-                        int totalItemCount = layoutManager.getItemCount();
-                        int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                            if (scroll.equals("ScrollDown")) {
+                                if (spinner_container_main.getVisibility() == View.GONE) {
 
-                        // Load more if we have reach the end to the recyclerView
-                        if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
-                            if (totalPages != 0 && pageNumberOrder < totalPages) {
-//                                Toast.makeText(getContext(), pageNumberOrder + " - " + totalPages, Toast.LENGTH_LONG).show();
-                                btn_load_more.setVisibility(View.VISIBLE);
+                                    spinner_container_main.setVisibility(View.VISIBLE);
+                                    TranslateAnimation animate1 = new TranslateAnimation(
+                                            0,                 // fromXDelta
+                                            0,                 // toXDelta
+                                            -spinner_container_main.getHeight(),  // fromYDelta
+                                            0);                // toYDelta
+                                    animate1.setDuration(250);
+                                    animate1.setFillAfter(true);
+                                    spinner_container_main.clearAnimation();
+                                    spinner_container_main.startAnimation(animate1);
+                                }
+                            } else if (scroll.equals("ScrollUp")) {
+                                y = 0;
+                                if (spinner_container_main.getVisibility() == View.VISIBLE) {
+//                                line_bottom.setVisibility(View.INVISIBLE);
+                                    TranslateAnimation animate = new TranslateAnimation(
+                                            0,                 // fromXDelta
+                                            0,                 // toXDelta
+                                            0,  // fromYDelta
+                                            -spinner_container_main.getHeight()); // toYDelta
+                                    animate.setDuration(100);
+                                    animate.setFillAfter(true);
+                                    spinner_container_main.clearAnimation();
+                                    spinner_container_main.startAnimation(animate);
+                                    spinner_container_main.setVisibility(View.GONE);
+                                }
+                            }
+
+                            int visibleItemCount = layoutManager.getChildCount();
+                            int totalItemCount = layoutManager.getItemCount();
+                            int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                            if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
+                                if (totalPages != 0 && pageNumber < totalPages) {
+//                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
+                                    btn_load_more.setVisibility(View.VISIBLE);
+                                }
                             }
                         }
-                    }
                 });
+
 
                 try {
                     fetchOrderData();
@@ -380,13 +409,6 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
     private String getScrollEvent() {
         String scroll = "";
-//        Log.i("distinct123", String.valueOf(scrollEvent));
-//        Log.i("distinctUp", String.valueOf(Collections.frequency(scrollEvent, "ScrollUp")));
-//        Log.i("distinctDown", String.valueOf(Collections.frequency(scrollEvent, "ScrollDown")));
-
-//        for (String s: distinct) {
-//            Log.i("distinct", s + ": " + Collections.frequency(scrollEvent, s));
-//        }
         if (scrollEvent.size() > 0) {
             if (scrollEvent.size() > 15)
                 scrollEvent = new ArrayList<>();

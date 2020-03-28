@@ -30,19 +30,15 @@
         android:layout_marginRight="30dp"
         android:background="@drawable/horizontal_black_line" />
 
-
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/line"
-        android:layout_marginTop="5dp"
-        >
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
+            <RelativeLayout
+                android:id="@+id/spinner_container_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
             <Button
                 android:id="@+id/btn_add_ticket"
                 android:layout_width="match_parent"
@@ -57,7 +53,7 @@
                 android:textColor="#fff"
                 android:textSize="18sp" />
         <RelativeLayout
-            android:id="@+id/spinner_container_main"
+            android:id="@+id/spinner_container_main_inner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_add_ticket">
@@ -210,12 +206,14 @@
 
         </LinearLayout>
         </RelativeLayout>
+            </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rl_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/spinner_container_main">
+
         <TextView
             android:id="@+id/tv_shipment_no_data"
             android:layout_width="match_parent"
@@ -249,5 +247,4 @@
         android:gravity="center"
         android:text="© Haball | All rights reserved" />
         </RelativeLayout>
-    </ScrollView>
 </RelativeLayout>

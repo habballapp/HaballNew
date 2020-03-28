@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_container_ret"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -29,19 +27,18 @@
             android:textSize="20sp" />
 
     </LinearLayout>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/tv_paymentDashboard"
-        android:layout_marginTop="5dp"
-        >
 
         <RelativeLayout
+            android:layout_below="@+id/tv_paymentDashboard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
+            <RelativeLayout
+                android:id="@+id/spinner_container_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
     <RelativeLayout
-        android:id="@+id/spinner_container_main"
+        android:id="@+id/spinner_container_main_inner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
        >
@@ -283,8 +280,14 @@
         </LinearLayout>
 
         <!--        amount filter layout-->
-
-
+    </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/line_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_below="@+id/spinner_container_main_inner"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/line_seperator" />
     </RelativeLayout>
     <TextView
         android:id="@+id/tv_shipment_no_data"
@@ -309,5 +312,4 @@
         android:layout_marginRight="30dp"
         android:layout_marginBottom="10dp" />
         </RelativeLayout>
-    </ScrollView>
 </RelativeLayout>

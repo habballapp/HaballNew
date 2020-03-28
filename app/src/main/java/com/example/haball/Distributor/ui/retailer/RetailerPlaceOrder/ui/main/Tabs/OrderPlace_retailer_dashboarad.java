@@ -20,9 +20,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -56,6 +58,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -86,6 +89,9 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
     private HashMap<String, String> Categories = new HashMap<>();
     private TextInputEditText et_test;
     List<OrderParentlist_Model> temp_titles = new ArrayList<>();
+    private static int y;
+    private List<String> scrollEvent = new ArrayList<>();
+    private RelativeLayout spinner_container_main;
 
     public OrderPlace_retailer_dashboarad() {
         // Required empty public constructor
@@ -100,7 +106,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
         View view = inflater.inflate(R.layout.fragment_order_place_retailer_dashboarad, container, false);
         btn_checkout = view.findViewById(R.id.btn_checkout);
         recyclerView = view.findViewById(R.id.rv_order_list);
-        recyclerView.setNestedScrollingEnabled(false);
+        spinner_container_main = view.findViewById(R.id.spinner_container_main);
 //        subchlid_RV = view.findViewById(R.id.subchlid_RV);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 //        subchlid_RV.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -173,7 +179,70 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
                 }
             }
         });
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                scrollEvent = new ArrayList<>();
 
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+                y = dy;
+                if (dy <= -5) {
+                    scrollEvent.add("ScrollDown");
+//                            Log.i("scrolling", "Scroll Down");
+                } else if (dy > 5) {
+                    scrollEvent.add("ScrollUp");
+//                            Log.i("scrolling", "Scroll Up");
+                }
+                String scroll = getScrollEvent();
+
+                if (scroll.equals("ScrollDown")) {
+                    if (spinner_container_main.getVisibility() == View.GONE) {
+
+                        spinner_container_main.setVisibility(View.VISIBLE);
+                        TranslateAnimation animate1 = new TranslateAnimation(
+                                0,                 // fromXDelta
+                                0,                 // toXDelta
+                                -spinner_container_main.getHeight(),  // fromYDelta
+                                0);                // toYDelta
+                        animate1.setDuration(250);
+                        animate1.setFillAfter(true);
+                        spinner_container_main.clearAnimation();
+                        spinner_container_main.startAnimation(animate1);
+                    }
+                } else if (scroll.equals("ScrollUp")) {
+                    y = 0;
+                    if (spinner_container_main.getVisibility() == View.VISIBLE) {
+//                                line_bottom.setVisibility(View.INVISIBLE);
+                        TranslateAnimation animate = new TranslateAnimation(
+                                0,                 // fromXDelta
+                                0,                 // toXDelta
+                                0,  // fromYDelta
+                                -spinner_container_main.getHeight()); // toYDelta
+                        animate.setDuration(100);
+                        animate.setFillAfter(true);
+                        spinner_container_main.clearAnimation();
+                        spinner_container_main.startAnimation(animate);
+                        spinner_container_main.setVisibility(View.GONE);
+                    }
+                }
+
+//                int visibleItemCount = layoutManager.getChildCount();
+//                int totalItemCount = layoutManager.getItemCount();
+//                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+//                if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
+//                    if (totalPages != 0 && pageNumber < totalPages) {
+////                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
+//                        btn_load_more.setVisibility(View.VISIBLE);
+//                    }
+            }
+
+        });
         try {
             getProductCategory();
         } catch (JSONException e) {
@@ -697,5 +766,29 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
                 e.printStackTrace();
             }
         }
+    }
+    private String getScrollEvent() {
+        String scroll = "";
+        if (scrollEvent.size() > 0) {
+            if (scrollEvent.size() > 15)
+                scrollEvent = new ArrayList<>();
+            if (Collections.frequency(scrollEvent, "ScrollUp") > Collections.frequency(scrollEvent, "ScrollDown")) {
+                if (Collections.frequency(scrollEvent, "ScrollDown") > 0) {
+                    if (Collections.frequency(scrollEvent, "ScrollUp") > 3)
+                        scroll = "ScrollUp";
+                } else {
+                    scroll = "ScrollUp";
+                }
+            } else if (Collections.frequency(scrollEvent, "ScrollUp") < Collections.frequency(scrollEvent, "ScrollDown")) {
+                if (Collections.frequency(scrollEvent, "ScrollUp") > 0) {
+                    if (Collections.frequency(scrollEvent, "ScrollDown") > 3)
+                        scroll = "ScrollDown";
+                } else {
+                    scroll = "ScrollDown";
+                }
+            }
+        }
+//        Log.i("distinct", scroll);
+        return scroll;
     }
 }

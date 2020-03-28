@@ -6,11 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Distributor.ui.main.PaymentsFragment">
 
-    <!--    <com.github.ksoichiro.android.observablescrollview.ObservableScrollView-->
-    <!--        android:id="@+id/scroll_view_main"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content">-->
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
