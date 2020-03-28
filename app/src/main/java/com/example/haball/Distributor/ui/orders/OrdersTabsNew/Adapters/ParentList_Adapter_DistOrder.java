@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bignerdranch.expandablerecyclerview.Adapter.ExpandableRecyclerAdapter;
 import com.bignerdranch.expandablerecyclerview.Model.ParentObject;
+import com.bignerdranch.expandablerecyclerview.Model.ParentWrapper;
 import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderChildlist_Model_DistOrder;
 import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderParentlist_Model_DistOrder;
 import com.example.haball.R;
@@ -32,12 +33,15 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
     private List<String> selectedProductsQuantityList = new ArrayList<>();
     private String object_string, object_stringqty;
     private int parentPosition = -1;
+    private OrderParentList_VH_DistOrder orderParentLIst_vh_main;
+    private List<ParentObject> parentItemList;
 //    private List<OrderParentlist_Model_DistOrder> orderParentlist_modelList = new ArrayList<>();
 
     public ParentList_Adapter_DistOrder(Context context, List<ParentObject> parentItemList) {
         super(context, parentItemList);
         inflater = LayoutInflater.from(context);
         this.context = context;
+        this.parentItemList = parentItemList;
         SharedPreferences selectedProducts = context.getSharedPreferences("selectedProducts_distributor",
                 Context.MODE_PRIVATE);
         Gson gson = new Gson();
@@ -75,7 +79,7 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
         Log.i("objAdapter", String.valueOf(o));
         OrderParentlist_Model_DistOrder orderParentlist_model = (OrderParentlist_Model_DistOrder) o;
         orderParentLIst_vh._textview.setText(orderParentlist_model.getTitle());
-
+        orderParentLIst_vh_main = orderParentLIst_vh;
 //        if(parentPosition == 2){
 //            orderParentLIst_vh._textview.setVisibility(View.GONE);
 //            Toast.makeText(context, "parentPosition"+parentPosition +" "+i, Toast.LENGTH_SHORT).show();
@@ -221,9 +225,8 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
     @Override
     public void onParentItemClickListener(int position) {
         super.onParentItemClickListener(position);
-        Toast.makeText(context, "position"+position +" parentpostion"+parentPosition, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "position: "+position +" parent position: "+parentPosition, Toast.LENGTH_SHORT).show();
 
         parentPosition=position;
     }
-
 }
