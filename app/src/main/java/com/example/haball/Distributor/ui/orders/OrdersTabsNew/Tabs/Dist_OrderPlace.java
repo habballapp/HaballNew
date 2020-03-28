@@ -74,6 +74,7 @@ public class Dist_OrderPlace extends Fragment {
     private float grossAmount = 0;
     private Button btn_checkout;
     private String CompanyId;
+    ParentList_Adapter_DistOrder myAdapter;
     public Dist_OrderPlace() {
         // Required empty public constructor
     }

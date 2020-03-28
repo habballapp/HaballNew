@@ -211,16 +211,14 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
 //        super.onParentItemClickListener(position);
 //        // Open only one parent list at a time
 //        Toast.makeText(context, "Clicked"+position,Toast.LENGTH_LONG).show();
-//        parentPosition = position;
+//        parentPosition = posit
+
+//    @Override
+//    public void onParentItemClickListener(int position) {
+//        super.onParentItemClickListener(position);
+//        Toast.makeText(context, "position"+position +" parentpostion"+parentPosition, Toast.LENGTH_SHORT).show();
+//
+//        parentPosition=position;
 //    }
-
-
-    @Override
-    public void onParentItemClickListener(int position) {
-        super.onParentItemClickListener(position);
-        Toast.makeText(context, "position"+position +" parentpostion"+parentPosition, Toast.LENGTH_SHORT).show();
-
-        parentPosition=position;
-    }
 
 }
