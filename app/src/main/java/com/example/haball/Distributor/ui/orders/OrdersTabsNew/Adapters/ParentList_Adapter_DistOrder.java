@@ -225,7 +225,7 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
     @Override
     public void onParentItemClickListener(int position) {
         super.onParentItemClickListener(position);
-        Toast.makeText(context, "position: "+position +" parent position: "+parentPosition, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, "position: "+position +" parent position: "+parentPosition, Toast.LENGTH_SHORT).show();
 
         parentPosition=position;
     }
