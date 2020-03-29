@@ -1092,7 +1092,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         });
 
 
-        recyclerViewPayment.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
