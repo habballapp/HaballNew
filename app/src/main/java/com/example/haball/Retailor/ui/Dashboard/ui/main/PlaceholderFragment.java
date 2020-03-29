@@ -235,7 +235,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private void paymentFragmentTask(View root) throws JSONException {
         tv_shipment_no_data1 = root.findViewById(R.id.tv_shipment_no_data);
         search_bar = root.findViewById(R.id.search_bar);
-        recyclerViewPayment = root.findViewById(R.id.rv_payment_request);
+        recyclerViewPayment = root.findViewById(R.id.rv_fragment_payments);
+        recyclerViewPayment.setHasFixedSize(true);
+
+        // use a linear layout manager
+        layoutManager = new LinearLayoutManager(getContext());
+        recyclerViewPayment.setLayoutManager(layoutManager);
 
         // DATE FILTERS ......
         date_filter_rl = root.findViewById(R.id.date_filter_rl);
@@ -291,7 +296,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
                     if (Filter_selected.equals("Payment ID")) {
                         search_bar.setHint("Search by " + Filter_selected);
-                        Filter_selected = "PrePaidNumber";
+                        Filter_selected = "InvoiceNumber";
                         conso_edittext.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Company")) {
                         search_bar.setHint("Search by " + Filter_selected);
@@ -354,9 +359,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         spinner_consolidate.setAdapter(arrayAdapterPayments);
 
         filters.add("Status");
-        filters.add("Processing Payment");
-        filters.add("Unpaid ");
+        filters.add("Un-Paid");
+        filters.add("Payment Processing");
         filters.add("Paid");
+        filters.add("Delete");
+        filters.add("Pending");
+        filters.add("Partially Paid");
         arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, filters);
 //        Log.i("aaaa1111", String.valueOf(consolidate_felter));
@@ -365,8 +373,13 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        fetchPaymentsData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 } else {
-                    Filter_selected_value = String.valueOf(i - 2);
+                    Filter_selected_value = String.valueOf(filters.get(i));
 //                    Log.i("Filter_selected_value", String.valueOf(i));
 
                     if (Filter_selected_value != "") {
@@ -414,6 +427,94 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             }
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+
+        btn_load_more = root.findViewById(R.id.btn_load_more);
+        rv_filter = root.findViewById(R.id.spinner_container_main);
+        line_bottom = root.findViewById(R.id.line_bottom);
+
+        SpannableString content = new SpannableString("Load More");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        btn_load_more.setText(content);
+        btn_load_more.setVisibility(View.GONE);
+
+
+        btn_load_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pageNumber++;
+                try {
+                    performPaginationPayment();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+        recyclerViewPayment.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                scrollEvent = new ArrayList<>();
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+                y = dy;
+                if (dy <= -5) {
+                    scrollEvent.add("ScrollDown");
+//                            Log.i("scrolling", "Scroll Down");
+                } else if (dy > 5) {
+                    scrollEvent.add("ScrollUp");
+//                            Log.i("scrolling", "Scroll Up");
+                }
+                String scroll = getScrollEvent();
+
+                if (scroll.equals("ScrollDown")) {
+                    if (rv_filter.getVisibility() == View.GONE) {
+
+                        rv_filter.setVisibility(View.VISIBLE);
+                        TranslateAnimation animate1 = new TranslateAnimation(
+                                0,                 // fromXDelta
+                                0,                 // toXDelta
+                                -rv_filter.getHeight(),  // fromYDelta
+                                0);                // toYDelta
+                        animate1.setDuration(250);
+                        animate1.setFillAfter(true);
+                        rv_filter.clearAnimation();
+                        rv_filter.startAnimation(animate1);
+                    }
+                } else if (scroll.equals("ScrollUp")) {
+                    y = 0;
+                    if (rv_filter.getVisibility() == View.VISIBLE) {
+//                                line_bottom.setVisibility(View.INVISIBLE);
+                        TranslateAnimation animate = new TranslateAnimation(
+                                0,                 // fromXDelta
+                                0,                 // toXDelta
+                                0,  // fromYDelta
+                                -rv_filter.getHeight()); // toYDelta
+                        animate.setDuration(100);
+                        animate.setFillAfter(true);
+                        rv_filter.clearAnimation();
+                        rv_filter.startAnimation(animate);
+                        rv_filter.setVisibility(View.GONE);
+                    }
+                }
+
+                int visibleItemCount = layoutManager.getChildCount();
+                int totalItemCount = layoutManager.getItemCount();
+                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
+                    if (totalPages != 0 && pageNumber < totalPages) {
+//                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
+                        btn_load_more.setVisibility(View.VISIBLE);
+                    }
+                }
             }
         });
 
@@ -503,6 +604,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 calendar.get(Calendar.DAY_OF_MONTH));
         dialog.show();
     }
+
     private void fetchPaymentsData() throws JSONException {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
@@ -518,21 +620,24 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @Override
             public void onResponse(JSONObject result) {
                 try {
-                    System.out.println("RESPONSE PAYMENTS" + result.getJSONArray("PrePaidRequestData"));
+//                    System.out.println("RESPONSE PAYMENTS" + result.getJSONArray("PrePaidRequestData"));
                     Gson gson = new Gson();
                     Type type = new TypeToken<List<RetailerPaymentModel>>() {
                     }.getType();
                     PaymentsList = gson.fromJson(result.getJSONArray("PrePaidRequestData").toString(), type);
-                    if(PaymentsList.size() != 0)
-                        tv_shipment_no_data1.setVisibility(View.GONE);
-                    else
-                        tv_shipment_no_data1.setVisibility(View.VISIBLE);
+                    Log.i("PaymentsList", String.valueOf(PaymentsList));
+
                     mAdapter = new RetailerPaymentAdapter(getContext(), PaymentsList);
+                    Log.i("mAdapter", String.valueOf(mAdapter));
                     recyclerViewPayment.setAdapter(mAdapter);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                if(PaymentsList.size() != 0)
+                    tv_shipment_no_data1.setVisibility(View.GONE);
+                else
+                    tv_shipment_no_data1.setVisibility(View.VISIBLE);
 
 
             }
@@ -610,6 +715,67 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", "bearer " + Token);
                 params.put("Content-Type", "application/json; charset=UTF-8 ");
+                return params;
+            }
+        };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(getContext()).add(sr);
+
+    }
+
+    private void performPaginationPayment() throws JSONException {
+
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+        DistributorId = sharedPreferences.getString("Distributor_Id", "");
+//        Log.i("Token", Token);
+        JSONObject map = new JSONObject();
+        map.put("Status", -1);
+        map.put("OrderState", -1);
+        map.put("DistributorId", DistributorId);
+        map.put("TotalRecords", 10);
+        map.put("PageNumber", pageNumberOrder);
+
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject result) {
+                try {
+                    btn_load_more.setVisibility(View.GONE);
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<RetailerPaymentModel>>() {
+                    }.getType();
+                    PaymentsList = gson.fromJson(result.getJSONArray("PrePaidRequestData").toString(), type);
+                    Log.i("PaymentsList", String.valueOf(PaymentsList));
+
+                    mAdapter = new RetailerPaymentAdapter(getContext(), PaymentsList);
+                    Log.i("mAdapter", String.valueOf(mAdapter));
+                    recyclerViewPayment.setAdapter(mAdapter);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if(PaymentsList.size() != 0)
+                    tv_shipment_no_data1.setVisibility(View.GONE);
+                else
+                    tv_shipment_no_data1.setVisibility(View.VISIBLE);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+
+                error.printStackTrace();
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
                 return params;
             }
         };
@@ -714,19 +880,209 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         layoutManager = new LinearLayoutManager(root.getContext());
         recyclerView.setLayoutManager(layoutManager);
 
+        // DATE FILTERS ......
+        date_filter_rl = root.findViewById(R.id.date_filter_rl);
+        first_date = root.findViewById(R.id.first_date);
+        first_date_btn = root.findViewById(R.id.first_date_btn);
+        second_date = root.findViewById(R.id.second_date);
+        second_date_btn = root.findViewById(R.id.second_date_btn);
+
+        // AMOUNT FILTERS ......
+        amount_filter_rl = root.findViewById(R.id.amount_filter_rl);
+        et_amount1 = root.findViewById(R.id.et_amount1);
+        et_amount2 = root.findViewById(R.id.et_amount2);
+
+        spinner_container1 = root.findViewById(R.id.spinner_container1);
+        spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
+        spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
+        conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
+        spinner_container1.setVisibility(View.GONE);
+        conso_edittext.setVisibility(View.GONE);
+        date_filter_rl.setVisibility(View.GONE);
+        amount_filter_rl.setVisibility(View.GONE);
+
+        consolidate_felter = new ArrayList<>();
+        consolidate_felter.add("Select Criteria");
+        consolidate_felter.add("Order ID");
+        consolidate_felter.add("Company");
+        consolidate_felter.add("Status");
+        consolidate_felter.add("Created Date");
+        consolidate_felter.add("Amount");
+
+        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, consolidate_felter);
+
+        spinner_consolidate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                Toast.makeText(getContext(), consolidate_felter.get(i), Toast.LENGTH_LONG).show();
+                spinner_container1.setVisibility(View.GONE);
+                conso_edittext.setVisibility(View.GONE);
+                date_filter_rl.setVisibility(View.GONE);
+                amount_filter_rl.setVisibility(View.GONE);
+
+                if (i == 0) {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    Filter_selected = consolidate_felter.get(i);
+
+                    spinner2.setSelection(0);
+                    conso_edittext.setText("");
+
+                    if (Filter_selected.equals("Order ID")) {
+                        search_bar.setHint("Search by " + Filter_selected);
+                        Filter_selected = "OrderNumber";
+                        conso_edittext.setVisibility(View.VISIBLE);
+                    } else if (Filter_selected.equals("Company")) {
+                        search_bar.setHint("Search by " + Filter_selected);
+                        Filter_selected = "CompanyName";
+                        conso_edittext.setVisibility(View.VISIBLE);
+                    } else if (Filter_selected.equals("Transaction Date")) {
+                        date_filter_rl.setVisibility(View.VISIBLE);
+                        Filter_selected = "date";
+                        Filter_selected1 = "PrepaidDateFrom";
+                        Filter_selected2 = "PrepaidDateTo";
+                        first_date_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openCalenderPopup("first date");
+                            }
+                        });
+                        second_date_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openCalenderPopup("second date");
+                            }
+                        });
+                    } else if (Filter_selected.equals("Created Date")) {
+                        date_filter_rl.setVisibility(View.VISIBLE);
+                        Filter_selected = "date";
+                        Filter_selected1 = "CreateDateFrom";
+                        Filter_selected2 = "CreateDateTo";
+                        first_date_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openCalenderPopup("first date");
+                            }
+                        });
+                        second_date_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openCalenderPopup("second date");
+                            }
+                        });
+                    } else if (Filter_selected.equals("Amount")) {
+                        amount_filter_rl.setVisibility(View.VISIBLE);
+                        Filter_selected = "amount";
+                        Filter_selected1 = "AmountMin";
+                        Filter_selected2 = "AmountMax";
+                        checkAmountChanged();
+                    } else if (Filter_selected.equals("Status")) {
+                        Filter_selected = "Status";
+                        spinner_container1.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner_consolidate.setAdapter(arrayAdapterPayments);
+
+        filters.add("Status");
+        filters.add("Pending");
+        filters.add("Approved");
+        filters.add("Rejected");
+        filters.add("Draft");
+        filters.add("Cancelled");
+
+        arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, filters);
+//        Log.i("aaaa1111", String.valueOf(consolidate_felter));
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 0) {
+                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        fetchOrderData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Filter_selected_value = String.valueOf(i - 1);
+//                    Log.i("Filter_selected_value", String.valueOf(i));
+
+                    if (Filter_selected_value != "") {
+                        try {
+                            fetchFilteredOrderData();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        arrayAdapterFeltter.notifyDataSetChanged();
+        spinner2.setAdapter(arrayAdapterFeltter);
+
+        conso_edittext.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+//                Log.i("text1", "check");
+//                Log.i("text", String.valueOf(s));
+                Filter_selected_value = String.valueOf(s);
+                if (!Filter_selected_value.equals("")) {
+                    try {
+                        fetchFilteredOrderData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        fetchOrderData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+
         btn_load_more = root.findViewById(R.id.btn_load_more);
-        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
+        rv_filter = root.findViewById(R.id.spinner_container_main);
+        line_bottom = root.findViewById(R.id.line_bottom);
 
         SpannableString content = new SpannableString("Load More");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         btn_load_more.setText(content);
-
         btn_load_more.setVisibility(View.GONE);
+
 
         btn_load_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pageNumberOrder++;
+                pageNumber++;
                 try {
                     performPaginationOrder();
                 } catch (JSONException e) {
@@ -735,12 +1091,13 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             }
         });
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+        recyclerViewPayment.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                scrollEvent = new ArrayList<>();
 
+                scrollEvent = new ArrayList<>();
             }
 
             @Override
@@ -758,33 +1115,33 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 String scroll = getScrollEvent();
 
                 if (scroll.equals("ScrollDown")) {
-                    if (spinner_container_main.getVisibility() == View.GONE) {
+                    if (rv_filter.getVisibility() == View.GONE) {
 
-                        spinner_container_main.setVisibility(View.VISIBLE);
+                        rv_filter.setVisibility(View.VISIBLE);
                         TranslateAnimation animate1 = new TranslateAnimation(
                                 0,                 // fromXDelta
                                 0,                 // toXDelta
-                                -spinner_container_main.getHeight(),  // fromYDelta
+                                -rv_filter.getHeight(),  // fromYDelta
                                 0);                // toYDelta
                         animate1.setDuration(250);
                         animate1.setFillAfter(true);
-                        spinner_container_main.clearAnimation();
-                        spinner_container_main.startAnimation(animate1);
+                        rv_filter.clearAnimation();
+                        rv_filter.startAnimation(animate1);
                     }
                 } else if (scroll.equals("ScrollUp")) {
                     y = 0;
-                    if (spinner_container_main.getVisibility() == View.VISIBLE) {
+                    if (rv_filter.getVisibility() == View.VISIBLE) {
 //                                line_bottom.setVisibility(View.INVISIBLE);
                         TranslateAnimation animate = new TranslateAnimation(
                                 0,                 // fromXDelta
                                 0,                 // toXDelta
                                 0,  // fromYDelta
-                                -spinner_container_main.getHeight()); // toYDelta
+                                -rv_filter.getHeight()); // toYDelta
                         animate.setDuration(100);
                         animate.setFillAfter(true);
-                        spinner_container_main.clearAnimation();
-                        spinner_container_main.startAnimation(animate);
-                        spinner_container_main.setVisibility(View.GONE);
+                        rv_filter.clearAnimation();
+                        rv_filter.startAnimation(animate);
+                        rv_filter.setVisibility(View.GONE);
                     }
                 }
 
