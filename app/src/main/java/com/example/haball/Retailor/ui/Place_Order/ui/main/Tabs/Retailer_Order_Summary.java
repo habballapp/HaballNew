@@ -262,7 +262,7 @@ public class Retailer_Order_Summary extends Fragment {
 //                selectedProducts_distributor_editor.apply();
 //
 //                Toast.makeText(getContext(), "Order has been saved as template successfully", Toast.LENGTH_LONG).show();
-//                Intent login_intent = new Intent(getActivity(), DistributorDashboard.class);
+//                Intent login_intent = new Intent(getActivity(), RetailorDashboard.class);
 //                startActivity(login_intent);
 //                getActivity().finish();
 //
@@ -343,9 +343,9 @@ public class Retailer_Order_Summary extends Fragment {
                     selectedProducts_distributor_editor.apply();
 
                     Toast.makeText(getContext(), "Order Request ID " + result.get("OrderNumber") + " has been saved as draft successfully.", Toast.LENGTH_LONG).show();
-//                    Intent login_intent = new Intent(getActivity(), DistributorDashboard.class);
-//                    startActivity(login_intent);
-//                    getActivity().finish();
+                    Intent login_intent = new Intent(getActivity(), RetailorDashboard.class);
+                    startActivity(login_intent);
+                    getActivity().finish();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -442,9 +442,9 @@ public class Retailer_Order_Summary extends Fragment {
         editor.putString("RetailerID", "");
         editor.apply();
 
-//        fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
-//        fragmentTransaction.replace(R.id.main_container_ret, new RetailorDashboard());
-//        fragmentTransaction.commit();
+        Intent login_intent = new Intent(getActivity(), RetailorDashboard.class);
+        startActivity(login_intent);
+        getActivity().finish();
     }
 
     private class MyAsyncTask extends AsyncTask<Void, Void, Void> {

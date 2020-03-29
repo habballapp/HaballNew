@@ -36,10 +36,8 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.support.MyJsonArrayRequest;
-import com.example.haball.Distributor.ui.support.SupportTicketFormFragment;
-import com.example.haball.Distributor.ui.support.SupportViewModel;
 import com.example.haball.R;
-import com.example.haball.Support.Support_Ditributor.Model.SupportDashboardModel;
+import com.example.haball.Retailor.Retailer_Support.Support_Ticket_Form_Retailer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -67,7 +65,7 @@ public class SupportFragment extends Fragment {
     private Button btn_add_ticket_retailer;
     private String Token, DistributorId;
     private String URL_SUPPORT = "http://175.107.203.97:4014/api/support/Search";
-    private SupportViewModel supportViewModel;
+    private SupportDashboardRetailerModel supportViewModel;
     private List<SupportDashboardRetailerModel> SupportList = new ArrayList<>();
     //spinner1
     private Spinner support_retailer_spiner1;
@@ -107,10 +105,10 @@ public class SupportFragment extends Fragment {
         btn_add_ticket_retailer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new SupportTicketFormFragment());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+//                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new Support_Ticket_Form_Retailer());
+//                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.commit();
             }
         });
         //init
@@ -349,7 +347,7 @@ public class SupportFragment extends Fragment {
                 }
 //
                 Gson gson = new Gson();
-                Type type = new TypeToken<List<SupportDashboardModel>>() {
+                Type type = new TypeToken<List<SupportDashboardRetailerModel>>() {
                 }.getType();
                 try {
                     SupportList = gson.fromJson(String.valueOf(response.get(0)), type);
