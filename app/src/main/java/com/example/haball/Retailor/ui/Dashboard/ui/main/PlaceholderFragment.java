@@ -680,7 +680,15 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
         map.put("TotalRecords", 10);
         map.put("PageNumber", 0);
-        map.put(Filter_selected, Filter_selected_value);
+        if (Filter_selected.equals("date")) {
+            map.put(Filter_selected1, fromDate);
+            map.put(Filter_selected2, toDate);
+        } else if (Filter_selected.equals("amount")) {
+            map.put(Filter_selected1, fromAmount);
+            map.put(Filter_selected2, toAmount);
+        } else {
+            map.put(Filter_selected, Filter_selected_value);
+        }
         Log.i("Mapsssss", String.valueOf(map));
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
             @Override
@@ -1232,6 +1240,15 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         JSONObject map = new JSONObject();
         map.put("TotalRecords", 10);
         map.put("PageNumber", pageNumberOrder);
+        if (Filter_selected.equals("date")) {
+            map.put(Filter_selected1, fromDate);
+            map.put(Filter_selected2, toDate);
+        } else if (Filter_selected.equals("amount")) {
+            map.put(Filter_selected1, fromAmount);
+            map.put(Filter_selected2, toAmount);
+        } else {
+            map.put(Filter_selected, Filter_selected_value);
+        }
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS, map, new Response.Listener<JSONArray>() {
             @Override
