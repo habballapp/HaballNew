@@ -30,6 +30,7 @@ import com.example.haball.Retailor.ui.Dashboard.DashBoardFragment;
 import com.example.haball.Retailor.ui.Make_Payment.Payment_Summary;
 import com.example.haball.Retailor.ui.Notification.Notification_Fragment;
 import com.example.haball.Retailor.ui.Place_Order.PlaceOrderFragment;
+import com.example.haball.Retailor.ui.Place_Order.Retailer_Place_Order;
 import com.example.haball.Retailor.ui.Profile.ProfileFragment;
 import com.example.haball.Retailor.ui.Support.SupportFragment;
 import com.techatmosphere.expandablenavigation.model.ChildModel;
@@ -130,9 +131,13 @@ public class RetailorDashboard extends AppCompatActivity  {
 
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 2) {
-                            Log.i("Place Order", "Place Order Activity");
+//                            Log.i("Place Order", "Place Order Activity");
+//                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//                            fragmentTransaction.replace(R.id.main_container_ret, new PlaceOrderFragment());
+//                            fragmentTransaction.commit();
+//                            drawer.closeDrawer(GravityCompat.START);
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new PlaceOrderFragment());
+                            fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Place_Order());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
 
