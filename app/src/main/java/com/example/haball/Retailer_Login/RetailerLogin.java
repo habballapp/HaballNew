@@ -350,7 +350,7 @@ public class RetailerLogin extends AppCompatActivity {
                         editor.commit();
 
                         Toast.makeText(RetailerLogin.this, "Login Success", Toast.LENGTH_LONG).show();
-                        Intent login_intent = new Intent(RetailerLogin.this, Dashboard_Tabs.class);
+                        Intent login_intent = new Intent(RetailerLogin.this, RetailorDashboard.class);
                         startActivity(login_intent);
                         finish();
                     }

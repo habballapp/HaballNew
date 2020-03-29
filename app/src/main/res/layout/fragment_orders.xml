@@ -5,13 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Distributor.ui.main.OrdersFragment">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <RelativeLayout
             android:id="@+id/spinner_container_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <RelativeLayout
                 android:id="@+id/spinner_container_main_inner"
                 android:layout_width="match_parent"
@@ -280,61 +283,64 @@
                 android:layout_below="@+id/spinner_container_main_inner"
                 android:background="@drawable/line_seperator" />
         </RelativeLayout>
-            <TextView
-                android:id="@+id/tv_shipment_no_data"
+
+        <TextView
+            android:id="@+id/tv_shipment_no_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:text="No Data Available"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/spinner_container_main"
+            android:layout_marginBottom="40dp"
+            android:orientation="vertical"
+            android:weightSum="3">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_fragment_orders"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-               android:layout_centerInParent="true"
+                android:layout_height="0dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginBottom="30dp"
-                android:gravity="center"
-                android:text="No Data Available"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:layout_weight="2.75" />
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/lr_load"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/spinner_container_main"
-                android:layout_marginBottom="40dp"
-                android:orientation="vertical"
-                android:weightSum="3">
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_weight="0.25">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_fragment_orders"
+                <Button
+                    android:id="@+id/btn_load_more"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_weight="2.75" />
+                    android:layout_height="30dp"
+                    android:layout_centerInParent="true"
+                    android:background="@android:color/transparent"
+                    android:text="@string/load_more"
+                    android:textAllCaps="false"
+                    android:textSize="18sp" />
 
-                <RelativeLayout
-                    android:id="@+id/lr_load"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_weight="0.25">
-                    <Button
-                        android:id="@+id/btn_load_more"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_centerInParent="true"
-                        android:background="@android:color/transparent"
-                        android:text="@string/load_more"
-                        android:textAllCaps="false"
-                        android:textSize="18sp" />
+            </RelativeLayout>
+        </LinearLayout>
 
-                </RelativeLayout>
-            </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:text="© Haball | All rights reserved" />
-</RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="© Haball | All rights reserved" />
+    </RelativeLayout>
 </RelativeLayout>
