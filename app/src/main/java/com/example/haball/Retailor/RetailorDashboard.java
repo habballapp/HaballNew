@@ -16,6 +16,7 @@ import com.example.haball.Distributor.ui.expandablelist.CustomExpandableListMode
 import com.example.haball.R;
 import com.example.haball.Retailer_Login.RetailerLogin;
 import com.example.haball.Retailor.ui.Dashboard.DashBoardFragment;
+import com.example.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
 import com.example.haball.Retailor.ui.Make_Payment.CreatePaymentRequestFragment;
 import com.example.haball.Retailor.ui.Make_Payment.Payment_Summary;
 import com.example.haball.Retailor.ui.Network.My_NetworkDashboard;
@@ -116,7 +117,7 @@ public class RetailorDashboard extends AppCompatActivity  {
                         if (id == 0) {
                             Log.i("Dashboard", "Dashboard Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new DashBoardFragment());
+                            fragmentTransaction.replace(R.id.main_container_ret, new Dashboard_Tabs());
                             fragmentTransaction.commit();
 
                             drawer.closeDrawer(GravityCompat.START);

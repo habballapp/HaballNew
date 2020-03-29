@@ -14,6 +14,7 @@ import com.example.haball.R;
 import com.example.haball.Distribution_Login.Distribution_Login;
 import com.example.haball.Retailer_Login.RetailerLogin;
 import com.example.haball.Retailor.RetailorDashboard;
+import com.example.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
 import com.example.haball.Select_User.Register_Activity;
 
 public class SplashScreen extends AppCompatActivity {
@@ -53,7 +54,7 @@ public class SplashScreen extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } else if(sharedPreferences.getString("User_Type","").equals("Retailer")) {
-                        Intent intent = new Intent(SplashScreen.this, RetailorDashboard.class);
+                        Intent intent = new Intent(SplashScreen.this, Dashboard_Tabs.class);
                         startActivity(intent);
                         finish();
                     } else {

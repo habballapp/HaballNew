@@ -42,6 +42,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
 import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Retailor.Retailor_SignUp.SignUp;
+import com.example.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
 import com.example.haball.Select_User.Register_Activity;
 import com.example.haball.Support.Support_Ditributor.Support_Ticket_Form;
 import com.google.android.material.textfield.TextInputLayout;
@@ -349,7 +350,7 @@ public class RetailerLogin extends AppCompatActivity {
                         editor.commit();
 
                         Toast.makeText(RetailerLogin.this, "Login Success", Toast.LENGTH_LONG).show();
-                        Intent login_intent = new Intent(RetailerLogin.this, RetailorDashboard.class);
+                        Intent login_intent = new Intent(RetailerLogin.this, Dashboard_Tabs.class);
                         startActivity(login_intent);
                         finish();
                     }
