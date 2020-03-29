@@ -1,39 +1,35 @@
 package com.example.haball.Retailor.ui.Dashboard;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.haball.R;
+import com.example.haball.Retailor.ui.Dashboard.ui.main.SectionsPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-
-import com.example.haball.Retailor.ui.Dashboard.ui.main.SectionsPagerAdapter;
-
-public class Dashboard_Tabs extends AppCompatActivity {
+public class Dashboard_Tabs extends Fragment {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_dashboard__tabs );
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter( this, getSupportFragmentManager() );
-        ViewPager viewPager = findViewById( R.id.view_pager );
-        viewPager.setAdapter( sectionsPagerAdapter );
-        TabLayout tabs = findViewById( R.id.tabs );
-        tabs.setupWithViewPager( viewPager );
-        FloatingActionButton fab = findViewById( R.id.fab );
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        // return inflater.inflate(R.layout.distributor_shipment__view_dashboard_fragment, container, false);
+//        sendViewModel =
+//                ViewModelProviders.of(this).get( ShipmentsViewModel.class);
+        View root = inflater.inflate(R.layout.activity_dashboard__tabs, container, false);
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getContext(), getChildFragmentManager());
+        ViewPager viewPager = root.findViewById(R.id.view_pager_retailer_dashboard);
+        viewPager.setAdapter(sectionsPagerAdapter);
+        viewPager.setOffscreenPageLimit(1);
+        TabLayout tabs = root.findViewById(R.id.tabs_retailer_dashboard);
+        tabs.setupWithViewPager(viewPager);
 
-        fab.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make( view, "Replace with your own action", Snackbar.LENGTH_LONG )
-                        .setAction( "Action", null ).show();
-            }
-        } );
-    }
-}
+        return root;
+
+    }}

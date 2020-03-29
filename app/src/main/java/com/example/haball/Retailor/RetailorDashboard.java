@@ -1,14 +1,5 @@
 package com.example.haball.Retailor;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.ui.AppBarConfiguration;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,23 +13,32 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.haball.Distributor.ui.expandablelist.CustomExpandableListModel;
-import com.example.haball.Retailor.ui.Make_Payment.CreatePaymentRequestFragment;
-import com.example.haball.Retailor.ui.Network.My_NetworkDashboard;
 import com.example.haball.R;
 import com.example.haball.Retailer_Login.RetailerLogin;
 import com.example.haball.Retailor.ui.Dashboard.DashBoardFragment;
+import com.example.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
+import com.example.haball.Retailor.ui.Make_Payment.CreatePaymentRequestFragment;
 import com.example.haball.Retailor.ui.Make_Payment.Payment_Summary;
+import com.example.haball.Retailor.ui.Network.My_NetworkDashboard;
 import com.example.haball.Retailor.ui.Notification.Notification_Fragment;
 import com.example.haball.Retailor.ui.Place_Order.PlaceOrderFragment;
 import com.example.haball.Retailor.ui.Profile.ProfileFragment;
 import com.example.haball.Retailor.ui.Support.SupportFragment;
-import com.techatmosphere.expandablenavigation.model.ChildModel;
 import com.techatmosphere.expandablenavigation.model.HeaderModel;
 import com.techatmosphere.expandablenavigation.view.ExpandableNavigationListView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.ui.AppBarConfiguration;
 
 public class RetailorDashboard extends AppCompatActivity  {
 
@@ -116,7 +116,7 @@ public class RetailorDashboard extends AppCompatActivity  {
                         if (id == 0) {
                             Log.i("Dashboard", "Dashboard Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new DashBoardFragment());
+                            fragmentTransaction.replace(R.id.main_container_ret, new Dashboard_Tabs());
                             fragmentTransaction.commit();
 
                             drawer.closeDrawer(GravityCompat.START);
