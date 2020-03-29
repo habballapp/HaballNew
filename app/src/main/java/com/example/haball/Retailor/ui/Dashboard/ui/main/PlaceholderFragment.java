@@ -875,7 +875,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private void orderFragmentTask(View root) throws JSONException {
         recyclerView = (RecyclerView) root.findViewById(R.id.rv_fragment_orders);
         spinner_container_main = root.findViewById(R.id.spinner_container_main);
-
+        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(root.getContext());
         recyclerView.setLayoutManager(layoutManager);
