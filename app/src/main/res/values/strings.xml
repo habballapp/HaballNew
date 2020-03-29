@@ -26,6 +26,8 @@
     //retailer_place_order in distributor
     <string name="tab_text_rpoid_01">\t\tPlace Order\t\t</string>
     <string name="tab_text_rpoid_02">\t\tOrder Summary\t\t</string>
+    <string name="tab_retailer_order">Order</string>
+    <string name="tab_retailer_payment">Payment</string>
 
         
     <string name="load_more"><u>Load More</u></string>
@@ -100,6 +102,4 @@
     <string name="title_activity_retailer_view_order">RetailerViewOrder</string>
     <string name="title_activity_place_order_retailer">PlaceOrder_retailer</string>
     <string name="title_activity_order__place_order">Order_PlaceOrder</string>
-    <string name="title_activity_retailer_place_order_tab">RetailerPlaceOrderTabActivity</string>
-    <string name="title_activity_retailer__place__order">Retailer_Place_Order</string>
 </resources>

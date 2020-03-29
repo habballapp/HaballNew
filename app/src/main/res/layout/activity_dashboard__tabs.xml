@@ -5,7 +5,7 @@
     android:id="@+id/main_container2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Retailor.ui.Network.My_NetworkDashboard">
+    tools:context=".Retailor.ui.Dashboard.Dashboard_Tabs">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,24 +13,23 @@
         android:background="#fff">
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs4"
-            android:layout_width="wrap_content"
+            android:id="@+id/tabs_retailer_dashboard"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:background="#fff"
-            app:tabMode="scrollable"
             app:tabBackground="@drawable/custom_indicator"
             app:tabIndicatorColor="#96bb3c"
             app:tabSelectedTextColor="#96bb3c"
             app:tabTextAppearance="@style/CustomTextAppearanceTab" />
 
         <androidx.viewpager.widget.ViewPager
-            android:id="@+id/view_pager4"
-            android:layout_width="wrap_content"
+            android:id="@+id/view_pager_retailer_dashboard"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/tabs4"
+            android:layout_below="@+id/tabs_retailer_dashboard"
             android:layout_marginTop="10dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </RelativeLayout>
