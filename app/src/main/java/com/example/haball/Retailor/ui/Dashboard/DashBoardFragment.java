@@ -98,7 +98,7 @@ public class DashBoardFragment extends Fragment {
                 ViewModelProviders.of(this).get(PaymentsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard_retailor, container, false);
         //init
-        recyclerView = (RecyclerView) root.findViewById(R.id.rv_payment_request);
+        recyclerView = (RecyclerView) root.findViewById(R.id.rv_fragment_payments);
         create_payment = root.findViewById(R.id.create_payment);
         payment_retailer_spiner1 = root.findViewById(R.id.spinner_dashboard_retailor);
 //        edt_payment_ret = root.findViewById(R.id.edt_payment_ret);
@@ -238,11 +238,11 @@ public class DashBoardFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        try {
-            fetchPaymentsData();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            fetchPaymentsData();
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
 
 
         // specify an adapter (see also next example)
