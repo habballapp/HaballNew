@@ -69,7 +69,7 @@ public class RetailorDashboard extends AppCompatActivity  {
         tv_username = toolbar.findViewById(R.id.tv_username);
         tv_user_company = toolbar.findViewById(R.id.tv_user_company);
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.main_container_ret, new DashBoardFragment());
+        fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tabs());
         fragmentTransaction.commit();
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

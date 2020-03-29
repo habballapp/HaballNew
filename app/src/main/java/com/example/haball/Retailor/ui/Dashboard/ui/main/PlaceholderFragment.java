@@ -194,105 +194,8 @@ public class PlaceholderFragment extends Fragment {
 //                root = inflater.inflate( R.layout.fragment_orders, container, false );
 //                break;
                 root = inflater.inflate(R.layout.fragment_orders, container, false);
-                try {
-                    orderFragmentTask(root);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                recyclerView = (RecyclerView) root.findViewById(R.id.rv_fragment_orders);
-                spinner_container_main = root.findViewById(R.id.spinner_container_main);
+                orderFragmentTask(root);
 
-                recyclerView.setHasFixedSize(true);
-                layoutManager = new LinearLayoutManager(root.getContext());
-                recyclerView.setLayoutManager(layoutManager);
-
-                btn_load_more = root.findViewById(R.id.btn_load_more);
-                tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
-
-                SpannableString content = new SpannableString("Load More");
-                content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-                btn_load_more.setText(content);
-
-                btn_load_more.setVisibility(View.GONE);
-
-                btn_load_more.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        pageNumberOrder++;
-                        try {
-                            performPaginationOrder();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-
-                recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                    @Override
-                    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                        super.onScrollStateChanged(recyclerView, newState);
-                        scrollEvent = new ArrayList<>();
-
-                    }
-
-                    @Override
-                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                        super.onScrolled(recyclerView, dx, dy);
-                        LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
-                        y = dy;
-                        if (dy <= -5) {
-                            scrollEvent.add("ScrollDown");
-//                            Log.i("scrolling", "Scroll Down");
-                        } else if (dy > 5) {
-                            scrollEvent.add("ScrollUp");
-//                            Log.i("scrolling", "Scroll Up");
-                        }
-                        String scroll = getScrollEvent();
-
-                        if (scroll.equals("ScrollDown")) {
-                            if (spinner_container_main.getVisibility() == View.GONE) {
-
-                                spinner_container_main.setVisibility(View.VISIBLE);
-                                TranslateAnimation animate1 = new TranslateAnimation(
-                                        0,                 // fromXDelta
-                                        0,                 // toXDelta
-                                        -spinner_container_main.getHeight(),  // fromYDelta
-                                        0);                // toYDelta
-                                animate1.setDuration(250);
-                                animate1.setFillAfter(true);
-                                spinner_container_main.clearAnimation();
-                                spinner_container_main.startAnimation(animate1);
-                            }
-                        } else if (scroll.equals("ScrollUp")) {
-                            y = 0;
-                            if (spinner_container_main.getVisibility() == View.VISIBLE) {
-//                                line_bottom.setVisibility(View.INVISIBLE);
-                                TranslateAnimation animate = new TranslateAnimation(
-                                        0,                 // fromXDelta
-                                        0,                 // toXDelta
-                                        0,  // fromYDelta
-                                        -spinner_container_main.getHeight()); // toYDelta
-                                animate.setDuration(100);
-                                animate.setFillAfter(true);
-                                spinner_container_main.clearAnimation();
-                                spinner_container_main.startAnimation(animate);
-                                spinner_container_main.setVisibility(View.GONE);
-                            }
-                        }
-
-                        int visibleItemCount = layoutManager.getChildCount();
-                        int totalItemCount = layoutManager.getItemCount();
-                        int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
-                        if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
-                            if (totalPages != 0 && pageNumber < totalPages) {
-//                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
-                                btn_load_more.setVisibility(View.VISIBLE);
-                            }
-                        }
-                    }
-                });
-
-                    fetchOrderData();
                 break;
 
             }
@@ -682,58 +585,111 @@ public class PlaceholderFragment extends Fragment {
 
     }
 
-    private void orderFragmentTask(View root) throws JSONException {
+    private void orderFragmentTask(View root) {
+        recyclerView = (RecyclerView) root.findViewById(R.id.rv_fragment_orders);
+        spinner_container_main = root.findViewById(R.id.spinner_container_main);
+
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(root.getContext());
+        recyclerView.setLayoutManager(layoutManager);
+
+        btn_load_more = root.findViewById(R.id.btn_load_more);
+        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
+
+        SpannableString content = new SpannableString("Load More");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        btn_load_more.setText(content);
+
+        btn_load_more.setVisibility(View.GONE);
+
+        btn_load_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pageNumberOrder++;
+                try {
+                    performPaginationOrder();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                scrollEvent = new ArrayList<>();
+
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+                y = dy;
+                if (dy <= -5) {
+                    scrollEvent.add("ScrollDown");
+//                            Log.i("scrolling", "Scroll Down");
+                } else if (dy > 5) {
+                    scrollEvent.add("ScrollUp");
+//                            Log.i("scrolling", "Scroll Up");
+                }
+                String scroll = getScrollEvent();
+
+                if (scroll.equals("ScrollDown")) {
+                    if (spinner_container_main.getVisibility() == View.GONE) {
+
+                        spinner_container_main.setVisibility(View.VISIBLE);
+                        TranslateAnimation animate1 = new TranslateAnimation(
+                                0,                 // fromXDelta
+                                0,                 // toXDelta
+                                -spinner_container_main.getHeight(),  // fromYDelta
+                                0);                // toYDelta
+                        animate1.setDuration(250);
+                        animate1.setFillAfter(true);
+                        spinner_container_main.clearAnimation();
+                        spinner_container_main.startAnimation(animate1);
+                    }
+                } else if (scroll.equals("ScrollUp")) {
+                    y = 0;
+                    if (spinner_container_main.getVisibility() == View.VISIBLE) {
+//                                line_bottom.setVisibility(View.INVISIBLE);
+                        TranslateAnimation animate = new TranslateAnimation(
+                                0,                 // fromXDelta
+                                0,                 // toXDelta
+                                0,  // fromYDelta
+                                -spinner_container_main.getHeight()); // toYDelta
+                        animate.setDuration(100);
+                        animate.setFillAfter(true);
+                        spinner_container_main.clearAnimation();
+                        spinner_container_main.startAnimation(animate);
+                        spinner_container_main.setVisibility(View.GONE);
+                    }
+                }
+
+                int visibleItemCount = layoutManager.getChildCount();
+                int totalItemCount = layoutManager.getItemCount();
+                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
+                    if (totalPages != 0 && pageNumber < totalPages) {
+//                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
+                        btn_load_more.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+        });
+
+        fetchOrderData();
+    }
+
+    private void orderData() throws JSONException {
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
         DistributorId = sharedPreferences.getString("Distributor_Id", "");
-//        Log.i("Token", Token);
-//        tv_shipment_no_data.setVisibility(View.GONE);
-
-
-        JSONObject mapCount = new JSONObject();
-        mapCount.put("Status", -1);
-        mapCount.put("DistributorId", Integer.parseInt(DistributorId));
-
-//        JsonObjectRequest countRequest = new JsonObjectRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS_COUNT, mapCount, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                try {
-//                    totalEntriesOrder = Double.parseDouble(String.valueOf(response.get("ordersCount")));
-//                    totalPagesOrder = Math.ceil(totalEntriesOrder / 10);
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                printErrorMessage(error);
-//
-//                error.printStackTrace();
-////                Log.i("onErrorResponse", "Error");
-//            }
-//        }) {
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                Map<String, String> params = new HashMap<String, String>();
-//                params.put("Authorization", "bearer " + Token);
-//                return params;
-//            }
-//        };
-//        countRequest.setRetryPolicy(new DefaultRetryPolicy(
-//                15000,
-//                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-//                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-//
-//        Volley.newRequestQueue(getContext()).add(countRequest);
-
 
         JSONObject map = new JSONObject();
-        map.put("Status", -1);
-        map.put("OrderState", -1);
-        map.put("DistributorId", DistributorId);
         map.put("TotalRecords", 10);
         map.put("PageNumber", pageNumberOrder);
 
@@ -752,7 +708,7 @@ public class PlaceholderFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
+                Log.i("OrdersList", String.valueOf(OrdersList));
                 OrdersAdapter = new DistributorOrdersAdapter(getContext(), OrdersList);
                 recyclerView.setAdapter(OrdersAdapter);
                 if (OrdersList.size() != 0) {
@@ -784,6 +740,7 @@ public class PlaceholderFragment extends Fragment {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
+
     }
 
 

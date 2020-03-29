@@ -31,7 +31,7 @@ import java.util.List;
 
 public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOrdersAdapter.ViewHolder> {
 
-//    private PlaceholderFragment mContxt;
+    //    private PlaceholderFragment mContxt;
     private Context mContxt;
     private String heading, order_no_value, amount, status;
     private List<DistributorOrdersModel> OrderList;
@@ -52,7 +52,7 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
     @NonNull
     @Override
     public DistributorOrdersAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view_inflate = LayoutInflater.from(mContxt).inflate(R.layout.orders_layout,parent,false);
+        View view_inflate = LayoutInflater.from(mContxt).inflate(R.layout.orders_layout, parent, false);
         return new DistributorOrdersAdapter.ViewHolder(view_inflate);
     }
 
@@ -65,19 +65,31 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
 
         holder.tv_heading.setText(OrderList.get(position).getCompanyName());
         holder.order_no_value.setText(OrderList.get(position).getOrderNumber());
-        holder.tv_status.setText(OrderList.get(position).getOrderStatusValue());
+        if (OrderList.get(position).getOrderStatusValue() != null)
+            holder.tv_status.setText(OrderList.get(position).getOrderStatusValue());
+        else if (OrderList.get(position).getStatus() != null)
+            holder.tv_status.setText(OrderList.get(position).getStatus());
         holder.tv_amount.setText(OrderList.get(position).getTotalPrice());
 
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final PopupMenu popup = new PopupMenu(mContxt, view);
-                if(OrderList.get(position).getOrderStatusValue().equals("Draft"))
-                    setMenuDraft(popup, position);
-                else if(OrderList.get(position).getOrderStatusValue().equals("Cancelled"))
-                    setMenuCancelled(popup, position);
-                else
-                    setMenuAll(popup, position);
+                if (OrderList.get(position).getOrderStatusValue() != null) {
+                    if (OrderList.get(position).getOrderStatusValue().equals("Draft"))
+                        setMenuDraft(popup, position);
+                    else if (OrderList.get(position).getOrderStatusValue().equals("Cancelled"))
+                        setMenuCancelled(popup, position);
+                    else
+                        setMenuAll(popup, position);
+                } else if (OrderList.get(position).getStatus() != null) {
+                    if (OrderList.get(position).getStatus().equals("Draft"))
+                        setMenuDraft(popup, position);
+                    else if (OrderList.get(position).getStatus().equals("Cancelled"))
+                        setMenuCancelled(popup, position);
+                    else
+                        setMenuAll(popup, position);
+                }
             }
         });
     }
@@ -95,7 +107,7 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                                Toast.makeText(mContxt, "View Order ID - " + OrderList.get(position).getOrderNumber(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContxt, "View Order ID - " + OrderList.get(position).getOrderNumber(), Toast.LENGTH_LONG).show();
                         break;
                     case R.id.orders_delete:
                         try {
@@ -183,6 +195,7 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_heading, order_no_value, tv_status, tv_amount;
         public ImageButton menu_btn;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_heading = itemView.findViewById(R.id.heading);
@@ -192,8 +205,9 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
             menu_btn = itemView.findViewById(R.id.menu_btn_orders);
         }
     }
+
     public void addListItem(List<DistributorOrdersModel> list) {
-        for(DistributorOrdersModel plm : list){
+        for (DistributorOrdersModel plm : list) {
             OrderList.add(plm);
         }
         notifyDataSetChanged();

@@ -54,7 +54,7 @@ public class SplashScreen extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } else if(sharedPreferences.getString("User_Type","").equals("Retailer")) {
-                        Intent intent = new Intent(SplashScreen.this, Dashboard_Tabs.class);
+                        Intent intent = new Intent(SplashScreen.this, RetailorDashboard.class);
                         startActivity(intent);
                         finish();
                     } else {

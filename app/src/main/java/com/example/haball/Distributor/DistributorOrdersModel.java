@@ -7,6 +7,19 @@ public class DistributorOrdersModel {
     private String TotalPrice;
     private String NetPrice;
     private String OrderStatusValue;
+    private String CreatedDate;
+    private String Status;
+
+    public DistributorOrdersModel(String ID, String orderNumber, String companyName, String totalPrice, String netPrice, String orderStatusValue, String createdDate, String status) {
+        this.ID = ID;
+        OrderNumber = orderNumber;
+        CompanyName = companyName;
+        TotalPrice = totalPrice;
+        NetPrice = netPrice;
+        OrderStatusValue = orderStatusValue;
+        CreatedDate = createdDate;
+        Status = status;
+    }
 
     public String getID() {
         return ID;
@@ -56,6 +69,14 @@ public class DistributorOrdersModel {
         OrderStatusValue = orderStatusValue;
     }
 
+    public String getCreatedDate() {
+        return CreatedDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        CreatedDate = createdDate;
+    }
+
     public String getStatus() {
         return Status;
     }
@@ -63,16 +84,4 @@ public class DistributorOrdersModel {
     public void setStatus(String status) {
         Status = status;
     }
-
-    public DistributorOrdersModel(String ID, String orderNumber, String companyName, String totalPrice, String netPrice, String orderStatusValue, String status) {
-        this.ID = ID;
-        OrderNumber = orderNumber;
-        CompanyName = companyName;
-        TotalPrice = totalPrice;
-        NetPrice = netPrice;
-        OrderStatusValue = orderStatusValue;
-        Status = status;
-    }
-
-    private String Status ;
 }
