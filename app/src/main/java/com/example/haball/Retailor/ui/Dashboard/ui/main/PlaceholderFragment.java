@@ -82,8 +82,8 @@ public class PlaceholderFragment extends Fragment {
     private String Token,DistributorId;;
     private String URL = "http://175.107.203.97:4014/api/prepaidrequests/search";
     private String URL_DISTRIBUTOR_ORDERS = "http://175.107.203.97:4014/api/Orders/Search";
-    private String URL_DISTRIBUTOR_PAYMENTS_COUNT = "http://175.107.203.97:4013/api/prepaidrequests/searchCount";
-    private String URL_DISTRIBUTOR_ORDERS_COUNT = "http://175.107.203.97:4013/api/orders/searchCount";
+//    private String URL_DISTRIBUTOR_PAYMENTS_COUNT = "http://175.107.203.97:4013/api/prepaidrequests/searchCount";
+//    private String URL_DISTRIBUTOR_ORDERS_COUNT = "http://175.107.203.97:4013/api/orders/searchCount";
     private TextView tv_shipment_no_data, tv_shipment_no_data1;
     private List<RetailerPaymentModel> PaymentsList = new ArrayList<>();
     //spiner1
@@ -207,7 +207,7 @@ public class PlaceholderFragment extends Fragment {
                 recyclerView.setLayoutManager(layoutManager);
 
                 btn_load_more = root.findViewById(R.id.btn_load_more);
-
+                tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
 
                 SpannableString content = new SpannableString("Load More");
                 content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
@@ -696,38 +696,38 @@ public class PlaceholderFragment extends Fragment {
         mapCount.put("Status", -1);
         mapCount.put("DistributorId", Integer.parseInt(DistributorId));
 
-        JsonObjectRequest countRequest = new JsonObjectRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS_COUNT, mapCount, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    totalEntriesOrder = Double.parseDouble(String.valueOf(response.get("ordersCount")));
-                    totalPagesOrder = Math.ceil(totalEntriesOrder / 10);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
-
-                error.printStackTrace();
-//                Log.i("onErrorResponse", "Error");
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer " + Token);
-                return params;
-            }
-        };
-        countRequest.setRetryPolicy(new DefaultRetryPolicy(
-                15000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-        Volley.newRequestQueue(getContext()).add(countRequest);
+//        JsonObjectRequest countRequest = new JsonObjectRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS_COUNT, mapCount, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                try {
+//                    totalEntriesOrder = Double.parseDouble(String.valueOf(response.get("ordersCount")));
+//                    totalPagesOrder = Math.ceil(totalEntriesOrder / 10);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                printErrorMessage(error);
+//
+//                error.printStackTrace();
+////                Log.i("onErrorResponse", "Error");
+//            }
+//        }) {
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                Map<String, String> params = new HashMap<String, String>();
+//                params.put("Authorization", "bearer " + Token);
+//                return params;
+//            }
+//        };
+//        countRequest.setRetryPolicy(new DefaultRetryPolicy(
+//                15000,
+//                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+//                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+//
+//        Volley.newRequestQueue(getContext()).add(countRequest);
 
 
         JSONObject map = new JSONObject();
@@ -741,14 +741,21 @@ public class PlaceholderFragment extends Fragment {
             @Override
             public void onResponse(JSONArray result) {
                 //                    JSONArray jsonArray = new JSONArray(result);
+
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<DistributorOrdersModel>>() {
                 }.getType();
-                OrdersList = gson.fromJson(result.toString(), type);
+                try {
+                    totalEntriesOrder = Double.parseDouble(String.valueOf(result.getJSONObject(1).get("RecordCount")));
+                    totalPagesOrder = Math.ceil(totalEntriesOrder / 10);
+                    OrdersList = gson.fromJson(result.get(0).toString(), type);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 OrdersAdapter = new DistributorOrdersAdapter(getContext(), OrdersList);
                 recyclerView.setAdapter(OrdersAdapter);
-                if (result.length() != 0) {
+                if (OrdersList.size() != 0) {
                     tv_shipment_no_data.setVisibility(View.GONE);
                 } else {
                     tv_shipment_no_data.setVisibility(View.VISIBLE);

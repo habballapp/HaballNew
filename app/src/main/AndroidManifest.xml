@@ -17,12 +17,10 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".Retailor.ui.Place_Order.Retailer_Place_Order"
-            android:label="@string/title_activity_retailer__place__order"
-            android:theme="@style/NoActionBar"></activity>
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".Retailor.ui.Dashboard.Dashboard_Tabs"
-            android:label="@string/title_activity_dashboard__tabs"
-            android:theme="@style/NoActionBar"></activity>
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".Distributor.ui.orders.OrdersTabsNew.Order_PlaceOrder"
             android:label="@string/title_activity_order__place_order"
