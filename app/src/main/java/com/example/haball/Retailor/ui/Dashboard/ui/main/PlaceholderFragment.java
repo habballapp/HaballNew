@@ -194,7 +194,11 @@ public class PlaceholderFragment extends Fragment {
 //                root = inflater.inflate( R.layout.fragment_orders, container, false );
 //                break;
                 root = inflater.inflate(R.layout.fragment_orders, container, false);
-                orderFragmentTask(root);
+                try {
+                    orderFragmentTask(root);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 break;
 
@@ -202,9 +206,6 @@ public class PlaceholderFragment extends Fragment {
         }
 
         return root;
-    }
-
-    private void fetchOrderData() {
     }
 
     private String getScrollEvent() {
@@ -585,7 +586,7 @@ public class PlaceholderFragment extends Fragment {
 
     }
 
-    private void orderFragmentTask(View root) {
+    private void orderFragmentTask(View root) throws JSONException {
         recyclerView = (RecyclerView) root.findViewById(R.id.rv_fragment_orders);
         spinner_container_main = root.findViewById(R.id.spinner_container_main);
 
@@ -682,7 +683,7 @@ public class PlaceholderFragment extends Fragment {
         fetchOrderData();
     }
 
-    private void orderData() throws JSONException {
+    private void fetchOrderData() throws JSONException {
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);

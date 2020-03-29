@@ -5,7 +5,7 @@
     <string name="Txt_Description_Retailer">Haball Self-Service Retailer is a one window solution to manage business transactions and enable process optimization from
                                    ordering digitally to making payments easily</string>
     <string name="title_activity_distributor__dashboard">Distributor_Dashboard</string>
-    <string name="tab_text_1">\t\Ledger Balance\t\t</string>
+    <string name="tab_text_1">\t\tLedger Balance\t\t</string>
     <string name="tab_text_2">\t\tPayments\t\t</string>
     <string name="tab_text_3">\t\tOrders\t\t</string>
     <string name="tab_text_4">\t\tInvoice Details\t\t</string>
@@ -26,8 +26,8 @@
     //retailer_place_order in distributor
     <string name="tab_text_rpoid_01">\t\tPlace Order\t\t</string>
     <string name="tab_text_rpoid_02">\t\tOrder Summary\t\t</string>
-    <string name="tab_retailer_order">Order</string>
-    <string name="tab_retailer_payment">Payment</string>
+    <string name="tab_retailer_order">\t\t\t\tOrder\t\t\t\t</string>
+    <string name="tab_retailer_payment">\t\t\t\tPayment\t\t\t\t</string>
 
         
     <string name="load_more"><u>Load More</u></string>
