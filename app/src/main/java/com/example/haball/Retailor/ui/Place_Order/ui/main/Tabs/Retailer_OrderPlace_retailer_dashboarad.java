@@ -81,7 +81,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
     private List<String> temp_listqty = new ArrayList<>();
     private List<String> selectedProductsQuantityList = new ArrayList<>();
     private float grossAmount = 0;
-    private Button btn_checkout;
+    private Button btn_checkout, btn_close;
     private Spinner spinner_conso;
     private List<String> totalCategoryTitle = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapterSpinnerConso;
@@ -105,6 +105,13 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_order_place_retailer_dashboarad, container, false);
         btn_checkout = view.findViewById(R.id.btn_checkout);
+        btn_close = view.findViewById(R.id.close_button);
+        btn_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         recyclerView = view.findViewById(R.id.rv_order_list);
         spinner_container_main = view.findViewById(R.id.spinner_container_main);
 //        subchlid_RV = view.findViewById(R.id.subchlid_RV);
