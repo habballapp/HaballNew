@@ -52,9 +52,9 @@ public class CreatePaymentRequestFragment extends Fragment {
     private String Token, DistributorId, ID;
     private Button btn_create;
 
-    //    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:3020/api/kyc/KYCDistributorList";
-    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:3020/api/prepaidrequests/GetByRetailerCode";
-    private String URL_PAYMENT_REQUESTS_SAVE = "http://175.107.203.97:3020/api/prepaidrequests/save";
+    //    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4014/api/kyc/KYCDistributorList";
+    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4014/api/prepaidrequests/GetByRetailerCode";
+    private String URL_PAYMENT_REQUESTS_SAVE = "http://175.107.203.97:4014/api/prepaidrequests/save";
 
     private List<String> CompanyNames = new ArrayList<>();
     private HashMap<String, String> companyNameAndId = new HashMap<>();

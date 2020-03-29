@@ -76,7 +76,7 @@ public class DashBoardFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private String Token,DistributorId;;
-    private String URL = "http://175.107.203.97:3020/api/prepaidrequests/search";
+    private String URL = "http://175.107.203.97:4014/api/prepaidrequests/search";
     private List<RetailerPaymentModel> PaymentsList = new ArrayList<>();
     //spiner1
     private Spinner payment_retailer_spiner1;

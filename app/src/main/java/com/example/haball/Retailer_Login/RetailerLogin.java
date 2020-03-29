@@ -63,8 +63,8 @@ public class RetailerLogin extends AppCompatActivity {
     private TextInputLayout layout_username, layout_password;
     private Toolbar tb;
     private RequestQueue queue;
-    private String URL = "http://175.107.203.97:3020/Token";
-//    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:3020/api/Users/forgot";
+    private String URL = "http://175.107.203.97:4014/Token";
+//    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4014/api/Users/forgot";
     private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4013/api/users/forgot";
     private HttpURLConnection urlConnection = null;
     private java.net.URL url;

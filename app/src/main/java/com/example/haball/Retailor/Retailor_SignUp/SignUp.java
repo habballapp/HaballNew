@@ -42,7 +42,7 @@ import java.util.Iterator;
 public class SignUp extends AppCompatActivity implements View.OnFocusChangeListener {
 
     private ImageButton btn_back;
-    private String URL = "http://175.107.203.97:3020/api/retailer/Register";
+    private String URL = "http://175.107.203.97:4014/api/retailer/Register";
     private EditText txt_username, txt_password, txt_confirmpass, txt_fullname, txt_email, txt_cnic, txt_mobile_number, txt_business_name, txt_address;
     private Button btn_register_signup, btn_register_close;
     private Boolean password_check = false, confirm_password_check = false;

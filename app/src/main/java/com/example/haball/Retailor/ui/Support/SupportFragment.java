@@ -66,7 +66,7 @@ public class SupportFragment extends Fragment {
     private ArrayList<String> array = new ArrayList<>();
     private Button btn_add_ticket_retailer;
     private String Token, DistributorId;
-    private String URL_SUPPORT = "http://175.107.203.97:3020/api/support/Search";
+    private String URL_SUPPORT = "http://175.107.203.97:4014/api/support/Search";
     private SupportViewModel supportViewModel;
     private List<SupportDashboardRetailerModel> SupportList = new ArrayList<>();
     //spinner1
