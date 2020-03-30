@@ -134,8 +134,8 @@ public class CreatePaymentRequestFragment extends Fragment {
 
         JSONObject map = new JSONObject();
         map.put("ID", 0);
-//        map.put("DealerCode", companyNameAndId.get(company_names));
-        map.put("DealerCode", "201911672");
+        map.put("DealerCode", companyNameAndId.get(company_names));
+//        map.put("DealerCode", "201911672");
         map.put("PaidAmount", txt_amount.getText().toString());
 
         Log.i("JSON ", String.valueOf(map));
