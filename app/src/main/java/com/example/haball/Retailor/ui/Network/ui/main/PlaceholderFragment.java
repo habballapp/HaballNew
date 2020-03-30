@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.haball.R;
 import com.example.haball.Retailor.ui.Network.Adapters.Fragment_My_Network_Adapter;
@@ -25,10 +26,12 @@ public class PlaceholderFragment extends Fragment {
     private RecyclerView recyclerView,recyclerView1,recyclerView2;
     private RecyclerView.Adapter mAdapter,mAdapter1,mAdapter2;
     private RecyclerView.LayoutManager layoutManager;
+    private TextView tv_shipment_no_data, tv_shipment_no_data1,tv_shipment_no_data3;
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     private PageViewModel pageViewModel;
+
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -63,6 +66,7 @@ public class PlaceholderFragment extends Fragment {
 
                 rootView = inflater.inflate(R.layout.fragment_my__network_, container, false);
                 recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_my_network);
+
                 recyclerView.setHasFixedSize(false);
                 // use a linear layout manager
                 layoutManager = new LinearLayoutManager(getContext());

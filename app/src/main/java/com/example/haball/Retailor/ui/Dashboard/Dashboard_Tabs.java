@@ -21,7 +21,7 @@ public class Dashboard_Tabs extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        final View root = inflater.inflate(R.layout.activity_dashboard__tabs, container, false);
+        final View root = inflater.inflate(R.layout.fragment_dashboard__tabs, container, false);
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getActivity(), getChildFragmentManager());
         final ViewPager viewPager = root.findViewById(R.id.view_pager5);

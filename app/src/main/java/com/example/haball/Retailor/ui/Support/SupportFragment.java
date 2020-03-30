@@ -4,12 +4,6 @@ package com.example.haball.Retailor.ui.Support;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -53,6 +47,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -60,6 +59,7 @@ public class SupportFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
+    private TextView tv_shipment_no_data;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<String> array = new ArrayList<>();
     private Button btn_add_ticket_retailer;
@@ -117,6 +117,8 @@ public class SupportFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
+        tv_shipment_no_data.setVisibility(View.GONE);
 
         try {
             fetchSupport();
@@ -357,6 +359,14 @@ public class SupportFragment extends Fragment {
 
                 mAdapter = new SupportDashboardRetailerAdapter(getContext(), SupportList);
                 recyclerView.setAdapter(mAdapter);
+
+                if (response.length() != 0) {
+                    tv_shipment_no_data.setVisibility(View.GONE);
+
+                } else {
+
+                    tv_shipment_no_data.setVisibility(View.VISIBLE);
+                }
 
             }
         }, new Response.ErrorListener() {
