@@ -78,6 +78,7 @@ public class CreatePaymentRequestFragment extends Fragment {
         layout_txt_amount = root.findViewById(R.id.layout_txt_amount);
         layout_txt_amount.setBoxStrokeColor(Color.parseColor("#e5e5e5"));
         CompanyNames.add("Company *");
+        company_names = "";
 
         arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, CompanyNames);

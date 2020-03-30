@@ -42,9 +42,11 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
         Gson gson = new Gson();
         object_stringqty = selectedProducts.getString("selected_products_qty", "");
         object_string = selectedProducts.getString("selected_products", "");
-        Type type = new TypeToken<List<OrderChildlist_Model>>() {}.getType();
-        Type typeString = new TypeToken<List<String>>() {}.getType();
-        if(!object_string.equals("")) {
+        Type type = new TypeToken<List<OrderChildlist_Model>>() {
+        }.getType();
+        Type typeString = new TypeToken<List<String>>() {
+        }.getType();
+        if (!object_string.equals("")) {
             selectedProductsDataList = gson.fromJson(object_string, type);
             selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
             Log.i("selectedProductsQty", String.valueOf(object_stringqty));
@@ -76,7 +78,6 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
         orderParentLIst_vh._textview.setText(orderParentlist_model.getTitle());
 
     }
-
 
 
     @Override
@@ -123,18 +124,19 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                String str_quantity = String.valueOf(s);
 //                Log.i("textChanged12", "check");
 //                Log.i("textChanged11", String.valueOf(s));
-                if (!String.valueOf(s).equals("")) {
-                    if (temp_orderChildList_vh.list_txt_products.getText().equals(temp_orderChildlist_model.getTitle())) {
-                        if (Float.parseFloat(String.valueOf(s)) <= 0) {
-                            Toast.makeText(context, "Quantity must be greater than 0", Toast.LENGTH_LONG).show();
-                        }
-                        Log.i("textChanged", String.valueOf(temp_orderChildlist_model.getTitle()));
-                        Log.i("textChanged11", String.valueOf(temp_orderChildList_vh.list_txt_products.getText()));
-                        checkOutEnabler(temp_orderChildList_vh, temp_i, temp_orderChildlist_model, String.valueOf(s));
+                if (String.valueOf(s).equals(""))
+                    str_quantity = "0";
+
+                if (temp_orderChildList_vh.list_txt_products.getText().equals(temp_orderChildlist_model.getTitle())) {
+                    if (Float.parseFloat(str_quantity) <= 0) {
+                        Toast.makeText(context, "Quantity must be greater than 0", Toast.LENGTH_LONG).show();
                     }
+                    Log.i("textChanged", String.valueOf(temp_orderChildlist_model.getTitle()));
+                    Log.i("textChanged11", String.valueOf(temp_orderChildList_vh.list_txt_products.getText()));
+                    checkOutEnabler(temp_orderChildList_vh, temp_i, temp_orderChildlist_model, str_quantity);
                 }
             }
         };
@@ -143,7 +145,7 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
     }
 
     private void setQuantity(OrderChildList_VH orderChildList_vh, OrderChildlist_Model orderChildlist_model) {
-        if(selectedProductsQuantityList != null && selectedProductsDataList != null) {
+        if (selectedProductsQuantityList != null && selectedProductsDataList != null) {
             for (int j = 0; j < selectedProductsDataList.size(); j++) {
                 if (selectedProductsDataList.get(j).getTitle().equals(orderChildlist_model.getTitle()) && selectedProductsDataList.get(j).getProductCode().equals(orderChildlist_model.getProductCode())) {
                     Log.i("foundItem", String.valueOf(orderChildlist_model.getTitle()));

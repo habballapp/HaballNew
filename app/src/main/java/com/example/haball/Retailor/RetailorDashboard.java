@@ -75,7 +75,8 @@ public class RetailorDashboard extends AppCompatActivity  {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
-        drawer.setScrimColor(Color.parseColor("#33000000"));
+//        drawer.setScrimColor(Color.parseColor("#33000000"));
+        drawer.setScrimColor(getResources().getColor(android.R.color.transparent));
 
         toggle.syncState();
         toggle.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
@@ -108,6 +109,7 @@ public class RetailorDashboard extends AppCompatActivity  {
                 .addHeaderModel(new HeaderModel("Profile"))
                 .addHeaderModel(new HeaderModel("Support"))
                 .addHeaderModel(new HeaderModel("Logout"))
+                .addHeaderModel(new HeaderModel("\n\n\n\nTerms And Conditions"))
                 .build()
                 .addOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
                     @Override
