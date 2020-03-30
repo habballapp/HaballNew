@@ -7,6 +7,7 @@ public class RetailerPaymentModel {
     String Status;
     String TotalPrice;
     String IsEditable;
+    String PrepaidStatusValue;
 
     public RetailerPaymentModel(String ID, String prePaidNumber, String companyName, String status, String paidAmount, String isEditable) {
         this.RetailerInvoiceId = ID;
@@ -63,5 +64,14 @@ public class RetailerPaymentModel {
 
     public void setPaidAmount(String paidAmount) {
         TotalPrice = paidAmount;
+    }
+
+    public String getPrepaidStatusValue() {
+
+       return PrepaidStatusValue;
+    }
+
+    public void setPrepaidStatusValue(String prepaidStatusValue) {
+        PrepaidStatusValue = prepaidStatusValue;
     }
 }
