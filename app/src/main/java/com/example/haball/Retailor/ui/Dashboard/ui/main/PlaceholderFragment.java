@@ -92,9 +92,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private TextView tv_shipment_no_data, tv_shipment_no_data1;
     private List<RetailerPaymentModel> PaymentsList = new ArrayList<>();
     //spiner1
-    private Spinner payment_retailer_spiner1;
-    private List<String> payment = new ArrayList<>();
-    private ArrayAdapter<String> arrayAdapterPayments_Ret;
+
     private String Filter_selected, Filter_selected_value;
     //spinner2
     private Spinner payment_retailer_spiner2;

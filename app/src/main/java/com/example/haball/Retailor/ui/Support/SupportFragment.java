@@ -1,6 +1,7 @@
 package com.example.haball.Retailor.ui.Support;
 
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,10 +11,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +38,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.support.MyJsonArrayRequest;
 import com.example.haball.R;
 import com.example.haball.Retailor.Retailer_Support.Support_Ticket_Form_Retailer;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -42,10 +49,13 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -55,7 +65,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SupportFragment extends Fragment {
+public class SupportFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -68,28 +78,26 @@ public class SupportFragment extends Fragment {
     private SupportDashboardRetailerModel supportViewModel;
     private List<SupportDashboardRetailerModel> SupportList = new ArrayList<>();
     //spinner1
-    private Spinner support_retailer_spiner1;
-    private List<String> supportspinner_List = new ArrayList<>();
-    private ArrayAdapter<String> arrayAdapterSupport_ret;
-    private String Filter_Select, Felter_Selected_value;
-    //spinner2
-    private Spinner support_retailer_spiner2;
-    private List<String> filterList = new ArrayList<>();
-    private ArrayAdapter<String> arrayAdapterFilterList;
-    private EditText edt_support_ret;
-    private Spinner spinner_criteria;
-
+    private ArrayAdapter<String> arrayAdapterPayments, arrayAdapterPaymentsFilter;
+    private String Filter_selected1, Filter_selected2;
+    private TextInputLayout search_bar;
     private Spinner spinner_consolidate;
     private Spinner spinner2;
     private EditText conso_edittext;
+    private RelativeLayout spinner_container1;
     private List<String> consolidate_felter = new ArrayList<>();
     private List<String> filters = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapterFeltter;
-
-    private String Company_selected;
     private String Filter_selected, Filter_selected_value;
-    private List<String> company_names = new ArrayList<>();
-    private ArrayAdapter<String> arrayAdapterPayments, arrayAdapterPaymentsFilter;
+    private ImageButton first_date_btn, second_date_btn;
+    private LinearLayout date_filter_rl, amount_filter_rl;
+    private TextView first_date, second_date;
+    private String fromDate, toDate, fromAmount, toAmount;
+    private RelativeLayout spinner_container_main;
+    private static int y;
+    private String dateType = "";
+    private int year1, year2, month1, month2, date1, date2;
+    private List<String> scrollEvent = new ArrayList<>();
 
     public SupportFragment() {
         // Required empty public constructor
@@ -113,7 +121,7 @@ public class SupportFragment extends Fragment {
         });
         //init
         recyclerView = root.findViewById(R.id.rv_support_complaints_retailer);
-
+        spinner_container_main= root.findViewById(R.id.spinner_container_main);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -126,20 +134,30 @@ public class SupportFragment extends Fragment {
             e.printStackTrace();
         }
 
-//        spinner_criteria = root.findViewById(R.id.spinner_criteria);
-//        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
-//                android.R.layout.simple_spinner_dropdown_item, company_names);
+        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
+        search_bar = root.findViewById(R.id.search_bar);
+
+        // DATE FILTERS ......
+        date_filter_rl = root.findViewById(R.id.date_filter_rl);
+        first_date = root.findViewById(R.id.first_date);
+        first_date_btn = root.findViewById(R.id.first_date_btn);
+        second_date = root.findViewById(R.id.second_date);
+        second_date_btn = root.findViewById(R.id.second_date_btn);
+
         spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
-//        spinner_consolidate.setVisibility(View.GONE);
-        spinner2.setVisibility(View.GONE);
+        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
+        tv_shipment_no_data.setVisibility(View.GONE);
+        spinner_container1 = root.findViewById(R.id.spinner_container1);
+        spinner_container1.setVisibility(View.GONE);
+        date_filter_rl.setVisibility(View.GONE);
         conso_edittext.setVisibility(View.GONE);
         consolidate_felter.add("Select Criteria");
-        consolidate_felter.add("Contact Name");
-        consolidate_felter.add("Issue Type");
-        consolidate_felter.add("Created Date");
+        consolidate_felter.add("Ticket ID");
         consolidate_felter.add("Status");
+        consolidate_felter.add("Created Date");
+        consolidate_felter.add("Issue Type");
 
         arrayAdapterPaymentsFilter = new ArrayAdapter<>(root.getContext(),
                 android.R.layout.simple_dropdown_item_1line, consolidate_felter);
@@ -148,35 +166,29 @@ public class SupportFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 filters = new ArrayList<>();
-                spinner2.setVisibility(View.GONE);
+                spinner_container1.setVisibility(View.GONE);
+                date_filter_rl.setVisibility(View.GONE);
                 conso_edittext.setVisibility(View.GONE);
+
                 if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 } else {
                     Filter_selected = consolidate_felter.get(i);
 
-                    if (!Filter_selected.equals("Issue Type"))
-                        spinner2.setSelection(0);
-                    if (!conso_edittext.getText().equals(""))
-                        conso_edittext.setText("");
-
-                    if (Filter_selected.equals("Contact Name")) {
-                        Filter_selected = "ContactName";
+                    spinner2.setSelection(0);
+                    conso_edittext.setText("");
+                    if (Filter_selected.equals("Ticket ID")) {
+                        search_bar.setHint("Search by " + Filter_selected);
+                      Filter_selected = "TicketNumber";
                         conso_edittext.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Issue Type")) {
                         Filter_selected = "IssueType";
-                        spinner2.setVisibility(View.VISIBLE);
-
+                        spinner_container1.setVisibility(View.VISIBLE);
                         filters.add("Issue Type");
-                        filters.add("Main Dashboard");
-                        filters.add("Connecting with Businesses");
-                        filters.add("Contracting");
-                        filters.add("Order");
-                        filters.add("Invoice");
-                        filters.add("Shipment");
-                        filters.add("My Prepaid Account");
-                        filters.add("My Profile");
-                        filters.add("Reports");
+                        filters.add("Make Payment");
+                        filters.add("Profile");
+                        filters.add("Account & Wallet");
+                        filters.add("Change Password");
 
                         arrayAdapterFeltter = new ArrayAdapter<>(getContext(),
                                 android.R.layout.simple_dropdown_item_1line, filters);
@@ -186,14 +198,33 @@ public class SupportFragment extends Fragment {
                         spinner2.setAdapter(arrayAdapterFeltter);
 
                     } else if (Filter_selected.equals("Created Date")) {
-                        Toast.makeText(getContext(), "Created Date selected", Toast.LENGTH_LONG).show();
+                        date_filter_rl.setVisibility(View.VISIBLE);
+//                        Toast.makeText(getContext(), "Created Date selected", Toast.LENGTH_LONG).show();
+                        Filter_selected = "date";
+                        Filter_selected1 = "DateFrom";
+                        Filter_selected2 = "DateTo";
+                        first_date_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openCalenderPopup("first date");
+                            }
+                        });
+                        second_date_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openCalenderPopup("second date");
+                            }
+                        });
                     } else if (Filter_selected.equals("Status")) {
+
                         Filter_selected = "Status";
-                        spinner2.setVisibility(View.VISIBLE);
+                        tv_shipment_no_data.setVisibility(View.GONE);
+                        spinner_container1.setVisibility(View.VISIBLE);
 
                         filters.add("Status");
                         filters.add("Pending");
                         filters.add("Resolved");
+                        filters.add("Inactive");
 
                         arrayAdapterFeltter = new ArrayAdapter<>(getContext(),
                                 android.R.layout.simple_dropdown_item_1line, filters);
@@ -207,7 +238,6 @@ public class SupportFragment extends Fragment {
                 }
             }
 
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -217,12 +247,6 @@ public class SupportFragment extends Fragment {
         arrayAdapterPaymentsFilter.notifyDataSetChanged();
         spinner_consolidate.setAdapter(arrayAdapterPaymentsFilter);
 
-        filters.add("Document Type");
-        filters.add("Invoice");
-        filters.add("Prepaid ");
-        filters.add("Shipment");
-        arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_dropdown_item_1line, filters);
         Log.i("aaaa1111", String.valueOf(consolidate_felter));
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -230,7 +254,7 @@ public class SupportFragment extends Fragment {
                 if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 } else {
-                    Filter_selected_value = String.valueOf(i);
+                    Filter_selected_value = filters.get(i);
                     Log.i("Filter_selected_value", Filter_selected_value);
                     try {
                         fetchFilteredSupport();
@@ -246,9 +270,6 @@ public class SupportFragment extends Fragment {
 
             }
         });
-        arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        arrayAdapterFeltter.notifyDataSetChanged();
-        spinner2.setAdapter(arrayAdapterFeltter);
 
 
         conso_edittext.addTextChangedListener(new TextWatcher() {
@@ -257,10 +278,19 @@ public class SupportFragment extends Fragment {
                 Log.i("text1", "check");
                 Log.i("text", String.valueOf(s));
                 Filter_selected_value = String.valueOf(s);
-                try {
-                    fetchFilteredSupport();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (!Filter_selected_value.equals("")) {
+
+                    try {
+                        fetchFilteredSupport();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        fetchSupport();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
@@ -270,9 +300,88 @@ public class SupportFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
         });
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                scrollEvent = new ArrayList<>();
 
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+                y = dy;
+                if (dy <= -5) {
+                    scrollEvent.add("ScrollDown");
+//                            Log.i("scrolling", "Scroll Down");
+                } else if (dy > 5) {
+                    scrollEvent.add("ScrollUp");
+//                            Log.i("scrolling", "Scroll Up");
+                }
+                String scroll = getScrollEvent();
+
+                if (scroll.equals("ScrollDown")) {
+                    if (spinner_container_main.getVisibility() == View.GONE) {
+
+                        spinner_container_main.setVisibility(View.VISIBLE);
+                        TranslateAnimation animate1 = new TranslateAnimation(
+                                0,                 // fromXDelta
+                                0,                 // toXDelta
+                                -spinner_container_main.getHeight(),  // fromYDelta
+                                0);                // toYDelta
+                        animate1.setDuration(250);
+                        animate1.setFillAfter(true);
+                        spinner_container_main.clearAnimation();
+                        spinner_container_main.startAnimation(animate1);
+                    }
+                } else if (scroll.equals("ScrollUp")) {
+                    y = 0;
+                    if (spinner_container_main.getVisibility() == View.VISIBLE) {
+//                                line_bottom.setVisibility(View.INVISIBLE);
+                        TranslateAnimation animate = new TranslateAnimation(
+                                0,                 // fromXDelta
+                                0,                 // toXDelta
+                                0,  // fromYDelta
+                                -spinner_container_main.getHeight()); // toYDelta
+                        animate.setDuration(100);
+                        animate.setFillAfter(true);
+                        spinner_container_main.clearAnimation();
+                        spinner_container_main.startAnimation(animate);
+                        spinner_container_main.setVisibility(View.GONE);
+                    }
+                }
+
+            }
+
+        });
         return root;
     }
+    private void openCalenderPopup(String date_type) {
+        dateType = date_type;
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+
+        DatePickerDialog dialog = new DatePickerDialog(getContext(), R.style.DialogTheme, this,
+                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+        dialog.show();
+    }
+    @Override
+    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+        if (dateType.equals("first date")) {
+            year1 = i;
+            month1 = i1;
+            date1 = i2;
+            updateDisplay(dateType);
+        } else if (dateType.equals("second date")) {
+            year2 = i;
+            month2 = i1;
+            date2 = i2;
+            updateDisplay(dateType);
+        }
+    }
+
 
     private void fetchSupport() throws JSONException {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
@@ -425,5 +534,49 @@ public class SupportFragment extends Fragment {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void updateDisplay(String date_type) {
+        if (date_type.equals("first date")) {
+            fromDate = year1 + "-" + String.format("%02d", (month1 + 1)) + "-" + String.format("%02d", date1) + "T00:00:00.000Z";
+            Log.i("fromDate", fromDate);
+
+            first_date.setText(new StringBuilder()
+                    .append(date1).append("/").append(month1 + 1).append("/").append(year1).append(" "));
+        } else if (date_type.equals("second date")) {
+            toDate = year2 + "-" + String.format("%02d", (month2 + 1)) + "-" + String.format("%02d", date2) + "T00:00:00.000Z";
+            second_date.setText(new StringBuilder()
+                    .append(date2).append("/").append(month2 + 1).append("/").append(year2).append(" "));
+        }
+
+        try {
+            fetchFilteredSupport();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    private String getScrollEvent() {
+        String scroll = "";
+        if (scrollEvent.size() > 0) {
+            if (scrollEvent.size() > 15)
+                scrollEvent = new ArrayList<>();
+            if (Collections.frequency(scrollEvent, "ScrollUp") > Collections.frequency(scrollEvent, "ScrollDown")) {
+                if (Collections.frequency(scrollEvent, "ScrollDown") > 0) {
+                    if (Collections.frequency(scrollEvent, "ScrollUp") > 3)
+                        scroll = "ScrollUp";
+                } else {
+                    scroll = "ScrollUp";
+                }
+            } else if (Collections.frequency(scrollEvent, "ScrollUp") < Collections.frequency(scrollEvent, "ScrollDown")) {
+                if (Collections.frequency(scrollEvent, "ScrollUp") > 0) {
+                    if (Collections.frequency(scrollEvent, "ScrollDown") > 3)
+                        scroll = "ScrollDown";
+                } else {
+                    scroll = "ScrollDown";
+                }
+            }
+        }
+//        Log.i("distinct", scroll);
+        return scroll;
     }
 }
