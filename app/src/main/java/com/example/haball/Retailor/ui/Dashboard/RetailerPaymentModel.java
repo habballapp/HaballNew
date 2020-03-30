@@ -66,8 +66,12 @@ public class RetailerPaymentModel {
         TotalPrice = paidAmount;
     }
 
-    public Object getPrepaidStatusValue() {
+    public String getPrepaidStatusValue() {
 
        return PrepaidStatusValue;
+    }
+
+    public void setPrepaidStatusValue(String prepaidStatusValue) {
+        PrepaidStatusValue = prepaidStatusValue;
     }
 }
