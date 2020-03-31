@@ -7,39 +7,32 @@ public class RetailerPaymentModel {
     String Status;
     String TotalPrice;
     String IsEditable;
-    String PrepaidStatusValue;
+    String CreatedDate;
 
-    public RetailerPaymentModel(String ID, String prePaidNumber, String companyName, String status, String paidAmount, String isEditable) {
-        this.RetailerInvoiceId = ID;
-        InvoiceNumber = prePaidNumber;
+    public RetailerPaymentModel(String retailerInvoiceId, String invoiceNumber, String companyName, String status, String totalPrice, String isEditable, String createdDate) {
+        RetailerInvoiceId = retailerInvoiceId;
+        InvoiceNumber = invoiceNumber;
         CompanyName = companyName;
         Status = status;
-        TotalPrice = paidAmount;
+        TotalPrice = totalPrice;
         IsEditable = isEditable;
+        CreatedDate = createdDate;
     }
 
-    public String getIsEditable() {
-        return IsEditable;
-    }
-
-    public void setIsEditable(String isEditable) {
-        IsEditable = isEditable;
-    }
-
-    public String getID() {
+    public String getRetailerInvoiceId() {
         return RetailerInvoiceId;
     }
 
-    public void setID(String ID) {
-        this.RetailerInvoiceId = ID;
+    public void setRetailerInvoiceId(String retailerInvoiceId) {
+        RetailerInvoiceId = retailerInvoiceId;
     }
 
-    public String getPrePaidNumber() {
+    public String getInvoiceNumber() {
         return InvoiceNumber;
     }
 
-    public void setPrePaidNumber(String prePaidNumber) {
-        InvoiceNumber = prePaidNumber;
+    public void setInvoiceNumber(String invoiceNumber) {
+        InvoiceNumber = invoiceNumber;
     }
 
     public String getCompanyName() {
@@ -58,20 +51,27 @@ public class RetailerPaymentModel {
         Status = status;
     }
 
-    public String getPaidAmount() {
+    public String getTotalPrice() {
         return TotalPrice;
     }
 
-    public void setPaidAmount(String paidAmount) {
-        TotalPrice = paidAmount;
+    public void setTotalPrice(String totalPrice) {
+        TotalPrice = totalPrice;
     }
 
-    public String getPrepaidStatusValue() {
-
-       return PrepaidStatusValue;
+    public String getIsEditable() {
+        return IsEditable;
     }
 
-    public void setPrepaidStatusValue(String prepaidStatusValue) {
-        PrepaidStatusValue = prepaidStatusValue;
+    public void setIsEditable(String isEditable) {
+        IsEditable = isEditable;
+    }
+
+    public String getCreatedDate() {
+        return CreatedDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        CreatedDate = createdDate;
     }
 }
