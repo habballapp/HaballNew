@@ -252,29 +252,27 @@
             android:orientation="vertical"
             android:weightSum="2">
 
-            <Button
-                android:id="@+id/btn_changepwd"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_background"
-                android:gravity="center"
-                android:text="Change Password"
-                android:textAllCaps="false"
-                android:textColor="#fff"
-                android:textSize="14sp"
+<!--            <Button-->
+<!--                android:id="@+id/btn_changepwd"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:layout_marginLeft="30dp"-->
+<!--                android:layout_marginRight="30dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="@drawable/button_background"-->
+<!--                android:gravity="center"-->
+<!--                android:text="Change Password"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="#fff"-->
+<!--                android:textSize="14sp"-->
 
-                />
+<!--                />-->
 
             <Button
                 android:id="@+id/btn_save_password"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_below="@id/btn_changepwd"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="20sp"
                 android:layout_marginRight="30dp"
                 android:background="@drawable/disabled_button_background"
                 android:text="Save"

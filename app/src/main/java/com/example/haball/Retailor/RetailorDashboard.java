@@ -3,7 +3,6 @@ package com.example.haball.Retailor;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,8 +13,6 @@ import android.widget.TextView;
 
 import com.example.haball.Distributor.ui.expandablelist.CustomExpandableListModel;
 import com.example.haball.R;
-import com.example.haball.Retailer_Login.RetailerLogin;
-import com.example.haball.Retailor.ui.Dashboard.DashBoardFragment;
 import com.example.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
 import com.example.haball.Retailor.ui.Make_Payment.CreatePaymentRequestFragment;
 import com.example.haball.Retailor.ui.Make_Payment.Payment_Summary;
@@ -23,10 +20,9 @@ import com.example.haball.Retailor.ui.Network.My_NetworkDashboard;
 import com.example.haball.Retailor.ui.Notification.Notification_Fragment;
 import com.example.haball.Retailor.ui.Place_Order.PlaceOrderFragment;
 import com.example.haball.Retailor.ui.Place_Order.Retailer_Place_Order;
-import com.example.haball.Retailor.ui.Profile.ProfileFragment;
+import com.example.haball.Retailor.ui.Profile.Profile_Tabs;
 import com.example.haball.Retailor.ui.Support.SupportFragment;
 import com.example.haball.Select_User.Register_Activity;
-import com.example.haball.SplashScreen.SplashScreen;
 import com.techatmosphere.expandablenavigation.model.HeaderModel;
 import com.techatmosphere.expandablenavigation.view.ExpandableNavigationListView;
 
@@ -155,7 +151,7 @@ public class RetailorDashboard extends AppCompatActivity  {
                         } else if (id == 4) {
                             Log.i("Profile", "Profile Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new ProfileFragment());
+                            fragmentTransaction.replace(R.id.main_container_ret, new Profile_Tabs());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 5) {

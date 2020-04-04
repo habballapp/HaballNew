@@ -7,10 +7,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
-
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,11 +31,8 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.haball.Distributor.ui.profile.Profile_Model;
 import com.example.haball.R;
-import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,6 +42,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -57,6 +53,7 @@ public class ProfileFragment extends Fragment {
     private Button btn_changepwd, btn_save_password, update_password;
     private EditText Rfirstname, Remail, Rcode, Rcnic, Rmobile, R_created_date, R_Address, txt_password, txt_newpassword, txt_cfmpassword;
     private TextView tv_pr1;
+
     private String PROFILE_URL = "http://175.107.203.97:4014/api/retailer/";
     private String ChangePass_URL = "http://175.107.203.97:4014/api/Users/ChangePassword";
     private String PROFILE_EDIT_URL = "http://175.107.203.97:4014/api/retailer/Save";
@@ -167,45 +164,45 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
-        btn_changepwd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                change_password_dail = new Dialog(getActivity());
-                //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
-                change_password_dail.setContentView(R.layout.pasword_change);
-                change_password_dail.setCancelable(true);
-                change_password_dail.show();
-                ImageButton close_button = change_password_dail.findViewById(R.id.image_button);
-                txt_password = change_password_dail.findViewById(R.id.txt_password);
-                txt_newpassword = change_password_dail.findViewById(R.id.txt_newpassword);
-                txt_cfmpassword = change_password_dail.findViewById(R.id.txt_cfmpassword);
-                close_button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        change_password_dail.dismiss();
-                    }
-                });
-                update_password = change_password_dail.findViewById(R.id.update_password);
-                update_password.setOnClickListener(new View.OnClickListener() {
-                    @RequiresApi(api = Build.VERSION_CODES.O)
-                    @Override
-                    public void onClick(View v) {
-                        if (!String.valueOf(txt_password.getText()).equals("")) {
-                            try {
-                                updatePassword();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        } else {
-                            Toast.makeText(getContext(), "Please fill Old Password", Toast.LENGTH_LONG).show();
-                        }
-
-                    }
-                });
-            }
-
-        });
-        profileData();
+//        btn_changepwd.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                change_password_dail = new Dialog(getActivity());
+//                //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+//                change_password_dail.setContentView(R.layout.pasword_change);
+//                change_password_dail.setCancelable(true);
+//                change_password_dail.show();
+//                ImageButton close_button = change_password_dail.findViewById(R.id.image_button);
+//                txt_password = change_password_dail.findViewById(R.id.txt_password);
+//                txt_newpassword = change_password_dail.findViewById(R.id.txt_newpassword);
+//                txt_cfmpassword = change_password_dail.findViewById(R.id.txt_cfmpassword);
+//                close_button.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        change_password_dail.dismiss();
+//                    }
+//                });
+////                update_password = change_password_dail.findViewById(R.id.update_password);
+////                update_password.setOnClickListener(new View.OnClickListener() {
+////                    @RequiresApi(api = Build.VERSION_CODES.O)
+////                    @Override
+////                    public void onClick(View v) {
+////                        if (!String.valueOf(txt_password.getText()).equals("")) {
+////                            try {
+////                                updatePassword();
+////                            } catch (JSONException e) {
+////                                e.printStackTrace();
+////                            }
+////                        } else {
+////                            Toast.makeText(getContext(), "Please fill Old Password", Toast.LENGTH_LONG).show();
+////                        }
+////
+////                    }
+////                });
+//            }
+//
+//        });
+     profileData();
 
         return root;
     }
