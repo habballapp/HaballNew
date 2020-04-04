@@ -7,38 +7,39 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.haball.R;
-import com.example.haball.Retailor.ui.Network.Select_Tabs.Sent_Fragment;
+import com.example.haball.Retailor.ui.Network.Models.Network_Sent_Model;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class Fragment_Sent_Adaptor extends RecyclerView.Adapter<Fragment_Sent_Adaptor.ViewHolder> {
+import java.util.List;
+
+public class Fragment_Sent_Adapter extends RecyclerView.Adapter<Fragment_Sent_Adapter.ViewHolder> {
 
     private Context context;
-    private String Number,Address;
+    private List<Network_Sent_Model> sentDataList;
 
-    public Fragment_Sent_Adaptor(Context context, String number, String address) {
+    public Fragment_Sent_Adapter(Context context, List<Network_Sent_Model> sentDataList) {
         this.context = context;
-        Number = number;
-        Address = address;
+        this.sentDataList = sentDataList;
     }
 
-    public Fragment_Sent_Adaptor.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public Fragment_Sent_Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view_inflate = LayoutInflater.from(context).inflate(R.layout.fragment_sent_recycler,parent,false);
-        return new Fragment_Sent_Adaptor.ViewHolder(view_inflate);
+        return new Fragment_Sent_Adapter.ViewHolder(view_inflate);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Fragment_Sent_Adaptor.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull Fragment_Sent_Adapter.ViewHolder holder, int position) {
 
-        holder.send_no_value.setText(Number);
-        holder.send_address_value.setText(Address);
+        holder.send_no_value.setText(sentDataList.get(position).getMobile());
+        holder.send_address_value.setText(sentDataList.get(position).getAddress());
 
     }
 
     @Override
     public int getItemCount() {
-        return 2;
+        return sentDataList.size();
     }
 
 

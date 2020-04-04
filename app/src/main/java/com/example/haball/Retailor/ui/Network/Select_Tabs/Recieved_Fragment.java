@@ -1,18 +1,15 @@
 package com.example.haball.Retailor.ui.Network.Select_Tabs;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.haball.R;
-import com.example.haball.Retailor.ui.Network.Models.Fragment_My_Netwok_Model;
+import com.example.haball.Retailor.ui.Network.Models.Netwok_Model;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,7 +21,7 @@ public class Recieved_Fragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    Fragment_My_Netwok_Model paymentsViewModel;
+    Netwok_Model paymentsViewModel;
 
 
     @Override
