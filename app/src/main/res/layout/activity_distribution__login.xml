@@ -247,6 +247,7 @@
                         android:textSize="14sp" />
                 </LinearLayout>
 
+
                 <TextView
                     android:id="@+id/footer"
                     android:layout_width="match_parent"

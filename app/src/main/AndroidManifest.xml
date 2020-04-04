@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light"
         android:usesCleartextTraffic="true">
+        <activity android:name="Forgot_Password.Forgot_Pass_Distributor"></activity>
         <activity
             android:name=".Retailor.ui.Place_Order.Retailer_Place_Order"
             android:theme="@style/NoActionBar" />
