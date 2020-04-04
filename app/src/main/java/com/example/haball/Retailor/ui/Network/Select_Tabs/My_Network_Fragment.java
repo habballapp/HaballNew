@@ -11,8 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.haball.Retailor.ui.Network.Adapters.Fragment_My_Network_Adapter;
-import com.example.haball.Retailor.ui.Network.Models.Fragment_My_Netwok_Model;
+import com.example.haball.Retailor.ui.Network.Models.Netwok_Model;
 import com.example.haball.R;
 
 /**
@@ -23,7 +22,7 @@ public class My_Network_Fragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    Fragment_My_Netwok_Model paymentsViewModel;
+    Netwok_Model paymentsViewModel;
 
 
     @Override
