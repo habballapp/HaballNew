@@ -370,7 +370,7 @@ public class Distribution_Login extends AppCompatActivity {
 
                         editor.apply();
 
-                        Toast.makeText(Distribution_Login.this, "Login Success", Toast.LENGTH_LONG).show();
+                        // Toast.makeText(Distribution_Login.this, "Login Success", Toast.LENGTH_LONG).show();
                         Intent login_intent = new Intent(Distribution_Login.this, DistributorDashboard.class);
                         startActivity(login_intent);
                         finish();

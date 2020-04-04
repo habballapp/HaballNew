@@ -129,7 +129,7 @@ public class DistributorOrderAdapter extends RecyclerView.Adapter<DistributorOrd
                         switch (item.getItemId()) {
                             case R.id.orders_view:
                                 Log.i("text1", "View Item");
-                                Toast.makeText(context,"View Clicked",Toast.LENGTH_LONG).show();
+                                // Toast.makeText(context,"View Clicked",Toast.LENGTH_LONG).show();
                                 break;
 
 

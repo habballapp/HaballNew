@@ -80,7 +80,7 @@ public class OrderSummaryDraft extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.distri_main_orderplace_summary, container, false);
+        final View view = inflater.inflate(R.layout.distri_main_orderplace_draft_summary, container, false);
 //        NonSwipeableViewPager viewPager = getActivity().findViewById(R.id.view_pager5);
 //        viewPager.setCurrentItem(1);
 

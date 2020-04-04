@@ -71,7 +71,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (paymentsRequestList.get(position).getPrepaidStatusValue().equals("Unpaid")) {
+                if (paymentsRequestList.get(position).getPrepaidStatusValue().equals("Paid")) {
                     final PopupMenu popup = new PopupMenu(context, view);
                     MenuInflater inflater = popup.getMenuInflater();
                     inflater.inflate(R.menu.payment_request_menu_items_status, popup.getMenu());
@@ -102,7 +102,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
                                     fragmentTransaction.commit();
                                     break;
                                 case R.id.payment_request_ebay:
-                                    Toast.makeText(context, "Epay Clicked", Toast.LENGTH_LONG).show();
+                                    // Toast.makeText(context, "Epay Clicked", Toast.LENGTH_LONG).show();
                                     break;
                             }
                             return false;
@@ -110,7 +110,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
                     });
                     popup.show();
 
-                } else if (paymentsRequestList.get(position).getPrepaidStatusValue().equals("Paid")) {
+                } else if (paymentsRequestList.get(position).getPrepaidStatusValue().equals("Unpaid")) {
                     final PopupMenu popup = new PopupMenu(context, view);
                     MenuInflater inflater = popup.getMenuInflater();
                     inflater.inflate(R.menu.payment_request_menu_items, popup.getMenu());

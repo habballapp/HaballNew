@@ -251,7 +251,7 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
 
         filters.add("Status");
         filters.add("Pending");
-        filters.add("Delivered");
+        filters.add("In Transit");
         filters.add("Received");
         filters.add("Returned");
         filters.add("Revised");

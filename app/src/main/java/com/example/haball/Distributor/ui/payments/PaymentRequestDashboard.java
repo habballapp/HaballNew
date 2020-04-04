@@ -127,11 +127,11 @@ public class PaymentRequestDashboard extends Fragment {
                         Filter_selected = "CompanyName";
                         conso_edittext.setVisibility(View.VISIBLE);
                     } else if(Filter_selected.equals("Transaction Date")) {
-                        Toast.makeText(getContext(),"Transaction Date selected",Toast.LENGTH_LONG).show();
+                        // Toast.makeText(getContext(),"Transaction Date selected",Toast.LENGTH_LONG).show();
                     } else if(Filter_selected.equals("Created Date")) {
-                        Toast.makeText(getContext(),"Created Date selected",Toast.LENGTH_LONG).show();
+                        // Toast.makeText(getContext(),"Created Date selected",Toast.LENGTH_LONG).show();
                     } else if(Filter_selected.equals("Amount")) {
-                        Toast.makeText(getContext(),"Amount selected",Toast.LENGTH_LONG).show();
+                        // Toast.makeText(getContext(),"Amount selected",Toast.LENGTH_LONG).show();
                     } else if(Filter_selected.equals("Status")) {
                         Filter_selected = "Status";
                         spinner2.setVisibility(View.VISIBLE);

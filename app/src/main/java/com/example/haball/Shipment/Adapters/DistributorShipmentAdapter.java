@@ -71,7 +71,7 @@ public class DistributorShipmentAdapter extends RecyclerView.Adapter<Distributor
         if(shipmentList.get(position).getStatus().equals("0"))
             holder.tv_option.setText("Pending");
         else if(shipmentList.get(position).getStatus().equals("1"))
-            holder.tv_option.setText("Delivered");
+            holder.tv_option.setText("In Transit");
         else if(shipmentList.get(position).getStatus().equals("2"))
             holder.tv_option.setText("Received");
         else if(shipmentList.get(position).getStatus().equals("3"))

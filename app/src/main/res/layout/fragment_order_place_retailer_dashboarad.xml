@@ -8,56 +8,61 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <RelativeLayout
-        android:id="@+id/spinner_container_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <RelativeLayout
-        android:id="@+id/spinner_container_main_inner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-            <RelativeLayout
-                android:id="@+id/spinner_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="30dp"
-                android:background="@drawable/edit_text_squared">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rl_line">
 
-                <Spinner
-                    android:id="@+id/spinner_conso"
+        <RelativeLayout
+            android:id="@+id/spinner_container_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/spinner_container_main_inner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/spinner_container"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/edit_text_squared">
+
+                    <Spinner
+                        android:id="@+id/spinner_conso"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp" />
+                </RelativeLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/search_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@id/spinner_container"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="30dp"
+                    android:hint="Search by Item"
+                    android:textColorHint="#676a6c">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_test"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:drawableRight="@drawable/ic_search_black_24dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="15dp"
+                        android:textColor="#676a6c"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
             </RelativeLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/search_bar"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_below="@id/spinner_container"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="30dp"
-                android:hint="Search by Item"
-                android:textColorHint="#676a6c">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_test"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:drawableRight="@drawable/ic_search_black_24dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="15dp"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-    </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/line_bottom_1"
                 android:layout_width="match_parent"
@@ -65,21 +70,23 @@
                 android:layout_below="@+id/spinner_container_main_inner"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/line_seperator" />
-    </RelativeLayout>
+        </RelativeLayout>
+
         <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/spinner_container_main"
-        >
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/spinner_container_main">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_order_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"/>
+                android:layout_marginRight="30dp" />
 
+        </RelativeLayout>
     </RelativeLayout>
-    </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/rl_line"
         android:layout_width="wrap_content"

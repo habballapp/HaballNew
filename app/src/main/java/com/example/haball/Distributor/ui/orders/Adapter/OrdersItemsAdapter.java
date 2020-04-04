@@ -130,8 +130,8 @@ public class OrdersItemsAdapter extends RecyclerView.Adapter<OrdersItemsAdapter.
                     selectedProductsQuantityList.add(String.valueOf(holder.quantity.getText()));
                 }
 
-                for (int i = 0; i < selectedProductsDataList.size(); i++)
-                    Toast.makeText(context, selectedProductsDataList.get(i).getTitle() + " - " + selectedProductsQuantityList.get(i), Toast.LENGTH_LONG).show();
+                // for (int i = 0; i < selectedProductsDataList.size(); i++)
+                    // Toast.makeText(context, selectedProductsDataList.get(i).getTitle() + " - " + selectedProductsQuantityList.get(i), Toast.LENGTH_LONG).show();
 
                 Gson gson = new Gson();
                 String json = gson.toJson(selectedProductsDataList);

@@ -382,7 +382,7 @@ public class ProfileFragment extends Fragment {
                     Context.MODE_PRIVATE);
             ID = sharedPreferences1.getString("ID", "");
             Username = sharedPreferences1.getString("username", "");
-            Toast.makeText(getActivity(), "Update Password clicked", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(getActivity(), "Update Password clicked", Toast.LENGTH_SHORT).show();
 
             change_password_dail.dismiss();
 
