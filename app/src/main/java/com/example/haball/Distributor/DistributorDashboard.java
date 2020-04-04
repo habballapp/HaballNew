@@ -6,52 +6,39 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ExpandableListView;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
-import com.example.haball.Distribution_Login.Distribution_Login;
 import com.example.haball.Distributor.ui.Fragment_Notification.FragmentNotification;
 import com.example.haball.Distributor.ui.home.HomeFragment;
-import com.example.haball.Distributor.ui.orders.OrderMain_Dashboard;
-import com.example.haball.Distributor.ui.orders.OrdersTabsLayout.Orders_Dashboard;
 import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Order_PlaceOrder;
 import com.example.haball.Distributor.ui.payments.ConsolidatedPaymentsFragment;
 import com.example.haball.Distributor.ui.payments.CreatePaymentRequestFragment;
-import com.example.haball.Distributor.ui.payments.PaymentRequestDashboard;
-import com.example.haball.Distributor.ui.payments.PaymentsSummaryFragment;
 import com.example.haball.Distributor.ui.payments.Payments_Fragment;
 import com.example.haball.Distributor.ui.payments.ProofOfPaymentsDashboardFragment;
-import com.example.haball.Distributor.ui.profile.ProfileFragment;
+import com.example.haball.Distributor.ui.profile.Distributor_Profile;
 import com.example.haball.Distributor.ui.retailer.Payment.RetailerPaymentDashboard;
-import com.example.haball.Distributor.ui.retailer.RetailerFragment;
 import com.example.haball.Distributor.ui.retailer.RetailerFragment;
 import com.example.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrderDashboard;
 import com.example.haball.Distributor.ui.shipments.Shipments_Fragments;
 import com.example.haball.Distributor.ui.support.SupportFragment;
 import com.example.haball.Distributor.ui.terms_and_conditions.TermsAndConditionsFragment;
 import com.example.haball.R;
-
-import android.util.Log;
-
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.core.view.GravityCompat;
-import androidx.fragment.app.FragmentTransaction;
-
 import com.example.haball.Select_User.Register_Activity;
-import com.example.haball.SplashScreen.SplashScreen;
 import com.google.android.material.navigation.NavigationView;
 import com.techatmosphere.expandablenavigation.model.ChildModel;
 import com.techatmosphere.expandablenavigation.model.HeaderModel;
 import com.techatmosphere.expandablenavigation.view.ExpandableNavigationListView;
 
-import androidx.drawerlayout.widget.DrawerLayout;
-
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import android.view.View;
-import android.widget.ExpandableListView;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentTransaction;
 
 public class DistributorDashboard extends AppCompatActivity {
 
@@ -184,7 +171,7 @@ public class DistributorDashboard extends AppCompatActivity {
                         } else if (id == 5) {
                             Log.i("Profile", "Profile Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, new ProfileFragment());
+                            fragmentTransaction.replace(R.id.main_container, new Distributor_Profile());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 6) {

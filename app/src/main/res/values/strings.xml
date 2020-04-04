@@ -27,7 +27,12 @@
     <string name="tab_text_rpoid_01">\t\tPlace Order\t\t</string>
     <string name="tab_text_rpoid_02">\t\tOrder Summary\t\t</string>
     <string name="tab_retailer_order">\t\t\t\tOrder\t\t\t\t</string>
-    <string name="tab_retailer_payment">\t\t\t\tPayment\t\t\t\t</string>
+    <string name="tab_retailer_payment">\t\t\t\tPaymeny\t\t\t\t</string>
+    <string name="tab_retailer_profile">\t\t\t\tProfile\t\t\t\t</string>
+    <string name="tab_retailer_profile1">\t\tForgot Password\t\t\t\t</string>
+    <string name="tab_distributor_profile">\t\t\t\tProfile\t\t\t\t</string>
+    <string name="tab_distributor_profile1">\t\tForgot Password\t\t\t\t</string>
+
 
         
     <string name="load_more"><u>Load More</u></string>
@@ -102,4 +107,8 @@
     <string name="title_activity_retailer_view_order">RetailerViewOrder</string>
     <string name="title_activity_place_order_retailer">PlaceOrder_retailer</string>
     <string name="title_activity_order__place_order">Order_PlaceOrder</string>
+    <string name="title_activity_profile__tabs">Profile_Tabs</string>
+    <string name="title_activity_profie__tabs__distributor">Profie_Tabs_Distributor</string>
+    <string name="title_activity_profie__distributor__tabs">Profie_Distributor_Tabs</string>
+    <string name="title_activity_distributor__profile">Distributor_Profile</string>
 </resources>
