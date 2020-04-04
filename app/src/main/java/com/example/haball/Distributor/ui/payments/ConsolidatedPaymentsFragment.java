@@ -168,15 +168,15 @@ public class ConsolidatedPaymentsFragment extends Fragment {
                     } else if (Filter_selected.equals("Created Date")) {
                         spinner2.setVisibility(View.GONE);
                         conso_edittext.setVisibility(View.GONE);
-                        Toast.makeText(getContext(), "Created Date selected", Toast.LENGTH_LONG).show();
+                        // Toast.makeText(getContext(), "Created Date selected", Toast.LENGTH_LONG).show();
                     } else if (Filter_selected.equals("Total Price")) {
                         spinner2.setVisibility(View.GONE);
                         conso_edittext.setVisibility(View.GONE);
-                        Toast.makeText(getContext(), "Total Price selected", Toast.LENGTH_LONG).show();
+                        // Toast.makeText(getContext(), "Total Price selected", Toast.LENGTH_LONG).show();
                     } else if (Filter_selected.equals("Paid Amount")) {
                         spinner2.setVisibility(View.GONE);
                         conso_edittext.setVisibility(View.GONE);
-                        Toast.makeText(getContext(), "Paid Amount selected", Toast.LENGTH_LONG).show();
+                        // Toast.makeText(getContext(), "Paid Amount selected", Toast.LENGTH_LONG).show();
                     } else if (Filter_selected.equals("Status")) {
                         Filter_selected = "Status";
                         spinner2.setVisibility(View.VISIBLE);

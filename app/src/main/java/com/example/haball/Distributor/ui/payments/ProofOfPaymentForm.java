@@ -154,7 +154,7 @@ public class ProofOfPaymentForm extends Fragment {
                     imageBitmapBase64.add(encodeTobase64(yourSelectedImage));
                     imageName = getRealPathFromURI(imageUri);
                     FileName.setText(imageName);
-                    Toast.makeText(getContext(), imageName, Toast.LENGTH_LONG).show();
+                    // Toast.makeText(getContext(), imageName, Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(getContext(), "You haven't picked Image", Toast.LENGTH_LONG).show();
                 }
@@ -174,7 +174,7 @@ public class ProofOfPaymentForm extends Fragment {
 
                     imageName = datetime + ".jpg";
                     FileName.setText(imageName);
-                    Toast.makeText(getContext(), imageName, Toast.LENGTH_LONG).show();
+                    // Toast.makeText(getContext(), imageName, Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(getContext(), "You haven't picked Image", Toast.LENGTH_LONG).show();
                 }
@@ -386,7 +386,7 @@ public class ProofOfPaymentForm extends Fragment {
                             }
                         }
                     });
-                    Toast.makeText(getContext(), selectedFileType, Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getContext(), selectedFileType, Toast.LENGTH_SHORT).show();
                 }
 
             }

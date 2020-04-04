@@ -107,7 +107,7 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        Toast.makeText(mContxt, "View Order ID - " + OrderList.get(position).getOrderNumber(), Toast.LENGTH_LONG).show();
+                        // Toast.makeText(mContxt, "View Order ID - " + OrderList.get(position).getOrderNumber(), Toast.LENGTH_LONG).show();
                         break;
                     case R.id.orders_delete:
                         try {
@@ -134,7 +134,7 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
                 switch (item.getItemId()) {
                     case R.id.orders_view:
                         String ID = OrderList.get(position).getID();
-                        Toast.makeText(mContxt, "View Order ID - " + ID, Toast.LENGTH_LONG).show();
+                        // Toast.makeText(mContxt, "View Order ID - " + ID, Toast.LENGTH_LONG).show();
                         break;
                 }
                 return false;
@@ -153,7 +153,7 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
                 switch (item.getItemId()) {
                     case R.id.orders_view:
                         String ID = OrderList.get(position).getID();
-                        Toast.makeText(mContxt, "View Order ID - " + ID, Toast.LENGTH_LONG).show();
+                        // Toast.makeText(mContxt, "View Order ID - " + ID, Toast.LENGTH_LONG).show();
                         break;
                     case R.id.orders_cancel:
                         String orderID = OrderList.get(position).getID();

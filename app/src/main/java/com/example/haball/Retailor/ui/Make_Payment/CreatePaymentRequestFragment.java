@@ -75,6 +75,7 @@ public class CreatePaymentRequestFragment extends Fragment {
         txt_amount = root.findViewById(R.id.txt_amount);
 
         CompanyNames.add("Company *");
+        company_names = "";
 
         arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, CompanyNames);

@@ -120,7 +120,7 @@ public class ViewRetailer extends Fragment {
                     mg_mobile_no.setText(result.getString("Mobile"));
                     mg_rt_company.setText(result.getString("CompanyName"));
                     mg_tr_address.setText(result.getString("Address"));
-
+                    Log.i("result_getString", result.getString("Address"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

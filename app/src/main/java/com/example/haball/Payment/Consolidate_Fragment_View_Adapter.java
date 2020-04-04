@@ -80,7 +80,7 @@ public class Consolidate_Fragment_View_Adapter extends RecyclerView.Adapter<Cons
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.consiladate_view:
-                                Toast.makeText(context,"View Invoice",Toast.LENGTH_LONG).show();
+                                // Toast.makeText(context,"View Invoice",Toast.LENGTH_LONG).show();
 
                                 SharedPreferences shipmentid = ((FragmentActivity) context).getSharedPreferences("Invoice_ID",
                                         Context.MODE_PRIVATE);

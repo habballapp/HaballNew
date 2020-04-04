@@ -128,7 +128,7 @@ public class Orders_Items_Fragment extends Fragment {
                             SharedPreferences.Editor editor = grossamount.edit();
                             editor.putString("grossamount", String.valueOf(grossAmount));
                             editor.apply();
-                            Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
                             grossAmount = 0;
                             viewPager.setCurrentItem(1);
                             FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();

@@ -86,7 +86,7 @@ public class Order_Summary extends Fragment {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Clicked", Toast.LENGTH_LONG).show();
+                // Toast.makeText(getContext(), "Clicked", Toast.LENGTH_LONG).show();
                 SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
                         Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = grossamount.edit();

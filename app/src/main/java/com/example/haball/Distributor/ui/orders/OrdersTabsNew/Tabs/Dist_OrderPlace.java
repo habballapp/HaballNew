@@ -327,7 +327,7 @@ public class Dist_OrderPlace extends Fragment {
                         SharedPreferences.Editor editor = grossamount.edit();
                         editor.putString("grossamount", String.valueOf(grossAmount));
                         editor.apply();
-                        Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
                         grossAmount = 0;
                         viewPager.setCurrentItem(1);
                         FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
@@ -657,7 +657,7 @@ public class Dist_OrderPlace extends Fragment {
 //                adapter.setCustomParentAnimationViewId(R.id.parent_list_item_expand_arrow);
                 adapter.setParentClickableViewAnimationDefaultDuration();
                 adapter.setParentAndIconExpandOnClick(false);
-                adapter.onParentItemClickListener(1);
+//                adapter.onParentItemClickListener(1);
                 recyclerView.setAdapter(adapter);
 
             }

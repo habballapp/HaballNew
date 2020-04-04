@@ -122,7 +122,7 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
             yourFormattedString2 = formatter1.format(Double.parseDouble(orderChildlist_model.getUnitPrice()));
         }
 //        if (orderChildlist_model.getUOMTitle() != null)
-            orderChildList_vh.list_discount_value.setText("Rs. " + yourFormattedString2);
+        orderChildList_vh.list_discount_value.setText("Rs. " + yourFormattedString2);
         if (orderChildlist_model.getUOMTitle() != null)
             orderChildList_vh.list_UOM_value.setText(orderChildlist_model.getUOMTitle());
         if (orderChildlist_model.getPackSize() != null)
@@ -140,18 +140,19 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                String str_quantity = String.valueOf(s);
 //                Log.i("textChanged12", "check");
 //                Log.i("textChanged11", String.valueOf(s));
-                if (!String.valueOf(s).equals("")) {
-                    if(temp_orderChildList_vh.list_txt_products.getText().equals(temp_orderChildlist_model.getTitle())) {
-                        if(Float.parseFloat(String.valueOf(s)) <= 0) {
-                            Toast.makeText(context, "Quantity must be greater than 0", Toast.LENGTH_LONG).show();
-                        }
-                        Log.i("textChanged", String.valueOf(temp_orderChildlist_model.getTitle()));
-                        Log.i("textChanged11", String.valueOf(temp_orderChildList_vh.list_txt_products.getText()));
-                        checkOutEnabler(temp_orderChildList_vh, temp_i, temp_orderChildlist_model, String.valueOf(s));
+                if (String.valueOf(s).equals(""))
+                    str_quantity = "0";
+
+                if (temp_orderChildList_vh.list_txt_products.getText().equals(temp_orderChildlist_model.getTitle())) {
+                    if (Float.parseFloat(str_quantity) <= 0) {
+                        Toast.makeText(context, "Quantity must be greater than 0", Toast.LENGTH_LONG).show();
                     }
+                    Log.i("textChanged", String.valueOf(temp_orderChildlist_model.getTitle()));
+                    Log.i("textChanged11", String.valueOf(temp_orderChildList_vh.list_txt_products.getText()));
+                    checkOutEnabler(temp_orderChildList_vh, temp_i, temp_orderChildlist_model, str_quantity);
                 }
             }
         };
@@ -160,7 +161,7 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
     }
 
     private void setQuantity(OrderChildList_VH_DistOrder orderChildList_vh, OrderChildlist_Model_DistOrder orderChildlist_model) {
-        if(selectedProductsQuantityList != null && selectedProductsDataList != null) {
+        if (selectedProductsQuantityList != null && selectedProductsDataList != null) {
             for (int j = 0; j < selectedProductsDataList.size(); j++) {
                 if (selectedProductsDataList.get(j).getTitle().equals(orderChildlist_model.getTitle()) && selectedProductsDataList.get(j).getCode().equals(orderChildlist_model.getCode())) {
                     Log.i("foundItem", String.valueOf(orderChildlist_model.getTitle()));
@@ -195,8 +196,8 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
             selectedProductsQuantityList.add(String.valueOf(s));
         }
 
-        for (int i = 0; i < selectedProductsDataList.size(); i++)
-            Toast.makeText(context, selectedProductsDataList.get(i).getTitle() + " - " + selectedProductsQuantityList.get(i), Toast.LENGTH_LONG).show();
+        // for (int i = 0; i < selectedProductsDataList.size(); i++)
+            // Toast.makeText(context, selectedProductsDataList.get(i).getTitle() + " - " + selectedProductsQuantityList.get(i), Toast.LENGTH_LONG).show();
 
         Gson gson = new Gson();
         String json = gson.toJson(selectedProductsDataList);
@@ -222,11 +223,11 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
 //    }
 
 
-    @Override
-    public void onParentItemClickListener(int position) {
-        super.onParentItemClickListener(position);
-//        Toast.makeText(context, "position: "+position +" parent position: "+parentPosition, Toast.LENGTH_SHORT).show();
-
-        parentPosition=position;
-    }
+//    @Override
+//    public void onParentItemClickListener(int position) {
+//        super.onParentItemClickListener(position);
+////        Toast.makeText(context, "position: "+position +" parent position: "+parentPosition, Toast.LENGTH_SHORT).show();
+//
+//        parentPosition = position;
+//    }
 }

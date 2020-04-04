@@ -25,6 +25,8 @@ import com.example.haball.Retailor.ui.Place_Order.PlaceOrderFragment;
 import com.example.haball.Retailor.ui.Place_Order.Retailer_Place_Order;
 import com.example.haball.Retailor.ui.Profile.ProfileFragment;
 import com.example.haball.Retailor.ui.Support.SupportFragment;
+import com.example.haball.Select_User.Register_Activity;
+import com.example.haball.SplashScreen.SplashScreen;
 import com.techatmosphere.expandablenavigation.model.HeaderModel;
 import com.techatmosphere.expandablenavigation.view.ExpandableNavigationListView;
 
@@ -75,7 +77,8 @@ public class RetailorDashboard extends AppCompatActivity  {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
-        drawer.setScrimColor(Color.parseColor("#33000000"));
+//        drawer.setScrimColor(Color.parseColor("#33000000"));
+        drawer.setScrimColor(getResources().getColor(android.R.color.transparent));
 
         toggle.syncState();
         toggle.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
@@ -108,6 +111,7 @@ public class RetailorDashboard extends AppCompatActivity  {
                 .addHeaderModel(new HeaderModel("Profile"))
                 .addHeaderModel(new HeaderModel("Support"))
                 .addHeaderModel(new HeaderModel("Logout"))
+                .addHeaderModel(new HeaderModel("\n\n\n\nTerms And Conditions"))
                 .build()
                 .addOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
                     @Override
@@ -173,8 +177,11 @@ public class RetailorDashboard extends AppCompatActivity  {
                             editor.remove("CompanyName");
                             editor.remove("UserId");
                             editor.commit();
-                            Intent dashboard = new Intent(RetailorDashboard.this, RetailerLogin.class);
-                            startActivity(dashboard);
+//                            Intent dashboard = new Intent(RetailorDashboard.this, RetailerLogin.class);
+//                            startActivity(dashboard);
+                            Intent intent = new Intent(RetailorDashboard.this, Register_Activity.class);
+                            startActivity(intent);
+//                            finish();
                             drawer.closeDrawer(GravityCompat.START);
                             finish();
                         }

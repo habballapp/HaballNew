@@ -145,7 +145,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private String fromDate, toDate, fromAmount, toAmount;
     private FragmentTransaction fragmentTransaction;
     private String tabName;
-    private RelativeLayout rv_filter,spinner_container_main;
+    private RelativeLayout rv_filter, spinner_container_main;
     //    private ScrollView scroll_view_main;
 //    private ObservableScrollView scroll_view_main;
     private static int y;
@@ -331,57 +331,57 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                         super.onScrolled(recyclerView, dx, dy);
                         LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
-                            y = dy;
-                            if (dy <= -5) {
-                                scrollEvent.add("ScrollDown");
+                        y = dy;
+                        if (dy <= -5) {
+                            scrollEvent.add("ScrollDown");
 //                            Log.i("scrolling", "Scroll Down");
-                            } else if (dy > 5) {
-                                scrollEvent.add("ScrollUp");
+                        } else if (dy > 5) {
+                            scrollEvent.add("ScrollUp");
 //                            Log.i("scrolling", "Scroll Up");
+                        }
+                        String scroll = getScrollEvent();
+
+                        if (scroll.equals("ScrollDown")) {
+                            if (spinner_container_main.getVisibility() == View.GONE) {
+
+                                spinner_container_main.setVisibility(View.VISIBLE);
+                                TranslateAnimation animate1 = new TranslateAnimation(
+                                        0,                 // fromXDelta
+                                        0,                 // toXDelta
+                                        -spinner_container_main.getHeight(),  // fromYDelta
+                                        0);                // toYDelta
+                                animate1.setDuration(250);
+                                animate1.setFillAfter(true);
+                                spinner_container_main.clearAnimation();
+                                spinner_container_main.startAnimation(animate1);
                             }
-                            String scroll = getScrollEvent();
-
-                            if (scroll.equals("ScrollDown")) {
-                                if (spinner_container_main.getVisibility() == View.GONE) {
-
-                                    spinner_container_main.setVisibility(View.VISIBLE);
-                                    TranslateAnimation animate1 = new TranslateAnimation(
-                                            0,                 // fromXDelta
-                                            0,                 // toXDelta
-                                            -spinner_container_main.getHeight(),  // fromYDelta
-                                            0);                // toYDelta
-                                    animate1.setDuration(250);
-                                    animate1.setFillAfter(true);
-                                    spinner_container_main.clearAnimation();
-                                    spinner_container_main.startAnimation(animate1);
-                                }
-                            } else if (scroll.equals("ScrollUp")) {
-                                y = 0;
-                                if (spinner_container_main.getVisibility() == View.VISIBLE) {
+                        } else if (scroll.equals("ScrollUp")) {
+                            y = 0;
+                            if (spinner_container_main.getVisibility() == View.VISIBLE) {
 //                                line_bottom.setVisibility(View.INVISIBLE);
-                                    TranslateAnimation animate = new TranslateAnimation(
-                                            0,                 // fromXDelta
-                                            0,                 // toXDelta
-                                            0,  // fromYDelta
-                                            -spinner_container_main.getHeight()); // toYDelta
-                                    animate.setDuration(100);
-                                    animate.setFillAfter(true);
-                                    spinner_container_main.clearAnimation();
-                                    spinner_container_main.startAnimation(animate);
-                                    spinner_container_main.setVisibility(View.GONE);
-                                }
-                            }
-
-                            int visibleItemCount = layoutManager.getChildCount();
-                            int totalItemCount = layoutManager.getItemCount();
-                            int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
-                            if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
-                                if (totalPages != 0 && pageNumber < totalPages) {
-//                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
-                                    btn_load_more.setVisibility(View.VISIBLE);
-                                }
+                                TranslateAnimation animate = new TranslateAnimation(
+                                        0,                 // fromXDelta
+                                        0,                 // toXDelta
+                                        0,  // fromYDelta
+                                        -spinner_container_main.getHeight()); // toYDelta
+                                animate.setDuration(100);
+                                animate.setFillAfter(true);
+                                spinner_container_main.clearAnimation();
+                                spinner_container_main.startAnimation(animate);
+                                spinner_container_main.setVisibility(View.GONE);
                             }
                         }
+
+                        int visibleItemCount = layoutManager.getChildCount();
+                        int totalItemCount = layoutManager.getItemCount();
+                        int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                        if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
+                            if (totalPages != 0 && pageNumber < totalPages) {
+//                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
+                                btn_load_more.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }
                 });
 
 
@@ -723,7 +723,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 //                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                fragmentTransaction.replace(R.id.main_container, new RetailerPlaceOrder());
 //                fragmentTransaction.commit();
-                Toast.makeText(getContext(), "Consolidate clicked", Toast.LENGTH_LONG).show();
+                // Toast.makeText(getContext(), "Consolidate clicked", Toast.LENGTH_LONG).show();
 //                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                        fragmentTransaction.remove(PaymentRequestDashboard.this);
 //                        fragmentTransaction.replace(((ViewGroup)getView().getParent()).getId(), new CreatePaymentRequestFragment());
@@ -885,6 +885,9 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         filters = new ArrayList<>();
                         filters.add("Select All");
                         filters.add("Pre Payment");
+                        arrayAdapterFeltter = new ArrayAdapter<>(rootView.getContext(),
+                                android.R.layout.simple_spinner_dropdown_item, filters);
+                        spinner2.setAdapter(arrayAdapterFeltter);
                         spinner_container1.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Created Date")) {
                         date_filter_rl.setVisibility(View.VISIBLE);
@@ -921,6 +924,10 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         filters.add("Rejected");
                         filters.add("Draft");
                         filters.add("Cancelled");
+                        arrayAdapterFeltter = new ArrayAdapter<>(rootView.getContext(),
+                                android.R.layout.simple_spinner_dropdown_item, filters);
+                        spinner2.setAdapter(arrayAdapterFeltter);
+
                         spinner_container1.setVisibility(View.VISIBLE);
                     }
                 }
@@ -941,11 +948,24 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                } else {
-                    Filter_selected_value = String.valueOf(i - 1);
-//                    Log.i("Filter_selected_value", Filter_selected_value);
+                if (Filter_selected.equals("Status")) {
+                    if (i == 0) {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } else {
+                        Filter_selected_value = String.valueOf(i - 1);
+                        if (!Filter_selected_value.equals("")) {
+                            try {
+                                fetchFilteredOrderData();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                } else if (Filter_selected.equals("PaymentType")) {
+                    if(i == 0)
+                        Filter_selected_value = String.valueOf(-1);
+                    else
+                        Filter_selected_value = String.valueOf(i);
                     if (!Filter_selected_value.equals("")) {
                         try {
                             fetchFilteredOrderData();
