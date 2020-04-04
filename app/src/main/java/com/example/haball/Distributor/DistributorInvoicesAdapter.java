@@ -77,14 +77,14 @@ public class DistributorInvoicesAdapter extends RecyclerView.Adapter<Distributor
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.view_invoice:
-                                Toast.makeText(mContxt,"View Invoice",Toast.LENGTH_LONG).show();
+                                // Toast.makeText(mContxt,"View Invoice",Toast.LENGTH_LONG).show();
                                 FragmentTransaction fragmentTransaction= ((FragmentActivity)mContxt).getSupportFragmentManager().beginTransaction();
                                 fragmentTransaction.add(R.id.main_container,new Distributor_Invoice_DashBoard());
                                 fragmentTransaction.commit();
 
                                 break;
                             case R.id.view_pdf:
-                                Toast.makeText(mContxt,"View PDF",Toast.LENGTH_LONG).show();
+                                // Toast.makeText(mContxt,"View PDF",Toast.LENGTH_LONG).show();
                                 break;
                         }
                         return false;

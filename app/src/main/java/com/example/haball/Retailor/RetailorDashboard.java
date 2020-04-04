@@ -25,6 +25,8 @@ import com.example.haball.Retailor.ui.Place_Order.PlaceOrderFragment;
 import com.example.haball.Retailor.ui.Place_Order.Retailer_Place_Order;
 import com.example.haball.Retailor.ui.Profile.ProfileFragment;
 import com.example.haball.Retailor.ui.Support.SupportFragment;
+import com.example.haball.Select_User.Register_Activity;
+import com.example.haball.SplashScreen.SplashScreen;
 import com.techatmosphere.expandablenavigation.model.HeaderModel;
 import com.techatmosphere.expandablenavigation.view.ExpandableNavigationListView;
 
@@ -175,8 +177,11 @@ public class RetailorDashboard extends AppCompatActivity  {
                             editor.remove("CompanyName");
                             editor.remove("UserId");
                             editor.commit();
-                            Intent dashboard = new Intent(RetailorDashboard.this, RetailerLogin.class);
-                            startActivity(dashboard);
+//                            Intent dashboard = new Intent(RetailorDashboard.this, RetailerLogin.class);
+//                            startActivity(dashboard);
+                            Intent intent = new Intent(RetailorDashboard.this, Register_Activity.class);
+                            startActivity(intent);
+//                            finish();
                             drawer.closeDrawer(GravityCompat.START);
                             finish();
                         }

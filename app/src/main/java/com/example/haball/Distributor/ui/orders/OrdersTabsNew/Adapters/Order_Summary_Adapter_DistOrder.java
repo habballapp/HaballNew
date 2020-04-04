@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_Summary_Adapter_DistOrder.ViewHolder> {
@@ -52,8 +53,19 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
             holder.list_txt_products_.setText(selectedProductsDataList.get(position).getTitle());
         if (selectedProductsDataList.get(position).getUnitPrice() != null)
             holder.list_price_value.setText(selectedProductsDataList.get(position).getUnitPrice());
-        if (selectedProductsDataList.get(position).getDiscountAmount() != null)
-            holder.list_discount_value.setText(selectedProductsDataList.get(position).getDiscountAmount());
+        if (selectedProductsDataList.get(position).getUOMTitle() != null)
+            holder.list_UOM_value.setText(selectedProductsDataList.get(position).getUOMTitle());
+        if (selectedProductsDataList.get(position).getPackSize() != null)
+            holder.list_pack_size_value.setText(selectedProductsDataList.get(position).getPackSize());
+        DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
+        String yourFormattedString2 = "0";
+        if (selectedProductsDataList.get(position).getDiscountAmount() != null) {
+            yourFormattedString2 = formatter1.format(Double.parseDouble(selectedProductsDataList.get(position).getDiscountAmount()));
+        } else {
+            yourFormattedString2 = formatter1.format(Double.parseDouble(selectedProductsDataList.get(position).getUnitPrice()));
+        }
+//        if (orderChildlist_model.getUOMTitle() != null)
+        holder.list_discount_value.setText("Rs. " + yourFormattedString2);
         float totalamount = 0;
         if (!selectedProductsDataList.get(position).getUnitPrice().equals("") && !selectedProductsDataListQty.get(position).equals(""))
             totalamount = Float.parseFloat(selectedProductsDataListQty.get(position)) * Float.parseFloat(selectedProductsDataList.get(position).getUnitPrice());

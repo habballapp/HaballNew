@@ -188,7 +188,7 @@ public class PlaceholderFragment extends Fragment {
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId invoice", DistributorId);
         Log.i("Token invoice", Token);
-        if(!INVOICE_URL.contains(shipmentID))
+        if (!INVOICE_URL.contains(shipmentID))
             INVOICE_URL = INVOICE_URL + shipmentID;
         Log.i("INVOICE_URL12", INVOICE_URL);
 
@@ -198,22 +198,22 @@ public class PlaceholderFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 try {
                     total_price.setText(response.getString("TotalPrice"));
-                    Log.i("responesProductmy" ,response.getString("DeliveryNoteDetails").toString());
+                    Log.i("responesProductmy", response.getString("DeliveryNoteDetails").toString());
                     JSONArray jsonArray = new JSONArray(response.getString("DeliveryNoteDetails"));
-                    Log.i("responesProduct" ,jsonArray.toString());
+                    Log.i("responesProduct", jsonArray.toString());
 
                     Gson gson = new Gson();
-                        Type type = new TypeToken<List<Distributor_ProductModel>>() {
-                        }.getType();
-                        productList = gson.fromJson(String.valueOf(jsonArray), type);
-                        Log.i("productList" , String.valueOf(productList));
+                    Type type = new TypeToken<List<Distributor_ProductModel>>() {
+                    }.getType();
+                    productList = gson.fromJson(String.valueOf(jsonArray), type);
+                    Log.i("productList", String.valueOf(productList));
 
-                        productDetailsAdapter = new ProductDetailsAdapter(getContext(), productList);
-                        product_RecyclerV.setAdapter(productDetailsAdapter);
+                    productDetailsAdapter = new ProductDetailsAdapter(getContext(), productList);
+                    product_RecyclerV.setAdapter(productDetailsAdapter);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.i("Error Product",e.toString());
+                    Log.i("Error Product", e.toString());
                     Toast.makeText(getActivity(), "Error" + e.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -229,7 +229,7 @@ public class PlaceholderFragment extends Fragment {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer " +Token);
+                params.put("Authorization", "bearer " + Token);
                 return params;
             }
         };
@@ -252,7 +252,7 @@ public class PlaceholderFragment extends Fragment {
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId invoice", DistributorId);
         Log.i("Token invoice", Token);
-        if(!INVOICE_URL.contains(shipmentID))
+        if (!INVOICE_URL.contains(shipmentID))
             INVOICE_URL = INVOICE_URL + shipmentID;
         Log.i("INVOICE_URL1", INVOICE_URL);
 
@@ -269,7 +269,7 @@ public class PlaceholderFragment extends Fragment {
                         String[] parts_d = string.split("T");
                         String Date = parts_d[0];
                         shipment_delivery_date.setText(Date);
-                        if(shipmentModel.getGoodsreceivenotesReceivingDate() != null) {
+                        if (shipmentModel.getGoodsreceivenotesReceivingDate() != null) {
                             String stringRecv = shipmentModel.getGoodsreceivenotesReceivingDate();
                             String[] parts_dRecv = stringRecv.split("T");
                             String DateRecv = parts_dRecv[0];
@@ -283,7 +283,7 @@ public class PlaceholderFragment extends Fragment {
                         if (shipmentModel.getDeliveryNoteStatus().equals("0")) {
                             shipment_tv_shstatus.setText("Pending");
                         } else if (shipmentModel.getDeliveryNoteStatus().equals("1")) {
-                            shipment_tv_shstatus.setText("Delivered");
+                            shipment_tv_shstatus.setText("In Transit");
                         } else if (shipmentModel.getDeliveryNoteStatus().equals("2")) {
                             shipment_tv_shstatus.setText("Received");
                         } else if (shipmentModel.getDeliveryNoteStatus().equals("3")) {
@@ -336,7 +336,7 @@ public class PlaceholderFragment extends Fragment {
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId invoice", DistributorId);
         Log.i("Token invoice", Token);
-        if(!INVOICE_URL.contains(shipmentID))
+        if (!INVOICE_URL.contains(shipmentID))
             INVOICE_URL = INVOICE_URL + shipmentID;
         Log.i("INVOICE_URL", INVOICE_URL);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, INVOICE_URL, new Response.Listener<String>() {
@@ -418,37 +418,38 @@ public class PlaceholderFragment extends Fragment {
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId invoice", DistributorId);
         Log.i("Token invoice", Token);
-        if(!INVOICE_URL.contains(shipmentID))
+        if (!INVOICE_URL.contains(shipmentID))
             INVOICE_URL = INVOICE_URL + shipmentID;
         Log.i("INVOICE_URL", INVOICE_URL);
 
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, INVOICE_URL, new Response.Listener<String>() {
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, INVOICE_URL, null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                Log.i("response", response);
-                try {
-                    if (response != null && !response.equals("")) {
-                        Gson gson = new Gson();
-                        Distributor_InvoiceModel invoiceModel = gson.fromJson(response, Distributor_InvoiceModel.class);
-                        invoice_id.setText(invoiceModel.getDeliveryNumber());
-                        String string = invoiceModel.getCreatedDate();
-                        String[] parts = string.split("T");
-                        String Date = parts[0];
-                        invoice_tv_date.setText(Date);
-                        invoice_tv_amount.setText(invoiceModel.getNetPrice());
+            public void onResponse(JSONObject response) {
+                if (response.has("Invoice"))
+                    try {
+                        Log.i("responseInvoice", String.valueOf(response.getJSONObject("Invoice")));
+                        if (response != null && !response.equals("")) {
+                            Gson gson = new Gson();
+                            Distributor_InvoiceModel invoiceModel = gson.fromJson(String.valueOf(response.getJSONObject("Invoice")), Distributor_InvoiceModel.class);
+                            invoice_id.setText(invoiceModel.getInvoiceNumber());
+                            String string = invoiceModel.getCreatedDate();
+                            String[] parts = string.split("T");
+                            String Date = parts[0];
+                            invoice_tv_date.setText(Date);
+                            invoice_tv_amount.setText(invoiceModel.getNetPrice());
 //                        tv_status.setText(invoiceModel.getStatus());
-                        if (invoiceModel.getStatus().equals("0")) {
-                            tv_status.setText("Pending");
-                        } else if (invoiceModel.getStatus().equals("1")) {
-                            tv_status.setText("Unpaid");
-                        } else if (invoiceModel.getStatus().equals("2")) {
-                            tv_status.setText("Partially Paid");
-                        } else if (invoiceModel.getStatus().equals("3")) {
-                            tv_status.setText("Paid");
-                        } else if (invoiceModel.getStatus().equals("4")) {
-                            tv_status.setText("Payment Processing");
-                        }
+                            if (invoiceModel.getStatus().equals("0")) {
+                                tv_status.setText("Pending");
+                            } else if (invoiceModel.getStatus().equals("1")) {
+                                tv_status.setText("Unpaid");
+                            } else if (invoiceModel.getStatus().equals("2")) {
+                                tv_status.setText("Partially Paid");
+                            } else if (invoiceModel.getStatus().equals("3")) {
+                                tv_status.setText("Paid");
+                            } else if (invoiceModel.getStatus().equals("4")) {
+                                tv_status.setText("Payment Processing");
+                            }
 
 
 //                        if (invoiceModel.getStatus().equals("1")) {
@@ -460,13 +461,13 @@ public class PlaceholderFragment extends Fragment {
 //                        } else if (invoiceModel.getStatus().equals("4")) {
 //                            tv_status.setText("Revised");
 //                        }
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(getActivity(), "Error" + e.toString(), Toast.LENGTH_SHORT).show();
+
                     }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(getActivity(), "Error" + e.toString(), Toast.LENGTH_SHORT).show();
-
-                }
             }
         },
                 new Response.ErrorListener() {
@@ -488,7 +489,7 @@ public class PlaceholderFragment extends Fragment {
 
     }
 
-        private void printErrorMessage(VolleyError error) {
+    private void printErrorMessage(VolleyError error) {
         if (error instanceof NetworkError) {
             Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof ServerError) {
@@ -507,9 +508,9 @@ public class PlaceholderFragment extends Fragment {
             try {
                 String message = "";
                 String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody",responseBody);
+                Log.i("responseBody", responseBody);
                 JSONObject data = new JSONObject(responseBody);
-                Log.i("data",String.valueOf(data));
+                Log.i("data", String.valueOf(data));
                 Iterator<String> keys = data.keys();
                 while (keys.hasNext()) {
                     String key = keys.next();

@@ -196,8 +196,8 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
             selectedProductsQuantityList.add(String.valueOf(s));
         }
 
-        for (int i = 0; i < selectedProductsDataList.size(); i++)
-            Toast.makeText(context, selectedProductsDataList.get(i).getTitle() + " - " + selectedProductsQuantityList.get(i), Toast.LENGTH_LONG).show();
+        // for (int i = 0; i < selectedProductsDataList.size(); i++)
+            // Toast.makeText(context, selectedProductsDataList.get(i).getTitle() + " - " + selectedProductsQuantityList.get(i), Toast.LENGTH_LONG).show();
 
         Gson gson = new Gson();
         String json = gson.toJson(selectedProductsDataList);
@@ -223,11 +223,11 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
 //    }
 
 
-    @Override
-    public void onParentItemClickListener(int position) {
-        super.onParentItemClickListener(position);
-//        Toast.makeText(context, "position: "+position +" parent position: "+parentPosition, Toast.LENGTH_SHORT).show();
-
-        parentPosition = position;
-    }
+//    @Override
+//    public void onParentItemClickListener(int position) {
+//        super.onParentItemClickListener(position);
+////        Toast.makeText(context, "position: "+position +" parent position: "+parentPosition, Toast.LENGTH_SHORT).show();
+//
+//        parentPosition = position;
+//    }
 }

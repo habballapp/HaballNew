@@ -178,8 +178,8 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
             selectedProductsQuantityList.add(String.valueOf(holder.list_numberOFitems.getText()));
         }
 
-        for (int i = 0; i < selectedProductsDataList.size(); i++)
-            Toast.makeText(context, selectedProductsDataList.get(i).getTitle() + " - " + selectedProductsQuantityList.get(i), Toast.LENGTH_LONG).show();
+        // for (int i = 0; i < selectedProductsDataList.size(); i++)
+        //     Toast.makeText(context, selectedProductsDataList.get(i).getTitle() + " - " + selectedProductsQuantityList.get(i), Toast.LENGTH_LONG).show();
 
         Gson gson = new Gson();
         String json = gson.toJson(selectedProductsDataList);

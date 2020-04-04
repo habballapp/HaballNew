@@ -35,6 +35,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.haball.Select_User.Register_Activity;
+import com.example.haball.SplashScreen.SplashScreen;
 import com.google.android.material.navigation.NavigationView;
 import com.techatmosphere.expandablenavigation.model.ChildModel;
 import com.techatmosphere.expandablenavigation.model.HeaderModel;
@@ -199,8 +201,11 @@ public class DistributorDashboard extends AppCompatActivity {
                                 SharedPreferences.Editor editor = login_token.edit();
                                 editor.remove("Login_Token");
                                 editor.commit();
-                                Intent login = new Intent(DistributorDashboard.this, Distribution_Login.class);
-                                startActivity(login);
+//                                Intent login = new Intent(DistributorDashboard.this, Distribution_Login.class);
+//                                startActivity(login);
+//                                finish();
+                                Intent intent = new Intent(DistributorDashboard.this, Register_Activity.class);
+                                startActivity(intent);
                                 finish();
                             }
                             drawer.closeDrawer(GravityCompat.START);

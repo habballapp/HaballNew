@@ -87,7 +87,7 @@ public class RetailerOrdersAdapter extends RecyclerView.Adapter<RetailerOrdersAd
                                 break;
 
                             case R.id.view_payment_cancel:
-                                Toast.makeText(context,"Cancel",Toast.LENGTH_SHORT).show();
+                                // Toast.makeText(context,"Cancel",Toast.LENGTH_SHORT).show();
                         }
                         return false;
                     }
