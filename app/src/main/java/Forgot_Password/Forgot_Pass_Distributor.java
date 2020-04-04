@@ -62,6 +62,7 @@ public class Forgot_Pass_Distributor extends AppCompatActivity {
 
         LayoutInflater inflater = LayoutInflater.from( this );
         txt_email = findViewById( R.id.txt_email );
+        progressDialog = new ProgressDialog( this );
 
         @SuppressLint("InflateParams") View customView = inflater.inflate( R.layout.action_bar_main, null );
 
