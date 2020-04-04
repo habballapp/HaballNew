@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.bignerdranch.expandablerecyclerview.ViewHolder.ChildViewHolder;
+import com.example.haball.Distributor.ui.orders.OrdersTabsNew.ChildViewHolder;
 import com.example.haball.R;
 //import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
 

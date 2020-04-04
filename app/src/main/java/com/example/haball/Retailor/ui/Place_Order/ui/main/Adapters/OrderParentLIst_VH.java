@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bignerdranch.expandablerecyclerview.ViewHolder.ParentViewHolder;
+import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
 import com.example.haball.R;
 
 public class OrderParentLIst_VH extends ParentViewHolder {

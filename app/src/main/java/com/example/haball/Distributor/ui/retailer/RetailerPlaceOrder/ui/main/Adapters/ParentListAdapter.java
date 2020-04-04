@@ -10,10 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bignerdranch.expandablerecyclerview.Adapter.ExpandableRecyclerAdapter;
-import com.bignerdranch.expandablerecyclerview.Model.ParentObject;
+import com.bignerdranch.expandablerecyclerview.ChildViewHolder;
+import com.bignerdranch.expandablerecyclerview.ExpandableRecyclerAdapter;
+import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
+import com.bignerdranch.expandablerecyclerview.model.Parent;
+import com.bignerdranch.expandablerecyclerview.model.SimpleParent;
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models.OrderChildlist_Model;
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models.OrderParentlist_Model;
 import com.example.haball.R;
@@ -25,7 +29,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst_VH, OrderChildList_VH> {
+public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist_Model, OrderChildlist_Model, OrderParentLIst_VH, OrderChildList_VH> {
     LayoutInflater inflater;
     private Context context;
     public List<OrderChildlist_Model> selectedProductsDataList = new ArrayList<>();
@@ -33,8 +37,8 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
     private String object_string, object_stringqty;
     private int pre_expanded = -1;
 
-    public ParentListAdapter(Context context, List<ParentObject> parentItemList) {
-        super(context, parentItemList);
+    public ParentListAdapter(Context context, List<OrderParentlist_Model> parentItemList) {
+        super(parentItemList);
         inflater = LayoutInflater.from(context);
         this.context = context;
         SharedPreferences selectedProducts = context.getSharedPreferences("selectedProducts_retailer",
@@ -56,7 +60,7 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
     }
 
     @Override
-    public OrderParentLIst_VH onCreateParentViewHolder(ViewGroup viewGroup) {
+    public OrderParentLIst_VH onCreateParentViewHolder(ViewGroup viewGroup, int viewType) {
         View view = inflater.inflate(R.layout.parentlist_retailer_order, viewGroup, false);
         return new OrderParentLIst_VH(view);
 
@@ -64,7 +68,7 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
 
 
     @Override
-    public OrderChildList_VH onCreateChildViewHolder(ViewGroup viewGroup) {
+    public OrderChildList_VH onCreateChildViewHolder(ViewGroup viewGroup, int viewType) {
         View view = inflater.inflate(R.layout.orderchildlist_expand, viewGroup, false);
 
         return new OrderChildList_VH(view);
@@ -72,16 +76,15 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
     }
 
     @Override
-    public void onBindParentViewHolder(final OrderParentLIst_VH orderParentLIst_vh, final int position, Object o) {
-        Log.i("obj", String.valueOf(o));
-        final OrderParentlist_Model orderParentlist_model = (OrderParentlist_Model) o;
-        orderParentLIst_vh._textview.setText(orderParentlist_model.getTitle());
+    public void onBindParentViewHolder(@NonNull OrderParentLIst_VH parentViewHolder, int parentPosition, @NonNull OrderParentlist_Model parent) {
+        Log.i("obj", String.valueOf(parent));
+        final OrderParentlist_Model orderParentlist_model = parent;
+        parentViewHolder._textview.setText(orderParentlist_model.getTitle());
 
     }
 
-
     @Override
-    public void onBindChildViewHolder(OrderChildList_VH orderChildList_vh, int i, Object o) {
+    public void onBindChildViewHolder(@NonNull OrderChildList_VH orderChildList_vh, int parentPosition, int i, @NonNull OrderChildlist_Model o) {
 
         Log.i("o", String.valueOf(o));
         OrderChildlist_Model orderChildlist_model = (OrderChildlist_Model) o;
@@ -142,7 +145,90 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
         };
         orderChildList_vh.list_numberOFitems.addTextChangedListener(textWatcher);
 //        orderChildList_vh.list_numberOFitems.removeTextChangedListener(textWatcher);    }
+
     }
+
+//    @Override
+//    public void onBindParentViewHolder(@NonNull OrderParentLIst_VH parentViewHolder, int parentPosition, @NonNull OrderParentlist_Model parent) {
+//        Log.i("obj", String.valueOf(parent));
+//        final OrderParentlist_Model orderParentlist_model = (OrderParentlist_Model) parent;
+//        parentViewHolder._textview.setText(orderParentlist_model.getTitle());
+//
+//
+//    }
+
+//    @Override
+//    public void onBindParentViewHolder(final OrderParentLIst_VH orderParentLIst_vh, final int position, SimpleParent o) {
+//        Log.i("obj", String.valueOf(o));
+//        final OrderParentlist_Model orderParentlist_model = (OrderParentlist_Model) o;
+//        orderParentLIst_vh._textview.setText(orderParentlist_model.getTitle());
+//
+//    }
+
+//
+//    @Override
+//    public void onBindChildViewHolder(OrderChildList_VH orderChildList_vh, int i, Object o) {
+//
+//        Log.i("o", String.valueOf(o));
+//        OrderChildlist_Model orderChildlist_model = (OrderChildlist_Model) o;
+//        final OrderChildList_VH temp_orderChildList_vh = orderChildList_vh;
+//        final int temp_i = i;
+//        final OrderChildlist_Model temp_orderChildlist_model = orderChildlist_model;
+//
+//
+//        orderChildList_vh.list_numberOFitems.setText("");
+//        if (selectedProductsDataList != null && selectedProductsQuantityList != null) {
+//            setQuantity(orderChildList_vh, orderChildlist_model);
+//        }
+//
+//        orderChildList_vh.list_txt_products.setText(orderChildlist_model.getTitle());
+//        orderChildList_vh.list_product_code_value.setText(orderChildlist_model.getProductCode());
+//        DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
+//        if (orderChildlist_model.getProductUnitPrice() != null) {
+//            String yourFormattedString1 = formatter1.format(Double.parseDouble(orderChildlist_model.getProductUnitPrice()));
+//            orderChildList_vh.list_price_value.setText("Rs. " + yourFormattedString1);
+//        }
+//        String yourFormattedString2;
+//        if (orderChildlist_model.getDiscountAmount() != null)
+//            yourFormattedString2 = formatter1.format(Double.parseDouble(orderChildlist_model.getDiscountAmount()));
+//        else
+//            yourFormattedString2 = formatter1.format(Double.parseDouble(orderChildlist_model.getProductUnitPrice()));
+//        orderChildList_vh.list_discount_value.setText("Rs. " + yourFormattedString2);
+//        if (orderChildlist_model.getPackSize() != null)
+//            orderChildList_vh.list_pack_size_value.setText(orderChildlist_model.getPackSize());
+//        orderChildList_vh.list_UOM_value.setText(orderChildlist_model.getUnitOFMeasure());
+//        TextWatcher textWatcher = new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                String str_quantity = String.valueOf(s);
+////                Log.i("textChanged12", "check");
+////                Log.i("textChanged11", String.valueOf(s));
+//                if (String.valueOf(s).equals(""))
+//                    str_quantity = "0";
+//
+//                if (temp_orderChildList_vh.list_txt_products.getText().equals(temp_orderChildlist_model.getTitle())) {
+//                    if (Float.parseFloat(str_quantity) <= 0) {
+//                        Toast.makeText(context, "Quantity must be greater than 0", Toast.LENGTH_LONG).show();
+//                    }
+//                    Log.i("textChanged", String.valueOf(temp_orderChildlist_model.getTitle()));
+//                    Log.i("textChanged11", String.valueOf(temp_orderChildList_vh.list_txt_products.getText()));
+//                    checkOutEnabler(temp_orderChildList_vh, temp_i, temp_orderChildlist_model, str_quantity);
+//                }
+//            }
+//        };
+//        orderChildList_vh.list_numberOFitems.addTextChangedListener(textWatcher);
+////        orderChildList_vh.list_numberOFitems.removeTextChangedListener(textWatcher);    }
+//    }
 
     private void setQuantity(OrderChildList_VH orderChildList_vh, OrderChildlist_Model orderChildlist_model) {
         if (selectedProductsQuantityList != null && selectedProductsDataList != null) {

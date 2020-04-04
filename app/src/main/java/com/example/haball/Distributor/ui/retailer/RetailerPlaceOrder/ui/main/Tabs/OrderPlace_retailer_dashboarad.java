@@ -40,7 +40,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.bignerdranch.expandablerecyclerview.Model.ParentObject;
+import com.bignerdranch.expandablerecyclerview.model.SimpleParent;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Adapters.ParentListAdapter;
 import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models.OrderChildlist_Model;
@@ -71,7 +71,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
     RecyclerView recyclerView , subchlid_RV;
     private List<OrderParentlist_Model> titles = new ArrayList<>();
     private List<OrderChildlist_Model> productList = new ArrayList<>();
-    private List<ParentObject> parentObjects = new ArrayList<>();
+    private List<SimpleParent> parentObjects = new ArrayList<>();
     private String URL_PRODUCT_CATEGORY = "http://175.107.203.97:4013/api/productcategory/categorieshavingproduct";
     private String URL_PRODUCT = "http://175.107.203.97:4013/api/product/ReadByDistributorId";
     private String Token, DistributorId;
@@ -415,8 +415,8 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
 //                Log.i("titles123", String.valueOf(titles));
                 ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData());
 //                adapter.setCustomParentAnimationViewId(R.id.parent_list_item_expand_arrow);
-                adapter.setParentClickableViewAnimationDefaultDuration();
-                adapter.setParentAndIconExpandOnClick(true);
+//                adapter.setParentClickableViewAnimationDefaultDuration();
+//                adapter.setParentAndIconExpandOnClick(true);
                 recyclerView.setAdapter(adapter);
 
             }
@@ -668,8 +668,8 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
         new MyAsyncTask().execute();
     }
 
-    private List<ParentObject> initData() {
-        List<ParentObject> parentObjects = new ArrayList<>();
+    private List<OrderParentlist_Model> initData() {
+        List<OrderParentlist_Model> parentObjects = new ArrayList<>();
         for (OrderParentlist_Model title : titles) {
             Log.i("title", String.valueOf(title.getCategoryId()));
             List<Object> childlist = new ArrayList<>();
@@ -679,7 +679,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
                 if(title.getCategoryId().equals(product.getProductCategoryId()))
                     childlist.add(product);
             }
-            title.setChildObjectList(childlist);
+            title.setChildList(childlist);
             parentObjects.add(title);
         }
         return parentObjects;
