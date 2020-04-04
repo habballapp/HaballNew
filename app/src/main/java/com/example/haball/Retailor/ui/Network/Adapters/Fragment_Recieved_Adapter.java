@@ -7,36 +7,39 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.haball.R;
+import com.example.haball.Retailor.ui.Network.Models.Network_Recieve_Model;
+import com.example.haball.Retailor.ui.Network.Models.Network_Sent_Model;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class Fragment_Recieved_Adaptor extends RecyclerView.Adapter<Fragment_Recieved_Adaptor.ViewHolder> {
+import java.util.List;
+
+public class Fragment_Recieved_Adapter extends RecyclerView.Adapter<Fragment_Recieved_Adapter.ViewHolder> {
 
     private Context context;
-    private String Number,Address;
+    private List<Network_Recieve_Model> recieveDataList;
 
-    public Fragment_Recieved_Adaptor(Context context, String number, String address) {
+    public Fragment_Recieved_Adapter(Context context, List<Network_Recieve_Model> recieveDataList) {
         this.context = context;
-        Number = number;
-        Address = address;
+        this.recieveDataList = recieveDataList;
     }
 
-    public Fragment_Recieved_Adaptor.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public Fragment_Recieved_Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view_inflate = LayoutInflater.from(context).inflate(R.layout.fragment_recieved_recycler,parent,false);
-        return new Fragment_Recieved_Adaptor.ViewHolder(view_inflate);
+        return new Fragment_Recieved_Adapter.ViewHolder(view_inflate);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Fragment_Recieved_Adaptor.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull Fragment_Recieved_Adapter.ViewHolder holder, int position) {
 
-        holder.recieved_no_value.setText(Number);
-        holder.recieved_address_value.setText(Address);
+        holder.recieved_no_value.setText(recieveDataList.get(position).getMobile());
+        holder.recieved_address_value.setText(recieveDataList.get(position).getAddress());
     }
 
     @Override
     public int getItemCount() {
-        return 2;
+        return recieveDataList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
