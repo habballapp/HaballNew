@@ -18,10 +18,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -33,7 +29,6 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -41,7 +36,6 @@ import com.example.haball.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -49,6 +43,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
 
 public class ProfileFragment extends Fragment {
 
@@ -70,7 +68,7 @@ public class ProfileFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_distributor_profile, container, false);
         //init
-        change_pwd = root.findViewById(R.id.btn_changepwd);
+        //change_pwd = root.findViewById(R.id.btn_changepwd);
         //profile
         edt_dist_code = root.findViewById(R.id.edt_dist_code);
         edt_firstname = root.findViewById(R.id.edt_firstname);

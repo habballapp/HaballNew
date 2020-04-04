@@ -75,7 +75,7 @@ public class ProfileFragment extends Fragment {
         Rmobile = root.findViewById(R.id.Rmobile);
         R_created_date = root.findViewById(R.id.R_created_date);
         R_Address = root.findViewById(R.id.R_Address);
-        btn_changepwd = root.findViewById(R.id.btn_changepwd);
+      //  btn_changepwd = root.findViewById(R.id.btn_changepwd);
         btn_save_password = root.findViewById(R.id.btn_save_password);
 
         Remail.setInputType(InputType.TYPE_NULL);

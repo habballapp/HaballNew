@@ -16,8 +16,8 @@
         android:theme="@style/Theme.AppCompat.Light"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".Distributor.ui.profile.Profie_Tabs_Distributor"
-            android:label="@string/title_activity_profie__tabs__distributor"
+            android:name=".Distributor.ui.profile.Distributor_Profile"
+            android:label="@string/title_activity_distributor__profile"
             android:theme="@style/NoActionBar"></activity>
         <activity
             android:name=".Retailor.ui.Profile.Profile_Tabs"

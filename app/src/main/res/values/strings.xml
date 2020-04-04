@@ -109,4 +109,6 @@
     <string name="title_activity_order__place_order">Order_PlaceOrder</string>
     <string name="title_activity_profile__tabs">Profile_Tabs</string>
     <string name="title_activity_profie__tabs__distributor">Profie_Tabs_Distributor</string>
+    <string name="title_activity_profie__distributor__tabs">Profie_Distributor_Tabs</string>
+    <string name="title_activity_distributor__profile">Distributor_Profile</string>
 </resources>
