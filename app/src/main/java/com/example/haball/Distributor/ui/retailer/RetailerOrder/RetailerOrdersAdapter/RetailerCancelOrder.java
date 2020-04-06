@@ -1,8 +1,9 @@
-package com.example.haball.Distributor.ui.orders;
+package com.example.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrdersAdapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -21,13 +22,13 @@ import java.util.Map;
 
 import androidx.fragment.app.FragmentTransaction;
 
-public class CancelOrder {
-    public String URL_CANCEL_ORDER = "http://175.107.203.97:4013/api/orders/cancelorder";
+public class RetailerCancelOrder {
+    public String URL_CANCEL_ORDER = "http://175.107.203.97:4013/api/retailerorder/cancel/";
     public String DistributorId, Token;
     public Context mContext;
     private FragmentTransaction fragmentTransaction;
 
-    public CancelOrder() {
+    public RetailerCancelOrder() {
     }
 
     public void cancelOrder(final Context context, String orderId, final String orderNumber) throws JSONException {
@@ -42,15 +43,17 @@ public class CancelOrder {
         Log.i("DistributorId ", DistributorId);
         Log.i("Token", Token);
 
-        JSONObject map = new JSONObject();
-        map.put("ID", orderId);
+        if(!URL_CANCEL_ORDER.contains("/" + orderId))
+            URL_CANCEL_ORDER = URL_CANCEL_ORDER + orderId;
+//        JSONObject map = new JSONObject();
+//        map.put("ID", orderId);
 
         final Context finalcontext = context;
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL_CANCEL_ORDER, map, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest( Request.Method.GET, URL_CANCEL_ORDER, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 // TODO handle the response
-//                Toast.makeText(context, "Order # " + orderNumber + " is cancelled", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Order # " + orderNumber + " is cancelled", Toast.LENGTH_LONG).show();
 //                fragmentTransaction = ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
 //                fragmentTransaction.replace(R.id.main_container, new HomeFragment());
 //                fragmentTransaction.commit();

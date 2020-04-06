@@ -1,65 +1,52 @@
 package com.example.haball.Distributor.ui.support;
 
-        import androidx.annotation.NonNull;
-        import androidx.appcompat.app.ActionBar;
-        import androidx.appcompat.app.AlertDialog;
-        import androidx.appcompat.app.AppCompatActivity;
-        import androidx.fragment.app.Fragment;
-        import androidx.fragment.app.FragmentTransaction;
-
         import android.content.Context;
-        import android.content.Intent;
-        import android.content.SharedPreferences;
-        import android.graphics.Paint;
-        import android.os.Bundle;
-        import android.text.SpannableString;
-        import android.text.style.UnderlineSpan;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+        import android.text.TextUtils;
         import android.util.Log;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.AdapterView;
-        import android.widget.ArrayAdapter;
-        import android.widget.Button;
-        import android.widget.EditText;
-        import android.widget.ImageButton;
-        import android.widget.Spinner;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import com.android.volley.AuthFailureError;
-        import com.android.volley.DefaultRetryPolicy;
-        import com.android.volley.NetworkError;
-        import com.android.volley.NoConnectionError;
-        import com.android.volley.ParseError;
-        import com.android.volley.Request;
-        import com.android.volley.Response;
-        import com.android.volley.RetryPolicy;
-        import com.android.volley.ServerError;
-        import com.android.volley.TimeoutError;
-        import com.android.volley.VolleyError;
-        import com.android.volley.toolbox.JsonArrayRequest;
-        import com.android.volley.toolbox.JsonObjectRequest;
-        import com.android.volley.toolbox.StringRequest;
-        import com.android.volley.toolbox.Volley;
-        import com.example.haball.Distribution_Login.Distribution_Login;
-        import com.example.haball.Distributor.DistributorDashboard;
-        import com.example.haball.R;
-        import com.example.haball.Registration.Registration_Actvity2;
-        import com.google.gson.JsonArray;
-        import com.google.gson.JsonObject;
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.haball.R;
+        import com.google.android.material.snackbar.Snackbar;
 
         import org.json.JSONArray;
-        import org.json.JSONException;
-        import org.json.JSONObject;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-        import java.io.UnsupportedEncodingException;
-        import java.net.URLConnection;
-        import java.util.ArrayList;
-        import java.util.HashMap;
-        import java.util.Iterator;
-        import java.util.List;
-        import java.util.Map;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 public class SupportTicketFormFragment extends Fragment {
 
@@ -157,16 +144,26 @@ public class SupportTicketFormFragment extends Fragment {
             }
         });
 
-        ticket_btn.setOnClickListener(new View.OnClickListener() {
+        ticket_btn.setOnClickListener( new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                try {
-                    makeTicketAddRequest();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(BName.getText().toString()) ||
+                        TextUtils.isEmpty(Email.getText().toString()) ||
+                        TextUtils.isEmpty(Comment.getText().toString()) ||
+                        TextUtils.isEmpty(MobileNo.getText().toString())) {
+
+                    Snackbar.make(v, "Please Enter All Required Fields", Snackbar.LENGTH_SHORT).show();
                 }
+                else{
+                    try {
+                        makeTicketAddRequest();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
             }
-        });
+        } );
 
         return root;
     }

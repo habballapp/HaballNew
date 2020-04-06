@@ -1,21 +1,24 @@
 package com.example.haball.Distributor.ui.profile;
 
 public class Profile_Model {
-    private  String DealerCode;
-    private  String CreatedDate;
-    private  String FirstName;
-    private  String LastName;
-    private  String CompanyName;
-    private  String CompanyNTN;
-    private  String CNIC;
-    private  String Mobile;
-    private  String Email;
-    private  String Phone;
+    private String DealerCode;
+    private String CreatedDate;
+    private String FirstName;
+    private String LastName;
+    private String CompanyName;
+    private String CompanyNTN;
+    private String CNIC;
+    private String Mobile;
+    private String Email;
+    private String Phone;
+    private String Address;
+
 
     public Profile_Model() {
     }
 
-    public Profile_Model(String dealerCode, String createdDate, String firstName, String lastName, String companyName, String companyNTN, String CNIC, String mobile, String email, String phone) {
+
+    public Profile_Model(String dealerCode, String createdDate, String firstName, String lastName, String companyName, String companyNTN, String CNIC, String mobile, String email, String phone, String address) {
         DealerCode = dealerCode;
         CreatedDate = createdDate;
         FirstName = firstName;
@@ -26,14 +29,7 @@ public class Profile_Model {
         Mobile = mobile;
         Email = email;
         Phone = phone;
-    }
-
-    public String getPhone() {
-        return Phone;
-    }
-
-    public void setPhone(String phone) {
-        Phone = phone;
+        Address = address;
     }
 
     public String getDealerCode() {
@@ -106,5 +102,21 @@ public class Profile_Model {
 
     public void setEmail(String email) {
         Email = email;
+    }
+
+    public String getPhone() {
+        return Phone;
+    }
+
+    public void setPhone(String phone) {
+        Phone = phone;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
     }
 }

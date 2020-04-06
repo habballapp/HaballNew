@@ -1,6 +1,7 @@
 package com.example.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrdersModel;
 
 public class RetailerOrdersModel {
+    private String ID;
     String OrderNumber;
     String Retailer;
     String OrderId;
@@ -83,5 +84,13 @@ public class RetailerOrdersModel {
 
     public void setInvoiceStatus(String invoiceStatus) {
         InvoiceStatus = invoiceStatus;
+    }
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+
+    public String getID() {
+        return ID;
     }
 }

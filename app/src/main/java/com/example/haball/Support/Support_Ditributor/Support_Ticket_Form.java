@@ -1,9 +1,7 @@
 package com.example.haball.Support.Support_Ditributor;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +23,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +35,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static android.app.PendingIntent.getActivity;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Support_Ticket_Form extends AppCompatActivity {
 
@@ -164,11 +164,22 @@ public class Support_Ticket_Form extends AppCompatActivity {
         login_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    makeTicketAddRequest();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (TextUtils.isEmpty(BName.getText().toString()) ||
+                        TextUtils.isEmpty(Email.getText().toString()) ||
+                        TextUtils.isEmpty(Comment.getText().toString()) ||
+                        TextUtils.isEmpty(MobileNo.getText().toString())) {
+
+                    Snackbar.make(view, "Please Enter All Required Fields", Snackbar.LENGTH_SHORT).show();
+                }else{
+
+                    try {
+                        makeTicketAddRequest();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                 }
+
             }
         });
 

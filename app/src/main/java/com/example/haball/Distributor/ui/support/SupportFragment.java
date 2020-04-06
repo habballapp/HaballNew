@@ -24,14 +24,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -61,6 +53,14 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TimeZone;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class SupportFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
@@ -157,6 +157,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
+        spinner_container_main = root.findViewById( R.id.spinner_container_main );
         tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
         tv_shipment_no_data.setVisibility(View.GONE);
         spinner_container1 = root.findViewById(R.id.spinner_container1);
@@ -266,9 +267,23 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                } else {
+
+                if (Filter_selected.equals("Status")) {
+                    if (i == 0) {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } else {
+                        Filter_selected_value = String.valueOf(i - 1);
+                        if (!Filter_selected_value.equals("")) {
+                            try {
+                               fetchFilteredSupport();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+
+                else {
                     Filter_selected_value = filters.get(i);
                     Log.i("Filter_selected_value", Filter_selected_value);
                     try {

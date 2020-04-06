@@ -2,7 +2,6 @@ package com.example.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrdersA
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -11,20 +10,21 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
+
+
+import com.example.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrdersModel.RetailerOrdersModel;
+import com.example.haball.Distributor.ui.retailer.RetailerOrder.RetailerViewOrder;
+import com.example.haball.R;
+
+import org.json.JSONException;
+
+import java.text.DecimalFormat;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrdersModel.RetailerOrdersModel;
-import com.example.haball.Distributor.ui.retailer.RetailerOrder.RetailerViewOrder;
-import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.RetailerPlaceOrder;
-import com.example.haball.R;
-
-import java.text.DecimalFormat;
-import java.util.List;
 
 public class RetailerOrdersAdapter extends RecyclerView.Adapter<RetailerOrdersAdapter.ViewHolder> {
     private Context context;
@@ -43,7 +43,7 @@ public class RetailerOrdersAdapter extends RecyclerView.Adapter<RetailerOrdersAd
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RetailerOrdersAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RetailerOrdersAdapter.ViewHolder holder, final int position) {
         holder.tv_heading.setText(OrdersList.get(position).getRetailer());
         holder.tv_order_no_value.setText(OrdersList.get(position).getOrderNumber());
 
@@ -87,7 +87,9 @@ public class RetailerOrdersAdapter extends RecyclerView.Adapter<RetailerOrdersAd
                                 break;
 
                             case R.id.view_payment_cancel:
-                                // Toast.makeText(context,"Cancel",Toast.LENGTH_SHORT).show();
+                                String orderID = OrdersList.get(position).getID();
+                                cancelOrder(context, OrdersList.get(position).getOrderId(), OrdersList.get(position).getOrderNumber());
+
                         }
                         return false;
                     }
@@ -99,6 +101,17 @@ public class RetailerOrdersAdapter extends RecyclerView.Adapter<RetailerOrdersAd
         });
 
     }
+
+    private void cancelOrder(Context context, String ID, String OrderNumber){
+
+        RetailerCancelOrder cancelOrder = new RetailerCancelOrder();
+        try {
+            cancelOrder.cancelOrder(context, ID, OrderNumber);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public int getItemCount() {
