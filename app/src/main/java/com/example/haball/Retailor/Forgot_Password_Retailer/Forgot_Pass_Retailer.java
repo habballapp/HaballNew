@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -38,7 +39,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import Forgot_Password.Forgot_Pass_Distributor;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,7 +46,8 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Forgot_Pass_Retailer extends AppCompatActivity {
     private ImageButton btn_back;
     private EditText txt_email;
-    private Button btn_reset,btn_lgn;
+    private TextView heading;
+    private Button btn_lgn,btn_reset;
     private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4013/api/users/forgot";
     ProgressDialog progressDialog;
 
@@ -71,8 +72,11 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
         bar.setDisplayShowCustomEnabled( true );
         bar.setBackgroundDrawable( new ColorDrawable( Color.parseColor( "#FFFFFF" ) ) );
         bar.setTitle( "" );
+        heading = (TextView)findViewById( R.id.heading );
+        heading.setText( "Welcome To Retailer Portal" );
         btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
-        btn_reset = findViewById( R.id.btn_reset );
+        btn_reset =  (Button)findViewById( R.id.btn_reset);
+       Log.i( "Btn-Reset","Button");
         btn_reset.setEnabled( false );
         btn_reset.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
 

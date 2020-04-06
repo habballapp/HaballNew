@@ -303,6 +303,36 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="15dp"
+                android:hint="Address"
+                android:textColorHint="#96bb3c"
+                android:theme="@style/TextLabel"
+                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeWidth="0.5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/R_Address"
+                    android:textSize="14sp"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="50dp"
+                    android:drawableRight="@drawable/editprofile"
+                    android:textColor="#676a6c"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
 
 
         </LinearLayout>
