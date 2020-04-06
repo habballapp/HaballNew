@@ -63,6 +63,9 @@
                 android:layout_height="match_parent" />
         </RelativeLayout>
 
+
+
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_txt_amount"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -86,13 +89,14 @@
                 android:paddingTop="5dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="5dp"
+                android:maxLength="9"
                 android:textColor="#676a6c"
                 android:inputType="number"
                 android:textSize="14sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
+         </LinearLayout>
 
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ln_btn"

@@ -6,7 +6,9 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -22,15 +25,6 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -67,17 +61,29 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class RetailerFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
     private RetailerViewModel shareViewModel;
     private String URL_Retailers = "http://175.107.203.97:4013/api/retailer/search";
-    RecyclerView recyclerView;
+    private  RecyclerView recyclerView;
+    private Button btn_load_more;
+    private int pageNumber = 0;
     private RecyclerView.Adapter mAdapter;
     private TextView tv_shipment_no_data;
     private RecyclerView.LayoutManager layoutManager;
     private List<Retailer_Management_Dashboard_Model> RetailerList = new ArrayList<>();
     private String Token, DistributorId;
     private String Filter_selected, Filter_selected_value;
+    private RelativeLayout rv_filter;
+    private double totalPages = 0;
+    private double totalEntries = 0;
 
     private Spinner spinner_consolidate;
     private Spinner spinner2;
@@ -111,14 +117,108 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
                 ViewModelProviders.of(this).get(RetailerViewModel.class);
         View root = inflater.inflate(R.layout.fragment_retailer__dashboard, container, false);
 
-        recyclerView = (RecyclerView) root.findViewById(R.id.rv_retailer_dashboard);
-        layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
+
         tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
         tv_shipment_no_data.setVisibility(View.GONE);
         spinner_container_main = root.findViewById(R.id.spinner_container_main);
         search_bar = root.findViewById(R.id.search_bar);
+        btn_load_more = root.findViewById(R.id.btn_load);
+        rv_filter = root.findViewById(R.id.tv_retailer_order_dashboard);
+
+        SpannableString content = new SpannableString("Load More");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+
+        btn_load_more.setText(content);
+        btn_load_more.setVisibility(View.GONE);
+
+        btn_load_more.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText( getContext(),"Clicked",Toast.LENGTH_SHORT ).show();
+                pageNumber++;
+                try {
+                    performPagination();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+        } );
+
+
+
+        recyclerView = (RecyclerView) root.findViewById(R.id.rv_retailer_order_dashboard);
+        layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                scrollEvent = new ArrayList<>();
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+                y = dy;
+                if (dy <= -5) {
+                    scrollEvent.add("ScrollDown");
+//                            Log.i("scrolling", "Scroll Down");
+                } else if (dy > 5) {
+                    scrollEvent.add("ScrollUp");
+//                            Log.i("scrolling", "Scroll Up");
+                }
+                String scroll = getScrollEvent();
+
+                if (scroll.equals("ScrollDown")) {
+                    if (rv_filter.getVisibility() == View.GONE) {
+
+                        rv_filter.setVisibility(View.VISIBLE);
+                        TranslateAnimation animate1 = new TranslateAnimation(
+                                0,                 // fromXDelta
+                                0,                 // toXDelta
+                                -rv_filter.getHeight(),  // fromYDelta
+                                0);                // toYDelta
+                        animate1.setDuration(250);
+                        animate1.setFillAfter(true);
+                        rv_filter.clearAnimation();
+                        rv_filter.startAnimation(animate1);
+                    }
+                } else if (scroll.equals("ScrollUp")) {
+                    y = 0;
+                    if (rv_filter.getVisibility() == View.VISIBLE) {
+//                                line_bottom.setVisibility(View.INVISIBLE);
+                        TranslateAnimation animate = new TranslateAnimation(
+                                0,                 // fromXDelta
+                                0,                 // toXDelta
+                                0,  // fromYDelta
+                                -rv_filter.getHeight()); // toYDelta
+                        animate.setDuration(100);
+                        animate.setFillAfter(true);
+                        rv_filter.clearAnimation();
+                        rv_filter.startAnimation(animate);
+                        rv_filter.setVisibility(View.GONE);
+                    }
+                }
+
+                int visibleItemCount = layoutManager.getChildCount();
+                int totalItemCount = layoutManager.getItemCount();
+                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
+                    if (totalPages != 0 && pageNumber < totalPages) {
+//                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
+                        btn_load_more.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+        });
+
 
         // DATE FILTERS ......
         date_filter_rl = root.findViewById(R.id.date_filter_rl);
@@ -208,6 +308,8 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
 //                    }
                 }
             }
+
+
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -353,6 +455,59 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
         }
         return root;
     }
+
+    private void performPagination() throws JSONException {
+
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+//        Log.i("Token", Token);
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+//        Log.i("DistributorId ", DistributorId);
+
+        JSONObject map = new JSONObject();
+        map.put("DistributorId", Integer.parseInt(DistributorId));
+        try {
+            map.put("TotalRecords", 10);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        map.put("PageNumber", pageNumber);
+
+        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_Retailers, map, new Response.Listener<JSONArray>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onResponse(JSONArray result) {
+//                Log.i("Payments Requests", result.toString());
+                btn_load_more.setVisibility(View.GONE);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+
+                error.printStackTrace();
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(getContext()).add(sr);
+    }
+
 
 
     private void fetchRetailer() throws JSONException {

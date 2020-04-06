@@ -195,6 +195,8 @@
 
                 <!--        amount filter layout-->
 
+
+
                 <LinearLayout
                     android:id="@+id/amount_filter_rl"
                     android:layout_width="match_parent"
@@ -234,6 +236,7 @@
                             android:layout_weight="0.5"
                             android:background="@android:color/transparent"
                             android:inputType="number"
+                            android:maxLength="9"
                             android:textColor="#676A6C"
                             android:textColorHint="#676A6C"
                             android:textSize="14sp" />

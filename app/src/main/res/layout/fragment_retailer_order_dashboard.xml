@@ -29,10 +29,11 @@
 
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_below="@+id/tv_retailer_order_dashboard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:orientation="vertical"
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:id="@+id/spinner_container_main"
@@ -168,11 +169,12 @@
                             android:src="@drawable/ic_date_range_black_24dp" />
                     </LinearLayout>
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1.75"
                         android:paddingTop="10dp"
+                        android:orientation="vertical"
                         android:paddingBottom="10dp">
 
                         <RelativeLayout
@@ -181,7 +183,7 @@
                             android:layout_centerInParent="true"
 
                             android:background="#676A6C" />
-                    </RelativeLayout>
+                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/date1_filter"
@@ -242,6 +244,14 @@
                         android:paddingBottom="10dp"
                         android:weightSum="2">
 
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.5"
+                            android:text="PKR "
+                            android:textColor="#676A6C" />
+
                         <EditText
                             android:id="@+id/et_amount1"
                             android:layout_width="match_parent"
@@ -249,6 +259,7 @@
                             android:layout_weight="0.5"
                             android:background="@android:color/transparent"
                             android:inputType="number"
+                            android:maxLength="9"
                             android:textColor="#676A6C"
                             android:textColorHint="#676A6C"
                             android:textSize="14sp" />
@@ -280,6 +291,12 @@
                         android:paddingRight="5dp"
                         android:paddingBottom="10dp"
                         android:weightSum="2">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.5"
+                            android:text="PKR "
+                            android:textColor="#676A6C" />
 
                         <EditText
                             android:id="@+id/et_amount2"
@@ -289,6 +306,7 @@
                             android:background="@android:color/transparent"
                             android:inputType="number"
                             android:textColor="#676A6C"
+                            android:maxLength="9"
                             android:textColorHint="#676A6C"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -306,6 +324,8 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/line_seperator" />
         </RelativeLayout>
+
+
             <TextView
                 android:id="@+id/tv_shipment_no_data"
                 android:layout_width="match_parent"
@@ -323,14 +343,34 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_retailer_order_dashboard"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/spinner_container_main"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="30dp" />
 
+
+        <Button
+            android:id="@+id/btn_load"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/transparent"
+            android:text="@string/load_more"
+            android:textAllCaps="false"
+            android:textSize="18sp" />
+
+        </LinearLayout>
+
+
+
+
+
+
+
             <TextView
+                android:id="@+id/text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -338,4 +378,3 @@
                 android:gravity="center"
                 android:text="© Haball | All rights reserved" />
         </RelativeLayout>
-</RelativeLayout>
