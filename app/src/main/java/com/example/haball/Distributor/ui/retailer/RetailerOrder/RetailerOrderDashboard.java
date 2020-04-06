@@ -159,11 +159,11 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         consolidate_felter = new ArrayList<>();
         consolidate_felter = new ArrayList<>();
         consolidate_felter.add("Select Criteria");
-        consolidate_felter.add("Order ID");
+//        consolidate_felter.add("Order ID");
         consolidate_felter.add("Retailer");
         consolidate_felter.add("Amount");
         consolidate_felter.add("Created Date");
-        consolidate_felter.add("Submitter");
+//        consolidate_felter.add("Submitter");
         consolidate_felter.add("Status");
 
         arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),

@@ -1,12 +1,18 @@
 package com.example.haball.Distributor.ui.profile.ui.main;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -33,7 +39,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.profile.Profile_Model;
 import com.example.haball.R;
+import com.example.haball.Registration.BooleanRequest;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -69,6 +78,8 @@ public class PlaceholderFragment extends Fragment {
     private String DistributorId, ID, Username, Phone;
     private Dialog change_password_dail;
     private Boolean password_check = false, confirm_password_check = false;
+    private int keyDel;
+    private TextInputLayout layout_password1;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -78,6 +89,7 @@ public class PlaceholderFragment extends Fragment {
         return fragment;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
@@ -199,6 +211,44 @@ public class PlaceholderFragment extends Fragment {
                     }
                 });
 
+                edt_dist_mobile.addTextChangedListener(new TextWatcher() {
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        edt_dist_mobile.setOnKeyListener(new View.OnKeyListener() {
+                            @Override
+                            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                                if (keyCode == KeyEvent.KEYCODE_DEL)
+                                    keyDel = 1;
+                                return false;
+                            }
+                        });
+
+                        if (keyDel == 0) {
+                            int len = edt_dist_mobile.getText().length();
+                            if(len == 4) {
+                                edt_dist_mobile.setText(edt_dist_mobile.getText() + "-");
+                                edt_dist_mobile.setSelection(edt_dist_mobile.getText().length());
+                            }
+                        } else {
+                            keyDel = 0;
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable arg0) {
+                        // TODO Auto-generated method stub
+                    }
+
+                    @Override
+                    public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+                        // TODO Auto-generated method stub
+                    }
+                });
+
+
                 distri_btn_save.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -220,7 +270,7 @@ public class PlaceholderFragment extends Fragment {
                 txt_password = root.findViewById(R.id.txt_password);
                 txt_newpassword = root.findViewById(R.id.txt_newpassword);
                 txt_cfmpassword = root.findViewById(R.id.txt_cfmpassword);
-
+                layout_password1 = root.findViewById(R.id.layout_password1);
                         update_password = root.findViewById(R.id.update_password);
                         update_password.setOnClickListener(new View.OnClickListener() {
                             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -242,6 +292,26 @@ public class PlaceholderFragment extends Fragment {
 
 
         return root;
+    }
+
+    private void checkPasswords() {
+        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
+        if (txt_newpassword.getText().toString().matches(reg_ex)) {
+            password_check = true;
+//            txt_password.setError(null);
+            layout_password1.setBoxStrokeColor(getResources().getColor(R.color.textboxstrokecolor));
+            layout_password1.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+            layout_password1.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolor)));
+            txt_newpassword.setTextColor(getResources().getColor(R.color.textcolor));
+        } else {
+            layout_password1.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+            layout_password1.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            layout_password1.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            txt_newpassword.setTextColor(getResources().getColor(R.color.error_stroke_color));
+            Toast.makeText(getContext(), "Please enter password with minimum 6 characters & 1 Numeric or special character", Toast.LENGTH_LONG).show();
+//            txt_password.setError("Please enter password with minimum 6 characters & 1 Numeric or special character");
+//            password_check = false;
+        }
     }
 
     private void profileData() {
@@ -425,17 +495,17 @@ public class PlaceholderFragment extends Fragment {
 
 
     }
-
-    private void checkPasswords() {
-        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
-        if (txt_newpassword.getText().toString().matches(reg_ex)) {
-            password_check = true;
-            txt_newpassword.setError(null);
-        } else {
-            txt_newpassword.setError("Please enter password with minimum 6 characters & 1 Numeric or special character");
-            password_check = false;
-        }
-    }
+//
+//    private void checkPasswords() {
+//        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
+//        if (txt_newpassword.getText().toString().matches(reg_ex)) {
+//            password_check = true;
+//            txt_newpassword.setError(null);
+//        } else {
+//            txt_newpassword.setError("Please enter password with minimum 6 characters & 1 Numeric or special character");
+//            password_check = false;
+//        }
+//    }
 
     private void checkConfirmPassword() {
         if (txt_newpassword.getText().toString().equals(txt_cfmpassword.getText().toString())) {
