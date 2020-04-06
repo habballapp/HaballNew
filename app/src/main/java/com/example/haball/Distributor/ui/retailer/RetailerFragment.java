@@ -470,11 +470,7 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
 
         JSONObject map = new JSONObject();
         map.put("DistributorId", Integer.parseInt(DistributorId));
-        try {
-            map.put("TotalRecords", 10);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        map.put("TotalRecords", 10);
         map.put("PageNumber", pageNumber);
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_Retailers, map, new Response.Listener<JSONArray>() {
