@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.bignerdranch.expandablerecyclerview.ViewHolder.ChildViewHolder;
+import com.bignerdranch.expandablerecyclerview.ChildViewHolder;
 import com.example.haball.R;
 
 public class OrderChildList_VH extends ChildViewHolder {

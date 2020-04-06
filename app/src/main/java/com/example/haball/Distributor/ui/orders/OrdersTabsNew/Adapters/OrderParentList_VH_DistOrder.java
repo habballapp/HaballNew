@@ -7,8 +7,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bignerdranch.expandablerecyclerview.ViewHolder.ParentViewHolder;
 //import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder;
+import com.example.haball.Distributor.ui.orders.OrdersTabsNew.ParentViewHolder;
 import com.example.haball.R;
 
 public class OrderParentList_VH_DistOrder extends ParentViewHolder {

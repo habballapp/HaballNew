@@ -1,11 +1,12 @@
 package com.example.haball.Distributor.ui.orders.OrdersTabsNew.Models;
 
-import com.bignerdranch.expandablerecyclerview.Model.ParentObject;
+import com.bignerdranch.expandablerecyclerview.model.SimpleParent;
+import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Parent;
 
 import java.util.List;
 import java.util.UUID;
 
-public class OrderParentlist_Model_DistOrder implements ParentObject {
+public class OrderParentlist_Model_DistOrder extends SimpleParent<OrderChildlist_Model_DistOrder> implements Parent<OrderChildlist_Model_DistOrder> {
 
     private List<Object> myCHildrenList;
     private UUID _id;
@@ -18,6 +19,7 @@ public class OrderParentlist_Model_DistOrder implements ParentObject {
     private String ID;
 
     public OrderParentlist_Model_DistOrder(String iD, String companyId, String title, String parentId, String shortDescription, String longDescription, String status) {
+        super(null);
         ID = iD;
         CompanyId = companyId;
         Title = title;
@@ -26,6 +28,10 @@ public class OrderParentlist_Model_DistOrder implements ParentObject {
         LongDescription = longDescription;
         Status = status;
         _id = UUID.randomUUID();
+    }
+
+    protected OrderParentlist_Model_DistOrder(List childItemList) {
+        super(childItemList);
     }
 
     public String getID() {
@@ -101,12 +107,17 @@ public class OrderParentlist_Model_DistOrder implements ParentObject {
     }
 
     @Override
-    public List<Object> getChildObjectList() {
+    public void setChildList(List list) {
+        myCHildrenList = list;
+    }
+
+    @Override
+    public List getChildList() {
         return myCHildrenList;
     }
 
     @Override
-    public void setChildObjectList(List<Object> list) {
-        myCHildrenList = list;
+    public boolean isInitiallyExpanded() {
+        return false;
     }
 }

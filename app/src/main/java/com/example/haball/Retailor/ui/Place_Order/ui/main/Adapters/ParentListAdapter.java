@@ -12,8 +12,8 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bignerdranch.expandablerecyclerview.Adapter.ExpandableRecyclerAdapter;
-import com.bignerdranch.expandablerecyclerview.Model.ParentObject;
+import com.bignerdranch.expandablerecyclerview.ExpandableRecyclerAdapter;
+import com.bignerdranch.expandablerecyclerview.model.SimpleParent;
 import com.example.haball.R;
 import com.example.haball.Retailor.ui.Place_Order.ui.main.Models.OrderChildlist_Model;
 import com.example.haball.Retailor.ui.Place_Order.ui.main.Models.OrderParentlist_Model;
@@ -25,7 +25,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst_VH, OrderChildList_VH> {
+public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist_Model, OrderChildlist_Model, OrderParentLIst_VH, OrderChildList_VH> {
     LayoutInflater inflater;
     private Context context;
     public List<OrderChildlist_Model> selectedProductsDataList = new ArrayList<>();
@@ -33,8 +33,8 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
     private String object_string, object_stringqty;
     private int pre_expanded = -1;
 
-    public ParentListAdapter(Context context, List<ParentObject> parentItemList) {
-        super(context, parentItemList);
+    public ParentListAdapter(Context context, List<OrderParentlist_Model> parentItemList) {
+        super(parentItemList);
         inflater = LayoutInflater.from(context);
         this.context = context;
         SharedPreferences selectedProducts = context.getSharedPreferences("selectedProducts_retailer_own",
@@ -56,7 +56,7 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
     }
 
     @Override
-    public OrderParentLIst_VH onCreateParentViewHolder(ViewGroup viewGroup) {
+    public OrderParentLIst_VH onCreateParentViewHolder(ViewGroup viewGroup, int viewType) {
         View view = inflater.inflate(R.layout.parentlist_retailer_order, viewGroup, false);
         return new OrderParentLIst_VH(view);
 
@@ -64,7 +64,7 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
 
 
     @Override
-    public OrderChildList_VH onCreateChildViewHolder(ViewGroup viewGroup) {
+    public OrderChildList_VH onCreateChildViewHolder(ViewGroup viewGroup, int viewType) {
         View view = inflater.inflate(R.layout.orderchildlist_expand, viewGroup, false);
 
         return new OrderChildList_VH(view);
@@ -72,7 +72,7 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
     }
 
     @Override
-    public void onBindParentViewHolder(final OrderParentLIst_VH orderParentLIst_vh, final int position, Object o) {
+    public void onBindParentViewHolder(final OrderParentLIst_VH orderParentLIst_vh, final int position, OrderParentlist_Model o) {
         Log.i("obj", String.valueOf(o));
         final OrderParentlist_Model orderParentlist_model = (OrderParentlist_Model) o;
         orderParentLIst_vh._textview.setText(orderParentlist_model.getTitle());
@@ -81,7 +81,7 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentLIst
 
 
     @Override
-    public void onBindChildViewHolder(OrderChildList_VH orderChildList_vh, int i, Object o) {
+    public void onBindChildViewHolder(OrderChildList_VH orderChildList_vh, int pos, int i, OrderChildlist_Model o) {
 
         Log.i("o", String.valueOf(o));
         OrderChildlist_Model orderChildlist_model = (OrderChildlist_Model) o;

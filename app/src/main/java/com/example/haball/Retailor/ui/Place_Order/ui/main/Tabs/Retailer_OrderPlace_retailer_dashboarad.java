@@ -40,7 +40,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.bignerdranch.expandablerecyclerview.Model.ParentObject;
+import com.bignerdranch.expandablerecyclerview.model.SimpleParent;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.example.haball.NonSwipeableViewPager;
 import com.example.haball.R;
@@ -71,7 +71,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
     RecyclerView recyclerView, subchlid_RV;
     private List<OrderParentlist_Model> titles = new ArrayList<>();
     private List<OrderChildlist_Model> productList = new ArrayList<>();
-    private List<ParentObject> parentObjects = new ArrayList<>();
+    private List<SimpleParent> parentObjects = new ArrayList<>();
     private String URL_PRODUCT_CATEGORY = "http://175.107.203.97:4014/api/products/GetProductByDealerCode/";
     private String URL_PRODUCT = "http://175.107.203.97:4014/api/products/GetProductByDealerCode/";
     private String Token, DistributorId, CompanyId;
@@ -746,8 +746,8 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
 //        new MyAsyncTask().execute();
 //    }
 
-    private List<ParentObject> initData() {
-        List<ParentObject> parentObjects = new ArrayList<>();
+    private List<OrderParentlist_Model> initData() {
+        List<OrderParentlist_Model> parentObjects = new ArrayList<>();
         for (OrderParentlist_Model title : titles) {
             Log.i("title", String.valueOf(title.getCategoryId()));
             List<Object> childlist = new ArrayList<>();
@@ -757,7 +757,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                 if (title.getCategoryId().equals(product.getProductCategoryId()))
                     childlist.add(product);
             }
-            title.setChildObjectList(childlist);
+            title.setChildList(childlist);
             parentObjects.add(title);
         }
         return parentObjects;

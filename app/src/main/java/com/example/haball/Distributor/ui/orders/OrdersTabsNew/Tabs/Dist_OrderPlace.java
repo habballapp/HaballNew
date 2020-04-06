@@ -37,7 +37,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.bignerdranch.expandablerecyclerview.Model.ParentObject;
+import com.bignerdranch.expandablerecyclerview.model.SimpleParent;
 import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Adapters.ParentList_Adapter_DistOrder;
 import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderChildlist_Model_DistOrder;
 import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderParentlist_Model_DistOrder;
@@ -71,7 +71,7 @@ public class Dist_OrderPlace extends Fragment {
     RecyclerView recyclerView, subchlid_RV;
     private List<OrderParentlist_Model_DistOrder> titles = new ArrayList<>();
     private List<OrderChildlist_Model_DistOrder> productList = new ArrayList<>();
-    private List<ParentObject> parentObjects = new ArrayList<>();
+    private List<SimpleParent> parentObjects = new ArrayList<>();
     private String URL_PRODUCT_CATEGORY = "http://175.107.203.97:4013/api/products/ReadCategories/0/";
     private String URL_PRODUCT = "http://175.107.203.97:4013/api/products/ReadProductsByCategories/0/";
     private String Token, DistributorId;
@@ -253,7 +253,7 @@ public class Dist_OrderPlace extends Fragment {
 
     private boolean enableCheckout() {
 
-        Log.i("checkout", "in checkout");
+//        Log.i("checkout", "in checkout");
         SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_distributor",
                 Context.MODE_PRIVATE);
         Gson gson = new Gson();
@@ -271,8 +271,8 @@ public class Dist_OrderPlace extends Fragment {
         if (selectedProductsDataList != null) {
             if (selectedProductsDataList.size() > 0) {
                 for (int i = 0; i < selectedProductsDataList.size(); i++) {
-                    Log.i("unit price", selectedProductsDataList.get(i).getUnitPrice());
-                    Log.i("qty", selectedProductsQuantityList.get(i));
+//                    Log.i("unit price", selectedProductsDataList.get(i).getUnitPrice());
+//                    Log.i("qty", selectedProductsQuantityList.get(i));
                     if (!selectedProductsDataList.get(i).getUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
                         if (Float.parseFloat(selectedProductsQuantityList.get(i)) > 0) {
                             totalQty = totalQty + Float.parseFloat(selectedProductsQuantityList.get(i));
@@ -280,8 +280,8 @@ public class Dist_OrderPlace extends Fragment {
                 }
             }
         }
-        Log.i("totalQty", "here");
-        Log.i("totalQty", String.valueOf(totalQty));
+//        Log.i("totalQty", "here");
+//        Log.i("totalQty", String.valueOf(totalQty));
         if (totalQty > 0) {
             btn_checkout.setEnabled(true);
             btn_checkout.setBackgroundResource(R.drawable.button_round);
@@ -312,8 +312,8 @@ public class Dist_OrderPlace extends Fragment {
                         if (selectedProductsDataList != null) {
                             if (selectedProductsDataList.size() > 0) {
                                 for (int i = 0; i < selectedProductsDataList.size(); i++) {
-                                    Log.i("unit price", selectedProductsDataList.get(i).getUnitPrice());
-                                    Log.i("qty", selectedProductsQuantityList.get(i));
+//                                    Log.i("unit price", selectedProductsDataList.get(i).getUnitPrice());
+//                                    Log.i("qty", selectedProductsQuantityList.get(i));
                                     if (!selectedProductsDataList.get(i).getUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
                                         grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
                                     if (Float.parseFloat(selectedProductsQuantityList.get(i)) > 0)
@@ -655,8 +655,8 @@ public class Dist_OrderPlace extends Fragment {
 //                Log.i("titles123", String.valueOf(titles));
                 ParentList_Adapter_DistOrder adapter = new ParentList_Adapter_DistOrder(getActivity(), initData());
 //                adapter.setCustomParentAnimationViewId(R.id.parent_list_item_expand_arrow);
-                adapter.setParentClickableViewAnimationDefaultDuration();
-                adapter.setParentAndIconExpandOnClick(false);
+//                adapter.set .setParentClickableViewAnimationDefaultDuration();
+//                adapter.setParentAndIconExpandOnClick(false);
 //                adapter.onParentItemClickListener(1);
                 recyclerView.setAdapter(adapter);
 
@@ -776,8 +776,8 @@ public class Dist_OrderPlace extends Fragment {
 //                add(sr);
 //    }
 
-    private List<ParentObject> initData() {
-        List<ParentObject> parentObjects = new ArrayList<>();
+    private List<OrderParentlist_Model_DistOrder> initData() {
+        List<OrderParentlist_Model_DistOrder> parentObjects = new ArrayList<>();
         for (OrderParentlist_Model_DistOrder title : titles) {
             Log.i("title", String.valueOf(title.getTitle()));
             List<Object> childlist = new ArrayList<>();
@@ -789,7 +789,7 @@ public class Dist_OrderPlace extends Fragment {
                     childlist.add(product);
                 }
             }
-            title.setChildObjectList(childlist);
+            title.setChildList(childlist);
             parentObjects.add(title);
         }
         return parentObjects;

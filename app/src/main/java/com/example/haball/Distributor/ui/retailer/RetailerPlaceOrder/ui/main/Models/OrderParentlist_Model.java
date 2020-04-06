@@ -1,11 +1,11 @@
 package com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models;
 
-import com.bignerdranch.expandablerecyclerview.Model.ParentObject;
+import com.bignerdranch.expandablerecyclerview.model.SimpleParent;
 
 import java.util.List;
 import java.util.UUID;
 
-public class OrderParentlist_Model implements ParentObject {
+public class OrderParentlist_Model extends SimpleParent<OrderChildlist_Model> {
     private List<Object> myCHildrenList;
     private UUID _id;
     private String CategoryId;
@@ -14,6 +14,7 @@ public class OrderParentlist_Model implements ParentObject {
     public Boolean expanded = false;
 
     public OrderParentlist_Model(List<Object> myCHildrenList, UUID _id, String categoryId, String title, String parentId, Boolean expanded) {
+        super(null);
         this.myCHildrenList = myCHildrenList;
         this._id = _id;
         CategoryId = categoryId;
@@ -63,12 +64,12 @@ public class OrderParentlist_Model implements ParentObject {
     }
 
     @Override
-    public List<Object> getChildObjectList() {
+    public List getChildList() {
         return myCHildrenList;
     }
 
     @Override
-    public void setChildObjectList(List<Object> list) {
+    public void setChildList(List list) {
         myCHildrenList = list;
     }
 }
