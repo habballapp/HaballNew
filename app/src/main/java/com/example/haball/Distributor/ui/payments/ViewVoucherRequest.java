@@ -132,6 +132,7 @@ public class ViewVoucherRequest {
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
                     Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
+                    Toast.makeText(context, "UNABLE TO DOWNLOAD FILE", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                 }
             }

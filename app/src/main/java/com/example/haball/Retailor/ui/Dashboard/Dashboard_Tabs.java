@@ -24,9 +24,9 @@ public class Dashboard_Tabs extends Fragment {
         final View root = inflater.inflate(R.layout.fragment_dashboard__tabs, container, false);
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getActivity(), getChildFragmentManager());
-        final ViewPager viewPager = root.findViewById(R.id.view_pager5);
+        final ViewPager viewPager = root.findViewById(R.id.view_pager_ret5);
         viewPager.setAdapter(sectionsPagerAdapter);
-        final TabLayout tabs = root.findViewById(R.id.tabs5);
+        final TabLayout tabs = root.findViewById(R.id.tabs_ret5);
         tabs.setupWithViewPager(viewPager);
 
         LinearLayout tabStrip = ((LinearLayout)tabs.getChildAt(0));

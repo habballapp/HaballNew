@@ -30,6 +30,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Distributor.ui.home.HomeFragment;
 import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Adapters.ParentList_Adapter_DistOrder;
 import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderChildlist_Model_DistOrder;
 import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderParentlist_Model_DistOrder;
@@ -77,7 +78,7 @@ public class Dist_OrderPlace extends Fragment {
     private List<String> temp_listqty = new ArrayList<>();
     private List<String> selectedProductsQuantityList = new ArrayList<>();
     private float grossAmount = 0;
-    private Button btn_checkout;
+    private Button btn_checkout, close_order_button;
     private String CompanyId;
     private Spinner spinner_conso;
     private RelativeLayout spinner_container_main;
@@ -90,6 +91,7 @@ public class Dist_OrderPlace extends Fragment {
     List<OrderParentlist_Model_DistOrder> temp_titles = new ArrayList<>();
     private static int y;
     private List<String> scrollEvent = new ArrayList<>();
+    private FragmentTransaction fragmentTransaction;
 
     public Dist_OrderPlace() {
         // Required empty public constructor
@@ -103,6 +105,7 @@ public class Dist_OrderPlace extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dist_main_placeorder, container, false);
         btn_checkout = view.findViewById(R.id.btn_checkout);
+        close_order_button = view.findViewById(R.id.close_order_button);
         recyclerView = view.findViewById(R.id.rv_order_list);
         spinner_container_main = view.findViewById(R.id.spinner_container_main);
 //        subchlid_RV = view.findViewById(R.id.subchlid_RV);
@@ -119,6 +122,15 @@ public class Dist_OrderPlace extends Fragment {
         editor.putString("selected_products_qty", "");
         editor.apply();
 
+        close_order_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, new HomeFragment());
+                fragmentTransaction.commit();
+
+            }
+        });
 
         arrayAdapterSpinnerConso.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_conso.setAdapter(arrayAdapterSpinnerConso);

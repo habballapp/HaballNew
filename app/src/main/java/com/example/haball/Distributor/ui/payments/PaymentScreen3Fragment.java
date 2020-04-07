@@ -7,22 +7,33 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.haball.R;
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PaymentScreen3Fragment extends Fragment {
 
     private TextView tv_banking_channel, payment_id;
-    private String PrePaidNumber = "", PrePaidId = "";
-    private Button btn_voucher;
+    private String PrePaidNumber = "", PrePaidId = "", CompanyName = "", Amount = "";
+    private Button btn_voucher, btn_newpayment, btn_update;
+    private Spinner spinner_companyName;
+    private TextInputEditText txt_amount;
+    private ArrayAdapter<String> arrayAdapterPayments;
+    private List<String> CompanyNames = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -31,13 +42,43 @@ public class PaymentScreen3Fragment extends Fragment {
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("PrePaidNumber",
                 Context.MODE_PRIVATE);
-        PrePaidNumber = sharedPreferences.getString("PrePaidNumber","");
-        PrePaidId = sharedPreferences.getString("PrePaidId","");
+        PrePaidNumber = sharedPreferences.getString("PrePaidNumber", "");
+        PrePaidId = sharedPreferences.getString("PrePaidId", "");
+        CompanyName = sharedPreferences.getString("CompanyName", "");
+        Amount = sharedPreferences.getString("Amount", "");
 
         payment_id = root.findViewById(R.id.payment_id);
-        payment_id.setText(PrePaidNumber);
-
+        spinner_companyName = root.findViewById(R.id.spinner_companyName);
+        txt_amount = root.findViewById(R.id.txt_amount);
+        btn_newpayment = root.findViewById(R.id.btn_newpayment);
+        btn_update = root.findViewById(R.id.btn_update);
         btn_voucher = root.findViewById(R.id.btn_voucher);
+
+        payment_id.setText(PrePaidNumber);
+        CompanyNames.add(CompanyName);
+        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, CompanyNames);
+        spinner_companyName.setAdapter(arrayAdapterPayments);
+        txt_amount.setText(Amount);
+
+        btn_newpayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, new CreatePaymentRequestFragment());
+                fragmentTransaction.commit();
+            }
+        });
+
+        btn_update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, new CreatePaymentRequestFragment());
+                fragmentTransaction.commit();
+            }
+        });
+
         btn_voucher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,7 +97,7 @@ public class PaymentScreen3Fragment extends Fragment {
 
                 final AlertDialog alertDialog2 = new AlertDialog.Builder(getContext()).create();
                 LayoutInflater inflater2 = LayoutInflater.from(getContext());
-                View view_popup2 = inflater2.inflate(R.layout.payment_request_details,null);
+                View view_popup2 = inflater2.inflate(R.layout.payment_request_details, null);
                 alertDialog2.setView(view_popup2);
                 alertDialog2.show();
                 ImageButton img_close = view_popup2.findViewById(R.id.image_button_close);
@@ -74,6 +115,7 @@ public class PaymentScreen3Fragment extends Fragment {
 
         return root;
     }
+
     private void viewPDF(Context context, String ID) throws JSONException {
         ViewVoucherRequest viewPDFRequest = new ViewVoucherRequest();
         viewPDFRequest.viewPDF(context, ID);

@@ -152,6 +152,9 @@ public class CreatePaymentRequestFragment extends Fragment {
                 SharedPreferences.Editor editor = PrePaidNumber.edit();
                 editor.putString("PrePaidNumber", prepaid_number);
                 editor.putString("PrePaidId", prepaid_id);
+                editor.putString("CompanyId", companyNameAndId.get(company_names));
+                editor.putString("CompanyName", company_names);
+                editor.putString("Amount", txt_amount.getText().toString());
                 editor.apply();
 
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
