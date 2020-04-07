@@ -1,52 +1,54 @@
 package com.example.haball.Distributor.ui.payments;
 
-        import android.content.Context;
-        import android.content.SharedPreferences;
-        import android.graphics.Color;
-        import android.os.Bundle;
-        import android.util.Log;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.AdapterView;
-        import android.widget.ArrayAdapter;
-        import android.widget.Button;
-        import android.widget.EditText;
-        import android.widget.Spinner;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import androidx.annotation.NonNull;
-        import androidx.fragment.app.Fragment;
-        import androidx.fragment.app.FragmentTransaction;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
-        import com.android.volley.AuthFailureError;
-        import com.android.volley.DefaultRetryPolicy;
-        import com.android.volley.NetworkError;
-        import com.android.volley.NoConnectionError;
-        import com.android.volley.ParseError;
-        import com.android.volley.Request;
-        import com.android.volley.Response;
-        import com.android.volley.RetryPolicy;
-        import com.android.volley.ServerError;
-        import com.android.volley.TimeoutError;
-        import com.android.volley.VolleyError;
-        import com.android.volley.toolbox.JsonArrayRequest;
-        import com.android.volley.toolbox.JsonObjectRequest;
-        import com.android.volley.toolbox.Volley;
-        import com.example.haball.R;
-        import com.google.android.material.textfield.TextInputLayout;
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.haball.Distributor.DistributorDashboard;
+import com.example.haball.R;
+import com.google.android.material.textfield.TextInputLayout;
 
-        import org.json.JSONArray;
-        import org.json.JSONException;
-        import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-        import java.io.UnsupportedEncodingException;
-        import java.util.ArrayList;
-        import java.util.HashMap;
-        import java.util.Iterator;
-        import java.util.List;
-        import java.util.Map;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class EditPaymentRequestFragment extends Fragment {
     private String Token, DistributorId;
@@ -65,11 +67,19 @@ public class EditPaymentRequestFragment extends Fragment {
     private String prepaid_number, prepaid_id;
     private FragmentTransaction fragmentTransaction;
     private TextInputLayout layout_txt_amount;
+    private String PrePaidNumber = "", PrePaidId = "", CompanyName = "", Amount = "";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.activity_payment__screen1, container, false);
+
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("PrePaidNumber",
+                Context.MODE_PRIVATE);
+        PrePaidNumber = sharedPreferences.getString("PrePaidNumber", "");
+        PrePaidId = sharedPreferences.getString("PrePaidId", "");
+        CompanyName = sharedPreferences.getString("CompanyName", "");
+        Amount = sharedPreferences.getString("Amount", "");
 
         btn_create = root.findViewById(R.id.btn_create);
         spinner_company = root.findViewById(R.id.spinner_company);
@@ -132,7 +142,7 @@ public class EditPaymentRequestFragment extends Fragment {
 
         JSONObject map = new JSONObject();
         map.put("Status", 0);
-        map.put("ID", 0);
+        map.put("ID", PrePaidId);
         map.put("DistributorId", Integer.parseInt(DistributorId));
         map.put("CompanyId", companyNameAndId.get(company_names));
         map.put("PaidAmount", txt_amount.getText().toString());
@@ -140,28 +150,32 @@ public class EditPaymentRequestFragment extends Fragment {
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PAYMENT_REQUESTS_SAVE, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
-                try {
-                    prepaid_number = result.getString("PrePaidNumber");
-                    prepaid_id = result.getString("ID");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    prepaid_number = result.getString("PrePaidNumber");
+//                    prepaid_id = result.getString("ID");
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                SharedPreferences PrePaidNumber = getContext().getSharedPreferences("PrePaidNumber",
+//                        Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = PrePaidNumber.edit();
+//                editor.putString("PrePaidNumber", prepaid_number);
+//                editor.putString("PrePaidId", prepaid_id);
+//                editor.putString("CompanyName", company_names);
+//                editor.putString("Amount", txt_amount.getText().toString());
+//                editor.apply();
+//
+//                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new PaymentScreen3Fragment());
+//                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.commit();
+//
+                Toast.makeText(getContext(), "Payment Request " + PrePaidNumber + " has been updated successfully.", Toast.LENGTH_SHORT).show();
+                Intent dashboard_intent = new Intent( getContext(), DistributorDashboard.class );
+                startActivity( dashboard_intent );
+                getActivity().finish();
 
-                SharedPreferences PrePaidNumber = getContext().getSharedPreferences("PrePaidNumber",
-                        Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = PrePaidNumber.edit();
-                editor.putString("PrePaidNumber", prepaid_number);
-                editor.putString("PrePaidId", prepaid_id);
-                editor.putString("CompanyName", company_names);
-                editor.putString("Amount", txt_amount.getText().toString());
-                editor.apply();
-
-                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new PaymentScreen3Fragment());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-
-                Toast.makeText(getContext(), "Payment Request " + prepaid_number + " has been created successfully.", Toast.LENGTH_SHORT).show();
                 Log.e("RESPONSE prepaid_number", result.toString());
             }
         }, new Response.ErrorListener() {
@@ -214,6 +228,17 @@ public class EditPaymentRequestFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                arrayAdapterPayments.notifyDataSetChanged();
+                spinner_company.setAdapter(arrayAdapterPayments);
+
+                txt_amount.setText(Amount);
+                Log.i("Debugging", String.valueOf(CompanyNames));
+                Log.i("Debugging", String.valueOf(CompanyNames.indexOf(CompanyName)));
+                Log.i("Debugging", String.valueOf(CompanyName));
+//        int spinnerPosition = arrayAdapterPayments.getPosition(CompanyName);
+                spinner_company.setSelection(CompanyNames.indexOf(CompanyName));
+
                 Log.e("RESPONSE OF COMPANY ID", result.toString());
             }
         }, new Response.ErrorListener() {
@@ -236,9 +261,6 @@ public class EditPaymentRequestFragment extends Fragment {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
-        arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        arrayAdapterPayments.notifyDataSetChanged();
-        spinner_company.setAdapter(arrayAdapterPayments);
     }
 
 

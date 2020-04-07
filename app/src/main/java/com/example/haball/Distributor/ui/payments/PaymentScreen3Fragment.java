@@ -28,7 +28,7 @@ import java.util.List;
 public class PaymentScreen3Fragment extends Fragment {
 
     private TextView tv_banking_channel, payment_id;
-    private String PrePaidNumber = "", PrePaidId = "", CompanyName = "", Amount = "";
+    private String PrePaidNumber = "", PrePaidId = "", CompanyName = "", Amount = "", CompanyId = "";
     private Button btn_voucher, btn_newpayment, btn_update;
     private Spinner spinner_companyName;
     private TextInputEditText txt_amount;
@@ -45,6 +45,7 @@ public class PaymentScreen3Fragment extends Fragment {
         PrePaidNumber = sharedPreferences.getString("PrePaidNumber", "");
         PrePaidId = sharedPreferences.getString("PrePaidId", "");
         CompanyName = sharedPreferences.getString("CompanyName", "");
+        CompanyId = sharedPreferences.getString("CompanyId", "");
         Amount = sharedPreferences.getString("Amount", "");
 
         payment_id = root.findViewById(R.id.payment_id);
@@ -74,7 +75,7 @@ public class PaymentScreen3Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, new CreatePaymentRequestFragment());
+                fragmentTransaction.replace(R.id.main_container, new EditPaymentRequestFragment());
                 fragmentTransaction.commit();
             }
         });
