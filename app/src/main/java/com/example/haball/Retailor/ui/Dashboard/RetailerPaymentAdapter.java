@@ -10,23 +10,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.PopupMenu;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haball.Distributor.ui.payments.ViewVoucherRequest;
-import com.example.haball.Invoice.Distributor_Invoice_DashBoard;
-import com.example.haball.Payment.View_Payment_Fragment;
 import com.example.haball.R;
 
 import org.json.JSONException;
 
 import java.text.DecimalFormat;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPaymentAdapter.ViewHolder> {
@@ -147,30 +143,24 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
                         break;
                     case R.id.menu_delete:
                         //handle menu3 click
-                        Toast.makeText(context, "Delete Clicked", Toast.LENGTH_LONG).show();
-                             /*   final AlertDialog deleteAlert = new AlertDialog.Builder(mContxt).create();
-                                LayoutInflater delete_inflater = LayoutInflater.from(mContxt);
-                                View delete_alert = delete_inflater.inflate(R.layout.delete_alert, null);
-                                deleteAlert.setView(delete_alert);
-                                Button btn_delete = (Button) delete_alert.findViewById(R.id.btn_delete);
-                                btn_delete.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        deleteAlert.dismiss();
-                                        AlertDialog.Builder delete_successAlert = new AlertDialog.Builder(mContxt);
-                                        LayoutInflater delete_inflater = LayoutInflater.from(mContxt);
-                                        View delete_success_alert = delete_inflater.inflate(R.layout.delete_success, null);
-                                        delete_successAlert.setView(delete_success_alert);
-                                        delete_successAlert.show();
-                                    }
-                                });
-                                deleteAlert.show();*/
+                      //  Toast.makeText(context, "Delete Clicked", Toast.LENGTH_LONG).show();
+                        String paymentId = paymentsList.get(position).getID();
+                        deletePayment(context, paymentsList.get(position).getRetailerInvoiceId(),paymentsList.get(position).getInvoiceNumber());
+
+
                         break;
                 }
                 return false;
             }
         });
         popup.show();
+    }
+
+    private void deletePayment(Context context, String retailerInvoiceId, String invoiceNumber) {
+
+        PaymentDeleteOrder delete = new PaymentDeleteOrder();
+        delete.deleteOrder(context,retailerInvoiceId,invoiceNumber);
+
     }
 
 
