@@ -37,7 +37,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.support.MyJsonArrayRequest;
 import com.example.haball.R;
-import com.example.haball.Retailor.Retailer_Support.Support_Ticket_Form_Retailer;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -113,10 +112,13 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         btn_add_ticket_retailer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new Support_Ticket_Form_Retailer());
-//                fragmentTransaction.addToBackStack(null);
-//                fragmentTransaction.commit();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new Support_Ticket_Form_Fragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+
+
             }
         });
         //init
@@ -493,8 +495,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 return params;
             }
         };
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                15000,
+        request.setRetryPolicy(new DefaultRetryPolicy( 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(request);

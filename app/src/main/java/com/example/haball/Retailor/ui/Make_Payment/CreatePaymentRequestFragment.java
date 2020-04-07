@@ -3,7 +3,6 @@ package com.example.haball.Retailor.ui.Make_Payment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,13 +15,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -31,10 +26,10 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Distributor.ui.payments.PaymentScreen3Fragment;
 import com.example.haball.R;
 
 import org.json.JSONArray;
@@ -48,6 +43,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 public class CreatePaymentRequestFragment extends Fragment {
     private String Token, DistributorId, ID;
     private Button btn_create;
@@ -58,6 +57,8 @@ public class CreatePaymentRequestFragment extends Fragment {
 
     private List<String> CompanyNames = new ArrayList<>();
     private HashMap<String, String> companyNameAndId = new HashMap<>();
+    private FragmentTransaction fragmentTransaction;
+    private String prepaid_id;
 
     private Spinner spinner_company;
     private ArrayAdapter<String> arrayAdapterPayments;
@@ -101,20 +102,15 @@ public class CreatePaymentRequestFragment extends Fragment {
         btn_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(txt_amount.getText())){
-                    Toast.makeText(finalroot.getContext(), "Please enter amount to be paid", Toast.LENGTH_SHORT).show();
 
-                }
-                else{
-                    if (Integer.parseInt(String.valueOf(txt_amount.getText())) >= 500) {
-                        try {
-                            makeSaveRequest();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    } else {
-                        Toast.makeText(finalroot.getContext(), "Paid Amount must be larger than or equal to 500", Toast.LENGTH_SHORT).show();
+                if (!company_names.equals("") && !String.valueOf(txt_amount.getText()).equals("")) {
+                    try {
+                        makeSaveRequest();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
+                } else {
+                    Toast.makeText(getContext(), "All fields are required!", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -151,6 +147,23 @@ public class CreatePaymentRequestFragment extends Fragment {
                     Log.i("Response PR", e.toString());
                     e.printStackTrace();
                 }
+
+
+                SharedPreferences PrePaidNumber = getContext().getSharedPreferences("PrePaidNumber",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = PrePaidNumber.edit();
+                editor.putString("PrePaidNumber", prepaid_number);
+
+                editor.putString("PrePaidId", prepaid_id);
+                editor.apply();
+
+
+
+                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new PaymentScreen3Fragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
                 Toast.makeText(getContext(), "Payment Request " + prepaid_number + " has been created successfully.", Toast.LENGTH_SHORT).show();
                 Log.e("RESPONSE prepaid_number", result.toString());
             }
