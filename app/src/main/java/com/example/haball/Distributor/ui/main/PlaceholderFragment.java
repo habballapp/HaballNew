@@ -1,19 +1,15 @@
 package com.example.haball.Distributor.ui.main;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.UnderlineSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,47 +22,25 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.RequiresApi;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distribution_Login.Distribution_Login;
-import com.example.haball.Distributor.DistributorDashboard;
 import com.example.haball.Distributor.DistributorOrdersAdapter;
 import com.example.haball.Distributor.DistributorOrdersModel;
-import com.example.haball.Distributor.DistributorPaymentsAdapter;
-
-import com.example.haball.Distributor.DistributorPaymentsModel;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
-import com.example.haball.Distributor.ui.retailer.RetailerFragment;
-import com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.RetailerPlaceOrder;
 import com.example.haball.Payment.DistributorPaymentRequestAdaptor;
 import com.example.haball.Payment.DistributorPaymentRequestModel;
-import com.example.haball.Payment.PaymentLedgerAdapter;
-import com.example.haball.Payment.PaymentLedgerModel;
 import com.example.haball.R;
-//import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
-//import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
-//import com.github.ksoichiro.android.observablescrollview.ScrollState;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -81,14 +55,22 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TimeZone;
+
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+//import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
+//import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+//import com.github.ksoichiro.android.observablescrollview.ScrollState;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -126,7 +108,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private String Filter_selected, Filter_selected1, Filter_selected2, Filter_selected_value;
     private RecyclerView.Adapter mAdapter;
     private TextInputLayout search_bar;
-    private Button btn_load_more;
+
     private int pageNumber = 0;
     private double totalPages = 0;
     private double totalEntries = 0;
@@ -189,27 +171,27 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     e.printStackTrace();
                 }
 //                scroll_view_main = rootView.findViewById(R.id.scroll_view_main);
-                btn_load_more = rootView.findViewById(R.id.btn_load_more);
+
                 rv_filter = rootView.findViewById(R.id.rv_filter);
                 line_bottom = rootView.findViewById(R.id.line_bottom);
 
                 SpannableString content = new SpannableString("Load More");
                 content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-                btn_load_more.setText(content);
-                btn_load_more.setVisibility(View.GONE);
+//                btn_load_more.setText(content);
+//                btn_load_more.setVisibility(View.GONE);
 
 
-                btn_load_more.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        pageNumber++;
-                        try {
-                            performPagination();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+//                btn_load_more.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        pageNumber++;
+//                        try {
+//                            performPagination();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
 
 
                 recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_fragment_payments);
@@ -277,7 +259,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
                             if (totalPages != 0 && pageNumber < totalPages) {
 //                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
-                                btn_load_more.setVisibility(View.VISIBLE);
+                              //  btn_load_more.setVisibility(View.VISIBLE);
                             }
                         }
                     }
@@ -298,26 +280,25 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 layoutManager = new LinearLayoutManager(rootView.getContext());
                 recyclerView.setLayoutManager(layoutManager);
 
-                btn_load_more = rootView.findViewById(R.id.btn_load_more);
 
+//
+//                SpannableString content = new SpannableString("Load More");
+//                content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+//                btn_load_more.setText(content);
 
-                SpannableString content = new SpannableString("Load More");
-                content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-                btn_load_more.setText(content);
+//                btn_load_more.setVisibility(View.GONE);
 
-                btn_load_more.setVisibility(View.GONE);
-
-                btn_load_more.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        pageNumberOrder++;
-                        try {
-                            performPaginationOrder();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+//                btn_load_more.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        pageNumberOrder++;
+//                        try {
+//                            performPaginationOrder();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
 
                 recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                     @Override
@@ -378,7 +359,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
                             if (totalPages != 0 && pageNumber < totalPages) {
 //                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
-                                btn_load_more.setVisibility(View.VISIBLE);
+//                                btn_load_more.setVisibility(View.VISIBLE);
                             }
                         }
                     }
@@ -449,7 +430,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
-                btn_load_more.setVisibility(View.GONE);
+//                btn_load_more.setVisibility(View.GONE);
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<DistributorOrdersModel>>() {
                 }.getType();
@@ -502,7 +483,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @Override
             public void onResponse(JSONArray result) {
 //                Log.i("Payments Requests", result.toString());
-                btn_load_more.setVisibility(View.GONE);
+//                btn_load_more.setVisibility(View.GONE);
 
             }
         }, new Response.ErrorListener() {

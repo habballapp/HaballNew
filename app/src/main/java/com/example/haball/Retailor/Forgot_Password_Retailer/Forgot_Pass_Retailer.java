@@ -48,7 +48,7 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
     private EditText txt_email;
     private TextView heading;
     private Button btn_lgn,btn_reset;
-    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4013/api/users/forgot";
+    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4014/api/retailer/CheckEmail";
     ProgressDialog progressDialog;
 
     @Override

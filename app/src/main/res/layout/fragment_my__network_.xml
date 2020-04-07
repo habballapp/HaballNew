@@ -17,29 +17,33 @@
         android:layout_marginTop="30dp"
         android:orientation="vertical">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/button_round"
-            android:text="Send Invite"
-            android:textColor="#fff"
-            android:textAllCaps="false"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/half_underline"
+            android:paddingTop="15dp"
+            android:paddingBottom="10dp"
+            android:text="My Network"
+            android:textColor="#96bb3c"
+            android:textSize="22sp" />
 
-        <RelativeLayout
-            android:id="@+id/relative_Preffered_Contact"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_below="@+id/relative_criticality"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/edit_round">
 
-            <Spinner
-                android:id="@+id/spinner_dashboard_retailor"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </RelativeLayout>
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/relative_Preffered_Contact"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_below="@+id/relative_criticality"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:background="@drawable/edit_round">-->
+
+<!--            <Spinner-->
+<!--                android:id="@+id/spinner_dashboard_retailor"-->
+<!--                android:paddingLeft="10dp"-->
+<!--                android:paddingRight="10dp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent" />-->
+<!--        </RelativeLayout>-->
 
     </LinearLayout>
 
@@ -49,7 +53,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/ln_my_network"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="30dp"
         >
 

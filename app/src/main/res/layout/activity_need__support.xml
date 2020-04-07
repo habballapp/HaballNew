@@ -173,9 +173,11 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:layout_marginTop="20dp"
+
             android:layout_below="@+id/layout_MobileNo"
             android:padding="10dp"
-            android:background="@drawable/edit_round">
+            android:background="@drawable/edit_text_squared"
+            >
             <Spinner
                 android:id="@+id/IssueType"
                 android:paddingLeft="10dp"
@@ -193,9 +195,9 @@
             android:layout_marginLeft="40dp"
             android:layout_below="@+id/relative_issuetype"
             android:layout_marginTop="20dp"
-
+            android:background="@drawable/edit_text_squared"
             android:padding="10dp"
-            android:background="@drawable/edit_round">
+           >
             <Spinner
                 android:id="@+id/critcicality"
                 android:paddingLeft="10dp"
@@ -214,7 +216,8 @@
             android:layout_marginTop="20dp"
             android:layout_below="@+id/relative_criticality"
             android:padding="10dp"
-            android:background="@drawable/edit_round">
+            android:background="@drawable/edit_text_squared"
+           >
             <Spinner
                 android:id="@+id/Preffered_Contact"
                 android:paddingLeft="10dp"

@@ -178,6 +178,7 @@ public class Forgot_Pass_Distributor extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
                 printErrorMessage(error);
+                Toast.makeText( getApplication(),"Errorkkkh",Toast.LENGTH_SHORT ).show();
                 error.printStackTrace();
             }
         }) {
