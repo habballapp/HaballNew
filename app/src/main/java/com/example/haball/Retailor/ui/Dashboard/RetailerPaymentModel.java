@@ -8,6 +8,7 @@ public class RetailerPaymentModel {
     String TotalPrice;
     String IsEditable;
     String CreatedDate;
+    String ID;
 
     public RetailerPaymentModel(String retailerInvoiceId, String invoiceNumber, String companyName, String status, String totalPrice, String isEditable, String createdDate) {
         RetailerInvoiceId = retailerInvoiceId;
@@ -73,5 +74,14 @@ public class RetailerPaymentModel {
 
     public void setCreatedDate(String createdDate) {
         CreatedDate = createdDate;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+
+    public String getID() {
+        return ID;
     }
 }
