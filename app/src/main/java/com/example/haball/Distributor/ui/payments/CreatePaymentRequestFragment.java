@@ -205,12 +205,14 @@ public class CreatePaymentRequestFragment extends Fragment {
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PAYMENT_REQUESTS_SELECT_COMPANY, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
+                Log.i("aaaaaabb" , String.valueOf(result));
                 try {
                     JSONObject jsonObject = null;
                     for (int i = 0; i < result.length(); i++) {
                         jsonObject = result.getJSONObject(i);
                         CompanyNames.add(jsonObject.getString("Name"));
                         companyNameAndId.put(jsonObject.getString("Name"), jsonObject.getString("ID"));
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

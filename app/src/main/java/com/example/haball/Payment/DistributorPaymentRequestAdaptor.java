@@ -10,8 +10,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +25,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haball.Distribution_Login.Distribution_Login;
+import com.example.haball.Distributor.ui.payments.EditPayment;
 import com.example.haball.Distributor.ui.payments.Payments_Fragment;
 import com.example.haball.Distributor.ui.payments.ViewVoucherRequest;
 import com.example.haball.R;
@@ -31,6 +35,8 @@ import com.example.haball.Retailor.ui.Make_Payment.Payment_Summary;
 import org.json.JSONException;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class
@@ -39,6 +45,12 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
     private List<DistributorPaymentRequestModel> paymentsRequestList;
     private Button btn_update;
     public ImageButton btn_back;
+    private String company_names;
+    List<String> CompanyNames = new ArrayList<>();
+    ArrayAdapter<String>   arrayAdapterPayments;
+    private HashMap<String, String> companyNameAndId = new HashMap<>();
+
+      Spinner  spinner ;
     private FragmentTransaction fragmentTransaction;
 
     public DistributorPaymentRequestAdaptor(Context context, List<DistributorPaymentRequestModel> paymentsRequestList) {
@@ -137,11 +149,13 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
 
                                     break;
                                 case R.id.payment_request_edit:
+
                                     // Toast.makeText(context,"Edit Clicked",Toast.LENGTH_LONG).show();
                                     final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
                                     LayoutInflater inflater = LayoutInflater.from(context);
                                     View view_popup = inflater.inflate(R.layout.edit_payment_request, null);
                                     alertDialog.setView(view_popup);
+                                    spinner = view_popup.findViewById(R.id.spinner_conso);
                                     Button btn_update = (Button) view_popup.findViewById(R.id.btn_payment_request_update);
                                     btn_update.setOnClickListener(new View.OnClickListener() {
                                         public void onClick(View v) {
@@ -163,6 +177,34 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
                                         }
                                     });
 
+
+
+                                    CompanyNames.add("Company *");
+                                    CompanyNames.add("ABC");
+                                    company_names = "";
+
+                                    arrayAdapterPayments = new ArrayAdapter<>(view_popup.getContext(),
+                                            android.R.layout.simple_spinner_dropdown_item, CompanyNames);
+
+                                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                        @Override
+                                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                            if (i == 0) {
+                                                ((TextView) adapterView.getChildAt(0)).setTextColor(context.getResources().getColor(android.R.color.darker_gray));
+                                            } else {
+                                                company_names = CompanyNames.get(i);
+                                                Log.i("company name and id ", companyNameAndId.get(company_names));
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                        }
+                                    });
+
+
+
                                     ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.image_payment_request);
                                     img_email.setOnClickListener(new View.OnClickListener() {
                                         @Override
@@ -171,8 +213,11 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
 
                                         }
                                     });
-                                    alertDialog.show();
 
+                                    alertDialog.show();
+                                    arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                    arrayAdapterPayments.notifyDataSetChanged();
+                                    spinner.setAdapter(arrayAdapterPayments);
                                     break;
                                 case R.id.payment_request_bank:
                                     //handle menu2 click

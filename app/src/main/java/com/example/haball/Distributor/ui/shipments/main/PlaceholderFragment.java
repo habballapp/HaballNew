@@ -2,10 +2,12 @@ package com.example.haball.Distributor.ui.shipments.main;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,6 +37,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Distributor.DistributorDashboard;
+import com.example.haball.Distributor.ui.main.OrdersFragment;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.example.haball.Distributor.ui.shipments.main.Adapters.SectionsPagerAdapter;
 import com.example.haball.Distributor.ui.shipments.main.Models.PageViewModel;
@@ -68,6 +74,7 @@ public class PlaceholderFragment extends Fragment {
     private String Token;
     private String DistributorId;
     private String shipmentID;
+    private  View view;
     // order data
     private Button btn_next;
     private TextView order_id, order_company_name, order_tr_mode, order_payment_term, order_tv_cdate, order_tv_status, order_tv_shaddress, order_tv_billingAdd;
@@ -79,6 +86,7 @@ public class PlaceholderFragment extends Fragment {
     private List<Distributor_ProductModel> productList = new ArrayList<>();
 
     private RecyclerView.LayoutManager layoutManager;
+    FragmentManager fragmentManager;
     private static final String ARG_SECTION_NUMBER = "section_number";
     private PageViewModel pageViewModel;
     private ViewPager viewPager;
@@ -165,9 +173,11 @@ public class PlaceholderFragment extends Fragment {
                 break;
             }
         }
+
         return rootView;
 
     }
+
 
     private int getItem(int i) {
         return viewPager.getCurrentItem() + i;
@@ -524,4 +534,5 @@ public class PlaceholderFragment extends Fragment {
             }
         }
     }
+
 }
