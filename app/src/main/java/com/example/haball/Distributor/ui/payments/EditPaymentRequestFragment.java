@@ -140,64 +140,7 @@ public class EditPaymentRequestFragment extends Fragment {
         Log.i("DistributorId ", DistributorId);
         Log.i("Token", Token);
 
-        JSONObject map = new JSONObject();
-        map.put("Status", 0);
-        map.put("ID", PrePaidId);
-        map.put("DistributorId", Integer.parseInt(DistributorId));
-        map.put("CompanyId", companyNameAndId.get(company_names));
-        map.put("PaidAmount", txt_amount.getText().toString());
-
-        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PAYMENT_REQUESTS_SAVE, map, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject result) {
-//                try {
-//                    prepaid_number = result.getString("PrePaidNumber");
-//                    prepaid_id = result.getString("ID");
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                SharedPreferences PrePaidNumber = getContext().getSharedPreferences("PrePaidNumber",
-//                        Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = PrePaidNumber.edit();
-//                editor.putString("PrePaidNumber", prepaid_number);
-//                editor.putString("PrePaidId", prepaid_id);
-//                editor.putString("CompanyName", company_names);
-//                editor.putString("Amount", txt_amount.getText().toString());
-//                editor.apply();
-//
-//                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new PaymentScreen3Fragment());
-//                fragmentTransaction.addToBackStack(null);
-//                fragmentTransaction.commit();
-//
-                Toast.makeText(getContext(), "Payment Request " + PrePaidNumber + " has been updated successfully.", Toast.LENGTH_SHORT).show();
-                Intent dashboard_intent = new Intent( getContext(), DistributorDashboard.class );
-                startActivity( dashboard_intent );
-                getActivity().finish();
-
-                Log.e("RESPONSE prepaid_number", result.toString());
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
-
-                error.printStackTrace();
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer " + Token);
-                return params;
-            }
-        };
-        sr.setRetryPolicy(new DefaultRetryPolicy(
-                15000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext()).add(sr);
+        new EditPayment().EditPayment(getActivity(), getContext(), Token, DistributorId, PrePaidId, PrePaidNumber, companyNameAndId.get(company_names), txt_amount.getText().toString());
     }
 
     private void fetchCompanyData() {
