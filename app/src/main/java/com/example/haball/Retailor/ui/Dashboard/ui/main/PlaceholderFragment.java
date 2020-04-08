@@ -352,6 +352,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
             }
         });
+        Log.i("asssss", String.valueOf(consolidate_felter));
+         Log.i("asdsdad", String.valueOf(Filter_selected));
         arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner_consolidate.setAdapter(arrayAdapterPayments);

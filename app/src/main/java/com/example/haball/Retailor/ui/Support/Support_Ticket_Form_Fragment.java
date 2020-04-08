@@ -1,6 +1,7 @@
 package com.example.haball.Retailor.ui.Support;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
 import com.example.haball.Support.Support_Ditributor.Support_Ticket_Form;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,14 +62,15 @@ public class Support_Ticket_Form_Fragment extends Fragment {
     private ArrayAdapter arrayAdapterIssueType;
     private ArrayAdapter arrayAdapterCriticality;
     private ArrayAdapter arrayAdapterPreferredContact;
+    private Button ticket_btn;
 
 
-    private Button login_submit,login_btn;
+
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.activity_support__ticket__form__retailer, container, false);
+        View root = inflater.inflate(R.layout.activity_support__ticket__form__retailerform, container, false);
 
       
 
@@ -83,8 +86,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
         IssueType = root.findViewById(R.id.IssueType);
         critcicality = root.findViewById(R.id.critcicality);
         Preffered_Contact = root.findViewById(R.id.Preffered_Contact);
-        login_submit= root.findViewById(R.id.login_submit);
-        login_btn = root.findViewById(R.id.login_btn);
+        ticket_btn = root.findViewById(R.id.ticket_btn);
         
 
         issue_type.add("Issue Type *");
@@ -149,24 +151,27 @@ public class Support_Ticket_Form_Fragment extends Fragment {
             }
         });
 
-//        login_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
-
-        login_submit.setOnClickListener(new View.OnClickListener() {
+        ticket_btn.setOnClickListener( new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                try {
-                    makeTicketAddRequest();
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(BName.getText().toString()) ||
+                        TextUtils.isEmpty(Email.getText().toString()) ||
+                        TextUtils.isEmpty(Comment.getText().toString()) ||
+                        TextUtils.isEmpty(MobileNo.getText().toString())) {
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    Snackbar.make(v, "Please Enter All Required Fields", Snackbar.LENGTH_SHORT).show();
                 }
+                else{
+                    try {
+                        makeTicketAddRequest();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
             }
-        });
+        } );
+
 
 
 

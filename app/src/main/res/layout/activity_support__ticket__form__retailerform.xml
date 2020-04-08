@@ -3,79 +3,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@android:color/white"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:background="#fff"
+    tools:context=".MainActivity">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/text_ln"
+            android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-
             android:orientation="vertical"
-            android:weightSum="2"
-            >
+            android:layout_marginTop="10dp"
+            android:weightSum="2">
 
             <TextView
+                android:id="@+id/support"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:padding="10dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:text="Welcome To Retailer Portal"
-                android:textColor="#96bb3c"
-                android:textSize="20sp"
-                android:textStyle="bold"
-
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                android:layout_weight="1"
-                android:justificationMode="inter_word"
-                android:text="@string/Txt_Description_Distributer"
-                android:textColor="#676a6c"
-                android:textSize="14sp" />
-
-            <LinearLayout
-                android:id="@+id/ln_login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/text_ln"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="40dp"
                 android:layout_marginLeft="40dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/border_set"
-                android:layout_marginTop="20dp">
-
-                <TextView
-                    android:id="@+id/login_heading"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="Welcome to Haball Support Center"
-                    android:textColor="#96bb3c"
-                    android:textSize="20sp"
-                    android:textStyle="bold"/>
-            </LinearLayout>
-
+                android:layout_weight="1"
+                android:paddingBottom="10dp"
+                android:paddingTop="5dp"
+                android:text="Support"
+                android:textSize="20sp" />
+            <RelativeLayout
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/tv_support"
+                android:background="@drawable/horizontal_black_line"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Welcome to Haball Support Center"
+                android:layout_marginRight="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:textSize="18sp"
+                android:layout_weight="1"/>
         </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/rl_fields"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/text_ln"
+            android:layout_below="@+id/header"
             android:layout_marginTop="20dp"
             >
 
@@ -174,11 +153,9 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="20dp"
-
                 android:layout_below="@+id/layout_MobileNo"
                 android:padding="10dp"
-                android:background="@drawable/edit_text_squared"
-                >
+                android:background="@drawable/edit_round">
                 <Spinner
                     android:id="@+id/IssueType"
                     android:paddingLeft="10dp"
@@ -196,9 +173,9 @@
                 android:layout_marginLeft="40dp"
                 android:layout_below="@+id/relative_issuetype"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/edit_text_squared"
+
                 android:padding="10dp"
-                >
+                android:background="@drawable/edit_round">
                 <Spinner
                     android:id="@+id/critcicality"
                     android:paddingLeft="10dp"
@@ -217,8 +194,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_below="@+id/relative_criticality"
                 android:padding="10dp"
-                android:background="@drawable/edit_text_squared"
-                >
+                android:background="@drawable/edit_round">
                 <Spinner
                     android:id="@+id/Preffered_Contact"
                     android:paddingLeft="10dp"
@@ -261,34 +237,19 @@
 
         </RelativeLayout>
 
+
         <Button
-            android:id="@+id/login_btn"
-            android:layout_width="150dp"
+            android:id="@+id/ticket_btn"
+            android:layout_width="match_parent"
             android:layout_below="@id/rl_fields"
             android:layout_height="40dp"
             android:layout_marginLeft="40dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="30dp"
-            android:textAllCaps="false"
-            android:textSize="18sp"
-            android:background="@drawable/button_round"
-            android:text="Login"
-            android:textColor="#fff"
-            />
-
-        <Button
-            android:id="@+id/login_submit"
-            android:layout_width="150dp"
-            android:layout_below="@id/rl_fields"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginRight="40dp"
             android:layout_marginTop="30dp"
             android:textAllCaps="false"
             android:textSize="18sp"
-            android:layout_toRightOf="@id/login_btn"
             android:background="@drawable/button_round"
-            android:text="Submit"
+            android:text="Add Ticket"
             android:textColor="#fff"
             />
 
@@ -296,13 +257,13 @@
             android:id="@+id/footer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/login_btn"
+            android:layout_below="@id/ticket_btn"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="10dp"
             android:gravity="center"
             android:text="© Haball | All rights reserved" />
 
+
     </RelativeLayout>
-
-
 </ScrollView>
+

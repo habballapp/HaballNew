@@ -160,6 +160,7 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:padding="10dp"
+        android:text="0"
         android:gravity="center"/>
     </RelativeLayout>
 </RelativeLayout>

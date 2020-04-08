@@ -45,7 +45,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 
-import Forgot_Password.Forgot_Pass_Distributor;
+import com.example.haball.Forgot_Password.Forgot_Pass_Distributor;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;

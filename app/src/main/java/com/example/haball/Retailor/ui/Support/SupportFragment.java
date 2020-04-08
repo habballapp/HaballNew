@@ -173,10 +173,13 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 conso_edittext.setVisibility(View.GONE);
 
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
                 } else {
                     Filter_selected = consolidate_felter.get(i);
-
                     spinner2.setSelection(0);
                     conso_edittext.setText("");
                     if (Filter_selected.equals("Ticket ID")) {
@@ -250,12 +253,27 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         spinner_consolidate.setAdapter(arrayAdapterPaymentsFilter);
 
         Log.i("aaaa1111", String.valueOf(consolidate_felter));
+        Log.i("ffffffff", String.valueOf(Filter_selected));
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                } else {
+
+                if (Filter_selected.equals("Status")) {
+                    if (i == 0) {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } else {
+                        Filter_selected_value = String.valueOf(i - 1);
+                        if (!Filter_selected_value.equals("")) {
+                            try {
+                                fetchFilteredSupport();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+
+                else {
                     Filter_selected_value = filters.get(i);
                     Log.i("Filter_selected_value", Filter_selected_value);
                     try {
@@ -272,7 +290,6 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
 
             }
         });
-
 
         conso_edittext.addTextChangedListener(new TextWatcher() {
 
@@ -449,16 +466,17 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         JSONObject map = new JSONObject();
         map.put("TotalRecords", 10);
         map.put("PageNumber", 0);
-
+        if (Filter_selected.equals("date")) {
+            map.put(Filter_selected1, fromDate);
+            map.put(Filter_selected2, toDate);
+        } else {
+            map.put(Filter_selected, Filter_selected_value);
+        }
+        Log.i("map_SSSS", String.valueOf(map));
         MyJsonArrayRequest request = new MyJsonArrayRequest(Request.Method.POST, URL_SUPPORT, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                try {
-                    Log.i("onResponse => SUPPORT ", "" + response.get(0).toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-//
+                Log.i("response_support " , String.valueOf(response));
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<SupportDashboardRetailerModel>>() {
                 }.getType();

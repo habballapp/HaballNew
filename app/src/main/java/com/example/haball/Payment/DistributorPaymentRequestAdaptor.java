@@ -162,6 +162,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
 
                                         }
                                     });
+
                                     ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.image_payment_request);
                                     img_email.setOnClickListener(new View.OnClickListener() {
                                         @Override

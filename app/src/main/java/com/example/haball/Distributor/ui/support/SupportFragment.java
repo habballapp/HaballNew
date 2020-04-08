@@ -126,6 +126,8 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         btn_add_ticket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new SupportTicketFormFragment());
                 fragmentTransaction.addToBackStack(null);
@@ -264,6 +266,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         spinner_consolidate.setAdapter(arrayAdapterPaymentsFilter);
 
         Log.i("aaaa1111", String.valueOf(consolidate_felter));
+
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -475,14 +478,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
             @Override
             public void onResponse(JSONArray response) {
                 Log.i("onResponse => SUPPORT ", "" + response.toString());
-//                JSONObject jsonObject = new JSONObject();
-//                for (int i = 0; i < response.length(); i++) {
-//                    try {
-//                        jsonObject = response.getJSONObject(i);
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
+//
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<SupportDashboardModel>>() {
                 }.getType();

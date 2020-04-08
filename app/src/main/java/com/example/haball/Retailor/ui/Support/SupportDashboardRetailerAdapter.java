@@ -58,7 +58,7 @@ public class SupportDashboardRetailerAdapter extends RecyclerView.Adapter<Suppor
     @Override
     public void onBindViewHolder(@NonNull final SupportDashboardRetailerAdapter.ViewHolder holder, final int position) {
         holder.heading.setText(supportList.get(position).getIssueType());
-        holder.ticket_id_value.setText(supportList.get(position).getID());
+        holder.ticket_id_value.setText(supportList.get(position).getTicketNumber());
         holder.status_value.setText(supportList.get(position).getStatus());
         holder.created_date_value.setText(supportList.get(position).getCreatedDate().split("T")[0]);
 
