@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haball.Distributor.ui.main.PlaceholderFragment;
+import com.example.haball.Distributor.ui.main.ViewOrder;
 import com.example.haball.Distributor.ui.orders.CancelOrder;
 import com.example.haball.Distributor.ui.orders.DeleteOrderDraft;
 import com.example.haball.Distributor.ui.orders.EditOrderDraft;
@@ -134,6 +135,16 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
                 switch (item.getItemId()) {
                     case R.id.orders_view:
                         String ID = OrderList.get(position).getID();
+                        FragmentTransaction fragmentTransaction= ((FragmentActivity)mContxt).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container,new ViewOrder());
+                        fragmentTransaction.commit();
+                        SharedPreferences OrderId = ((FragmentActivity)mContxt).getSharedPreferences("OrderId",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = OrderId.edit();
+                        editor.putString("OrderId", OrderList.get(position).getID());
+                        editor.putString("Status", OrderList.get(position).getOrderStatusValue());
+                        editor.commit();
+
                         // Toast.makeText(mContxt, "View Order ID - " + ID, Toast.LENGTH_LONG).show();
                         break;
                 }
@@ -153,7 +164,15 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
                 switch (item.getItemId()) {
                     case R.id.orders_view:
                         String ID = OrderList.get(position).getID();
-                        // Toast.makeText(mContxt, "View Order ID - " + ID, Toast.LENGTH_LONG).show();
+                        FragmentTransaction fragmentTransaction= ((FragmentActivity)mContxt).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container,new ViewOrder());
+                        fragmentTransaction.commit();
+                        SharedPreferences OrderId = ((FragmentActivity)mContxt).getSharedPreferences("OrderId",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = OrderId.edit();
+                        editor.putString("OrderId", OrderList.get(position).getID());
+                        editor.putString("Status", OrderList.get(position).getOrderStatusValue());
+                        editor.commit();
                         break;
                     case R.id.orders_cancel:
                         String orderID = OrderList.get(position).getID();
