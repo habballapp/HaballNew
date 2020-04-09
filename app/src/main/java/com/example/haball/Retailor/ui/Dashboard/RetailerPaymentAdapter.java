@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.haball.Distributor.ui.payments.ViewVoucherRequest;
 import com.example.haball.R;
@@ -105,7 +106,7 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.payment_request_edit:
-                        // Toast.makeText(context,"Edit Clicked",Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,"Edit Clicked",Toast.LENGTH_LONG).show();
                         final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
                         LayoutInflater inflater = LayoutInflater.from(context);
                         View view_popup = inflater.inflate(R.layout.edit_payment_request, null);
@@ -143,7 +144,7 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
                         break;
                     case R.id.menu_delete:
                         //handle menu3 click
-                      //  Toast.makeText(context, "Delete Clicked", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Delete Clicked", Toast.LENGTH_LONG).show();
                         String paymentId = paymentsList.get(position).getID();
                         deletePayment(context, paymentsList.get(position).getRetailerInvoiceId(),paymentsList.get(position).getInvoiceNumber());
 

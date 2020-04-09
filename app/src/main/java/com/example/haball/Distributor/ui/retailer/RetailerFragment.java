@@ -123,33 +123,33 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
         spinner_container_main = root.findViewById(R.id.spinner_container_main);
         search_bar = root.findViewById(R.id.search_bar);
         btn_load_more = root.findViewById(R.id.btn_load);
-        rv_filter = root.findViewById(R.id.tv_retailer_order_dashboard);
+        rv_filter = root.findViewById(R.id.spinner_container_main);
 
-        SpannableString content = new SpannableString("Load More");
-        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+//        SpannableString content = new SpannableString("Load More");
+//        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+//
+//       btn_load_more.setText(content);
+////        btn_load_more.setVisibility(View.GONE);
+//
+//        btn_load_more.setOnClickListener( new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Toast.makeText( getContext(),"Clicked",Toast.LENGTH_SHORT ).show();
+//                pageNumber++;
+//                try {
+//                    performPagination();
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//
+//        } );
 
-        btn_load_more.setText(content);
-        btn_load_more.setVisibility(View.GONE);
-
-        btn_load_more.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Toast.makeText( getContext(),"Clicked",Toast.LENGTH_SHORT ).show();
-                pageNumber++;
-                try {
-                    performPagination();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
 
 
-        } );
-
-
-
-        recyclerView = (RecyclerView) root.findViewById(R.id.rv_retailer_order_dashboard);
+        recyclerView = (RecyclerView) root.findViewById(R.id.rv_retailer_dashboard);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);

@@ -47,6 +47,9 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class ProfileFragment extends Fragment {
 
@@ -236,11 +239,11 @@ public class ProfileFragment extends Fragment {
 
     private void saveProfileData() throws JSONException {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
+                MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
 
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
+                MODE_PRIVATE);
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("Distributor_Id ", DistributorId);
 
@@ -291,15 +294,16 @@ public class ProfileFragment extends Fragment {
 
     private void profileData() {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
+                MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
 
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
+                MODE_PRIVATE);
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId1 ", DistributorId);
         PROFILE_URL = PROFILE_URL + DistributorId;
         Log.i("Token1", Token);
+
         StringRequest sr = new StringRequest(Request.Method.GET, PROFILE_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String result) {
@@ -323,14 +327,15 @@ public class ProfileFragment extends Fragment {
                         tv_created_date.setText(Date);
 
                     }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(getActivity(), "Error" + e.toString(), Toast.LENGTH_SHORT).show();
 
                 }
 
-
             }
+
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -373,11 +378,11 @@ public class ProfileFragment extends Fragment {
         if (password_check && confirm_password_check) {
 
             SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
-                    Context.MODE_PRIVATE);
+                    MODE_PRIVATE);
             Token = sharedPreferences.getString("Login_Token", "");
             Log.i("Login_Token", Token);
             SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
-                    Context.MODE_PRIVATE);
+                    MODE_PRIVATE);
             ID = sharedPreferences1.getString("ID", "");
             Username = sharedPreferences1.getString("username", "");
             // Toast.makeText(getActivity(), "Update Password clicked", Toast.LENGTH_SHORT).show();

@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -33,19 +34,11 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
     String dashboard, id, pending, createdDate;
     List<SupportDashboardModel> supportList;
 
-    public SupportDashboardAdapter(Activity activity, Context applicationContext, String dashboard, String id, String pending, String createdDate) {
-//        this.mContxt = applicationContext;
-//        this.activity = activity;
-//        this.dashboard = dashboard;
-//        this.id = id;
-//        this.pending = pending;
-//        this.createdDate = createdDate;
-    }
-
-    public SupportDashboardAdapter(Context context, List<SupportDashboardModel> supportList) {
+    public SupportDashboardAdapter(Context context, List<SupportDashboardModel> supportList, RecyclerView recyclerView , RecyclerView.Adapter mAdapter) {
         this.mContxt = context;
         this.supportList = supportList;
         this.recyclerView = recyclerView;
+        this.mAdapter = mAdapter;
     }
 
     @Override
@@ -126,6 +119,8 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
                                         try {
                                             deleteAlert.dismiss();
                                             DeleteSupportTicket(supportList.get(position).getId());
+                                            notifyItemRemoved(position);
+
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }

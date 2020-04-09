@@ -46,7 +46,8 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+        import androidx.fragment.app.FragmentActivity;
+        import androidx.fragment.app.FragmentTransaction;
 
 public class SupportTicketFormFragment extends Fragment {
 
@@ -75,6 +76,16 @@ public class SupportTicketFormFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.activity_support__ticket__form, container, false);
 
+
+        SharedPreferences data = getContext().getSharedPreferences("SendData",
+                Context.MODE_PRIVATE);
+        final  String first_name = data.getString("first_name" , "");
+        final  String email = data.getString("email" , "");
+        final  String phone_number = data.getString("phone_number" , "");
+
+        Log.i("name" , first_name);
+        Log.i("email" , email);
+        Log.i("phone_number" , phone_number);
         BName = root.findViewById(R.id.BName);
         Email = root.findViewById(R.id.Email);
         MobileNo = root.findViewById(R.id.MobileNo);
@@ -83,7 +94,9 @@ public class SupportTicketFormFragment extends Fragment {
         critcicality = root.findViewById(R.id.critcicality);
         Preffered_Contact = root.findViewById(R.id.Preffered_Contact);
         ticket_btn = root.findViewById(R.id.ticket_btn);
-
+        Email.setText(email);
+        MobileNo.setText(phone_number);
+        BName.setText(first_name);
         issue_type.add("Issue Type *");
         criticality.add("Criticality *");
         preffered_contact.add("Preferred Method of Contacting *");

@@ -2,21 +2,18 @@ package com.example.haball.Distributor.ui.shipments;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -29,6 +26,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
@@ -42,18 +40,12 @@ import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.haball.Distributor.DistributorPaymentsAdapter;
-import com.example.haball.Distributor.DistributorPaymentsModel;
-import com.example.haball.Distributor.ui.main.OrdersFragment;
+import com.example.haball.Distributor.ui.main.ViewOrder;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
-import com.example.haball.Payment.DistributorPaymentRequestAdaptor;
-import com.example.haball.Payment.DistributorPaymentRequestModel;
 import com.example.haball.R;
 import com.example.haball.Shipment.Adapters.DistributorShipmentAdapter;
 import com.google.android.material.textfield.TextInputLayout;
@@ -81,6 +73,7 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private  FragmentManager fragmentManager;
 
     private List<ShipmentModel> ShipmentList = new ArrayList<>();
     private String Token, DistributorId;
@@ -682,4 +675,17 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
 //        Log.i("distinct", scroll);
         return scroll;
     }
+
+//    @Override
+//    public boolean onBackPressed() {
+//        Log.i("aaaaa123", String.valueOf(onBackPressed()));
+//        Fragment fragment = fragmentManager.findFragmentById(R.id.main_container);
+//        if (fragment != null) {
+//            FragmentTransaction fragmentTransaction = ((FragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.add(R.id.main_container, new ViewOrder());
+//            fragmentTransaction.commit();
+//        } else {
+//        }
+//        return true;
+//    }
 }

@@ -431,7 +431,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 }.getType();
                 SupportList = gson.fromJson(String.valueOf(response), type);
 
-                mAdapter = new SupportDashboardAdapter(getContext(), SupportList);
+                mAdapter = new SupportDashboardAdapter(getContext(), SupportList, recyclerView, mAdapter);
                 recyclerView.setAdapter(mAdapter);
                 if (response.length() != 0) {
                     tv_shipment_no_data.setVisibility(View.GONE);
@@ -484,7 +484,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 }.getType();
                 SupportList = gson.fromJson(String.valueOf(response), type);
 
-                mAdapter = new SupportDashboardAdapter(getContext(), SupportList);
+                mAdapter = new SupportDashboardAdapter(getContext(), SupportList,recyclerView,mAdapter);
                 recyclerView.setAdapter(mAdapter);
 
             }
