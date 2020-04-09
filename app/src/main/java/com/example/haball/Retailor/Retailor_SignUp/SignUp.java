@@ -67,16 +67,16 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
         bar.setTitle("");
 
-        txt_username = findViewById(R.id.txt_username);
-        txt_password = findViewById(R.id.txt_password);
-        txt_confirmpass = findViewById(R.id.txt_confirmpass);
-        txt_fullname = findViewById(R.id.txt_fullname);
-        txt_email = findViewById(R.id.txt_email);
-        txt_cnic = findViewById(R.id.txt_cnic);
-        txt_mobile_number = findViewById(R.id.txt_mobile_number);
-        txt_business_name = findViewById(R.id.txt_business_name);
-        txt_address = findViewById(R.id.txt_address);
-        btn_register_signup = findViewById(R.id.btn_register_signup);
+        txt_username = (EditText) findViewById(R.id.txt_username);
+        txt_password = (EditText)findViewById(R.id.txt_password);
+        txt_confirmpass = (EditText)findViewById(R.id.txt_confirmpass);
+        txt_fullname = (EditText)findViewById(R.id.txt_fullname);
+        txt_email = (EditText)findViewById(R.id.txt_email);
+        txt_cnic =(EditText) findViewById(R.id.txt_cnic);
+        txt_mobile_number = (EditText)findViewById(R.id.txt_mobile_number);
+        txt_business_name =(EditText) findViewById(R.id.txt_business_name);
+        txt_address = (EditText)findViewById(R.id.txt_address);
+        btn_register_signup = (Button) findViewById(R.id.btn_register_signup);
 
         txt_username.addTextChangedListener(watcher);
         txt_password.addTextChangedListener(watcher);
@@ -194,10 +194,14 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
     private final TextWatcher watcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after)
-        { }
+        {
+
+        }
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count)
-        {}
+        {
+
+        }
         @Override
         public void afterTextChanged(Editable s) {
             if(TextUtils.isEmpty(txt_username.getText())
