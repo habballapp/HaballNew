@@ -4,14 +4,14 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,23 +23,20 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.haball.Distribution_Login.Distribution_Login;
 import com.example.haball.R;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-public class Registration_Activity extends AppCompatActivity implements View.OnFocusChangeListener {
+public class Registration_main extends AppCompatActivity implements View.OnFocusChangeListener {
 
     private EditText txt_username, txt_password, txt_confirm;
     private Boolean username_check = false, password_check = false, confirm_password_check = false;
     private TextInputLayout layout_txt_username, layout_txt_password, layout_txt_confirm;
+    private  Button btn_next;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +65,7 @@ public class Registration_Activity extends AppCompatActivity implements View.OnF
         txt_confirm = findViewById(R.id.txt_confirm);
         layout_txt_confirm = findViewById(R.id.layout_txt_confirm);
 
+
         (findViewById(R.id.txt_username)).setOnFocusChangeListener(this);
         (findViewById(R.id.txt_password)).setOnFocusChangeListener(this);
         (findViewById(R.id.txt_confirm)).setOnFocusChangeListener(this);
@@ -81,8 +79,10 @@ public class Registration_Activity extends AppCompatActivity implements View.OnF
                 finish();
             }
         });
+        btn_next = findViewById(R.id.btn_next);
+        btn_next.setEnabled(false);
+        btn_next.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
 
-        Button btn_next = findViewById(R.id.btn_next);
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,7 +92,7 @@ public class Registration_Activity extends AppCompatActivity implements View.OnF
                     Snackbar.make(view, "Please Enter All Required Fields", Snackbar.LENGTH_SHORT).show();
                 } else {
                     if (!username_check && password_check && confirm_password_check) {
-                        Intent intent = new Intent(Registration_Activity.this, Register_Activity_2.class);
+                        Intent intent = new Intent(Registration_main.this, Registeration_Page1.class);
                         intent.putExtra("username", txt_username.getText().toString());
                         intent.putExtra("password", txt_password.getText().toString());
                         intent.putExtra("confirmpassword", txt_confirm.getText().toString());
@@ -102,6 +102,42 @@ public class Registration_Activity extends AppCompatActivity implements View.OnF
 
             }
         });
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkFieldsForEmptyValues();
+
+            }
+        };
+
+        txt_username.addTextChangedListener( textWatcher );
+        txt_password.addTextChangedListener( textWatcher );
+        txt_confirm.addTextChangedListener( textWatcher );
+    }
+
+    private void checkFieldsForEmptyValues() {
+        String username_ = txt_username.getText().toString();
+        String password = txt_password.getText().toString();
+        String confrm_pass = txt_confirm.getText().toString();
+
+        if (username_.equals( "" ) || password.equals( "" ) || confrm_pass.equals("")) {
+            btn_next.setEnabled( false );
+            btn_next.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
+
+        } else {
+            btn_next.setEnabled( true );
+            btn_next.setBackground( getResources().getDrawable( R.drawable.button_background ) );
+        }
     }
 
     private void checkPasswords() {

@@ -3,9 +3,7 @@ package com.example.haball.Registration;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -13,14 +11,12 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -32,10 +28,7 @@ import com.google.android.material.snackbar.Snackbar;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.text.ParseException;
-
-public class Register_Activity_2 extends AppCompatActivity implements View.OnFocusChangeListener {
+public class Registeration_Page1 extends AppCompatActivity implements View.OnFocusChangeListener {
 
     private Button btn_register;
     private ImageButton btn_back;
@@ -204,7 +197,34 @@ public class Register_Activity_2 extends AppCompatActivity implements View.OnFoc
         });
 
         btn_register = findViewById(R.id.btn_register);
+        btn_register.setEnabled(false);
+        btn_register.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkFieldsForEmptyValues();
+
+            }
+        };
+        txt_firstname.addTextChangedListener( textWatcher );
+        txt_lastname.addTextChangedListener( textWatcher );
+        txt_email.addTextChangedListener( textWatcher );
+        txt_cnic.addTextChangedListener( textWatcher );
+        txt_mobile_number.addTextChangedListener( textWatcher );
+        txt_phone_number.addTextChangedListener( textWatcher );
+        txt_ntn.addTextChangedListener( textWatcher );
+        txt_conpany_name.addTextChangedListener( textWatcher );
+        txt_website.addTextChangedListener( textWatcher );
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -213,7 +233,7 @@ public class Register_Activity_2 extends AppCompatActivity implements View.OnFoc
                     if (checkAllFields()) {
                         Snackbar.make(view, "Please Enter All Required Fields", Snackbar.LENGTH_SHORT).show();
                     } else {
-                        Intent i = new Intent(Register_Activity_2.this, Registration_Actvity2.class);
+                        Intent i = new Intent(Registeration_Page1.this, Registration_page2.class);
                         i.putExtra("username", username);
                         i.putExtra("password", password);
                         i.putExtra("confirmpassword", confirmpassword);
@@ -238,6 +258,36 @@ public class Register_Activity_2 extends AppCompatActivity implements View.OnFoc
                 finish();
             }
         });
+    }
+
+    private void checkFieldsForEmptyValues() {
+
+        String first_name = txt_firstname.getText().toString();
+        String last_name = txt_lastname.getText().toString();
+        String email = txt_email.getText().toString();
+        String cnic_ = txt_cnic.getText().toString();
+        String mobile  = txt_mobile_number.getText().toString();
+        String phone = txt_phone_number.getText().toString();
+        String  ntn= txt_ntn.getText().toString();
+        String company_name = txt_conpany_name.getText().toString();
+        String website = txt_website.getText().toString();
+        if (first_name.equals( "" )
+                || last_name.equals( "" )
+                || email.equals("")
+                || cnic_.equals( "" )
+                || mobile.equals( "" )
+                || phone.equals("")
+                ||ntn.equals( "" )
+                || company_name.equals( "" )
+                || website.equals("")) {
+            btn_register.setEnabled( false );
+            btn_register.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
+
+        } else {
+            btn_register.setEnabled( true );
+            btn_register.setBackground( getResources().getDrawable( R.drawable.button_background ) );
+        }
+
     }
 
     private boolean checkAllFields() {

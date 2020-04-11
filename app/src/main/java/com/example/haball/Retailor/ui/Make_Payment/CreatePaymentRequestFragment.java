@@ -3,6 +3,8 @@ package com.example.haball.Retailor.ui.Make_Payment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,6 +74,8 @@ public class CreatePaymentRequestFragment extends Fragment {
         View root = inflater.inflate(R.layout.activity_payment__screen1, container, false);
 
         btn_create = root.findViewById(R.id.btn_create);
+        btn_create.setEnabled(false);
+        btn_create.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
         spinner_company = root.findViewById(R.id.spinner_company);
         txt_amount = root.findViewById(R.id.txt_amount);
 
@@ -89,6 +93,7 @@ public class CreatePaymentRequestFragment extends Fragment {
                 } else {
                     company_names = CompanyNames.get(i);
                     Log.i("company name and id ", companyNameAndId.get(company_names));
+                    checkFieldsForEmptyValues();
                 }
             }
 
@@ -114,10 +119,41 @@ public class CreatePaymentRequestFragment extends Fragment {
                 }
             }
         });
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkFieldsForEmptyValues();
+
+            }
+        }   ;
+        txt_amount.addTextChangedListener(textWatcher);
         return root;
     }
+    private void checkFieldsForEmptyValues() {
+        String txt_amounts = txt_amount.getText().toString();
+        String company = (String) spinner_company.getItemAtPosition(spinner_company.getSelectedItemPosition()).toString();
+        if (txt_amounts.equals("")
+                || company.equals("Company *")
 
+        ) {
+            btn_create.setEnabled(false);
+            btn_create.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+
+        } else {
+            btn_create.setEnabled(true);
+            btn_create.setBackground(getResources().getDrawable(R.drawable.button_background));
+        }
+    }
     private void makeSaveRequest() throws JSONException {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);

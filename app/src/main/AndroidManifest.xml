@@ -82,9 +82,9 @@
         <activity android:name=".Order.DistributorOrder_ShopSelection" />
         <activity android:name=".Retailer_Login.RetailerLogin" />
         <activity android:name=".Distribution_Login.Distribution_Login" />
-        <activity android:name=".Registration.Registration_Activity" />
-        <activity android:name=".Registration.Register_Activity_2" />
-        <activity android:name=".Registration.Registration_Actvity2" />
+        <activity android:name=".Registration.Registration_main" />
+        <activity android:name=".Registration.Registeration_Page1" />
+        <activity android:name=".Registration.Registration_page2" />
         <activity android:name=".Support.Support_Ditributor.Support_Ticket_Form" />
         <activity android:name=".Distributor.ui.support.SupportTicketFormFragment" />
         <activity

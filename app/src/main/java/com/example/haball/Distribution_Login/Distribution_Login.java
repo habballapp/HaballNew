@@ -34,7 +34,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.DistributorDashboard;
 import com.example.haball.R;
-import com.example.haball.Registration.Registration_Activity;
+import com.example.haball.Registration.Registration_main;
 import com.example.haball.Select_User.Register_Activity;
 import com.example.haball.Support.Support_Ditributor.Support_Ticket_Form;
 import com.google.android.material.textfield.TextInputLayout;
@@ -157,7 +157,7 @@ public class Distribution_Login extends AppCompatActivity {
         btn_signup.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent( Distribution_Login.this, Registration_Activity.class );
+                Intent intent = new Intent( Distribution_Login.this, Registration_main.class );
                 startActivity( intent );
 
             }

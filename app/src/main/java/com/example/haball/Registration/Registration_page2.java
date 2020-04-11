@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +38,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distribution_Login.Distribution_Login;
-import com.example.haball.Distributor.DistributorDashboard;
 
 import com.example.haball.R;
 
@@ -46,13 +47,9 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
-import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
-
-public class Registration_Actvity2 extends AppCompatActivity {
+public class Registration_page2 extends AppCompatActivity {
 
     private Button btn_register;
     private ImageButton btn_back;
@@ -122,6 +119,7 @@ public class Registration_Actvity2 extends AppCompatActivity {
         rl_billing_address = findViewById(R.id.rl_billing);
         check_box = findViewById(R.id.check_box);
 
+
         check_box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -155,7 +153,9 @@ public class Registration_Actvity2 extends AppCompatActivity {
                 if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
+
                 country1 = countries.get(i);
+                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -170,8 +170,9 @@ public class Registration_Actvity2 extends AppCompatActivity {
                 if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
-                province1 = provinces.get(i);
 
+                province1 = provinces.get(i);
+                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -186,7 +187,9 @@ public class Registration_Actvity2 extends AppCompatActivity {
                 if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
+
                 city1 = cities.get(i);
+                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -201,6 +204,7 @@ public class Registration_Actvity2 extends AppCompatActivity {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
                 country2 = countries.get(i);
+                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -216,6 +220,7 @@ public class Registration_Actvity2 extends AppCompatActivity {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
                 province2 = provinces.get(i);
+                checkFieldsForEmptyValues();
 
             }
 
@@ -231,6 +236,8 @@ public class Registration_Actvity2 extends AppCompatActivity {
                 if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
+
+                checkFieldsForEmptyValues();
                 city2 = cities.get(i);
             }
 
@@ -267,6 +274,9 @@ public class Registration_Actvity2 extends AppCompatActivity {
         });
 
         btn_register = findViewById(R.id.btn_register);
+        btn_register.setEnabled(false);
+        btn_register.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -277,6 +287,63 @@ public class Registration_Actvity2 extends AppCompatActivity {
                 }
             }
         });
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkFieldsForEmptyValues();
+
+            }
+        };
+        Address.addTextChangedListener(textWatcher);
+        postal_shipping.addTextChangedListener(textWatcher);
+        Address02.addTextChangedListener(textWatcher);
+        postal_billing.addTextChangedListener(textWatcher);
+
+
+    }
+
+    private void checkFieldsForEmptyValues() {
+        String address = Address.getText().toString();
+        String postal_ship = postal_shipping.getText().toString();
+        String address_2 = Address02.getText().toString();
+        String postal_bill = postal_billing.getText().toString();
+        String country = (String) spinner_country.getItemAtPosition(spinner_country.getSelectedItemPosition()).toString();
+        String province = spinner_province.getItemAtPosition(spinner_province.getSelectedItemPosition()).toString();
+        String city = spinner_city.getItemAtPosition(spinner_city.getSelectedItemPosition()).toString();
+        String country2 = spinner_country2.getItemAtPosition(spinner_country2.getSelectedItemPosition()).toString();
+        String province2 = spinner_province2.getItemAtPosition(spinner_province2.getSelectedItemPosition()).toString();
+        String city2 = spinner_city2.getItemAtPosition(spinner_city2.getSelectedItemPosition()).toString();
+
+        if (address.equals("")
+                || postal_ship.equals("")
+                || address_2.equals("")
+                || postal_bill.equals("")
+                || country.equals("Select Country *")
+                || province.equals("Select Province *")
+                || city.equals("Select City *")
+                || country2.equals("Select Country *")
+                || province2.equals("Select Province *")
+                || city2.equals("Select City *")
+
+        ) {
+            btn_register.setEnabled(false);
+            btn_register.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+
+        } else {
+            btn_register.setEnabled(true);
+            btn_register.setBackground(getResources().getDrawable(R.drawable.button_background));
+        }
+
     }
 
     private void makeRegisterRequest() throws JSONException {
@@ -343,14 +410,14 @@ public class Registration_Actvity2 extends AppCompatActivity {
                 Log.e("RESPONSE", result.toString());
                 try {
                     if (!result.get("DealerCode").toString().isEmpty()) {
-                        Intent i = new Intent(Registration_Actvity2.this, Distribution_Login.class);
-                        Toast.makeText(Registration_Actvity2.this, "You have been registered successfully, please use login credentials to access the Portal.", Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(Registration_page2.this, Distribution_Login.class);
+                        Toast.makeText(Registration_page2.this, "You have been registered successfully, please use login credentials to access the Portal.", Toast.LENGTH_LONG).show();
                         startActivity(i);
                         finish();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(Registration_Actvity2.this, e.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(Registration_page2.this, e.toString(), Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -459,17 +526,17 @@ public class Registration_Actvity2 extends AppCompatActivity {
 
     private void printErrorMessage(VolleyError error) {
         if (error instanceof NetworkError) {
-            Toast.makeText(Registration_Actvity2.this, "Network Error !", Toast.LENGTH_LONG).show();
+            Toast.makeText(Registration_page2.this, "Network Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof ServerError) {
-            Toast.makeText(Registration_Actvity2.this, "Server Error !", Toast.LENGTH_LONG).show();
+            Toast.makeText(Registration_page2.this, "Server Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof AuthFailureError) {
-            Toast.makeText(Registration_Actvity2.this, "Auth Failure Error !", Toast.LENGTH_LONG).show();
+            Toast.makeText(Registration_page2.this, "Auth Failure Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof ParseError) {
-            Toast.makeText(Registration_Actvity2.this, "Parse Error !", Toast.LENGTH_LONG).show();
+            Toast.makeText(Registration_page2.this, "Parse Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof NoConnectionError) {
-            Toast.makeText(Registration_Actvity2.this, "No Connection Error !", Toast.LENGTH_LONG).show();
+            Toast.makeText(Registration_page2.this, "No Connection Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof TimeoutError) {
-            Toast.makeText(Registration_Actvity2.this, "Timeout Error !", Toast.LENGTH_LONG).show();
+            Toast.makeText(Registration_page2.this, "Timeout Error !", Toast.LENGTH_LONG).show();
         }
 
         if (error.networkResponse != null && error.networkResponse.data != null) {
@@ -487,7 +554,7 @@ public class Registration_Actvity2 extends AppCompatActivity {
 //                    if(data.has("message"))
 //                        message = data.getString("message");
 //                    else if(data. has("Error"))
-                Toast.makeText(Registration_Actvity2.this, message, Toast.LENGTH_LONG).show();
+                Toast.makeText(Registration_page2.this, message, Toast.LENGTH_LONG).show();
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             } catch (JSONException e) {

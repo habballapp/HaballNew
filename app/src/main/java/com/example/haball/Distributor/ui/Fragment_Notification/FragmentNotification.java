@@ -43,6 +43,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class FragmentNotification extends Fragment {
 
@@ -51,7 +53,8 @@ public class FragmentNotification extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private List<NotificationModel> notificationLists = new ArrayList<>();
     private String Token, DistributorId, ID;
-    private String URL_NOTIFICATION = "http://175.107.203.97:4013/api/useralert/ShowAll/";
+    static int counter;
+    //private String URL_NOTIFICATION = "http://175.107.203.97:4013/api/useralert/ShowAll/";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -62,14 +65,16 @@ public class FragmentNotification extends Fragment {
         layoutManager = new LinearLayoutManager(root.getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        fetchNotification();
+        fetchNotificationForItemCount();
+
+
+
 
 //
-
         return root;
     }
 
-    private void fetchNotification() {
+    private void fetchNotification(final int resultLenght) {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -78,7 +83,7 @@ public class FragmentNotification extends Fragment {
                 Context.MODE_PRIVATE);
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         ID = sharedPreferences1.getString("ID", "");
-
+        String URL_NOTIFICATION = "http://175.107.203.97:4013/api/useralert/ShowAll/";
         Log.i("DistributorId ", DistributorId);
         Log.i("Token", Token);
 
@@ -88,6 +93,10 @@ public class FragmentNotification extends Fragment {
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_NOTIFICATION, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
+
+                if(resultLenght == result.length()){
+
+                }
                 Log.i("RESULT NOTIFICATION", result.toString());
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<NotificationModel>>() {
@@ -95,6 +104,73 @@ public class FragmentNotification extends Fragment {
                 notificationLists = gson.fromJson(result.toString(), type);
                 NotificationAdapter = new NotificationAdapter(getContext(), notificationLists, Token);
                 recyclerView.setAdapter(NotificationAdapter);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        sr.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 1000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
+        Volley.newRequestQueue(getContext()).add(sr);
+    }
+
+    private void fetchNotificationForItemCount() {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+        ID = sharedPreferences1.getString("ID", "");
+        String URL_NOTIFICATION = "http://175.107.203.97:4013/api/useralert/ShowAll/";
+        Log.i("DistributorId ", DistributorId);
+        Log.i("Token", Token);
+
+        URL_NOTIFICATION = URL_NOTIFICATION + ID;
+        Log.i("URL_NOTIFICATION", URL_NOTIFICATION);
+
+        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_NOTIFICATION, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(final JSONArray result) {
+
+                FragmentNotification.counter = result.length();
+
+                Timer timer = new Timer();
+                timer.scheduleAtFixedRate(new TimerTask() {
+                    @Override
+                    public void run() {
+                        fetchNotification(result.length());
+                    }
+                }, 0, 5000);
+                Log.i("ResultLength", ""+result.length());
+                Log.i("RESULT NOTIFICATION", result.toString());
+
             }
         }, new Response.ErrorListener() {
             @Override

@@ -125,7 +125,7 @@ public class RetailorDashboard extends AppCompatActivity  {
 
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
 //                            fragmentTransaction.replace(R.id.main_container_ret, new My_NetworkDashboard());
-                            fragmentTransaction.replace(R.id.main_container_ret, new My_Network_Fragment());
+                            fragmentTransaction.replace(R.id.main_container_ret, new My_Network_Fragment()).addToBackStack("tag");;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                             Log.i("My Network", "My Network Activity");
@@ -138,27 +138,27 @@ public class RetailorDashboard extends AppCompatActivity  {
 //                            fragmentTransaction.commit();
 //                            drawer.closeDrawer(GravityCompat.START);
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Place_Order());
+                            fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("tag");;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
 
                         } else if (id == 3) {
                             Log.i("Make Payment", "Make Payment Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment());
+                            fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment()).addToBackStack("tag");;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
 
                         } else if (id == 4) {
                             Log.i("Profile", "Profile Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new Profile_Tabs());
+                            fragmentTransaction.replace(R.id.main_container_ret, new Profile_Tabs()).addToBackStack("tag");;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 5) {
                             Log.i("Support", "Support Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new SupportFragment());
+                            fragmentTransaction.replace(R.id.main_container_ret, new SupportFragment()).addToBackStack("tag");;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
 
@@ -193,17 +193,17 @@ public class RetailorDashboard extends AppCompatActivity  {
                         if (groupPosition == 3 && childPosition == 0) {
                             Log.i("Payments Summary", "Child");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new Payment_Summary());
+                            fragmentTransaction.replace(R.id.main_container_ret, new Payment_Summary()).addToBackStack("tag");;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         }  else if (groupPosition == 3 && childPosition == 1) {
                             Log.i("Payment Request", "Child");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment());
+                            fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment()).addToBackStack("tag");;
                             fragmentTransaction.commit();
                         }  else if (groupPosition == 2 && childPosition == 0) {
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new PlaceOrderFragment());
+                            fragmentTransaction.replace(R.id.main_container_ret, new PlaceOrderFragment()).addToBackStack("tag");;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         }
