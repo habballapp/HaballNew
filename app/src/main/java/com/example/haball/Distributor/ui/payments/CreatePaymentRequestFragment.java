@@ -29,13 +29,13 @@ import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Distributor.ui.IOnBackPressed;
 import com.example.haball.R;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -136,10 +136,11 @@ public class CreatePaymentRequestFragment extends Fragment {
                 checkFieldsForEmptyValues();
 
             }
-        }   ;
+        };
         txt_amount.addTextChangedListener(textWatcher);
         return root;
     }
+
 
     private void checkFieldsForEmptyValues() {
         String txt_amounts = txt_amount.getText().toString();
@@ -243,7 +244,7 @@ public class CreatePaymentRequestFragment extends Fragment {
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PAYMENT_REQUESTS_SELECT_COMPANY, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
-                Log.i("aaaaaabb" , String.valueOf(result));
+                Log.i("aaaaaabb", String.valueOf(result));
                 try {
                     JSONObject jsonObject = null;
                     for (int i = 0; i < result.length(); i++) {
@@ -284,37 +285,39 @@ public class CreatePaymentRequestFragment extends Fragment {
 
 
     private void printErrorMessage(VolleyError error) {
-        if (error instanceof NetworkError) {
-            Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ServerError) {
-            Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof AuthFailureError) {
-            Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ParseError) {
-            Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof NoConnectionError) {
-            Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof TimeoutError) {
-            Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
-        }
+        if (getContext() != null) {
+            if (error instanceof NetworkError) {
+                Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ServerError) {
+                Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof AuthFailureError) {
+                Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ParseError) {
+                Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof NoConnectionError) {
+                Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof TimeoutError) {
+                Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+            }
 
-        if (error.networkResponse != null && error.networkResponse.data != null) {
-            try {
-                String message = "";
-                String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody", responseBody);
-                JSONObject data = new JSONObject(responseBody);
-                Log.i("data", String.valueOf(data));
-                Iterator<String> keys = data.keys();
-                while (keys.hasNext()) {
-                    String key = keys.next();
-                    message = message + data.get(key) + "\n";
+            if (error.networkResponse != null && error.networkResponse.data != null) {
+                try {
+                    String message = "";
+                    String responseBody = new String(error.networkResponse.data, "utf-8");
+                    Log.i("responseBody", responseBody);
+                    JSONObject data = new JSONObject(responseBody);
+                    Log.i("data", String.valueOf(data));
+                    Iterator<String> keys = data.keys();
+                    while (keys.hasNext()) {
+                        String key = keys.next();
+                        message = message + data.get(key) + "\n";
+                    }
+                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
         }
     }

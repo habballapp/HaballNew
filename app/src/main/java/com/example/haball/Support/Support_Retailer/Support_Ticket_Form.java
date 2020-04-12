@@ -251,7 +251,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
 
                 if (keyDel == 0) {
                     int len = MobileNo.getText().length();
-                    if(len == 4) {
+                    if (len == 4) {
                         MobileNo.setText(MobileNo.getText() + "-");
                         MobileNo.setSelection(MobileNo.getText().length());
                     }

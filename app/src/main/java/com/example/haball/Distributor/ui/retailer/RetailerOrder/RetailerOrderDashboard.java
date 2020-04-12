@@ -439,16 +439,15 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                     Type type = new TypeToken<List<RetailerOrdersModel>>() {
                     }.getType();
                     OrdersList = gson.fromJson(result.get("Data").toString(), type);
-                        tv_shipment_no_data.setVisibility(View.GONE);
-                        Log.i("OrdersList", String.valueOf(OrdersList));
-                        mAdapter = new RetailerOrdersAdapter(getContext(), OrdersList);
-                        recyclerView.setAdapter(mAdapter);
-                    if(OrdersList.size()!=0){
+                    tv_shipment_no_data.setVisibility(View.GONE);
+                    Log.i("OrdersList", String.valueOf(OrdersList));
+                    mAdapter = new RetailerOrdersAdapter(getContext(), OrdersList);
+                    recyclerView.setAdapter(mAdapter);
+                    if (OrdersList.size() != 0) {
                         tv_shipment_no_data.setVisibility(View.GONE);
 
 
-                    }
-                    else{
+                    } else {
                         tv_shipment_no_data.setVisibility(View.VISIBLE);
                     }
 
@@ -509,19 +508,19 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONObject result) {
-                    try {
-                        Log.i("ORDERS DATA - ", result.toString());
-                        Gson gson = new Gson();
-                        Type type = new TypeToken<List<RetailerOrdersModel>>() {
-                        }.getType();
-                        OrdersList = gson.fromJson(result.get("Data").toString(), type);
-                            tv_shipment_no_data.setVisibility(View.GONE);
-                            Log.i("OrdersList", String.valueOf(OrdersList));
-                            mAdapter = new RetailerOrdersAdapter(getContext(), OrdersList);
-                            recyclerView.setAdapter(mAdapter);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    Log.i("ORDERS DATA - ", result.toString());
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<RetailerOrdersModel>>() {
+                    }.getType();
+                    OrdersList = gson.fromJson(result.get("Data").toString(), type);
+                    tv_shipment_no_data.setVisibility(View.GONE);
+                    Log.i("OrdersList", String.valueOf(OrdersList));
+                    mAdapter = new RetailerOrdersAdapter(getContext(), OrdersList);
+                    recyclerView.setAdapter(mAdapter);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
 
             }
@@ -636,40 +635,43 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
     }
 
     private void printErrorMessage(VolleyError error) {
-        if (error instanceof NetworkError) {
-            Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ServerError) {
-            Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof AuthFailureError) {
-            Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ParseError) {
-            Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof NoConnectionError) {
-            Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof TimeoutError) {
-            Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
-        }
+        if (getContext() != null) {
+            if (error instanceof NetworkError) {
+                Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ServerError) {
+                Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof AuthFailureError) {
+                Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ParseError) {
+                Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof NoConnectionError) {
+                Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof TimeoutError) {
+                Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+            }
 
-        if (error.networkResponse != null && error.networkResponse.data != null) {
-            try {
-                String message = "";
-                String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody", responseBody);
-                JSONObject data = new JSONObject(responseBody);
-                Log.i("data", String.valueOf(data));
-                Iterator<String> keys = data.keys();
-                while (keys.hasNext()) {
-                    String key = keys.next();
-                    message = message + data.get(key) + "\n";
+            if (error.networkResponse != null && error.networkResponse.data != null) {
+                try {
+                    String message = "";
+                    String responseBody = new String(error.networkResponse.data, "utf-8");
+                    Log.i("responseBody", responseBody);
+                    JSONObject data = new JSONObject(responseBody);
+                    Log.i("data", String.valueOf(data));
+                    Iterator<String> keys = data.keys();
+                    while (keys.hasNext()) {
+                        String key = keys.next();
+                        message = message + data.get(key) + "\n";
+                    }
+                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
         }
     }
+
     private String getScrollEvent() {
         String scroll = "";
         if (scrollEvent.size() > 0) {

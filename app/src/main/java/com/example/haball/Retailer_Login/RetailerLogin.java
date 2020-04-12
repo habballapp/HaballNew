@@ -70,28 +70,28 @@ public class RetailerLogin extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate( savedInstanceState );
-        getWindow().setBackgroundDrawableResource( R.drawable.background_logo );
+        super.onCreate(savedInstanceState);
+        getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
 
-        setContentView( R.layout.activity_retailer_login );
-        btn_login = findViewById( R.id.retailer_btn_login );
-        btn_login.setEnabled( false );
-        btn_login.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
-        btn_signup = findViewById( R.id.ret_btn_signup );
-        btn_support = findViewById( R.id.ret_btn_support );
-        btn_password = findViewById( R.id.ret_btn_password );
-        layout_username = findViewById( R.id.layout_username );
-        layout_password = findViewById( R.id.layout_password );
+        setContentView(R.layout.activity_retailer_login);
+        btn_login = findViewById(R.id.retailer_btn_login);
+        btn_login.setEnabled(false);
+        btn_login.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+        btn_signup = findViewById(R.id.ret_btn_signup);
+        btn_support = findViewById(R.id.ret_btn_support);
+        btn_password = findViewById(R.id.ret_btn_password);
+        layout_username = findViewById(R.id.layout_username);
+        layout_password = findViewById(R.id.layout_password);
 
-        layout_username.setBoxStrokeColor( getResources().getColor( R.color.color_text ) );
-        layout_password.setBoxStrokeColor( getResources().getColor( R.color.color_text ) );
+        layout_username.setBoxStrokeColor(getResources().getColor(R.color.color_text));
+        layout_password.setBoxStrokeColor(getResources().getColor(R.color.color_text));
 
-        progressDialog = new ProgressDialog( this );
+        progressDialog = new ProgressDialog(this);
 
-        et_username = findViewById( R.id.txt_username );
-        et_password = findViewById( R.id.txt_password );
+        et_username = findViewById(R.id.txt_username);
+        et_password = findViewById(R.id.txt_password);
 
-        et_password.addTextChangedListener( new TextWatcher() {
+        et_password.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -99,10 +99,10 @@ public class RetailerLogin extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                layout_password.setBoxStrokeColor( getResources().getColor( R.color.color_text ) );
-                layout_password.setDefaultHintTextColor( ColorStateList.valueOf( getResources().getColor( R.color.green_color ) ) );
-                et_password.setTextColor( getResources().getColor( R.color.textcolor ) );
-                layout_password.setPasswordVisibilityToggleTintList( ColorStateList.valueOf( getResources().getColor( R.color.textcolorhint ) ) );
+                layout_password.setBoxStrokeColor(getResources().getColor(R.color.color_text));
+                layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+                et_password.setTextColor(getResources().getColor(R.color.textcolor));
+                layout_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
 
             }
 
@@ -110,7 +110,7 @@ public class RetailerLogin extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
 
             }
-        } );
+        });
 
         TextWatcher textWatcher = new TextWatcher() {
             @Override
@@ -130,8 +130,8 @@ public class RetailerLogin extends AppCompatActivity {
             }
         };
 
-        et_username.addTextChangedListener( textWatcher );
-        et_password.addTextChangedListener( textWatcher );
+        et_username.addTextChangedListener(textWatcher);
+        et_password.addTextChangedListener(textWatcher);
 
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.setDisplayShowHomeEnabled(false);
@@ -145,26 +145,26 @@ public class RetailerLogin extends AppCompatActivity {
 //        actionBar.setDisplayShowCustomEnabled(true);
 
         ActionBar bar = getSupportActionBar();
-        bar.setBackgroundDrawable( new ColorDrawable( Color.parseColor( "#FFFFFF" ) ) );
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
 
-        LayoutInflater inflater = LayoutInflater.from( this );
+        LayoutInflater inflater = LayoutInflater.from(this);
 
-        View customView = inflater.inflate( R.layout.action_bar_main, null );
+        View customView = inflater.inflate(R.layout.action_bar_main, null);
 
-        bar.setCustomView( customView );
-        bar.setDisplayShowCustomEnabled( true );
-        bar.setBackgroundDrawable( new ColorDrawable( Color.parseColor( "#FFFFFF" ) ) );
-        bar.setTitle( "" );
-        btn_back = customView.findViewById( R.id.btn_back );
-        btn_back.setOnClickListener( new View.OnClickListener() {
+        bar.setCustomView(customView);
+        bar.setDisplayShowCustomEnabled(true);
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
+        bar.setTitle("");
+        btn_back = customView.findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent( RetailerLogin.this, Register_Activity.class );
-                startActivity( intent );
+                Intent intent = new Intent(RetailerLogin.this, Register_Activity.class);
+                startActivity(intent);
             }
-        } );
+        });
 
-        btn_login.setOnClickListener( new View.OnClickListener() {
+        btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                Intent intent = new Intent(RetailerLogin.this, RetailorDashboard.class);
@@ -175,29 +175,29 @@ public class RetailerLogin extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        } );
-        btn_signup.setOnClickListener( new View.OnClickListener() {
+        });
+        btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent( RetailerLogin.this, SignUp.class );
-                startActivity( intent );
+                Intent intent = new Intent(RetailerLogin.this, SignUp.class);
+                startActivity(intent);
             }
-        } );
-        btn_support.setOnClickListener( new View.OnClickListener() {
+        });
+        btn_support.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent( RetailerLogin.this, Support_Ticket_Form.class );
-                startActivity( intent );
+                Intent intent = new Intent(RetailerLogin.this, Support_Ticket_Form.class);
+                startActivity(intent);
             }
-        } );
+        });
 
-        btn_password.setOnClickListener( new View.OnClickListener() {
+        btn_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent( RetailerLogin.this, Forgot_Pass_Retailer.class );
-                startActivity( intent );
+                Intent intent = new Intent(RetailerLogin.this, Forgot_Pass_Retailer.class);
+                startActivity(intent);
             }
-        } );
+        });
 
     }
 
@@ -205,13 +205,13 @@ public class RetailerLogin extends AppCompatActivity {
         String username_ = et_username.getText().toString();
         String password = et_password.getText().toString();
 
-        if (username_.equals( "" ) || password.equals( "" )) {
-            btn_login.setEnabled( false );
-            btn_login.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
+        if (username_.equals("") || password.equals("")) {
+            btn_login.setEnabled(false);
+            btn_login.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
         } else {
-            btn_login.setEnabled( true );
-            btn_login.setBackground( getResources().getDrawable( R.drawable.button_background ) );
+            btn_login.setEnabled(true);
+            btn_login.setBackground(getResources().getDrawable(R.drawable.button_background));
         }
     }
 
@@ -219,61 +219,61 @@ public class RetailerLogin extends AppCompatActivity {
     private void loginRequest() throws JSONException {
 
         JSONObject map = new JSONObject();
-        map.put( "Username", et_username.getText().toString() );
-        map.put( "Password", et_password.getText().toString() );
-        map.put( "grant_type", "password" );
+        map.put("Username", et_username.getText().toString());
+        map.put("Password", et_password.getText().toString());
+        map.put("grant_type", "password");
 
-        JsonObjectRequest sr = new JsonObjectRequest( Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONObject result) {
                 try {
-                    if (!result.get( "access_token" ).toString().isEmpty()) {
-                        token = result.get( "access_token" ).toString();
-                        JSONObject userAccount = new JSONObject( String.valueOf( result.get( "UserAccount" ) ) );
-                        Log.i( "user account => ", userAccount.get( "RetailerID" ).toString() );
-                        String RetailerId = userAccount.get( "RetailerID" ).toString();
-                        String username = userAccount.get( "Username" ).toString();
-                        String CompanyName = userAccount.get( "CompanyName" ).toString();
-                        String ID = userAccount.get( "UserId" ).toString();
-                        String FirstName = userAccount.get( "Name" ).toString();
-                        String EmailAddress = userAccount.get( "RetailerEmail" ).toString();
-                        String Mobile = userAccount.get( "RetailerMobile" ).toString();
+                    if (!result.get("access_token").toString().isEmpty()) {
+                        token = result.get("access_token").toString();
+                        JSONObject userAccount = new JSONObject(String.valueOf(result.get("UserAccount")));
+                        Log.i("user account => ", userAccount.get("RetailerID").toString());
+                        String RetailerId = userAccount.get("RetailerID").toString();
+                        String username = userAccount.get("Username").toString();
+                        String CompanyName = userAccount.get("CompanyName").toString();
+                        String ID = userAccount.get("UserId").toString();
+                        String FirstName = userAccount.get("Name").toString();
+                        String EmailAddress = userAccount.get("RetailerEmail").toString();
+                        String Mobile = userAccount.get("RetailerMobile").toString();
 
-                        SharedPreferences login_token = getSharedPreferences( "LoginToken",
-                                Context.MODE_PRIVATE );
+                        SharedPreferences login_token = getSharedPreferences("LoginToken",
+                                Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = login_token.edit();
-                        editor.putString( "Login_Token", token );
-                        editor.putString( "User_Type", "Retailer" );
-                        editor.putString( "Retailer_Id", RetailerId );
-                        editor.putString( "username", username );
-                        editor.putString( "CompanyName", CompanyName );
-                        editor.putString( "UserId", ID );
+                        editor.putString("Login_Token", token);
+                        editor.putString("User_Type", "Retailer");
+                        editor.putString("Retailer_Id", RetailerId);
+                        editor.putString("username", username);
+                        editor.putString("CompanyName", CompanyName);
+                        editor.putString("UserId", ID);
 
                         editor.commit();
 
                         SharedPreferences companyId = getSharedPreferences("SendData",
                                 Context.MODE_PRIVATE);
                         SharedPreferences.Editor editorCompany = companyId.edit();
-                        editorCompany.putString("first_name" , FirstName);
-                        editorCompany.putString("email" , EmailAddress);
-                        editorCompany.putString("phone_number" , Mobile);
+                        editorCompany.putString("first_name", FirstName);
+                        editorCompany.putString("email", EmailAddress);
+                        editorCompany.putString("phone_number", Mobile);
                         editorCompany.apply();
 
                         // Toast.makeText(RetailerLogin.this, "Login Success", Toast.LENGTH_LONG).show();
-                        Intent login_intent = new Intent( RetailerLogin.this, RetailorDashboard.class );
-                        startActivity( login_intent );
+                        Intent login_intent = new Intent(RetailerLogin.this, RetailorDashboard.class);
+                        startActivity(login_intent);
                         finish();
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                     try {
-                        layout_password.setBoxStrokeColor( getResources().getColor( R.color.error_stroke_color ) );
-                        layout_password.setDefaultHintTextColor( ColorStateList.valueOf( getResources().getColor( R.color.error_stroke_color ) ) );
-                        layout_password.setPasswordVisibilityToggleTintList( ColorStateList.valueOf( getResources().getColor( R.color.error_stroke_color ) ) );
-                        et_password.setTextColor( getResources().getColor( R.color.error_stroke_color ) );
-                        Toast.makeText( RetailerLogin.this, result.get( "ErrorMessage" ).toString(), Toast.LENGTH_LONG ).show();
+                        layout_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+                        layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+                        layout_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+                        et_password.setTextColor(getResources().getColor(R.color.error_stroke_color));
+                        Toast.makeText(RetailerLogin.this, result.get("ErrorMessage").toString(), Toast.LENGTH_LONG).show();
                     } catch (JSONException ex) {
                         ex.printStackTrace();
                     }
@@ -283,47 +283,47 @@ public class RetailerLogin extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage( error );
+                printErrorMessage(error);
                 error.printStackTrace();
                 //Toast.makeText(RetailerLogin.this,error.toString(),Toast.LENGTH_LONG).show();
             }
-        } );
-        Volley.newRequestQueue( this ).add( sr );
-        RequestQueue requestQueue = Volley.newRequestQueue( this );
-        requestQueue.add( sr );
+        });
+        Volley.newRequestQueue(this).add(sr);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(sr);
     }
 
     private void printErrorMessage(VolleyError error) {
         if (error instanceof NetworkError) {
-            Toast.makeText( RetailerLogin.this, "Network Error !", Toast.LENGTH_LONG ).show();
+            Toast.makeText(RetailerLogin.this, "Network Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof ServerError) {
-            Toast.makeText( RetailerLogin.this, "Server Error !", Toast.LENGTH_LONG ).show();
+            Toast.makeText(RetailerLogin.this, "Server Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof AuthFailureError) {
-            Toast.makeText( RetailerLogin.this, "Auth Failure Error !", Toast.LENGTH_LONG ).show();
+            Toast.makeText(RetailerLogin.this, "Auth Failure Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof ParseError) {
-            Toast.makeText( RetailerLogin.this, "Parse Error !", Toast.LENGTH_LONG ).show();
+            Toast.makeText(RetailerLogin.this, "Parse Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof NoConnectionError) {
-            Toast.makeText( RetailerLogin.this, "No Connection Error !", Toast.LENGTH_LONG ).show();
+            Toast.makeText(RetailerLogin.this, "No Connection Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof TimeoutError) {
-            Toast.makeText( RetailerLogin.this, "Timeout Error !", Toast.LENGTH_LONG ).show();
+            Toast.makeText(RetailerLogin.this, "Timeout Error !", Toast.LENGTH_LONG).show();
         }
 
         if (error.networkResponse != null && error.networkResponse.data != null) {
             try {
                 String message = "";
-                String responseBody = new String( error.networkResponse.data, "utf-8" );
-                JSONObject data = new JSONObject( responseBody );
+                String responseBody = new String(error.networkResponse.data, "utf-8");
+                JSONObject data = new JSONObject(responseBody);
                 Iterator<String> keys = data.keys();
                 while (keys.hasNext()) {
                     String key = keys.next();
 //                if (data.get(key) instanceof JSONObject) {
-                    message = message + data.get( key ) + "\n";
+                    message = message + data.get(key) + "\n";
 //                }
                 }
 //                    if(data.has("message"))
 //                        message = data.getString("message");
 //                    else if(data. has("Error"))
-                Toast.makeText( RetailerLogin.this, message, Toast.LENGTH_LONG ).show();
+                Toast.makeText(RetailerLogin.this, message, Toast.LENGTH_LONG).show();
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             } catch (JSONException e) {

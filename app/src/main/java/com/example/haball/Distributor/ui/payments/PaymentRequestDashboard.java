@@ -93,13 +93,13 @@ public class PaymentRequestDashboard extends Fragment {
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
         spinner2.setVisibility(View.GONE);
         conso_edittext.setVisibility(View.GONE);
-        consolidate_felter.add ("Select Criteria");
-        consolidate_felter.add ("Payment ID");
-        consolidate_felter.add ("Company");
-        consolidate_felter.add ("Transaction Date");
-        consolidate_felter.add ("Created Date");
-        consolidate_felter.add ("Amount");
-        consolidate_felter.add ("Status");
+        consolidate_felter.add("Select Criteria");
+        consolidate_felter.add("Payment ID");
+        consolidate_felter.add("Company");
+        consolidate_felter.add("Transaction Date");
+        consolidate_felter.add("Created Date");
+        consolidate_felter.add("Amount");
+        consolidate_felter.add("Status");
 
         arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, consolidate_felter);
@@ -109,30 +109,29 @@ public class PaymentRequestDashboard extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 spinner2.setVisibility(View.GONE);
                 conso_edittext.setVisibility(View.GONE);
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                }
-                else{
+                } else {
                     Filter_selected = consolidate_felter.get(i);
 
-                    if(!Filter_selected.equals("Status"))
+                    if (!Filter_selected.equals("Status"))
                         spinner2.setSelection(0);
-                    if(!conso_edittext.getText().equals(""))
+                    if (!conso_edittext.getText().equals(""))
                         conso_edittext.setText("");
 
-                    if(Filter_selected.equals("Payment ID")) {
+                    if (Filter_selected.equals("Payment ID")) {
                         Filter_selected = "PrePaidNumber";
                         conso_edittext.setVisibility(View.VISIBLE);
-                    } else if(Filter_selected.equals("Company")) {
+                    } else if (Filter_selected.equals("Company")) {
                         Filter_selected = "CompanyName";
                         conso_edittext.setVisibility(View.VISIBLE);
-                    } else if(Filter_selected.equals("Transaction Date")) {
+                    } else if (Filter_selected.equals("Transaction Date")) {
                         // Toast.makeText(getContext(),"Transaction Date selected",Toast.LENGTH_LONG).show();
-                    } else if(Filter_selected.equals("Created Date")) {
+                    } else if (Filter_selected.equals("Created Date")) {
                         // Toast.makeText(getContext(),"Created Date selected",Toast.LENGTH_LONG).show();
-                    } else if(Filter_selected.equals("Amount")) {
+                    } else if (Filter_selected.equals("Amount")) {
                         // Toast.makeText(getContext(),"Amount selected",Toast.LENGTH_LONG).show();
-                    } else if(Filter_selected.equals("Status")) {
+                    } else if (Filter_selected.equals("Status")) {
                         Filter_selected = "Status";
                         spinner2.setVisibility(View.VISIBLE);
                     }
@@ -153,22 +152,21 @@ public class PaymentRequestDashboard extends Fragment {
         arrayAdapterPayments.notifyDataSetChanged();
         spinner_consolidate.setAdapter(arrayAdapterPayments);
 
-        filters.add ("Status");
-        filters.add ("Processing Payment");
-        filters.add ("Unpaid ");
-        filters.add ("Paid");
+        filters.add("Status");
+        filters.add("Processing Payment");
+        filters.add("Unpaid ");
+        filters.add("Paid");
         arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, filters);
         Log.i("aaaa1111", String.valueOf(consolidate_felter));
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                }
-                else{
-                    Filter_selected_value = String.valueOf(i-2);
-                    Log.i("Filter_selected_value",Filter_selected_value);
+                } else {
+                    Filter_selected_value = String.valueOf(i - 2);
+                    Log.i("Filter_selected_value", Filter_selected_value);
                     try {
                         fetchFilteredPaymentRequests();
                     } catch (JSONException e) {
@@ -201,9 +199,11 @@ public class PaymentRequestDashboard extends Fragment {
                 }
             }
 
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
         });
 
 //        spinner_consolidate("Select Criteria","Invoice No", "Company", "Created Date", "Total Price", "Paid Amount" ,"Status","Created By");
@@ -255,15 +255,15 @@ public class PaymentRequestDashboard extends Fragment {
         return root;
     }
 
-    private void fetchPaymentRequests() throws JSONException{
+    private void fetchPaymentRequests() throws JSONException {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token","");
+        Token = sharedPreferences.getString("Login_Token", "");
         Log.i("Token", Token);
 
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences1.getString("Distributor_Id","");
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
 
         JSONObject map = new JSONObject();
@@ -271,16 +271,17 @@ public class PaymentRequestDashboard extends Fragment {
         map.put("TotalRecords", 10);
         map.put("PageNumber", 0.1);
 
-        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_PAYMENT_REQUESTS, map,new Response.Listener<JSONArray>() {
+        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_PAYMENT_REQUESTS, map, new Response.Listener<JSONArray>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
                 Log.i("Payments Requests", result.toString());
                 Gson gson = new Gson();
-                Type type = new TypeToken<List<DistributorPaymentRequestModel>>(){}.getType();
-                PaymentsRequestList = gson.fromJson(result.toString(),type);
+                Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
+                }.getType();
+                PaymentsRequestList = gson.fromJson(result.toString(), type);
 
-                mAdapter = new DistributorPaymentRequestAdaptor(getContext(),PaymentsRequestList);
+                mAdapter = new DistributorPaymentRequestAdaptor(getContext(), PaymentsRequestList);
                 recyclerView.setAdapter(mAdapter);
             }
         }, new Response.ErrorListener() {
@@ -290,12 +291,12 @@ public class PaymentRequestDashboard extends Fragment {
 
                 error.printStackTrace();
             }
-        }){
+        }) {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer " +Token);
+                params.put("Authorization", "bearer " + Token);
                 return params;
             }
         };
@@ -307,15 +308,15 @@ public class PaymentRequestDashboard extends Fragment {
     }
 
 
-    private void fetchFilteredPaymentRequests() throws JSONException{
+    private void fetchFilteredPaymentRequests() throws JSONException {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token","");
+        Token = sharedPreferences.getString("Login_Token", "");
         Log.i("Token", Token);
 
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences1.getString("Distributor_Id","");
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
 
         JSONObject map = new JSONObject();
@@ -325,16 +326,17 @@ public class PaymentRequestDashboard extends Fragment {
         map.put(Filter_selected, Filter_selected_value);
         Log.i("Map", String.valueOf(map));
 
-        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_PAYMENT_REQUESTS, map,new Response.Listener<JSONArray>() {
+        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_PAYMENT_REQUESTS, map, new Response.Listener<JSONArray>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
                 Log.i("Payments Requests", result.toString());
                 Gson gson = new Gson();
-                Type type = new TypeToken<List<DistributorPaymentRequestModel>>(){}.getType();
-                PaymentsRequestList = gson.fromJson(result.toString(),type);
+                Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
+                }.getType();
+                PaymentsRequestList = gson.fromJson(result.toString(), type);
 
-                mAdapter = new DistributorPaymentRequestAdaptor(getContext(),PaymentsRequestList);
+                mAdapter = new DistributorPaymentRequestAdaptor(getContext(), PaymentsRequestList);
                 recyclerView.setAdapter(mAdapter);
             }
         }, new Response.ErrorListener() {
@@ -344,12 +346,12 @@ public class PaymentRequestDashboard extends Fragment {
 
                 error.printStackTrace();
             }
-        }){
+        }) {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer " +Token);
+                params.put("Authorization", "bearer " + Token);
                 return params;
             }
         };
@@ -361,39 +363,42 @@ public class PaymentRequestDashboard extends Fragment {
     }
 
 
-        private void printErrorMessage(VolleyError error) {
-        if (error instanceof NetworkError) {
-            Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ServerError) {
-            Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof AuthFailureError) {
-            Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ParseError) {
-            Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof NoConnectionError) {
-            Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof TimeoutError) {
-            Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
-        }
+    private void printErrorMessage(VolleyError error) {
+        if (getContext() != null) {
+            if (error instanceof NetworkError) {
+                Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ServerError) {
+                Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof AuthFailureError) {
+                Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ParseError) {
+                Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof NoConnectionError) {
+                Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof TimeoutError) {
+                Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+            }
 
-        if (error.networkResponse != null && error.networkResponse.data != null) {
-            try {
-                String message = "";
-                String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody",responseBody);
-                JSONObject data = new JSONObject(responseBody);
-                Log.i("data",String.valueOf(data));
-                Iterator<String> keys = data.keys();
-                while (keys.hasNext()) {
-                    String key = keys.next();
-                    message = message + data.get(key) + "\n";
+            if (error.networkResponse != null && error.networkResponse.data != null) {
+                try {
+                    String message = "";
+                    String responseBody = new String(error.networkResponse.data, "utf-8");
+                    Log.i("responseBody", responseBody);
+                    JSONObject data = new JSONObject(responseBody);
+                    Log.i("data", String.valueOf(data));
+                    Iterator<String> keys = data.keys();
+                    while (keys.hasNext()) {
+                        String key = keys.next();
+                        message = message + data.get(key) + "\n";
+                    }
+                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
         }
     }
+
 }

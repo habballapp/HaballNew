@@ -60,7 +60,8 @@ public class Consolidate_Fragment_View_Payment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    public Consolidate_Fragment_View_Payment() {}
+    public Consolidate_Fragment_View_Payment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,8 +97,8 @@ public class Consolidate_Fragment_View_Payment extends Fragment {
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
         Log.i("Token", Token);
-        URL_CONSOLIDATE_PAYMENTS_DETAILS = URL_CONSOLIDATE_PAYMENTS_DETAILS+ConsolidatedInvoiceId;
-        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_CONSOLIDATE_PAYMENTS_DETAILS,null, new Response.Listener<JSONObject>() {
+        URL_CONSOLIDATE_PAYMENTS_DETAILS = URL_CONSOLIDATE_PAYMENTS_DETAILS + ConsolidatedInvoiceId;
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_CONSOLIDATE_PAYMENTS_DETAILS, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
                 try {
@@ -108,15 +109,15 @@ public class Consolidate_Fragment_View_Payment extends Fragment {
                     String yourFormattedString1 = formatter1.format(Integer.parseInt(result.getString("PaidAmount")));
                     consolidated_view_invoice_amount.setText(yourFormattedString1);
                     consolidated_view_company.setText(result.getString("CompanyName"));
-                    if(result.getString("Status").equals("0"))
+                    if (result.getString("Status").equals("0"))
                         consolidated_view_status.setText("Pending");
-                    else if(result.getString("Status").equals("1"))
+                    else if (result.getString("Status").equals("1"))
                         consolidated_view_status.setText("Unpaid");
-                    else if(result.getString("Status").equals("2"))
+                    else if (result.getString("Status").equals("2"))
                         consolidated_view_status.setText("Partially Paid");
-                    else if(result.getString("Status").equals("3"))
+                    else if (result.getString("Status").equals("3"))
                         consolidated_view_status.setText("Paid");
-                    else if(result.getString("Status").equals("-1"))
+                    else if (result.getString("Status").equals("-1"))
                         consolidated_view_status.setText("Payment Processing");
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -127,14 +128,15 @@ public class Consolidate_Fragment_View_Payment extends Fragment {
                     e.printStackTrace();
                 }
                 Gson gson = new Gson();
-                Type type = new TypeToken<List<Consolidate_Fragment_Model>>(){}.getType();
+                Type type = new TypeToken<List<Consolidate_Fragment_Model>>() {
+                }.getType();
                 try {
-                    ConsolidatePaymentsDetailsList = gson.fromJson(result.getJSONArray("InvoiceDetails").toString(),type);
+                    ConsolidatePaymentsDetailsList = gson.fromJson(result.getJSONArray("InvoiceDetails").toString(), type);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                mAdapter = new Consolidate_Fragment_View_Adapter(getContext(),ConsolidatePaymentsDetailsList);
+                mAdapter = new Consolidate_Fragment_View_Adapter(getContext(), ConsolidatePaymentsDetailsList);
                 rv_payment_consolidate.setAdapter(mAdapter);
             }
         }, new Response.ErrorListener() {
@@ -158,38 +160,40 @@ public class Consolidate_Fragment_View_Payment extends Fragment {
         Volley.newRequestQueue(getContext()).add(sr);
     }
 
-        private void printErrorMessage(VolleyError error) {
-        if (error instanceof NetworkError) {
-            Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ServerError) {
-            Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof AuthFailureError) {
-            Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ParseError) {
-            Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof NoConnectionError) {
-            Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof TimeoutError) {
-            Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
-        }
+    private void printErrorMessage(VolleyError error) {
+        if (getContext() != null) {
+            if (error instanceof NetworkError) {
+                Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ServerError) {
+                Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof AuthFailureError) {
+                Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ParseError) {
+                Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof NoConnectionError) {
+                Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof TimeoutError) {
+                Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+            }
 
-        if (error.networkResponse != null && error.networkResponse.data != null) {
-            try {
-                String message = "";
-                String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody",responseBody);
-                JSONObject data = new JSONObject(responseBody);
-                Log.i("data",String.valueOf(data));
-                Iterator<String> keys = data.keys();
-                while (keys.hasNext()) {
-                    String key = keys.next();
-                    message = message + data.get(key) + "\n";
+            if (error.networkResponse != null && error.networkResponse.data != null) {
+                try {
+                    String message = "";
+                    String responseBody = new String(error.networkResponse.data, "utf-8");
+                    Log.i("responseBody", responseBody);
+                    JSONObject data = new JSONObject(responseBody);
+                    Log.i("data", String.valueOf(data));
+                    Iterator<String> keys = data.keys();
+                    while (keys.hasNext()) {
+                        String key = keys.next();
+                        message = message + data.get(key) + "\n";
+                    }
+                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
         }
     }

@@ -74,7 +74,7 @@ public class PlaceholderFragment extends Fragment {
     private String Token;
     private String DistributorId;
     private String shipmentID;
-    private  View view;
+    private View view;
     // order data
     private Button btn_next;
     private TextView order_id, order_company_name, order_tr_mode, order_payment_term, order_tv_cdate, order_tv_status, order_tv_shaddress, order_tv_billingAdd;
@@ -500,39 +500,41 @@ public class PlaceholderFragment extends Fragment {
     }
 
     private void printErrorMessage(VolleyError error) {
-        if (error instanceof NetworkError) {
-            Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ServerError) {
-            Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof AuthFailureError) {
-            Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ParseError) {
-            Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof NoConnectionError) {
-            Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof TimeoutError) {
-            Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
-        }
+        if (getContext() != null) {
+            if (error instanceof NetworkError) {
+                Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ServerError) {
+                Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof AuthFailureError) {
+                Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ParseError) {
+                Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof NoConnectionError) {
+                Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof TimeoutError) {
+                Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+            }
 
-        if (error.networkResponse != null && error.networkResponse.data != null) {
-            try {
-                String message = "";
-                String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody", responseBody);
-                JSONObject data = new JSONObject(responseBody);
-                Log.i("data", String.valueOf(data));
-                Iterator<String> keys = data.keys();
-                while (keys.hasNext()) {
-                    String key = keys.next();
-                    message = message + data.get(key) + "\n";
+            if (error.networkResponse != null && error.networkResponse.data != null) {
+                try {
+                    String message = "";
+                    String responseBody = new String(error.networkResponse.data, "utf-8");
+                    Log.i("responseBody", responseBody);
+                    JSONObject data = new JSONObject(responseBody);
+                    Log.i("data", String.valueOf(data));
+                    Iterator<String> keys = data.keys();
+                    while (keys.hasNext()) {
+                        String key = keys.next();
+                        message = message + data.get(key) + "\n";
+                    }
+                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
         }
-    }
 
+    }
 }

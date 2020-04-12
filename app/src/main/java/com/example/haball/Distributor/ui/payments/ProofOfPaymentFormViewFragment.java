@@ -90,9 +90,9 @@ public class ProofOfPaymentFormViewFragment extends Fragment {
     private void makePOPViewRequest() {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token","");
-        DistributorId = sharedPreferences.getString("Distributor_Id","");
-        URL_PROOF_OF_PAYMENTS = URL_PROOF_OF_PAYMENTS+ProofOfPaymentID;
+        Token = sharedPreferences.getString("Login_Token", "");
+        DistributorId = sharedPreferences.getString("Distributor_Id", "");
+        URL_PROOF_OF_PAYMENTS = URL_PROOF_OF_PAYMENTS + ProofOfPaymentID;
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_PROOF_OF_PAYMENTS, null, new Response.Listener<JSONObject>() {
             @Override
@@ -111,9 +111,10 @@ public class ProofOfPaymentFormViewFragment extends Fragment {
                     tv_bank.setText(result.getString("Bank"));
 
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<ProofOfPaymentViewFormModel>>(){}.getType();
-                    proofOfPaymentViewFormList = gson.fromJson(result.get("ProofOfPaymentDetails").toString(),type);
-                    mAdapter = new ProofOfPaymentViewFormAdapter(getContext(),proofOfPaymentViewFormList);
+                    Type type = new TypeToken<List<ProofOfPaymentViewFormModel>>() {
+                    }.getType();
+                    proofOfPaymentViewFormList = gson.fromJson(result.get("ProofOfPaymentDetails").toString(), type);
+                    mAdapter = new ProofOfPaymentViewFormAdapter(getContext(), proofOfPaymentViewFormList);
                     rv_proof_of_payments_view.setAdapter(mAdapter);
 
                     Log.i("View Details", String.valueOf(proofOfPaymentViewFormList));
@@ -132,7 +133,7 @@ public class ProofOfPaymentFormViewFragment extends Fragment {
                 error.printStackTrace();
             }
 
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
@@ -149,38 +150,40 @@ public class ProofOfPaymentFormViewFragment extends Fragment {
     }
 
 
-        private void printErrorMessage(VolleyError error) {
-        if (error instanceof NetworkError) {
-            Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ServerError) {
-            Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof AuthFailureError) {
-            Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ParseError) {
-            Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof NoConnectionError) {
-            Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof TimeoutError) {
-            Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
-        }
+    private void printErrorMessage(VolleyError error) {
+        if (getContext() != null) {
+            if (error instanceof NetworkError) {
+                Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ServerError) {
+                Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof AuthFailureError) {
+                Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ParseError) {
+                Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof NoConnectionError) {
+                Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof TimeoutError) {
+                Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+            }
 
-        if (error.networkResponse != null && error.networkResponse.data != null) {
-            try {
-                String message = "";
-                String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody",responseBody);
-                JSONObject data = new JSONObject(responseBody);
-                Log.i("data",String.valueOf(data));
-                Iterator<String> keys = data.keys();
-                while (keys.hasNext()) {
-                    String key = keys.next();
-                    message = message + data.get(key) + "\n";
+            if (error.networkResponse != null && error.networkResponse.data != null) {
+                try {
+                    String message = "";
+                    String responseBody = new String(error.networkResponse.data, "utf-8");
+                    Log.i("responseBody", responseBody);
+                    JSONObject data = new JSONObject(responseBody);
+                    Log.i("data", String.valueOf(data));
+                    Iterator<String> keys = data.keys();
+                    while (keys.hasNext()) {
+                        String key = keys.next();
+                        message = message + data.get(key) + "\n";
+                    }
+                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
         }
     }

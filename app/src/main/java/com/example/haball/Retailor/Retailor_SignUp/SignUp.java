@@ -68,14 +68,14 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
         bar.setTitle("");
 
         txt_username = (EditText) findViewById(R.id.txt_username);
-        txt_password = (EditText)findViewById(R.id.txt_password);
-        txt_confirmpass = (EditText)findViewById(R.id.txt_confirmpass);
-        txt_fullname = (EditText)findViewById(R.id.txt_fullname);
-        txt_email = (EditText)findViewById(R.id.txt_email);
-        txt_cnic =(EditText) findViewById(R.id.txt_cnic);
-        txt_mobile_number = (EditText)findViewById(R.id.txt_mobile_number);
-        txt_business_name =(EditText) findViewById(R.id.txt_business_name);
-        txt_address = (EditText)findViewById(R.id.txt_address);
+        txt_password = (EditText) findViewById(R.id.txt_password);
+        txt_confirmpass = (EditText) findViewById(R.id.txt_confirmpass);
+        txt_fullname = (EditText) findViewById(R.id.txt_fullname);
+        txt_email = (EditText) findViewById(R.id.txt_email);
+        txt_cnic = (EditText) findViewById(R.id.txt_cnic);
+        txt_mobile_number = (EditText) findViewById(R.id.txt_mobile_number);
+        txt_business_name = (EditText) findViewById(R.id.txt_business_name);
+        txt_address = (EditText) findViewById(R.id.txt_address);
         btn_register_signup = (Button) findViewById(R.id.btn_register_signup);
 
         txt_username.addTextChangedListener(watcher);
@@ -104,7 +104,7 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
 
                 if (keyDel == 0) {
                     int len = txt_mobile_number.getText().length();
-                    if(len == 4) {
+                    if (len == 4) {
                         txt_mobile_number.setText(txt_mobile_number.getText() + "-");
                         txt_mobile_number.setSelection(txt_mobile_number.getText().length());
                     }
@@ -140,7 +140,7 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
 
                 if (keyDel == 0) {
                     int len = txt_cnic.getText().length();
-                    if(len == 5 || len == 13) {
+                    if (len == 5 || len == 13) {
                         txt_cnic.setText(txt_cnic.getText() + "-");
                         txt_cnic.setSelection(txt_cnic.getText().length());
                     }
@@ -193,18 +193,18 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
 
     private final TextWatcher watcher = new TextWatcher() {
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after)
-        {
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
         }
+
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count)
-        {
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
 
         }
+
         @Override
         public void afterTextChanged(Editable s) {
-            if(TextUtils.isEmpty(txt_username.getText())
+            if (TextUtils.isEmpty(txt_username.getText())
                     || TextUtils.isEmpty(txt_password.getText())
                     || TextUtils.isEmpty(txt_confirmpass.getText())
                     || TextUtils.isEmpty(txt_fullname.getText())
@@ -213,12 +213,11 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
                     || TextUtils.isEmpty(txt_mobile_number.getText())
                     || TextUtils.isEmpty(txt_business_name.getText())
                     || TextUtils.isEmpty(txt_address.getText())
-                    || (!password_check && !confirm_password_check)){
+                    || (!password_check && !confirm_password_check)) {
                 btn_register_signup.setEnabled(false);
                 btn_register_signup.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
-            }
-            else{
+            } else {
                 btn_register_signup.setEnabled(true);
                 btn_register_signup.setBackground(getResources().getDrawable(R.drawable.button_background));
             }

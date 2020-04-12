@@ -243,14 +243,14 @@ public class ProofOfPaymentForm extends Fragment {
         spinner_payment_id.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i==0 ){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
 //                    btn_upload.setEnabled( false );
 //                    btn_upload.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
 
                 }
 
-                    selected_paymentid = payment_ids.get(i);
+                selected_paymentid = payment_ids.get(i);
                 checkFieldsForEmptyValues();
             }
 
@@ -262,10 +262,10 @@ public class ProofOfPaymentForm extends Fragment {
         spinner_mode_of_payments.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i==0 ){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
 
-                }else {
+                } else {
                     selected_paymentmode = payment_modes.get(i);
                     if (selected_paymentmode.equals("OTC"))
                         ImageFileTypes.add("Cheque");
@@ -309,9 +309,9 @@ public class ProofOfPaymentForm extends Fragment {
             }
         };
 
-        txt_bank.addTextChangedListener( textWatcher );
-        txt_branch.addTextChangedListener( textWatcher );
-        txt_transaction.addTextChangedListener( textWatcher );
+        txt_bank.addTextChangedListener(textWatcher);
+        txt_branch.addTextChangedListener(textWatcher);
+        txt_transaction.addTextChangedListener(textWatcher);
         return root;
     }
 
@@ -323,24 +323,23 @@ public class ProofOfPaymentForm extends Fragment {
         String paymentId = (String) spinner_payment_id.getItemAtPosition(spinner_payment_id.getSelectedItemPosition()).toString();
         String modeOf_payment = spinner_mode_of_payments.getItemAtPosition(spinner_mode_of_payments.getSelectedItemPosition()).toString();
 
-        if (bank.equals( "" )
+        if (bank.equals("")
                 || txt_brnch.equals("")
-                || txt_trans.equals( "" )
+                || txt_trans.equals("")
                 || paymentId.equals("Payment ID *")
-                || modeOf_payment.equals( "Payment Mode *" )
+                || modeOf_payment.equals("Payment Mode *")
         ) {
 //            btn_upload.setEnabled( false );
             btn_finish.setEnabled(false);
 
 //            btn_upload.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
-            btn_finish.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
+            btn_finish.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
-        }
-        else {
+        } else {
 //            btn_upload.setEnabled( true );
             btn_finish.setEnabled(true);
 //            btn_upload.setBackground( getResources().getDrawable( R.drawable.button_background ) );
-            btn_finish.setBackground( getResources().getDrawable( R.drawable.button_background ) );
+            btn_finish.setBackground(getResources().getDrawable(R.drawable.button_background));
         }
     }
 
@@ -645,38 +644,41 @@ public class ProofOfPaymentForm extends Fragment {
 
 
     private void printErrorMessage(VolleyError error) {
-        if (error instanceof NetworkError) {
-            Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ServerError) {
-            Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof AuthFailureError) {
-            Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ParseError) {
-            Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof NoConnectionError) {
-            Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof TimeoutError) {
-            Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
-        }
+        if (getContext() != null) {
+            if (error instanceof NetworkError) {
+                Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ServerError) {
+                Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof AuthFailureError) {
+                Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ParseError) {
+                Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof NoConnectionError) {
+                Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof TimeoutError) {
+                Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+            }
 
-        if (error.networkResponse != null && error.networkResponse.data != null) {
-            try {
-                String message = "";
-                String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody", responseBody);
-                JSONObject data = new JSONObject(responseBody);
-                Log.i("data", String.valueOf(data));
-                Iterator<String> keys = data.keys();
-                while (keys.hasNext()) {
-                    String key = keys.next();
-                    message = message + data.get(key) + "\n";
+            if (error.networkResponse != null && error.networkResponse.data != null) {
+                try {
+                    String message = "";
+                    String responseBody = new String(error.networkResponse.data, "utf-8");
+                    Log.i("responseBody", responseBody);
+                    JSONObject data = new JSONObject(responseBody);
+                    Log.i("data", String.valueOf(data));
+                    Iterator<String> keys = data.keys();
+                    while (keys.hasNext()) {
+                        String key = keys.next();
+                        message = message + data.get(key) + "\n";
+                    }
+                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
         }
     }
+
 }

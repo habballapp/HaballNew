@@ -66,11 +66,11 @@ public class Support_Ticket_Form extends AppCompatActivity {
     private HashMap<String, String> criticality_map = new HashMap<>();
     private HashMap<String, String> preffered_contact_map = new HashMap<>();
 
-    private String issueType,Criticality, PrefferedContacts;
+    private String issueType, Criticality, PrefferedContacts;
     private String Token;
     private ArrayAdapter<String> arrayAdapterIssueType, arrayAdapterCriticality, arrayAdapterPreferredContact;
 
-    private Button login_submit,login_btn;
+    private Button login_submit, login_btn;
     private int keyDel;
 
     private String DistributorId;
@@ -98,9 +98,9 @@ public class Support_Ticket_Form extends AppCompatActivity {
         IssueType = findViewById(R.id.IssueType);
         critcicality = findViewById(R.id.critcicality);
         Preffered_Contact = findViewById(R.id.Preffered_Contact);
-        login_submit= findViewById(R.id.login_submit);
+        login_submit = findViewById(R.id.login_submit);
         login_submit.setEnabled(false);
-        login_submit.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
+        login_submit.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
         login_btn = findViewById(R.id.login_btn);
         btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
@@ -196,7 +196,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
                         TextUtils.isEmpty(MobileNo.getText().toString())) {
 
                     Snackbar.make(view, "Please Enter All Required Fields", Snackbar.LENGTH_SHORT).show();
-                }else{
+                } else {
 
                     try {
                         makeTicketAddRequest();
@@ -225,8 +225,8 @@ public class Support_Ticket_Form extends AppCompatActivity {
 
             }
         };
-        BName.addTextChangedListener( textWatcher );
-        Email.addTextChangedListener( textWatcher );
+        BName.addTextChangedListener(textWatcher);
+        Email.addTextChangedListener(textWatcher);
         MobileNo.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -244,7 +244,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
 
                 if (keyDel == 0) {
                     int len = MobileNo.getText().length();
-                    if(len == 4) {
+                    if (len == 4) {
                         MobileNo.setText(MobileNo.getText() + "-");
                         MobileNo.setSelection(MobileNo.getText().length());
                     }
@@ -268,25 +268,25 @@ public class Support_Ticket_Form extends AppCompatActivity {
 
     private void checkFieldsForEmptyValues() {
         String bname = BName.getText().toString();
-        String email  = Email.getText().toString();
+        String email = Email.getText().toString();
         String mobile = MobileNo.getText().toString();
 
         String issue_type = (String) IssueType.getItemAtPosition(IssueType.getSelectedItemPosition()).toString();
         String critical = critcicality.getItemAtPosition(critcicality.getSelectedItemPosition()).toString();
         String contact = Preffered_Contact.getItemAtPosition(Preffered_Contact.getSelectedItemPosition()).toString();
-        if (bname.equals( "" )
-                || mobile.equals( "" )
+        if (bname.equals("")
+                || mobile.equals("")
                 || email.equals("")
-                || issue_type.equals( "Issue Type *" )
-                || critical.equals( "Criticality *" )
+                || issue_type.equals("Issue Type *")
+                || critical.equals("Criticality *")
                 || contact.equals("Preferred Method of Contacting *")
-              ) {
-            login_submit.setEnabled( false );
-            login_submit.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
+        ) {
+            login_submit.setEnabled(false);
+            login_submit.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
         } else {
-            login_submit.setEnabled( true );
-            login_submit.setBackground( getResources().getDrawable( R.drawable.button_background ) );
+            login_submit.setEnabled(true);
+            login_submit.setBackground(getResources().getDrawable(R.drawable.button_background));
         }
     }
 
@@ -325,17 +325,17 @@ public class Support_Ticket_Form extends AppCompatActivity {
     }
 
     private void fetchIssueType() {
-        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNER_ISSUETYPE,null,new Response.Listener<JSONArray>() {
+        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNER_ISSUETYPE, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
                 try {
                     JSONObject jsonObject = null;
-                    for(int i=0;i<result.length();i++){
-                        jsonObject  = result.getJSONObject(i);
+                    for (int i = 0; i < result.length(); i++) {
+                        jsonObject = result.getJSONObject(i);
                         issue_type.add(jsonObject.getString("value"));
                         issue_type_map.put(jsonObject.getString("value"), jsonObject.getString("key"));
                     }
-                    Log.i("issue type values => ",issue_type.toString());
+                    Log.i("issue type values => ", issue_type.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -346,7 +346,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 printErrorMessage(error);
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
@@ -365,18 +365,18 @@ public class Support_Ticket_Form extends AppCompatActivity {
     }
 
     private void fetchCriticality() {
-        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNER_CRITICALITY,null,new Response.Listener<JSONArray>() {
+        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNER_CRITICALITY, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
                 try {
                     JSONObject jsonObject = null;
-                    for(int i=0;i<result.length();i++){
-                        jsonObject  = result.getJSONObject(i);
+                    for (int i = 0; i < result.length(); i++) {
+                        jsonObject = result.getJSONObject(i);
                         criticality.add(jsonObject.getString("value"));
                         criticality_map.put(jsonObject.getString("value"), jsonObject.getString("key"));
 
                     }
-                    Log.i("criticality values => ",criticality.toString());
+                    Log.i("criticality values => ", criticality.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -387,7 +387,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 printErrorMessage(error);
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
@@ -406,19 +406,19 @@ public class Support_Ticket_Form extends AppCompatActivity {
     }
 
     private void fetchPrefferedContact() {
-        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNER_PREFFEREDCONTACT,null,new Response.Listener<JSONArray>() {
+        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNER_PREFFEREDCONTACT, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
                 try {
                     JSONObject jsonObject = null;
-                    for(int i=0;i<result.length();i++){
-                        jsonObject  = result.getJSONObject(i);
+                    for (int i = 0; i < result.length(); i++) {
+                        jsonObject = result.getJSONObject(i);
                         preffered_contact.add(jsonObject.getString("value"));
                         preffered_contact_map.put(jsonObject.getString("value"), jsonObject.getString("key"));
 
                     }
 
-                    Log.i("preffered_contact => ",preffered_contact.toString());
+                    Log.i("preffered_contact => ", preffered_contact.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -429,11 +429,11 @@ public class Support_Ticket_Form extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 printErrorMessage(error);
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer "+Token);
+                params.put("Authorization", "bearer " + Token);
                 params.put("rightid", "-1");
                 return params;
             }
@@ -484,5 +484,4 @@ public class Support_Ticket_Form extends AppCompatActivity {
             }
         }
     }
-
 }

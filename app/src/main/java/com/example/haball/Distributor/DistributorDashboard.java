@@ -316,7 +316,7 @@ public class DistributorDashboard extends AppCompatActivity {
     }
 
     private void getNotificationCount() {
-        if(!URL_Notification.contains("/" + ID))
+        if (!URL_Notification.contains("/" + ID))
             URL_Notification = URL_Notification + ID;
         Log.i("URL_NOTIFICATION", URL_Notification);
 
@@ -327,7 +327,7 @@ public class DistributorDashboard extends AppCompatActivity {
 
                     int count = Integer.parseInt(String.valueOf(result.get("count")));
                     Log.i("DistributorDashboard", String.valueOf(count));
-                    if(count == 0) {
+                    if (count == 0) {
                         notification_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_no_notifications_black_24dp));
                     } else {
                         notification_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_notifications_black_24dp));

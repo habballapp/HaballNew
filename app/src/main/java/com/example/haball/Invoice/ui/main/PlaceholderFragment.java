@@ -70,20 +70,20 @@ public class PlaceholderFragment extends Fragment {
 
     //invoice Details
     private TextView distri_invoiceID, distri_invoiceDate, distri_invoiceAmount, distri_payment_date, distri_Transaction_amount, distri_status, distri_state;
-//    private TextView invoice_shipment_id, invoice_shpDelivery_date, invoice_shpRecieving_date, invoice_shpstatus;
+    //    private TextView invoice_shipment_id, invoice_shpDelivery_date, invoice_shpRecieving_date, invoice_shpstatus;
     private String INVOICE_URL = "http://175.107.203.97:4013/api/Invoices/";
 
     //Dealer Details
-    private TextView dealer_Code ,dealer_first_name ,dealer_last_name,dealer_email,dealer_mobile_no ,dealer_landline,dealer_NTN,dealer_company_name,dealer_created_date;
+    private TextView dealer_Code, dealer_first_name, dealer_last_name, dealer_email, dealer_mobile_no, dealer_landline, dealer_NTN, dealer_company_name, dealer_created_date;
     //Order Details
-    private  TextView total_price, invoice_order_id ,invoice_company_name , invoice_tr_mode, invoice_payment_term ,invoice_Order_cdate, invoice_Order_status ,Order_shipaddress ,Order_billingAddress;
+    private TextView total_price, invoice_order_id, invoice_company_name, invoice_tr_mode, invoice_payment_term, invoice_Order_cdate, invoice_Order_status, Order_shipaddress, Order_billingAddress;
     //Product Details
     private RecyclerView rv_invo_product;
     private RecyclerView.Adapter rv_productAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private List<ProductDetails_Model> invo_productList = new ArrayList<>();
-     // Shipment Details
-    private  TextView invoice_shipment_id,invoice_shpDelivery_date,invoice_shpRecieving_date ,invoice_shpstatus;
+    // Shipment Details
+    private TextView invoice_shipment_id, invoice_shpDelivery_date, invoice_shpRecieving_date, invoice_shpstatus;
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     private PageViewModel pageViewModel;
@@ -183,7 +183,7 @@ public class PlaceholderFragment extends Fragment {
 //                invoice_shpDelivery_date = rootView.findViewById(R.id.invoice_shpDelivery_date);
 //                invoice_shpRecieving_date = rootView.findViewById(R.id.invoice_shpRecieving_date);
 //                invoice_shpstatus = rootView.findViewById(R.id.invoice_shpstatus);
-               // ShipmentDetailsData();
+                // ShipmentDetailsData();
                 break;
             }
         }
@@ -212,19 +212,19 @@ public class PlaceholderFragment extends Fragment {
             INVOICE_URL = INVOICE_URL + paymentID;
         Log.i("INVOICE_URL", INVOICE_URL);
 
-        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, INVOICE_URL,null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, INVOICE_URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i("response", String.valueOf(response));
                 try {
                     try {
-                        if(TextUtils.isEmpty(String.valueOf(response.get("ShipmentId"))))
+                        if (TextUtils.isEmpty(String.valueOf(response.get("ShipmentId"))))
                             invoice_shipment_id.setText(response.get("ShipmentId").toString());
-                        if(TextUtils.isEmpty(String.valueOf(response.get("ShipmentDeliveryDate"))))
+                        if (TextUtils.isEmpty(String.valueOf(response.get("ShipmentDeliveryDate"))))
                             invoice_shpDelivery_date.setText(response.get("ShipmentDeliveryDate").toString().split("T")[0]);
-                        if(TextUtils.isEmpty(String.valueOf(response.get("ReceivingDate"))))
+                        if (TextUtils.isEmpty(String.valueOf(response.get("ReceivingDate"))))
                             invoice_shpRecieving_date.setText(response.get("ReceivingDate").toString().split("T")[0]);
-                        if(TextUtils.isEmpty(String.valueOf(response.get("ShipmentStatus")))) {
+                        if (TextUtils.isEmpty(String.valueOf(response.get("ShipmentStatus")))) {
                             if (response.get("ShipmentStatus").equals("0")) {
                                 invoice_shpstatus.setText("Pending");
                             } else if (response.get("ShipmentStatus").equals("1")) {
@@ -290,15 +290,16 @@ public class PlaceholderFragment extends Fragment {
             INVOICE_URL = INVOICE_URL + paymentID;
         Log.i("INVOICE_URL", INVOICE_URL);
 
-        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, INVOICE_URL,null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, INVOICE_URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i("response", String.valueOf(response));
                 try {
                     total_price.setText(response.get("InvoiceTotal").toString());
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<ProductDetails_Model>>(){}.getType();
-                    invo_productList = gson.fromJson(response.get("InvoiceDetails").toString(),type);
+                    Type type = new TypeToken<List<ProductDetails_Model>>() {
+                    }.getType();
+                    invo_productList = gson.fromJson(response.get("InvoiceDetails").toString(), type);
                     Log.i("ProductList", String.valueOf(response.get("InvoiceDetails")));
                     ProductAdapter productAdapter = new ProductAdapter(getContext(), invo_productList);
                     rv_invo_product.setAdapter(productAdapter);
@@ -711,38 +712,40 @@ public class PlaceholderFragment extends Fragment {
     }
 
 
-        private void printErrorMessage(VolleyError error) {
-        if (error instanceof NetworkError) {
-            Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ServerError) {
-            Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof AuthFailureError) {
-            Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ParseError) {
-            Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof NoConnectionError) {
-            Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof TimeoutError) {
-            Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
-        }
+    private void printErrorMessage(VolleyError error) {
+        if (getContext() != null) {
+            if (error instanceof NetworkError) {
+                Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ServerError) {
+                Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof AuthFailureError) {
+                Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ParseError) {
+                Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof NoConnectionError) {
+                Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof TimeoutError) {
+                Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+            }
 
-        if (error.networkResponse != null && error.networkResponse.data != null) {
-            try {
-                String message = "";
-                String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody",responseBody);
-                JSONObject data = new JSONObject(responseBody);
-                Log.i("data",String.valueOf(data));
-                Iterator<String> keys = data.keys();
-                while (keys.hasNext()) {
-                    String key = keys.next();
-                    message = message + data.get(key) + "\n";
+            if (error.networkResponse != null && error.networkResponse.data != null) {
+                try {
+                    String message = "";
+                    String responseBody = new String(error.networkResponse.data, "utf-8");
+                    Log.i("responseBody", responseBody);
+                    JSONObject data = new JSONObject(responseBody);
+                    Log.i("data", String.valueOf(data));
+                    Iterator<String> keys = data.keys();
+                    while (keys.hasNext()) {
+                        String key = keys.next();
+                        message = message + data.get(key) + "\n";
+                    }
+                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
         }
     }

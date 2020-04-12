@@ -174,13 +174,13 @@ public class StatusKVP {
     }
 
     private boolean wait_until_fetched(HashMap StatusKVP) {
-        for(int iWait = 0; iWait < 10; iWait++) {
+        for (int iWait = 0; iWait < 10; iWait++) {
             try {
                 Thread.sleep(10);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            if(StatusKVP.size() != 0)
+            if (StatusKVP.size() != 0)
                 return true;
         }
         return false;

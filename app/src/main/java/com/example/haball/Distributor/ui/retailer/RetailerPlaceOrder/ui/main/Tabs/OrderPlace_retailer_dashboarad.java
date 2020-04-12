@@ -68,7 +68,7 @@ import java.util.Map;
  * A simple {@link Fragment} subclass.
  */
 public class OrderPlace_retailer_dashboarad extends Fragment {
-    RecyclerView recyclerView , subchlid_RV;
+    RecyclerView recyclerView, subchlid_RV;
     private List<OrderParentlist_Model> titles = new ArrayList<>();
     private List<OrderChildlist_Model> productList = new ArrayList<>();
     private List<SimpleParent> parentObjects = new ArrayList<>();
@@ -544,6 +544,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
     }
 
     boolean bool = true;
+
     private void getProductCategory() throws JSONException {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
@@ -566,23 +567,24 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
             @Override
             public void onResponse(JSONObject result) {
                 Log.i("result", String.valueOf(result));
-                if(bool){
-                Gson gson = new Gson();
-                Type type = new TypeToken<List<OrderParentlist_Model>>() {
-                }.getType();
-                try {
-                    titles = gson.fromJson(String.valueOf(result.get("SubCategory")), type);
-                    temp_titles = titles;
-                    Log.i("productCategory", String.valueOf(titles));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                if (bool) {
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<OrderParentlist_Model>>() {
+                    }.getType();
+                    try {
+                        titles = gson.fromJson(String.valueOf(result.get("SubCategory")), type);
+                        temp_titles = titles;
+                        Log.i("productCategory", String.valueOf(titles));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
-                try {
-                    getProductsFromCategory();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }}
+                    try {
+                        getProductsFromCategory();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -674,9 +676,9 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
             Log.i("title", String.valueOf(title.getCategoryId()));
             List<Object> childlist = new ArrayList<>();
 //            childlist.add(new OrderChildlist_Model());
-            for(OrderChildlist_Model product : productList){
+            for (OrderChildlist_Model product : productList) {
                 Log.i("product", String.valueOf(product.getProductCategoryId()));
-                if(title.getCategoryId().equals(product.getProductCategoryId()))
+                if (title.getCategoryId().equals(product.getProductCategoryId()))
                     childlist.add(product);
             }
             title.setChildList(childlist);
@@ -733,40 +735,43 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
     }
 
     private void printErrorMessage(VolleyError error) {
-        if (error instanceof NetworkError) {
-            Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ServerError) {
-            Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof AuthFailureError) {
-            Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ParseError) {
-            Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof NoConnectionError) {
-            Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof TimeoutError) {
-            Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
-        }
+        if (getContext() != null) {
+            if (error instanceof NetworkError) {
+                Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ServerError) {
+                Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof AuthFailureError) {
+                Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ParseError) {
+                Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof NoConnectionError) {
+                Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof TimeoutError) {
+                Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+            }
 
-        if (error.networkResponse != null && error.networkResponse.data != null) {
-            try {
-                String message = "";
-                String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody", responseBody);
-                JSONObject data = new JSONObject(responseBody);
-                Log.i("data", String.valueOf(data));
-                Iterator<String> keys = data.keys();
-                while (keys.hasNext()) {
-                    String key = keys.next();
-                    message = message + data.get(key) + "\n";
+            if (error.networkResponse != null && error.networkResponse.data != null) {
+                try {
+                    String message = "";
+                    String responseBody = new String(error.networkResponse.data, "utf-8");
+                    Log.i("responseBody", responseBody);
+                    JSONObject data = new JSONObject(responseBody);
+                    Log.i("data", String.valueOf(data));
+                    Iterator<String> keys = data.keys();
+                    while (keys.hasNext()) {
+                        String key = keys.next();
+                        message = message + data.get(key) + "\n";
+                    }
+                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
         }
     }
+
     private String getScrollEvent() {
         String scroll = "";
         if (scrollEvent.size() > 0) {

@@ -159,7 +159,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
-        spinner_container_main = root.findViewById( R.id.spinner_container_main );
+        spinner_container_main = root.findViewById(R.id.spinner_container_main);
         tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
         tv_shipment_no_data.setVisibility(View.GONE);
         spinner_container1 = root.findViewById(R.id.spinner_container1);
@@ -278,15 +278,13 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                         Filter_selected_value = String.valueOf(i - 1);
                         if (!Filter_selected_value.equals("")) {
                             try {
-                               fetchFilteredSupport();
+                                fetchFilteredSupport();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
                     }
-                }
-
-                else {
+                } else {
                     Filter_selected_value = filters.get(i);
                     Log.i("Filter_selected_value", Filter_selected_value);
                     try {
@@ -484,7 +482,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 }.getType();
                 SupportList = gson.fromJson(String.valueOf(response), type);
 
-                mAdapter = new SupportDashboardAdapter(getContext(), SupportList,recyclerView,mAdapter);
+                mAdapter = new SupportDashboardAdapter(getContext(), SupportList, recyclerView, mAdapter);
                 recyclerView.setAdapter(mAdapter);
 
             }
@@ -502,39 +500,42 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
 
 
     private void printErrorMessage(VolleyError error) {
-        if (error instanceof NetworkError) {
-            Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ServerError) {
-            Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof AuthFailureError) {
-            Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ParseError) {
-            Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof NoConnectionError) {
-            Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof TimeoutError) {
-            Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
-        }
+        if (getContext() != null) {
+            if (error instanceof NetworkError) {
+                Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ServerError) {
+                Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof AuthFailureError) {
+                Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ParseError) {
+                Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof NoConnectionError) {
+                Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof TimeoutError) {
+                Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+            }
 
-        if (error.networkResponse != null && error.networkResponse.data != null) {
-            try {
-                String message = "";
-                String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody", responseBody);
-                JSONObject data = new JSONObject(responseBody);
-                Log.i("data", String.valueOf(data));
-                Iterator<String> keys = data.keys();
-                while (keys.hasNext()) {
-                    String key = keys.next();
-                    message = message + data.get(key) + "\n";
+            if (error.networkResponse != null && error.networkResponse.data != null) {
+                try {
+                    String message = "";
+                    String responseBody = new String(error.networkResponse.data, "utf-8");
+                    Log.i("responseBody", responseBody);
+                    JSONObject data = new JSONObject(responseBody);
+                    Log.i("data", String.valueOf(data));
+                    Iterator<String> keys = data.keys();
+                    while (keys.hasNext()) {
+                        String key = keys.next();
+                        message = message + data.get(key) + "\n";
+                    }
+                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
         }
+
     }
 
     private void openCalenderPopup(String date_type) {
@@ -581,6 +582,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
             e.printStackTrace();
         }
     }
+
     private String getScrollEvent() {
         String scroll = "";
         if (scrollEvent.size() > 0) {

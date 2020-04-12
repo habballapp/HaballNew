@@ -75,7 +75,8 @@ public class DashBoardFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private String Token,DistributorId;;
+    private String Token, DistributorId;
+    ;
     private String URL = "http://175.107.203.97:4014/api/prepaidrequests/search";
     private List<RetailerPaymentModel> PaymentsList = new ArrayList<>();
     //spiner1
@@ -230,7 +231,6 @@ public class DashBoardFragment extends Fragment {
 //        });
 
 
-
         //recyclerview
         recyclerView.setHasFixedSize(true);
 
@@ -250,10 +250,10 @@ public class DashBoardFragment extends Fragment {
         return root;
     }
 
-    private void fetchPaymentsData() throws JSONException{
+    private void fetchPaymentsData() throws JSONException {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token","");
+        Token = sharedPreferences.getString("Login_Token", "");
         Log.i("Token", Token);
         JSONObject jsonObject = new JSONObject();
 //        jsonObject.put("CompanyName", null);
@@ -265,17 +265,18 @@ public class DashBoardFragment extends Fragment {
         jsonObject.put("TotalRecords", 10);
         jsonObject.put("PageNumber", 0);
 
-        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL,jsonObject, new Response.Listener<JSONObject>() {
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONObject result) {
                 try {
-                    System.out.println("RESPONSE PAYMENTS"+result.getJSONArray("PrePaidRequestData"));
+                    System.out.println("RESPONSE PAYMENTS" + result.getJSONArray("PrePaidRequestData"));
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<RetailerPaymentModel>>(){}.getType();
-                    PaymentsList = gson.fromJson(result.getJSONArray("PrePaidRequestData").toString(),type);
+                    Type type = new TypeToken<List<RetailerPaymentModel>>() {
+                    }.getType();
+                    PaymentsList = gson.fromJson(result.getJSONArray("PrePaidRequestData").toString(), type);
 
-                    mAdapter = new RetailerPaymentAdapter(getContext(),PaymentsList);
+                    mAdapter = new RetailerPaymentAdapter(getContext(), PaymentsList);
                     recyclerView.setAdapter(mAdapter);
 
                 } catch (JSONException e) {
@@ -290,12 +291,12 @@ public class DashBoardFragment extends Fragment {
                 printErrorMessage(error);
                 error.printStackTrace();
             }
-        }){
+        }) {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer " +Token);
+                params.put("Authorization", "bearer " + Token);
                 params.put("Content-Type", "application/json");
 
                 return params;
@@ -308,7 +309,7 @@ public class DashBoardFragment extends Fragment {
         Volley.newRequestQueue(getContext()).add(sr);
     }
 
-    private void fetchFilteredRetailerPayments() throws JSONException{
+    private void fetchFilteredRetailerPayments() throws JSONException {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -325,20 +326,21 @@ public class DashBoardFragment extends Fragment {
         map.put("PageNumber", 0);
         map.put(Filter_selected, Filter_selected_value);
         Log.i("Mapsssss", String.valueOf(map));
-        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL,map, new Response.Listener<JSONObject>() {
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
                 Log.i("retailerPayment", result.toString());
 
                 Gson gson = new Gson();
-                Type type = new TypeToken<List<RetailerPaymentModel>>(){}.getType();
+                Type type = new TypeToken<List<RetailerPaymentModel>>() {
+                }.getType();
                 try {
-                    PaymentsList = gson.fromJson(result.getJSONArray("PrePaidRequestData").toString(),type);
+                    PaymentsList = gson.fromJson(result.getJSONArray("PrePaidRequestData").toString(), type);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                mAdapter = new RetailerPaymentAdapter(getContext(),PaymentsList);
+                mAdapter = new RetailerPaymentAdapter(getContext(), PaymentsList);
                 recyclerView.setAdapter(mAdapter);
             }
         }, new Response.ErrorListener() {
@@ -364,38 +366,40 @@ public class DashBoardFragment extends Fragment {
     }
 
 
-        private void printErrorMessage(VolleyError error) {
-        if (error instanceof NetworkError) {
-            Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ServerError) {
-            Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof AuthFailureError) {
-            Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ParseError) {
-            Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof NoConnectionError) {
-            Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof TimeoutError) {
-            Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
-        }
+    private void printErrorMessage(VolleyError error) {
+        if (getContext() != null) {
+            if (error instanceof NetworkError) {
+                Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ServerError) {
+                Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof AuthFailureError) {
+                Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ParseError) {
+                Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof NoConnectionError) {
+                Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof TimeoutError) {
+                Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+            }
 
-        if (error.networkResponse != null && error.networkResponse.data != null) {
-            try {
-                String message = "";
-                String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody",responseBody);
-                JSONObject data = new JSONObject(responseBody);
-                Log.i("data",String.valueOf(data));
-                Iterator<String> keys = data.keys();
-                while (keys.hasNext()) {
-                    String key = keys.next();
-                    message = message + data.get(key) + "\n";
+            if (error.networkResponse != null && error.networkResponse.data != null) {
+                try {
+                    String message = "";
+                    String responseBody = new String(error.networkResponse.data, "utf-8");
+                    Log.i("responseBody", responseBody);
+                    JSONObject data = new JSONObject(responseBody);
+                    Log.i("data", String.valueOf(data));
+                    Iterator<String> keys = data.keys();
+                    while (keys.hasNext()) {
+                        String key = keys.next();
+                        message = message + data.get(key) + "\n";
+                    }
+                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
         }
     }

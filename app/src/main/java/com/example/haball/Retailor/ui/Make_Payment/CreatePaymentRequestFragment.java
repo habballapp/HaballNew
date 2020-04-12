@@ -135,10 +135,11 @@ public class CreatePaymentRequestFragment extends Fragment {
                 checkFieldsForEmptyValues();
 
             }
-        }   ;
+        };
         txt_amount.addTextChangedListener(textWatcher);
         return root;
     }
+
     private void checkFieldsForEmptyValues() {
         String txt_amounts = txt_amount.getText().toString();
         String company = (String) spinner_company.getItemAtPosition(spinner_company.getSelectedItemPosition()).toString();
@@ -154,6 +155,7 @@ public class CreatePaymentRequestFragment extends Fragment {
             btn_create.setBackground(getResources().getDrawable(R.drawable.button_background));
         }
     }
+
     private void makeSaveRequest() throws JSONException {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
@@ -195,7 +197,6 @@ public class CreatePaymentRequestFragment extends Fragment {
                 editor.putString("CompanyName", company_names);
                 editor.putString("Amount", txt_amount.getText().toString());
                 editor.apply();
-
 
 
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -287,44 +288,45 @@ public class CreatePaymentRequestFragment extends Fragment {
 
 
     private void printErrorMessage(VolleyError error) {
-        if (error instanceof NetworkError) {
-            Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ServerError) {
-            Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof AuthFailureError) {
-            Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ParseError) {
-            Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof NoConnectionError) {
-            Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof TimeoutError) {
-            Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
-        }
+        if (getContext() != null) {
+            if (error instanceof NetworkError) {
+                Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ServerError) {
+                Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof AuthFailureError) {
+                Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ParseError) {
+                Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof NoConnectionError) {
+                Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof TimeoutError) {
+                Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+            }
 
-        if (error.networkResponse != null && error.networkResponse.data != null) {
-            try {
-                String message = "";
-                String responseBody = new String(error.networkResponse.data, "utf-8");
-                JSONObject data = new JSONObject(responseBody);
-                Iterator<String> keys = data.keys();
-                while (keys.hasNext()) {
-                    String key = keys.next();
+            if (error.networkResponse != null && error.networkResponse.data != null) {
+                try {
+                    String message = "";
+                    String responseBody = new String(error.networkResponse.data, "utf-8");
+                    JSONObject data = new JSONObject(responseBody);
+                    Iterator<String> keys = data.keys();
+                    while (keys.hasNext()) {
+                        String key = keys.next();
 //                if (data.get(key) instanceof JSONObject) {
-                    message = message + data.get(key) + "\n";
+                        message = message + data.get(key) + "\n";
 //                }
-                }
-                if(message.equals(""))
-                    message = responseBody;
+                    }
+                    if (message.equals(""))
+                        message = responseBody;
 //                    if(data.has("message"))
 //                        message = data.getString("message");
 //                    else if(data. has("Error"))
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
+                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        }
 //        NetworkResponse response = error.networkResponse;
 //        if (error instanceof ServerError && response != null) {
 //            try {
@@ -354,5 +356,6 @@ public class CreatePaymentRequestFragment extends Fragment {
 //                e2.printStackTrace();
 //            }
 //        }
+        }
     }
 }

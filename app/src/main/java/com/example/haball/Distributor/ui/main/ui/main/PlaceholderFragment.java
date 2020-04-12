@@ -73,7 +73,6 @@ public class PlaceholderFragment extends Fragment {
     private TextInputLayout layout_txt_created_date, layout_transaction_date, layout_txt_bank, layout_txt_authorization_id, layout_txt_settlement_id, layout_txt_status, layout_txt_amount, layout_txt_transaction_charges, layout_txt_total_amount;
 
 
-
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
         Bundle bundle = new Bundle();
@@ -244,7 +243,7 @@ public class PlaceholderFragment extends Fragment {
 
     }
 
-    private void getOrderDetailsData( View rootView) {
+    private void getOrderDetailsData(View rootView) {
         tv_shipment_no_data = rootView.findViewById(R.id.tv_shipment_no_data);
         tv_shipment_no_data.setVisibility(View.GONE);
 
@@ -258,13 +257,13 @@ public class PlaceholderFragment extends Fragment {
                 }.getType();
                 try {
                     invo_productList = gson.fromJson(response.get("OrderDetails").toString(), type);
-                        Log.i("OrderDetails", String.valueOf(response.get("OrderDetails")));
-                        ViewOrderProductAdapter productAdapter = new ViewOrderProductAdapter(getContext(), invo_productList);
-                        rv_fragment_retailer_order_details.setAdapter(productAdapter);
-                    if(invo_productList.size() != 0) {
-                                 tv_shipment_no_data.setVisibility(View.GONE);
+                    Log.i("OrderDetails", String.valueOf(response.get("OrderDetails")));
+                    ViewOrderProductAdapter productAdapter = new ViewOrderProductAdapter(getContext(), invo_productList);
+                    rv_fragment_retailer_order_details.setAdapter(productAdapter);
+                    if (invo_productList.size() != 0) {
+                        tv_shipment_no_data.setVisibility(View.GONE);
                     } else {
-                                 tv_shipment_no_data.setVisibility(View.VISIBLE);
+                        tv_shipment_no_data.setVisibility(View.VISIBLE);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -301,7 +300,7 @@ public class PlaceholderFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 Log.i("Order Data response2", String.valueOf(response));
                 try {
-                    if(response.has("Invoice")) {
+                    if (response.has("Invoice")) {
                         JSONObject responseInv = response.getJSONObject("Invoice");
                         txt_companyName.setText(String.valueOf(response.get("CompanyName")));
                         txt_paymentID.setText(String.valueOf(responseInv.get("InvoiceNumber")));
@@ -339,44 +338,46 @@ public class PlaceholderFragment extends Fragment {
     }
 
     private void setTextAndShow(TextInputLayout layout, TextInputEditText editText, String value) {
-        if(!value.equals("null")) {
+        if (!value.equals("null")) {
             layout.setVisibility(View.VISIBLE);
             editText.setText(value);
         }
     }
 
     private void printErrorMessage(VolleyError error) {
-        if (error instanceof NetworkError) {
-            Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ServerError) {
-            Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof AuthFailureError) {
-            Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ParseError) {
-            Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof NoConnectionError) {
-            Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof TimeoutError) {
-            Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
-        }
+        if (getContext() != null) {
+            if (error instanceof NetworkError) {
+                Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ServerError) {
+                Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof AuthFailureError) {
+                Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ParseError) {
+                Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof NoConnectionError) {
+                Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof TimeoutError) {
+                Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+            }
 
-        if (error.networkResponse != null && error.networkResponse.data != null) {
-            try {
-                String message = "";
-                String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody", responseBody);
-                JSONObject data = new JSONObject(responseBody);
-                Log.i("data", String.valueOf(data));
-                Iterator<String> keys = data.keys();
-                while (keys.hasNext()) {
-                    String key = keys.next();
-                    message = message + data.get(key) + "\n";
+            if (error.networkResponse != null && error.networkResponse.data != null) {
+                try {
+                    String message = "";
+                    String responseBody = new String(error.networkResponse.data, "utf-8");
+                    Log.i("responseBody", responseBody);
+                    JSONObject data = new JSONObject(responseBody);
+                    Log.i("data", String.valueOf(data));
+                    Iterator<String> keys = data.keys();
+                    while (keys.hasNext()) {
+                        String key = keys.next();
+                        message = message + data.get(key) + "\n";
+                    }
+                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
         }
     }

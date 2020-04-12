@@ -90,7 +90,7 @@ public class Order_Summary extends Fragment {
                 SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
                         Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = grossamount.edit();
-                editor.putString("grossamount","0");
+                editor.putString("grossamount", "0");
                 editor.apply();
 
 //                pageViewModel = ViewModelProviders.of(getActivity()).get(PageViewModel.class);
@@ -125,8 +125,8 @@ public class Order_Summary extends Fragment {
                 SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts",
                         Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = selectedProducts.edit();
-                editor.putString("selected_products","");
-                editor.putString("selected_products_qty","");
+                editor.putString("selected_products", "");
+                editor.putString("selected_products_qty", "");
                 editor.apply();
             }
         });
@@ -172,7 +172,7 @@ public class Order_Summary extends Fragment {
 
     }
 
-    private void requestConfirmOrder() throws JSONException{
+    private void requestConfirmOrder() throws JSONException {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -187,7 +187,7 @@ public class Order_Summary extends Fragment {
 
         int temp;
         JSONArray jsonArray = new JSONArray();
-        for(int i=0;i<selectedProductsDataList.size();i++){
+        for (int i = 0; i < selectedProductsDataList.size(); i++) {
             JSONObject obj = new JSONObject();
             temp = Integer.parseInt(selectedProductsDataList.get(i).getUnitPrice()) * Integer.parseInt(selectedProductsQuantityList.get(i));
             obj.put("ProductId", selectedProductsDataList.get(i).getID());
@@ -225,7 +225,7 @@ public class Order_Summary extends Fragment {
             public void onResponse(final JSONObject result) {
                 Log.i("RESPONSE ORDER .. ", result.toString());
                 try {
-                    Toast.makeText(getContext(), "Order Request ID "+result.get("OrderNumber")+" has been submitted successfully and sent for approval.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Order Request ID " + result.get("OrderNumber") + " has been submitted successfully and sent for approval.", Toast.LENGTH_LONG).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -251,39 +251,41 @@ public class Order_Summary extends Fragment {
     }
 
     private void printErrorMessage(VolleyError error) {
-        if (error instanceof NetworkError) {
-            Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ServerError) {
-            Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof AuthFailureError) {
-            Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ParseError) {
-            Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof NoConnectionError) {
-            Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof TimeoutError) {
-            Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
-        }
+        if (getContext() != null) {
+            if (error instanceof NetworkError) {
+                Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ServerError) {
+                Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof AuthFailureError) {
+                Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ParseError) {
+                Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof NoConnectionError) {
+                Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof TimeoutError) {
+                Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+            }
 
-        if (error.networkResponse != null && error.networkResponse.data != null) {
-            try {
-                String message = "";
-                String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody",responseBody);
-                JSONObject data = new JSONObject(responseBody);
-                Log.i("data",String.valueOf(data));
-                Iterator<String> keys = data.keys();
-                while (keys.hasNext()) {
-                    String key = keys.next();
-                    message = message + data.get(key) + "\n";
+            if (error.networkResponse != null && error.networkResponse.data != null) {
+                try {
+                    String message = "";
+                    String responseBody = new String(error.networkResponse.data, "utf-8");
+                    Log.i("responseBody", responseBody);
+                    JSONObject data = new JSONObject(responseBody);
+                    Log.i("data", String.valueOf(data));
+                    Iterator<String> keys = data.keys();
+                    while (keys.hasNext()) {
+                        String key = keys.next();
+                        message = message + data.get(key) + "\n";
+                    }
+                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
         }
-    }
 
+    }
 }

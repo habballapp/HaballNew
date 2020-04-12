@@ -118,12 +118,11 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 fragmentTransaction.commit();
 
 
-
             }
         });
         //init
         recyclerView = root.findViewById(R.id.rv_support_complaints_retailer);
-        spinner_container_main= root.findViewById(R.id.spinner_container_main);
+        spinner_container_main = root.findViewById(R.id.spinner_container_main);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -184,7 +183,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                     conso_edittext.setText("");
                     if (Filter_selected.equals("Ticket ID")) {
                         search_bar.setHint("Search by " + Filter_selected);
-                      Filter_selected = "TicketNumber";
+                        Filter_selected = "TicketNumber";
                         conso_edittext.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Issue Type")) {
                         Filter_selected = "IssueType";
@@ -271,9 +270,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                             }
                         }
                     }
-                }
-
-                else {
+                } else {
                     Filter_selected_value = filters.get(i);
                     Log.i("Filter_selected_value", Filter_selected_value);
                     try {
@@ -377,6 +374,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         });
         return root;
     }
+
     private void openCalenderPopup(String date_type) {
         dateType = date_type;
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
@@ -386,6 +384,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 calendar.get(Calendar.DAY_OF_MONTH));
         dialog.show();
     }
+
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         if (dateType.equals("first date")) {
@@ -476,7 +475,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         MyJsonArrayRequest request = new MyJsonArrayRequest(Request.Method.POST, URL_SUPPORT, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                Log.i("response_support " , String.valueOf(response));
+                Log.i("response_support ", String.valueOf(response));
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<SupportDashboardRetailerModel>>() {
                 }.getType();
@@ -513,46 +512,49 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 return params;
             }
         };
-        request.setRetryPolicy(new DefaultRetryPolicy( 15000,
+        request.setRetryPolicy(new DefaultRetryPolicy(15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(request);
     }
 
     private void printErrorMessage(VolleyError error) {
-        if (error instanceof NetworkError) {
-            Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ServerError) {
-            Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof AuthFailureError) {
-            Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ParseError) {
-            Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof NoConnectionError) {
-            Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof TimeoutError) {
-            Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
-        }
+        if (getContext() != null) {
+            if (error instanceof NetworkError) {
+                Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ServerError) {
+                Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof AuthFailureError) {
+                Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ParseError) {
+                Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof NoConnectionError) {
+                Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof TimeoutError) {
+                Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+            }
 
-        if (error.networkResponse != null && error.networkResponse.data != null) {
-            try {
-                String message = "";
-                String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody", responseBody);
-                JSONObject data = new JSONObject(responseBody);
-                Log.i("data", String.valueOf(data));
-                Iterator<String> keys = data.keys();
-                while (keys.hasNext()) {
-                    String key = keys.next();
-                    message = message + data.get(key) + "\n";
+            if (error.networkResponse != null && error.networkResponse.data != null) {
+                try {
+                    String message = "";
+                    String responseBody = new String(error.networkResponse.data, "utf-8");
+                    Log.i("responseBody", responseBody);
+                    JSONObject data = new JSONObject(responseBody);
+                    Log.i("data", String.valueOf(data));
+                    Iterator<String> keys = data.keys();
+                    while (keys.hasNext()) {
+                        String key = keys.next();
+                        message = message + data.get(key) + "\n";
+                    }
+                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
         }
+
     }
 
     private void updateDisplay(String date_type) {
@@ -574,6 +576,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
             e.printStackTrace();
         }
     }
+
     private String getScrollEvent() {
         String scroll = "";
         if (scrollEvent.size() > 0) {
