@@ -2,8 +2,10 @@ package com.example.haball.Retailor.ui.Network;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.haball.Distributor.ui.shipments.ShipmentsViewModel;
 import com.example.haball.NonSwipeableViewPager;
@@ -31,6 +33,16 @@ public class My_NetworkDashboard extends Fragment {
         viewPager.setOffscreenPageLimit(1);
         TabLayout tabs = root.findViewById(R.id.tabs4);
         tabs.setupWithViewPager(viewPager);
+
+        LinearLayout tabStrip = ((LinearLayout)tabs.getChildAt(0));
+        for(int i = 0; i < tabStrip.getChildCount(); i++) {
+            tabStrip.getChildAt(i).setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    return true;
+                }
+            });
+        }
 
         return root;
 

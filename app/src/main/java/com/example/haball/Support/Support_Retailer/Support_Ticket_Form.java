@@ -1,15 +1,14 @@
-package com.example.haball.Retailor.ui.Support;
+package com.example.haball.Support.Support_Retailer;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -33,7 +32,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
-import com.example.haball.Support.Support_Ditributor.Support_Ticket_Form;
+import com.example.haball.Retailer_Login.RetailerLogin;
+import com.example.haball.Select_User.Register_Activity;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
@@ -47,82 +47,94 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class Support_Ticket_Form_Fragment extends Fragment {
+public class Support_Ticket_Form extends AppCompatActivity {
 
     private EditText BName, Email, MobileNo, Comment;
-    private String DistributorId;
     private ImageButton btn_back;
     private Spinner IssueType, critcicality, Preffered_Contact;
-    private String URL_SPINNER_DATA = " http://175.107.203.97:4014/api/lookup/null";
-    //    private String URL_SPINNER_ISSUETYPE = "http://175.107.203.97:4014/api/lookup/public/ISSUE_TYPE_PRIVATE";
-//    private String URL_SPINNER_CRITICALITY = "http://175.107.203.97:4014/api/lookup/public/CRITICALITY_PRIVATE";
-//    private String URL_SPINNER_PREFFEREDCONTACT = "http://175.107.203.97:4014/api/lookup/public/CONTRACTING_METHOD";
-    private String URL_TICkET = "http://175.107.203.97:4014/api/contact/save";
+    private String URL_SPINNER_DATA = "http://175.107.203.97:4014/api/support/PublicUsers";
+    //    private String URL_SPINNER_ISSUETYPE = "http://175.107.203.97:4013/api/lookup/public/ISSUE_TYPE_PUBLIC";
+//    private String URL_SPINNER_CRITICALITY = "http://175.107.203.97:4013/api/lookup/public/CRITICALITY_PUBLIC";
+//    private String URL_SPINNER_PREFFEREDCONTACT = "http://175.107.203.97:4013/api/lookup/public/CONTRACTING_METHOD";
+    private String URL_TICkET = "http://175.107.203.97:4014/api/support/PublicSave";
 
     private List<String> issue_type = new ArrayList<>();
     private List<String> criticality = new ArrayList<>();
     private List<String> preffered_contact = new ArrayList<>();
+    private HashMap<String, String> issue_type_map = new HashMap<>();
+    private HashMap<String, String> criticality_map = new HashMap<>();
+    private HashMap<String, String> preffered_contact_map = new HashMap<>();
 
     private String issueType, Criticality, PrefferedContacts;
     private String Token;
-    private ArrayAdapter arrayAdapterIssueType;
-    private ArrayAdapter arrayAdapterCriticality;
-    private ArrayAdapter arrayAdapterPreferredContact;
-    private Button ticket_btn;
+    private ArrayAdapter<String> arrayAdapterIssueType, arrayAdapterCriticality, arrayAdapterPreferredContact;
 
+    private Button login_submit, login_btn;
+
+    private String DistributorId;
+    private TextView tv_main_heading, tv_sub_heading;
+    private int keyDel;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.activity_support__ticket__form__retailerform, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_need__support);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(false);
+
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View customView = inflater.inflate(R.layout.action_bar_main, null);
+
+        actionBar.setCustomView(customView);
+        actionBar.setDisplayShowCustomEnabled(true);
 
 
-        SharedPreferences data = getContext().getSharedPreferences("SendData",
-                Context.MODE_PRIVATE);
-        final String first_name = data.getString("first_name", "");
-        final String email = data.getString("email", "");
-        final String phone_number = data.getString("phone_number", "");
+        BName = findViewById(R.id.BName);
+        Email = findViewById(R.id.Email);
+        MobileNo = findViewById(R.id.MobileNo);
+        Comment = findViewById(R.id.Comment);
+        IssueType = findViewById(R.id.IssueType);
+        critcicality = findViewById(R.id.critcicality);
+        Preffered_Contact = findViewById(R.id.Preffered_Contact);
+        login_submit = findViewById(R.id.login_submit);
+        tv_main_heading = findViewById(R.id.tv_main_heading);
+        tv_main_heading.setText(String.valueOf(tv_main_heading.getText()).replace("Distributor", "Retailer"));
+        tv_sub_heading = findViewById(R.id.tv_sub_heading);
+        tv_sub_heading.setText(String.valueOf(tv_sub_heading.getText()).replace("Distributor", "Retailer"));
 
-        Log.i("name", first_name);
-        Log.i("email", email);
-        Log.i("phone_number", phone_number);
+        login_submit.setEnabled(false);
+        login_submit.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
-        BName = root.findViewById(R.id.BName);
-        Email = root.findViewById(R.id.Email);
-        MobileNo = root.findViewById(R.id.MobileNo);
-        Comment = root.findViewById(R.id.Comment);
-        IssueType = root.findViewById(R.id.IssueType);
-        critcicality = root.findViewById(R.id.critcicality);
-        Preffered_Contact = root.findViewById(R.id.Preffered_Contact);
-        ticket_btn = root.findViewById(R.id.ticket_btn);
-        ticket_btn.setEnabled(false);
-        ticket_btn.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
-
-        Email.setText(email);
-        MobileNo.setText(phone_number);
-        BName.setText(first_name);
-
+        login_btn = findViewById(R.id.login_btn);
+        btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
 
         issue_type.add("Issue Type *");
         criticality.add("Criticality *");
         preffered_contact.add("Preferred Method of Contacting *");
 
-        arrayAdapterIssueType = new ArrayAdapter<>(getContext(),
+        arrayAdapterIssueType = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, issue_type);
-        arrayAdapterCriticality = new ArrayAdapter<>(getContext(),
+        arrayAdapterCriticality = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, criticality);
-        arrayAdapterPreferredContact = new ArrayAdapter<>(getContext(),
+        arrayAdapterPreferredContact = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, preffered_contact);
 
-        fetchSpinnerData();
+//        fetchIssueType();
 //        fetchCriticality();
 //        fetchPrefferedContact();
+        fetchSpinnerData();
 
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         IssueType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -130,7 +142,8 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                 if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
-                issueType = issue_type.get(i);
+//                issueType = issue_type.get(i);
+                issueType = issue_type_map.get(issue_type.get(i));
                 checkFieldsForEmptyValues();
             }
 
@@ -145,8 +158,9 @@ public class Support_Ticket_Form_Fragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                } else {
+                    Criticality = criticality_map.get(criticality.get(i));
                 }
-                Criticality = criticality.get(i);
                 checkFieldsForEmptyValues();
             }
 
@@ -162,7 +176,8 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                 if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
-                PrefferedContacts = preffered_contact.get(i);
+//                PrefferedContacts = preffered_contact.get(i);
+                PrefferedContacts = preffered_contact_map.get(preffered_contact.get(i));
                 checkFieldsForEmptyValues();
             }
 
@@ -172,27 +187,34 @@ public class Support_Ticket_Form_Fragment extends Fragment {
             }
         });
 
-        ticket_btn.setOnClickListener(new View.OnClickListener() {
+        login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
+            }
+        });
+
+        login_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 if (TextUtils.isEmpty(BName.getText().toString()) ||
                         TextUtils.isEmpty(Email.getText().toString()) ||
                         TextUtils.isEmpty(Comment.getText().toString()) ||
                         TextUtils.isEmpty(MobileNo.getText().toString())) {
 
-                    Snackbar.make(v, "Please Enter All Required Fields", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(view, "Please Enter All Required Fields", Snackbar.LENGTH_SHORT).show();
                 } else {
+
                     try {
                         makeTicketAddRequest();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
                 }
 
             }
         });
-
-
         TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -210,13 +232,47 @@ public class Support_Ticket_Form_Fragment extends Fragment {
 
             }
         };
-
         BName.addTextChangedListener(textWatcher);
         Email.addTextChangedListener(textWatcher);
-        MobileNo.addTextChangedListener(textWatcher);
+        MobileNo.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                MobileNo.setOnKeyListener(new View.OnKeyListener() {
+                    @Override
+                    public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                        if (keyCode == KeyEvent.KEYCODE_DEL)
+                            keyDel = 1;
+                        return false;
+                    }
+                });
+
+                if (keyDel == 0) {
+                    int len = MobileNo.getText().length();
+                    if(len == 4) {
+                        MobileNo.setText(MobileNo.getText() + "-");
+                        MobileNo.setSelection(MobileNo.getText().length());
+                    }
+                } else {
+                    keyDel = 0;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                // TODO Auto-generated method stub
+                checkFieldsForEmptyValues();
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+                // TODO Auto-generated method stub
+            }
+        });
 
 
-        return root;
     }
 
     private void checkFieldsForEmptyValues() {
@@ -235,19 +291,58 @@ public class Support_Ticket_Form_Fragment extends Fragment {
             critical = critcicality.getItemAtPosition(critcicality.getSelectedItemPosition()).toString();
 
         if (bname.equals("")
-                || email.equals("")
                 || mobile.equals("")
-                || contact.equals("Preferred Method of Contacting *")
+                || email.equals("")
                 || issue_type.equals("Issue Type *")
                 || critical.equals("Criticality *")
+                || contact.equals("Preferred Method of Contacting *")
         ) {
-            ticket_btn.setEnabled(false);
-            ticket_btn.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+            login_submit.setEnabled(false);
+            login_submit.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
         } else {
-            ticket_btn.setEnabled(true);
-            ticket_btn.setBackground(getResources().getDrawable(R.drawable.button_background));
+            login_submit.setEnabled(true);
+            login_submit.setBackground(getResources().getDrawable(R.drawable.button_background));
         }
+    }
+
+    private void makeTicketAddRequest() throws JSONException {
+        JSONObject map = new JSONObject();
+        map.put("ContactName", BName.getText().toString());
+        map.put("Email", Email.getText().toString());
+        map.put("MobileNumber", MobileNo.getText().toString());
+        map.put("IssueType", issueType);
+        map.put("Criticality", Criticality);
+        map.put("PreferredContactMethod", PrefferedContacts);
+        map.put("Description", Comment.getText().toString());
+
+        Log.i("TICKET OBJECT", String.valueOf(map));
+
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_TICkET, map, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject result) {
+                Log.e("RESPONSE", result.toString());
+                Toast.makeText(getApplicationContext(), "Ticket Created Successfully", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(Support_Ticket_Form.this, RetailerLogin.class);
+                startActivity(intent);
+                finish();
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+            }
+
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json");
+                return params;
+            }
+        };
+        Volley.newRequestQueue(this).add(sr);
     }
 //
 //    private void fetchIssueType() {
@@ -269,7 +364,17 @@ public class Support_Ticket_Form_Fragment extends Fragment {
 //        }, new Response.ErrorListener() {
 //            @Override
 //            public void onErrorResponse(VolleyError error) {
-//                printErrorMessage(error);
+//                try {
+//                    String responseBody = new String(error.networkResponse.data, "utf-8");
+//                    JSONObject data = new JSONObject(responseBody);
+//                    String message = data.getString("message");
+//                    Toast.makeText(new Support_Ticket_Form(), message, Toast.LENGTH_LONG).show();
+//                } catch (UnsupportedEncodingException e) {
+//                    e.printStackTrace();
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                error.printStackTrace();
 //            }
 //        }) {
 //            @Override
@@ -283,7 +388,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
 //                15000,
 //                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
 //                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-//        Volley.newRequestQueue(this.getContext()).add(sr);
+//        Volley.newRequestQueue(this).add(sr);
 //        arrayAdapterIssueType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //        arrayAdapterIssueType.notifyDataSetChanged();
 //        IssueType.setAdapter(arrayAdapterIssueType);
@@ -309,7 +414,17 @@ public class Support_Ticket_Form_Fragment extends Fragment {
 //        }, new Response.ErrorListener() {
 //            @Override
 //            public void onErrorResponse(VolleyError error) {
-//                printErrorMessage(error);
+//                try {
+//                    String responseBody = new String(error.networkResponse.data, "utf-8");
+//                    JSONObject data = new JSONObject(responseBody);
+//                    String message = data.getString("message");
+//                    Toast.makeText(new Support_Ticket_Form(), message, Toast.LENGTH_LONG).show();
+//                } catch (UnsupportedEncodingException e) {
+//                    e.printStackTrace();
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                error.printStackTrace();
 //            }
 //        }) {
 //            @Override
@@ -323,7 +438,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
 //                15000,
 //                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
 //                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-//        Volley.newRequestQueue(this.getContext()).add(sr);
+//        Volley.newRequestQueue(this).add(sr);
 //        arrayAdapterCriticality.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //        arrayAdapterCriticality.notifyDataSetChanged();
 //        critcicality.setAdapter(arrayAdapterCriticality);
@@ -349,7 +464,17 @@ public class Support_Ticket_Form_Fragment extends Fragment {
 //        }, new Response.ErrorListener() {
 //            @Override
 //            public void onErrorResponse(VolleyError error) {
-//                printErrorMessage(error);
+//                try {
+//                    String responseBody = new String(error.networkResponse.data, "utf-8");
+//                    JSONObject data = new JSONObject(responseBody);
+//                    String message = data.getString("message");
+//                    Toast.makeText(new Support_Ticket_Form(), message, Toast.LENGTH_LONG).show();
+//                } catch (UnsupportedEncodingException e) {
+//                    e.printStackTrace();
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                error.printStackTrace();
 //            }
 //        }) {
 //            @Override
@@ -364,47 +489,54 @@ public class Support_Ticket_Form_Fragment extends Fragment {
 //                15000,
 //                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
 //                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-//        Volley.newRequestQueue(this.getContext()).add(sr);
+//        Volley.newRequestQueue(this).add(sr);
 //        arrayAdapterPreferredContact.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //        arrayAdapterPreferredContact.notifyDataSetChanged();
 //        Preffered_Contact.setAdapter(arrayAdapterPreferredContact);
 //    }
 
-
     private void fetchSpinnerData() {
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token", "");
-        Log.i("Token", Token);
-
-
-        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNER_DATA, null, new Response.Listener<JSONArray>() {
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_SPINNER_DATA, null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONArray result) {
+            public void onResponse(JSONObject result) {
+                JSONObject jsonObject = null;
                 try {
-                    JSONObject jsonObject = null;
-                    for (int i = 0; i < result.length(); i++) {
-                        jsonObject = result.getJSONObject(i);
-                        if (jsonObject.get("type").equals("ISSUE_TYPE_PRIVATE"))
-                            issue_type.add(jsonObject.getString("value"));
-                        else if (jsonObject.get("type").equals("CONTACTING_METHOD"))
-                            preffered_contact.add(jsonObject.getString("value"));
-                        else if (jsonObject.get("type").equals("CRITICALITY_PRIVATE"))
-                            criticality.add(jsonObject.getString("value"));
-
+                    JSONArray temp_preffered_contact = result.getJSONArray("CONTACTING_METHOD");
+                    jsonObject = null;
+                    for (int i = 0; i < temp_preffered_contact.length(); i++) {
+                        jsonObject = temp_preffered_contact.getJSONObject(i);
+                        preffered_contact.add(jsonObject.getString("value"));
+                        preffered_contact_map.put(jsonObject.getString("value"), jsonObject.getString("key"));
                     }
-                    arrayAdapterCriticality.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    arrayAdapterCriticality.notifyDataSetChanged();
-                    critcicality.setAdapter(arrayAdapterCriticality);
 
+                    JSONArray temp_criticality = result.getJSONArray("CRITICALITY_PUBLIC");
+                    jsonObject = null;
+                    for (int i = 0; i < temp_criticality.length(); i++) {
+                        jsonObject = temp_criticality.getJSONObject(i);
+                        criticality.add(jsonObject.getString("value"));
+                        criticality_map.put(jsonObject.getString("value"), jsonObject.getString("key"));
+                    }
+
+                    JSONArray temp_issue_type = result.getJSONArray("ISSUE_TYPE_PUBLIC");
+                    jsonObject = null;
+                    for (int i = 0; i < temp_issue_type.length(); i++) {
+                        jsonObject = temp_issue_type.getJSONObject(i);
+                        issue_type.add(jsonObject.getString("value"));
+                        issue_type_map.put(jsonObject.getString("value"), jsonObject.getString("key"));
+                    }
+                    Log.i("preffered_contact => ", preffered_contact.toString());
                     arrayAdapterPreferredContact.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     arrayAdapterPreferredContact.notifyDataSetChanged();
                     Preffered_Contact.setAdapter(arrayAdapterPreferredContact);
 
+                    arrayAdapterCriticality.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    arrayAdapterCriticality.notifyDataSetChanged();
+                    critcicality.setAdapter(arrayAdapterCriticality);
+
                     arrayAdapterIssueType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     arrayAdapterIssueType.notifyDataSetChanged();
                     IssueType.setAdapter(arrayAdapterIssueType);
-                    Log.i("preffered_contact => ", preffered_contact.toString());
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -428,64 +560,26 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(this.getContext()).add(sr);
+        Volley.newRequestQueue(this).add(sr);
         arrayAdapterPreferredContact.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         arrayAdapterPreferredContact.notifyDataSetChanged();
         Preffered_Contact.setAdapter(arrayAdapterPreferredContact);
     }
 
-    private void makeTicketAddRequest() throws JSONException {
-        JSONObject map = new JSONObject();
-        map.put("Name", BName.getText().toString());
-        map.put("EmailAddress", Email.getText().toString());
-        map.put("Mobile", MobileNo.getText().toString());
-        map.put("DistributorId", DistributorId);
-        map.put("IssueType", issueType);
-        map.put("Criticality", Criticality);
-        map.put("ContactingMethod", PrefferedContacts);
-        map.put("Message", Comment.getText().toString());
-        map.put("ID", 0);
-
-        Log.i("TICKET OBJECT", String.valueOf(map));
-
-        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_TICkET, map, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject result) {
-                Log.e("RESPONSE", result.toString());
-//                sr.finish();
-            }
-
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
-            }
-
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer " + Token);
-                params.put("rightid", "-1");
-                return params;
-            }
-        };
-        Volley.newRequestQueue(this.getContext()).add(sr);
-    }
 
     private void printErrorMessage(VolleyError error) {
         if (error instanceof NetworkError) {
-            Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Network Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof ServerError) {
-            Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Server Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof AuthFailureError) {
-            Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Auth Failure Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof ParseError) {
-            Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Parse Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof NoConnectionError) {
-            Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "No Connection Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof TimeoutError) {
-            Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Timeout Error !", Toast.LENGTH_LONG).show();
         }
 
         if (error.networkResponse != null && error.networkResponse.data != null) {
@@ -500,7 +594,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                     String key = keys.next();
                     message = message + data.get(key) + "\n";
                 }
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
@@ -508,5 +602,4 @@ public class Support_Ticket_Form_Fragment extends Fragment {
             }
         }
     }
-
 }

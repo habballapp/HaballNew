@@ -1,67 +1,60 @@
-package com.example.haball.Retailor.ui.Support;
+package com.example.haball.Support.Support_Retailer.Adapter;
 
-        import android.app.Activity;
-        import android.app.AlertDialog;
-        import android.content.Context;
-        import android.view.LayoutInflater;
-        import android.view.MenuInflater;
-        import android.view.MenuItem;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.Button;
-        import android.widget.EditText;
-        import android.widget.ImageButton;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import androidx.annotation.NonNull;
-        import androidx.appcompat.widget.PopupMenu;
-        import androidx.fragment.app.FragmentActivity;
-        import androidx.fragment.app.FragmentTransaction;
-        import androidx.recyclerview.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
-        import com.example.haball.Distributor.ui.support.DeleteSupport;
-        import com.example.haball.R;
-        import com.example.haball.Retailor.ui.Support.SupportDashboardRetailerModel;
+import com.example.haball.Distributor.ui.support.DeleteSupport;
+import com.example.haball.R;
+import com.example.haball.Retailor.ui.Support.SupportFragment;
+import com.example.haball.Support.Support_Retailer.Model.SupportDashboardModel;
 
-        import org.json.JSONException;
+import org.json.JSONException;
 
-        import java.util.List;
+import java.util.List;
 
-public class SupportDashboardRetailerAdapter extends RecyclerView.Adapter<SupportDashboardRetailerAdapter.ViewHolder> {
+public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboardAdapter.ViewHolder> {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     Context mContxt;
     Context activity;
     String dashboard, id, pending, createdDate;
-    List<SupportDashboardRetailerModel> supportList;
+    List<SupportDashboardModel> supportList;
     private FragmentTransaction fragmentTransaction;
 
-    public SupportDashboardRetailerAdapter(Activity activity, Context applicationContext, String dashboard, String id, String pending, String createdDate) {
-//        this.mContxt = applicationContext;
-//        this.activity = activity;
-//        this.dashboard = dashboard;
-//        this.id = id;
-//        this.pending = pending;
-//        this.createdDate = createdDate;
-    }
-
-    public SupportDashboardRetailerAdapter(Context context, List<SupportDashboardRetailerModel> supportList) {
+    public SupportDashboardAdapter(Context context, List<SupportDashboardModel> supportList, RecyclerView recyclerView, RecyclerView.Adapter mAdapter) {
         this.mContxt = context;
         this.supportList = supportList;
         this.recyclerView = recyclerView;
+        this.mAdapter = mAdapter;
     }
 
     @Override
-    public SupportDashboardRetailerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view_inflate = LayoutInflater.from(mContxt).inflate(R.layout.layout_support_rv,parent,false);
-        return new SupportDashboardRetailerAdapter.ViewHolder(view_inflate);
+    public SupportDashboardAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view_inflate = LayoutInflater.from(mContxt).inflate(R.layout.layout_support_rv, parent, false);
+        return new SupportDashboardAdapter.ViewHolder(view_inflate);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final SupportDashboardRetailerAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final SupportDashboardAdapter.ViewHolder holder, final int position) {
         holder.heading.setText(supportList.get(position).getIssueType());
-        holder.ticket_id_value.setText(supportList.get(position).getTicketNumber());
+        holder.ticket_id_value.setText(supportList.get(position).getId());
         holder.status_value.setText(supportList.get(position).getStatus());
         holder.created_date_value.setText(supportList.get(position).getCreatedDate().split("T")[0]);
 
@@ -78,7 +71,7 @@ public class SupportDashboardRetailerAdapter extends RecyclerView.Adapter<Suppor
                             case R.id.menu_view:
 
                                 TextView tv_username, et_email, et_phone, et_issue_type, et_criticality, et_preffered_contact, et_status, et_comments;
-                                Toast.makeText(mContxt,"View Clicked",Toast.LENGTH_LONG).show();
+                                Toast.makeText(mContxt, "View Clicked", Toast.LENGTH_LONG).show();
                                 final AlertDialog alertDialog = new AlertDialog.Builder(mContxt).create();
                                 LayoutInflater inflater = LayoutInflater.from(mContxt);
                                 View view_popup = inflater.inflate(R.layout.view_popup, null);
@@ -93,14 +86,14 @@ public class SupportDashboardRetailerAdapter extends RecyclerView.Adapter<Suppor
                                 et_status = view_popup.findViewById(R.id.et_status);
                                 et_comments = view_popup.findViewById(R.id.et_comments);
 
-                                tv_username.setText(supportList.get(position).getBusinessName());
-                                et_email.setText("Email Address: "+supportList.get(position).getEmailAddress());
-                                et_phone.setText("Phone: "+supportList.get(position).getMobileNo());
-                                et_issue_type.setText("Issue Type: "+supportList.get(position).getIssueType());
-                                et_criticality.setText("Criticality: "+supportList.get(position).getCriticality());
-                                et_preffered_contact.setText("Preferred Contact Method: "+supportList.get(position).getContactMethod());
-                                et_status.setText("Status: "+supportList.get(position).getStatus());
-                                et_comments.setText("Message: "+supportList.get(position).getComment());
+                                tv_username.setText(supportList.get(position).getContactName());
+                                et_email.setText("Email Address: " + supportList.get(position).getEmail());
+                                et_phone.setText("Phone: " + supportList.get(position).getMobileNumber());
+                                et_issue_type.setText("Issue Type: " + supportList.get(position).getIssueType());
+                                et_criticality.setText("Criticality: " + supportList.get(position).getCriticality());
+                                et_preffered_contact.setText("Preferred Contact Method: " + supportList.get(position).getPreferredContactMethod());
+                                et_status.setText("Status: " + supportList.get(position).getStatus());
+                                et_comments.setText("Message: " + supportList.get(position).getDescription());
                                 ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
                                 img_email.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -129,7 +122,12 @@ public class SupportDashboardRetailerAdapter extends RecyclerView.Adapter<Suppor
 
                                         try {
                                             deleteAlert.dismiss();
-                                            DeleteSupportTicket(supportList.get(position).getID());
+//                                            DeleteSupportTicket(supportList.get(position).getId());
+                                            DeleteSupport deleteSupport = new DeleteSupport();
+                                            String response = deleteSupport.DeleteSupportTicket(mContxt, supportList.get(position).getId());
+                                            notifyItemRemoved(position);
+                                            notifyItemRangeChanged(position, supportList.size());
+
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
@@ -168,10 +166,10 @@ public class SupportDashboardRetailerAdapter extends RecyclerView.Adapter<Suppor
     }
 
     private void DeleteSupportTicket(String ID) throws JSONException {
-        DeleteSupportTicket deleteSupport = new DeleteSupportTicket();
+        DeleteSupport deleteSupport = new DeleteSupport();
         String response = deleteSupport.DeleteSupportTicket(mContxt, ID);
         fragmentTransaction = ((FragmentActivity) mContxt).getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_container_ret, new SupportFragment()).addToBackStack(null);
+        fragmentTransaction.replace(R.id.main_container_ret, new SupportFragment()).addToBackStack(null);;
         fragmentTransaction.commit();
 
     }
@@ -181,9 +179,10 @@ public class SupportDashboardRetailerAdapter extends RecyclerView.Adapter<Suppor
         return supportList.size();
     }
 
-    public class ViewHolder  extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView heading, ticket_id_value, status_value, created_date_value;
         public ImageButton menu_btn;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             heading = itemView.findViewById(R.id.heading);

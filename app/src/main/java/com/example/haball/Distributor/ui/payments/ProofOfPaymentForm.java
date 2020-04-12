@@ -210,8 +210,8 @@ public class ProofOfPaymentForm extends Fragment {
         txt_branch = root.findViewById(R.id.txt_branch);
         txt_transaction = root.findViewById(R.id.txt_transaction);
         btn_upload = root.findViewById(R.id.btn_upload);
-        btn_upload.setEnabled(false);
-        btn_upload.setBackground(getResources().getDrawable(R.drawable.button_background));
+//        btn_upload.setEnabled(false);
+//        btn_upload.setBackground(getResources().getDrawable(R.drawable.button_background));
 
         progressDialog = new ProgressDialog(getContext());
         btn_finish.setEnabled(false);
@@ -245,8 +245,8 @@ public class ProofOfPaymentForm extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i==0 ){
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                    btn_upload.setEnabled( false );
-                    btn_upload.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
+//                    btn_upload.setEnabled( false );
+//                    btn_upload.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
 
                 }
 
@@ -329,17 +329,17 @@ public class ProofOfPaymentForm extends Fragment {
                 || paymentId.equals("Payment ID *")
                 || modeOf_payment.equals( "Payment Mode *" )
         ) {
-            btn_upload.setEnabled( false );
+//            btn_upload.setEnabled( false );
             btn_finish.setEnabled(false);
 
-            btn_upload.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
+//            btn_upload.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
             btn_finish.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
 
         }
         else {
-            btn_upload.setEnabled( true );
+//            btn_upload.setEnabled( true );
             btn_finish.setEnabled(true);
-            btn_upload.setBackground( getResources().getDrawable( R.drawable.button_background ) );
+//            btn_upload.setBackground( getResources().getDrawable( R.drawable.button_background ) );
             btn_finish.setBackground( getResources().getDrawable( R.drawable.button_background ) );
         }
     }

@@ -20,6 +20,7 @@
         >
 
         <TextView
+            android:id="@+id/tv_main_heading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="20dp"
@@ -37,6 +38,7 @@
             />
 
         <TextView
+            android:id="@+id/tv_sub_heading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="40dp"
@@ -158,6 +160,7 @@
                 android:layout_height="match_parent"
                 android:paddingLeft="20dp"
                 android:paddingTop="5dp"
+                android:maxLength="12"
                 android:paddingRight="20dp"
                 android:paddingBottom="5dp"
                 android:textColor="#676a6c"

@@ -2,6 +2,8 @@ package com.example.haball.Retailor.ui.Dashboard;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,6 +16,9 @@ import android.widget.Toast;
 
 import com.example.haball.Distributor.ui.payments.ViewVoucherRequest;
 import com.example.haball.R;
+import com.example.haball.Retailer_Login.RetailerLogin;
+import com.example.haball.Retailor.RetailorDashboard;
+import com.example.haball.Retailor.ui.Make_Payment.EditPaymentRequestFragment;
 
 import org.json.JSONException;
 
@@ -22,6 +27,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -89,7 +95,7 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
                 } else if (paymentsList.get(position).getIsEditable().equals("1")) {
                     if (paymentsList.get(position).getStatus().equals("Un-Paid")) {
                         setUnpaidPaymentMenu(position, view);
-                    } else if (paymentsList.get(position).getStatus().equals("Un-Paid")) {
+                    } else if (paymentsList.get(position).getStatus().equals("Paid")) {
                         setPaidPaymentMenu(position, view);
                     }
                 }
@@ -105,48 +111,60 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.payment_request_edit:
-                        Toast.makeText(context,"Edit Clicked",Toast.LENGTH_LONG).show();
-                        final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-                        LayoutInflater inflater = LayoutInflater.from(context);
-                        View view_popup = inflater.inflate(R.layout.edit_payment_request, null);
-                        alertDialog.setView(view_popup);
-                        Button btn_update = (Button) view_popup.findViewById(R.id.btn_payment_request_update);
-                        btn_update.setOnClickListener(new View.OnClickListener() {
-                            public void onClick(View v) {
-                                alertDialog.dismiss();
-                                //    Toast.makeText(context,"Update",Toast.LENGTH_LONG).show();
-                                final AlertDialog alertDialog1 = new AlertDialog.Builder(context).create();
-                                LayoutInflater inflater = LayoutInflater.from(context);
-                                View view_popup = inflater.inflate(R.layout.edit_request_payment_success, null);
-                                alertDialog1.setView(view_popup);
-                                ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.image_success);
-                                img_email.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        alertDialog1.dismiss();
-                                    }
-                                });
-                                alertDialog1.show();
+                    case R.id.view_edit:
+//                        Toast.makeText(context, "Edit Clicked", Toast.LENGTH_LONG).show();
+//                        final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+//                        LayoutInflater inflater = LayoutInflater.from(context);
+//                        View view_popup = inflater.inflate(R.layout.edit_payment_request, null);
+//                        alertDialog.setView(view_popup);
+//                        Button btn_update = (Button) view_popup.findViewById(R.id.btn_payment_request_update);
+//                        btn_update.setOnClickListener(new View.OnClickListener() {
+//                            public void onClick(View v) {
+//                                alertDialog.dismiss();
+//                                //    Toast.makeText(context,"Update",Toast.LENGTH_LONG).show();
+//                                final AlertDialog alertDialog1 = new AlertDialog.Builder(context).create();
+//                                LayoutInflater inflater = LayoutInflater.from(context);
+//                                View view_popup = inflater.inflate(R.layout.edit_request_payment_success, null);
+//                                alertDialog1.setView(view_popup);
+//                                ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.image_success);
+//                                img_email.setOnClickListener(new View.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(View v) {
+//                                        alertDialog1.dismiss();
+//                                    }
+//                                });
+//                                alertDialog1.show();
+//
+//                            }
+//                        });
+//                        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.image_payment_request);
+//                        img_email.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                alertDialog.dismiss();
+//
+//                            }
+//                        });
+//                        alertDialog.show();
+                        SharedPreferences PrePaidNumberEdit = context.getSharedPreferences("PrePaidNumber",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editorEdit = PrePaidNumberEdit.edit();
+                        editorEdit.putString("PrePaidNumber", paymentsList.get(position).getInvoiceNumber());
+                        editorEdit.putString("PrePaidId", paymentsList.get(position).getRetailerInvoiceId());
+                        editorEdit.putString("CompanyName", paymentsList.get(position).getCompanyName());
+                        editorEdit.putString("Amount", paymentsList.get(position).getTotalPrice());
+                        editorEdit.apply();
 
-                            }
-                        });
-                        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.image_payment_request);
-                        img_email.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                alertDialog.dismiss();
-
-                            }
-                        });
-                        alertDialog.show();
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.main_container_ret, new EditPaymentRequestFragment());
+                        fragmentTransaction.commit();
 
                         break;
-                    case R.id.menu_delete:
+                    case R.id.view_delete:
                         //handle menu3 click
                         Toast.makeText(context, "Delete Clicked", Toast.LENGTH_LONG).show();
                         String paymentId = paymentsList.get(position).getID();
-                        deletePayment(context, paymentsList.get(position).getRetailerInvoiceId(),paymentsList.get(position).getInvoiceNumber());
+                        deletePayment(context, paymentsList.get(position).getRetailerInvoiceId(), paymentsList.get(position).getInvoiceNumber());
 
 
                         break;
@@ -160,7 +178,11 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
     private void deletePayment(Context context, String retailerInvoiceId, String invoiceNumber) {
 
         PaymentDeleteOrder delete = new PaymentDeleteOrder();
-        delete.deleteOrder(context,retailerInvoiceId,invoiceNumber);
+        delete.deleteOrder(context, retailerInvoiceId, invoiceNumber);
+        Intent login_intent = new Intent(context, RetailorDashboard.class);
+        context.startActivity(login_intent);
+        ((FragmentActivity) context).finish();
+
 
     }
 
@@ -174,41 +196,15 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.view_view:
-                        // Toast.makeText(context,"Edit Clicked",Toast.LENGTH_LONG).show();
-                        final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-                        LayoutInflater inflater = LayoutInflater.from(context);
-                        View view_popup = inflater.inflate(R.layout.edit_payment_request, null);
-                        alertDialog.setView(view_popup);
-                        Button btn_update = (Button) view_popup.findViewById(R.id.btn_payment_request_update);
-                        btn_update.setOnClickListener(new View.OnClickListener() {
-                            public void onClick(View v) {
-                                alertDialog.dismiss();
-                                //    Toast.makeText(context,"Update",Toast.LENGTH_LONG).show();
-                                final AlertDialog alertDialog1 = new AlertDialog.Builder(context).create();
-                                LayoutInflater inflater = LayoutInflater.from(context);
-                                View view_popup = inflater.inflate(R.layout.edit_request_payment_success, null);
-                                alertDialog1.setView(view_popup);
-                                ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.image_success);
-                                img_email.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        alertDialog1.dismiss();
-                                    }
-                                });
-                                alertDialog1.show();
+                        SharedPreferences paymentsRequestListID = ((FragmentActivity) context).getSharedPreferences("paymentsRequestListID",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = paymentsRequestListID.edit();
+                        editor.putString("paymentsRequestListID", paymentsList.get(position).getRetailerInvoiceId());
+                        editor.commit();
 
-                            }
-                        });
-                        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.image_payment_request);
-                        img_email.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                alertDialog.dismiss();
-
-                            }
-                        });
-                        alertDialog.show();
-
+                        fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.main_container_ret, new View_Payment_Fragment());
+                        fragmentTransaction.commit();
                         break;
                 }
                 return false;

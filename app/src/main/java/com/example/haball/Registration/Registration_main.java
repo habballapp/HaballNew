@@ -144,17 +144,19 @@ public class Registration_main extends AppCompatActivity implements View.OnFocus
         String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
         if (txt_password.getText().toString().matches(reg_ex)) {
             password_check = true;
-//            txt_password.setError(null);
-            layout_txt_password.setBoxStrokeColor(getResources().getColor(R.color.textboxstrokecolor));
-            layout_txt_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
-            layout_txt_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolor)));
-            txt_password.setTextColor(getResources().getColor(R.color.textcolor));
+            txt_password.setError(null);
+//            layout_txt_password.setBoxStrokeColor(getResources().getColor(R.color.textboxstrokecolor));
+//            layout_txt_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+//            layout_txt_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolor)));
+//            txt_password.setTextColor(getResources().getColor(R.color.textcolor));
         } else {
-            layout_txt_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
-            layout_txt_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
-            layout_txt_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
-            txt_password.setTextColor(getResources().getColor(R.color.error_stroke_color));
-            Toast.makeText(this, "Please enter password with minimum 6 characters & 1 Numeric or special character", Toast.LENGTH_LONG).show();
+//            layout_txt_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+//            layout_txt_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+//            layout_txt_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+//            txt_password.setErrorEnabled(true);
+            txt_password.setError("Please enter password with minimum 6 characters & 1 Numeric or special character");
+//            txt_password.setTextColor(getResources().getColor(R.color.error_stroke_color));
+//            Toast.makeText(this, "Please enter password with minimum 6 characters & 1 Numeric or special character", Toast.LENGTH_LONG).show();
 //            txt_password.setError("Please enter password with minimum 6 characters & 1 Numeric or special character");
 //            password_check = false;
         }

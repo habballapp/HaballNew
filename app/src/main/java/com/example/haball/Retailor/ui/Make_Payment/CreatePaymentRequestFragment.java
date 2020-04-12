@@ -179,6 +179,7 @@ public class CreatePaymentRequestFragment extends Fragment {
                 try {
                     Log.i("Response PR", result.toString());
                     prepaid_number = result.getString("PrePaidNumber");
+                    prepaid_id = result.getString("ID");
                 } catch (JSONException e) {
                     Log.i("Response PR", e.toString());
                     e.printStackTrace();
@@ -189,14 +190,16 @@ public class CreatePaymentRequestFragment extends Fragment {
                         Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = PrePaidNumber.edit();
                 editor.putString("PrePaidNumber", prepaid_number);
-
                 editor.putString("PrePaidId", prepaid_id);
+                editor.putString("CompanyId", companyNameAndId.get(company_names));
+                editor.putString("CompanyName", company_names);
+                editor.putString("Amount", txt_amount.getText().toString());
                 editor.apply();
 
 
 
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new PaymentScreen3Fragment());
+                fragmentTransaction.replace(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
 

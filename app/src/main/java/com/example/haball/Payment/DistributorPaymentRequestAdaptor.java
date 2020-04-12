@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haball.Distribution_Login.Distribution_Login;
 import com.example.haball.Distributor.ui.payments.EditPayment;
+import com.example.haball.Distributor.ui.payments.EditPaymentRequestFragment;
 import com.example.haball.Distributor.ui.payments.PaymentScreen3Fragment;
 import com.example.haball.Distributor.ui.payments.Payments_Fragment;
 import com.example.haball.Distributor.ui.payments.ViewVoucherRequest;
@@ -162,73 +163,87 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
                                 case R.id.payment_request_edit:
 
                                     // Toast.makeText(context,"Edit Clicked",Toast.LENGTH_LONG).show();
-                                    final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-                                    LayoutInflater inflater = LayoutInflater.from(context);
-                                    View view_popup = inflater.inflate(R.layout.edit_payment_request, null);
-                                    alertDialog.setView(view_popup);
-                                    spinner = view_popup.findViewById(R.id.spinner_conso);
-                                    Button btn_update = (Button) view_popup.findViewById(R.id.btn_payment_request_update);
-                                    btn_update.setOnClickListener(new View.OnClickListener() {
-                                        public void onClick(View v) {
-                                            alertDialog.dismiss();
-                                            //    Toast.makeText(context,"Update",Toast.LENGTH_LONG).show();
-                                            final AlertDialog alertDialog1 = new AlertDialog.Builder(context).create();
-                                            LayoutInflater inflater = LayoutInflater.from(context);
-                                            View view_popup = inflater.inflate(R.layout.edit_request_payment_success, null);
-                                            alertDialog1.setView(view_popup);
-                                            ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.image_success);
-                                            img_email.setOnClickListener(new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View v) {
-                                                    alertDialog1.dismiss();
-                                                }
-                                            });
-                                            alertDialog1.show();
+//                                    final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+//                                    LayoutInflater inflater = LayoutInflater.from(context);
+//                                    View view_popup = inflater.inflate(R.layout.edit_payment_request, null);
+//                                    alertDialog.setView(view_popup);
+//                                    spinner = view_popup.findViewById(R.id.spinner_conso);
+//                                    Button btn_update = (Button) view_popup.findViewById(R.id.btn_payment_request_update);
+//                                    btn_update.setOnClickListener(new View.OnClickListener() {
+//                                        public void onClick(View v) {
+//                                            alertDialog.dismiss();
+//                                            //    Toast.makeText(context,"Update",Toast.LENGTH_LONG).show();
+//                                            final AlertDialog alertDialog1 = new AlertDialog.Builder(context).create();
+//                                            LayoutInflater inflater = LayoutInflater.from(context);
+//                                            View view_popup = inflater.inflate(R.layout.edit_request_payment_success, null);
+//                                            alertDialog1.setView(view_popup);
+//                                            ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.image_success);
+//                                            img_email.setOnClickListener(new View.OnClickListener() {
+//                                                @Override
+//                                                public void onClick(View v) {
+//                                                    alertDialog1.dismiss();
+//                                                }
+//                                            });
+//                                            alertDialog1.show();
+//
+//                                        }
+//                                    });
+//
+//
+//
+//                                    CompanyNames.add("Company *");
+//                                    CompanyNames.add("ABC");
+//                                    company_names = "";
+//
+//                                    arrayAdapterPayments = new ArrayAdapter<>(view_popup.getContext(),
+//                                            android.R.layout.simple_spinner_dropdown_item, CompanyNames);
+//
+//                                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                                        @Override
+//                                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                                            if (i == 0) {
+//                                                ((TextView) adapterView.getChildAt(0)).setTextColor(context.getResources().getColor(android.R.color.darker_gray));
+//                                            } else {
+//                                                company_names = CompanyNames.get(i);
+//                                                Log.i("company name and id ", companyNameAndId.get(company_names));
+//                                            }
+//                                        }
+//
+//                                        @Override
+//                                        public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//                                        }
+//                                    });
+//
+//
+//
+//                                    ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.image_payment_request);
+//                                    img_email.setOnClickListener(new View.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(View v) {
+//                                            alertDialog.dismiss();
+//
+//                                        }
+//                                    });
+//
+//                                    alertDialog.show();
+//                                    arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                                    arrayAdapterPayments.notifyDataSetChanged();
+//                                    spinner.setAdapter(arrayAdapterPayments);
+                                    SharedPreferences PrePaidNumberEdit = context.getSharedPreferences("PrePaidNumber",
+                                            Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editorEdit = PrePaidNumberEdit.edit();
+                                    editorEdit.putString("PrePaidNumber", paymentsRequestList.get(position).getPrePaidNumber());
+                                    editorEdit.putString("PrePaidId", paymentsRequestList.get(position).getID());
+                                    editorEdit.putString("CompanyId", paymentsRequestList.get(position).getCompanyId());
+                                    editorEdit.putString("CompanyName", paymentsRequestList.get(position).getCompanyName());
+                                    editorEdit.putString("Amount", paymentsRequestList.get(position).getPaidAmount());
+                                    editorEdit.apply();
 
-                                        }
-                                    });
+                                    FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+                                    fragmentTransaction.replace(R.id.main_container, new EditPaymentRequestFragment());
+                                    fragmentTransaction.commit();
 
-
-
-                                    CompanyNames.add("Company *");
-                                    CompanyNames.add("ABC");
-                                    company_names = "";
-
-                                    arrayAdapterPayments = new ArrayAdapter<>(view_popup.getContext(),
-                                            android.R.layout.simple_spinner_dropdown_item, CompanyNames);
-
-                                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                        @Override
-                                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                            if (i == 0) {
-                                                ((TextView) adapterView.getChildAt(0)).setTextColor(context.getResources().getColor(android.R.color.darker_gray));
-                                            } else {
-                                                company_names = CompanyNames.get(i);
-                                                Log.i("company name and id ", companyNameAndId.get(company_names));
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                                        }
-                                    });
-
-
-
-                                    ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.image_payment_request);
-                                    img_email.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            alertDialog.dismiss();
-
-                                        }
-                                    });
-
-                                    alertDialog.show();
-                                    arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                    arrayAdapterPayments.notifyDataSetChanged();
-                                    spinner.setAdapter(arrayAdapterPayments);
                                     break;
                                 case R.id.payment_request_bank:
                                     //handle menu2 click

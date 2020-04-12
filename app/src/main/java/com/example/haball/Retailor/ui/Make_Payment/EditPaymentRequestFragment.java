@@ -1,8 +1,7 @@
-package com.example.haball.Distributor.ui.payments;
+package com.example.haball.Retailor.ui.Make_Payment;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -34,14 +33,11 @@ import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.haball.Distributor.DistributorDashboard;
 import com.example.haball.R;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -57,11 +53,11 @@ import java.util.List;
 import java.util.Map;
 
 public class EditPaymentRequestFragment extends Fragment {
-    private String Token, DistributorId;
+    private String Token;
     private Button btn_create;
 
-    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4013/api/company/ReadActiveCompanyContract/";
-    private String URL_PAYMENT_REQUESTS_SAVE = "http://175.107.203.97:4013/api/prepaidrequests/save";
+    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4014/api/prepaidrequests/GetByRetailerCode";
+    private String URL_PAYMENT_REQUESTS_SAVE = "http://175.107.203.97:4014/api/prepaidrequests/save";
 
     private List<String> CompanyNames = new ArrayList<>();
     private HashMap<String, String> companyNameAndId = new HashMap<>();
@@ -79,7 +75,6 @@ public class EditPaymentRequestFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.activity_payment__screen1, container, false);
-
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("PrePaidNumber",
                 Context.MODE_PRIVATE);
         PrePaidNumber = sharedPreferences.getString("PrePaidNumber", "");
@@ -107,7 +102,7 @@ public class EditPaymentRequestFragment extends Fragment {
                 if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
-                    company_names = CompanyNames.get(i);
+                company_names = CompanyNames.get(i);
                 checkFieldsForEmptyValues();
 
 
@@ -180,29 +175,13 @@ public class EditPaymentRequestFragment extends Fragment {
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
 
-        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
-        Log.i("DistributorId ", DistributorId);
-        Log.i("Token", Token);
-
-        new EditPayment().EditPayment(getActivity(), getContext(), Token, DistributorId, PrePaidId, PrePaidNumber, companyNameAndId.get(company_names), txt_amount.getText().toString());
+        new EditPayment().EditPayment(getActivity(), getContext(), Token, PrePaidId, PrePaidNumber, companyNameAndId.get(company_names), txt_amount.getText().toString());
     }
 
     private void fetchCompanyData() {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
-
-        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
-        Log.i("DistributorId ", DistributorId);
-
-        URL_PAYMENT_REQUESTS_SELECT_COMPANY = URL_PAYMENT_REQUESTS_SELECT_COMPANY + DistributorId;
-        Log.i("URL_PROOF_OF_PAYMENTS ", URL_PAYMENT_REQUESTS_SELECT_COMPANY);
-
-        Log.i("Token", Token);
 
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PAYMENT_REQUESTS_SELECT_COMPANY, null, new Response.Listener<JSONArray>() {
             @Override
@@ -211,8 +190,8 @@ public class EditPaymentRequestFragment extends Fragment {
                     JSONObject jsonObject = null;
                     for (int i = 0; i < result.length(); i++) {
                         jsonObject = result.getJSONObject(i);
-                        CompanyNames.add(jsonObject.getString("Name"));
-                        companyNameAndId.put(jsonObject.getString("Name"), jsonObject.getString("ID"));
+                        CompanyNames.add(jsonObject.getString("CompanyName"));
+                        companyNameAndId.put(jsonObject.getString("CompanyName"), jsonObject.getString("DealerCode"));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -289,4 +268,5 @@ public class EditPaymentRequestFragment extends Fragment {
         }
     }
 }
+
 

@@ -1,48 +1,45 @@
-package com.example.haball.Payment;
+package com.example.haball.Retailor.ui.Dashboard;
 
+        import android.content.Context;
+        import android.content.Intent;
+        import android.content.SharedPreferences;
+        import android.os.Bundle;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
+        import androidx.fragment.app.Fragment;
+        import androidx.fragment.app.FragmentTransaction;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
+        import android.util.Log;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.widget.Button;
+        import android.widget.Toast;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
+        import com.android.volley.AuthFailureError;
+        import com.android.volley.DefaultRetryPolicy;
+        import com.android.volley.NetworkError;
+        import com.android.volley.NoConnectionError;
+        import com.android.volley.ParseError;
+        import com.android.volley.Request;
+        import com.android.volley.Response;
+        import com.android.volley.ServerError;
+        import com.android.volley.TimeoutError;
+        import com.android.volley.VolleyError;
+        import com.android.volley.toolbox.JsonObjectRequest;
+        import com.android.volley.toolbox.Volley;
+        import com.example.haball.R;
+        import com.example.haball.Retailer_Login.RetailerLogin;
+        import com.example.haball.Retailor.RetailorDashboard;
+        import com.example.haball.Retailor.ui.Make_Payment.CreatePaymentRequestFragment;
+        import com.google.android.material.textfield.TextInputEditText;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.haball.Distributor.ui.payments.ViewVoucherRequest;
-import com.example.haball.R;
-import com.google.android.material.textfield.TextInputEditText;
+        import org.json.JSONException;
+        import org.json.JSONObject;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+        import java.io.UnsupportedEncodingException;
+        import java.util.HashMap;
+        import java.util.Iterator;
+        import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,11 +47,11 @@ import java.util.Map;
 public class View_Payment_Fragment extends Fragment {
 
     private String PaymentsRequestId;
-    private String PAYMENT_REQUEST_URL = "http://175.107.203.97:4013/api/prepaidrequests/";
-    private String Token, DistributorId;
+    private String PAYMENT_REQUEST_URL = "http://175.107.203.97:4014/api/prepaidrequests/";
+    private String Token;
     private TextInputEditText txt_heading, txt_paymentid, txt_created_date, txt_transaction_date, txt_bname, txt_authorization, txt_settlement, txt_amount, txt_status, txt_transaction_charges;
-    private Button btn_vreciept;
-    private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
+    private Button btn_make_payment, btn_vreciept, btn_back;
+    private FragmentTransaction fragmentTransaction;
 
     public View_Payment_Fragment() {
         // Required empty public constructor
@@ -65,9 +62,6 @@ public class View_Payment_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        if(checkAndRequestPermissions()) {
-        }
-
         View root = null;
         root = inflater.inflate(R.layout.fragment_view__payment_, container, false);
         SharedPreferences sharedPreferences3 = getContext().getSharedPreferences("paymentsRequestListID",
@@ -88,7 +82,10 @@ public class View_Payment_Fragment extends Fragment {
         txt_amount = root.findViewById(R.id.txt_amount);
         txt_status = root.findViewById(R.id.txt_status);
         txt_transaction_charges = root.findViewById(R.id.txt_transaction_charges);
+
+        btn_make_payment = root.findViewById(R.id.btn_make_payment);
         btn_vreciept = root.findViewById(R.id.btn_vreciept);
+        btn_back = root.findViewById(R.id.btn_back);
 
         txt_heading.setEnabled(false);
         txt_paymentid.setEnabled(false);
@@ -101,10 +98,29 @@ public class View_Payment_Fragment extends Fragment {
         txt_status.setEnabled(false);
         txt_transaction_charges.setEnabled(false);
 
+        btn_make_payment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment()).addToBackStack("tag");;
+                fragmentTransaction.commit();
+
+            }
+        });
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent login_intent = new Intent( getActivity(), RetailorDashboard.class );
+                startActivity( login_intent );
+                getActivity().finish();
+            }
+        });
+
         btn_vreciept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewVoucherRequest viewPDFRequest = new ViewVoucherRequest();
+                ViewReceeiptPDFRequest viewPDFRequest = new ViewReceeiptPDFRequest();
                 try {
                     viewPDFRequest.viewPDF(getContext(), PaymentsRequestId);
                 } catch (JSONException e) {
@@ -112,6 +128,7 @@ public class View_Payment_Fragment extends Fragment {
                 }
             }
         });
+
         try {
             fetchPaymentData();
         } catch (JSONException e) {
@@ -128,17 +145,7 @@ public class View_Payment_Fragment extends Fragment {
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
 
-        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
-        Log.i("DistributorId ", DistributorId);
-        Log.i("Token", Token);
-
-        JSONObject map = new JSONObject();
-        map.put("DistributorId", Integer.parseInt(DistributorId));
-        Log.i("Map", String.valueOf(map));
-
-        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, PAYMENT_REQUEST_URL, map, new Response.Listener<JSONObject>() {
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, PAYMENT_REQUEST_URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
                 Log.i("result", String.valueOf(result));
@@ -179,24 +186,6 @@ public class View_Payment_Fragment extends Fragment {
         Volley.newRequestQueue(getContext()).add(sr);
     }
 
-    private boolean checkAndRequestPermissions() {
-        int permissionRead = ContextCompat.checkSelfPermission(getContext(),
-                Manifest.permission.READ_EXTERNAL_STORAGE);
-        int permissionWrite = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        List<String> listPermissionsNeeded = new ArrayList<>();
-        if (permissionWrite != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        }
-        if (permissionRead != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE);
-        }
-        if (!listPermissionsNeeded.isEmpty()) {
-            ActivityCompat.requestPermissions(getActivity(), listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), REQUEST_ID_MULTIPLE_PERMISSIONS);
-            return false;
-        }
-        return true;
-    }
-
     private void printErrorMessage(VolleyError error) {
         if (error instanceof NetworkError) {
             Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
@@ -233,3 +222,4 @@ public class View_Payment_Fragment extends Fragment {
         }
     }
 }
+

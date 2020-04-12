@@ -36,7 +36,7 @@ import com.example.haball.Retailor.Forgot_Password_Retailer.Forgot_Pass_Retailer
 import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Retailor.Retailor_SignUp.SignUp;
 import com.example.haball.Select_User.Register_Activity;
-import com.example.haball.Support.Support_Ditributor.Support_Ticket_Form;
+import com.example.haball.Support.Support_Retailer.Support_Ticket_Form;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
@@ -236,6 +236,10 @@ public class RetailerLogin extends AppCompatActivity {
                         String username = userAccount.get( "Username" ).toString();
                         String CompanyName = userAccount.get( "CompanyName" ).toString();
                         String ID = userAccount.get( "UserId" ).toString();
+                        String FirstName = userAccount.get( "Name" ).toString();
+                        String EmailAddress = userAccount.get( "RetailerEmail" ).toString();
+                        String Mobile = userAccount.get( "RetailerMobile" ).toString();
+
                         SharedPreferences login_token = getSharedPreferences( "LoginToken",
                                 Context.MODE_PRIVATE );
                         SharedPreferences.Editor editor = login_token.edit();
@@ -247,6 +251,14 @@ public class RetailerLogin extends AppCompatActivity {
                         editor.putString( "UserId", ID );
 
                         editor.commit();
+
+                        SharedPreferences companyId = getSharedPreferences("SendData",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editorCompany = companyId.edit();
+                        editorCompany.putString("first_name" , FirstName);
+                        editorCompany.putString("email" , EmailAddress);
+                        editorCompany.putString("phone_number" , Mobile);
+                        editorCompany.apply();
 
                         // Toast.makeText(RetailerLogin.this, "Login Success", Toast.LENGTH_LONG).show();
                         Intent login_intent = new Intent( RetailerLogin.this, RetailorDashboard.class );

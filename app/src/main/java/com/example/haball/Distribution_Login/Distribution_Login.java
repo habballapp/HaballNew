@@ -297,6 +297,9 @@ public class Distribution_Login extends AppCompatActivity {
                             String CompanyName = userAccount.get( "CompanyName" ).toString();
                             String DealerCode = userAccount.get( "DealerCode" ).toString();
                             String ID = userAccount.get( "ID" ).toString();
+                            String FirstName = userAccount.get( "FirstName" ).toString();
+                            String EmailAddress = userAccount.get( "EmailAddress" ).toString();
+                            String Mobile = userAccount.get( "Mobile" ).toString();
                             SharedPreferences login_token = getSharedPreferences( "LoginToken",
                                     Context.MODE_PRIVATE );
                             SharedPreferences.Editor editor = login_token.edit();
@@ -309,6 +312,15 @@ public class Distribution_Login extends AppCompatActivity {
                             editor.putString( "ID", ID );
 
                             editor.apply();
+
+
+                            SharedPreferences companyId = getSharedPreferences("SendData",
+                                    Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editorCompany = companyId.edit();
+                            editorCompany.putString("first_name" , FirstName);
+                            editorCompany.putString("email" , EmailAddress);
+                            editorCompany.putString("phone_number" , Mobile);
+                            editorCompany.apply();
 
                             // Toast.makeText(Distribution_Login.this, "Login Success", Toast.LENGTH_LONG).show();
                             Intent login_intent = new Intent( Distribution_Login.this, DistributorDashboard.class );

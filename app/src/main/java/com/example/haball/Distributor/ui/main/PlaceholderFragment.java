@@ -12,6 +12,7 @@ import android.text.Editable;
 import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -264,7 +265,13 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
                             if (totalPages != 0 && pageNumber < totalPages) {
 //                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
-                              //  btn_load_more.setVisibility(View.VISIBLE);
+                                //  btn_load_more.setVisibility(View.VISIBLE);
+                                pageNumber++;
+                                try {
+                                    performPagination();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
                     }
@@ -362,9 +369,15 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         int totalItemCount = layoutManager.getItemCount();
                         int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
                         if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
-                            if (totalPages != 0 && pageNumber < totalPages) {
+                            if (totalPagesOrder != 0 && pageNumberOrder < totalPagesOrder) {
 //                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
 //                                btn_load_more.setVisibility(View.VISIBLE);
+                                pageNumberOrder++;
+                                try {
+                                    performPaginationOrder();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
                     }
@@ -431,6 +444,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         map.put("DistributorId", DistributorId);
         map.put("TotalRecords", 10);
         map.put("PageNumber", pageNumberOrder);
+        Log.i("Placeholder_Order", String.valueOf(map));
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS, map, new Response.Listener<JSONArray>() {
             @Override
@@ -439,8 +453,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<DistributorOrdersModel>>() {
                 }.getType();
-                OrdersList = gson.fromJson(result.toString(), type);
-                ((DistributorOrdersAdapter) recyclerView.getAdapter()).addListItem(OrdersList);
+//                OrdersList = gson.fromJson(result.toString(), type);
+//                ((DistributorOrdersAdapter) recyclerView.getAdapter()).addListItem(OrdersList);
+                List<DistributorOrdersModel> OrdersList_temp = new ArrayList<>();
+                OrdersList_temp = gson.fromJson(result.toString(), type);
+                OrdersList.addAll(OrdersList_temp);
+                OrdersAdapter.notifyDataSetChanged();
 
             }
         }, new Response.ErrorListener() {
@@ -489,6 +507,16 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             public void onResponse(JSONArray result) {
 //                Log.i("Payments Requests", result.toString());
 //                btn_load_more.setVisibility(View.GONE);
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
+                }.getType();
+                List<DistributorPaymentRequestModel> PaymentsRequestList_temp = new ArrayList<>();
+                PaymentsRequestList_temp = gson.fromJson(result.toString(), type);
+                PaymentsRequestList.addAll(PaymentsRequestList_temp);
+                mAdapter.notifyDataSetChanged();
+//                mAdapter = new DistributorPaymentRequestAdaptor(getContext(), PaymentsRequestList);
+//                recyclerView.setAdapter(mAdapter);
+//                tv_shipment_no_data1.setVisibility(View.GONE);
 
             }
         }, new Response.ErrorListener() {
@@ -948,7 +976,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         }
                     }
                 } else if (Filter_selected.equals("PaymentType")) {
-                    if(i == 0)
+                    if (i == 0)
                         Filter_selected_value = String.valueOf(-1);
                     else
                         Filter_selected_value = String.valueOf(i);
@@ -1217,7 +1245,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
-                if(checkAndRequestPermissions()) {
+                if (checkAndRequestPermissions()) {
 
                 }
                 if (result.length() != 0) {

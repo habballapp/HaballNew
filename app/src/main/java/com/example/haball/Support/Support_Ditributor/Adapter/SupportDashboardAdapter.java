@@ -16,10 +16,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haball.Distributor.ui.support.DeleteSupport;
 import com.example.haball.R;
+import com.example.haball.Retailor.ui.Support.SupportFragment;
 import com.example.haball.Support.Support_Ditributor.Model.SupportDashboardModel;
 
 import org.json.JSONException;
@@ -33,6 +36,7 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
     Context activity;
     String dashboard, id, pending, createdDate;
     List<SupportDashboardModel> supportList;
+    private FragmentTransaction fragmentTransaction;
 
     public SupportDashboardAdapter(Context context, List<SupportDashboardModel> supportList, RecyclerView recyclerView, RecyclerView.Adapter mAdapter) {
         this.mContxt = context;
@@ -164,6 +168,10 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
     private void DeleteSupportTicket(String ID) throws JSONException {
         DeleteSupport deleteSupport = new DeleteSupport();
         String response = deleteSupport.DeleteSupportTicket(mContxt, ID);
+        fragmentTransaction = ((FragmentActivity) mContxt).getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_container_ret, new SupportFragment()).addToBackStack(null);;
+        fragmentTransaction.commit();
+
     }
 
     @Override

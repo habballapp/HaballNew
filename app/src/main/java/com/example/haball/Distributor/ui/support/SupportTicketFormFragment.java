@@ -1,12 +1,12 @@
 package com.example.haball.Distributor.ui.support;
 
-        import android.content.Context;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-        import android.text.Editable;
-        import android.text.TextUtils;
-        import android.text.TextWatcher;
-        import android.util.Log;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,9 +33,9 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
-        import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.snackbar.Snackbar;
 
-        import org.json.JSONArray;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -48,8 +48,8 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-        import androidx.fragment.app.FragmentActivity;
-        import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 public class SupportTicketFormFragment extends Fragment {
 
@@ -65,7 +65,7 @@ public class SupportTicketFormFragment extends Fragment {
     private List<String> criticality = new ArrayList<>();
     private List<String> preffered_contact = new ArrayList<>();
 
-    private String issueType,Criticality, PrefferedContacts;
+    private String issueType, Criticality, PrefferedContacts;
     private String Token;
     private ArrayAdapter<String> arrayAdapterIssueType, arrayAdapterCriticality, arrayAdapterPreferredContact;
 
@@ -81,13 +81,13 @@ public class SupportTicketFormFragment extends Fragment {
 
         SharedPreferences data = getContext().getSharedPreferences("SendData",
                 Context.MODE_PRIVATE);
-        final  String first_name = data.getString("first_name" , "");
-        final  String email = data.getString("email" , "");
-        final  String phone_number = data.getString("phone_number" , "");
+        final String first_name = data.getString("first_name", "");
+        final String email = data.getString("email", "");
+        final String phone_number = data.getString("phone_number", "");
 
-        Log.i("name" , first_name);
-        Log.i("email" , email);
-        Log.i("phone_number" , phone_number);
+        Log.i("name", first_name);
+        Log.i("email", email);
+        Log.i("phone_number", phone_number);
         BName = root.findViewById(R.id.BName);
         Email = root.findViewById(R.id.Email);
         MobileNo = root.findViewById(R.id.MobileNo);
@@ -97,7 +97,7 @@ public class SupportTicketFormFragment extends Fragment {
         Preffered_Contact = root.findViewById(R.id.Preffered_Contact);
         ticket_btn = root.findViewById(R.id.ticket_btn);
         ticket_btn.setEnabled(false);
-        ticket_btn.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
+        ticket_btn.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
         Email.setText(email);
         MobileNo.setText(phone_number);
         BName.setText(first_name);
@@ -119,7 +119,7 @@ public class SupportTicketFormFragment extends Fragment {
         IssueType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
                 issueType = issue_type.get(i);
@@ -135,7 +135,7 @@ public class SupportTicketFormFragment extends Fragment {
         critcicality.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
                 Criticality = criticality.get(i);
@@ -151,7 +151,7 @@ public class SupportTicketFormFragment extends Fragment {
         Preffered_Contact.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0){
+                if (i == 0) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
                 PrefferedContacts = preffered_contact.get(i);
@@ -164,7 +164,7 @@ public class SupportTicketFormFragment extends Fragment {
             }
         });
 
-        ticket_btn.setOnClickListener( new View.OnClickListener() {
+        ticket_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (TextUtils.isEmpty(BName.getText().toString()) ||
@@ -173,8 +173,7 @@ public class SupportTicketFormFragment extends Fragment {
                         TextUtils.isEmpty(MobileNo.getText().toString())) {
 
                     Snackbar.make(v, "Please Enter All Required Fields", Snackbar.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     try {
                         makeTicketAddRequest();
                     } catch (JSONException e) {
@@ -183,7 +182,7 @@ public class SupportTicketFormFragment extends Fragment {
                 }
 
             }
-        } );
+        });
         TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -202,11 +201,12 @@ public class SupportTicketFormFragment extends Fragment {
             }
         };
 
-        BName.addTextChangedListener( textWatcher );
-        Email.addTextChangedListener( textWatcher );
-        MobileNo.addTextChangedListener( textWatcher );
+        BName.addTextChangedListener(textWatcher);
+        Email.addTextChangedListener(textWatcher);
+        MobileNo.addTextChangedListener(textWatcher);
         return root;
     }
+
     private void checkFieldsForEmptyValues() {
 
         String bname = BName.getText().toString();
@@ -216,25 +216,26 @@ public class SupportTicketFormFragment extends Fragment {
         String issue_type = IssueType.getItemAtPosition(IssueType.getSelectedItemPosition()).toString();
         String critical = critcicality.getItemAtPosition(critcicality.getSelectedItemPosition()).toString();
 
-        if (bname.equals( "" )
+        if (bname.equals("")
                 || email.equals("")
-                || mobile.equals( "" )
+                || mobile.equals("")
                 || contact.equals("Preferred Method of Contacting *")
-                || issue_type.equals( "Issue Type *" )
-                || critical.equals( "Criticality *" )
-               ) {
-            ticket_btn.setEnabled( false );
-            ticket_btn.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
+                || issue_type.equals("Issue Type *")
+                || critical.equals("Criticality *")
+        ) {
+            ticket_btn.setEnabled(false);
+            ticket_btn.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
         } else {
-            ticket_btn.setEnabled( true );
-            ticket_btn.setBackground( getResources().getDrawable( R.drawable.button_background ) );
+            ticket_btn.setEnabled(true);
+            ticket_btn.setBackground(getResources().getDrawable(R.drawable.button_background));
         }
     }
-    private void makeTicketAddRequest() throws JSONException{
+
+    private void makeTicketAddRequest() throws JSONException {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences.getString("Distributor_Id","");
+        DistributorId = sharedPreferences.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
 
         JSONObject map = new JSONObject();
@@ -255,7 +256,7 @@ public class SupportTicketFormFragment extends Fragment {
             public void onResponse(JSONObject result) {
                 Log.e("RESPONSE", result.toString());
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(((ViewGroup)getView().getParent()).getId(), new SupportFragment());
+                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new SupportFragment());
                 fragmentTransaction.commit();
             }
 
@@ -267,11 +268,11 @@ public class SupportTicketFormFragment extends Fragment {
                 error.printStackTrace();
             }
 
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer "+Token);
+                params.put("Authorization", "bearer " + Token);
                 params.put("rightid", "-1");
                 params.put("Content-Type", "application/json; charset=UTF-8");
                 return params;
@@ -287,19 +288,19 @@ public class SupportTicketFormFragment extends Fragment {
     private void fetchIssueType() {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token","");
+        Token = sharedPreferences.getString("Login_Token", "");
         Log.i("Token", Token);
 
-        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNER_ISSUETYPE,null,new Response.Listener<JSONArray>() {
+        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNER_ISSUETYPE, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
                 try {
                     JSONObject jsonObject = null;
-                    for(int i=0;i<result.length();i++){
-                        jsonObject  = result.getJSONObject(i);
+                    for (int i = 0; i < result.length(); i++) {
+                        jsonObject = result.getJSONObject(i);
                         issue_type.add(jsonObject.getString("value"));
                     }
-                    Log.i("issue type values => ",issue_type.toString());
+                    Log.i("issue type values => ", issue_type.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -312,11 +313,11 @@ public class SupportTicketFormFragment extends Fragment {
 
                 error.printStackTrace();
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer "+Token);
+                params.put("Authorization", "bearer " + Token);
                 params.put("rightid", "-1");
                 return params;
             }
@@ -334,21 +335,21 @@ public class SupportTicketFormFragment extends Fragment {
     private void fetchCriticality() {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token","");
+        Token = sharedPreferences.getString("Login_Token", "");
         Log.i("Token", Token);
 
 
-        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNER_CRITICALITY,null,new Response.Listener<JSONArray>() {
+        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNER_CRITICALITY, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
                 try {
                     JSONObject jsonObject = null;
-                    for(int i=0;i<result.length();i++){
-                        jsonObject  = result.getJSONObject(i);
+                    for (int i = 0; i < result.length(); i++) {
+                        jsonObject = result.getJSONObject(i);
                         criticality.add(jsonObject.getString("value"));
 
                     }
-                    Log.i("criticality values => ",criticality.toString());
+                    Log.i("criticality values => ", criticality.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -361,11 +362,11 @@ public class SupportTicketFormFragment extends Fragment {
 
                 error.printStackTrace();
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer "+Token);
+                params.put("Authorization", "bearer " + Token);
                 params.put("rightid", "-1");
                 return params;
             }
@@ -383,21 +384,21 @@ public class SupportTicketFormFragment extends Fragment {
     private void fetchPrefferedContact() {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token","");
+        Token = sharedPreferences.getString("Login_Token", "");
         Log.i("Token", Token);
 
 
-        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNER_PREFFEREDCONTACT,null,new Response.Listener<JSONArray>() {
+        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNER_PREFFEREDCONTACT, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
                 try {
                     JSONObject jsonObject = null;
-                    for(int i=0;i<result.length();i++){
-                        jsonObject  = result.getJSONObject(i);
+                    for (int i = 0; i < result.length(); i++) {
+                        jsonObject = result.getJSONObject(i);
                         preffered_contact.add(jsonObject.getString("value"));
                     }
 
-                    Log.i("preffered_contact => ",preffered_contact.toString());
+                    Log.i("preffered_contact => ", preffered_contact.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -410,11 +411,11 @@ public class SupportTicketFormFragment extends Fragment {
 
                 error.printStackTrace();
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer "+Token);
+                params.put("Authorization", "bearer " + Token);
                 params.put("rightid", "-1");
                 return params;
             }
@@ -429,7 +430,7 @@ public class SupportTicketFormFragment extends Fragment {
         Preffered_Contact.setAdapter(arrayAdapterPreferredContact);
     }
 
-        private void printErrorMessage(VolleyError error) {
+    private void printErrorMessage(VolleyError error) {
         if (error instanceof NetworkError) {
             Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof ServerError) {
@@ -448,9 +449,9 @@ public class SupportTicketFormFragment extends Fragment {
             try {
                 String message = "";
                 String responseBody = new String(error.networkResponse.data, "utf-8");
-                Log.i("responseBody",responseBody);
+                Log.i("responseBody", responseBody);
                 JSONObject data = new JSONObject(responseBody);
-                Log.i("data",String.valueOf(data));
+                Log.i("data", String.valueOf(data));
                 Iterator<String> keys = data.keys();
                 while (keys.hasNext()) {
                     String key = keys.next();

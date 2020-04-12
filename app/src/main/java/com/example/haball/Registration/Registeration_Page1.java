@@ -49,7 +49,7 @@ public class Registeration_Page1 extends AppCompatActivity implements View.OnFoc
         progressDialog = new ProgressDialog(this);
 
         Bundle extras = getIntent().getExtras();
-        if(extras != null){
+        if (extras != null) {
             username = extras.getString("username");
             password = extras.getString("password");
             confirmpassword = extras.getString("confirmpassword");
@@ -104,7 +104,7 @@ public class Registeration_Page1 extends AppCompatActivity implements View.OnFoc
 
                 if (keyDel == 0) {
                     int len = txt_phone_number.getText().length();
-                    if(len == 3) {
+                    if (len == 3) {
                         txt_phone_number.setText(txt_phone_number.getText() + "-");
                         txt_phone_number.setSelection(txt_phone_number.getText().length());
                     }
@@ -140,7 +140,7 @@ public class Registeration_Page1 extends AppCompatActivity implements View.OnFoc
 
                 if (keyDel == 0) {
                     int len = txt_mobile_number.getText().length();
-                    if(len == 4) {
+                    if (len == 4) {
                         txt_mobile_number.setText(txt_mobile_number.getText() + "-");
                         txt_mobile_number.setSelection(txt_mobile_number.getText().length());
                     }
@@ -176,7 +176,7 @@ public class Registeration_Page1 extends AppCompatActivity implements View.OnFoc
 
                 if (keyDel == 0) {
                     int len = txt_cnic.getText().length();
-                    if(len == 5 || len == 13) {
+                    if (len == 5 || len == 13) {
                         txt_cnic.setText(txt_cnic.getText() + "-");
                         txt_cnic.setSelection(txt_cnic.getText().length());
                     }
@@ -198,7 +198,7 @@ public class Registeration_Page1 extends AppCompatActivity implements View.OnFoc
 
         btn_register = findViewById(R.id.btn_register);
         btn_register.setEnabled(false);
-        btn_register.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
+        btn_register.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
         TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -216,20 +216,20 @@ public class Registeration_Page1 extends AppCompatActivity implements View.OnFoc
 
             }
         };
-        txt_firstname.addTextChangedListener( textWatcher );
-        txt_lastname.addTextChangedListener( textWatcher );
-        txt_email.addTextChangedListener( textWatcher );
-        txt_cnic.addTextChangedListener( textWatcher );
-        txt_mobile_number.addTextChangedListener( textWatcher );
-        txt_phone_number.addTextChangedListener( textWatcher );
-        txt_ntn.addTextChangedListener( textWatcher );
-        txt_conpany_name.addTextChangedListener( textWatcher );
-        txt_website.addTextChangedListener( textWatcher );
+        txt_firstname.addTextChangedListener(textWatcher);
+        txt_lastname.addTextChangedListener(textWatcher);
+        txt_email.addTextChangedListener(textWatcher);
+        txt_cnic.addTextChangedListener(textWatcher);
+        txt_mobile_number.addTextChangedListener(textWatcher);
+        txt_phone_number.addTextChangedListener(textWatcher);
+        txt_ntn.addTextChangedListener(textWatcher);
+        txt_conpany_name.addTextChangedListener(textWatcher);
+        txt_website.addTextChangedListener(textWatcher);
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(!phone_check && !mobile_check && !email_check && !cnic_check && !ntn_check) {
+                if (!phone_check && !mobile_check && !email_check && !cnic_check && !ntn_check) {
                     if (checkAllFields()) {
                         Snackbar.make(view, "Please Enter All Required Fields", Snackbar.LENGTH_SHORT).show();
                     } else {
@@ -266,32 +266,32 @@ public class Registeration_Page1 extends AppCompatActivity implements View.OnFoc
         String last_name = txt_lastname.getText().toString();
         String email = txt_email.getText().toString();
         String cnic_ = txt_cnic.getText().toString();
-        String mobile  = txt_mobile_number.getText().toString();
+        String mobile = txt_mobile_number.getText().toString();
         String phone = txt_phone_number.getText().toString();
-        String  ntn= txt_ntn.getText().toString();
+        String ntn = txt_ntn.getText().toString();
         String company_name = txt_conpany_name.getText().toString();
         String website = txt_website.getText().toString();
-        if (first_name.equals( "" )
-                || last_name.equals( "" )
+        if (first_name.equals("")
+                || last_name.equals("")
                 || email.equals("")
-                || cnic_.equals( "" )
-                || mobile.equals( "" )
+                || cnic_.equals("")
+                || mobile.equals("")
                 || phone.equals("")
-                ||ntn.equals( "" )
-                || company_name.equals( "" )
+                || ntn.equals("")
+                || company_name.equals("")
                 || website.equals("")) {
-            btn_register.setEnabled( false );
-            btn_register.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
+            btn_register.setEnabled(false);
+            btn_register.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
         } else {
-            btn_register.setEnabled( true );
-            btn_register.setBackground( getResources().getDrawable( R.drawable.button_background ) );
+            btn_register.setEnabled(true);
+            btn_register.setBackground(getResources().getDrawable(R.drawable.button_background));
         }
 
     }
 
     private boolean checkAllFields() {
-        if(TextUtils.isEmpty(txt_firstname.getText().toString()) ||
+        if (TextUtils.isEmpty(txt_firstname.getText().toString()) ||
                 TextUtils.isEmpty(txt_lastname.getText().toString()) ||
                 TextUtils.isEmpty(txt_email.getText().toString()) ||
                 TextUtils.isEmpty(txt_cnic.getText().toString()) ||
@@ -307,11 +307,14 @@ public class Registeration_Page1 extends AppCompatActivity implements View.OnFoc
             return false;
     }
 
-    private void checkEmail(final View view)  throws JSONException {
-        if(TextUtils.isEmpty(txt_email.getText().toString())){
+    private void checkEmail(final View view) throws JSONException {
+        String reg_ex = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
+
+        if (TextUtils.isEmpty(txt_email.getText().toString())) {
             txt_email.setError("This field is required");
-        }
-        else {
+        } else if (!txt_email.getText().toString().matches(reg_ex)) {
+            txt_email.setError("Email (format: johnsmith@Example.com)\n");
+        } else {
             txt_email.setError(null);
             String URL = "http://175.107.203.97:4013/api/users/CheckField";
 
@@ -345,10 +348,9 @@ public class Registeration_Page1 extends AppCompatActivity implements View.OnFoc
     }
 
     private void checkMobile(final View view) throws JSONException {
-        if(TextUtils.isEmpty(txt_mobile_number.getText().toString())){
+        if (TextUtils.isEmpty(txt_mobile_number.getText().toString())) {
             txt_mobile_number.setError("This field is required");
-        }
-        else {
+        } else {
             txt_mobile_number.setError(null);
 
             String URL = "http://175.107.203.97:4013/api/users/CheckField";
@@ -382,10 +384,9 @@ public class Registeration_Page1 extends AppCompatActivity implements View.OnFoc
     }
 
     private void checkPhone(final View view) throws JSONException {
-        if(TextUtils.isEmpty(txt_phone_number.getText().toString())){
+        if (TextUtils.isEmpty(txt_phone_number.getText().toString())) {
             txt_phone_number.setError("This field is required");
-        }
-        else {
+        } else {
             txt_phone_number.setError(null);
 
             String URL = "http://175.107.203.97:4013/api/users/CheckField";
@@ -419,10 +420,9 @@ public class Registeration_Page1 extends AppCompatActivity implements View.OnFoc
 
     private void checkCNIC(final View view) throws JSONException {
 
-        if(TextUtils.isEmpty(txt_cnic.getText().toString())){
+        if (TextUtils.isEmpty(txt_cnic.getText().toString())) {
             txt_cnic.setError("This field is required");
-        }
-        else {
+        } else {
             txt_cnic.setError(null);
             String URL = "http://175.107.203.97:4013/api/users/CheckField";
 
@@ -455,10 +455,9 @@ public class Registeration_Page1 extends AppCompatActivity implements View.OnFoc
 
     private void checkNTN(final View view) throws JSONException {
 
-        if(TextUtils.isEmpty(txt_ntn.getText().toString())){
+        if (TextUtils.isEmpty(txt_ntn.getText().toString())) {
             txt_ntn.setError("This field is required");
-        }
-        else{
+        } else {
             txt_ntn.setError(null);
 
             String URL = "http://175.107.203.97:4013/api/users/CheckField";
@@ -472,7 +471,7 @@ public class Registeration_Page1 extends AppCompatActivity implements View.OnFoc
             BooleanRequest booleanRequest = new BooleanRequest(Request.Method.POST, URL, requestBody, new Response.Listener<Boolean>() {
                 @Override
                 public void onResponse(Boolean response) {
-                    if(response.toString().equals("true")){
+                    if (response.toString().equals("true")) {
                         txt_ntn.setError("NTN Already exists.");
 
 //                    Snackbar.make(view, "NTN Number Already exists.", Snackbar.LENGTH_LONG).show();
@@ -545,7 +544,7 @@ public class Registeration_Page1 extends AppCompatActivity implements View.OnFoc
     }
 
     private void checkEmpty(EditText et_id) {
-        if(TextUtils.isEmpty(et_id.getText().toString()))
+        if (TextUtils.isEmpty(et_id.getText().toString()))
             et_id.setError("This field is required");
         else
             et_id.setError(null);

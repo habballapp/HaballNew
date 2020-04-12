@@ -16,6 +16,7 @@ import com.example.haball.R;
 import com.example.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
 import com.example.haball.Retailor.ui.Make_Payment.CreatePaymentRequestFragment;
 import com.example.haball.Retailor.ui.Make_Payment.Payment_Summary;
+import com.example.haball.Retailor.ui.Network.My_NetworkDashboard;
 import com.example.haball.Retailor.ui.Network.Select_Tabs.My_Network_Fragment;
 import com.example.haball.Retailor.ui.Notification.Notification_Fragment;
 import com.example.haball.Retailor.ui.Place_Order.PlaceOrderFragment;
@@ -124,8 +125,8 @@ public class RetailorDashboard extends AppCompatActivity  {
                         } else if (id == 1) {
 
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                            fragmentTransaction.replace(R.id.main_container_ret, new My_NetworkDashboard());
-                            fragmentTransaction.replace(R.id.main_container_ret, new My_Network_Fragment()).addToBackStack("tag");;
+                            fragmentTransaction.replace(R.id.main_container_ret, new My_NetworkDashboard());
+//                            fragmentTransaction.replace(R.id.main_container_ret, new My_Network_Fragment()).addToBackStack("tag");;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                             Log.i("My Network", "My Network Activity");

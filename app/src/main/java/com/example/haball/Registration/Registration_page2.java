@@ -129,6 +129,7 @@ public class Registration_page2 extends AppCompatActivity {
                 } else {
                     rl_billing_address.setVisibility(View.VISIBLE);
                 }
+                checkFieldsForEmptyValues();
             }
         });
 
@@ -326,18 +327,29 @@ public class Registration_page2 extends AppCompatActivity {
 
         if (address.equals("")
                 || postal_ship.equals("")
-                || address_2.equals("")
-                || postal_bill.equals("")
                 || country.equals("Select Country *")
                 || province.equals("Select Province *")
                 || city.equals("Select City *")
-                || country2.equals("Select Country *")
-                || province2.equals("Select Province *")
-                || city2.equals("Select City *")
-
         ) {
-            btn_register.setEnabled(false);
-            btn_register.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+            if (check_value) {
+                btn_register.setEnabled(true);
+                btn_register.setBackground(getResources().getDrawable(R.drawable.button_background));
+            } else {
+                if (address_2.equals("")
+                        || postal_bill.equals("")
+                        || country2.equals("Select Country *")
+                        || province2.equals("Select Province *")
+                        || city2.equals("Select City *")
+
+                ) {
+                    btn_register.setEnabled(false);
+                    btn_register.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+
+                } else {
+                    btn_register.setEnabled(true);
+                    btn_register.setBackground(getResources().getDrawable(R.drawable.button_background));
+                }
+            }
 
         } else {
             btn_register.setEnabled(true);

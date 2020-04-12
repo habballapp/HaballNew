@@ -6,22 +6,22 @@
     android:layout_height="match_parent"
     android:backgroundTintMode="src_over"
     tools:context=".Retailer_Login.RetailerLogin">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        >
+        android:layout_alignParentBottom="true">
+
         <ScrollView
             android:id="@+id/sv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
-            >
+            android:fillViewport="true">
+
             <RelativeLayout
                 android:id="@+id/rl"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:id="@+id/text_ln"
@@ -56,10 +56,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="40dp"
                         android:layout_marginEnd="40dp"
-                        android:textColor="#676a6c"
                         android:layout_weight="1"
                         android:justificationMode="inter_word"
                         android:text="@string/Txt_Description_Retailer"
+                        android:textColor="#676a6c"
                         android:textSize="14sp" />
 
 
@@ -95,6 +95,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_username"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_marginLeft="40dp"
@@ -102,10 +103,9 @@
                         android:hint="Username Or Mobile No"
                         android:textColorHint="#A9A9A9"
                         android:theme="@style/TextLabel"
-                        app:boxStrokeColor="#e5e5e5"
-                        app:boxStrokeWidth="0.5dp"
                         app:boxBackgroundColor="#fff"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="0.5dp">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_username"
@@ -123,32 +123,32 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_password"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_marginLeft="40dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginRight="40dp"
                         android:hint="Password"
-                        android:layout_marginTop="10dp"
                         android:textColorHint="#A9A9A9"
                         android:theme="@style/TextLabel"
-                        app:boxStrokeColor="#e5e5e5"
-                        app:passwordToggleEnabled="true"
-                        app:passwordToggleTint="#A9A9A9"
-                        app:boxStrokeWidth="0.5dp"
                         app:boxBackgroundColor="#fff"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeWidth="0.5dp"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleTint="#A9A9A9">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_password"
-                            android:textSize="14sp"
-                            android:textColor="#676a6c"
-                            android:paddingTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="textPassword"
                             android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
                             android:paddingRight="20dp"
                             android:paddingBottom="5dp"
-                            android:layout_width="match_parent"
-                            android:inputType="textPassword"
-                            android:layout_height="match_parent"/>
+                            android:textColor="#676a6c"
+                            android:textSize="14sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -172,8 +172,8 @@
                         android:layout_marginRight="40dp"
                         android:layout_weight="1"
                         android:background="@drawable/button_round"
-                        android:stateListAnimator="@null"
                         android:gravity="center"
+                        android:stateListAnimator="@null"
                         android:text="Login"
                         android:textAllCaps="false"
                         android:textColor="#fff"
@@ -186,10 +186,10 @@
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="40dp"
-                        android:stateListAnimator="@null"
                         android:layout_weight="1"
                         android:background="@drawable/button_round"
                         android:gravity="center"
+                        android:stateListAnimator="@null"
                         android:text="@string/Forgot_Password"
                         android:textAllCaps="false"
                         android:textColor="#fff"
@@ -213,12 +213,12 @@
                         android:id="@+id/ret_btn_support"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:stateListAnimator="@null"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/button_round"
                         android:gravity="center"
+                        android:stateListAnimator="@null"
                         android:text="Need Support"
                         android:textAllCaps="false"
                         android:textColor="#fff"
@@ -232,23 +232,24 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginEnd="40dp"
                         android:layout_marginRight="40dp"
-                        android:stateListAnimator="@null"
                         android:layout_marginBottom="40dp"
                         android:layout_weight="1"
                         android:background="@drawable/button_round"
                         android:gravity="center"
+                        android:stateListAnimator="@null"
                         android:text="Sign Up"
                         android:textAllCaps="false"
                         android:textColor="#fff"
                         android:textSize="14sp" />
                 </LinearLayout>
+
                 <TextView
                     android:id="@+id/footer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:gravity="center"
                     android:layout_marginBottom="10dp"
+                    android:gravity="center"
                     android:text="© Haball | All rights reserved" />
 
             </RelativeLayout>
@@ -256,8 +257,6 @@
 
         </ScrollView>
     </RelativeLayout>
-
-
 
 
 </RelativeLayout>

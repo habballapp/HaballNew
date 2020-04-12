@@ -420,14 +420,14 @@ public class PlaceholderFragment extends Fragment {
                         fetchAddresses();
 
                     }
-                    SharedPreferences companyId = getActivity().getSharedPreferences("SendData",
-                            Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = companyId.edit();
-                    editor.putString("first_name" , edt_firstname.getText().toString());
-                    editor.putString("email" , edt_email.getText().toString());
-                    editor.putString("phone_number" , edt_dist_mobile.getText().toString());
-                    editor.apply();
-                    Log.i("editor_chcek" , String.valueOf(companyId));
+//                    SharedPreferences companyId = getActivity().getSharedPreferences("SendData",
+//                            Context.MODE_PRIVATE);
+//                    SharedPreferences.Editor editor = companyId.edit();
+//                    editor.putString("first_name" , edt_firstname.getText().toString());
+//                    editor.putString("email" , edt_email.getText().toString());
+//                    editor.putString("phone_number" , edt_dist_mobile.getText().toString());
+//                    editor.apply();
+//                    Log.i("editor_chcek" , String.valueOf(companyId));
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText( getActivity(), "Error" + e.toString(), Toast.LENGTH_SHORT ).show();
