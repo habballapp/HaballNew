@@ -12,6 +12,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -107,7 +109,7 @@ public class ProofOfPaymentForm extends Fragment {
     private ArrayList<String> DocumentNames = new ArrayList<>();
     private ArrayList<String> selectedImageFileTypes = new ArrayList<>();
     private ArrayList<String> imageBitmapBase64 = new ArrayList<>();
-
+    public boolean enable = false;
     private ProgressDialog progressDialog;
     private CountDownTimer CDT;
     private int i = 8;
@@ -202,13 +204,18 @@ public class ProofOfPaymentForm extends Fragment {
 
         spinner_payment_id = root.findViewById(R.id.spinner_id);
         spinner_mode_of_payments = root.findViewById(R.id.payment_mode);
-        btn_upload = root.findViewById(R.id.btn_upload);
+
         btn_finish = root.findViewById(R.id.btn_finish);
         txt_bank = root.findViewById(R.id.txt_bank);
         txt_branch = root.findViewById(R.id.txt_branch);
         txt_transaction = root.findViewById(R.id.txt_transaction);
+        btn_upload = root.findViewById(R.id.btn_upload);
+        btn_upload.setEnabled(false);
+        btn_upload.setBackground(getResources().getDrawable(R.drawable.button_background));
 
         progressDialog = new ProgressDialog(getContext());
+        btn_finish.setEnabled(false);
+        btn_finish.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
         btn_finish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -236,11 +243,15 @@ public class ProofOfPaymentForm extends Fragment {
         spinner_payment_id.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i == 0) {
+                if (i==0 ){
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                } else {
-                    selected_paymentid = payment_ids.get(i);
+                    btn_upload.setEnabled( false );
+                    btn_upload.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
+
                 }
+
+                    selected_paymentid = payment_ids.get(i);
+                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -251,9 +262,10 @@ public class ProofOfPaymentForm extends Fragment {
         spinner_mode_of_payments.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i == 0) {
+                if (i==0 ){
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                } else {
+
+                }else {
                     selected_paymentmode = payment_modes.get(i);
                     if (selected_paymentmode.equals("OTC"))
                         ImageFileTypes.add("Cheque");
@@ -262,6 +274,7 @@ public class ProofOfPaymentForm extends Fragment {
                             ImageFileTypes.remove("Cheque");
                     }
                 }
+                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -278,7 +291,57 @@ public class ProofOfPaymentForm extends Fragment {
 
         fetchPaymentsId();
         fetchPaymentModes();
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkFieldsForEmptyValues();
+
+            }
+        };
+
+        txt_bank.addTextChangedListener( textWatcher );
+        txt_branch.addTextChangedListener( textWatcher );
+        txt_transaction.addTextChangedListener( textWatcher );
         return root;
+    }
+
+    private void checkFieldsForEmptyValues() {
+        String bank = txt_bank.getText().toString();
+        String txt_brnch = txt_branch.getText().toString();
+        String txt_trans = txt_transaction.getText().toString();
+
+        String paymentId = (String) spinner_payment_id.getItemAtPosition(spinner_payment_id.getSelectedItemPosition()).toString();
+        String modeOf_payment = spinner_mode_of_payments.getItemAtPosition(spinner_mode_of_payments.getSelectedItemPosition()).toString();
+
+        if (bank.equals( "" )
+                || txt_brnch.equals("")
+                || txt_trans.equals( "" )
+                || paymentId.equals("Payment ID *")
+                || modeOf_payment.equals( "Payment Mode *" )
+        ) {
+            btn_upload.setEnabled( false );
+            btn_finish.setEnabled(false);
+
+            btn_upload.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
+            btn_finish.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
+
+        }
+        else {
+            btn_upload.setEnabled( true );
+            btn_finish.setEnabled(true);
+            btn_upload.setBackground( getResources().getDrawable( R.drawable.button_background ) );
+            btn_finish.setBackground( getResources().getDrawable( R.drawable.button_background ) );
+        }
     }
 
     private void makePOPRequest() throws JSONException {

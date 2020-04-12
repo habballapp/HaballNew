@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:backgroundTint="#80FFFFFF"
     android:backgroundTintMode="src_over"
-    tools:context=".Registration.Register_Activity_2">
+    tools:context=".Registration.Registeration_Page1">
 
     <RelativeLayout
         android:layout_width="match_parent"

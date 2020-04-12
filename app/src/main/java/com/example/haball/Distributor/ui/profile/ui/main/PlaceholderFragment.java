@@ -296,6 +296,8 @@ public class PlaceholderFragment extends Fragment {
                 txt_cfmpassword = root.findViewById( R.id.txt_cfmpassword );
                 layout_password1 = root.findViewById( R.id.layout_password1 );
                 update_password = root.findViewById( R.id.update_password );
+                update_password.setEnabled(false);
+                update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
                 update_password.setOnClickListener( new View.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
@@ -312,10 +314,51 @@ public class PlaceholderFragment extends Fragment {
 
                     }
                 } );
+                TextWatcher textWatcher = new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        checkFieldsForEmptyValues();
+
+                    }
+                };
+
+                txt_password.addTextChangedListener(textWatcher);
+                txt_newpassword.addTextChangedListener(textWatcher);
+                txt_cfmpassword.addTextChangedListener(textWatcher);
         }
 
 
         return root;
+    }
+
+    private void checkFieldsForEmptyValues() {
+        String password = txt_password.getText().toString();
+        String newPass = txt_newpassword.getText().toString();
+        String confrm_pass = txt_cfmpassword.getText().toString();
+        if (password.equals("")
+                || newPass.equals("")
+                || confrm_pass.equals("")
+
+
+        ) {
+            update_password.setEnabled(false);
+            update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+
+        } else {
+            update_password.setEnabled(true);
+            update_password.setBackground(getResources().getDrawable(R.drawable.button_background));
+        }
+
     }
 
     private void checkPasswords() {

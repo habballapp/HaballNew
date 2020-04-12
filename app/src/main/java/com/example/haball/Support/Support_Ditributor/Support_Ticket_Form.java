@@ -1,7 +1,9 @@
 package com.example.haball.Support.Support_Ditributor;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,6 +86,9 @@ public class Support_Ticket_Form extends AppCompatActivity {
         critcicality = findViewById(R.id.critcicality);
         Preffered_Contact = findViewById(R.id.Preffered_Contact);
         login_submit= findViewById(R.id.login_submit);
+        login_submit.setEnabled(false);
+        login_submit.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
+
         login_btn = findViewById(R.id.login_btn);
         btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
 
@@ -116,6 +121,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
                 issueType = issue_type.get(i);
+                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -131,6 +137,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
                 Criticality = criticality.get(i);
+                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -146,6 +153,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
                 PrefferedContacts = preffered_contact.get(i);
+                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -182,7 +190,51 @@ public class Support_Ticket_Form extends AppCompatActivity {
 
             }
         });
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkFieldsForEmptyValues();
+
+            }
+        };
+        BName.addTextChangedListener( textWatcher );
+        Email.addTextChangedListener( textWatcher );
+        MobileNo.addTextChangedListener( textWatcher );
+
+    }
+
+    private void checkFieldsForEmptyValues() {
+        String bname = BName.getText().toString();
+        String email  = Email.getText().toString();
+        String mobile = MobileNo.getText().toString();
+
+        String issue_type = (String) IssueType.getItemAtPosition(IssueType.getSelectedItemPosition()).toString();
+        String critical = critcicality.getItemAtPosition(critcicality.getSelectedItemPosition()).toString();
+        String contact = Preffered_Contact.getItemAtPosition(Preffered_Contact.getSelectedItemPosition()).toString();
+        if (bname.equals( "" )
+                || mobile.equals( "" )
+                || email.equals("")
+                || issue_type.equals( "Issue Type *" )
+                || critical.equals( "Criticality *" )
+                || contact.equals("Preferred Method of Contacting *")
+              ) {
+            login_submit.setEnabled( false );
+            login_submit.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
+
+        } else {
+            login_submit.setEnabled( true );
+            login_submit.setBackground( getResources().getDrawable( R.drawable.button_background ) );
+        }
     }
 
     private void makeTicketAddRequest() throws JSONException {

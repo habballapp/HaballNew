@@ -1,7 +1,9 @@
 package com.example.haball.Retailor.ui.Support;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,6 +89,8 @@ public class Support_Ticket_Form_Fragment extends Fragment {
         critcicality = root.findViewById(R.id.critcicality);
         Preffered_Contact = root.findViewById(R.id.Preffered_Contact);
         ticket_btn = root.findViewById(R.id.ticket_btn);
+        ticket_btn.setEnabled(false);
+        ticket_btn.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
         
 
         issue_type.add("Issue Type *");
@@ -113,6 +117,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
                 issueType = issue_type.get(i);
+                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -128,6 +133,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
                 Criticality = criticality.get(i);
+                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -143,6 +149,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
                 PrefferedContacts = preffered_contact.get(i);
+                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -174,13 +181,56 @@ public class Support_Ticket_Form_Fragment extends Fragment {
 
 
 
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkFieldsForEmptyValues();
+
+            }
+        };
+
+        BName.addTextChangedListener( textWatcher );
+        Email.addTextChangedListener( textWatcher );
+        MobileNo.addTextChangedListener( textWatcher );
 
 
         return root;
     }
 
+    private void checkFieldsForEmptyValues() {
 
+        String bname = BName.getText().toString();
+        String email = Email.getText().toString();
+        String mobile = MobileNo.getText().toString();
+        String contact = (String) Preffered_Contact.getItemAtPosition(Preffered_Contact.getSelectedItemPosition()).toString();
+        String issue_type = IssueType.getItemAtPosition(IssueType.getSelectedItemPosition()).toString();
+        String critical = critcicality.getItemAtPosition(critcicality.getSelectedItemPosition()).toString();
+
+        if (bname.equals( "" )
+                || email.equals("")
+                || mobile.equals( "" )
+                || contact.equals("Preferred Method of Contacting *")
+                || issue_type.equals( "Issue Type *" )
+                || critical.equals( "Criticality *" )
+        ) {
+            ticket_btn.setEnabled( false );
+            ticket_btn.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
+
+        } else {
+            ticket_btn.setEnabled( true );
+            ticket_btn.setBackground( getResources().getDrawable( R.drawable.button_background ) );
+        }
+    }
     private void fetchIssueType() {
         JsonArrayRequest sr = new JsonArrayRequest( Request.Method.GET, URL_SPINNER_ISSUETYPE,null,new Response.Listener<JSONArray>() {
             @Override

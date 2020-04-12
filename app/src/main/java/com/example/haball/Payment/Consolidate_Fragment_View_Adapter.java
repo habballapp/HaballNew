@@ -1,9 +1,7 @@
 package com.example.haball.Payment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -11,26 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.core.view.GravityCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.haball.Distribution_Login.Distribution_Login;
-import com.example.haball.Distributor.ui.payments.PaymentRequestDashboard;
-import com.example.haball.Distributor.ui.payments.Payments_Fragment;
-import com.example.haball.Distributor.ui.payments.ProofOfPaymentForm;
-import com.example.haball.Distributor.ui.shipments.DistributorShipment_ViewDashboard;
-import com.example.haball.Distributor.ui.shipments.Shipments_Fragments;
 import com.example.haball.Invoice.Distributor_Invoice_DashBoard;
-import com.example.haball.Payment.Consolidate_Fragment;
 import com.example.haball.R;
-import com.example.haball.Registration.Registration_Activity;
-import com.example.haball.Retailor.ui.Dashboard.DashBoardFragment;
 
 import java.text.DecimalFormat;
 import java.util.List;
