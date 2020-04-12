@@ -1,9 +1,11 @@
 package com.example.haball.Distributor.ui.main;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -62,6 +64,8 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
@@ -133,6 +137,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private static int y;
     private List<String> scrollEvent = new ArrayList<>();
     private RelativeLayout line_bottom;
+    private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -1212,7 +1217,11 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
+                if(checkAndRequestPermissions()) {
+
+                }
                 if (result.length() != 0) {
+
 //                    Log.i("Payments Requests", result.toString());
                     Gson gson = new Gson();
                     Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
@@ -1251,6 +1260,26 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
     }
+
+
+    private boolean checkAndRequestPermissions() {
+        int permissionRead = ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+        int permissionWrite = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (permissionWrite != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (permissionRead != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(getActivity(), listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), REQUEST_ID_MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
+    }
+
 
     private void fetchFilteredPaymentRequests() throws JSONException {
         tv_shipment_no_data1.setVisibility(View.GONE);

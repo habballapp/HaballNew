@@ -36,14 +36,14 @@
                     android:maxLines="1"
                     android:padding="10dp"
                     android:paddingStart="5dp"
+                    android:paddingLeft="5dp"
                     android:paddingEnd="10dp"
+                    android:paddingRight="10dp"
                     android:text="Welcome To Distributor Portal"
                     android:textColor="#96bb3c"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
 
-                    android:paddingRight="10dp"
-                    android:paddingLeft="5dp" />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -109,9 +109,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ln_login"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_marginTop="30dp"
                     android:layout_marginEnd="0dp"
-                    android:layout_alignParentRight="true"
                     android:layout_marginRight="0dp">
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -119,12 +119,12 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="40dp"
+                        android:hint="Address01 *"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:layout_marginLeft="40dp"
-                        android:layout_marginRight="40dp"
-                        android:layout_marginTop="10dp"
-                        android:hint="Address01 *"
                         android:theme="@style/TextLabel"
                         app:boxBackgroundColor="#fff"
                         app:boxStrokeColor="#e5e5e5"
@@ -134,13 +134,13 @@
                             android:id="@+id/Address"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:gravity="top|left"
+                            android:inputType="textMultiLine"
                             android:paddingLeft="20dp"
                             android:paddingTop="5dp"
                             android:paddingRight="20dp"
                             android:paddingBottom="5dp"
                             android:textColor="#676a6c"
-                            android:gravity="top|left"
-                            android:inputType="textMultiLine"
                             android:textSize="14sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -151,17 +151,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_below="@+id/layout_Address"
-                        android:layout_marginTop="20dp"
                         android:layout_marginLeft="40dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginRight="40dp"
                         android:background="@drawable/edit_text_squared">
 
                         <Spinner
                             android:id="@+id/spinner_country"
-                            android:paddingLeft="10dp"
-                            android:paddingRight="10dp"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -169,17 +169,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_below="@+id/relative_issuetype"
-                        android:layout_marginTop="20dp"
                         android:layout_marginLeft="40dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginRight="40dp"
                         android:background="@drawable/edit_text_squared">
 
                         <Spinner
                             android:id="@+id/spinner_province"
-                            android:paddingLeft="10dp"
-                            android:paddingRight="10dp"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -187,17 +187,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_below="@+id/relative_criticality"
-                        android:layout_marginTop="20dp"
                         android:layout_marginLeft="40dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginRight="40dp"
                         android:background="@drawable/edit_text_squared">
 
                         <Spinner
                             android:id="@+id/spinner_city"
-                            android:paddingLeft="10dp"
-                            android:paddingRight="10dp"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp" />
                     </RelativeLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -205,12 +205,12 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
+                        android:layout_below="@+id/relative_Preffered_Contact"
                         android:layout_marginLeft="40dp"
-                        android:layout_marginRight="40dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginRight="40dp"
                         android:hint="Postal Code *"
                         android:theme="@style/TextLabel"
-                        android:layout_below="@+id/relative_Preffered_Contact"
                         app:boxBackgroundColor="#fff"
                         app:boxStrokeColor="#e5e5e5"
                         app:boxStrokeWidth="1.75dp">
@@ -219,13 +219,13 @@
                             android:id="@+id/postal_shipping"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:inputType="number"
+                            android:maxLength="5"
                             android:paddingLeft="20dp"
                             android:paddingTop="5dp"
                             android:paddingRight="20dp"
                             android:paddingBottom="5dp"
                             android:textColor="#676a6c"
-                            android:maxLength="5"
-                            android:inputType="number"
                             android:textSize="14sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -276,11 +276,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
-                        android:layout_marginRight="40dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginRight="40dp"
                         android:text="SAME AS SHIPPING ADDRESS"
-                        android:textColor="#676a6e"
-                        />
+                        android:textColor="#676a6e" />
                 </LinearLayout>
 
                 <RelativeLayout
@@ -288,6 +287,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/ln_billing">
+
                     <RelativeLayout
                         android:id="@+id/rl_billing"
                         android:layout_width="match_parent"
@@ -298,12 +298,12 @@
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="100dp"
+                            android:layout_marginLeft="40dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="40dp"
+                            android:hint="Address02 *"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:layout_marginLeft="40dp"
-                            android:layout_marginRight="40dp"
-                            android:layout_marginTop="10dp"
-                            android:hint="Address02 *"
                             android:theme="@style/TextLabel"
                             app:boxBackgroundColor="#fff"
                             app:boxStrokeColor="#e5e5e5"
@@ -313,13 +313,13 @@
                                 android:id="@+id/Address02"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:gravity="top|left"
+                                android:inputType="textMultiLine"
                                 android:paddingLeft="20dp"
                                 android:paddingTop="5dp"
                                 android:paddingRight="20dp"
                                 android:paddingBottom="5dp"
                                 android:textColor="#676a6c"
-                                android:gravity="top|left"
-                                android:inputType="textMultiLine"
                                 android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -329,17 +329,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_below="@+id/layout_Address02"
-                            android:layout_marginTop="20dp"
                             android:layout_marginLeft="40dp"
+                            android:layout_marginTop="20dp"
                             android:layout_marginRight="40dp"
                             android:background="@drawable/edit_text_squared">
 
                             <Spinner
                                 android:id="@+id/spinner_country2"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent" />
+                                android:layout_height="match_parent"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp" />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -347,17 +347,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_below="@+id/select_country"
-                            android:layout_marginTop="20dp"
                             android:layout_marginLeft="40dp"
+                            android:layout_marginTop="20dp"
                             android:layout_marginRight="40dp"
                             android:background="@drawable/edit_text_squared">
 
                             <Spinner
                                 android:id="@+id/spinner_province2"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent" />
+                                android:layout_height="match_parent"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp" />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -365,17 +365,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_below="@+id/select_province"
-                            android:layout_marginTop="20dp"
                             android:layout_marginLeft="40dp"
+                            android:layout_marginTop="20dp"
                             android:layout_marginRight="40dp"
                             android:background="@drawable/edit_text_squared">
 
                             <Spinner
                                 android:id="@+id/spinner_city2"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent" />
+                                android:layout_height="match_parent"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp" />
                         </RelativeLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
@@ -383,12 +383,12 @@
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
+                            android:layout_below="@+id/select_city"
                             android:layout_marginLeft="40dp"
-                            android:layout_marginRight="40dp"
                             android:layout_marginTop="10dp"
+                            android:layout_marginRight="40dp"
                             android:hint="Postal Code *"
                             android:theme="@style/TextLabel"
-                            android:layout_below="@+id/select_city"
                             app:boxBackgroundColor="#fff"
                             app:boxStrokeColor="#e5e5e5"
                             app:boxStrokeWidth="1.75dp">
@@ -397,13 +397,13 @@
                                 android:id="@+id/postal_billing"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:inputType="number"
+                                android:maxLength="5"
                                 android:paddingLeft="20dp"
                                 android:paddingTop="5dp"
                                 android:paddingRight="20dp"
                                 android:paddingBottom="5dp"
                                 android:textColor="#676a6c"
-                                android:maxLength="5"
-                                android:inputType="number"
                                 android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -411,28 +411,30 @@
 
                     </RelativeLayout>
                 </RelativeLayout>
+
                 <Button
                     android:id="@+id/btn_register"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_below="@id/rl_billing_main"
-                    android:layout_marginTop="30dp"
                     android:layout_marginLeft="40dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginRight="40dp"
+                    android:layout_marginBottom="40dp"
                     android:layout_weight="1"
                     android:background="@drawable/button_round"
                     android:gravity="center"
                     android:text="Register"
                     android:textAllCaps="false"
                     android:textColor="#fff"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="40dp"/>
+                    android:textSize="14sp" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/btn_register"
-                    android:gravity="center"
                     android:layout_marginBottom="10dp"
+                    android:gravity="center"
                     android:text="© Haball | All rights reserved" />
             </RelativeLayout>
 

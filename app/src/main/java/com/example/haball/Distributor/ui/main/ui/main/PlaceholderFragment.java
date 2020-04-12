@@ -72,6 +72,8 @@ public class PlaceholderFragment extends Fragment {
     private StatusKVP StatusKVPClass;
     private TextInputLayout layout_txt_created_date, layout_transaction_date, layout_txt_bank, layout_txt_authorization_id, layout_txt_settlement_id, layout_txt_status, layout_txt_amount, layout_txt_transaction_charges, layout_txt_total_amount;
 
+
+
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
         Bundle bundle = new Bundle();
@@ -289,7 +291,6 @@ public class PlaceholderFragment extends Fragment {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(stringRequest);
-
     }
 
     private void getPaymentData() {

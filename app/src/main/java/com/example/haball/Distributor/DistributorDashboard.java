@@ -5,14 +5,31 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.Fragment_Notification.FragmentNotification;
+import com.example.haball.Distributor.ui.Fragment_Notification.NotificationAdapter;
+import com.example.haball.Distributor.ui.Fragment_Notification.NotificationModel;
 import com.example.haball.Distributor.ui.home.HomeFragment;
 import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Order_PlaceOrder;
 import com.example.haball.Distributor.ui.payments.ConsolidatedPaymentsFragment;
@@ -29,6 +46,8 @@ import com.example.haball.Distributor.ui.terms_and_conditions.TermsAndConditions
 import com.example.haball.R;
 import com.example.haball.Select_User.Register_Activity;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.techatmosphere.expandablenavigation.model.ChildModel;
 import com.techatmosphere.expandablenavigation.model.HeaderModel;
 import com.techatmosphere.expandablenavigation.view.ExpandableNavigationListView;
@@ -40,14 +59,26 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 public class DistributorDashboard extends AppCompatActivity {
 
     private TextView tv_username, tv_user_company;
     private FragmentTransaction fragmentTransaction;
     private DrawerLayout drawer;
     private ExpandableNavigationListView navigationExpandableListView;
-    private String username, companyname, Token;
+    private String username, companyname, Token, ID;
     private ImageButton notification_icon;
+    private String URL_Notification = "http://175.107.203.97:4013/api/useralert/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +104,7 @@ public class DistributorDashboard extends AppCompatActivity {
         username = sharedPreferences.getString("username", "");
         companyname = sharedPreferences.getString("CompanyName", "");
         Token = sharedPreferences.getString("Login_Token", "");
+        ID = sharedPreferences.getString("ID", "");
 
         tv_username = toolbar.findViewById(R.id.tv_username);
         tv_user_company = toolbar.findViewById(R.id.tv_user_company);
@@ -87,13 +119,14 @@ public class DistributorDashboard extends AppCompatActivity {
             }
         });
 
+        getNotificationCount();
+
         tv_username.setText("Hi, " + username);
         tv_user_company.setText(companyname);
 
         drawer = findViewById(R.id.drawer_layout);
 
         final NavigationView navigationView = findViewById(R.id.nav_view);
-
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.main_container, new HomeFragment());
         fragmentTransaction.commit();
@@ -104,6 +137,7 @@ public class DistributorDashboard extends AppCompatActivity {
 //        drawer.setScrimColor(Color.parseColor("#33000000"));
         drawer.setScrimColor(getResources().getColor(android.R.color.transparent));
 
+        new MyAsyncTask().execute();
 
         toggle.syncState();
         navigationExpandableListView = findViewById(R.id.expandable_navigation);
@@ -275,5 +309,114 @@ public class DistributorDashboard extends AppCompatActivity {
                 });
         navigationExpandableListView.expandGroup(1);
 
+    }
+
+    private void getNotificationCount() {
+        if(!URL_Notification.contains("/" + ID))
+            URL_Notification = URL_Notification + ID;
+        Log.i("URL_NOTIFICATION", URL_Notification);
+
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_Notification, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject result) {
+                try {
+
+                    int count = Integer.parseInt(String.valueOf(result.get("count")));
+                    Log.i("DistributorDashboard", String.valueOf(count));
+                    if(count == 0) {
+                        notification_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_no_notifications_black_24dp));
+                    } else {
+                        notification_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_notifications_black_24dp));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        sr.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 1000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
+        Volley.newRequestQueue(DistributorDashboard.this).add(sr);
+    }
+
+
+    private class MyAsyncTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                Thread.sleep(2500);
+                getNotificationCount();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            new MyAsyncTask().execute();
+        }
+    }
+
+    private void printErrorMessage(VolleyError error) {
+        if (error instanceof NetworkError) {
+            Toast.makeText(DistributorDashboard.this, "Network Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof ServerError) {
+            Toast.makeText(DistributorDashboard.this, "Server Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof AuthFailureError) {
+            Toast.makeText(DistributorDashboard.this, "Auth Failure Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof ParseError) {
+            Toast.makeText(DistributorDashboard.this, "Parse Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof NoConnectionError) {
+            Toast.makeText(DistributorDashboard.this, "No Connection Error !", Toast.LENGTH_LONG).show();
+        } else if (error instanceof TimeoutError) {
+            Toast.makeText(DistributorDashboard.this, "Timeout Error !", Toast.LENGTH_LONG).show();
+        }
+
+        if (error.networkResponse != null && error.networkResponse.data != null) {
+            try {
+                String message = "";
+                String responseBody = new String(error.networkResponse.data, "utf-8");
+                Log.i("responseBody", responseBody);
+                JSONObject data = new JSONObject(responseBody);
+                Log.i("data", String.valueOf(data));
+                Iterator<String> keys = data.keys();
+                while (keys.hasNext()) {
+                    String key = keys.next();
+                    message = message + data.get(key) + "\n";
+                }
+                Toast.makeText(DistributorDashboard.this, message, Toast.LENGTH_LONG).show();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

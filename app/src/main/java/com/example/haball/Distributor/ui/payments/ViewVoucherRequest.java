@@ -69,6 +69,7 @@ public class ViewVoucherRequest {
     public String DistributorId, Token;
     public Context mContext;
     private static final int PERMISSION_REQUEST_CODE = 1;
+    public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
 
     public ViewVoucherRequest(){}
 

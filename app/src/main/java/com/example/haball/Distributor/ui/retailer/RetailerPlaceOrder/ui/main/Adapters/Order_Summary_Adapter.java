@@ -52,7 +52,7 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
         float totalamount = 0;
         if (!selectedProductsDataList.get(position).getProductUnitPrice().equals("") && !selectedProductsDataListQty.get(position).equals(""))
             totalamount = Float.parseFloat(selectedProductsDataListQty.get(position)) * Float.parseFloat(selectedProductsDataList.get(position).getProductUnitPrice());
-        holder.totalAmount_value.setText(String.valueOf(totalamount));
+        holder.totalAmount_value.setText(String.format("%.0f", totalamount));
         holder.list_numberOFitems.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

@@ -34,7 +34,7 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
     String dashboard, id, pending, createdDate;
     List<SupportDashboardModel> supportList;
 
-    public SupportDashboardAdapter(Context context, List<SupportDashboardModel> supportList, RecyclerView recyclerView , RecyclerView.Adapter mAdapter) {
+    public SupportDashboardAdapter(Context context, List<SupportDashboardModel> supportList, RecyclerView recyclerView, RecyclerView.Adapter mAdapter) {
         this.mContxt = context;
         this.supportList = supportList;
         this.recyclerView = recyclerView;
@@ -43,7 +43,7 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
 
     @Override
     public SupportDashboardAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view_inflate = LayoutInflater.from(mContxt).inflate(R.layout.layout_support_rv,parent,false);
+        View view_inflate = LayoutInflater.from(mContxt).inflate(R.layout.layout_support_rv, parent, false);
         return new SupportDashboardAdapter.ViewHolder(view_inflate);
     }
 
@@ -67,7 +67,7 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
                             case R.id.menu_view:
 
                                 TextView tv_username, et_email, et_phone, et_issue_type, et_criticality, et_preffered_contact, et_status, et_comments;
-                                Toast.makeText(mContxt,"View Clicked",Toast.LENGTH_LONG).show();
+                                Toast.makeText(mContxt, "View Clicked", Toast.LENGTH_LONG).show();
                                 final AlertDialog alertDialog = new AlertDialog.Builder(mContxt).create();
                                 LayoutInflater inflater = LayoutInflater.from(mContxt);
                                 View view_popup = inflater.inflate(R.layout.view_popup, null);
@@ -83,13 +83,13 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
                                 et_comments = view_popup.findViewById(R.id.et_comments);
 
                                 tv_username.setText(supportList.get(position).getContactName());
-                                et_email.setText("Email Address: "+supportList.get(position).getEmail());
-                                et_phone.setText("Phone: "+supportList.get(position).getMobileNumber());
-                                et_issue_type.setText("Issue Type: "+supportList.get(position).getIssueType());
-                                et_criticality.setText("Criticality: "+supportList.get(position).getCriticality());
-                                et_preffered_contact.setText("Preferred Contact Method: "+supportList.get(position).getPreferredContactMethod());
-                                et_status.setText("Status: "+supportList.get(position).getStatus());
-                                et_comments.setText("Message: "+supportList.get(position).getDescription());
+                                et_email.setText("Email Address: " + supportList.get(position).getEmail());
+                                et_phone.setText("Phone: " + supportList.get(position).getMobileNumber());
+                                et_issue_type.setText("Issue Type: " + supportList.get(position).getIssueType());
+                                et_criticality.setText("Criticality: " + supportList.get(position).getCriticality());
+                                et_preffered_contact.setText("Preferred Contact Method: " + supportList.get(position).getPreferredContactMethod());
+                                et_status.setText("Status: " + supportList.get(position).getStatus());
+                                et_comments.setText("Message: " + supportList.get(position).getDescription());
                                 ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
                                 img_email.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -118,8 +118,11 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
 
                                         try {
                                             deleteAlert.dismiss();
-                                            DeleteSupportTicket(supportList.get(position).getId());
+//                                            DeleteSupportTicket(supportList.get(position).getId());
+                                            DeleteSupport deleteSupport = new DeleteSupport();
+                                            String response = deleteSupport.DeleteSupportTicket(mContxt, supportList.get(position).getId());
                                             notifyItemRemoved(position);
+                                            notifyItemRangeChanged(position, supportList.size());
 
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -168,9 +171,10 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
         return supportList.size();
     }
 
-    public class ViewHolder  extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView heading, ticket_id_value, status_value, created_date_value;
         public ImageButton menu_btn;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             heading = itemView.findViewById(R.id.heading);

@@ -27,6 +27,20 @@
         <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
     </style>
 
+    <style name="TextLabelSearchBox" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">#96bb3c</item>
+        <item name="android:textColor">#676a6c</item>
+        <!--        <item name="android:textSize">20sp</item>-->
+        <item name="colorAccent">#A9A9A9</item>
+        <item name="colorControlNormal">#A9A9A9</item>
+        <item name="colorControlActivated">#96bb3c</item>
+        <item name="boxStrokeColor">#96bb3c</item>
+        <item name="colorPrimary">#96bb3c</item>
+        <item name="boxStrokeWidth">2.5dp</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+    </style>
+
     <style name="ErrorTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:textColor">#ffff0000</item>
         <item name="android:textColorHint">#ffff0000</item>

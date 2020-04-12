@@ -513,7 +513,8 @@ public class Order_Summary extends Fragment {
 
         SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
                 Context.MODE_PRIVATE);
-        gross_amount.setText(grossamount.getString("grossamount", "0"));
+        float temp_grossAmount =  Float.parseFloat(grossamount.getString("grossamount", "0"));
+        gross_amount.setText(String.format("%.0f", temp_grossAmount));
         discount_amount.setText(" - ");
 
 //        float gstAmount = (Float.parseFloat(grossamount.getString("grossamount", "")) * 17) / 100;
@@ -521,7 +522,7 @@ public class Order_Summary extends Fragment {
         totalAmount = Float.parseFloat(grossamount.getString("grossamount", "0")) + gstAmount;
 
 //        gst_amount.setText(String.valueOf(gstAmount));
-        total_amount.setText(String.valueOf(totalAmount));
+        total_amount.setText(String.format("%.0f", totalAmount));
 
 
     }

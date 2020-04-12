@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haball.Distribution_Login.Distribution_Login;
 import com.example.haball.Distributor.ui.payments.EditPayment;
+import com.example.haball.Distributor.ui.payments.PaymentScreen3Fragment;
 import com.example.haball.Distributor.ui.payments.Payments_Fragment;
 import com.example.haball.Distributor.ui.payments.ViewVoucherRequest;
 import com.example.haball.R;
@@ -92,6 +93,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
                                 case R.id.payment_request_view:
+
 //                                    Toast.makeText(context,"View Clicked - " + paymentsRequestList.get(position).getID(),Toast.LENGTH_LONG).show();
 //                                fragmentTransaction = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
 //                                fragmentTransaction.replace(R.id.main_container, new View_Payment_Fragment());
@@ -131,20 +133,29 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
                                 case R.id.payment_request_view:
-//                                Toast.makeText(context,"View Clicked - " + paymentsRequestList.get(position).getID(),Toast.LENGTH_LONG).show();
-//                                fragmentTransaction = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
-//                                fragmentTransaction.replace(R.id.main_container, new View_Payment_Fragment());
-//                                fragmentTransaction.commit();
-
-                                    View_Payment_Fragment view_Payment_Fragment = new View_Payment_Fragment();
-                                    SharedPreferences paymentsRequestListID = ((FragmentActivity) context).getSharedPreferences("paymentsRequestListID",
+//                                    View_Payment_Fragment view_Payment_Fragment = new View_Payment_Fragment();
+//                                    SharedPreferences paymentsRequestListID = ((FragmentActivity) context).getSharedPreferences("paymentsRequestListID",
+//                                            Context.MODE_PRIVATE);
+//                                    SharedPreferences.Editor editor = paymentsRequestListID.edit();
+//                                    editor.putString("paymentsRequestListID", paymentsRequestList.get(position).getID());
+//                                    editor.commit();
+//
+//                                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//                                    fragmentTransaction.replace(R.id.main_container, view_Payment_Fragment);
+//                                    fragmentTransaction.commit();
+                                    SharedPreferences PrePaidNumber = context.getSharedPreferences("PrePaidNumber",
                                             Context.MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = paymentsRequestListID.edit();
-                                    editor.putString("paymentsRequestListID", paymentsRequestList.get(position).getID());
-                                    editor.commit();
+                                    SharedPreferences.Editor editor = PrePaidNumber.edit();
+                                    editor.putString("PrePaidNumber", paymentsRequestList.get(position).getPrePaidNumber());
+                                    editor.putString("PrePaidId", paymentsRequestList.get(position).getID());
+                                    editor.putString("CompanyId", paymentsRequestList.get(position).getCompanyId());
+                                    editor.putString("CompanyName", paymentsRequestList.get(position).getCompanyName());
+                                    editor.putString("Amount", paymentsRequestList.get(position).getPaidAmount());
+                                    editor.apply();
 
                                     fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                                    fragmentTransaction.replace(R.id.main_container, view_Payment_Fragment);
+                                    fragmentTransaction.replace(R.id.main_container, new PaymentScreen3Fragment());
+                                    fragmentTransaction.addToBackStack(null);
                                     fragmentTransaction.commit();
 
                                     break;

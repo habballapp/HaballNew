@@ -32,6 +32,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.DistributorDashboard;
+import com.example.haball.Distributor.ui.home.HomeFragment;
 import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Adapters.Order_Summary_Adapter_DistOrder;
 import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderChildlist_Model_DistOrder;
 import com.example.haball.R;
@@ -482,9 +483,24 @@ public class Dist_Order_Summary extends Fragment {
                     selectedProducts_distributor_editor.apply();
 
                     Toast.makeText(getContext(), "Order Request ID " + result.get("OrderNumber") + " has been saved as draft successfully.", Toast.LENGTH_LONG).show();
+                    SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                    editorOrderTabsFromDraft.putString("TabNo", "1");
+                    editorOrderTabsFromDraft.apply();
+
                     Intent login_intent = new Intent(getActivity(), DistributorDashboard.class);
                     startActivity(login_intent);
                     getActivity().finish();
+//                    HomeFragment homeFragment = new HomeFragment();
+//
+//                    Bundle args = new Bundle();
+//                    args.putInt("section_number", 2);
+//                    homeFragment.setArguments(args);
+//                    fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                    fragmentTransaction.add(R.id.main_container, homeFragment);
+//                    fragmentTransaction.addToBackStack(null);
+//                    fragmentTransaction.commit();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -588,7 +604,9 @@ public class Dist_Order_Summary extends Fragment {
 
         SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
                 Context.MODE_PRIVATE);
-        gross_amount.setText(grossamount.getString("grossamount", "0"));
+//        gross_amount.setText(grossamount.getString("grossamount", "0"));
+        float temp_grossAmount =  Float.parseFloat(grossamount.getString("grossamount", "0"));
+        gross_amount.setText(String.format("%.0f", temp_grossAmount));
         discount_amount.setText(" - ");
 
 //        float gstAmount = (Float.parseFloat(grossamount.getString("grossamount", "")) * 17) / 100;
@@ -596,7 +614,7 @@ public class Dist_Order_Summary extends Fragment {
         totalAmount = Float.parseFloat(grossamount.getString("grossamount", "0")) + gstAmount;
 
 //        gst_amount.setText(String.valueOf(gstAmount));
-        total_amount.setText(String.valueOf(totalAmount));
+        total_amount.setText(String.format("%.0f", totalAmount));
 
 
     }

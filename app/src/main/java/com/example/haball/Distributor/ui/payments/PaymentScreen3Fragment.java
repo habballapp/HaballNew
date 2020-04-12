@@ -1,8 +1,10 @@
 package com.example.haball.Distributor.ui.payments;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -34,9 +38,13 @@ public class PaymentScreen3Fragment extends Fragment {
     private TextInputEditText txt_amount;
     private ArrayAdapter<String> arrayAdapterPayments;
     private List<String> CompanyNames = new ArrayList<>();
+    private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        if (checkAndRequestPermissions()) {
+
+        }
 
         View root = inflater.inflate(R.layout.activity_payment__screen3, container, false);
 
@@ -83,11 +91,15 @@ public class PaymentScreen3Fragment extends Fragment {
         btn_voucher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    viewPDF(getContext(), PrePaidId);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (checkAndRequestPermissions()) {
+
+                    try {
+                        viewPDF(getContext(), PrePaidId);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
+
             }
         });
 
@@ -120,6 +132,24 @@ public class PaymentScreen3Fragment extends Fragment {
     private void viewPDF(Context context, String ID) throws JSONException {
         ViewVoucherRequest viewPDFRequest = new ViewVoucherRequest();
         viewPDFRequest.viewPDF(context, ID);
+    }
+
+    private boolean checkAndRequestPermissions() {
+        int permissionRead = ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+        int permissionWrite = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (permissionWrite != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (permissionRead != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(getActivity(), listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), REQUEST_ID_MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
     }
 
 }

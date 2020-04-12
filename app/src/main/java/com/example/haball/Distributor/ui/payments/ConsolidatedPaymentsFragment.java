@@ -1,7 +1,9 @@
 package com.example.haball.Distributor.ui.payments;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.SpannableString;
@@ -23,6 +25,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -95,6 +99,7 @@ public class ConsolidatedPaymentsFragment extends Fragment {
     private RelativeLayout spinner_container_main;
     private static int y;
     private List<String> scrollEvent = new ArrayList<>();
+    private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -249,7 +254,7 @@ public class ConsolidatedPaymentsFragment extends Fragment {
                 Log.i("text1", "check");
                 Log.i("text", String.valueOf(s));
                 Filter_selected_value = String.valueOf(s);
-                if(!Filter_selected_value.equals("")) {
+                if (!Filter_selected_value.equals("")) {
                     try {
                         fetchFilteredConsolidatePayments();
                     } catch (JSONException e) {
@@ -504,14 +509,13 @@ public class ConsolidatedPaymentsFragment extends Fragment {
             @Override
             public void onResponse(JSONArray result) {
                 Log.i("ConsolidatePayments", result.toString());
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<ConsolidatePaymentsModel>>() {
+                }.getType();
+                ConsolidatePaymentsRequestList = gson.fromJson(result.toString(), type);
 
-                    Gson gson = new Gson();
-                    Type type = new TypeToken<List<ConsolidatePaymentsModel>>() {
-                    }.getType();
-                    ConsolidatePaymentsRequestList = gson.fromJson(result.toString(), type);
-
-                    mAdapter = new Consolidate_Fragment_Adapter(getContext(), ConsolidatePaymentsRequestList);
-                    recyclerView.setAdapter(mAdapter);
+                mAdapter = new Consolidate_Fragment_Adapter(getContext(), ConsolidatePaymentsRequestList);
+                recyclerView.setAdapter(mAdapter);
                 if (result.length() != 0) {
                     tv_shipment_no_data.setVisibility(View.GONE);
                 } else {
@@ -630,6 +634,7 @@ public class ConsolidatedPaymentsFragment extends Fragment {
             }
         }
     }
+
     private String getScrollEvent() {
         String scroll = "";
         if (scrollEvent.size() > 0) {
@@ -653,4 +658,5 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         }
 //        Log.i("distinct", scroll);
         return scroll;
-    }}
+    }
+}

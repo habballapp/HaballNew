@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -48,6 +49,7 @@ public class ViewRetailer extends Fragment {
     private TextInputEditText mg_rt_code, mg_rt_firstname, mg_rt_email, mg_cnic_no, mg_mobile_no, mg_rt_company, mg_tr_address;
     private String URL_RETAILER_DETAILS = "http://175.107.203.97:4013/api/retailer/";
     private String Token, DistributorId;
+    private CheckBox check_box;
 
     public ViewRetailer() {
         // Required empty public constructor
@@ -66,7 +68,7 @@ public class ViewRetailer extends Fragment {
         mg_rt_email = root.findViewById(R.id.mg_rt_email);
         mg_cnic_no = root.findViewById(R.id.mg_cnic_no);
         mg_mobile_no = root.findViewById(R.id.mg_mobile_no);
-
+        check_box = root.findViewById(R.id.check_box);
         mg_rt_company = root.findViewById(R.id.mg_rt_company);
         mg_tr_address = root.findViewById(R.id.mg_tr_address);
 
@@ -77,7 +79,6 @@ public class ViewRetailer extends Fragment {
         mg_mobile_no.setEnabled(false);
         mg_rt_company.setEnabled(false);
         mg_tr_address.setEnabled(false);
-
 
 
         try {
@@ -120,6 +121,10 @@ public class ViewRetailer extends Fragment {
                     mg_mobile_no.setText(result.getString("Mobile"));
                     mg_rt_company.setText(result.getString("CompanyName"));
                     mg_tr_address.setText(result.getString("Address"));
+                    if (result.getString("Status").equals("1"))
+                        check_box.setChecked(true);
+                    else
+                        check_box.setChecked(false);
                     Log.i("result_getString", result.getString("Address"));
                 } catch (JSONException e) {
                     e.printStackTrace();

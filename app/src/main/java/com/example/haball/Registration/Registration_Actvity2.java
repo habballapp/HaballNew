@@ -335,12 +335,12 @@ public class Registration_Actvity2 extends AppCompatActivity {
             map.put("IsAgree", true);
         }
 
-        Log.i("MAP OBJECT", String.valueOf(map));
+        Log.i("Register_Activity", String.valueOf(map));
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
-                Log.e("RESPONSE", result.toString());
+                Log.i("Register_Activity", result.toString());
                 try {
                     if (!result.get("DealerCode").toString().isEmpty()) {
                         Intent i = new Intent(Registration_Actvity2.this, Distribution_Login.class);
@@ -358,6 +358,7 @@ public class Registration_Actvity2 extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Log.i("Register_Activity", String.valueOf(error));
                 printErrorMessage(error);
                 error.printStackTrace();
                 //  Toast.makeText(Registration_Actvity2.this,error.toString(),Toast.LENGTH_LONG).show();
