@@ -6,12 +6,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
@@ -27,6 +29,8 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Distributor.ui.retailer.RetailerFragment;
+import com.example.haball.Distributor.ui.shipments.Shipments_Fragments;
 import com.example.haball.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
@@ -50,6 +54,9 @@ public class ViewRetailer extends Fragment {
     private String URL_RETAILER_DETAILS = "http://175.107.203.97:4013/api/retailer/";
     private String Token, DistributorId;
     private CheckBox check_box;
+    private Button btn_close ,btn_save;
+    private FragmentTransaction fragmentTransaction;
+
 
     public ViewRetailer() {
         // Required empty public constructor
@@ -71,6 +78,8 @@ public class ViewRetailer extends Fragment {
         check_box = root.findViewById(R.id.check_box);
         mg_rt_company = root.findViewById(R.id.mg_rt_company);
         mg_tr_address = root.findViewById(R.id.mg_tr_address);
+        btn_close = root.findViewById(R.id.btn_close);
+        btn_save = root.findViewById(R.id.btn_save);
 
         mg_rt_code.setEnabled(false);
         mg_rt_firstname.setEnabled(false);
@@ -80,13 +89,25 @@ public class ViewRetailer extends Fragment {
         mg_rt_company.setEnabled(false);
         mg_tr_address.setEnabled(false);
 
-
+        btn_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "Save data", Toast.LENGTH_SHORT).show();
+            }
+        });
+        btn_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, new RetailerFragment());
+                fragmentTransaction.commit();
+            }
+        });
         try {
             fetchRetailerData();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return root;
     }
 

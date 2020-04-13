@@ -3,6 +3,7 @@ package com.example.haball.Forgot_Password;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -28,7 +29,9 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Distribution_Login.Distribution_Login;
 import com.example.haball.R;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,6 +51,7 @@ public class Forgot_Pass_Distributor extends AppCompatActivity {
     private  Button btn_reset,btn_lgn;
     private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4013/api/Users/forgot";
      ProgressDialog progressDialog;
+    private TextInputLayout layout_email_phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +66,7 @@ public class Forgot_Pass_Distributor extends AppCompatActivity {
 
         LayoutInflater inflater = LayoutInflater.from( this );
         txt_email = findViewById( R.id.txt_email );
+        layout_email_phone = findViewById(R.id.layout_email_phone);
         progressDialog = new ProgressDialog( this );
 
         @SuppressLint("InflateParams") View customView = inflater.inflate( R.layout.action_bar_main, null );
@@ -72,6 +77,7 @@ public class Forgot_Pass_Distributor extends AppCompatActivity {
         bar.setTitle( "" );
         btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
          btn_reset = findViewById( R.id.btn_reset );
+
         btn_reset.setEnabled( false );
         btn_reset.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
 
@@ -163,15 +169,27 @@ public class Forgot_Pass_Distributor extends AppCompatActivity {
             @Override
             public void onResponse(String result) {
                 Log.e("RESPONSE", result);
-                progressDialog.dismiss();
-                img_email.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog1.dismiss();
-                    }
-                });
-                alertDialog1.show();
-            }
+
+                    progressDialog.dismiss();
+
+                    img_email.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog1.dismiss();
+                        }
+                    });
+
+                        layout_email_phone.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+                        layout_email_phone.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+                        layout_email_phone.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+                        txt_email.setTextColor(getResources().getColor(R.color.error_stroke_color));
+                      //  Toast.makeText(getApplicationContext(), result.get("ErrorMessage").toString(), Toast.LENGTH_LONG).show();
+
+
+
+                    alertDialog1.show();
+                }
+
         }, new Response.ErrorListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override

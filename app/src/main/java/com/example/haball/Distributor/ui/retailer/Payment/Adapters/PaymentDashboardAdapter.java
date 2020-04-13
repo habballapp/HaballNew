@@ -59,6 +59,7 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (paymentsList.get(position).getInvoiceStatusValue().equals("Pending") || paymentsList.get(position).getInvoiceStatusValue().equals("Unpaid")) {
                     final PopupMenu popup = new PopupMenu(context, view);
                     MenuInflater inflater = popup.getMenuInflater();
                     inflater.inflate(R.menu.payment_dashboard_menu, popup.getMenu());
@@ -67,14 +68,11 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
                                 case R.id.view_payment:
-//                                    Toast.makeText(context, "View payments", Toast.LENGTH_LONG).show();
-//                                FragmentTransaction fragmentTransaction= ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
-//                                fragmentTransaction.add(R.id.main_container,new Distributor_Invoice_DashBoard());
-//                                fragmentTransaction.commit();
-                                    FragmentTransaction fragmentTransaction= ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
-                                    fragmentTransaction.add(R.id.main_container,new RetailerPaymentView());
+//
+                                    FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+                                    fragmentTransaction.add(R.id.main_container, new RetailerPaymentView()).addToBackStack("Tag");
                                     fragmentTransaction.commit();
-                                    SharedPreferences PaymentId = ((FragmentActivity)context).getSharedPreferences("PaymentId",
+                                    SharedPreferences PaymentId = ((FragmentActivity) context).getSharedPreferences("PaymentId",
                                             Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor = PaymentId.edit();
                                     editor.putString("PaymentId", paymentsList.get(finalPosition).getRetailerInvoiceId());
@@ -82,6 +80,37 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
                                     editor.putString("IsEditable", paymentsList.get(finalPosition).getIsEditable());
                                     editor.commit();
 
+                                    break;
+                                case R.id.view_payment_cancel:
+                                    Toast.makeText(context, "getCanc", Toast.LENGTH_SHORT).show();
+                            }
+                            return false;
+                        }
+                    });
+                    popup.show();
+
+                }
+                else {
+                    final PopupMenu popup = new PopupMenu(context, view);
+                    MenuInflater inflater = popup.getMenuInflater();
+                    inflater.inflate(R.menu.payment_dashboard_menu2, popup.getMenu());
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.view_payment:
+                                    Toast.makeText(context, "cancel", Toast.LENGTH_SHORT).show();
+
+                                 FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+                                    fragmentTransaction.add(R.id.main_container, new RetailerPaymentView()).addToBackStack("Tag");
+                                    fragmentTransaction.commit();
+                                    SharedPreferences PaymentId = ((FragmentActivity) context).getSharedPreferences("PaymentId",
+                                            Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = PaymentId.edit();
+                                    editor.putString("PaymentId", paymentsList.get(finalPosition).getRetailerInvoiceId());
+                                    editor.putString("Status", paymentsList.get(finalPosition).getInvoiceStatusValue());
+                                    editor.putString("IsEditable", paymentsList.get(finalPosition).getIsEditable());
+                                    editor.commit();
 
                                     break;
                             }
@@ -89,7 +118,11 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
                         }
                     });
                     popup.show();
+
+
                 }
+
+            }
 
 
         });

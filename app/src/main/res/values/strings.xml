@@ -43,6 +43,8 @@
     <string name="Txt_Dashboard">Dashboard</string>
     <string name="Txt_Payment">Payment Options</string>
     <string name="TxT_Update">Update</string>
+    <string name="Save">Save</string>
+    <string name="close">Close</string>
     <string name="Txt_Header1">Following are the steps to use Internet/Mobile Bankings for making payments:</string>
     <string name="Txt_Header2">Following are the steps to make payments over the counter:</string>
     <string name="Txt_Header3">Following are the steps to make payments over the counter:</string>

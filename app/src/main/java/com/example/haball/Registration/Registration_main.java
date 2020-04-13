@@ -144,29 +144,52 @@ public class Registration_main extends AppCompatActivity implements View.OnFocus
         String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
         if (txt_password.getText().toString().matches(reg_ex)) {
             password_check = true;
-            txt_password.setError(null);
-//            layout_txt_password.setBoxStrokeColor(getResources().getColor(R.color.textboxstrokecolor));
-//            layout_txt_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
-//            layout_txt_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolor)));
-//            txt_password.setTextColor(getResources().getColor(R.color.textcolor));
+            layout_txt_password.setPasswordVisibilityToggleEnabled(true);
+
         } else {
 //            layout_txt_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
 //            layout_txt_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
 //            layout_txt_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
 //            txt_password.setErrorEnabled(true);
             txt_password.setError("Please enter password with minimum 6 characters & 1 Numeric or special character");
-//            txt_password.setTextColor(getResources().getColor(R.color.error_stroke_color));
-//            Toast.makeText(this, "Please enter password with minimum 6 characters & 1 Numeric or special character", Toast.LENGTH_LONG).show();
-//            txt_password.setError("Please enter password with minimum 6 characters & 1 Numeric or special character");
-//            password_check = false;
+            txt_password.setTextColor(getResources().getColor(R.color.error_stroke_color));
+            layout_txt_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+            layout_txt_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            layout_txt_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            layout_txt_password.setPasswordVisibilityToggleEnabled(false);
         }
+        txt_password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                layout_txt_password.setBoxStrokeColor(getResources().getColor(R.color.color_text));
+                layout_txt_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+                layout_txt_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
+                txt_password.setTextColor(getResources().getColor(R.color.textcolor));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void checkUsername(final View view) throws JSONException {
 
         if (txt_username.getText().toString().equals("")) {
             txt_username.setError("This field is required");
-        } else {
+            txt_username.setTextColor(getResources().getColor(R.color.error_stroke_color));
+            layout_txt_username.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+            layout_txt_username.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            layout_txt_username.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+
+        }
+        else {
             txt_username.setError(null);
 
             String URL = "http://175.107.203.97:4013/api/users/CheckField";
@@ -193,7 +216,27 @@ public class Registration_main extends AppCompatActivity implements View.OnFocus
             });
 
             Volley.newRequestQueue(this).add(booleanRequest);
-        }
+
+           }
+        txt_username.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                layout_txt_username.setBoxStrokeColor(getResources().getColor(R.color.color_text));
+                layout_txt_username.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+                layout_txt_username.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
+                txt_username.setTextColor(getResources().getColor(R.color.textcolor));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
@@ -221,11 +264,35 @@ public class Registration_main extends AppCompatActivity implements View.OnFocus
     private void checkConfirmPassword() {
         if (txt_password.getText().toString().equals(txt_confirm.getText().toString())) {
             confirm_password_check = true;
-            txt_confirm.setError(null);
+
         } else {
             confirm_password_check = false;
             txt_confirm.setError("Password does not match");
+            layout_txt_confirm.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+            layout_txt_confirm.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            layout_txt_confirm.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            txt_confirm.setTextColor(getResources().getColor(R.color.error_stroke_color));
+
         }
+        txt_confirm.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                layout_txt_confirm.setBoxStrokeColor(getResources().getColor(R.color.color_text));
+                layout_txt_confirm.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+                layout_txt_confirm.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
+                txt_confirm.setTextColor(getResources().getColor(R.color.textcolor));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void checkEmpty(EditText et_id) {

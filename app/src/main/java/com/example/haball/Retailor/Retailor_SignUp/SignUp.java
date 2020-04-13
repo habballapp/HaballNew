@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
 import com.example.haball.Retailer_Login.RetailerLogin;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,6 +49,7 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
     private Button btn_register_signup, btn_register_close;
     private Boolean password_check = false, confirm_password_check = false;
     private int keyDel;
+    private TextInputLayout layout_txt_password ,layout_txt_confirmpass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +80,8 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
         txt_business_name = (EditText) findViewById(R.id.txt_business_name);
         txt_address = (EditText) findViewById(R.id.txt_address);
         btn_register_signup = (Button) findViewById(R.id.btn_register_signup);
+        layout_txt_password =findViewById(R.id.layout_txt_password);
+        layout_txt_confirmpass =findViewById(R.id.layout_txt_confirmpass);
 
         txt_username.addTextChangedListener(watcher);
         txt_password.addTextChangedListener(watcher);
@@ -273,8 +278,14 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
             });
             Volley.newRequestQueue(this).add(sr);
         } else {
+
+            layout_txt_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+            layout_txt_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            layout_txt_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            txt_password.setTextColor(getResources().getColor(R.color.error_stroke_color));
             Toast.makeText(SignUp.this, "Password does not match", Toast.LENGTH_LONG).show();
         }
+
     }
 
 
@@ -282,21 +293,80 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
         String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
         if (txt_password.getText().toString().matches(reg_ex)) {
             password_check = true;
-            txt_password.setError(null);
+            layout_txt_password.setPasswordVisibilityToggleEnabled(true);
+
         } else {
             txt_password.setError("Please enter password with minimum 6 characters & 1 Numeric or special character");
             password_check = false;
+            layout_txt_password.setPasswordVisibilityToggleEnabled(false);
+            txt_password.setTextColor(getResources().getColor(R.color.error_stroke_color));
+            layout_txt_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+            layout_txt_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            layout_txt_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+
+
         }
+        txt_password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                layout_txt_password.setBoxStrokeColor(getResources().getColor(R.color.color_text));
+                layout_txt_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+                layout_txt_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
+                txt_password.setTextColor(getResources().getColor(R.color.textcolor));
+                layout_txt_password.setPasswordVisibilityToggleEnabled(true);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
     }
 
     private void checkConfirmPassword() {
         if (txt_password.getText().toString().equals(txt_confirmpass.getText().toString())) {
             confirm_password_check = true;
-            txt_confirmpass.setError(null);
+            layout_txt_confirmpass.setPasswordVisibilityToggleEnabled(true);
+
+
         } else {
             confirm_password_check = false;
             txt_confirmpass.setError("Password does not match");
+            layout_txt_confirmpass.setPasswordVisibilityToggleEnabled(false);
+            layout_txt_confirmpass.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+            layout_txt_confirmpass.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            layout_txt_confirmpass.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            txt_confirmpass.setTextColor(getResources().getColor(R.color.error_stroke_color));
+
+
         }
+        txt_confirmpass.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                layout_txt_confirmpass.setBoxStrokeColor(getResources().getColor(R.color.color_text));
+                layout_txt_confirmpass.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+                layout_txt_confirmpass.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
+                txt_confirmpass.setTextColor(getResources().getColor(R.color.textcolor));
+                layout_txt_confirmpass.setPasswordVisibilityToggleEnabled(true);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
     }
 
 

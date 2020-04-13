@@ -50,7 +50,7 @@ public class Retailer_Management_Dashboard_Adapter extends RecyclerView.Adapter<
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 
         holder.tv_heading.setText(retailerList.get(position).getCompanyName());
         holder.retailer_code_no.setText(retailerList.get(position).getRetailerCode());
@@ -80,7 +80,7 @@ public class Retailer_Management_Dashboard_Adapter extends RecyclerView.Adapter<
 
 
                                 FragmentTransaction fragmentTransaction= ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction.add(R.id.main_container,viewRetailer);
+                                fragmentTransaction.add(R.id.main_container,viewRetailer).addToBackStack("tag");
                                 fragmentTransaction.commit();
                                 break;
 
