@@ -388,6 +388,11 @@ public class DistributorDashboard extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
     private void printErrorMessage(VolleyError error) {
         if (error instanceof NetworkError) {
             Toast.makeText(DistributorDashboard.this, "Network Error !", Toast.LENGTH_LONG).show();
