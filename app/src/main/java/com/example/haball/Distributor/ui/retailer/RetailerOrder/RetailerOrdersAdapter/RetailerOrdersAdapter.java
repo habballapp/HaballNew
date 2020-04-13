@@ -19,6 +19,7 @@ import com.example.haball.R;
 import org.json.JSONException;
 
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -29,10 +30,12 @@ import androidx.recyclerview.widget.RecyclerView;
 public class RetailerOrdersAdapter extends RecyclerView.Adapter<RetailerOrdersAdapter.ViewHolder> {
     private Context context;
     private List<RetailerOrdersModel> OrdersList;
+    private HashMap<String, String> OrderStatusKVP;
 
-    public RetailerOrdersAdapter(Context context, List<RetailerOrdersModel> ordersList) {
+    public RetailerOrdersAdapter(Context context, List<RetailerOrdersModel> ordersList, HashMap<String, String> orderStatusKVP) {
         this.context = context;
         this.OrdersList = ordersList;
+        this.OrderStatusKVP = orderStatusKVP;
     }
 
     @NonNull
@@ -57,36 +60,32 @@ public class RetailerOrdersAdapter extends RecyclerView.Adapter<RetailerOrdersAd
 //        else{
 //            holder.tv_status.setText("Unpaid");
 //        }
-        holder.tv_status.setText(OrdersList.get(position).getOrderStatus());
+        holder.tv_status.setText(OrderStatusKVP.get(OrdersList.get(position).getOrderStatus()));
         final int finalPosition = position;
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final PopupMenu popup = new PopupMenu(context, view);
                 MenuInflater inflater = popup.getMenuInflater();
-                inflater.inflate(R.menu.payment_dashboard_menu, popup.getMenu());
+                if (OrderStatusKVP.get(OrdersList.get(position).getOrderStatus()).equals("Approved"))
+                    inflater.inflate(R.menu.dist_order_menu, popup.getMenu());
+                else if (OrderStatusKVP.get(OrdersList.get(position).getOrderStatus()).equals("Cancelled"))
+                    inflater.inflate(R.menu.cosolidate_payment_menu, popup.getMenu());
+                else if (OrderStatusKVP.get(OrdersList.get(position).getOrderStatus()).equals("Draft"))
+                    inflater.inflate(R.menu.dist_order_draft_menu, popup.getMenu());
+                else if (OrderStatusKVP.get(OrdersList.get(position).getOrderStatus()).equals("Pending"))
+                    inflater.inflate(R.menu.pending_order_menu, popup.getMenu());
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
+                            case R.id.consiladate_view:
                             case R.id.view_payment:
-//                                Toast.makeText(context, "View order - " + OrdersList.get(finalPosition).getOrderId(), Toast.LENGTH_LONG).show();
-//                                FragmentTransaction fragmentTransaction= ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
-//                                fragmentTransaction.add(R.id.main_container,new Distributor_Invoice_DashBoard());
-//                                fragmentTransaction.commit();
-//                                Toast.makeText(mContext,"Popup",Toast.LENGTH_LONG).show();
-                                FragmentTransaction fragmentTransaction= ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction.add(R.id.main_container,new RetailerViewOrder());
-                                fragmentTransaction.commit();
-                                SharedPreferences OrderId = ((FragmentActivity)context).getSharedPreferences("OrderId",
-                                        Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = OrderId.edit();
-                                editor.putString("OrderId", OrdersList.get(finalPosition).getOrderId());
-                                editor.putString("Status", OrdersList.get(finalPosition).getOrderStatus());
-                                editor.commit();
+                            case R.id.orders_view:
+                                viewOrder(position);
                                 break;
-
                             case R.id.view_payment_cancel:
+                            case R.id.orders_cancel:
                                 String orderID = OrdersList.get(position).getID();
                                 cancelOrder(context, OrdersList.get(position).getOrderId(), OrdersList.get(position).getOrderNumber());
 
@@ -102,7 +101,20 @@ public class RetailerOrdersAdapter extends RecyclerView.Adapter<RetailerOrdersAd
 
     }
 
-    private void cancelOrder(Context context, String ID, String OrderNumber){
+    private void viewOrder(int finalPosition) {
+        FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.main_container, new RetailerViewOrder());
+        fragmentTransaction.commit();
+        SharedPreferences OrderId = ((FragmentActivity) context).getSharedPreferences("OrderId",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = OrderId.edit();
+        editor.putString("OrderId", OrdersList.get(finalPosition).getOrderId());
+        editor.putString("Status", OrdersList.get(finalPosition).getOrderStatus());
+        editor.commit();
+
+    }
+
+    private void cancelOrder(Context context, String ID, String OrderNumber) {
 
         RetailerCancelOrder cancelOrder = new RetailerCancelOrder();
         try {
