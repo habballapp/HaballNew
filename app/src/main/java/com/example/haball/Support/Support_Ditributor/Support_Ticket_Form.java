@@ -79,6 +79,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_need__support);
+        getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(false);

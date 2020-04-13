@@ -3,6 +3,7 @@ package com.example.haball.Support.Support_Ditributor.Adapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,13 +21,32 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.support.DeleteSupport;
+import com.example.haball.Distributor.ui.support.MyJsonArrayRequest;
 import com.example.haball.R;
 import com.example.haball.Retailor.ui.Support.SupportFragment;
 import com.example.haball.Support.Support_Ditributor.Model.SupportDashboardModel;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
+import java.util.Iterator;
 import java.util.List;
 
 public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboardAdapter.ViewHolder> {
@@ -37,6 +57,7 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
     String dashboard, id, pending, createdDate;
     List<SupportDashboardModel> supportList;
     private FragmentTransaction fragmentTransaction;
+    private String URL_SUPPORT_VIEW = "http://175.107.203.97:4013/api/contact//";
 
     public SupportDashboardAdapter(Context context, List<SupportDashboardModel> supportList, RecyclerView recyclerView, RecyclerView.Adapter mAdapter) {
         this.mContxt = context;
@@ -69,39 +90,59 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.menu_view:
-
-                                TextView tv_username, et_email, et_phone, et_issue_type, et_criticality, et_preffered_contact, et_status, et_comments;
-                                Toast.makeText(mContxt, "View Clicked", Toast.LENGTH_LONG).show();
-                                final AlertDialog alertDialog = new AlertDialog.Builder(mContxt).create();
-                                LayoutInflater inflater = LayoutInflater.from(mContxt);
-                                View view_popup = inflater.inflate(R.layout.view_popup, null);
-                                alertDialog.setView(view_popup);
-
-                                tv_username = view_popup.findViewById(R.id.tv_username);
-                                et_email = view_popup.findViewById(R.id.et_email);
-                                et_phone = view_popup.findViewById(R.id.et_phone);
-                                et_issue_type = view_popup.findViewById(R.id.et_issue_type);
-                                et_criticality = view_popup.findViewById(R.id.et_criticality);
-                                et_preffered_contact = view_popup.findViewById(R.id.et_preffered_contact);
-                                et_status = view_popup.findViewById(R.id.et_status);
-                                et_comments = view_popup.findViewById(R.id.et_comments);
-
-                                tv_username.setText(supportList.get(position).getContactName());
-                                et_email.setText("Email Address: " + supportList.get(position).getEmail());
-                                et_phone.setText("Phone: " + supportList.get(position).getMobileNumber());
-                                et_issue_type.setText("Issue Type: " + supportList.get(position).getIssueType());
-                                et_criticality.setText("Criticality: " + supportList.get(position).getCriticality());
-                                et_preffered_contact.setText("Preferred Contact Method: " + supportList.get(position).getPreferredContactMethod());
-                                et_status.setText("Status: " + supportList.get(position).getStatus());
-                                et_comments.setText("Message: " + supportList.get(position).getDescription());
-                                ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
-                                img_email.setOnClickListener(new View.OnClickListener() {
+                                if (!URL_SUPPORT_VIEW.contains("//" + supportList.get(position).getId()))
+                                    URL_SUPPORT_VIEW = URL_SUPPORT_VIEW + supportList.get(position).getId();
+                                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_SUPPORT_VIEW, null, new Response.Listener<JSONObject>() {
                                     @Override
-                                    public void onClick(View v) {
-                                        alertDialog.dismiss();
+                                    public void onResponse(JSONObject response) {
+                                        TextView tv_username, et_email, et_phone, et_issue_type, et_criticality, et_preffered_contact, et_status, et_comments;
+//                                        Toast.makeText(mContxt, "View Clicked", Toast.LENGTH_LONG).show();
+                                        final AlertDialog alertDialog = new AlertDialog.Builder(mContxt).create();
+                                        LayoutInflater inflater = LayoutInflater.from(mContxt);
+                                        View view_popup = inflater.inflate(R.layout.view_popup, null);
+                                        alertDialog.setView(view_popup);
+
+                                        tv_username = view_popup.findViewById(R.id.tv_username);
+                                        et_email = view_popup.findViewById(R.id.et_email);
+                                        et_phone = view_popup.findViewById(R.id.et_phone);
+                                        et_issue_type = view_popup.findViewById(R.id.et_issue_type);
+                                        et_criticality = view_popup.findViewById(R.id.et_criticality);
+                                        et_preffered_contact = view_popup.findViewById(R.id.et_preffered_contact);
+                                        et_status = view_popup.findViewById(R.id.et_status);
+                                        et_comments = view_popup.findViewById(R.id.et_comments);
+
+                                        try {
+                                            tv_username.setText(String.valueOf(response.get("ContactName")));
+                                            et_email.setText("Email Address: " + String.valueOf(response.get("Email")));
+                                            et_phone.setText("Phone: " + String.valueOf(response.get("MobileNumber")));
+                                            et_issue_type.setText("Issue Type: " + String.valueOf(response.get("IssueType")));
+                                            et_criticality.setText("Criticality: " + String.valueOf(response.get("Criticality")));
+                                            et_preffered_contact.setText("Preferred Contact Method: " + String.valueOf(response.get("PreferredContactMethod")));
+                                            et_status.setText("Status: " + supportList.get(position).getStatus());
+                                            et_comments.setText("Message: " + String.valueOf(response.get("Description")));
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+                                        img_email.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                alertDialog.dismiss();
+                                            }
+                                        });
+                                        alertDialog.show();
+
+                                    }
+                                }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        printErrorMessage(error);
+
+                                        error.printStackTrace();
+                                        Log.i("onErrorResponse", "Error");
                                     }
                                 });
-                                alertDialog.show();
+                                Volley.newRequestQueue(mContxt).add(request);
                                 break;
 //                            case R.id.menu_edit:
 //                                //handle menu2 click
@@ -169,7 +210,8 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
         DeleteSupport deleteSupport = new DeleteSupport();
         String response = deleteSupport.DeleteSupportTicket(mContxt, ID);
         fragmentTransaction = ((FragmentActivity) mContxt).getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_container_ret, new SupportFragment()).addToBackStack(null);;
+        fragmentTransaction.replace(R.id.main_container_ret, new SupportFragment()).addToBackStack(null);
+        ;
         fragmentTransaction.commit();
 
     }
@@ -191,5 +233,45 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
             created_date_value = itemView.findViewById(R.id.created_date_value);
             menu_btn = itemView.findViewById(R.id.menu_btn);
         }
+    }
+
+
+    private void printErrorMessage(VolleyError error) {
+        if (mContxt != null) {
+            if (error instanceof NetworkError) {
+                Toast.makeText(mContxt, "Network Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ServerError) {
+                Toast.makeText(mContxt, "Server Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof AuthFailureError) {
+                Toast.makeText(mContxt, "Auth Failure Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ParseError) {
+                Toast.makeText(mContxt, "Parse Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof NoConnectionError) {
+                Toast.makeText(mContxt, "No Connection Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof TimeoutError) {
+                Toast.makeText(mContxt, "Timeout Error !", Toast.LENGTH_LONG).show();
+            }
+
+            if (error.networkResponse != null && error.networkResponse.data != null) {
+                try {
+                    String message = "";
+                    String responseBody = new String(error.networkResponse.data, "utf-8");
+                    Log.i("responseBody", responseBody);
+                    JSONObject data = new JSONObject(responseBody);
+                    Log.i("data", String.valueOf(data));
+                    Iterator<String> keys = data.keys();
+                    while (keys.hasNext()) {
+                        String key = keys.next();
+                        message = message + data.get(key) + "\n";
+                    }
+                    Toast.makeText(mContxt, message, Toast.LENGTH_LONG).show();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
     }
 }

@@ -430,27 +430,27 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             }
         });
 
-        btn_load_more = root.findViewById(R.id.btn_load_more);
+//        btn_load_more = root.findViewById(R.id.btn_load_more);
         rv_filter = root.findViewById(R.id.spinner_container_main);
         line_bottom = root.findViewById(R.id.line_bottom);
 
         SpannableString content = new SpannableString("Load More");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-        btn_load_more.setText(content);
-        btn_load_more.setVisibility(View.GONE);
+//        btn_load_more.setText(content);
+//        btn_load_more.setVisibility(View.GONE);
 
-
-        btn_load_more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pageNumber++;
-                try {
-                    performPaginationPayment();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+//
+//        btn_load_more.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                pageNumber++;
+//                try {
+//                    performPaginationPayment();
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
 
 
         recyclerViewPayment.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -512,7 +512,13 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
                     if (totalPages != 0 && pageNumber < totalPages) {
 //                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
-                        btn_load_more.setVisibility(View.VISIBLE);
+//                        btn_load_more.setVisibility(View.VISIBLE);
+                        pageNumber++;
+                        try {
+                            performPaginationPayment();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -620,6 +626,9 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @Override
             public void onResponse(JSONObject result) {
                 try {
+                    totalEntries = Double.parseDouble(String.valueOf(result.get("RecordCount")));
+                    totalPages = Math.ceil(totalEntries / 10);
+
 //                    System.out.println("RESPONSE PAYMENTS" + result.getJSONArray("PrePaidRequestData"));
                     Gson gson = new Gson();
                     Type type = new TypeToken<List<RetailerPaymentModel>>() {
@@ -742,33 +751,33 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         DistributorId = sharedPreferences.getString("Distributor_Id", "");
 //        Log.i("Token", Token);
         JSONObject map = new JSONObject();
-        map.put("Status", -1);
-        map.put("OrderState", -1);
-        map.put("DistributorId", DistributorId);
         map.put("TotalRecords", 10);
-        map.put("PageNumber", pageNumberOrder);
-
+        map.put("PageNumber", pageNumber);
+        Log.i("mapRetailerPayment", String.valueOf(map));
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
                 try {
-                    btn_load_more.setVisibility(View.GONE);
                     Gson gson = new Gson();
                     Type type = new TypeToken<List<RetailerPaymentModel>>() {
                     }.getType();
-                    PaymentsList = gson.fromJson(result.getJSONArray("PrePaidRequestData").toString(), type);
-                    Log.i("PaymentsList", String.valueOf(PaymentsList));
-
-                    mAdapter = new RetailerPaymentAdapter(getContext(), PaymentsList);
-                    Log.i("mAdapter", String.valueOf(mAdapter));
-                    recyclerViewPayment.setAdapter(mAdapter);
+//                    PaymentsList = gson.fromJson(result.getJSONArray("PrePaidRequestData").toString(), type);
+//                    Log.i("PaymentsList", String.valueOf(PaymentsList));
+//
+//                    mAdapter = new RetailerPaymentAdapter(getContext(), PaymentsList);
+//                    Log.i("mAdapter", String.valueOf(mAdapter));
+//                    recyclerViewPayment.setAdapter(mAdapter);
+                    List<RetailerPaymentModel> PaymentsList_temp = new ArrayList<>();
+                    PaymentsList_temp = gson.fromJson(result.getJSONArray("PrePaidRequestData").toString(), type);
+                    PaymentsList.addAll(PaymentsList_temp);
+                    mAdapter.notifyDataSetChanged();
+                    if (PaymentsList.size() != 0)
+                        tv_shipment_no_data1.setVisibility(View.GONE);
+                    else
+                        tv_shipment_no_data1.setVisibility(View.VISIBLE);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                if (PaymentsList.size() != 0)
-                    tv_shipment_no_data1.setVisibility(View.GONE);
-                else
-                    tv_shipment_no_data1.setVisibility(View.VISIBLE);
 
             }
         }, new Response.ErrorListener() {
@@ -842,22 +851,26 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         DistributorId = sharedPreferences.getString("Distributor_Id", "");
 //        Log.i("Token", Token);
         JSONObject map = new JSONObject();
-        map.put("Status", -1);
-        map.put("OrderState", -1);
-        map.put("DistributorId", DistributorId);
         map.put("TotalRecords", 10);
         map.put("PageNumber", pageNumberOrder);
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
-                btn_load_more.setVisibility(View.GONE);
-                Gson gson = new Gson();
-                Type type = new TypeToken<List<DistributorOrdersModel>>() {
-                }.getType();
-                OrdersList = gson.fromJson(result.toString(), type);
-                ((DistributorOrdersAdapter) recyclerView.getAdapter()).addListItem(OrdersList);
-
+//                btn_load_more.setVisibility(View.GONE);
+                try {
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<DistributorOrdersModel>>() {
+                    }.getType();
+//                OrdersList = gson.fromJson(result.toString(), type);
+//                ((DistributorOrdersAdapter) recyclerView.getAdapter()).addListItem(OrdersList);
+                    List<DistributorOrdersModel> OrdersList_temp = new ArrayList<>();
+                    OrdersList_temp = gson.fromJson(result.get(0).toString(), type);
+                    OrdersList.addAll(OrdersList_temp);
+                    OrdersAdapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -1081,27 +1094,27 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             }
         });
 
-        btn_load_more = root.findViewById(R.id.btn_load_more);
+//        btn_load_more = root.findViewById(R.id.btn_load_more);
         rv_filter = root.findViewById(R.id.spinner_container_main);
         line_bottom = root.findViewById(R.id.line_bottom);
 
         SpannableString content = new SpannableString("Load More");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-        btn_load_more.setText(content);
-        btn_load_more.setVisibility(View.GONE);
+//        btn_load_more.setText(content);
+//        btn_load_more.setVisibility(View.GONE);
 
 
-        btn_load_more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pageNumber++;
-                try {
-                    performPaginationOrder();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+//        btn_load_more.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                pageNumber++;
+//                try {
+//                    performPaginationOrder();
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
 
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -1161,9 +1174,15 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 int totalItemCount = layoutManager.getItemCount();
                 int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
                 if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
-                    if (totalPages != 0 && pageNumber < totalPages) {
+                    if (totalPagesOrder != 0 && pageNumberOrder < totalPagesOrder) {
 //                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
-                        btn_load_more.setVisibility(View.VISIBLE);
+//                        btn_load_more.setVisibility(View.VISIBLE);
+                        pageNumberOrder++;
+                        try {
+                            performPaginationOrder();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }

@@ -1,32 +1,50 @@
 package com.example.haball.Retailor.ui.Support;
 
-        import android.app.Activity;
-        import android.app.AlertDialog;
-        import android.content.Context;
-        import android.view.LayoutInflater;
-        import android.view.MenuInflater;
-        import android.view.MenuItem;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.Button;
-        import android.widget.EditText;
-        import android.widget.ImageButton;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import androidx.annotation.NonNull;
-        import androidx.appcompat.widget.PopupMenu;
-        import androidx.fragment.app.FragmentActivity;
-        import androidx.fragment.app.FragmentTransaction;
-        import androidx.recyclerview.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
-        import com.example.haball.Distributor.ui.support.DeleteSupport;
-        import com.example.haball.R;
-        import com.example.haball.Retailor.ui.Support.SupportDashboardRetailerModel;
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.haball.Distributor.ui.support.DeleteSupport;
+import com.example.haball.R;
+import com.example.haball.Retailor.ui.Support.SupportDashboardRetailerModel;
 
-        import org.json.JSONException;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-        import java.util.List;
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class SupportDashboardRetailerAdapter extends RecyclerView.Adapter<SupportDashboardRetailerAdapter.ViewHolder> {
     private RecyclerView recyclerView;
@@ -36,6 +54,7 @@ public class SupportDashboardRetailerAdapter extends RecyclerView.Adapter<Suppor
     String dashboard, id, pending, createdDate;
     List<SupportDashboardRetailerModel> supportList;
     private FragmentTransaction fragmentTransaction;
+    private String URL_SUPPORT_VIEW = "http://175.107.203.97:4014/api/support/TicketById/";
 
     public SupportDashboardRetailerAdapter(Activity activity, Context applicationContext, String dashboard, String id, String pending, String createdDate) {
 //        this.mContxt = applicationContext;
@@ -54,7 +73,7 @@ public class SupportDashboardRetailerAdapter extends RecyclerView.Adapter<Suppor
 
     @Override
     public SupportDashboardRetailerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view_inflate = LayoutInflater.from(mContxt).inflate(R.layout.layout_support_rv,parent,false);
+        View view_inflate = LayoutInflater.from(mContxt).inflate(R.layout.layout_support_rv, parent, false);
         return new SupportDashboardRetailerAdapter.ViewHolder(view_inflate);
     }
 
@@ -76,39 +95,7 @@ public class SupportDashboardRetailerAdapter extends RecyclerView.Adapter<Suppor
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.menu_view:
-
-                                TextView tv_username, et_email, et_phone, et_issue_type, et_criticality, et_preffered_contact, et_status, et_comments;
-                                Toast.makeText(mContxt,"View Clicked",Toast.LENGTH_LONG).show();
-                                final AlertDialog alertDialog = new AlertDialog.Builder(mContxt).create();
-                                LayoutInflater inflater = LayoutInflater.from(mContxt);
-                                View view_popup = inflater.inflate(R.layout.view_popup, null);
-                                alertDialog.setView(view_popup);
-
-                                tv_username = view_popup.findViewById(R.id.tv_username);
-                                et_email = view_popup.findViewById(R.id.et_email);
-                                et_phone = view_popup.findViewById(R.id.et_phone);
-                                et_issue_type = view_popup.findViewById(R.id.et_issue_type);
-                                et_criticality = view_popup.findViewById(R.id.et_criticality);
-                                et_preffered_contact = view_popup.findViewById(R.id.et_preffered_contact);
-                                et_status = view_popup.findViewById(R.id.et_status);
-                                et_comments = view_popup.findViewById(R.id.et_comments);
-
-                                tv_username.setText(supportList.get(position).getBusinessName());
-                                et_email.setText("Email Address: "+supportList.get(position).getEmailAddress());
-                                et_phone.setText("Phone: "+supportList.get(position).getMobileNo());
-                                et_issue_type.setText("Issue Type: "+supportList.get(position).getIssueType());
-                                et_criticality.setText("Criticality: "+supportList.get(position).getCriticality());
-                                et_preffered_contact.setText("Preferred Contact Method: "+supportList.get(position).getContactMethod());
-                                et_status.setText("Status: "+supportList.get(position).getStatus());
-                                et_comments.setText("Message: "+supportList.get(position).getComment());
-                                ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
-                                img_email.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        alertDialog.dismiss();
-                                    }
-                                });
-                                alertDialog.show();
+                                supportView(position);
                                 break;
 //                            case R.id.menu_edit:
 //                                //handle menu2 click
@@ -167,6 +154,77 @@ public class SupportDashboardRetailerAdapter extends RecyclerView.Adapter<Suppor
         });
     }
 
+    private void supportView(final int position) {
+        SharedPreferences sharedPreferences = mContxt.getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        final String Token = sharedPreferences.getString("Login_Token", "");
+        Log.i("Token  ", Token);
+
+
+        if (!URL_SUPPORT_VIEW.contains("/" + supportList.get(position).getID()))
+            URL_SUPPORT_VIEW = URL_SUPPORT_VIEW + supportList.get(position).getID();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_SUPPORT_VIEW, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                TextView tv_username, et_email, et_phone, et_issue_type, et_criticality, et_preffered_contact, et_status, et_comments;
+//                                        Toast.makeText(mContxt, "View Clicked", Toast.LENGTH_LONG).show();
+                final AlertDialog alertDialog = new AlertDialog.Builder(mContxt).create();
+                LayoutInflater inflater = LayoutInflater.from(mContxt);
+                View view_popup = inflater.inflate(R.layout.view_popup, null);
+                alertDialog.setView(view_popup);
+
+                tv_username = view_popup.findViewById(R.id.tv_username);
+                et_email = view_popup.findViewById(R.id.et_email);
+                et_phone = view_popup.findViewById(R.id.et_phone);
+                et_issue_type = view_popup.findViewById(R.id.et_issue_type);
+                et_criticality = view_popup.findViewById(R.id.et_criticality);
+                et_preffered_contact = view_popup.findViewById(R.id.et_preffered_contact);
+                et_status = view_popup.findViewById(R.id.et_status);
+                et_comments = view_popup.findViewById(R.id.et_comments);
+
+                try {
+                    tv_username.setText(String.valueOf(response.get("ContactName")));
+                    et_email.setText("Email Address: " + String.valueOf(response.get("Email")));
+                    et_phone.setText("Phone: " + String.valueOf(response.get("MobileNumber")));
+                    et_issue_type.setText("Issue Type: " + String.valueOf(response.get("IssueType")));
+                    et_criticality.setText("Criticality: " + String.valueOf(response.get("Criticality")));
+                    et_preffered_contact.setText("Preferred Contact Method: " + String.valueOf(response.get("PreferredContactMethod")));
+                    et_status.setText("Status: " + supportList.get(position).getStatus());
+                    et_comments.setText("Message: " + String.valueOf(response.get("Description")));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+                img_email.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+                alertDialog.show();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+
+                error.printStackTrace();
+                Log.i("onErrorResponse", "Error");
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                params.put("Content-Type", "application/json");
+
+                return params;
+            }
+        };
+        Volley.newRequestQueue(mContxt).add(request);
+    }
+
     private void DeleteSupportTicket(String ID) throws JSONException {
         DeleteSupportTicket deleteSupport = new DeleteSupportTicket();
         String response = deleteSupport.DeleteSupportTicket(mContxt, ID);
@@ -181,9 +239,10 @@ public class SupportDashboardRetailerAdapter extends RecyclerView.Adapter<Suppor
         return supportList.size();
     }
 
-    public class ViewHolder  extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView heading, ticket_id_value, status_value, created_date_value;
         public ImageButton menu_btn;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             heading = itemView.findViewById(R.id.heading);
@@ -192,5 +251,45 @@ public class SupportDashboardRetailerAdapter extends RecyclerView.Adapter<Suppor
             created_date_value = itemView.findViewById(R.id.created_date_value);
             menu_btn = itemView.findViewById(R.id.menu_btn);
         }
+    }
+
+
+    private void printErrorMessage(VolleyError error) {
+        if (mContxt != null) {
+            if (error instanceof NetworkError) {
+                Toast.makeText(mContxt, "Network Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ServerError) {
+                Toast.makeText(mContxt, "Server Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof AuthFailureError) {
+                Toast.makeText(mContxt, "Auth Failure Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ParseError) {
+                Toast.makeText(mContxt, "Parse Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof NoConnectionError) {
+                Toast.makeText(mContxt, "No Connection Error !", Toast.LENGTH_LONG).show();
+            } else if (error instanceof TimeoutError) {
+                Toast.makeText(mContxt, "Timeout Error !", Toast.LENGTH_LONG).show();
+            }
+
+            if (error.networkResponse != null && error.networkResponse.data != null) {
+                try {
+                    String message = "";
+                    String responseBody = new String(error.networkResponse.data, "utf-8");
+                    Log.i("responseBody", responseBody);
+                    JSONObject data = new JSONObject(responseBody);
+                    Log.i("data", String.valueOf(data));
+                    Iterator<String> keys = data.keys();
+                    while (keys.hasNext()) {
+                        String key = keys.next();
+                        message = message + data.get(key) + "\n";
+                    }
+                    Toast.makeText(mContxt, message, Toast.LENGTH_LONG).show();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
     }
 }

@@ -69,20 +69,20 @@ public class PlaceholderFragment extends Fragment {
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt( ARG_SECTION_NUMBER, index );
-        fragment.setArguments( bundle );
+        bundle.putInt(ARG_SECTION_NUMBER, index);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate( savedInstanceState );
-        pageViewModel = ViewModelProviders.of( this ).get( PageViewModel.class );
+        super.onCreate(savedInstanceState);
+        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
         int index = 1;
         if (getArguments() != null) {
-            index = getArguments().getInt( ARG_SECTION_NUMBER );
+            index = getArguments().getInt(ARG_SECTION_NUMBER);
         }
-        pageViewModel.setIndex( index );
+        pageViewModel.setIndex(index);
     }
 
     @Override
@@ -115,7 +115,7 @@ public class PlaceholderFragment extends Fragment {
                         if (event.getAction() == MotionEvent.ACTION_UP) {
                             if (event.getRawX() >= (Remail.getRight() - Remail.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                                 // your action here
-                                Remail.setInputType( InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                                Remail.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
                                 Remail.requestFocus();
                                 Remail.setFocusable(true);
                                 Remail.setFocusableInTouchMode(true);
@@ -199,7 +199,7 @@ public class PlaceholderFragment extends Fragment {
                 txt_newpassword = root.findViewById(R.id.txt_newpassword);
                 txt_cfmpassword = root.findViewById(R.id.txt_cfmpassword);
 
-            update_password = root.findViewById(R.id.update_password);
+                update_password = root.findViewById(R.id.update_password);
                 update_password.setEnabled(false);
                 update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
                 update_password.setOnClickListener(new View.OnClickListener() {
@@ -242,14 +242,13 @@ public class PlaceholderFragment extends Fragment {
             }
 
 
-
-
-                break;
-            }
+            break;
+        }
 
 
         return root;
     }
+
     private void checkFieldsForEmptyValues() {
         String password = txt_password.getText().toString();
         String newPass = txt_newpassword.getText().toString();
@@ -488,7 +487,7 @@ public class PlaceholderFragment extends Fragment {
         Log.i("RetailerId ", RetailerId);
         PROFILE_URL = PROFILE_URL + RetailerId;
         Log.i("Token Retailer ", Token);
-        JsonObjectRequest sr = new JsonObjectRequest( Request.Method.GET, PROFILE_URL, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, PROFILE_URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
                 try {

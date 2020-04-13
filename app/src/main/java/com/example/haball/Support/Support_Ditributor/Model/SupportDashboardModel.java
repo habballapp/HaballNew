@@ -1,7 +1,53 @@
 package com.example.haball.Support.Support_Ditributor.Model;
 
 public class SupportDashboardModel {
-    String Id, IssueType, Status, CreatedDate, Criticality, PreferredContactMethod, Description, ContactName, Email, MobileNumber;
+    String Id;
+    String IssueType;
+    String Criticality;
+    String PreferredContactMethod;
+    String Description;
+    String ContactName;
+    String Email;
+    String MobileNumber;
+    String Status;
+    String DistributorId;
+    String CreatedBy;
+    String CreatedDate;
+    String LastChangedBy;
+    String LastChangedDate;
+
+    public SupportDashboardModel(String id, String issueType, String criticality, String preferredContactMethod, String description, String contactName, String email, String mobileNumber, String status, String distributorId, String createdBy, String createdDate, String lastChangedBy, String lastChangedDate) {
+        Id = id;
+        IssueType = issueType;
+        Criticality = criticality;
+        PreferredContactMethod = preferredContactMethod;
+        Description = description;
+        ContactName = contactName;
+        Email = email;
+        MobileNumber = mobileNumber;
+        Status = status;
+        DistributorId = distributorId;
+        CreatedBy = createdBy;
+        CreatedDate = createdDate;
+        LastChangedBy = lastChangedBy;
+        LastChangedDate = lastChangedDate;
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
+    }
+
+    public String getIssueType() {
+        return IssueType;
+    }
+
+    public void setIssueType(String issueType) {
+        IssueType = issueType;
+    }
 
     public String getCriticality() {
         return Criticality;
@@ -51,35 +97,6 @@ public class SupportDashboardModel {
         MobileNumber = mobileNumber;
     }
 
-    public SupportDashboardModel(String id, String issueType, String status, String createdDate, String criticality, String preferredContactMethod, String description, String contactName, String email, String mobileNumber) {
-        Id = id;
-        IssueType = issueType;
-        Status = status;
-        CreatedDate = createdDate;
-        Criticality = criticality;
-        PreferredContactMethod = preferredContactMethod;
-        Description = description;
-        ContactName = contactName;
-        Email = email;
-        MobileNumber = mobileNumber;
-    }
-
-    public String getId() {
-        return Id;
-    }
-
-    public void setId(String id) {
-        Id = id;
-    }
-
-    public String getIssueType() {
-        return IssueType;
-    }
-
-    public void setIssueType(String issueType) {
-        IssueType = issueType;
-    }
-
     public String getStatus() {
         return Status;
     }
@@ -88,11 +105,43 @@ public class SupportDashboardModel {
         Status = status;
     }
 
+    public String getDistributorId() {
+        return DistributorId;
+    }
+
+    public void setDistributorId(String distributorId) {
+        DistributorId = distributorId;
+    }
+
+    public String getCreatedBy() {
+        return CreatedBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        CreatedBy = createdBy;
+    }
+
     public String getCreatedDate() {
         return CreatedDate;
     }
 
-    public void setCreatedDate(String cretaedDate) {
-        CreatedDate = cretaedDate;
+    public void setCreatedDate(String createdDate) {
+        CreatedDate = createdDate;
+    }
+
+    public String getLastChangedBy() {
+        return LastChangedBy;
+    }
+
+    public void setLastChangedBy(String lastChangedBy) {
+        LastChangedBy = lastChangedBy;
+    }
+
+    public String getLastChangedDate() {
+        return LastChangedDate;
+    }
+
+    public void setLastChangedDate(String lastChangedDate) {
+        LastChangedDate = lastChangedDate;
     }
 }

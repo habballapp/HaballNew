@@ -46,6 +46,10 @@
         <item name="android:textColorHint">#ffff0000</item>
         <item name="android:textSize">18sp</item>
         <item name="colorAccent">#ffff0000</item>
+        <item name="colorControlActivated">#ffff0000</item>
+        <item name="boxStrokeColor">#ffff0000</item>
+        <item name="colorPrimary">#ffff0000</item>
+        <item name="boxStrokeWidth">2.5dp</item>
     </style>
 
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
