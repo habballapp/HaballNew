@@ -289,7 +289,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
 //                    Log.i("Filter_selected_value", Filter_selected_value);
                     if (!Filter_selected_value.equals("")) {
                         try {
-                            fetchRetailerOrdersData();
+                            fetchFilteredOrderData();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -451,15 +451,6 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         jsonObject.put("DistributorId", DistributorId);
         jsonObject.put("TotalRecords", 10);
         jsonObject.put("PageNumber", 0);
-        if (Filter_selected.equals("date")) {
-            jsonObject.put(Filter_selected1, fromDate);
-            jsonObject.put(Filter_selected2, toDate);
-        } else if (Filter_selected.equals("amount")) {
-            jsonObject.put(Filter_selected1, fromAmount);
-            jsonObject.put(Filter_selected2, toAmount);
-        } else {
-            jsonObject.put(Filter_selected, Filter_selected_value);
-        }
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_FETCH_ORDERS, jsonObject, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -540,6 +531,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         } else {
             jsonObject.put(Filter_selected, Filter_selected_value);
         }
+
         Log.i("map", String.valueOf(jsonObject));
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_FETCH_ORDERS, jsonObject, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
