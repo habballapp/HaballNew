@@ -318,6 +318,7 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
                 layout_txt_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
                 layout_txt_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
                 txt_password.setTextColor(getResources().getColor(R.color.textcolor));
+                layout_txt_password.setPasswordVisibilityToggleEnabled(true);
             }
 
             @Override
@@ -357,6 +358,7 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
                 layout_txt_confirmpass.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
                 layout_txt_confirmpass.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
                 txt_confirmpass.setTextColor(getResources().getColor(R.color.textcolor));
+                layout_txt_confirmpass.setPasswordVisibilityToggleEnabled(true);
             }
 
             @Override
