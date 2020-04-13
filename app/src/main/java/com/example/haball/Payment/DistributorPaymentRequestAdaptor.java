@@ -94,18 +94,6 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
                                 case R.id.payment_request_view:
-
-//                                    Toast.makeText(context,"View Clicked - " + paymentsRequestList.get(position).getID(),Toast.LENGTH_LONG).show();
-//                                fragmentTransaction = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
-//                                fragmentTransaction.replace(R.id.main_container, new View_Payment_Fragment());
-//                                fragmentTransaction.commit();
-
-                                    View_Payment_Fragment view_Payment_Fragment = new View_Payment_Fragment();
-//                                    Log.i("paymentsRequestList", paymentsRequestList.get(position).getID());
-//                                    Bundle args = new Bundle();
-//                                    args.putString("PaymentsRequestId", paymentsRequestList.get(position).getID());
-//                                    view_Payment_Fragment.setArguments(args);
-
                                     SharedPreferences paymentsRequestListID = ((FragmentActivity) context).getSharedPreferences("paymentsRequestListID",
                                             Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor = paymentsRequestListID.edit();

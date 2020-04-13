@@ -7,17 +7,19 @@ public class Dist_Retailer_Dashboard_Model {
     private String RetailerInvoiceId;
     private String InvoiceStatusValue;
     private String IsEditable;
+    String PrepaidStatusValue;
 
     public Dist_Retailer_Dashboard_Model() {
     }
 
-    public Dist_Retailer_Dashboard_Model(String invoiceNumber, String companyName, String totalPrice, String retailerInvoiceId, String invoiceStatusValue, String isEditable) {
+    public Dist_Retailer_Dashboard_Model(String invoiceNumber, String companyName, String totalPrice, String retailerInvoiceId, String invoiceStatusValue, String isEditable, String prepaidStatusValue) {
         InvoiceNumber = invoiceNumber;
         CompanyName = companyName;
         TotalPrice = totalPrice;
         RetailerInvoiceId = retailerInvoiceId;
         InvoiceStatusValue = invoiceStatusValue;
         IsEditable = isEditable;
+        PrepaidStatusValue = prepaidStatusValue;
     }
 
     public String getInvoiceNumber() {
@@ -66,5 +68,13 @@ public class Dist_Retailer_Dashboard_Model {
 
     public void setIsEditable(String isEditable) {
         IsEditable = isEditable;
+    }
+
+    public String getPrepaidStatusValue() {
+        return PrepaidStatusValue;
+    }
+
+    public void setPrepaidStatusValue(String prepaidStatusValue) {
+        PrepaidStatusValue = prepaidStatusValue;
     }
 }
