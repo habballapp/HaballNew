@@ -44,6 +44,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Distributor.StatusKVP;
 import com.example.haball.Distributor.ui.orders.Adapter.CompanyFragmentAdapter;
 import com.example.haball.Distributor.ui.orders.Models.Company_Fragment_Model;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
@@ -114,6 +115,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
     private static int y;
     private List<String> scrollEvent = new ArrayList<>();
     private RelativeLayout spinner_container_main;
+    private HashMap<String, String> OrderStatusKVP;
 
     public RetailerOrderDashboard() {
     }
@@ -121,6 +123,14 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+        Log.i("Token", Token);
+
+        StatusKVP statusKVP = new StatusKVP(getContext(), Token);
+        OrderStatusKVP = statusKVP.getOrderStatus();
+
         final View root = inflater.inflate(R.layout.fragment_retailer_order_dashboard, container, false);
         recyclerView = root.findViewById(R.id.rv_retailer_order_dashboard);
         btn_place_order = root.findViewById(R.id.btn_place_order);
@@ -247,25 +257,39 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         spinner_consolidate.setAdapter(arrayAdapterPayments);
 
         filters.add("Status");
-        filters.add("Pending");
-        filters.add("Approved");
-        filters.add("Rejected");
-        filters.add("Draft");
-        filters.add("Cancelled");
+//        filters.addAll(OrderStatusKVP.values());
+//        filters.add("Pending");
+//        filters.add("Approved");
+//        filters.add("Rejected");
+//        filters.add("Draft");
+//        filters.add("Cancelled");
         arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, filters);
+        spinner2.setAdapter(arrayAdapterFeltter);
         Log.i("aaaa1111", String.valueOf(consolidate_felter));
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    if (((TextView) adapterView.getChildAt(0)) != null)
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                 } else {
-                    Filter_selected_value = String.valueOf(i - 1);
-                    Log.i("Filter_selected_value", Filter_selected_value);
+//                    Filter_selected_value = String.valueOf(i - 1);
+//                    Log.i("Filter_selected_value", Filter_selected_value);
+
+                    for (Map.Entry<String, String> entry : OrderStatusKVP.entrySet()) {
+                        if(entry.getValue().equals(filters.get(i)))
+                            Filter_selected_value = entry.getKey();
+                    }
+
+//                    Filter_selected_value = OrderStatusKVP.get(filters.get(i));
+//                    Log.i("Filter_selected_value", filters.get(i));
+//                    Log.i("Filter_selected_value", String.valueOf(OrderStatusKVP.containsValue(filters.get(i))));
+//                    Log.i("Filter_selected_value", OrderStatusKVP.get(filters.get(i)));
+//                    Log.i("Filter_selected_value", Filter_selected_value);
                     if (!Filter_selected_value.equals("")) {
                         try {
-                            fetchRetailerOrdersData();
+                            fetchFilteredOrderData();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -280,7 +304,6 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
             }
         });
         arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner2.setAdapter(arrayAdapterFeltter);
 
         conso_edittext.addTextChangedListener(new TextWatcher() {
 
@@ -434,6 +457,11 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
             @Override
             public void onResponse(JSONObject result) {
                 try {
+                    if (filters.size() == 1) {
+                        filters.addAll(OrderStatusKVP.values());
+                        arrayAdapterFeltter.notifyDataSetChanged();
+                    }
+
                     Log.i("ORDERS DATA - ", result.toString());
                     Gson gson = new Gson();
                     Type type = new TypeToken<List<RetailerOrdersModel>>() {
@@ -441,7 +469,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                     OrdersList = gson.fromJson(result.get("Data").toString(), type);
                     tv_shipment_no_data.setVisibility(View.GONE);
                     Log.i("OrdersList", String.valueOf(OrdersList));
-                    mAdapter = new RetailerOrdersAdapter(getContext(), OrdersList);
+                    mAdapter = new RetailerOrdersAdapter(getContext(), OrdersList, OrderStatusKVP);
                     recyclerView.setAdapter(mAdapter);
                     if (OrdersList.size() != 0) {
                         tv_shipment_no_data.setVisibility(View.GONE);
@@ -503,6 +531,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         } else {
             jsonObject.put(Filter_selected, Filter_selected_value);
         }
+
         Log.i("map", String.valueOf(jsonObject));
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_FETCH_ORDERS, jsonObject, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -516,7 +545,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                     OrdersList = gson.fromJson(result.get("Data").toString(), type);
                     tv_shipment_no_data.setVisibility(View.GONE);
                     Log.i("OrdersList", String.valueOf(OrdersList));
-                    mAdapter = new RetailerOrdersAdapter(getContext(), OrdersList);
+                    mAdapter = new RetailerOrdersAdapter(getContext(), OrdersList, OrderStatusKVP);
                     recyclerView.setAdapter(mAdapter);
                 } catch (JSONException e) {
                     e.printStackTrace();

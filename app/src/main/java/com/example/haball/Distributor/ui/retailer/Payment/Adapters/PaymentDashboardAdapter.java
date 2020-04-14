@@ -68,7 +68,6 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
                                 case R.id.view_payment:
-//
                                     FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
                                     fragmentTransaction.add(R.id.main_container, new RetailerPaymentView()).addToBackStack("Tag");
                                     fragmentTransaction.commit();
@@ -82,7 +81,7 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
 
                                     break;
                                 case R.id.view_payment_cancel:
-                                    Toast.makeText(context, "getCanc", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Cancel button pressed", Toast.LENGTH_SHORT).show();
                             }
                             return false;
                         }

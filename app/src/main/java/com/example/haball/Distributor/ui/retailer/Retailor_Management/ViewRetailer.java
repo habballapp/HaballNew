@@ -50,8 +50,9 @@ import java.util.Map;
  */
 public class ViewRetailer extends Fragment {
     private String RetailerId;
-    private TextInputEditText mg_rt_code, mg_rt_firstname, mg_rt_email, mg_cnic_no, mg_mobile_no, mg_rt_company, mg_tr_address;
+    private TextInputEditText mg_rt_code, mg_rt_firstname, mg_rt_email, mg_cnic_no, mg_mobile_no, mg_rt_company, mg_tr_address, mg_rt_sapcode;
     private String URL_RETAILER_DETAILS = "http://175.107.203.97:4013/api/retailer/";
+    private String URL_UPDATE_RETAILER = "http://175.107.203.97:4013/api/retailer/RetailerUpdate";
     private String Token, DistributorId;
     private CheckBox check_box;
     private Button btn_close ,btn_save;
@@ -78,8 +79,10 @@ public class ViewRetailer extends Fragment {
         check_box = root.findViewById(R.id.check_box);
         mg_rt_company = root.findViewById(R.id.mg_rt_company);
         mg_tr_address = root.findViewById(R.id.mg_tr_address);
+        mg_rt_sapcode = root.findViewById(R.id.mg_rt_sapcode);
         btn_close = root.findViewById(R.id.btn_close);
         btn_save = root.findViewById(R.id.btn_save);
+
 
         mg_rt_code.setEnabled(false);
         mg_rt_firstname.setEnabled(false);
@@ -92,7 +95,12 @@ public class ViewRetailer extends Fragment {
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Save data", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "Save data", Toast.LENGTH_SHORT).show();
+                try {
+                    saveData();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
         btn_close.setOnClickListener(new View.OnClickListener() {
@@ -109,6 +117,58 @@ public class ViewRetailer extends Fragment {
             e.printStackTrace();
         }
         return root;
+    }
+
+    private void saveData() throws JSONException {
+
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+        Log.i("DistributorId ", DistributorId);
+        Log.i("Token", Token);
+
+        JSONObject map = new JSONObject();
+        map.put("RetailerCode", mg_rt_code.getText());
+        map.put("Status", String.valueOf((check_box.isChecked()) ? 1 : 0));
+        map.put("SapCode", mg_rt_sapcode.getText());
+        Log.i("Status", String.valueOf((check_box.isChecked()) ? 1 : 0));
+
+
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_UPDATE_RETAILER, map, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject result) {
+                try {
+                    Toast.makeText(getContext(), "Retailer Code " + result.getString("RetailerCode") + " has been created successfully", Toast.LENGTH_LONG).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, new RetailerFragment());
+                fragmentTransaction.commit();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(getContext()).add(sr);
     }
 
     private void fetchRetailerData() throws JSONException {
