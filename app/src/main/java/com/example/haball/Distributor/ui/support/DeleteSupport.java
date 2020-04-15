@@ -20,7 +20,6 @@ package com.example.haball.Distributor.ui.support;
         import com.android.volley.toolbox.JsonObjectRequest;
         import com.android.volley.toolbox.Volley;
         import com.example.haball.R;
-        import com.example.haball.Retailor.ui.Support.SupportFragment;
 
         import org.json.JSONException;
         import org.json.JSONObject;
@@ -72,7 +71,7 @@ public class DeleteSupport {
                         public void onClick(View v) {
                             delete_successAlert.dismiss();
                             fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new SupportFragment()).addToBackStack(null);
+                            fragmentTransaction.replace(R.id.main_container, new SupportFragment()).addToBackStack(null);
                             fragmentTransaction.commit();
                         }
                     });

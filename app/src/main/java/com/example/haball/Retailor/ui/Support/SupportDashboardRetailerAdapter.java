@@ -33,6 +33,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Distributor.StatusKVP;
 import com.example.haball.Distributor.ui.support.DeleteSupport;
 import com.example.haball.R;
 import com.example.haball.Retailor.ui.Support.SupportDashboardRetailerModel;
@@ -158,7 +159,10 @@ public class SupportDashboardRetailerAdapter extends RecyclerView.Adapter<Suppor
                 Context.MODE_PRIVATE);
         final String Token = sharedPreferences.getString("Login_Token", "");
         Log.i("Token  ", Token);
-
+        StatusKVP statusKVP = new StatusKVP(mContxt, Token);
+        final HashMap<String, String> RetailerIssueTypePrivateKVP = statusKVP.getRetailerIssueTypePrivateKVP();
+        final HashMap<String, String> RetailerCriticalityPrivateKVP = statusKVP.getRetailerCriticalityPrivateKVP();
+        final HashMap<String, String> RetailerContactingMethodKVP = statusKVP.getRetailerContactingMethodKVP();
 
         if (!URL_SUPPORT_VIEW.contains("/" + supportList.get(position).getID()))
             URL_SUPPORT_VIEW = URL_SUPPORT_VIEW + supportList.get(position).getID();
@@ -180,14 +184,28 @@ public class SupportDashboardRetailerAdapter extends RecyclerView.Adapter<Suppor
                 et_preffered_contact = view_popup.findViewById(R.id.et_preffered_contact);
                 et_status = view_popup.findViewById(R.id.et_status);
                 et_comments = view_popup.findViewById(R.id.et_comments);
+                String issue_type = "", criticality = "", preffered_contact = "";
 
                 try {
+                    for (Map.Entry<String, String> entry : RetailerIssueTypePrivateKVP.entrySet()) {
+                        if(entry.getKey().equals(String.valueOf(response.get("IssueType"))))
+                            issue_type = entry.getValue();
+                    }
+                    for (Map.Entry<String, String> entry : RetailerCriticalityPrivateKVP.entrySet()) {
+                        if(entry.getKey().equals(String.valueOf(response.get("Criticality"))))
+                            criticality = entry.getValue();
+                    }
+                    for (Map.Entry<String, String> entry : RetailerContactingMethodKVP.entrySet()) {
+                        if(entry.getKey().equals(String.valueOf(response.get("PreferredContactMethod"))))
+                            preffered_contact = entry.getValue();
+                    }
+
                     tv_username.setText(String.valueOf(response.get("ContactName")));
                     et_email.setText("Email Address: " + String.valueOf(response.get("Email")));
                     et_phone.setText("Phone: " + String.valueOf(response.get("MobileNumber")));
-                    et_issue_type.setText("Issue Type: " + String.valueOf(response.get("IssueType")));
-                    et_criticality.setText("Criticality: " + String.valueOf(response.get("Criticality")));
-                    et_preffered_contact.setText("Preferred Contact Method: " + String.valueOf(response.get("PreferredContactMethod")));
+                    et_issue_type.setText("Issue Type: " + issue_type);
+                    et_criticality.setText("Criticality: " + criticality);
+                    et_preffered_contact.setText("Preferred Contact Method: " + preffered_contact);
                     et_status.setText("Status: " + supportList.get(position).getStatus());
                     et_comments.setText("Message: " + String.valueOf(response.get("Description")));
                 } catch (JSONException e) {
