@@ -271,8 +271,11 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    if (((TextView) adapterView.getChildAt(0)) != null)
+                    try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
                 } else {
 //                    Filter_selected_value = String.valueOf(i - 1);
 //                    Log.i("Filter_selected_value", Filter_selected_value);

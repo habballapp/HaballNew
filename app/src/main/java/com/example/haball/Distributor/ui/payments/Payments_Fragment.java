@@ -198,7 +198,11 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
                 amount_filter_rl.setVisibility(View.GONE);
 
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
                 } else {
                     Filter_selected = consolidate_felter.get(i);
 
@@ -275,7 +279,11 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
                 } else {
                     Filter_selected_value = String.valueOf(i);
                     Log.i("Filter_selected_value", Filter_selected_value);
@@ -335,7 +343,11 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
                 date_filter_rl.setVisibility(View.GONE);
                 amount_filter_rl.setVisibility(View.GONE);
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
                     spinner_consolidate.setVisibility(View.GONE);
                 } else {
                     Company_selected = company_names.get(i);

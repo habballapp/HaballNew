@@ -133,11 +133,16 @@ public class Support_Ticket_Form extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+    //                issueType = issue_type.get(i);
+                    issueType = issue_type_map.get(issue_type.get(i));
+                    checkFieldsForEmptyValues();
                 }
-//                issueType = issue_type.get(i);
-                issueType = issue_type_map.get(issue_type.get(i));
-                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -150,7 +155,11 @@ public class Support_Ticket_Form extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                        try {
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                        } catch (NullPointerException e) {
+                            e.printStackTrace();
+                        }
                 } else {
                     Criticality = criticality_map.get(criticality.get(i));
                 }
@@ -167,11 +176,16 @@ public class Support_Ticket_Form extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                        try {
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                        } catch (NullPointerException e) {
+                            e.printStackTrace();
+                        }
+                } else {
+    //                PrefferedContacts = preffered_contact.get(i);
+                    PrefferedContacts = preffered_contact_map.get(preffered_contact.get(i));
+                    checkFieldsForEmptyValues();
                 }
-//                PrefferedContacts = preffered_contact.get(i);
-                PrefferedContacts = preffered_contact_map.get(preffered_contact.get(i));
-                checkFieldsForEmptyValues();
             }
 
             @Override

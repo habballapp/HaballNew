@@ -53,7 +53,6 @@ public class SupportDashboardRetailerAdapter extends RecyclerView.Adapter<Suppor
     Context activity;
     String dashboard, id, pending, createdDate;
     List<SupportDashboardRetailerModel> supportList;
-    private FragmentTransaction fragmentTransaction;
     private String URL_SUPPORT_VIEW = "http://175.107.203.97:4014/api/support/TicketById/";
 
     public SupportDashboardRetailerAdapter(Activity activity, Context applicationContext, String dashboard, String id, String pending, String createdDate) {
@@ -228,9 +227,6 @@ public class SupportDashboardRetailerAdapter extends RecyclerView.Adapter<Suppor
     private void DeleteSupportTicket(String ID) throws JSONException {
         DeleteSupportTicket deleteSupport = new DeleteSupportTicket();
         String response = deleteSupport.DeleteSupportTicket(mContxt, ID);
-        fragmentTransaction = ((FragmentActivity) mContxt).getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_container_ret, new SupportFragment()).addToBackStack(null);
-        fragmentTransaction.commit();
 
     }
 

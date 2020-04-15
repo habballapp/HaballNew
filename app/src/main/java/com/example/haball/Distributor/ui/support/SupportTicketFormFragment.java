@@ -120,10 +120,15 @@ public class SupportTicketFormFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    issueType = issue_type.get(i);
+                    checkFieldsForEmptyValues();
                 }
-                issueType = issue_type.get(i);
-                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -136,10 +141,15 @@ public class SupportTicketFormFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    Criticality = criticality.get(i);
+                    checkFieldsForEmptyValues();
                 }
-                Criticality = criticality.get(i);
-                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -152,10 +162,15 @@ public class SupportTicketFormFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    PrefferedContacts = preffered_contact.get(i);
+                    checkFieldsForEmptyValues();
                 }
-                PrefferedContacts = preffered_contact.get(i);
-                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -169,7 +184,7 @@ public class SupportTicketFormFragment extends Fragment {
             public void onClick(View v) {
                 if (TextUtils.isEmpty(BName.getText().toString()) ||
                         TextUtils.isEmpty(Email.getText().toString()) ||
-                        TextUtils.isEmpty(Comment.getText().toString()) ||
+//                        TextUtils.isEmpty(Comment.getText().toString()) ||
                         TextUtils.isEmpty(MobileNo.getText().toString())) {
 
                     Snackbar.make(v, "Please Enter All Required Fields", Snackbar.LENGTH_SHORT).show();
@@ -255,6 +270,7 @@ public class SupportTicketFormFragment extends Fragment {
             @Override
             public void onResponse(JSONObject result) {
                 Log.e("RESPONSE", result.toString());
+                Toast.makeText(getContext(), "Ticket generated successfully.", Toast.LENGTH_LONG).show();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new SupportFragment());
                 fragmentTransaction.commit();

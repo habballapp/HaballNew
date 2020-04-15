@@ -152,11 +152,17 @@ public class Registration_page2 extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    country1 = countries.get(i);
+                    checkFieldsForEmptyValues();
+
                 }
 
-                country1 = countries.get(i);
-                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -169,11 +175,16 @@ public class Registration_page2 extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    province1 = provinces.get(i);
+                    checkFieldsForEmptyValues();
                 }
 
-                province1 = provinces.get(i);
-                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -186,11 +197,16 @@ public class Registration_page2 extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    city1 = cities.get(i);
+                    checkFieldsForEmptyValues();
                 }
 
-                city1 = cities.get(i);
-                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -202,10 +218,15 @@ public class Registration_page2 extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    country2 = countries.get(i);
+                    checkFieldsForEmptyValues();
                 }
-                country2 = countries.get(i);
-                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -218,10 +239,15 @@ public class Registration_page2 extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    province2 = provinces.get(i);
+                    checkFieldsForEmptyValues();
                 }
-                province2 = provinces.get(i);
-                checkFieldsForEmptyValues();
 
             }
 
@@ -235,11 +261,16 @@ public class Registration_page2 extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    checkFieldsForEmptyValues();
+                    city2 = cities.get(i);
                 }
 
-                checkFieldsForEmptyValues();
-                city2 = cities.get(i);
             }
 
             @Override

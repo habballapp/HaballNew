@@ -9,6 +9,9 @@ package com.example.haball.Retailor.ui.Support;
         import android.widget.ImageButton;
         import android.widget.Toast;
 
+        import androidx.fragment.app.FragmentActivity;
+        import androidx.fragment.app.FragmentTransaction;
+
         import com.android.volley.AuthFailureError;
         import com.android.volley.DefaultRetryPolicy;
         import com.android.volley.Request;
@@ -32,6 +35,7 @@ public class DeleteSupportTicket {
     public String DistributorId, Token;
     public Context mContext;
     private String response = "";
+    private FragmentTransaction fragmentTransaction;
 
     public DeleteSupportTicket(){}
 
@@ -61,6 +65,9 @@ public class DeleteSupportTicket {
                         @Override
                         public void onClick(View v) {
                             delete_successAlert.dismiss();
+                            fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container_ret, new SupportFragment()).addToBackStack(null);
+                            fragmentTransaction.commit();
                         }
                     });
                     delete_successAlert.show();

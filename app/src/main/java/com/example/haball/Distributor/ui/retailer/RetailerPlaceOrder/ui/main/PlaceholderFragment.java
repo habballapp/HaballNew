@@ -136,7 +136,11 @@ public class PlaceholderFragment extends Fragment {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         if (i == 0) {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                            try {
+                                ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                            } catch (NullPointerException ex) {
+                                ex.printStackTrace();
+                            }
                         } else {
                             Company_selected = company_names.get(i);
                             spinner_retailer_details.setVisibility(View.VISIBLE);

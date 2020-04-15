@@ -133,10 +133,11 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
                 if (temp_orderChildList_vh.list_txt_products.getText().equals(temp_orderChildlist_model.getTitle())) {
                     if (Float.parseFloat(str_quantity) <= 0) {
                         Toast.makeText(context, "Quantity must be greater than 0", Toast.LENGTH_LONG).show();
+                    } else {
+                        Log.i("textChanged", String.valueOf(temp_orderChildlist_model.getTitle()));
+                        Log.i("textChanged11", String.valueOf(temp_orderChildList_vh.list_txt_products.getText()));
+                        checkOutEnabler(temp_orderChildList_vh, temp_i, temp_orderChildlist_model, str_quantity);
                     }
-                    Log.i("textChanged", String.valueOf(temp_orderChildlist_model.getTitle()));
-                    Log.i("textChanged11", String.valueOf(temp_orderChildList_vh.list_txt_products.getText()));
-                    checkOutEnabler(temp_orderChildList_vh, temp_i, temp_orderChildlist_model, str_quantity);
                 }
             }
         };

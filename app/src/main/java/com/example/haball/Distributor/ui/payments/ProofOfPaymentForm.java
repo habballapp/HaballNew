@@ -244,14 +244,19 @@ public class ProofOfPaymentForm extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
 //                    btn_upload.setEnabled( false );
 //                    btn_upload.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
 
+                } else {
+                    selected_paymentid = payment_ids.get(i);
+                    checkFieldsForEmptyValues();
                 }
 
-                selected_paymentid = payment_ids.get(i);
-                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -263,7 +268,11 @@ public class ProofOfPaymentForm extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
 
                 } else {
                     selected_paymentmode = payment_modes.get(i);
@@ -432,7 +441,11 @@ public class ProofOfPaymentForm extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
                     selectedFileType = "";
                 } else {
                     selectedFileType = ImageFileTypes.get(i);

@@ -1,6 +1,7 @@
 package com.example.haball.Distributor.ui.orders;
 
         import android.content.Context;
+        import android.content.Intent;
         import android.content.SharedPreferences;
         import android.util.Log;
         import android.widget.Toast;
@@ -16,9 +17,11 @@ package com.example.haball.Distributor.ui.orders;
         import com.android.volley.toolbox.HurlStack;
         import com.android.volley.toolbox.JsonObjectRequest;
         import com.android.volley.toolbox.Volley;
+        import com.example.haball.Distributor.DistributorDashboard;
         import com.example.haball.Distributor.ui.home.HomeFragment;
         import com.example.haball.R;
         import com.example.haball.Registration.BooleanRequest;
+        import com.example.haball.Retailor.RetailorDashboard;
 
         import org.json.JSONException;
         import org.json.JSONObject;
@@ -57,9 +60,15 @@ public class DeleteOrderDraft {
                 // TODO handle the response
                 if(response)
                     Toast.makeText(context, "Draft for Order # " + orderNumber + " is deleted", Toast.LENGTH_LONG).show();
-                fragmentTransaction = ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, new HomeFragment());
-                fragmentTransaction.commit();
+                SharedPreferences tabsFromDraft = context.getSharedPreferences("OrderTabsFromDraft",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                editorOrderTabsFromDraft.putString("TabNo", "1");
+                editorOrderTabsFromDraft.apply();
+
+                Intent login_intent = new Intent(((FragmentActivity) context), DistributorDashboard.class);
+                ((FragmentActivity) context).startActivity(login_intent);
+                ((FragmentActivity) context).finish();
             }
         }, new Response.ErrorListener() {
             @Override

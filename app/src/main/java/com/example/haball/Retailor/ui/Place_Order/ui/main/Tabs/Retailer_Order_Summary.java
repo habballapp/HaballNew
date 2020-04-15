@@ -65,14 +65,13 @@ public class Retailer_Order_Summary extends Fragment {
     private List<OrderChildlist_Model> selectedProductsDataList = new ArrayList<>();
     private List<String> selectedProductsQuantityList = new ArrayList<>();
     private String object_string, object_stringqty, Token, DistributorId, CompanyId;
-    private String URL_CONFIRM_ORDERS = "http://175.107.203.97:4013/api/retailerorder/save";
+    private String URL_CONFIRM_ORDERS = "http://175.107.203.97:4014/api/Orders/saveOrder";
     //    private String URL_SAVE_TEMPLATE = "http://175.107.203.97:4013/api/ordertemplate/save";
-    private String URL_SAVE_DRAFT = "http://175.107.203.97:4013/api/retailerorder/draft";
+    private String URL_SAVE_DRAFT = "http://175.107.203.97:4014/api/Orders/draft";
     private Button btn_confirm, btn_template, btn_draft;
     private TextView gross_amount, discount_amount, gst_amount, total_amount;
     private float totalAmount;
     private ViewPager viewpager;
-    private String RetailerCode, RetailerID;
     private List<OrderChildlist_Model> temp_list = new ArrayList<>();
     private List<String> temp_listqty = new ArrayList<>();
 
@@ -293,10 +292,9 @@ public class Retailer_Order_Summary extends Fragment {
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
 
-        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("RetailerInfo",
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("DealerInfo",
                 Context.MODE_PRIVATE);
-        RetailerCode = sharedPreferences1.getString("RetailerCode", "");
-        RetailerID = sharedPreferences1.getString("RetailerID", "");
+        String DealerCode = sharedPreferences1.getString("DealerCode", "");
 
         SharedPreferences sharedPreferences2 = this.getActivity().getSharedPreferences("CompanyInfo",
                 Context.MODE_PRIVATE);
@@ -315,15 +313,15 @@ public class Retailer_Order_Summary extends Fragment {
         Log.i("Array", String.valueOf(jsonArray));
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("Id", 0);
-        jsonObject.put("RetailerID", RetailerID);
-        jsonObject.put("RetailerCode", RetailerCode);
+        jsonObject.put("ID", 0);
+//        jsonObject.put("RetailerID", RetailerID);
+        jsonObject.put("DealerCode", DealerCode);
         jsonObject.put("OrderDetails", jsonArray);
-        jsonObject.put("NetPrice", totalAmount);
-        jsonObject.put("Discount", totalAmount);
-        jsonObject.put("TotalPrice", totalAmount);
-        jsonObject.put("TotalGST", gst_amount);
-        jsonObject.put("TotalDiscountAmount", 0);
+//        jsonObject.put("NetPrice", totalAmount);
+//        jsonObject.put("Discount", totalAmount);
+//        jsonObject.put("TotalPrice", totalAmount);
+//        jsonObject.put("TotalGST", gst_amount);
+//        jsonObject.put("TotalDiscountAmount", 0);
 
         Log.i("jsonObject", String.valueOf(jsonObject));
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_SAVE_DRAFT, jsonObject, new Response.Listener<JSONObject>() {
@@ -377,10 +375,9 @@ public class Retailer_Order_Summary extends Fragment {
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
 
-        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("RetailerInfo",
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("DealerInfo",
                 Context.MODE_PRIVATE);
-        RetailerCode = sharedPreferences1.getString("RetailerCode", "");
-        RetailerID = sharedPreferences1.getString("RetailerID", "");
+        String DealerCode = sharedPreferences1.getString("DealerCode", "");
 
         JSONArray jsonArray = new JSONArray();
         for (int i = 0; i < selectedProductsDataList.size(); i++) {
@@ -393,14 +390,14 @@ public class Retailer_Order_Summary extends Fragment {
         Log.i("Array", String.valueOf(jsonArray));
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("Id", 0);
-        jsonObject.put("ProductName", "");
-        jsonObject.put("RetailerCode", RetailerCode);
-        jsonObject.put("RetailerID", RetailerID);
+        jsonObject.put("ID", 0);
+//        jsonObject.put("ProductName", "");
+        jsonObject.put("DealerCode", DealerCode);
+//        jsonObject.put("RetailerID", RetailerID);
         jsonObject.put("OrderDetails", jsonArray);
-        jsonObject.put("NetPrice", totalAmount);
-        jsonObject.put("Discount", 0);
-        jsonObject.put("TotalPrice", totalAmount);
+//        jsonObject.put("NetPrice", totalAmount);
+//        jsonObject.put("Discount", 0);
+//        jsonObject.put("TotalPrice", totalAmount);
 
         Log.i("jsonObject", String.valueOf(jsonObject));
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_CONFIRM_ORDERS, jsonObject, new Response.Listener<JSONObject>() {

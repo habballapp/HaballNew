@@ -166,8 +166,8 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
 //                                            DeleteSupportTicket(supportList.get(position).getId());
                                             DeleteSupport deleteSupport = new DeleteSupport();
                                             String response = deleteSupport.DeleteSupportTicket(mContxt, supportList.get(position).getId());
-                                            notifyItemRemoved(position);
-                                            notifyItemRangeChanged(position, supportList.size());
+//                                            notifyItemRemoved(position);
+//                                            notifyItemRangeChanged(position, supportList.size());
 
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -209,11 +209,6 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
     private void DeleteSupportTicket(String ID) throws JSONException {
         DeleteSupport deleteSupport = new DeleteSupport();
         String response = deleteSupport.DeleteSupportTicket(mContxt, ID);
-        fragmentTransaction = ((FragmentActivity) mContxt).getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_container_ret, new SupportFragment()).addToBackStack(null);
-        ;
-        fragmentTransaction.commit();
-
     }
 
     @Override

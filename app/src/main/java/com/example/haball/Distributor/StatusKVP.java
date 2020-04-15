@@ -31,9 +31,33 @@ public class StatusKVP {
     private String URL_OrderStatus = "http://175.107.203.97:4013/api/lookup/ORDER_STATUS";
     private String URL_InvoiceStatus = "http://175.107.203.97:4013/api/lookup/INVOICE_STATUS";
     private String URL_InvoiceState = "http://175.107.203.97:4013/api/lookup/INVOICE_STATE";
+    private String URL_Retailer_All_Status = "http://175.107.203.97:4014/api/lookup/null";
     private HashMap<String, String> OrderStatusKVP = new HashMap<>();
     private HashMap<String, String> InvoiceStatusKVP = new HashMap<>();
     private HashMap<String, String> InvoiceStateKVP = new HashMap<>();
+    private HashMap<String, String> RetailerOrderStatusKVP = new HashMap<>();
+    private HashMap<String, String> RetailerOrderStateKVP = new HashMap<>();
+    private HashMap<String, String> RetailerInvoiceStatusKVP = new HashMap<>();
+    private HashMap<String, String> RetailerDeliveryStatusKVP = new HashMap<>();
+    private HashMap<String, String> RetailerInvoiceTypeKVP = new HashMap<>();
+    private HashMap<String, String> RetailerKYCStatusKVP = new HashMap<>();
+    private HashMap<String, String> RetailerContractStatusKVP = new HashMap<>();
+    private HashMap<String, String> RetailerPrepaidStatusKVP = new HashMap<>();
+    private HashMap<String, String> RetailerAddressTypeKVP = new HashMap<>();
+    private HashMap<String, String> RetailerStatusKVP = new HashMap<>();
+    private HashMap<String, String> RetailerYesNoKVP = new HashMap<>();
+    private HashMap<String, String> RetailerIssueTypePrivateKVP = new HashMap<>();
+    private HashMap<String, String> RetailerCriticalityPrivateKVP = new HashMap<>();
+    private HashMap<String, String> RetailerContactingMethodKVP = new HashMap<>();
+    private HashMap<String, String> RetailerTransactionDocTypeKVP = new HashMap<>();
+    private HashMap<String, String> RetailerIssueTypePublicKVP = new HashMap<>();
+    private HashMap<String, String> RetailerCriticalityPublicKVP = new HashMap<>();
+    private HashMap<String, String> RetailerInvoiceStateKVP = new HashMap<>();
+    private HashMap<String, String> RetailerReturnReasonKVP = new HashMap<>();
+    private HashMap<String, String> RetailerProofOfPaymentKVP = new HashMap<>();
+    private HashMap<String, String> RetailerAccountWalletTypeKVP = new HashMap<>();
+    private HashMap<String, String> RetailerAccountWalletStatusKVP = new HashMap<>();
+    private HashMap<String, String> RetailerSupportStatusKVP = new HashMap<>();
     private Context context;
     private String Token;
 
@@ -42,6 +66,7 @@ public class StatusKVP {
         Token = token;
         GetOrderStatusDefault();
         GetInvoiceStatusDefault();
+        GetRetailerStatusDefault();
     }
 
     private void GetOrderStatusDefault() {
@@ -171,6 +196,204 @@ public class StatusKVP {
     public HashMap<String, String> getInvoiceState() {
         wait_until_fetched(InvoiceStateKVP);
         return InvoiceStateKVP;
+    }
+
+    private void GetRetailerStatusDefault() {
+        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_Retailer_All_Status, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray result) {
+                try {
+                    JSONObject jsonObject = null;
+                    for (int i = 0; i < result.length(); i++) {
+                        jsonObject = result.getJSONObject(i);
+                        if(jsonObject.getString("type").equals("ORDER_STATUS"))
+                            RetailerOrderStatusKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                        else if(jsonObject.getString("type").equals("ORDER_STATE"))
+                            RetailerOrderStateKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                        else if(jsonObject.getString("type").equals("INVOICE_STATUS"))
+                            RetailerInvoiceStatusKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                        else if(jsonObject.getString("type").equals("DELIVERY_STATUS"))
+                            RetailerDeliveryStatusKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                        else if(jsonObject.getString("type").equals("INVOICE_TYPE"))
+                            RetailerInvoiceTypeKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                        else if(jsonObject.getString("type").equals("KYC_STATUS"))
+                            RetailerKYCStatusKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                        else if(jsonObject.getString("type").equals("CONTRACT_STATUS"))
+                            RetailerContractStatusKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                        else if(jsonObject.getString("type").equals("PREPAID_STATUS"))
+                            RetailerPrepaidStatusKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                        else if(jsonObject.getString("type").equals("ADDRESS_TYPE"))
+                            RetailerAddressTypeKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                        else if(jsonObject.getString("type").equals("STATUS"))
+                            RetailerStatusKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                        else if(jsonObject.getString("type").equals("YES_NO"))
+                            RetailerYesNoKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                        else if(jsonObject.getString("type").equals("ISSUE_TYPE_PRIVATE"))
+                            RetailerIssueTypePrivateKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                        else if(jsonObject.getString("type").equals("CRITICALITY_PRIVATE"))
+                            RetailerCriticalityPrivateKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                        else if(jsonObject.getString("type").equals("CONTACTING_METHOD"))
+                            RetailerContactingMethodKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                        else if(jsonObject.getString("type").equals("TRANSACTION_DOC_TYPE"))
+                            RetailerTransactionDocTypeKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                        else if(jsonObject.getString("type").equals("ISSUE_TYPE_PUBLIC"))
+                            RetailerIssueTypePublicKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                        else if(jsonObject.getString("type").equals("CRITICALITY_PUBLIC"))
+                            RetailerCriticalityPublicKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                        else if(jsonObject.getString("type").equals("INVOICE_STATE"))
+                            RetailerInvoiceStateKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                        else if(jsonObject.getString("type").equals("RETURN_REASON"))
+                            RetailerReturnReasonKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                        else if(jsonObject.getString("type").equals("PROOF_OF_PAYMENT"))
+                            RetailerProofOfPaymentKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                        else if(jsonObject.getString("type").equals("ACCOUNT_WALLET_TYPE"))
+                            RetailerAccountWalletTypeKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                        else if(jsonObject.getString("type").equals("ACCOUNT_WALLET_STATUS"))
+                            RetailerAccountWalletStatusKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                        else if(jsonObject.getString("type").equals("SUPPORT_STATUS"))
+                            RetailerSupportStatusKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                params.put("Content-Type", "application/json; charset=utf-8");
+                params.put("rightid", "-1");
+                return params;
+            }
+        };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(context).add(sr);
+    }
+
+    public HashMap<String, String> getRetailerOrderStatusKVP() {
+        wait_until_fetched(RetailerOrderStatusKVP);
+        return RetailerOrderStatusKVP;
+    }
+
+    public HashMap<String, String> getRetailerOrderStateKVP() {
+        wait_until_fetched(RetailerOrderStateKVP);
+        return RetailerOrderStateKVP;
+    }
+
+    public HashMap<String, String> getRetailerInvoiceStatusKVP() {
+        wait_until_fetched(RetailerInvoiceStatusKVP);
+        return RetailerInvoiceStatusKVP;
+    }
+
+    public HashMap<String, String> getRetailerDeliveryStatusKVP() {
+        wait_until_fetched(RetailerDeliveryStatusKVP);
+        return RetailerDeliveryStatusKVP;
+    }
+
+    public HashMap<String, String> getRetailerInvoiceTypeKVP() {
+        wait_until_fetched(RetailerInvoiceTypeKVP);
+        return RetailerInvoiceTypeKVP;
+    }
+
+    public HashMap<String, String> getRetailerKYCStatusKVP() {
+        wait_until_fetched(RetailerKYCStatusKVP);
+        return RetailerKYCStatusKVP;
+    }
+
+    public HashMap<String, String> getRetailerContractStatusKVP() {
+        wait_until_fetched(RetailerContractStatusKVP);
+        return RetailerContractStatusKVP;
+    }
+
+    public HashMap<String, String> getRetailerPrepaidStatusKVP() {
+        wait_until_fetched(RetailerPrepaidStatusKVP);
+        return RetailerPrepaidStatusKVP;
+    }
+
+    public HashMap<String, String> getRetailerAddressTypeKVP() {
+        wait_until_fetched(RetailerAddressTypeKVP);
+        return RetailerAddressTypeKVP;
+    }
+
+    public HashMap<String, String> getRetailerYesNoKVP() {
+        wait_until_fetched(RetailerYesNoKVP);
+        return RetailerYesNoKVP;
+    }
+
+    public HashMap<String, String> getRetailerIssueTypePrivateKVP() {
+        wait_until_fetched(RetailerIssueTypePrivateKVP);
+        return RetailerIssueTypePrivateKVP;
+    }
+
+    public HashMap<String, String> getRetailerCriticalityPrivateKVP() {
+        wait_until_fetched(RetailerCriticalityPrivateKVP);
+        return RetailerCriticalityPrivateKVP;
+    }
+
+    public HashMap<String, String> getRetailerContactingMethodKVP() {
+        wait_until_fetched(RetailerContactingMethodKVP);
+        return RetailerContactingMethodKVP;
+    }
+
+    public HashMap<String, String> getRetailerTransactionDocTypeKVP() {
+        wait_until_fetched(RetailerTransactionDocTypeKVP);
+        return RetailerTransactionDocTypeKVP;
+    }
+
+    public HashMap<String, String> getRetailerIssueTypePublicKVP() {
+        wait_until_fetched(RetailerIssueTypePublicKVP);
+        return RetailerIssueTypePublicKVP;
+    }
+
+    public HashMap<String, String> getRetailerCriticalityPublicKVP() {
+        wait_until_fetched(RetailerCriticalityPublicKVP);
+        return RetailerCriticalityPublicKVP;
+    }
+
+    public HashMap<String, String> getRetailerInvoiceStateKVP() {
+        wait_until_fetched(RetailerInvoiceStateKVP);
+        return RetailerInvoiceStateKVP;
+    }
+
+    public HashMap<String, String> getRetailerReturnReasonKVP() {
+        wait_until_fetched(RetailerReturnReasonKVP);
+        return RetailerReturnReasonKVP;
+    }
+
+    public HashMap<String, String> getRetailerProofOfPaymentKVP() {
+        wait_until_fetched(RetailerProofOfPaymentKVP);
+        return RetailerProofOfPaymentKVP;
+    }
+
+    public HashMap<String, String> getRetailerAccountWalletTypeKVP() {
+        wait_until_fetched(RetailerAccountWalletTypeKVP);
+        return RetailerAccountWalletTypeKVP;
+    }
+
+    public HashMap<String, String> getRetailerAccountWalletStatusKVP() {
+        wait_until_fetched(RetailerAccountWalletStatusKVP);
+        return RetailerAccountWalletStatusKVP;
+    }
+
+    public HashMap<String, String> getRetailerSupportStatusKVP() {
+        wait_until_fetched(RetailerSupportStatusKVP);
+        return RetailerSupportStatusKVP;
+    }
+
+    public HashMap<String, String> getRetailerStatus() {
+        wait_until_fetched(RetailerStatusKVP);
+        return RetailerStatusKVP;
     }
 
     private boolean wait_until_fetched(HashMap StatusKVP) {

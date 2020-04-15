@@ -38,12 +38,10 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.haball.Distributor.DistributorOrdersAdapter;
-import com.example.haball.Distributor.DistributorOrdersModel;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
-import com.example.haball.Distributor.ui.payments.PaymentsViewModel;
-import com.example.haball.Payment.DistributorPaymentRequestModel;
 import com.example.haball.R;
+import com.example.haball.Retailor.ui.Dashboard.RetailerOrderAdapter;
+import com.example.haball.Retailor.ui.Dashboard.RetailerOrderModel;
 import com.example.haball.Retailor.ui.Dashboard.RetailerPaymentAdapter;
 import com.example.haball.Retailor.ui.Dashboard.RetailerPaymentModel;
 import com.google.android.material.textfield.TextInputLayout;
@@ -78,7 +76,7 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class PlaceholderFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
-    private PaymentsViewModel paymentsViewModel;
+    private RetailerPaymentModel paymentsViewModel;
     private RecyclerView.Adapter OrdersAdapter;
     private RecyclerView recyclerView, recyclerViewPayment;
     private RecyclerView.Adapter mAdapter;
@@ -101,8 +99,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private EditText edt_payment_ret;
 
     private TextView value_unpaid_amount, value_paid_amount;
-    private List<DistributorPaymentRequestModel> PaymentsRequestList = new ArrayList<>();
-    private List<DistributorOrdersModel> OrdersList = new ArrayList<>();
+    private List<RetailerPaymentModel> PaymentsRequestList = new ArrayList<>();
+    private List<RetailerOrderModel> OrdersList = new ArrayList<>();
     // private String Token, DistributorId;
 
     private PageViewModel pageViewModel;
@@ -372,7 +370,11 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
                     try {
                         fetchPaymentsData();
                     } catch (JSONException e) {
@@ -860,11 +862,11 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 //                btn_load_more.setVisibility(View.GONE);
                 try {
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<DistributorOrdersModel>>() {
+                    Type type = new TypeToken<List<RetailerOrderModel>>() {
                     }.getType();
 //                OrdersList = gson.fromJson(result.toString(), type);
 //                ((DistributorOrdersAdapter) recyclerView.getAdapter()).addListItem(OrdersList);
-                    List<DistributorOrdersModel> OrdersList_temp = new ArrayList<>();
+                    List<RetailerOrderModel> OrdersList_temp = new ArrayList<>();
                     OrdersList_temp = gson.fromJson(result.get(0).toString(), type);
                     OrdersList.addAll(OrdersList_temp);
                     OrdersAdapter.notifyDataSetChanged();
@@ -1036,7 +1038,11 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
                     try {
                         fetchOrderData();
                     } catch (JSONException e) {
@@ -1208,7 +1214,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 //                    JSONArray jsonArray = new JSONArray(result);
 
                 Gson gson = new Gson();
-                Type type = new TypeToken<List<DistributorOrdersModel>>() {
+                Type type = new TypeToken<List<RetailerOrderModel>>() {
                 }.getType();
                 try {
                     totalEntriesOrder = Double.parseDouble(String.valueOf(result.getJSONObject(1).get("RecordCount")));
@@ -1218,7 +1224,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     e.printStackTrace();
                 }
                 Log.i("OrdersList", String.valueOf(OrdersList));
-                OrdersAdapter = new DistributorOrdersAdapter(getContext(), OrdersList);
+                OrdersAdapter = new RetailerOrderAdapter(getContext(), OrdersList);
                 recyclerView.setAdapter(OrdersAdapter);
                 if (OrdersList.size() != 0) {
                     tv_shipment_no_data.setVisibility(View.GONE);
@@ -1278,7 +1284,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 //                    JSONArray jsonArray = new JSONArray(result);
 
                 Gson gson = new Gson();
-                Type type = new TypeToken<List<DistributorOrdersModel>>() {
+                Type type = new TypeToken<List<RetailerOrderModel>>() {
                 }.getType();
                 try {
                     totalEntriesOrder = Double.parseDouble(String.valueOf(result.getJSONObject(1).get("RecordCount")));
@@ -1288,7 +1294,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     e.printStackTrace();
                 }
                 Log.i("OrdersList", String.valueOf(OrdersList));
-                OrdersAdapter = new DistributorOrdersAdapter(getContext(), OrdersList);
+                OrdersAdapter = new RetailerOrderAdapter(getContext(), OrdersList);
                 recyclerView.setAdapter(OrdersAdapter);
                 if (OrdersList.size() != 0) {
                     tv_shipment_no_data.setVisibility(View.GONE);

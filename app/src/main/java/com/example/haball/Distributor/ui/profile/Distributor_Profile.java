@@ -28,15 +28,15 @@ public class Distributor_Profile extends Fragment {
         final TabLayout tabs = root.findViewById(R.id.tab7);
         tabs.setupWithViewPager(viewPager);
 
-        LinearLayout tabStrip = ((LinearLayout)tabs.getChildAt(0));
-        for(int i = 0; i < tabStrip.getChildCount(); i++) {
-            tabStrip.getChildAt(i).setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    return true;
-                }
-            });
-        }
+//        LinearLayout tabStrip = ((LinearLayout)tabs.getChildAt(0));
+//        for(int i = 0; i < tabStrip.getChildCount(); i++) {
+//            tabStrip.getChildAt(i).setOnTouchListener(new View.OnTouchListener() {
+//                @Override
+//                public boolean onTouch(View v, MotionEvent event) {
+//                    return true;
+//                }
+//            });
+//        }
         return root;
 
     }

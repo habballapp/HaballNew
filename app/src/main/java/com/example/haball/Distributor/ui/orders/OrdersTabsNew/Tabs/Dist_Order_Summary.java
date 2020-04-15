@@ -362,6 +362,12 @@ public class Dist_Order_Summary extends Fragment {
                 selectedProducts_distributor_editor.apply();
 
                 Toast.makeText(getContext(), "Order has been saved as template successfully", Toast.LENGTH_LONG).show();
+                SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                editorOrderTabsFromDraft.putString("TabNo", "1");
+                editorOrderTabsFromDraft.apply();
+
                 Intent login_intent = new Intent(getActivity(), DistributorDashboard.class);
                 startActivity(login_intent);
                 getActivity().finish();

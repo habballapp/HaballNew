@@ -105,10 +105,15 @@ public class EditPaymentRequestFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                        try {
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                        } catch (NullPointerException e) {
+                            e.printStackTrace();
+                        }
+                } else {
+                    company_names = CompanyNames.get(i);
+                    checkFieldsForEmptyValues();
                 }
-                company_names = CompanyNames.get(i);
-                checkFieldsForEmptyValues();
 
 
             }

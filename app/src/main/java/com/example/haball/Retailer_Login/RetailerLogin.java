@@ -233,6 +233,7 @@ public class RetailerLogin extends AppCompatActivity {
                         JSONObject userAccount = new JSONObject(String.valueOf(result.get("UserAccount")));
                         Log.i("user account => ", userAccount.get("RetailerID").toString());
                         String RetailerId = userAccount.get("RetailerID").toString();
+                        String RetailerCode = userAccount.get("RetailerCode").toString();
                         String username = userAccount.get("Username").toString();
                         String CompanyName = userAccount.get("CompanyName").toString();
                         String ID = userAccount.get("UserId").toString();
@@ -251,6 +252,13 @@ public class RetailerLogin extends AppCompatActivity {
                         editor.putString("UserId", ID);
 
                         editor.commit();
+
+                        SharedPreferences retailerInfo = getSharedPreferences("RetailerInfo",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor retailerInfo_editor = retailerInfo.edit();
+                        retailerInfo_editor.putString("RetailerCode", RetailerCode);
+                        retailerInfo_editor.putString("RetailerID", RetailerId);
+                        retailerInfo_editor.apply();
 
                         SharedPreferences companyId = getSharedPreferences("SendData",
                                 Context.MODE_PRIVATE);

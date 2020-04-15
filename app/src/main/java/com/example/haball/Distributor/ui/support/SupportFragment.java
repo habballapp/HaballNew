@@ -184,7 +184,11 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 conso_edittext.setVisibility(View.GONE);
 
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
                 } else {
                     Filter_selected = consolidate_felter.get(i);
 
@@ -273,7 +277,11 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
 
                 if (Filter_selected.equals("Status")) {
                     if (i == 0) {
-                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                        try {
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                        } catch (NullPointerException ex) {
+                            ex.printStackTrace();
+                        }
                     } else {
                         Filter_selected_value = String.valueOf(i - 1);
                         if (!Filter_selected_value.equals("")) {

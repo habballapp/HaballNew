@@ -56,6 +56,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -133,7 +134,11 @@ public class PlaceholderFragment extends Fragment {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         if (i == 0) {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                            try {
+                                ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                            } catch (NullPointerException ex) {
+                                ex.printStackTrace();
+                            }
                         } else {
                             Company_selected = company_names.get(i);
                             spinner_retailer_details.setVisibility(View.VISIBLE);
@@ -182,9 +187,10 @@ public class PlaceholderFragment extends Fragment {
         }
         btn_next = root.findViewById(R.id.btn_next);
         btn_next.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
-                FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
+                FragmentTransaction fragmentTransaction = (Objects.requireNonNull(getActivity())).getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.add(R.id.main_container_ret, new Retailer_OrderPlace_retailer_dashboarad());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
@@ -278,11 +284,10 @@ public class PlaceholderFragment extends Fragment {
         txt_cnic_no.setText(CompanyList.get(position).getCNIC());
         txt_mobile_no.setText(CompanyList.get(position).getMobile());
         txt_address.setText(CompanyList.get(position).getAddress());
-        Log.i("CompanyID", CompanyList.get(position).getDealerCode());
-        SharedPreferences companyInfo = getContext().getSharedPreferences("CompanyInfo",
+        SharedPreferences retailerInfo = getContext().getSharedPreferences("DealerInfo",
                 Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = companyInfo.edit();
-        editor.putString("CompanyId", CompanyList.get(position).getDealerCode());
+        SharedPreferences.Editor editor = retailerInfo.edit();
+        editor.putString("DealerCode", CompanyList.get(position).getDealerCode());
         editor.apply();
     }
 

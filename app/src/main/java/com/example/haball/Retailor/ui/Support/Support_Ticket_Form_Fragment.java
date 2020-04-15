@@ -48,6 +48,7 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,11 +63,14 @@ public class Support_Ticket_Form_Fragment extends Fragment {
     //    private String URL_SPINNER_ISSUETYPE = "http://175.107.203.97:4014/api/lookup/public/ISSUE_TYPE_PRIVATE";
 //    private String URL_SPINNER_CRITICALITY = "http://175.107.203.97:4014/api/lookup/public/CRITICALITY_PRIVATE";
 //    private String URL_SPINNER_PREFFEREDCONTACT = "http://175.107.203.97:4014/api/lookup/public/CONTRACTING_METHOD";
-    private String URL_TICkET = "http://175.107.203.97:4014/api/contact/save";
+    private String URL_TICkET = "http://175.107.203.97:4014/api/support/PrivateSave";
 
     private List<String> issue_type = new ArrayList<>();
     private List<String> criticality = new ArrayList<>();
     private List<String> preffered_contact = new ArrayList<>();
+    private Map<String, String> issue_type_map = new HashMap<>();
+    private Map<String, String> criticality_map = new HashMap<>();
+    private Map<String, String> preffered_contact_map = new HashMap<>();
 
     private String issueType, Criticality, PrefferedContacts;
     private String Token;
@@ -128,10 +132,16 @@ public class Support_Ticket_Form_Fragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+//                    issueType = issue_type.get(i);
+                    issueType = issue_type_map.get(issue_type.get(i));
+                    checkFieldsForEmptyValues();
                 }
-                issueType = issue_type.get(i);
-                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -144,10 +154,16 @@ public class Support_Ticket_Form_Fragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+//                    Criticality = criticality.get(i);
+                    Criticality = criticality_map.get(criticality.get(i));
+                    checkFieldsForEmptyValues();
                 }
-                Criticality = criticality.get(i);
-                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -160,10 +176,15 @@ public class Support_Ticket_Form_Fragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    PrefferedContacts = preffered_contact_map.get(preffered_contact.get(i));
+                    checkFieldsForEmptyValues();
                 }
-                PrefferedContacts = preffered_contact.get(i);
-                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -177,7 +198,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
             public void onClick(View v) {
                 if (TextUtils.isEmpty(BName.getText().toString()) ||
                         TextUtils.isEmpty(Email.getText().toString()) ||
-                        TextUtils.isEmpty(Comment.getText().toString()) ||
+//                        TextUtils.isEmpty(Comment.getText().toString()) ||
                         TextUtils.isEmpty(MobileNo.getText().toString())) {
 
                     Snackbar.make(v, "Please Enter All Required Fields", Snackbar.LENGTH_SHORT).show();
@@ -224,6 +245,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
         String bname = BName.getText().toString();
         String email = Email.getText().toString();
         String mobile = MobileNo.getText().toString();
+        String comment = Comment.getText().toString();
         String contact = "Preferred Method of Contacting *";
         if (Preffered_Contact.getItemAtPosition(Preffered_Contact.getSelectedItemPosition()) != null)
             contact = Preffered_Contact.getItemAtPosition(Preffered_Contact.getSelectedItemPosition()).toString();
@@ -237,6 +259,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
         if (bname.equals("")
                 || email.equals("")
                 || mobile.equals("")
+//                || comment.equals("")
                 || contact.equals("Preferred Method of Contacting *")
                 || issue_type.equals("Issue Type *")
                 || critical.equals("Criticality *")
@@ -385,12 +408,18 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                     JSONObject jsonObject = null;
                     for (int i = 0; i < result.length(); i++) {
                         jsonObject = result.getJSONObject(i);
-                        if (jsonObject.get("type").equals("ISSUE_TYPE_PRIVATE"))
+                        if (jsonObject.get("type").equals("ISSUE_TYPE_PRIVATE")) {
                             issue_type.add(jsonObject.getString("value"));
-                        else if (jsonObject.get("type").equals("CONTACTING_METHOD"))
+                            issue_type_map.put(jsonObject.getString("value"), jsonObject.getString("key"));
+                        }
+                        else if (jsonObject.get("type").equals("CONTACTING_METHOD")){
                             preffered_contact.add(jsonObject.getString("value"));
-                        else if (jsonObject.get("type").equals("CRITICALITY_PRIVATE"))
+                            preffered_contact_map.put(jsonObject.getString("value"), jsonObject.getString("key"));
+                        }
+                        else if (jsonObject.get("type").equals("CRITICALITY_PRIVATE")) {
                             criticality.add(jsonObject.getString("value"));
+                            criticality_map.put(jsonObject.getString("value"), jsonObject.getString("key"));
+                        }
 
                     }
                     arrayAdapterCriticality.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -436,23 +465,26 @@ public class Support_Ticket_Form_Fragment extends Fragment {
 
     private void makeTicketAddRequest() throws JSONException {
         JSONObject map = new JSONObject();
-        map.put("Name", BName.getText().toString());
-        map.put("EmailAddress", Email.getText().toString());
-        map.put("Mobile", MobileNo.getText().toString());
-        map.put("DistributorId", DistributorId);
+        map.put("ContactName", BName.getText().toString());
+        map.put("Email", Email.getText().toString());
+        map.put("MobileNumber", MobileNo.getText().toString());
+//        map.put("DistributorId", DistributorId);
         map.put("IssueType", issueType);
         map.put("Criticality", Criticality);
-        map.put("ContactingMethod", PrefferedContacts);
-        map.put("Message", Comment.getText().toString());
+        map.put("PreferredContactMethod", PrefferedContacts);
+        map.put("Description", Comment.getText().toString());
         map.put("ID", 0);
 
-        Log.i("TICKET OBJECT", String.valueOf(map));
+        Log.i("TICKET_OBJECT", String.valueOf(map));
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_TICkET, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
                 Log.e("RESPONSE", result.toString());
-//                sr.finish();
+                Toast.makeText(getContext(), "Ticket generated successfully.", Toast.LENGTH_LONG).show();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new SupportFragment());
+                fragmentTransaction.commit();
             }
 
         }, new Response.ErrorListener() {

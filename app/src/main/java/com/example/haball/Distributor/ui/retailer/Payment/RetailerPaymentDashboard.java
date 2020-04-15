@@ -236,7 +236,11 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
                 } else {
                     Filter_selected_value = String.valueOf(i - 2);
                     Log.i("Filter_selected_value", String.valueOf(i));
