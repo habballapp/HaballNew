@@ -21,6 +21,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.haball.Distributor.ui.payments.ViewVoucherRequest;
 import com.example.haball.R;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -91,15 +92,15 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         btn_voucher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if (checkAndRequestPermissions()) {
-//
-//                    try {
-//                        viewPDF(getContext(), PrePaidId);
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//
+                if (checkAndRequestPermissions()) {
+
+                    try {
+                        viewPDF(getContext(), PrePaidId);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
             }
         });
 
@@ -129,10 +130,10 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         return root;
     }
 
-//    private void viewPDF(Context context, String ID) throws JSONException {
-//        ViewVoucherRequest viewPDFRequest = new ViewVoucherRequest();
-//        viewPDFRequest.viewPDF(context, ID);
-//    }
+    private void viewPDF(Context context, String ID) throws JSONException {
+        ViewVoucherRequest viewPDFRequest = new ViewVoucherRequest();
+        viewPDFRequest.viewPDF(context, ID);
+    }
 
     private boolean checkAndRequestPermissions() {
         int permissionRead = ContextCompat.checkSelfPermission(getContext(),

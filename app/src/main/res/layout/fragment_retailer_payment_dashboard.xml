@@ -55,9 +55,10 @@
             <Spinner
                 android:id="@+id/spinner_conso"
                 android:layout_width="match_parent"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
                 android:layout_height="40dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:dropDownWidth="match_parent"
                 />
         </RelativeLayout>
 
@@ -75,10 +76,11 @@
 
             <Spinner
                 android:id="@+id/conso_spinner2"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                android:layout_height="40dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:dropDownWidth="match_parent"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -142,7 +144,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.25"
-                    android:text="22/12/2020"/>
+                    android:text="22-12-2020"/>
                 <ImageButton
                     android:id="@+id/first_date_btn"
                     android:layout_width="match_parent"
@@ -180,7 +182,7 @@
                     android:id="@+id/second_date"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="22/12/2020"
+                    android:text="22-12-2020"
                     android:layout_weight="0.25"/>
                 <ImageButton
                     android:id="@+id/second_date_btn"

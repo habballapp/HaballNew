@@ -14,11 +14,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.haball.Distributor.ui.payments.PaymentScreen3Fragment;
 import com.example.haball.Distributor.ui.payments.ViewVoucherRequest;
 import com.example.haball.R;
 import com.example.haball.Retailer_Login.RetailerLogin;
 import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Retailor.ui.Make_Payment.EditPaymentRequestFragment;
+import com.example.haball.Retailor.ui.Make_Payment.PaymentScreen3Fragment_Retailer;
 
 import org.json.JSONException;
 
@@ -106,12 +108,12 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
     private void setUnpaidPaymentMenu(final int position, View view) {
         final PopupMenu popup = new PopupMenu(context, view);
         MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.retailer_dahboard_menu, popup.getMenu());
+        inflater.inflate(R.menu.retailer_payment_action_buttons, popup.getMenu());
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.view_edit:
+                    case R.id.view_retailer_payment:
 //                        Toast.makeText(context, "Edit Clicked", Toast.LENGTH_LONG).show();
 //                        final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
 //                        LayoutInflater inflater = LayoutInflater.from(context);
@@ -156,15 +158,15 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
                         editorEdit.apply();
 
                         FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.main_container_ret, new EditPaymentRequestFragment());
+                        fragmentTransaction.replace(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer()).addToBackStack("Tag");
                         fragmentTransaction.commit();
 
                         break;
-                    case R.id.view_delete:
+                    case R.id.pay_by_retailer:
                         //handle menu3 click
-                        Toast.makeText(context, "Delete Clicked", Toast.LENGTH_LONG).show();
-                        String paymentId = paymentsList.get(position).getID();
-                        deletePayment(context, paymentsList.get(position).getRetailerInvoiceId(), paymentsList.get(position).getInvoiceNumber());
+                        Toast.makeText(context, "pay by", Toast.LENGTH_LONG).show();
+//                        String paymentId = paymentsList.get(position).getID();
+//                        deletePayment(context, paymentsList.get(position).getRetailerInvoiceId(), paymentsList.get(position).getInvoiceNumber());
 
 
                         break;

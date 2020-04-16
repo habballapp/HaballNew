@@ -1,5 +1,6 @@
 package com.example.haball.Retailor.ui.Profile.ui.main;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -52,15 +53,15 @@ import androidx.lifecycle.ViewModelProviders;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class PlaceholderFragment extends Fragment {
+public class PlaceholderFragment extends Fragment implements View.OnClickListener {
 
-    private String ChangePass_URL = " http://175.107.203.97:4014/api/users/ChangePassword";
-    private String PROFILE_EDIT_URL = "http://175.107.203.97:4014/api/retailer/Save";
+    private String ChangePass_URL = "http://175.107.203.97:4014/api/users/ChangePassword";
+    private String PROFILE_EDIT_URL = "http://175.107.203.97:4014/api/retailer/save";
     private String Token;
     private String PROFILE_URL = "http://175.107.203.97:4014/api/retailer/";
     private String RetailerId, ID, username, CompanyName;
     private Button btn_changepwd, btn_save_password, update_password;
-    private EditText Rfirstname, Remail, Rcode, Rcnic, Rmobile, R_created_date, R_Address, txt_password, txt_newpassword, txt_cfmpassword;
+    private EditText Rfirstname, email_retailer, Rcode, Rcnic, Rmobile, R_created_date, R_Address, txt_password, txt_newpassword, txt_cfmpassword;
     private Dialog change_password_dail;
     private Boolean password_check = false, confirm_password_check = false;
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -88,6 +89,7 @@ public class PlaceholderFragment extends Fragment {
         pageViewModel.setIndex(index);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
@@ -103,11 +105,13 @@ public class PlaceholderFragment extends Fragment {
                 Rcnic = root.findViewById(R.id.Rcnic);
                 R_created_date = root.findViewById(R.id.R_created_date);
 
-                Remail = root.findViewById(R.id.Remail);
+                email_retailer = root.findViewById(R.id.email_retailer);
                 Rmobile = root.findViewById(R.id.Rmobile);
                 R_Address = root.findViewById(R.id.R_Address);
                 btn_save_password = root.findViewById(R.id.btn_save_password);
-                Remail.setOnTouchListener(new View.OnTouchListener() {
+                email_retailer.setOnClickListener(this);
+
+                email_retailer.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
                         final int DRAWABLE_LEFT = 0;
@@ -116,13 +120,13 @@ public class PlaceholderFragment extends Fragment {
                         final int DRAWABLE_BOTTOM = 3;
 
                         if (event.getAction() == MotionEvent.ACTION_UP) {
-                            if (event.getRawX() >= (Remail.getRight() - Remail.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                            if (event.getRawX() >= (email_retailer.getRight() - email_retailer.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                                 // your action here
-                                Remail.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-                                Remail.requestFocus();
-                                Remail.setFocusable(true);
-                                Remail.setFocusableInTouchMode(true);
-                                Remail.setSelection(Remail.getText().length());
+                                email_retailer.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                                email_retailer.requestFocus();
+                                email_retailer.setFocusable(true);
+                                email_retailer.setFocusableInTouchMode(true);
+                                email_retailer.setSelection(email_retailer.getText().length());
                                 btn_save_password.setEnabled(true);
                                 btn_save_password.setBackground(getResources().getDrawable(R.drawable.button_background));
                                 return true;
@@ -155,6 +159,7 @@ public class PlaceholderFragment extends Fragment {
                         return false;
                     }
                 });
+
                 R_Address.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
@@ -288,13 +293,13 @@ public class PlaceholderFragment extends Fragment {
             username = sharedPreferences1.getString("username", "");
             Toast.makeText(getActivity(), "Update Password clicked", Toast.LENGTH_SHORT).show();
 
-            change_password_dail.dismiss();
+            //change_password_dail.dismiss();
 
             JSONObject map = new JSONObject();
             map.put("Password", txt_password.getText().toString());
             map.put("NewPassword", txt_newpassword.getText().toString());
             map.put("ConfirmPassword", txt_cfmpassword.getText().toString());
-//            map.put("ID", ID);
+            map.put("ID", ID);
             map.put("Username", username);
             Log.i("Map", map.toString());
             JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, ChangePass_URL, map, new Response.Listener<JSONObject>() {
@@ -454,17 +459,18 @@ public class PlaceholderFragment extends Fragment {
         Log.i("Token Retailer ", Token);
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("ID", 1);
+        jsonObject.put("ID", RetailerId);
         jsonObject.put("Name", Rfirstname.getText().toString());
         jsonObject.put("CNIC", Rcnic.getText().toString());
         jsonObject.put("Mobile", Rmobile.getText().toString());
         jsonObject.put("CompanyName", CompanyName);
         jsonObject.put("Address", R_Address.getText().toString());
-        jsonObject.put("Email", Remail.getText().toString());
+        jsonObject.put("Email", email_retailer.getText().toString());
 
-        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, PROFILE_EDIT_URL, jsonObject, new Response.Listener<JSONObject>() {
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, PROFILE_EDIT_URL, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
+                Log.i("result_Profile" , String.valueOf(result));
                 try {
                     Toast.makeText(getContext(), "Profile Information Successfully updated for " + result.getString("RetailerCode"), Toast.LENGTH_LONG).show();
                 } catch (JSONException e) {
@@ -548,7 +554,7 @@ public class PlaceholderFragment extends Fragment {
                     Log.i("aaaaa", String.valueOf(result));
                     CompanyName = result.getString("CompanyName");
                     Rfirstname.setText(result.getString("Name"));
-                    Remail.setText(result.getString("Email"));
+                    email_retailer.setText(result.getString("Email"));
                     Rcode.setText(result.getString("RetailerCode"));
                     Rcnic.setText(result.getString("CNIC"));
                     Rmobile.setText(result.getString("Mobile"));
@@ -598,6 +604,11 @@ public class PlaceholderFragment extends Fragment {
         });
         Volley.newRequestQueue(getContext()).add(sr);
 
+
+    }
+
+    @Override
+    public void onClick(View v) {
 
     }
 }

@@ -44,7 +44,7 @@
             <com.google.android.material.textfield.TextInputLayout
 
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="45dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:hint="Retailer Code"
@@ -71,7 +71,7 @@
             <com.google.android.material.textfield.TextInputLayout
 
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="45dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="15dp"
@@ -99,7 +99,7 @@
             <com.google.android.material.textfield.TextInputLayout
 
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="45dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="15dp"
@@ -111,8 +111,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/Remail"
-                    android:drawableRight="@drawable/editprofile"
+                    android:id="@+id/email_retailer"
+                    android:drawableEnd="@drawable/editprofile"
                     android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
@@ -120,7 +120,8 @@
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:drawableRight="@drawable/editprofile" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -128,7 +129,7 @@
             <com.google.android.material.textfield.TextInputLayout
 
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="45dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="15dp"
@@ -156,7 +157,7 @@
             <com.google.android.material.textfield.TextInputLayout
 
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="45dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="15dp"
@@ -184,7 +185,7 @@
             <com.google.android.material.textfield.TextInputLayout
 
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="45dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="15dp"

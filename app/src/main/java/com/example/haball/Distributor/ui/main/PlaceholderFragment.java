@@ -1335,13 +1335,13 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             map.put(Filter_selected, Filter_selected_value);
         }
 
-//        Log.i("Map", String.valueOf(map));
+        Log.i("Map123", String.valueOf(map));
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_PAYMENTS, map, new Response.Listener<JSONArray>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
-//                Log.i("Payments Requests", result.toString());
+            Log.i("Payments Requests11", result.toString());
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
                 }.getType();

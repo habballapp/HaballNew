@@ -56,8 +56,9 @@
                     android:id="@+id/spinner_conso"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp" />
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:dropDownWidth="match_parent"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -76,8 +77,9 @@
                     android:id="@+id/conso_spinner2"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp" />
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:dropDownWidth="match_parent"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -142,7 +144,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.25"
-                        android:text="22/12/2020" />
+                        android:text="22-12-2020" />
 
                     <ImageButton
                         android:id="@+id/first_date_btn"
@@ -186,7 +188,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.25"
-                        android:text="22/12/2020" />
+                        android:text="22-12-2020" />
 
                     <ImageButton
                         android:id="@+id/second_date_btn"
@@ -306,19 +308,19 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@+id/spinner_container_main"
             android:layout_marginBottom="40dp"
             android:orientation="vertical"
-            android:weightSum="1">
+           >
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_retailer_dashboard"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_weight="2.75" />
+              />
         </LinearLayout>
 
     </RelativeLayout>

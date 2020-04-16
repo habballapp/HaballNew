@@ -4,103 +4,109 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Payment.D_PaymentRequest"
-    android:background="#fff">
+    android:background="#fff"
+    tools:context=".Payment.D_PaymentRequest">
 
     <LinearLayout
         android:id="@+id/tv_proof_paymentrequest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="2"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
         android:background="@drawable/underline"
-        android:orientation="vertical">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Payment Request"
-        android:paddingTop="5dp"
-        android:paddingBottom="10dp"
-        android:layout_marginTop="20dp"
-        android:textSize="18sp"
-        android:textColor="#96bb3c"
-        android:background="@drawable/half_underline"
-        />
+        android:orientation="vertical"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/half_underline"
+            android:paddingTop="5dp"
+            android:paddingBottom="10dp"
+            android:text="Payment Request"
+            android:textColor="#96bb3c"
+            android:textSize="18sp" />
 
     </LinearLayout>
-
 
 
     <Button
         android:id="@+id/create_payment"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_below="@+id/tv_proof_paymentrequest"
         android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="30dp"
         android:background="@drawable/button_round"
-        android:layout_marginTop="15dp"
-        android:text="Create Payment"
-        android:textSize="14sp"
-        android:textColor="#fff"
-                android:stateListAnimator="@null"
         android:gravity="center"
+        android:stateListAnimator="@null"
+        android:text="Create Payment"
         android:textAllCaps="false"
-        android:layout_below="@+id/tv_proof_paymentrequest"
-        />
+        android:textColor="#fff"
+        android:textSize="14sp" />
 
     <RelativeLayout
         android:id="@+id/spinner_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/create_payment"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/edit_text_squared"
-        android:layout_below="@+id/create_payment">
+        android:layout_marginRight="30dp"
+        android:background="@drawable/edit_text_squared">
+
         <Spinner
             android:id="@+id/spinner_conso"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
             android:layout_width="match_parent"
-            android:layout_height="40dp"/>
+            android:layout_height="40dp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:dropDownWidth="match_parent"
+          />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/spinner_container1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/spinner_container"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/edit_text_squared"
-        android:layout_below="@+id/spinner_container">
+        android:layout_marginRight="30dp"
+        android:background="@drawable/edit_text_squared">
+
         <Spinner
             android:id="@+id/conso_spinner2"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
             android:layout_width="match_parent"
-            android:layout_height="40dp"/>
+            android:layout_height="40dp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:dropDownWidth="@dimen/spinner_width"
+            />
 
         <EditText
             android:id="@+id/conso_edittext"
-            android:background="@drawable/edit_text_squared"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
             android:layout_width="match_parent"
-            android:layout_height="40dp"/>
+            android:layout_height="40dp"
+            android:background="@drawable/edit_text_squared"
+            android:paddingLeft="20dp"
+            android:paddingTop="5dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="5dp" />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/line_bottom"
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:layout_below="@+id/spinner_container1"
-        android:background="@drawable/line_seperator"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="15dp"
+        android:background="@drawable/line_seperator" />
+
     <LinearLayout
         android:id="@+id/recycler"
         android:layout_width="match_parent"
@@ -108,21 +114,20 @@
         android:layout_below="@+id/line_bottom">
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_payment_request"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"/>
-    </LinearLayout>
-
-        <TextView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_payment_request"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="© Haball | All rights reserved"
-            android:gravity="center"
-            android:layout_alignParentBottom="true"
-            />
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:text="© Haball | All rights reserved" />
 
 
 </RelativeLayout>

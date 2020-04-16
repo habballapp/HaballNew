@@ -137,6 +137,7 @@ public class CreatePaymentRequestFragment extends Fragment {
             }
         };
         txt_amount.addTextChangedListener(textWatcher);
+
         return root;
     }
 
@@ -197,6 +198,7 @@ public class CreatePaymentRequestFragment extends Fragment {
                 editor.putString("CompanyName", company_names);
                 editor.putString("Amount", txt_amount.getText().toString());
                 editor.apply();
+
 
 
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();

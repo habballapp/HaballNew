@@ -69,7 +69,7 @@ public class ProfileFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_retailor_profile, container, false);
 
         Rfirstname = root.findViewById(R.id.Rfirstname);
-        Remail = root.findViewById(R.id.Remail);
+        Remail = root.findViewById(R.id.email_retailer);
         Rcode = root.findViewById(R.id.Rcode);
         Rcnic = root.findViewById(R.id.Rcnic);
         Rmobile = root.findViewById(R.id.Rmobile);
