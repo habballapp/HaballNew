@@ -30,6 +30,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Distributor.ui.payments.ViewPDFRequest;
 import com.example.haball.Distributor.ui.payments.ViewVoucherRequest;
 import com.example.haball.R;
 import com.google.android.material.textfield.TextInputEditText;
@@ -104,7 +105,8 @@ public class View_Payment_Fragment extends Fragment {
         btn_vreciept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewVoucherRequest viewPDFRequest = new ViewVoucherRequest();
+//                ViewVoucherRequest viewPDFRequest = new ViewVoucherRequest();
+                ViewPDFRequest viewPDFRequest = new ViewPDFRequest();
                 try {
                     viewPDFRequest.viewPDF(getContext(), PaymentsRequestId);
                 } catch (JSONException e) {

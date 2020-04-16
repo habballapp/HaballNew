@@ -525,24 +525,23 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
         JSONObject map = new JSONObject();
         map.put("DistributorId", Integer.parseInt(DistributorId));
         map.put("TotalRecords", 10);
-        map.put("PageNumber", 0.1);
+        map.put("PageNumber", 0);
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_Retailers, map, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONObject result) {
-                Log.i("Payments Requests", result.toString());
+                Log.i("Payments_Requests", result.toString());
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<Retailer_Management_Dashboard_Model>>() {
                 }.getType();
                 try {
                     RetailerList = gson.fromJson(result.get("Data").toString(), type);
-
+                    Log.i("Payments_Requests", String.valueOf(RetailerList.size()));
                     mAdapter = new Retailer_Management_Dashboard_Adapter(getContext(), RetailerList);
                     recyclerView.setAdapter(mAdapter);
                     if (RetailerList.size() != 0) {
                         tv_shipment_no_data.setVisibility(View.GONE);
-
                     } else {
                         tv_shipment_no_data.setVisibility(View.VISIBLE);
                     }

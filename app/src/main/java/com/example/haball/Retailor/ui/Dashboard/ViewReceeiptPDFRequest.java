@@ -45,7 +45,7 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.lang.Object;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -91,11 +91,22 @@ public class ViewReceeiptPDFRequest {
             public void onResponse(JSONObject responseMain) {
                 // TODO handle the response
                 try {
-                    Log.i("responseByte", String.valueOf(String.valueOf(responseMain.get("data"))));
-//                    byte[] response = (byte[]) responseMain.get("data");
-                    String getBackEncodedString = responseMain.getString("data");
-                    byte[] response = java.util.Base64.getDecoder().decode(getBackEncodedString);
-                    Log.i("responseByte", String.valueOf(response));
+                    Log.i("responseByte", String.valueOf(responseMain.get("data")));
+                    byte[] response = String.valueOf(responseMain.get("data")).getBytes();
+//                    String getBackEncodedString = responseMain.getString("data");
+//                    byte[] response = java.util.Base64.getDecoder().decode(getBackEncodedString);
+//                    byte[] decodedBytes = Base64.getDecoder().decode(response);
+                    Log.i("responseByte12", String.valueOf(response));
+//                    Log.i("responseByte12", String.valueOf(response.length));
+//                    Log.i("responseByte1245", String.valueOf(decodedBytes));
+//                    Log.i("responseByte1245", String.valueOf(decodedBytes.length));
+//                    response = decodedBytes;
+//                    var byteArray = new Uint8Array(buffer);
+//                    var arr = new Uint8Array(byteArray.length);
+//                    for(var i = 0; i < byteArray.length; i++) {
+//                        arr[i] = byteArray[i];
+//                    }
+//                    javaObject.onBytes(arr);
 
                     if (response != null) {
                         String dir = Environment.getExternalStorageDirectory() + "/Download/";
@@ -120,6 +131,7 @@ public class ViewReceeiptPDFRequest {
                         }
                         Intent pdfViewIntent = new Intent(Intent.ACTION_VIEW);
                         pdfViewIntent.setDataAndType(Uri.fromFile(file), "application/pdf");
+//                        pdfViewIntent.setDataAndType(Uri.fromFile(file), "application/octet-stream");
                         pdfViewIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 
                         Intent intent = Intent.createChooser(pdfViewIntent, "Open File");
@@ -146,6 +158,7 @@ public class ViewReceeiptPDFRequest {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", "bearer " + Token);
                 params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Cache-Control", "no-cache");
                 return params;
             }
         };

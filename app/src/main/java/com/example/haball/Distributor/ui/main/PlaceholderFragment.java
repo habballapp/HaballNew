@@ -545,7 +545,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private void paymentFragmentTask(final View rootView) {
         tv_shipment_no_data1 = rootView.findViewById(R.id.tv_shipment_no_data1);
         search_bar = rootView.findViewById(R.id.search_bar);
-        consolidate = rootView.findViewById(R.id.consolidate);
+//        consolidate = rootView.findViewById(R.id.consolidate);
 
         // DATE FILTERS ......
         date_filter_rl = rootView.findViewById(R.id.date_filter_rl);
@@ -735,9 +735,9 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             }
         });
 
-        consolidate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+//        consolidate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
 //                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                fragmentTransaction.replace(R.id.main_container, new RetailerPlaceOrder());
 //                fragmentTransaction.commit();
@@ -747,9 +747,9 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 //                        fragmentTransaction.replace(((ViewGroup)getView().getParent()).getId(), new CreatePaymentRequestFragment());
 //                        fragmentTransaction.addToBackStack(null);
 //                        fragmentTransaction.commit();
-            }
-        });
-
+//            }
+//        });
+//
     }
 
     private void checkAmountChanged() {

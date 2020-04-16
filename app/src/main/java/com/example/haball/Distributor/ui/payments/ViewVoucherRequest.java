@@ -98,6 +98,8 @@ public class ViewVoucherRequest {
             public void onResponse(byte[] response) {
                 // TODO handle the response
                 try {
+                    Log.i("responseByte", String.valueOf(response));
+                    Log.i("responseByte", String.valueOf(response.length));
                     if (response!=null) {
                         String dir = Environment.getExternalStorageDirectory() + "/Download/";
                         String timeStamp = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(new Date());

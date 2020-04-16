@@ -64,7 +64,8 @@ import java.util.Map;
 import static com.google.android.gms.plus.PlusOneDummyView.TAG;
 
 public class ViewPDFRequest {
-    public String URL_PDF_VIEW = "http://175.107.203.97:4013/api/Invoices/DetailReport/";
+//    public String URL_PDF_VIEW = "http://175.107.203.97:4013/api/Invoices/DetailReport/";
+    public String URL_PDF_VIEW = "http://175.107.203.97:4013/api/prepaidrequests/printrecipt";
     public String DistributorId, Token;
     public Context mContext;
     private static final int PERMISSION_REQUEST_CODE = 1;
@@ -83,13 +84,13 @@ public class ViewPDFRequest {
         Log.i("DistributorId ", DistributorId);
         Log.i("Token", Token);
 
-        URL_PDF_VIEW = URL_PDF_VIEW+paymentId;
+//        URL_PDF_VIEW = URL_PDF_VIEW+paymentId;
 
         JSONObject map = new JSONObject();
-        map.put("DistributorId", Integer.parseInt(DistributorId));
-        map.put("TotalRecords", 10);
-        map.put("PageNumber", 0.1);
-
+//        map.put("DistributorId", Integer.parseInt(DistributorId));
+//        map.put("TotalRecords", 10);
+//        map.put("PageNumber", 0.1);
+        map.put("ID", paymentId);
 //        StringRequest sr = new StringRequest(Request.Method.POST, URL_PDF_VIEW, new Response.Listener<String>() {
 //            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 //            @Override
@@ -134,6 +135,8 @@ public class ViewPDFRequest {
             public void onResponse(byte[] response) {
                 // TODO handle the response
                 try {
+                    Log.i("responseByte", String.valueOf(response));
+                    Log.i("responseByte", String.valueOf(response.length));
                     if (response!=null) {
                         String dir = Environment.getExternalStorageDirectory() + "/Download/";
                         String timeStamp = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(new Date());
