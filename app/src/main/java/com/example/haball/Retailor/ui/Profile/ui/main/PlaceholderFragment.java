@@ -2,6 +2,8 @@ package com.example.haball.Retailor.ui.Profile.ui.main;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Build;
@@ -34,6 +36,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
+import com.example.haball.Registration.BooleanRequest;
+import com.example.haball.Retailer_Login.RetailerLogin;
+import com.example.haball.Select_User.Register_Activity;
+import com.example.haball.SplashScreen.SplashScreen;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
@@ -46,7 +52,9 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 /**
@@ -64,7 +72,7 @@ public class PlaceholderFragment extends Fragment {
     private Dialog change_password_dail;
     private Boolean password_check = false, confirm_password_check = false;
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private TextView tv_pr1;
+    private TextView tv_pr1, txt_header1;
     private TextInputLayout layout_password1 ,layout_password3;
 
     private PageViewModel pageViewModel;
@@ -195,7 +203,6 @@ public class PlaceholderFragment extends Fragment {
 
             }
             case 2: {
-
                 root = inflater.inflate(R.layout.pasword_change, container, false);
                 //orderFragmentTask(root);
                 txt_password = root.findViewById(R.id.txt_password);
@@ -210,15 +217,15 @@ public class PlaceholderFragment extends Fragment {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onClick(View v) {
-                        if (!String.valueOf(txt_password.getText()).equals("")) {
+//                        if (!String.valueOf(txt_password.getText()).equals("")) {
                             try {
                                 updatePassword();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                        } else {
-                            Toast.makeText(getContext(), "Please fill Old Password", Toast.LENGTH_LONG).show();
-                        }
+//                        } else {
+//                            Toast.makeText(getContext(), "Please fill Old Password", Toast.LENGTH_LONG).show();
+//                        }
 
                     }
                 });
@@ -244,8 +251,6 @@ public class PlaceholderFragment extends Fragment {
                 txt_newpassword.addTextChangedListener(textWatcher);
                 txt_cfmpassword.addTextChangedListener(textWatcher);
             }
-
-
             break;
         }
 
@@ -260,8 +265,6 @@ public class PlaceholderFragment extends Fragment {
         if (password.equals("")
                 || newPass.equals("")
                 || confrm_pass.equals("")
-
-
         ) {
             update_password.setEnabled(false);
             update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
@@ -270,7 +273,6 @@ public class PlaceholderFragment extends Fragment {
             update_password.setEnabled(true);
             update_password.setBackground(getResources().getDrawable(R.drawable.button_background));
         }
-
     }
 
     private void updatePassword() throws JSONException {
@@ -286,9 +288,9 @@ public class PlaceholderFragment extends Fragment {
                     Context.MODE_PRIVATE);
             ID = sharedPreferences1.getString("ID", "");
             username = sharedPreferences1.getString("username", "");
-            Toast.makeText(getActivity(), "Update Password clicked", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(), "Update Password clicked", Toast.LENGTH_SHORT).show();
 
-            change_password_dail.dismiss();
+//            change_password_dail.dismiss();
 
             JSONObject map = new JSONObject();
             map.put("Password", txt_password.getText().toString());
@@ -296,36 +298,51 @@ public class PlaceholderFragment extends Fragment {
             map.put("ConfirmPassword", txt_cfmpassword.getText().toString());
 //            map.put("ID", ID);
             map.put("Username", username);
-            Log.i("Map", map.toString());
-            JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, ChangePass_URL, map, new Response.Listener<JSONObject>() {
+            Log.i("MapChangePass", map.toString());
+            BooleanRequest sr = new BooleanRequest(Request.Method.POST, ChangePass_URL, String.valueOf(map), new Response.Listener<Boolean>() {
                 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                 @Override
-                public void onResponse(JSONObject result) {
+                public void onResponse(Boolean result) {
                     Log.i("response", String.valueOf(result));
-                    try {
-                        if (result.has("message")) {
-                            Toast.makeText(getActivity(), result.get("message").toString(), Toast.LENGTH_SHORT).show();
-                        } else {
-                            final Dialog fbDialogue = new Dialog(getActivity());
-                            //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
-                            fbDialogue.setContentView(R.layout.password_updatepopup);
-                            tv_pr1 = fbDialogue.findViewById(R.id.tv_pr1);
-                            tv_pr1.setText("User Profile ID " + ID + " password has been changed successfully.");
-                            fbDialogue.setCancelable(true);
-                            fbDialogue.show();
-                            ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
-                            close_button.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    fbDialogue.dismiss();
-                                }
-                            });
-                        }
+                    if (result) {
+//                            Toast.makeText(getActivity(), result.get("message").toString(), Toast.LENGTH_SHORT).show();
+//                        } else {
+                        final Dialog fbDialogue = new Dialog(getActivity());
+                        //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                        fbDialogue.setContentView(R.layout.password_updatepopup);
+                        tv_pr1 = fbDialogue.findViewById(R.id.tv_pr1);
+//                            tv_pr1.setText("User Profile ID " + ID + " password has been changed successfully.");
+                        tv_pr1.setText("Your password has been updated. You would be logged out of your account");
+                        fbDialogue.setCancelable(true);
+                        fbDialogue.show();
+                        ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+                        close_button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                fbDialogue.dismiss();
+                            }
+                        });
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
+                        fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                SharedPreferences login_token = getContext().getSharedPreferences("LoginToken",
+                                        Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = login_token.edit();
+                                editor.putString("Login_Token", "");
+                                editor.putString("User_Type", "");
+                                editor.putString("Retailer_Id", "");
+                                editor.putString("username", "");
+                                editor.putString("CompanyName", "");
+                                editor.putString("UserId", "");
 
+                                editor.commit();
+
+                                Intent intent = new Intent(getContext(), RetailerLogin.class);
+                                startActivity(intent);
+                                ((FragmentActivity) getContext()).finish();
+                            }
+                        });
                     }
                 }
             }, new Response.ErrorListener() {
@@ -365,6 +382,25 @@ public class PlaceholderFragment extends Fragment {
             Volley.newRequestQueue(getActivity()).add(sr);
         } else {
             Toast.makeText(getActivity(), "Password do not Match", Toast.LENGTH_LONG).show();
+
+            final Dialog fbDialogue = new Dialog(getActivity());
+            //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+            fbDialogue.setContentView(R.layout.password_updatepopup);
+            txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
+            tv_pr1 = fbDialogue.findViewById(R.id.tv_pr1);
+            txt_header1.setText("Error");
+            txt_header1.setTextColor(getResources().getColor(R.color.error_stroke_color));
+            txt_header1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.border_set_error));
+            tv_pr1.setText("Password do not Match");
+            fbDialogue.setCancelable(true);
+            fbDialogue.show();
+            ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+            close_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    fbDialogue.dismiss();
+                }
+            });
         }
 
     }
