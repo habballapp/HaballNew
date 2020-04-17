@@ -72,10 +72,11 @@
 
                         <Spinner
                             android:id="@+id/spinner_id"
-                            android:paddingLeft="10dp"
-                            android:paddingRight="10dp"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            android:paddingLeft="2dp"
+                            android:paddingRight="2dp"
+                            android:dropDownWidth="match_parent"/>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -91,10 +92,11 @@
 
                         <Spinner
                             android:id="@+id/payment_mode"
-                            android:paddingLeft="10dp"
-                            android:paddingRight="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:paddingLeft="2dp"
+                            android:paddingRight="2dp"
+                            android:dropDownWidth="match_parent"
                             />
                     </RelativeLayout>
 

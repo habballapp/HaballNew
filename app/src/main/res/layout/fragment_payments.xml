@@ -49,8 +49,10 @@
                         android:id="@+id/spinner_conso"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp" />
+                        android:paddingLeft="2dp"
+                        android:paddingRight="2dp"
+                        android:dropDownWidth="match_parent"
+                        />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -69,8 +71,9 @@
                         android:id="@+id/conso_spinner2"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp" />
+                        android:paddingLeft="2dp"
+                        android:paddingRight="2dp"
+                        android:dropDownWidth="match_parent"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -135,7 +138,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="0.25"
-                            android:text="22/12/2020" />
+                            android:text="22-12-2020" />
 
                         <ImageButton
                             android:id="@+id/first_date_btn"
@@ -179,7 +182,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="0.25"
-                            android:text="22/12/2020" />
+                            android:text="22-12-2020" />
 
                         <ImageButton
                             android:id="@+id/second_date_btn"
@@ -191,11 +194,6 @@
                     </LinearLayout>
 
                 </LinearLayout>
-                <!--        date filter layout-->
-
-                <!--        amount filter layout-->
-
-
 
                 <LinearLayout
                     android:id="@+id/amount_filter_rl"
@@ -334,25 +332,25 @@
                 android:isScrollContainer="false"
                 android:nestedScrollingEnabled="false" />
 
-<!--            <RelativeLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="0dp"-->
-<!--                android:layout_gravity="center_horizontal"-->
-<!--                android:layout_marginLeft="30dp"-->
-<!--                android:layout_marginRight="30dp"-->
-<!--                android:layout_weight="0.25">-->
+            <!--            <RelativeLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="0dp"-->
+            <!--                android:layout_gravity="center_horizontal"-->
+            <!--                android:layout_marginLeft="30dp"-->
+            <!--                android:layout_marginRight="30dp"-->
+            <!--                android:layout_weight="0.25">-->
 
-<!--                <Button-->
-<!--                    android:id="@+id/btn_load_more"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="30dp"-->
-<!--                    android:layout_centerInParent="true"-->
-<!--                    android:background="@android:color/transparent"-->
-<!--                    android:text="@string/load_more"-->
-<!--                    android:textAllCaps="false"-->
-<!--                    android:textSize="18sp" />-->
+            <!--                <Button-->
+            <!--                    android:id="@+id/btn_load_more"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="30dp"-->
+            <!--                    android:layout_centerInParent="true"-->
+            <!--                    android:background="@android:color/transparent"-->
+            <!--                    android:text="@string/load_more"-->
+            <!--                    android:textAllCaps="false"-->
+            <!--                    android:textSize="18sp" />-->
 
-<!--            </RelativeLayout>-->
+            <!--            </RelativeLayout>-->
         </LinearLayout>
 
         <TextView

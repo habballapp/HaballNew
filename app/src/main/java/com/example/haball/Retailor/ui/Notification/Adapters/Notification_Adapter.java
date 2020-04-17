@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,12 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
 
         holder.subject.setText(subject);
         holder.notification_message.setText(notification_txt);
+        holder.rl_payments_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Details", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,11 +79,13 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView notification_message, subject;
         public ImageButton menu_btn;
+        public RelativeLayout rl_payments_notification;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             notification_message = itemView.findViewById(R.id.notification_message);
             subject = itemView.findViewById(R.id.subject);
             menu_btn = itemView.findViewById(R.id.menu_btn);
+            rl_payments_notification = itemView.findViewById(R.id.rl_payments_notification);
         }
     }
 }

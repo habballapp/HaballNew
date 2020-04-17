@@ -149,7 +149,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-                android:hint="New Password"
+                android:hint="Confirm Password"
                 android:textColorHint="#A9A9A9"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"

@@ -441,9 +441,9 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
         Log.i("Token", Token);
 
         JSONObject map = new JSONObject();
-
+        map.put("DistributorId", Integer.parseInt(DistributorId));
         map.put("TotalRecords", 10);
-        map.put("PageNumber", 0);
+        map.put("PageNumber", 0.1);
         if (Filter_selected.equals("date")) {
             map.put(Filter_selected1, fromDate);
             map.put(Filter_selected2, toDate);

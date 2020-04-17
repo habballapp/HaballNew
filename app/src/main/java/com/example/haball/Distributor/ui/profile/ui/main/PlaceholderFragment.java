@@ -558,7 +558,7 @@ public class PlaceholderFragment extends Fragment {
             Username = sharedPreferences1.getString("username", "");
             // Toast.makeText(getActivity(), "Update Password clicked", Toast.LENGTH_SHORT).show();
 
-            change_password_dail.dismiss();
+           // change_password_dail.dismiss();
 
             JSONObject map = new JSONObject();
             map.put("Password", txt_password.getText().toString());
@@ -574,7 +574,7 @@ public class PlaceholderFragment extends Fragment {
                 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                 @Override
                 public void onResponse(JSONObject result) {
-                    Log.i("response", String.valueOf(result));
+                    Log.i("response545", String.valueOf(result));
                     try {
                         if (result.has("message")) {
                             Toast.makeText(getActivity(), result.get("message").toString(), Toast.LENGTH_SHORT).show();

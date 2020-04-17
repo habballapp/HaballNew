@@ -160,8 +160,9 @@
                             android:id="@+id/spinner_country"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingLeft="10dp"
-                            android:paddingRight="10dp" />
+                            android:paddingLeft="2dp"
+                            android:paddingRight="2dp"
+                            android:dropDownWidth="match_parent"/>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -178,8 +179,9 @@
                             android:id="@+id/spinner_province"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingLeft="10dp"
-                            android:paddingRight="10dp" />
+                            android:paddingLeft="2dp"
+                            android:paddingRight="2dp"
+                            android:dropDownWidth="match_parent"/>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -196,8 +198,9 @@
                             android:id="@+id/spinner_city"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingLeft="10dp"
-                            android:paddingRight="10dp" />
+                            android:paddingLeft="2dp"
+                            android:paddingRight="2dp"
+                            android:dropDownWidth="match_parent"/>
                     </RelativeLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -338,8 +341,9 @@
                                 android:id="@+id/spinner_country2"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp" />
+                                android:paddingLeft="2dp"
+                                android:paddingRight="2dp"
+                                android:dropDownWidth="match_parent"/>
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -356,8 +360,9 @@
                                 android:id="@+id/spinner_province2"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp" />
+                                android:paddingLeft="2dp"
+                                android:paddingRight="2dp"
+                                android:dropDownWidth="match_parent"/>
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -374,8 +379,9 @@
                                 android:id="@+id/spinner_city2"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp" />
+                                android:paddingLeft="2dp"
+                                android:paddingRight="2dp"
+                                android:dropDownWidth="match_parent"/>
                         </RelativeLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
