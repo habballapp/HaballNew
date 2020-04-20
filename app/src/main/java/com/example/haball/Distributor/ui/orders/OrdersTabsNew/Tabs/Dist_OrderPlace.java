@@ -32,6 +32,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.home.HomeFragment;
 import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Adapters.ParentList_Adapter_DistOrder;
+import com.example.haball.Distributor.ui.orders.OrdersTabsNew.ExpandableRecyclerAdapter;
 import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderChildlist_Model_DistOrder;
 import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderParentlist_Model_DistOrder;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
@@ -55,6 +56,7 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.RequiresApi;
+import androidx.annotation.UiThread;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -92,6 +94,7 @@ public class Dist_OrderPlace extends Fragment {
     private static int y;
     private List<String> scrollEvent = new ArrayList<>();
     private FragmentTransaction fragmentTransaction;
+    private int lastExpandedPosition = -1;
 
     public Dist_OrderPlace() {
         // Required empty public constructor
@@ -564,7 +567,26 @@ public class Dist_OrderPlace extends Fragment {
                 productList = gson.fromJson(String.valueOf(result), type);
                 Log.i("productList", String.valueOf(productList));
 
-                ParentList_Adapter_DistOrder adapter = new ParentList_Adapter_DistOrder(getActivity(), initData());
+                final ParentList_Adapter_DistOrder adapter = new ParentList_Adapter_DistOrder(getActivity(), initData());
+//                adapter.setCustomParentAnimationViewId(R.id.parent_list_item_expand_arrow);
+//                adapter.setParentClickableViewAnimationDefaultDuration();
+                adapter.setExpandCollapseListener(new ExpandableRecyclerAdapter.ExpandCollapseListener() {
+                    @UiThread
+                    @Override
+                    public void onParentExpanded(int parentPosition) {
+
+                        if (lastExpandedPosition != -1
+                                && parentPosition != lastExpandedPosition) {
+                            adapter.collapseParent(lastExpandedPosition);
+                        }
+                        lastExpandedPosition = parentPosition;
+                    }
+
+                    @UiThread
+                    @Override
+                    public void onParentCollapsed(int parentPosition) {
+                    }
+                });
                 recyclerView.setAdapter(adapter);
             }
         }, new Response.ErrorListener() {

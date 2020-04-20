@@ -131,6 +131,10 @@ public class DistributorDashboard extends AppCompatActivity {
         fragmentTransaction.add(R.id.main_container, new HomeFragment());
         fragmentTransaction.commit();
 
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_container, new HomeFragment());
+        fragmentTransaction.commit();
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);

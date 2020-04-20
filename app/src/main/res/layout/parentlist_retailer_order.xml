@@ -2,39 +2,65 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/underline">
+
         <RelativeLayout
+            android:id="@+id/rl_orderName_retailer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/underline">
-            <ImageView
-                android:id="@+id/plus_icon"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/plus_icon_ll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
                 android:layout_marginTop="5dp"
-                android:src="@drawable/ic_add_black_24dp"/>
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/plus_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_add_black_24dp" />
+
+                <ImageView
+                    android:id="@+id/minus_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_remove_black_24dp" />
+
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/orderName_retailer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chinese"
+                android:layout_toEndOf="@+id/plus_icon_ll"
+                android:layout_toRightOf="@+id/plus_icon_ll"
                 android:padding="10dp"
+                android:text="Chinese"
                 android:textSize="22sp"
-                android:textStyle="bold"
-                android:layout_toRightOf="@+id/plus_icon"/>
-            <RelativeLayout
-                android:id="@+id/layout_expandable"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/orderName_retailer">
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_expandable"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rl_orderName_retailer">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/subchlid_RV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_above="@+id/asd"
-                />
+                android:clickable="false"
+                android:duplicateParentState="true" />
         </RelativeLayout>
-        </RelativeLayout>
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>

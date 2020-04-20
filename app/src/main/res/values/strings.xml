@@ -27,8 +27,10 @@
     //retailer_place_order in distributor
     <string name="tab_text_rpoid_01">\t\tPlace Order\t\t</string>
     <string name="tab_text_rpoid_02">\t\tOrder Summary\t\t</string>
-    <string name="tab_retailer_order">\t\t\t\tOrder\t\t\t\t</string>
-    <string name="tab_retailer_payment">\t\t\t\tPayment\t\t\t\t</string>
+<!--    <string name="tab_retailer_order">\t\t\t\tOrder\t\t\t\t</string>-->
+<!--    <string name="tab_retailer_payment">\t\t\t\tPayment\t\t\t\t</string>-->
+    <string name="tab_retailer_order">Order</string>
+    <string name="tab_retailer_payment">Payment</string>
     <string name="tab_retailer_profile">\t\t\t\tProfile\t\t\t\t</string>
     <string name="tab_retailer_profile1">\t\tChange Password\t\t\t\t</string>
     <string name="tab_distributor_profile">\t\t\t\tProfile\t\t\t\t</string>

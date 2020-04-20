@@ -80,12 +80,12 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
     }
 
     @Override
-    public void onBindParentViewHolder(@NonNull OrderParentList_VH_DistOrder parentViewHolder, int parentPosition, @NonNull OrderParentlist_Model_DistOrder parent) {
+    public void onBindParentViewHolder(@NonNull final OrderParentList_VH_DistOrder parentViewHolder, int parentPosition, @NonNull OrderParentlist_Model_DistOrder parent) {
         Log.i("objAdapter", String.valueOf(parent));
+
         OrderParentlist_Model_DistOrder orderParentlist_model = (OrderParentlist_Model_DistOrder) parent;
         parentViewHolder._textview.setText(orderParentlist_model.getTitle());
         orderParentLIst_vh_main = parentViewHolder;
-
     }
 
     @Override
