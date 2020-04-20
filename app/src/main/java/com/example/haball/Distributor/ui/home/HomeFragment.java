@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import com.google.android.material.tabs.TabLayout;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
+    private int myVal = -1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -35,17 +37,16 @@ public class HomeFragment extends Fragment {
         SharedPreferences selectedTab = getContext().getSharedPreferences("OrderTabsFromDraft",
                 Context.MODE_PRIVATE);
         int value = Integer.parseInt(selectedTab.getString("TabNo", "0"));
-        SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
-        editorOrderTabsFromDraft.putString("TabNo", "0");
-        editorOrderTabsFromDraft.apply();
+        if (myVal == -1)
+            myVal = value;
+        Log.i("OrderTabsFromDraft", String.valueOf(myVal));
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getActivity(), getChildFragmentManager());
         final ViewPager viewPager = root.findViewById(R.id.view_pager1);
         viewPager.setOffscreenPageLimit(3);
         viewPager.setAdapter(sectionsPagerAdapter);
-        viewPager.setCurrentItem(value);
+        if (myVal != -1)
+            viewPager.setCurrentItem(myVal);
         TabLayout tabs = root.findViewById(R.id.tabs1);
         tabs.setupWithViewPager(viewPager);
 

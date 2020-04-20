@@ -1,6 +1,7 @@
 package com.example.haball.Distributor.ui.payments;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,7 +60,7 @@ import java.util.Map;
 
 public class EditPaymentRequestFragment extends Fragment {
     private String Token, DistributorId;
-    private Button btn_create;
+    private Button btn_create, btn_newpayment, btn_voucher;
 
     private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4013/api/company/ReadActiveCompanyContract/";
     private String URL_PAYMENT_REQUESTS_SAVE = "http://175.107.203.97:4013/api/prepaidrequests/save";
@@ -74,11 +76,14 @@ public class EditPaymentRequestFragment extends Fragment {
     private FragmentTransaction fragmentTransaction;
     private TextInputLayout layout_txt_amount;
     private String PrePaidNumber = "", PrePaidId = "", CompanyName = "", Amount = "";
+    private TextView tv_banking_channel, payment_id;
+    private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.activity_payment__screen1, container, false);
+//        View root = inflater.inflate(R.layout.activity_payment__screen1, container, false);
+        View root = inflater.inflate(R.layout.activity_payment__screen3, container, false);
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("PrePaidNumber",
                 Context.MODE_PRIVATE);
@@ -87,16 +92,66 @@ public class EditPaymentRequestFragment extends Fragment {
         CompanyName = sharedPreferences.getString("CompanyName", "");
         Amount = sharedPreferences.getString("Amount", "");
 
-        btn_create = root.findViewById(R.id.btn_create);
-        btn_create.setEnabled(false);
-        btn_create.setBackground(getResources().getDrawable(R.drawable.button_background));
-        spinner_company = root.findViewById(R.id.spinner_company);
+        payment_id = root.findViewById(R.id.payment_id);
+        btn_newpayment = root.findViewById(R.id.btn_newpayment);
+        btn_voucher = root.findViewById(R.id.btn_voucher);
+        btn_create = root.findViewById(R.id.btn_update);
+        spinner_company = root.findViewById(R.id.spinner_companyName);
         txt_amount = root.findViewById(R.id.txt_amount);
 
+        payment_id.setText(PrePaidNumber);
         layout_txt_amount = root.findViewById(R.id.layout_txt_amount);
         layout_txt_amount.setBoxStrokeColor(Color.parseColor("#e5e5e5"));
         CompanyNames.add("Company *");
         company_names = "";
+
+        btn_newpayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, new CreatePaymentRequestFragment());
+                fragmentTransaction.commit();
+            }
+        });
+
+
+        btn_voucher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkAndRequestPermissions()) {
+
+                    try {
+                        viewPDF(getContext(), PrePaidId);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        });
+
+        tv_banking_channel = root.findViewById(R.id.tv_banking_channel);
+        tv_banking_channel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final AlertDialog alertDialog2 = new AlertDialog.Builder(getContext()).create();
+                LayoutInflater inflater2 = LayoutInflater.from(getContext());
+                View view_popup2 = inflater2.inflate(R.layout.payment_request_details, null);
+                alertDialog2.setView(view_popup2);
+                alertDialog2.show();
+                ImageButton img_close = view_popup2.findViewById(R.id.image_button_close);
+                TextView payment_information_txt3 = view_popup2.findViewById(R.id.payment_information_txt3);
+                payment_information_txt3.setText(PrePaidNumber);
+
+                img_close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog2.dismiss();
+                    }
+                });
+            }
+        });
 
         arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, CompanyNames);
@@ -254,6 +309,30 @@ public class EditPaymentRequestFragment extends Fragment {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
+    }
+
+
+    private void viewPDF(Context context, String ID) throws JSONException {
+        ViewVoucherRequest viewPDFRequest = new ViewVoucherRequest();
+        viewPDFRequest.viewPDF(context, ID);
+    }
+
+    private boolean checkAndRequestPermissions() {
+        int permissionRead = ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+        int permissionWrite = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (permissionWrite != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (permissionRead != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(getActivity(), listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), REQUEST_ID_MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
     }
 
 

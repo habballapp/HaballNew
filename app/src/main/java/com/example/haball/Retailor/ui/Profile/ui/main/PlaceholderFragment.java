@@ -38,6 +38,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
 import com.example.haball.Registration.BooleanRequest;
 import com.example.haball.Retailer_Login.RetailerLogin;
+import com.example.haball.Retailor.ui.Profile.Profile_Tabs;
 import com.example.haball.Select_User.Register_Activity;
 import com.example.haball.SplashScreen.SplashScreen;
 import com.google.android.material.textfield.TextInputLayout;
@@ -55,6 +56,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
 /**
@@ -73,7 +75,8 @@ public class PlaceholderFragment extends Fragment {
     private Boolean password_check = false, confirm_password_check = false;
     private static final String ARG_SECTION_NUMBER = "section_number";
     private TextView tv_pr1, txt_header1;
-    private TextInputLayout layout_password1 ,layout_password3;
+    private TextInputLayout layout_password1, layout_password3;
+    private FragmentTransaction fragmentTransaction;
 
     private PageViewModel pageViewModel;
 
@@ -111,10 +114,14 @@ public class PlaceholderFragment extends Fragment {
                 Rcnic = root.findViewById(R.id.Rcnic);
                 R_created_date = root.findViewById(R.id.R_created_date);
 
-                Remail = root.findViewById(R.id.Remail);
+                Remail = root.findViewById(R.id.email_retailer);
                 Rmobile = root.findViewById(R.id.Rmobile);
                 R_Address = root.findViewById(R.id.R_Address);
                 btn_save_password = root.findViewById(R.id.btn_save_password);
+                Remail.setFocusable(false);
+                Rmobile.setFocusable(false);
+                R_Address.setFocusable(false);
+
                 Remail.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
@@ -209,7 +216,7 @@ public class PlaceholderFragment extends Fragment {
                 txt_newpassword = root.findViewById(R.id.txt_newpassword);
                 txt_cfmpassword = root.findViewById(R.id.txt_cfmpassword);
                 layout_password1 = root.findViewById(R.id.layout_password1);
-                layout_password3= root.findViewById(R.id.layout_password3);
+                layout_password3 = root.findViewById(R.id.layout_password3);
                 update_password = root.findViewById(R.id.update_password);
                 update_password.setEnabled(false);
                 update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
@@ -218,11 +225,11 @@ public class PlaceholderFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
 //                        if (!String.valueOf(txt_password.getText()).equals("")) {
-                            try {
-                                updatePassword();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                        try {
+                            updatePassword();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 //                        } else {
 //                            Toast.makeText(getContext(), "Please fill Old Password", Toast.LENGTH_LONG).show();
 //                        }
@@ -409,7 +416,7 @@ public class PlaceholderFragment extends Fragment {
         String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
         if (txt_newpassword.getText().toString().matches(reg_ex)) {
             password_check = true;
-          layout_password1.setPasswordVisibilityToggleEnabled(true);
+            layout_password1.setPasswordVisibilityToggleEnabled(true);
         } else {
             txt_newpassword.setError("Please enter password with minimum 6 characters & 1 Numeric or special character");
             password_check = false;
@@ -486,11 +493,11 @@ public class PlaceholderFragment extends Fragment {
                 Context.MODE_PRIVATE);
         RetailerId = sharedPreferences1.getString("Retailer_Id", "");
         Log.i("RetailerId ", RetailerId);
-        PROFILE_URL = PROFILE_URL + RetailerId;
+//        PROFILE_URL = PROFILE_URL + RetailerId;
         Log.i("Token Retailer ", Token);
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("ID", 1);
+        jsonObject.put("ID", RetailerId);
         jsonObject.put("Name", Rfirstname.getText().toString());
         jsonObject.put("CNIC", Rcnic.getText().toString());
         jsonObject.put("Mobile", Rmobile.getText().toString());
@@ -498,11 +505,15 @@ public class PlaceholderFragment extends Fragment {
         jsonObject.put("Address", R_Address.getText().toString());
         jsonObject.put("Email", Remail.getText().toString());
 
-        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, PROFILE_EDIT_URL, jsonObject, new Response.Listener<JSONObject>() {
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, PROFILE_EDIT_URL, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
                 try {
                     Toast.makeText(getContext(), "Profile Information Successfully updated for " + result.getString("RetailerCode"), Toast.LENGTH_LONG).show();
+                    fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.main_container_ret, new Profile_Tabs()).addToBackStack("tag");;
+                    fragmentTransaction.commit();
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

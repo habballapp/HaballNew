@@ -264,6 +264,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         consolidate_felter.add("Payment ID");
         consolidate_felter.add("Company");
         consolidate_felter.add("Status");
+        consolidate_felter.add("Paid Date");
         consolidate_felter.add("Amount");
 
         arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
@@ -298,28 +299,11 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "CompanyName";
                         conso_edittext.setVisibility(View.VISIBLE);
-                    } else if (Filter_selected.equals("Transaction Date")) {
+                    } else if (Filter_selected.equals("Paid Date")) {
                         date_filter_rl.setVisibility(View.VISIBLE);
                         Filter_selected = "date";
-                        Filter_selected1 = "PrepaidDateFrom";
-                        Filter_selected2 = "PrepaidDateTo";
-                        first_date_btn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                openCalenderPopup("first date");
-                            }
-                        });
-                        second_date_btn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                openCalenderPopup("second date");
-                            }
-                        });
-                    } else if (Filter_selected.equals("Created Date")) {
-                        date_filter_rl.setVisibility(View.VISIBLE);
-                        Filter_selected = "date";
-                        Filter_selected1 = "CreateDateFrom";
-                        Filter_selected2 = "CreateDateTo";
+                        Filter_selected1 = "DateFrom";
+                        Filter_selected2 = "DateTo";
                         first_date_btn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -335,8 +319,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     } else if (Filter_selected.equals("Amount")) {
                         amount_filter_rl.setVisibility(View.VISIBLE);
                         Filter_selected = "amount";
-                        Filter_selected1 = "AmountMin";
-                        Filter_selected2 = "AmountMax";
+                        Filter_selected1 = "PaymentAmountMin";
+                        Filter_selected2 = "PaymentAmountMax";
                         checkAmountChanged();
                     } else if (Filter_selected.equals("Status")) {
                         Filter_selected = "Status";
@@ -697,9 +681,10 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         } else if (Filter_selected.equals("amount")) {
             map.put(Filter_selected1, fromAmount);
             map.put(Filter_selected2, toAmount);
-        } else {
+        } else if (!Filter_selected.equals("")) {
             map.put(Filter_selected, Filter_selected_value);
         }
+
         Log.i("Mapsssss", String.valueOf(map));
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
             @Override
@@ -755,6 +740,16 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         JSONObject map = new JSONObject();
         map.put("TotalRecords", 10);
         map.put("PageNumber", pageNumber);
+        if (Filter_selected.equals("date")) {
+            map.put(Filter_selected1, fromDate);
+            map.put(Filter_selected2, toDate);
+        } else if (Filter_selected.equals("amount")) {
+            map.put(Filter_selected1, fromAmount);
+            map.put(Filter_selected2, toAmount);
+        } else if (!Filter_selected.equals("")) {
+            map.put(Filter_selected, Filter_selected_value);
+        }
+
         Log.i("mapRetailerPayment", String.valueOf(map));
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
             @Override
@@ -855,6 +850,15 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         JSONObject map = new JSONObject();
         map.put("TotalRecords", 10);
         map.put("PageNumber", pageNumberOrder);
+        if (Filter_selected.equals("date")) {
+            map.put(Filter_selected1, fromDate);
+            map.put(Filter_selected2, toDate);
+        } else if (Filter_selected.equals("amount")) {
+            map.put(Filter_selected1, fromAmount);
+            map.put(Filter_selected2, toAmount);
+        } else if (!Filter_selected.equals("")) {
+            map.put(Filter_selected, Filter_selected_value);
+        }
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS, map, new Response.Listener<JSONArray>() {
             @Override
@@ -1274,7 +1278,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         } else if (Filter_selected.equals("amount")) {
             map.put(Filter_selected1, fromAmount);
             map.put(Filter_selected2, toAmount);
-        } else {
+        } else if (!Filter_selected.equals("")) {
             map.put(Filter_selected, Filter_selected_value);
         }
 

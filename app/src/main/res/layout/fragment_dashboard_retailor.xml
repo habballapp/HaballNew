@@ -289,6 +289,7 @@
         android:id="@+id/rl_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/com_name"
         android:layout_below="@+id/spinner_container_main">
         <TextView
             android:id="@+id/tv_shipment_no_data"
@@ -317,6 +318,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:gravity="center"
         android:text="© Haball | All rights reserved" />

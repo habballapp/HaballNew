@@ -82,7 +82,7 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
     private List<String> filters = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapterPayments;
     private ArrayAdapter<String> arrayAdapterFeltter;
-    private Button consolidate;
+//    private Button consolidate;
     private String Filter_selected, Filter_selected1, Filter_selected2, Filter_selected_value;
     private TextInputLayout search_bar;
     private Button btn_load_more;
@@ -121,7 +121,7 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
         View rootView = inflater.inflate(R.layout.fragment_retailer_payment_dashboard, container, false);
         rv_paymentDashBoard = (RecyclerView) rootView.findViewById(R.id.rv_dist_payment_retailer);
         search_bar = rootView.findViewById(R.id.search_bar);
-        consolidate = rootView.findViewById(R.id.consolidate);
+//        consolidate = rootView.findViewById(R.id.consolidate);
         tv_shipment_no_data = rootView.findViewById(R.id.tv_shipment_no_data);
         spinner_container_main = rootView.findViewById(R.id.spinner_container_main);
         // DATE FILTERS ......

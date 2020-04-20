@@ -13,6 +13,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrderDashboard;
+import com.example.haball.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +22,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 public class RetailerCancelOrder {
@@ -54,9 +57,9 @@ public class RetailerCancelOrder {
             public void onResponse(JSONObject response) {
                 // TODO handle the response
                 Toast.makeText(context, "Order # " + orderNumber + " is cancelled", Toast.LENGTH_LONG).show();
-//                fragmentTransaction = ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.main_container, new HomeFragment());
-//                fragmentTransaction.commit();
+                fragmentTransaction = ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, new RetailerOrderDashboard());
+                fragmentTransaction.commit();
 
             }
         }, new Response.ErrorListener() {

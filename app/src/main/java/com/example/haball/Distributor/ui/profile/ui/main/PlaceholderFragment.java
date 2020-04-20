@@ -112,6 +112,11 @@ public class PlaceholderFragment extends Fragment {
                 tv_created_date = root.findViewById(R.id.tv_created_date);
                 distri_btn_save = root.findViewById(R.id.distri_btn_save);
                 R_Address = root.findViewById(R.id.R_Address);
+                edt_firstname.setFocusable(false);
+                R_Address.setFocusable(false);
+                edt_lastname.setFocusable(false);
+                edt_email.setFocusable(false);
+                edt_dist_mobile.setFocusable(false);
 
                 edt_firstname.setOnTouchListener(new View.OnTouchListener() {
                     @Override

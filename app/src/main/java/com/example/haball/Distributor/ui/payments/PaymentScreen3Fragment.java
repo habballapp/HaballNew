@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -69,6 +70,10 @@ public class PaymentScreen3Fragment extends Fragment {
                 android.R.layout.simple_spinner_dropdown_item, CompanyNames);
         spinner_companyName.setAdapter(arrayAdapterPayments);
         txt_amount.setText(Amount);
+        txt_amount.setEnabled(false);
+        spinner_companyName.setEnabled(false);
+        spinner_companyName.setClickable(false);
+        btn_update.setText("Back");
 
         btn_newpayment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,9 +87,10 @@ public class PaymentScreen3Fragment extends Fragment {
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, new EditPaymentRequestFragment());
-                fragmentTransaction.commit();
+
+//                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.replace(R.id.main_container, new EditPaymentRequestFragment());
+//                fragmentTransaction.commit();
             }
         });
 

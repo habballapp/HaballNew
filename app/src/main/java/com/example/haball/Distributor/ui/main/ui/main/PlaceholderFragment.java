@@ -113,6 +113,7 @@ public class PlaceholderFragment extends Fragment {
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+
 //        Log.i("StatusKVP", String.valueOf(Token));
 
         StatusKVPClass = new StatusKVP(getContext(), Token);

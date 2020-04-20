@@ -1,8 +1,10 @@
 package com.example.haball.Distributor.ui.orders;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -12,6 +14,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Distributor.DistributorDashboard;
+import com.example.haball.Distributor.ui.home.HomeFragment;
+import com.example.haball.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +24,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 public class CancelOrder {
@@ -50,10 +56,16 @@ public class CancelOrder {
             @Override
             public void onResponse(JSONObject response) {
                 // TODO handle the response
-//                Toast.makeText(context, "Order # " + orderNumber + " is cancelled", Toast.LENGTH_LONG).show();
-//                fragmentTransaction = ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.main_container, new HomeFragment());
-//                fragmentTransaction.commit();
+                Toast.makeText(context, "Order # " + orderNumber + " is cancelled", Toast.LENGTH_LONG).show();
+                SharedPreferences tabsFromDraft = context.getSharedPreferences("OrderTabsFromDraft",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                editorOrderTabsFromDraft.putString("TabNo", "1");
+                editorOrderTabsFromDraft.apply();
+
+                Intent login_intent = new Intent(((FragmentActivity) context), DistributorDashboard.class);
+                ((FragmentActivity) context).startActivity(login_intent);
+                ((FragmentActivity) context).finish();
 
             }
         }, new Response.ErrorListener() {

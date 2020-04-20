@@ -91,7 +91,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
     private List<String> filters = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapterPayments;
     private ArrayAdapter<String> arrayAdapterFeltter;
-    private Button consolidate;
+//    private Button consolidate;
     private String Filter_selected, Filter_selected1, Filter_selected2, Filter_selected_value;
     private int pageNumber = 0;
     private double totalPages = 0;
@@ -135,7 +135,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         recyclerView = root.findViewById(R.id.rv_retailer_order_dashboard);
         btn_place_order = root.findViewById(R.id.btn_place_order);
         search_bar = root.findViewById(R.id.search_bar);
-        consolidate = root.findViewById(R.id.consolidate);
+//        consolidate = root.findViewById(R.id.consolidate);
         spinner_container_main = root.findViewById(R.id.spinner_container_main);
         search_bar = root.findViewById(R.id.search_bar);
 

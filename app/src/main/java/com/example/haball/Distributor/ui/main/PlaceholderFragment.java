@@ -165,6 +165,13 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = null;
+        SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+        editorOrderTabsFromDraft.putString("TabNo", "0");
+        editorOrderTabsFromDraft.apply();
+
+
 //        Log.i("SECTION NO", String.valueOf(getArguments().getInt(ARG_SECTION_NUMBER)));
         switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
             case 1: {
