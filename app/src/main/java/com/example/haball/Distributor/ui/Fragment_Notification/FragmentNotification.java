@@ -85,7 +85,8 @@ public class FragmentNotification extends Fragment {
         Log.i("DistributorId ", DistributorId);
         Log.i("Token", Token);
 
-        URL_NOTIFICATION = URL_NOTIFICATION + ID;
+        if (!URL_NOTIFICATION.contains("/" + ID))
+            URL_NOTIFICATION = URL_NOTIFICATION + ID;
         Log.i("URL_NOTIFICATION", URL_NOTIFICATION);
 
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_NOTIFICATION, null, new Response.Listener<JSONArray>() {
@@ -102,7 +103,50 @@ public class FragmentNotification extends Fragment {
                 notificationLists = gson.fromJson(result.toString(), type);
                 NotificationAdapter = new NotificationAdapter(getContext(), notificationLists, Token);
                 recyclerView.setAdapter(NotificationAdapter);
+                setNotificationStatus(DistributorId, ID);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        sr.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
 
+            @Override
+            public int getCurrentRetryCount() {
+                return 1000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
+        Volley.newRequestQueue(getContext()).add(sr);
+    }
+
+    private void setNotificationStatus(String DistributorId, String ID) {
+        String URL_NOTIFICATION_SEEN = "http://175.107.203.97:4013/api/useralert/MarkSeen/";
+        if (!URL_NOTIFICATION_SEEN.contains("/" + ID))
+            URL_NOTIFICATION_SEEN = URL_NOTIFICATION_SEEN + ID;
+        Log.i("URL_NOTIFICATION", URL_NOTIFICATION_SEEN);
+
+        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_NOTIFICATION_SEEN, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray result) {
             }
         }, new Response.ErrorListener() {
             @Override
