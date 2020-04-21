@@ -86,6 +86,7 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
         OrderParentlist_Model_DistOrder orderParentlist_model = (OrderParentlist_Model_DistOrder) parent;
         parentViewHolder._textview.setText(orderParentlist_model.getTitle());
         orderParentLIst_vh_main = parentViewHolder;
+
     }
 
     @Override

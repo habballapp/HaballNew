@@ -32,7 +32,7 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
     @NonNull
     protected List<ExpandableWrapper<P, C>> mFlatItemList;
     private P LastExpandedParent = null;
-    private int LastExpandedParentPosition = -1;
+//    private int LastExpandedParentPosition = -1;
     @NonNull
     private List<P> mParentList;
     @Nullable
@@ -44,19 +44,19 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
         @UiThread
         public void onParentExpanded(int flatParentPosition) {
 
-            if(LastExpandedParentPosition != -1) {
-//                collapseParent(LastExpandedParentPosition);
-                ExpandableRecyclerAdapter.this.parentCollapsedFromViewHolder(LastExpandedParentPosition);
-            }
-
-
+//            if(LastExpandedParentPosition != -1) {
+////                collapseParent(LastExpandedParentPosition);
+//                ExpandableRecyclerAdapter.this.parentCollapsedFromViewHolder(LastExpandedParentPosition);
+//            }
+//
+//
             ExpandableRecyclerAdapter.this.parentExpandedFromViewHolder(flatParentPosition);
-            LastExpandedParentPosition = flatParentPosition;
+//            LastExpandedParentPosition = flatParentPosition;
         }
 
         @UiThread
         public void onParentCollapsed(int flatParentPosition) {
-            LastExpandedParentPosition = -1;
+//            LastExpandedParentPosition = -1;
             ExpandableRecyclerAdapter.this.parentCollapsedFromViewHolder(flatParentPosition);
         }
     };

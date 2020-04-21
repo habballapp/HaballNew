@@ -18,6 +18,7 @@ public class OrderParentList_VH_DistOrder extends ParentViewHolder {
     public ImageView minus_icon;
     public RecyclerView subchlid_RV;
     public RelativeLayout layout_expandable, rl_orderName_retailer;
+
     public OrderParentList_VH_DistOrder(View itemView) {
         super(itemView);
         _textview = (TextView) itemView.findViewById(R.id.orderName_retailer);
@@ -42,14 +43,14 @@ public class OrderParentList_VH_DistOrder extends ParentViewHolder {
 
 
     private void togglePlusMinusIcon() {
-        if(isExpanded()){
-            imageView.setVisibility(View.VISIBLE);
-            minus_icon.setVisibility(View.GONE);
+        if (isExpanded()) {
             collapseView();
+            minus_icon.setVisibility(View.GONE);
+            imageView.setVisibility(View.VISIBLE);
         } else {
+            expandView();
             imageView.setVisibility(View.GONE);
             minus_icon.setVisibility(View.VISIBLE);
-            expandView();
         }
 
     }
