@@ -50,12 +50,12 @@ import java.util.Map;
  */
 public class ViewRetailer extends Fragment {
     private String RetailerId;
-    private TextInputEditText mg_rt_code, mg_rt_firstname, mg_rt_email, mg_cnic_no, mg_mobile_no, mg_rt_company, mg_tr_address, mg_rt_sapcode;
+    private TextInputEditText mg_rt_code, mg_rt_firstname, mg_rt_email, mg_cnic_no, mg_mobile_no, mg_rt_company, mg_tr_address, mg_rt_sapcode, mg_rt_status;
     private String URL_RETAILER_DETAILS = "http://175.107.203.97:4013/api/retailer/";
     private String URL_UPDATE_RETAILER = "http://175.107.203.97:4013/api/retailer/RetailerUpdate";
     private String Token, DistributorId;
     private CheckBox check_box;
-    private Button btn_close ,btn_save;
+    private Button btn_close, btn_save;
     private FragmentTransaction fragmentTransaction;
 
 
@@ -78,6 +78,7 @@ public class ViewRetailer extends Fragment {
         mg_mobile_no = root.findViewById(R.id.mg_mobile_no);
         check_box = root.findViewById(R.id.check_box);
         mg_rt_company = root.findViewById(R.id.mg_rt_company);
+        mg_rt_status = root.findViewById(R.id.mg_rt_status);
         mg_tr_address = root.findViewById(R.id.mg_tr_address);
         mg_rt_sapcode = root.findViewById(R.id.mg_rt_sapcode);
         btn_close = root.findViewById(R.id.btn_close);
@@ -90,6 +91,7 @@ public class ViewRetailer extends Fragment {
         mg_cnic_no.setEnabled(false);
         mg_mobile_no.setEnabled(false);
         mg_rt_company.setEnabled(false);
+        mg_rt_status.setEnabled(false);
         mg_tr_address.setEnabled(false);
 
         btn_save.setOnClickListener(new View.OnClickListener() {
@@ -202,6 +204,12 @@ public class ViewRetailer extends Fragment {
                     mg_mobile_no.setText(result.getString("Mobile"));
                     mg_rt_company.setText(result.getString("CompanyName"));
                     mg_tr_address.setText(result.getString("Address"));
+                    if(result.getString("Status").equals("1"))
+                        mg_rt_status.setText("Connected");
+                    else if(result.getString("Status").equals("2"))
+                        mg_rt_status.setText("Disconnected");
+                    else if(result.getString("Status").equals("0"))
+                        mg_rt_status.setText("Pending");
                     if (result.getString("Status").equals("1"))
                         check_box.setChecked(true);
                     else

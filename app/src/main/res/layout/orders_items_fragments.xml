@@ -51,8 +51,7 @@
                     android:layout_marginRight="30dp"
                     android:hint="Search by Item"
                     android:textColorHint="#676a6c"
-
-                    >
+                    android:theme="@style/TextLabelSearchBox">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_test"

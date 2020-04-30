@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -39,6 +40,8 @@ import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.example.haball.Distributor.ui.profile.Profile_Model;
 import com.example.haball.R;
+import com.example.haball.Registration.BooleanRequest;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -78,7 +81,7 @@ public class PlaceholderFragment extends Fragment {
     private Dialog change_password_dail;
     private Boolean password_check = false, confirm_password_check = false;
     private int keyDel;
-    private TextInputLayout layout_password1 ,layout_password3;
+    private TextInputLayout layout_password1, layout_password3;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -295,7 +298,7 @@ public class PlaceholderFragment extends Fragment {
 
             case 2:
                 root = inflater.inflate(R.layout.pasword_change, container, false);
-                layout_password3= root.findViewById(R.id.layout_password3);
+                layout_password3 = root.findViewById(R.id.layout_password3);
                 txt_password = root.findViewById(R.id.txt_password);
                 txt_newpassword = root.findViewById(R.id.txt_newpassword);
                 txt_cfmpassword = root.findViewById(R.id.txt_cfmpassword);
@@ -364,6 +367,21 @@ public class PlaceholderFragment extends Fragment {
             update_password.setBackground(getResources().getDrawable(R.drawable.button_background));
         }
 
+    }
+
+    private boolean checkEmail() {
+        String reg_ex = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
+
+        if (TextUtils.isEmpty(edt_email.getText().toString())) {
+            edt_email.setError("This field is required");
+            return false;
+        } else if (!edt_email.getText().toString().matches(reg_ex)) {
+            edt_email.setError("Email (format: johnsmith@Example.com)\n");
+            return false;
+        } else {
+            edt_email.setError(null);
+            return true;
+        }
     }
 
     private void checkPasswords() {
@@ -563,7 +581,7 @@ public class PlaceholderFragment extends Fragment {
             Username = sharedPreferences1.getString("username", "");
             // Toast.makeText(getActivity(), "Update Password clicked", Toast.LENGTH_SHORT).show();
 
-           // change_password_dail.dismiss();
+            // change_password_dail.dismiss();
 
             JSONObject map = new JSONObject();
             map.put("Password", txt_password.getText().toString());
@@ -737,61 +755,60 @@ public class PlaceholderFragment extends Fragment {
     }
 
     private void saveProfileData() throws JSONException {
+        if (checkEmail()) {
+            SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                    Context.MODE_PRIVATE);
+            Token = sharedPreferences.getString("Login_Token", "");
 
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token", "");
+            SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                    Context.MODE_PRIVATE);
+            DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+            Log.i("Distributor_Id ", DistributorId);
 
-        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
-        Log.i("Distributor_Id ", DistributorId);
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("ID", DistributorId);
+            jsonObject.put("FirstName", edt_firstname.getText().toString());
+            jsonObject.put("LastName", edt_lastname.getText().toString());
+            jsonObject.put("CompanyName", tv_companyname.getText().toString());
+            jsonObject.put("CompanyNTN", tv_NTN.getText().toString());
+            jsonObject.put("CNIC", tv_cnic.getText().toString());
+            jsonObject.put("Phone", Phone);
+            jsonObject.put("Mobile", edt_dist_mobile.getText().toString());
+            jsonObject.put("Email", edt_email.getText().toString());
+            jsonObject.put("DealerCode", edt_dist_code.getText().toString());
+            jsonObject.put("Address", R_Address.getText().toString());
+            jsonObject.put("UserType", 0);
 
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("ID", DistributorId);
-        jsonObject.put("FirstName", edt_firstname.getText().toString());
-        jsonObject.put("LastName", edt_lastname.getText().toString());
-        jsonObject.put("CompanyName", tv_companyname.getText().toString());
-        jsonObject.put("CompanyNTN", tv_NTN.getText().toString());
-        jsonObject.put("CNIC", tv_cnic.getText().toString());
-        jsonObject.put("Phone", Phone);
-        jsonObject.put("Mobile", edt_dist_mobile.getText().toString());
-        jsonObject.put("Email", edt_email.getText().toString());
-        jsonObject.put("DealerCode", edt_dist_code.getText().toString());
-        jsonObject.put("Address", R_Address.getText().toString());
-        jsonObject.put("UserType", 0);
-
-        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, PROFILE_EDIT_URL, jsonObject, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject result) {
-                try {
-                    Toast.makeText(getContext(), "Profile Information Successfully updated for " + result.getString("DealerCode"), Toast.LENGTH_LONG).show();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, PROFILE_EDIT_URL, jsonObject, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject result) {
+                    try {
+                        Toast.makeText(getContext(), "Profile Information Successfully updated for " + result.getString("DealerCode"), Toast.LENGTH_LONG).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    printErrorMessage(error);
 
-                error.printStackTrace();
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer " + Token);
-                return params;
-            }
-        };
-        sr.setRetryPolicy(new DefaultRetryPolicy(
-                15000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext()).add(sr);
+                    error.printStackTrace();
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("Authorization", "bearer " + Token);
+                    return params;
+                }
+            };
+            sr.setRetryPolicy(new DefaultRetryPolicy(
+                    15000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            Volley.newRequestQueue(getContext()).add(sr);
 
+        }
     }
-
-
 }

@@ -33,9 +33,9 @@
                         android:id="@+id/spinner_conso"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:dropDownWidth="match_parent"
                         android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:dropDownWidth="match_parent"/>
+                        android:paddingRight="2dp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -54,9 +54,9 @@
                         android:id="@+id/conso_spinner2"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:dropDownWidth="match_parent"
                         android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:dropDownWidth="match_parent"/>
+                        android:paddingRight="2dp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -73,7 +73,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Search by Item"
-                        android:textColorHint="#676a6c">
+                        android:textColorHint="#676a6c"
+                        android:theme="@style/TextLabelSearchBox">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/conso_edittext"
@@ -291,6 +292,7 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/haballCopyright"
             android:layout_below="@+id/spinner_container_main">
+
             <TextView
                 android:id="@+id/tv_shipment_no_data"
                 android:layout_width="match_parent"
@@ -301,6 +303,7 @@
                 android:text="No Data Available"
                 android:textSize="30sp"
                 android:textStyle="bold" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_fragment_orders"
                 android:layout_width="match_parent"
