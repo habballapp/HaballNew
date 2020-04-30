@@ -148,7 +148,7 @@ public class CreatePaymentRequestFragment extends Fragment {
     private void checkFieldsForEmptyValues() {
         String txt_amounts = txt_amount.getText().toString();
         String company = (String) spinner_company.getItemAtPosition(spinner_company.getSelectedItemPosition()).toString();
-        if (txt_amounts.equals("")
+        if (txt_amounts.equals("") || Double.parseDouble(txt_amounts) < 500
                 || company.equals("Company *")
 
         ) {

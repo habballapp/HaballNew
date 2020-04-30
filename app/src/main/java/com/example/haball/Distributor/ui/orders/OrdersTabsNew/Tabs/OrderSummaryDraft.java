@@ -603,7 +603,8 @@ public class OrderSummaryDraft extends Fragment {
             }
         }
 
-        gross_amount.setText(String.valueOf(grossAmount));
+//        gross_amount.setText(String.valueOf(grossAmount));
+        gross_amount.setText(String.format("%.0f", grossAmount));
         discount_amount.setText(" - ");
 
 //        float gstAmount = (Float.parseFloat(grossamount.getString("grossamount", "")) * 17) / 100;
@@ -612,7 +613,8 @@ public class OrderSummaryDraft extends Fragment {
         grossAmount = 0;
 
 //        gst_amount.setText(String.valueOf(gstAmount));
-        total_amount.setText(String.valueOf(totalAmount));
+//        total_amount.setText(String.valueOf(totalAmount));
+        total_amount.setText(String.format("%.0f", totalAmount));
 
 
     }

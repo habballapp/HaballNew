@@ -9,7 +9,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
@@ -59,6 +58,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import org.json.JSONArray;
@@ -81,12 +81,22 @@ public class DistributorDashboard extends AppCompatActivity {
     private String username, companyname, Token, ID;
     private ImageButton notification_icon;
     private String URL_Notification = "http://175.107.203.97:4013/api/useralert/";
-    boolean doubleBackToExitPressedOnce = false;
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//
+//        SharedPreferences grossamount = getApplication().getSharedPreferences("grossamount",
+//                Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = grossamount.edit();
+//        editor.clear();
+//        editor.apply();
+//        SharedPreferences selectedProducts_distributor = getApplication().getSharedPreferences("selectedProducts_distributor",
+//                Context.MODE_PRIVATE);
+//        SharedPreferences.Editor selectedProducts_distributor_editor = selectedProducts_distributor.edit();
+//        selectedProducts_distributor_editor.clear();
+//        selectedProducts_distributor_editor.apply();
+
         setContentView(R.layout.activity_distributor_dashboard);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -257,8 +267,7 @@ public class DistributorDashboard extends AppCompatActivity {
                         } else if (groupPosition == 2 && childPosition == 1) {
                             Log.i("Make Payment", "Child");//DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, new CreatePaymentRequestFragment()).addToBackStack("tag");
-                            ;
+                            fragmentTransaction.replace(R.id.main_container, new CreatePaymentRequestFragment()).addToBackStack(null);
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (groupPosition == 2 && childPosition == 2) {
@@ -387,26 +396,28 @@ public class DistributorDashboard extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(drawer.isDrawerOpen(Gravity.LEFT)){
-            drawer.closeDrawer(Gravity.LEFT);
-        }else{
-            super.onBackPressed();
-        }
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            return;
+        getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//            super.onBackPressed();
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() == 0) {
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                finishAffinity();
+                return;
+            }
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 1500);
+        } else {
+//            super.onBackPressed();
+            fm.popBackStack();
         }
 
-//        this.doubleBackToExitPressedOnce = true;
-//        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-//
-//        new Handler().postDelayed(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                doubleBackToExitPressedOnce=false;
-//            }
-//        }, 2000);
     }
 
     private void printErrorMessage(VolleyError error) {
@@ -444,5 +455,4 @@ public class DistributorDashboard extends AppCompatActivity {
             }
         }
     }
-
 }

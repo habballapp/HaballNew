@@ -185,7 +185,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_weight="1"
+            android:layout_weight="0.75"
+            android:paddingLeft="15dp"
             android:gravity="center">
 
             <TextView
@@ -197,17 +198,19 @@
                 android:stateListAnimator="@null"
                 android:text="Amount: "
                 android:textSize="16sp" />
+
             <TextView
                 android:id="@+id/totalAmount_Rs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/totalAmount"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:layout_toRightOf="@id/totalAmount"
                 android:stateListAnimator="@null"
                 android:text="Rs. "
                 android:textSize="16sp"
                 android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/totalAmount_value"
                 android:layout_width="wrap_content"

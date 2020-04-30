@@ -325,7 +325,7 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
         filters.add("Status");
         filters.add("Disconnected");
         filters.add("Connected");
-        filters.add("Pending");
+//        filters.add("Pending");
 
         arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
                 android.R.layout.simple_dropdown_item_1line, filters);
@@ -340,7 +340,16 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
                         ex.printStackTrace();
                     }
                 } else {
-                    Filter_selected_value = String.valueOf(i - 1);
+//                    Filter_selected_value = String.valueOf(i - 1);
+                    if(filters.get(i).equals("Disconnected"))
+                        Filter_selected_value = "2";
+                    else if(filters.get(i).equals("Connected"))
+                        Filter_selected_value = "1";
+                    else {
+                        Filter_selected_value = "";
+                        Filter_selected = "";
+
+                    }
                     Log.i("Filter_selected_value", Filter_selected_value);
                     try {
                         fetchFilteredRetailer();

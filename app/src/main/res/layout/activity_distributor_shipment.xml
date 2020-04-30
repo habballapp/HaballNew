@@ -59,10 +59,9 @@
                         android:id="@+id/spinner_conso"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
                         android:dropDownWidth="match_parent"
-                         />
+                        android:paddingLeft="2dp"
+                        android:paddingRight="2dp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -81,10 +80,9 @@
                         android:id="@+id/conso_spinner2"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
                         android:dropDownWidth="match_parent"
-                         />
+                        android:paddingLeft="2dp"
+                        android:paddingRight="2dp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -108,11 +106,13 @@
                             android:id="@+id/conso_edittext"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:drawableRight="@drawable/ic_search_drawable_selector"
+                            android:drawableRight="@drawable/ic_search_black_24dp"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
                             android:textColor="#676a6c"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            />
+                        <!--                            android:drawableRight="@drawable/ic_search_drawable_selector"-->
 
                     </com.google.android.material.textfield.TextInputLayout>
 

@@ -95,11 +95,11 @@ public class CreatePaymentRequestFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                        try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                        } catch (NullPointerException e) {
-                            e.printStackTrace();
-                        }
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     company_names = CompanyNames.get(i);
                     Log.i("company name and id ", companyNameAndId.get(company_names));
@@ -172,8 +172,14 @@ public class CreatePaymentRequestFragment extends Fragment {
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     // handle back button's click listener
 //                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
-                    showDiscardDialog();
-                    return true;
+                    String txt_amounts = txt_amount.getText().toString();
+                    String company = (String) spinner_company.getItemAtPosition(spinner_company.getSelectedItemPosition()).toString();
+                    if (!txt_amounts.equals("") || !company.equals("Company *")) {
+                        showDiscardDialog();
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
                 return false;
             }
@@ -213,7 +219,7 @@ public class CreatePaymentRequestFragment extends Fragment {
     private void checkFieldsForEmptyValues() {
         String txt_amounts = txt_amount.getText().toString();
         String company = (String) spinner_company.getItemAtPosition(spinner_company.getSelectedItemPosition()).toString();
-        if (txt_amounts.equals("")
+        if (txt_amounts.equals("") || Double.parseDouble(txt_amounts) < 500
                 || company.equals("Company *")
 
         ) {
@@ -265,7 +271,8 @@ public class CreatePaymentRequestFragment extends Fragment {
                 editor.apply();
 
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new PaymentScreen3Fragment());
+                fragmentTransaction.replace(R.id.main_container, new PaymentScreen3Fragment());
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
 
                 Toast.makeText(getContext(), "Payment Request " + prepaid_number + " has been created successfully.", Toast.LENGTH_SHORT).show();
