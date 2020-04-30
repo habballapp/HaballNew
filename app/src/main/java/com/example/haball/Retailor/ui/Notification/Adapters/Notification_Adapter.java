@@ -44,7 +44,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
         holder.rl_payments_notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Details", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "Details", Toast.LENGTH_SHORT).show();
             }
         });
 
