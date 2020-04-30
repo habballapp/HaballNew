@@ -136,7 +136,7 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
                     case R.id.orders_view:
                         String ID = OrderList.get(position).getID();
                         FragmentTransaction fragmentTransaction= ((FragmentActivity)mContxt).getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.add(R.id.main_container,new ViewOrder());
+                        fragmentTransaction.add(R.id.main_container,new ViewOrder()).addToBackStack("tag");
                         fragmentTransaction.commit();
                         SharedPreferences OrderId = ((FragmentActivity)mContxt).getSharedPreferences("OrderId",
                                 Context.MODE_PRIVATE);
@@ -165,7 +165,7 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
                     case R.id.orders_view:
                         String ID = OrderList.get(position).getID();
                         FragmentTransaction fragmentTransaction= ((FragmentActivity)mContxt).getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.add(R.id.main_container,new ViewOrder());
+                        fragmentTransaction.add(R.id.main_container,new ViewOrder()).addToBackStack("tag");
                         fragmentTransaction.commit();
                         SharedPreferences OrderId = ((FragmentActivity)mContxt).getSharedPreferences("OrderId",
                                 Context.MODE_PRIVATE);

@@ -129,7 +129,7 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
                     case R.id.orders_view:
                         String ID = OrderList.get(position).getID();
                         FragmentTransaction fragmentTransaction= ((FragmentActivity) mContxt).getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.add(R.id.main_container_ret, new RetailerViewOrder());
+                        fragmentTransaction.add(R.id.main_container_ret, new RetailerViewOrder()).addToBackStack("tag");
                         fragmentTransaction.commit();
                         SharedPreferences OrderId = ((FragmentActivity) mContxt).getSharedPreferences("OrderId",
                                 Context.MODE_PRIVATE);
@@ -158,7 +158,7 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
                     case R.id.orders_view:
                         String ID = OrderList.get(position).getID();
                         FragmentTransaction fragmentTransaction= ((FragmentActivity)mContxt).getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.add(R.id.main_container_ret,new RetailerViewOrder());
+                        fragmentTransaction.add(R.id.main_container_ret,new RetailerViewOrder()).addToBackStack("tag");
                         fragmentTransaction.commit();
                         SharedPreferences OrderId = ((FragmentActivity)mContxt).getSharedPreferences("OrderId",
                                 Context.MODE_PRIVATE);

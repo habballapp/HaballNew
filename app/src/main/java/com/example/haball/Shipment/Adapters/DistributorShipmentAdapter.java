@@ -106,7 +106,7 @@ public class DistributorShipmentAdapter extends RecyclerView.Adapter<Distributor
                                 //handle menu1 click
                                 Toast.makeText(context,"View Clicked",Toast.LENGTH_LONG).show();
                                 FragmentTransaction fragmentTransaction= ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction.replace(R.id.main_container,new DistributorShipment_ViewDashboard());
+                                fragmentTransaction.replace(R.id.main_container,new DistributorShipment_ViewDashboard()).addToBackStack("tag");
                                 fragmentTransaction.commit();
                                 SharedPreferences shipmentid = ((FragmentActivity)context).getSharedPreferences("Shipment_ID",
                                         Context.MODE_PRIVATE);

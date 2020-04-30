@@ -207,7 +207,6 @@ public class CreatePaymentRequestFragment extends Fragment {
 
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
-                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
 
                 Toast.makeText(getContext(), "Payment Request " + prepaid_number + " has been created successfully.", Toast.LENGTH_SHORT).show();

@@ -7,7 +7,9 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
@@ -79,21 +81,12 @@ public class DistributorDashboard extends AppCompatActivity {
     private String username, companyname, Token, ID;
     private ImageButton notification_icon;
     private String URL_Notification = "http://175.107.203.97:4013/api/useralert/";
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        SharedPreferences grossamount = getApplication().getSharedPreferences("grossamount",
-//                Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = grossamount.edit();
-//        editor.clear();
-//        editor.apply();
-//        SharedPreferences selectedProducts_distributor = getApplication().getSharedPreferences("selectedProducts_distributor",
-//                Context.MODE_PRIVATE);
-//        SharedPreferences.Editor selectedProducts_distributor_editor = selectedProducts_distributor.edit();
-//        selectedProducts_distributor_editor.clear();
-//        selectedProducts_distributor_editor.apply();
-
+//
         setContentView(R.layout.activity_distributor_dashboard);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -394,7 +387,26 @@ public class DistributorDashboard extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        if(drawer.isDrawerOpen(Gravity.LEFT)){
+            drawer.closeDrawer(Gravity.LEFT);
+        }else{
+            super.onBackPressed();
+        }
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+//        this.doubleBackToExitPressedOnce = true;
+//        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+//
+//        new Handler().postDelayed(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                doubleBackToExitPressedOnce=false;
+//            }
+//        }, 2000);
     }
 
     private void printErrorMessage(VolleyError error) {
@@ -432,4 +444,5 @@ public class DistributorDashboard extends AppCompatActivity {
             }
         }
     }
+
 }
