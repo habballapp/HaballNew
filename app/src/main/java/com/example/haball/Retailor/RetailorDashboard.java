@@ -204,7 +204,7 @@ public class RetailorDashboard extends AppCompatActivity  {
                         }  else if (groupPosition == 3 && childPosition == 1) {
                             Log.i("Payment Request", "Child");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment()).addToBackStack("tag");;
+                            fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment()).addToBackStack(null);;
                             fragmentTransaction.commit();
                         }  else if (groupPosition == 2 && childPosition == 0) {
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -221,15 +221,33 @@ public class RetailorDashboard extends AppCompatActivity  {
     }
     @Override
     public void onBackPressed() {
+        getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//            super.onBackPressed();
         if(drawer.isDrawerOpen(Gravity.LEFT)){
             drawer.closeDrawer(Gravity.LEFT);
         }else{
-            super.onBackPressed();
-            return;
-//
+            FragmentManager fm = getSupportFragmentManager();
+            if (fm.getBackStackEntryCount() == 0) {
+                if (doubleBackToExitPressedOnce) {
+                    super.onBackPressed();
+                    finishAffinity();
+                    return;
+                }
+                this.doubleBackToExitPressedOnce = true;
+                Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        doubleBackToExitPressedOnce = false;
+                    }
+                }, 1500);
+            } else {
+//            super.onBackPressed();
+                fm.popBackStack();
+            }
+
         }
 
+
     }
-
-
 }
