@@ -269,6 +269,12 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
                         ex.printStackTrace();
                     }
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+
                     Filter_selected = consolidate_felter.get(i);
 
                     spinner2.setSelection(0);
@@ -340,6 +346,12 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
                         ex.printStackTrace();
                     }
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+
 //                    Filter_selected_value = String.valueOf(i - 1);
                     if(filters.get(i).equals("Disconnected"))
                         Filter_selected_value = "2";

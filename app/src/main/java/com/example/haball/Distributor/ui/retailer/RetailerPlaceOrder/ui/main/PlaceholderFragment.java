@@ -142,6 +142,12 @@ public class PlaceholderFragment extends Fragment {
                                 ex.printStackTrace();
                             }
                         } else {
+                            try {
+                                ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                            } catch (NullPointerException ex) {
+                                ex.printStackTrace();
+                            }
+
                             Company_selected = company_names.get(i);
                             spinner_retailer_details.setVisibility(View.VISIBLE);
 //                            try {

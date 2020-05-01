@@ -1,6 +1,7 @@
 package com.example.haball.Distributor.ui.profile.ui.main;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -58,6 +59,7 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 
 /**
@@ -82,6 +84,8 @@ public class PlaceholderFragment extends Fragment {
     private Boolean password_check = false, confirm_password_check = false;
     private int keyDel;
     private TextInputLayout layout_password1, layout_password3;
+    private String currentTab = "";
+    private Boolean changed = false;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -103,7 +107,7 @@ public class PlaceholderFragment extends Fragment {
 
 
                 root = inflater.inflate(R.layout.fragment_distributor_profile, container, false);
-
+                currentTab = "Profile";
                 edt_dist_code = root.findViewById(R.id.edt_dist_code);
                 edt_firstname = root.findViewById(R.id.edt_firstname);
                 edt_lastname = root.findViewById(R.id.edt_lastname);
@@ -139,6 +143,7 @@ public class PlaceholderFragment extends Fragment {
                                 edt_firstname.setSelection(edt_firstname.getText().length());
                                 distri_btn_save.setEnabled(true);
                                 distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
+                                changed = true;
                                 return true;
                             }
                         }
@@ -164,6 +169,7 @@ public class PlaceholderFragment extends Fragment {
                                 R_Address.setSelection(R_Address.getText().length());
                                 distri_btn_save.setEnabled(true);
                                 distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
+                                changed = true;
                                 return true;
                             }
                         }
@@ -188,6 +194,7 @@ public class PlaceholderFragment extends Fragment {
                                 edt_lastname.setSelection(edt_lastname.getText().length());
                                 distri_btn_save.setEnabled(true);
                                 distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
+                                changed = true;
                                 return true;
                             }
                         }
@@ -212,6 +219,7 @@ public class PlaceholderFragment extends Fragment {
                                 edt_email.setSelection(edt_email.getText().length());
                                 distri_btn_save.setEnabled(true);
                                 distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
+                                changed = true;
                                 return true;
                             }
                         }
@@ -236,6 +244,7 @@ public class PlaceholderFragment extends Fragment {
                                 edt_dist_mobile.setSelection(edt_dist_mobile.getText().length());
                                 distri_btn_save.setEnabled(true);
                                 distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
+                                changed = true;
                                 return true;
                             }
                         }
@@ -298,6 +307,7 @@ public class PlaceholderFragment extends Fragment {
 
             case 2:
                 root = inflater.inflate(R.layout.pasword_change, container, false);
+                currentTab = "Password";
                 layout_password3 = root.findViewById(R.id.layout_password3);
                 txt_password = root.findViewById(R.id.txt_password);
                 txt_newpassword = root.findViewById(R.id.txt_newpassword);
@@ -347,6 +357,128 @@ public class PlaceholderFragment extends Fragment {
 
 
         return root;
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(currentTab.equals("Profile"))
+            onResumeProfile();
+        else if(currentTab.equals("Password"))
+            onResumePassword();
+    }
+
+    private void onResumeProfile(){
+        View.OnKeyListener listener = new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    edt_firstname.clearFocus();
+                    edt_lastname.clearFocus();
+                    edt_email.clearFocus();
+                    edt_dist_mobile.clearFocus();
+                    R_Address.clearFocus();
+                    showDiscardDialog();
+                }
+                return false;
+            }
+        };
+        edt_firstname.setOnKeyListener(listener);
+        edt_lastname.setOnKeyListener(listener);
+        edt_email.setOnKeyListener(listener);
+        edt_dist_mobile.setOnKeyListener(listener);
+        R_Address.setOnKeyListener(listener);
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    // handle back button's click listener
+//                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
+                    if (changed) {
+                        showDiscardDialog();
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                return false;
+            }
+        });
+
+    }
+
+    private void onResumePassword(){
+        View.OnKeyListener listener = new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    txt_password.clearFocus();
+                    txt_newpassword.clearFocus();
+                    txt_cfmpassword.clearFocus();
+                    showDiscardDialog();
+                }
+                return false;
+            }
+        };
+        txt_password.setOnKeyListener(listener);
+        txt_newpassword.setOnKeyListener(listener);
+        txt_cfmpassword.setOnKeyListener(listener);
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    // handle back button's click listener
+//                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
+                    String txtpassword = txt_password.getText().toString();
+                    String txtnewpassword = txt_newpassword.getText().toString();
+                    String txtcfmpassword = txt_cfmpassword.getText().toString();
+                    if (!txtpassword.equals("") || !txtnewpassword.equals("") || !txtcfmpassword.equals("")) {
+                        showDiscardDialog();
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                return false;
+            }
+        });
+
+    }
+
+    private void showDiscardDialog() {
+        Log.i("CreatePayment", "In Dialog");
+        final FragmentManager fm = getActivity().getSupportFragmentManager();
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        alertDialog.setView(view_popup);
+        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+        btn_discard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.i("CreatePayment", "Button Clicked");
+                alertDialog.dismiss();
+                fm.popBackStack();
+            }
+        });
+
+        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+        img_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+            }
+        });
+
+        alertDialog.show();
     }
 
     private void checkFieldsForEmptyValues() {

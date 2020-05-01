@@ -253,6 +253,12 @@ public class ProofOfPaymentForm extends Fragment {
 //                    btn_upload.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
 
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+
                     selected_paymentid = payment_ids.get(i);
                     checkFieldsForEmptyValues();
                 }
@@ -275,6 +281,12 @@ public class ProofOfPaymentForm extends Fragment {
                     }
 
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+
                     selected_paymentmode = payment_modes.get(i);
                     if (selected_paymentmode.equals("OTC"))
                         ImageFileTypes.add("Cheque");
@@ -448,6 +460,12 @@ public class ProofOfPaymentForm extends Fragment {
                     }
                     selectedFileType = "";
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+
                     selectedFileType = ImageFileTypes.get(i);
                     selectedImageFileTypes.add(selectedFileType);
                     btn_choose.setOnClickListener(new View.OnClickListener() {

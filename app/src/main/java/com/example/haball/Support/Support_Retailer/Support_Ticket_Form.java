@@ -1,5 +1,6 @@
 package com.example.haball.Support.Support_Retailer;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -140,12 +141,24 @@ public class Support_Ticket_Form extends AppCompatActivity {
         IssueType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                try {
+                    ((TextView) adapterView.getChildAt(0)).setTextSize(14);
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
                 if (i == 0) {
                         try {
                             ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                         } catch (NullPointerException e) {
                             e.printStackTrace();
                         }
+                } else {
+                        try {
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        } catch (NullPointerException ex) {
+                            ex.printStackTrace();
+                        }
+
                 }
 //                issueType = issue_type.get(i);
                 issueType = issue_type_map.get(issue_type.get(i));
@@ -161,6 +174,11 @@ public class Support_Ticket_Form extends AppCompatActivity {
         critcicality.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                try {
+                    ((TextView) adapterView.getChildAt(0)).setTextSize(14);
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
                 if (i == 0) {
                         try {
                             ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
@@ -168,6 +186,11 @@ public class Support_Ticket_Form extends AppCompatActivity {
                             e.printStackTrace();
                         }
                 } else {
+                        try {
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        } catch (NullPointerException ex) {
+                            ex.printStackTrace();
+                        }
                     Criticality = criticality_map.get(criticality.get(i));
                 }
                 checkFieldsForEmptyValues();
@@ -182,12 +205,24 @@ public class Support_Ticket_Form extends AppCompatActivity {
         Preffered_Contact.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                try {
+                    ((TextView) adapterView.getChildAt(0)).setTextSize(14);
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
                 if (i == 0) {
                         try {
                             ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                         } catch (NullPointerException e) {
                             e.printStackTrace();
                         }
+                } else {
+                        try {
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        } catch (NullPointerException ex) {
+                            ex.printStackTrace();
+                        }
+
                 }
 //                PrefferedContacts = preffered_contact.get(i);
                 PrefferedContacts = preffered_contact_map.get(preffered_contact.get(i));
@@ -286,6 +321,54 @@ public class Support_Ticket_Form extends AppCompatActivity {
         });
 
 
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        String txt_BName = BName.getText().toString();
+        String txt_Email = Email.getText().toString();
+        String txt_MobileNo = MobileNo.getText().toString();
+        String txt_IssueType = (String) IssueType.getItemAtPosition(IssueType.getSelectedItemPosition()).toString();
+        String txt_critcicality = (String) critcicality.getItemAtPosition(critcicality.getSelectedItemPosition()).toString();
+        String txt_Preffered_Contact = (String) Preffered_Contact.getItemAtPosition(Preffered_Contact.getSelectedItemPosition()).toString();
+        String txt_Comment = Comment.getText().toString();
+
+        if(!txt_BName.equals("") || !txt_Email.equals("") || !txt_MobileNo.equals("") || !txt_IssueType.equals("Issue Type *") || !txt_critcicality.equals("Criticality *") || !txt_Preffered_Contact.equals("Preferred Method of Contacting *") || !txt_Comment.equals("")) {
+            showDiscardDialog();
+        } else {
+            finish();
+        }
+    }
+
+
+    private void showDiscardDialog() {
+        Log.i("CreatePayment", "In Dialog");
+//        final FragmentManager fm = getSupportFragmentManager();
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        alertDialog.setView(view_popup);
+        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+        btn_discard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.i("CreatePayment", "Button Clicked");
+                alertDialog.dismiss();
+                finish();
+            }
+        });
+
+        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+        img_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+            }
+        });
+
+        alertDialog.show();
     }
 
     private void checkFieldsForEmptyValues() {

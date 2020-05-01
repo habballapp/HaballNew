@@ -40,6 +40,21 @@
             </com.techatmosphere.expandablenavigation.view.ExpandableNavigationListView>
 
         </ScrollView>
+        <LinearLayout
+            android:id="@+id/ll_footer_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:clickable="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/footer_item_1"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:text="Terms And Conditions" />
+        </LinearLayout>
 
     </com.google.android.material.navigation.NavigationView>
 

@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -177,6 +178,49 @@ public class Registration_main extends AppCompatActivity implements View.OnFocus
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        String txt_txt_username = txt_username.getText().toString();
+        String txt_txt_password = txt_password.getText().toString();
+        String txt_txt_confirmpass = txt_confirm.getText().toString();
+
+        if (!txt_txt_username.equals("") || !txt_txt_password.equals("") || !txt_txt_confirmpass.equals("")) {
+            showDiscardDialog();
+        } else {
+            finish();
+        }
+    }
+
+
+    private void showDiscardDialog() {
+        Log.i("CreatePayment", "In Dialog");
+//        final FragmentManager fm = getSupportFragmentManager();
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        alertDialog.setView(view_popup);
+        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+        btn_discard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.i("CreatePayment", "Button Clicked");
+                alertDialog.dismiss();
+                finish();
+            }
+        });
+
+        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+        img_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+            }
+        });
+
+        alertDialog.show();
     }
 
     private void checkUsername(final View view) throws JSONException {

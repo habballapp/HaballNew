@@ -18,12 +18,13 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"
         android:background="#fff"
+        android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_distributor_dashboard"
         app:menu="@menu/activity_distributor_dashboard_drawer">
 
         <ScrollView
+            android:id="@+id/abcdef"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp">
@@ -31,16 +32,31 @@
             <com.techatmosphere.expandablenavigation.view.ExpandableNavigationListView
                 android:id="@+id/expandable_navigation"
                 android:layout_width="match_parent"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="left"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:dividerHeight="1dp"
                 android:groupIndicator="@drawable/group_indicator"
-                android:scrollbars="vertical">
-            </com.techatmosphere.expandablenavigation.view.ExpandableNavigationListView>
+                android:scrollbars="vertical" />
 
         </ScrollView>
+        <LinearLayout
+            android:id="@+id/ll_footer_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:clickable="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/footer_item_1"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:text="Terms And Conditions" />
+        </LinearLayout>
+
     </com.google.android.material.navigation.NavigationView>
 
 

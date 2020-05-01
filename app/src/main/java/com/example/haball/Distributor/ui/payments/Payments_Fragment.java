@@ -204,6 +204,12 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
                         ex.printStackTrace();
                     }
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+
                     Filter_selected = consolidate_felter.get(i);
 
                     spinner2.setSelection(0);
@@ -285,6 +291,12 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
                         ex.printStackTrace();
                     }
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+
                     Filter_selected_value = String.valueOf(i);
                     Log.i("Filter_selected_value", Filter_selected_value);
                     try {
@@ -350,6 +362,12 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
                     }
                     spinner_consolidate.setVisibility(View.GONE);
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+
                     Company_selected = company_names.get(i);
                     spinner_consolidate.setVisibility(View.VISIBLE);
                     try {

@@ -119,6 +119,11 @@ public class Support_Ticket_Form_Retailer extends AppCompatActivity {
                         ex.printStackTrace();
                     }
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
                     issueType = issue_type.get(i);
                 }
             }
@@ -139,6 +144,11 @@ public class Support_Ticket_Form_Retailer extends AppCompatActivity {
                         ex.printStackTrace();
                     }
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
                     Criticality = criticality.get(i);
                 }
             }
@@ -159,6 +169,11 @@ public class Support_Ticket_Form_Retailer extends AppCompatActivity {
                         ex.printStackTrace();
                     }
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
                     PrefferedContacts = preffered_contact.get(i);
                 }
             }

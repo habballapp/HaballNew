@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.haball.Distributor.ui.expandablelist.CustomExpandableListModel;
+import com.example.haball.Distributor.ui.terms_and_conditions.TermsAndConditionsFragment;
 import com.example.haball.R;
 import com.example.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
 import com.example.haball.Retailor.ui.Make_Payment.CreatePaymentRequestFragment;
@@ -54,7 +55,7 @@ public class RetailorDashboard extends AppCompatActivity  {
     HashMap<CustomExpandableListModel, List<CustomExpandableListModel>> childList = new HashMap<>();
     private ExpandableNavigationListView navigationExpandableListView;
     private String username, companyname, Token;
-    private TextView tv_username, tv_user_company;
+    private TextView tv_username, tv_user_company, footer_item_1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +100,18 @@ public class RetailorDashboard extends AppCompatActivity  {
         tv_user_company.setText(companyname);
 
         navigationExpandableListView = findViewById(R.id.expandable_navigation);
+        footer_item_1 = findViewById(R.id.footer_item_1);
+        footer_item_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.replace(R.id.main_container, new TermsAndConditionsFragment());
+//                fragmentTransaction.commit();
+
+                drawer.closeDrawer(GravityCompat.START);
+
+            }
+        });
         navigationExpandableListView
                 .init(this)
                 .addHeaderModel(new HeaderModel("Dashboard"))
@@ -108,7 +121,7 @@ public class RetailorDashboard extends AppCompatActivity  {
                 .addHeaderModel(new HeaderModel("Profile"))
                 .addHeaderModel(new HeaderModel("Support"))
                 .addHeaderModel(new HeaderModel("Logout"))
-                .addHeaderModel(new HeaderModel("\n\n\n\nTerms And Conditions"))
+//                .addHeaderModel(new HeaderModel("\n\n\n\nTerms And Conditions"))
                 .build()
                 .addOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
                     @Override

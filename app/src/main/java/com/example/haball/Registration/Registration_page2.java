@@ -158,6 +158,11 @@ public class Registration_page2 extends AppCompatActivity {
                         ex.printStackTrace();
                     }
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
                     country1 = countries.get(i);
                     checkFieldsForEmptyValues();
 
@@ -181,6 +186,11 @@ public class Registration_page2 extends AppCompatActivity {
                         ex.printStackTrace();
                     }
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
                     province1 = provinces.get(i);
                     checkFieldsForEmptyValues();
                 }
@@ -203,6 +213,11 @@ public class Registration_page2 extends AppCompatActivity {
                         ex.printStackTrace();
                     }
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
                     city1 = cities.get(i);
                     checkFieldsForEmptyValues();
                 }
@@ -224,6 +239,11 @@ public class Registration_page2 extends AppCompatActivity {
                         ex.printStackTrace();
                     }
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
                     country2 = countries.get(i);
                     checkFieldsForEmptyValues();
                 }
@@ -245,6 +265,11 @@ public class Registration_page2 extends AppCompatActivity {
                         ex.printStackTrace();
                     }
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
                     province2 = provinces.get(i);
                     checkFieldsForEmptyValues();
                 }
@@ -267,6 +292,11 @@ public class Registration_page2 extends AppCompatActivity {
                         ex.printStackTrace();
                     }
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
                     checkFieldsForEmptyValues();
                     city2 = cities.get(i);
                 }

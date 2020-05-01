@@ -3,6 +3,7 @@ package com.example.haball.Retailor.Retailor_SignUp;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -49,7 +50,7 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
     private Button btn_register_signup, btn_register_close;
     private Boolean password_check = false, confirm_password_check = false;
     private int keyDel;
-    private TextInputLayout layout_txt_password ,layout_txt_confirmpass;
+    private TextInputLayout layout_txt_password, layout_txt_confirmpass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +81,8 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
         txt_business_name = (EditText) findViewById(R.id.txt_business_name);
         txt_address = (EditText) findViewById(R.id.txt_address);
         btn_register_signup = (Button) findViewById(R.id.btn_register_signup);
-        layout_txt_password =findViewById(R.id.layout_txt_password);
-        layout_txt_confirmpass =findViewById(R.id.layout_txt_confirmpass);
+        layout_txt_password = findViewById(R.id.layout_txt_password);
+        layout_txt_confirmpass = findViewById(R.id.layout_txt_confirmpass);
 
         txt_username.addTextChangedListener(watcher);
         txt_password.addTextChangedListener(watcher);
@@ -288,6 +289,54 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
 
     }
 
+    @Override
+    public void onBackPressed() {
+        String txt_txt_username = txt_username.getText().toString();
+        String txt_txt_password = txt_password.getText().toString();
+        String txt_txt_confirmpass = txt_confirmpass.getText().toString();
+        String txt_txt_fullname = txt_fullname.getText().toString();
+        String txt_txt_email = txt_email.getText().toString();
+        String txt_txt_cnic = txt_cnic.getText().toString();
+        String txt_txt_mobile_number = txt_mobile_number.getText().toString();
+        String txt_txt_business_name = txt_business_name.getText().toString();
+        String txt_txt_address = txt_address.getText().toString();
+
+        if (!txt_txt_username.equals("") || !txt_txt_password.equals("") || !txt_txt_confirmpass.equals("") || !txt_txt_fullname.equals("") || !txt_txt_email.equals("") || !txt_txt_cnic.equals("") || !txt_txt_mobile_number.equals("") || !txt_txt_business_name.equals("") || !txt_txt_address.equals("")) {
+            showDiscardDialog();
+        } else {
+            finish();
+        }
+    }
+
+
+    private void showDiscardDialog() {
+        Log.i("CreatePayment", "In Dialog");
+//        final FragmentManager fm = getSupportFragmentManager();
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        alertDialog.setView(view_popup);
+        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+        btn_discard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.i("CreatePayment", "Button Clicked");
+                alertDialog.dismiss();
+                finish();
+            }
+        });
+
+        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+        img_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+            }
+        });
+
+        alertDialog.show();
+    }
 
     private void checkPasswords() {
         String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";

@@ -572,10 +572,10 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
 
-        SharedPreferences sharedPreferences2 = this.getActivity().getSharedPreferences("CompanyInfo",
+        SharedPreferences sharedPreferences2 = this.getActivity().getSharedPreferences("DealerInfo",
                 Context.MODE_PRIVATE);
-        CompanyId = sharedPreferences2.getString("CompanyId", "");
-        Log.i("CompanyId", CompanyId);
+        CompanyId = sharedPreferences2.getString("DealerCode", "");
+        Log.i("DealerCode", CompanyId);
 
 
         JSONObject map = new JSONObject();
@@ -583,6 +583,8 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
         Log.i("Map", String.valueOf(map));
         if (!URL_PRODUCT_CATEGORY.contains("/" + CompanyId))
             URL_PRODUCT_CATEGORY = URL_PRODUCT_CATEGORY + CompanyId;
+
+        Log.i("Map", String.valueOf(map));
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_PRODUCT_CATEGORY, null, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)

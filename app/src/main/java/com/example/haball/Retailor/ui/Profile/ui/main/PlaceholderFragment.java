@@ -1,5 +1,6 @@
 package com.example.haball.Retailor.ui.Profile.ui.main;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,6 +13,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -56,6 +58,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -77,6 +80,8 @@ public class PlaceholderFragment extends Fragment {
     private TextView tv_pr1, txt_header1;
     private TextInputLayout layout_password1, layout_password3;
     private FragmentTransaction fragmentTransaction;
+    private String currentTab = "";
+    private Boolean changed = false;
 
     private PageViewModel pageViewModel;
 
@@ -109,6 +114,7 @@ public class PlaceholderFragment extends Fragment {
             case 1: {
 
                 root = inflater.inflate(R.layout.fragment_retailor_profile, container, false);
+                currentTab = "Profile";
                 Rfirstname = root.findViewById(R.id.Rfirstname);
                 Rcode = root.findViewById(R.id.Rcode);
                 Rcnic = root.findViewById(R.id.Rcnic);
@@ -140,6 +146,7 @@ public class PlaceholderFragment extends Fragment {
                                 Remail.setSelection(Remail.getText().length());
                                 btn_save_password.setEnabled(true);
                                 btn_save_password.setBackground(getResources().getDrawable(R.drawable.button_background));
+                                changed = true;
                                 return true;
                             }
                         }
@@ -164,6 +171,7 @@ public class PlaceholderFragment extends Fragment {
                                 Rmobile.setSelection(Rmobile.getText().length());
                                 btn_save_password.setEnabled(true);
                                 btn_save_password.setBackground(getResources().getDrawable(R.drawable.button_background));
+                                changed = true;
                                 return true;
                             }
                         }
@@ -188,6 +196,7 @@ public class PlaceholderFragment extends Fragment {
                                 R_Address.setSelection(R_Address.getText().length());
                                 btn_save_password.setEnabled(true);
                                 btn_save_password.setBackground(getResources().getDrawable(R.drawable.button_background));
+                                changed = true;
                                 return true;
                             }
                         }
@@ -211,7 +220,7 @@ public class PlaceholderFragment extends Fragment {
             }
             case 2: {
                 root = inflater.inflate(R.layout.pasword_change, container, false);
-                //orderFragmentTask(root);
+                currentTab = "Password";
                 txt_password = root.findViewById(R.id.txt_password);
                 txt_newpassword = root.findViewById(R.id.txt_newpassword);
                 txt_cfmpassword = root.findViewById(R.id.txt_cfmpassword);
@@ -265,6 +274,123 @@ public class PlaceholderFragment extends Fragment {
         return root;
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(currentTab.equals("Profile"))
+            onResumeProfile();
+        else if(currentTab.equals("Password"))
+            onResumePassword();
+    }
+
+    private void onResumeProfile(){
+        View.OnKeyListener listener = new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    Remail.clearFocus();
+                    Rmobile.clearFocus();
+                    R_Address.clearFocus();
+                    showDiscardDialog();
+                }
+                return false;
+            }
+        };
+        Remail.setOnKeyListener(listener);
+        Rmobile.setOnKeyListener(listener);
+        R_Address.setOnKeyListener(listener);
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    // handle back button's click listener
+//                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
+                    if (changed) {
+                        showDiscardDialog();
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                return false;
+            }
+        });
+
+    }
+
+    private void onResumePassword(){
+        View.OnKeyListener listener = new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    txt_password.clearFocus();
+                    txt_newpassword.clearFocus();
+                    txt_cfmpassword.clearFocus();
+                    showDiscardDialog();
+                }
+                return false;
+            }
+        };
+        txt_password.setOnKeyListener(listener);
+        txt_newpassword.setOnKeyListener(listener);
+        txt_cfmpassword.setOnKeyListener(listener);
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    // handle back button's click listener
+//                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
+                    String txtpassword = txt_password.getText().toString();
+                    String txtnewpassword = txt_newpassword.getText().toString();
+                    String txtcfmpassword = txt_cfmpassword.getText().toString();
+                    if (!txtpassword.equals("") || !txtnewpassword.equals("") || !txtcfmpassword.equals("")) {
+                        showDiscardDialog();
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                return false;
+            }
+        });
+
+    }
+
+    private void showDiscardDialog() {
+        Log.i("CreatePayment", "In Dialog");
+        final FragmentManager fm = getActivity().getSupportFragmentManager();
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        alertDialog.setView(view_popup);
+        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+        btn_discard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.i("CreatePayment", "Button Clicked");
+                alertDialog.dismiss();
+                fm.popBackStack();
+            }
+        });
+
+        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+        img_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+            }
+        });
+
+        alertDialog.show();
+    }
     private void checkFieldsForEmptyValues() {
         String password = txt_password.getText().toString();
         String newPass = txt_newpassword.getText().toString();

@@ -126,6 +126,12 @@ public class SupportTicketFormFragment extends Fragment {
                         ex.printStackTrace();
                     }
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+
                     issueType = issue_type.get(i);
                     checkFieldsForEmptyValues();
                 }
@@ -147,6 +153,12 @@ public class SupportTicketFormFragment extends Fragment {
                         ex.printStackTrace();
                     }
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+
                     Criticality = criticality.get(i);
                     checkFieldsForEmptyValues();
                 }
@@ -168,6 +180,12 @@ public class SupportTicketFormFragment extends Fragment {
                         ex.printStackTrace();
                     }
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+
                     PrefferedContacts = preffered_contact.get(i);
                     checkFieldsForEmptyValues();
                 }

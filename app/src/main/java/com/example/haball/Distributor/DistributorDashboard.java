@@ -74,11 +74,11 @@ import java.util.Map;
 
 public class DistributorDashboard extends AppCompatActivity {
 
-    private TextView tv_username, tv_user_company;
+    private TextView tv_username, tv_user_company, footer_item_1;
     private FragmentTransaction fragmentTransaction;
     private DrawerLayout drawer;
-    private ExpandableNavigationListView navigationExpandableListView;
-    private String username, companyname, Token, ID;
+    private ExpandableNavigationListView navigationExpandableListView, navigationExpandableListView1;
+    private String username, companyname, Token, ID, Name;
     private ImageButton notification_icon;
     private String URL_Notification = "http://175.107.203.97:4013/api/useralert/";
     private boolean doubleBackToExitPressedOnce = false;
@@ -105,6 +105,7 @@ public class DistributorDashboard extends AppCompatActivity {
         SharedPreferences sharedPreferences = this.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         username = sharedPreferences.getString("username", "");
+        Name = sharedPreferences.getString("Name", "");
         companyname = sharedPreferences.getString("CompanyName", "");
         Token = sharedPreferences.getString("Login_Token", "");
         ID = sharedPreferences.getString("ID", "");
@@ -124,7 +125,7 @@ public class DistributorDashboard extends AppCompatActivity {
 
         getNotificationCount();
 
-        tv_username.setText("Hi, " + username);
+        tv_username.setText("Hi, " + Name);
         tv_user_company.setText(companyname);
 
         drawer = findViewById(R.id.drawer_layout);
@@ -148,6 +149,18 @@ public class DistributorDashboard extends AppCompatActivity {
 
         toggle.syncState();
         navigationExpandableListView = findViewById(R.id.expandable_navigation);
+        footer_item_1 = findViewById(R.id.footer_item_1);
+        footer_item_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.replace(R.id.main_container, new TermsAndConditionsFragment());
+//                fragmentTransaction.commit();
+
+                drawer.closeDrawer(GravityCompat.START);
+
+            }
+        });
         navigationExpandableListView
                 .init(this)
                 .addHeaderModel(new HeaderModel("Dashboard"))
@@ -171,7 +184,7 @@ public class DistributorDashboard extends AppCompatActivity {
                 .addHeaderModel(new HeaderModel("Profile"))
                 .addHeaderModel(new HeaderModel("Support"))
                 .addHeaderModel(new HeaderModel("Logout"))
-                .addHeaderModel(new HeaderModel("\n\n\n\nTerms And Conditions"))
+//                .addHeaderModel(new HeaderModel("\n\n\n\nTerms And Conditions"))
                 .build()
                 .addOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
                     @Override
@@ -239,13 +252,13 @@ public class DistributorDashboard extends AppCompatActivity {
                                 finish();
                             }
                             drawer.closeDrawer(GravityCompat.START);
-                        } else if (id == 8) {
-                            Log.i("terms and conditions", "terms and conditions");
-                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, new TermsAndConditionsFragment());
-                            fragmentTransaction.commit();
-
-                            drawer.closeDrawer(GravityCompat.START);
+//                        } else if (id == 8) {
+//                            Log.i("terms and conditions", "terms and conditions");
+//                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//                            fragmentTransaction.replace(R.id.main_container, new TermsAndConditionsFragment());
+//                            fragmentTransaction.commit();
+//
+//                            drawer.closeDrawer(GravityCompat.START);
                         }
 
                         return false;

@@ -596,13 +596,19 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 date_filter_rl.setVisibility(View.GONE);
                 amount_filter_rl.setVisibility(View.GONE);
 
-                if (i == 0) {
+                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
-                } else {
+                 } else {
+                     try {
+                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                     } catch (NullPointerException ex) {
+                         ex.printStackTrace();
+                     }
+//                if (i > 0) {
                     Filter_selected = consolidate_felter.get(i);
 
                     if (!Filter_selected.equals("Status"))
@@ -684,13 +690,21 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
                 if (i == 0) {
                     try {
-                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                        ((TextView) adapterView.getChildAt(i)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
                 } else {
+                // if (i > 0) {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+
                     Filter_selected_value = String.valueOf(i - 2);
 //                    Log.i("Filter_selected_value", String.valueOf(i));
 
@@ -885,13 +899,21 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 conso_edittext.setVisibility(View.GONE);
                 date_filter_rl.setVisibility(View.GONE);
                 amount_filter_rl.setVisibility(View.GONE);
+
                 if (i == 0) {
                     try {
-                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                        ((TextView) adapterView.getChildAt(i)).setTextColor(getResources().getColor(android.R.color.darker_gray));
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
                 } else {
+                // if (i > 0) {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+
                     Filter_selected = consolidate_felter.get(i);
 
                     spinner2.setSelection(0);
@@ -974,13 +996,21 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (Filter_selected.equals("Status")) {
-                    if (i == 0) {
+
+                if (i == 0) {
+                    try {
+                        ((TextView) adapterView.getChildAt(i)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                // if (i > 0) {
                         try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                        } catch (NullPointerException e) {
-                            e.printStackTrace();
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        } catch (NullPointerException ex) {
+                            ex.printStackTrace();
                         }
-                    } else {
+
                         Filter_selected_value = String.valueOf(i - 1);
                         if (!Filter_selected_value.equals("")) {
                             try {

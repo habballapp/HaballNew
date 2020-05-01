@@ -270,7 +270,7 @@ public class Registeration_Page1 extends AppCompatActivity implements View.OnFoc
         String phone = txt_phone_number.getText().toString();
         String ntn = txt_ntn.getText().toString();
         String company_name = txt_conpany_name.getText().toString();
-        String website = txt_website.getText().toString();
+//        String website = txt_website.getText().toString();
         if (first_name.equals("")
                 || last_name.equals("")
                 || email.equals("")
@@ -279,7 +279,8 @@ public class Registeration_Page1 extends AppCompatActivity implements View.OnFoc
                 || phone.equals("")
                 || ntn.equals("")
                 || company_name.equals("")
-                || website.equals("")) {
+//                || website.equals("")
+        ) {
             btn_register.setEnabled(false);
             btn_register.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 

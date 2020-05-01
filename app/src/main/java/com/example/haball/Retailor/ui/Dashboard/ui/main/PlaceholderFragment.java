@@ -91,7 +91,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private List<RetailerPaymentModel> PaymentsList = new ArrayList<>();
     //spiner1
 
-    private String Filter_selected, Filter_selected_value;
+    private String Filter_selected = "", Filter_selected_value = "";
     //spinner2
     private Spinner payment_retailer_spiner2;
     private List<String> payment_filters = new ArrayList<>();
@@ -286,6 +286,11 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         ex.printStackTrace();
                     }
                 } else {
+                        try {
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        } catch (NullPointerException ex) {
+                            ex.printStackTrace();
+                        }
                     Filter_selected = consolidate_felter.get(i);
 
                     spinner2.setSelection(0);
@@ -365,6 +370,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         e.printStackTrace();
                     }
                 } else {
+                        try {
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        } catch (NullPointerException ex) {
+                            ex.printStackTrace();
+                        }
+
                     Filter_selected_value = String.valueOf(filters.get(i));
 //                    Log.i("Filter_selected_value", String.valueOf(i));
 
@@ -740,6 +751,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         JSONObject map = new JSONObject();
         map.put("TotalRecords", 10);
         map.put("PageNumber", pageNumber);
+
         if (Filter_selected.equals("date")) {
             map.put(Filter_selected1, fromDate);
             map.put(Filter_selected2, toDate);
@@ -959,6 +971,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         ex.printStackTrace();
                     }
                 } else {
+                        try {
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        } catch (NullPointerException ex) {
+                            ex.printStackTrace();
+                        }
+
                     Filter_selected = consolidate_felter.get(i);
 
                     spinner2.setSelection(0);
@@ -1053,6 +1071,11 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         e.printStackTrace();
                     }
                 } else {
+                        try {
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        } catch (NullPointerException ex) {
+                            ex.printStackTrace();
+                        }
                     Filter_selected_value = String.valueOf(i - 1);
 //                    Log.i("Filter_selected_value", String.valueOf(i));
 

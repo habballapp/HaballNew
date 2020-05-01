@@ -190,6 +190,12 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                         ex.printStackTrace();
                     }
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+
                     Filter_selected = consolidate_felter.get(i);
 
                     spinner2.setSelection(0);
@@ -283,6 +289,12 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                             ex.printStackTrace();
                         }
                     } else {
+                        try {
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        } catch (NullPointerException ex) {
+                            ex.printStackTrace();
+                        }
+
                         Filter_selected_value = String.valueOf(i - 1);
                         if (!Filter_selected_value.equals("")) {
                             try {

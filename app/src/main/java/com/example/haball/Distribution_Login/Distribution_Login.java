@@ -299,6 +299,8 @@ public class Distribution_Login extends AppCompatActivity {
                         String FirstName = userAccount.get("FirstName").toString();
                         String EmailAddress = userAccount.get("EmailAddress").toString();
                         String Mobile = userAccount.get("Mobile").toString();
+                        String Name = userAccount.get("FirstName").toString() + " " + userAccount.get("LastName").toString();
+                        ;
                         SharedPreferences login_token = getSharedPreferences("LoginToken",
                                 Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = login_token.edit();
@@ -308,6 +310,7 @@ public class Distribution_Login extends AppCompatActivity {
                         editor.putString("username", username);
                         editor.putString("CompanyName", CompanyName);
                         editor.putString("DealerCode", DealerCode);
+                        editor.putString("Name", Name);
                         editor.putString("ID", ID);
 
                         editor.apply();

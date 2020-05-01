@@ -230,6 +230,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
 
                                     FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
                                     fragmentTransaction.replace(R.id.main_container, new EditPaymentRequestFragment());
+                                    fragmentTransaction.addToBackStack(null);
                                     fragmentTransaction.commit();
 
                                     break;

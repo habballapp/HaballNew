@@ -175,16 +175,16 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="40dp"
-                android:background="@drawable/edit_text_squared"
-               >
+                android:background="@drawable/edit_text_squared">
 
                 <Spinner
                     android:id="@+id/IssueType"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:dropDownWidth="match_parent"
                     android:paddingLeft="2dp"
-                    android:paddingRight="2dp"
-                    android:dropDownWidth="match_parent"/>
+
+                    android:paddingRight="2dp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -195,16 +195,15 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="40dp"
-                android:background="@drawable/edit_text_squared"
-                >
+                android:background="@drawable/edit_text_squared">
 
                 <Spinner
                     android:id="@+id/critcicality"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:dropDownWidth="match_parent"
                     android:paddingLeft="2dp"
-                    android:paddingRight="2dp"
-                    android:dropDownWidth="match_parent"/>
+                    android:paddingRight="2dp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -221,9 +220,9 @@
                     android:id="@+id/Preffered_Contact"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:dropDownWidth="match_parent"
                     android:paddingLeft="2dp"
-                    android:paddingRight="2dp"
-                    android:dropDownWidth="match_parent" />
+                    android:paddingRight="2dp" />
             </RelativeLayout>
 
             <com.google.android.material.textfield.TextInputLayout

@@ -245,6 +245,12 @@ public class ProofOfPaymentsDashboardFragment extends Fragment implements DatePi
                         ex.printStackTrace();
                     }
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+
                     Filter_selected = consolidate_felter.get(i);
                     Log.i("Filter_selected", Filter_selected);
                     spinner2.setSelection(0);
@@ -337,6 +343,12 @@ public class ProofOfPaymentsDashboardFragment extends Fragment implements DatePi
                         ex.printStackTrace();
                     }
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+
                     Filter_selected_value = String.valueOf(i - 1);
                     Log.i("Filter_selected_value", Filter_selected_value);
                     try {

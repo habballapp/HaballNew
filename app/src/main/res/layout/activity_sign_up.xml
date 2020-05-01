@@ -135,6 +135,7 @@
                         android:theme="@style/TextLabel"
                         app:boxBackgroundColor="#fff"
                         app:boxStrokeColor="#e5e5e5"
+                        app:errorEnabled="true"
                         app:boxStrokeWidth="1.75dp"
                         app:passwordToggleEnabled="true"
                         app:passwordToggleTint="#A9A9A9">
@@ -149,6 +150,7 @@
                             android:paddingTop="5dp"
                             android:paddingRight="20dp"
                             android:paddingBottom="5dp"
+                            android:layout_marginTop="10dp"
                             android:textColor="#676a6c"
                             android:textSize="14sp" />
 

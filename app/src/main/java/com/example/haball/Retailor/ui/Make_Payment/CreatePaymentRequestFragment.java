@@ -95,6 +95,11 @@ public class CreatePaymentRequestFragment extends Fragment {
                         e.printStackTrace();
                     }
                 } else {
+                        try {
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        } catch (NullPointerException ex) {
+                            ex.printStackTrace();
+                        }
                     company_names = CompanyNames.get(i);
                     Log.i("company name and id ", companyNameAndId.get(company_names));
                     checkFieldsForEmptyValues();

@@ -116,6 +116,12 @@ public class PaymentRequestDashboard extends Fragment {
                             e.printStackTrace();
                         }
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+
                     Filter_selected = consolidate_felter.get(i);
 
                     if (!Filter_selected.equals("Status"))
@@ -173,6 +179,12 @@ public class PaymentRequestDashboard extends Fragment {
                             e.printStackTrace();
                         }
                 } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+
                     Filter_selected_value = String.valueOf(i - 2);
                     Log.i("Filter_selected_value", Filter_selected_value);
                     try {
