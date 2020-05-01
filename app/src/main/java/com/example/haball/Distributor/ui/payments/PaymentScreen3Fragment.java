@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.haball.Distributor.ui.main.PlaceholderFragment;
 import com.example.haball.R;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -47,7 +48,7 @@ public class PaymentScreen3Fragment extends Fragment {
 
         }
 
-        View root = inflater.inflate(R.layout.activity_payment__screen3, container, false);
+        final View root = inflater.inflate(R.layout.activity_payment__screen3, container, false);
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("PrePaidNumber",
                 Context.MODE_PRIVATE);
@@ -89,8 +90,10 @@ public class PaymentScreen3Fragment extends Fragment {
             public void onClick(View view) {
 
 //                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.main_container, new EditPaymentRequestFragment());
+//                fragmentTransaction.replace(R.id.main_container, new PlaceholderFragment());
 //                fragmentTransaction.commit();
+
+
             }
         });
 

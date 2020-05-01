@@ -221,7 +221,7 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
                         editor.commit();
 
                         fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.main_container_ret, new View_Payment_Fragment());
+                        fragmentTransaction.replace(R.id.main_container_ret, new View_Payment_Fragment()).addToBackStack("tag");
                         fragmentTransaction.commit();
                         break;
                 }

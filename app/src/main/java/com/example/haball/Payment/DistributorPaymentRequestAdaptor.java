@@ -101,7 +101,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
                                     editor.commit();
 
                                     fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                                    fragmentTransaction.replace(R.id.main_container, new View_Payment_Fragment());
+                                    fragmentTransaction.replace(R.id.main_container, new View_Payment_Fragment()).addToBackStack("tag");
                                     fragmentTransaction.commit();
                                     break;
                                 case R.id.payment_request_ebay:
@@ -143,7 +143,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
                                     editor.apply();
 
                                     fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                                    fragmentTransaction.replace(R.id.main_container, new PaymentScreen3Fragment());
+                                    fragmentTransaction.replace(R.id.main_container, new PaymentScreen3Fragment()).addToBackStack("tag");
                                     fragmentTransaction.addToBackStack(null);
                                     fragmentTransaction.commit();
 
@@ -229,6 +229,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
                                     editorEdit.apply();
 
                                     FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+//                                    fragmentTransaction.replace(R.id.main_container, new EditPaymentRequestFragment()).addToBackStack("tag");
                                     fragmentTransaction.replace(R.id.main_container, new EditPaymentRequestFragment());
                                     fragmentTransaction.addToBackStack(null);
                                     fragmentTransaction.commit();

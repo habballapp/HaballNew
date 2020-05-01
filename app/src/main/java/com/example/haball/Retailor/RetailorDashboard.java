@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.haball.Distributor.ui.expandablelist.CustomExpandableListModel;
 import com.example.haball.Distributor.ui.terms_and_conditions.TermsAndConditionsFragment;
@@ -56,6 +59,8 @@ public class RetailorDashboard extends AppCompatActivity  {
     private ExpandableNavigationListView navigationExpandableListView;
     private String username, companyname, Token;
     private TextView tv_username, tv_user_company, footer_item_1;
+//    private TextView tv_username, tv_user_company;
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,7 +164,7 @@ public class RetailorDashboard extends AppCompatActivity  {
                         } else if (id == 3) {
                             Log.i("Make Payment", "Make Payment Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment()).addToBackStack("tag");;
+                            fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment()).addToBackStack("tag1");;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
 
@@ -213,7 +218,7 @@ public class RetailorDashboard extends AppCompatActivity  {
                         }  else if (groupPosition == 3 && childPosition == 1) {
                             Log.i("Payment Request", "Child");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment()).addToBackStack("tag");;
+                            fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment()).addToBackStack(null);;
                             fragmentTransaction.commit();
                         }  else if (groupPosition == 2 && childPosition == 0) {
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -228,5 +233,35 @@ public class RetailorDashboard extends AppCompatActivity  {
 
 
     }
+    @Override
+    public void onBackPressed() {
+        getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//            super.onBackPressed();
+        if(drawer.isDrawerOpen(Gravity.LEFT)){
+            drawer.closeDrawer(Gravity.LEFT);
+        }else{
+            FragmentManager fm = getSupportFragmentManager();
+            if (fm.getBackStackEntryCount() == 0) {
+                if (doubleBackToExitPressedOnce) {
+                    super.onBackPressed();
+                    finishAffinity();
+                    return;
+                }
+                this.doubleBackToExitPressedOnce = true;
+                Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        doubleBackToExitPressedOnce = false;
+                    }
+                }, 1500);
+            } else {
+//            super.onBackPressed();
+                fm.popBackStack();
+            }
 
+        }
+
+
+    }
 }
