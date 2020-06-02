@@ -44,10 +44,10 @@ public class PaymentLedgerAdapter extends RecyclerView.Adapter<PaymentLedgerAdap
         DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
         String yourFormattedString1;
         if(!PaymentLedgerList.get(position).getDebitAmount().equals("0")) {
-            yourFormattedString1 = formatter1.format(Integer.parseInt(PaymentLedgerList.get(position).getDebitAmount()));
+            yourFormattedString1 = formatter1.format(Float.parseFloat(PaymentLedgerList.get(position).getDebitAmount()));
             holder.transaction_value.setText(yourFormattedString1);
         } else{
-            yourFormattedString1 = formatter1.format(Integer.parseInt(PaymentLedgerList.get(position).getCreditAmount()));
+            yourFormattedString1 = formatter1.format(Float.parseFloat(PaymentLedgerList.get(position).getCreditAmount()));
             holder.transaction_value.setText(yourFormattedString1);
             holder.transaction.setText("Credit");
         }
