@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
-                android:fontFamily="@font/opensans"
+                android:fontFamily="@font/open_sans"
                 android:justificationMode="inter_word"
                 android:text="@string/Txt_Description_haball"
                 android:textColor="@color/text_color_selection"
@@ -71,10 +71,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_semibold"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingRight="20dp"
                 android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp"
                 android:text="Select Account Type"
                 android:textColor="#96bb3c"
                 android:textSize="26sp" />
@@ -94,7 +94,7 @@
 
 
             <RelativeLayout
-                android:id="@+id/rl_retailer"
+                android:id="@+id/rl_retailor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -123,6 +123,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/rl_distributor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -144,20 +145,22 @@
                     android:gravity="center"
                     android:text="Retailer"
                     android:textColor="@color/text_color_selection"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:textSize="15sp" />
 
             </RelativeLayout>
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/footer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="25dp"
-            android:gravity="center"
-            android:text="© Haball | All rights reserved" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/open_sans"
+        android:gravity="center"
+        android:text="© Haball | All rights reserved"
+        android:textSize="12sp" />
+
 </RelativeLayout>
