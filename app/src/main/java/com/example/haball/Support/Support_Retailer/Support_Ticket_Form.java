@@ -76,7 +76,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
     private Button login_submit, login_btn;
 
     private String DistributorId;
-    private TextView tv_main_heading, tv_sub_heading;
+//    private TextView tv_main_heading, tv_sub_heading;
     private int keyDel;
 
     @Override
@@ -104,10 +104,10 @@ public class Support_Ticket_Form extends AppCompatActivity {
         critcicality = findViewById(R.id.critcicality);
         Preffered_Contact = findViewById(R.id.Preffered_Contact);
         login_submit = findViewById(R.id.login_submit);
-        tv_main_heading = findViewById(R.id.tv_main_heading);
-        tv_main_heading.setText(String.valueOf(tv_main_heading.getText()).replace("Distributor", "Retailer"));
-        tv_sub_heading = findViewById(R.id.tv_sub_heading);
-        tv_sub_heading.setText(String.valueOf(tv_sub_heading.getText()).replace("Distributor", "Retailer"));
+//        tv_main_heading = findViewById(R.id.tv_main_heading);
+//        tv_main_heading.setText(String.valueOf(tv_main_heading.getText()).replace("Distributor", "Retailer"));
+//        tv_sub_heading = findViewById(R.id.tv_sub_heading);
+//        tv_sub_heading.setText(String.valueOf(tv_sub_heading.getText()).replace("Distributor", "Retailer"));
 
         login_submit.setEnabled(false);
         login_submit.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
