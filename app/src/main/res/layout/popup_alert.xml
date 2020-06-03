@@ -61,7 +61,7 @@
             android:layout_marginEnd="25dp"
             android:layout_marginBottom="27dp"
             android:background="@drawable/button_background"
-            android:text="Discard"
+            android:text="Exit"
             android:textAllCaps="false"
             android:textColor="#fff"
             android:textSize="13sp" />
