@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.example.haball.Distribution_Login.Distribution_Login;
 import com.example.haball.R;
@@ -26,28 +27,25 @@ public class Register_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_);
-//        Toolbar toolbar = findViewById(R.id.toolbar_wo_back);
-//        setSupportActionBar(toolbar);
+        RelativeLayout rl_distributor = findViewById(R.id.rl_distributor);
+        RelativeLayout rl_retailor = findViewById(R.id.rl_retailor);
 
-//        CardView card_retailer = findViewById(R.id.card_retailer);
-//        CardView card_distributor = findViewById(R.id.card_distributor);
+        rl_distributor.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
 
-//        card_retailer.setOnClickListener(new View.OnClickListener(){
-//            public void onClick(View v) {
-//
-//                Intent intent = new Intent(Register_Activity.this, RetailerLogin.class);
-//                startActivity(intent);
-//            }
-//
-//        });
-//        card_distributor.setOnClickListener(new View.OnClickListener(){
-//            public void onClick(View v) {
-//
-//                Intent intent = new Intent(Register_Activity.this, Distribution_Login.class);
-//                startActivity(intent);
-//            }
-//
-//        });
+                Intent intent = new Intent(Register_Activity.this, Distribution_Login.class);
+                startActivity(intent);
+            }
+
+        });
+        rl_retailor.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+
+                Intent intent = new Intent(Register_Activity.this, RetailerLogin.class);
+                startActivity(intent);
+            }
+
+        });
 
 
     }

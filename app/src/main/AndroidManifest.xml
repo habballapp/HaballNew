@@ -18,7 +18,7 @@
         <activity
             android:name=".Distributor.ui.profile.Distributor_Profile"
             android:label="@string/title_activity_distributor__profile"
-            android:theme="@style/NoActionBar"></activity>
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".Retailor.ui.Profile.Profile_Tabs"
             android:label="@string/title_activity_profile__tabs"
@@ -92,9 +92,7 @@
         <activity android:name=".Support.Support_Retailer.Support_Ticket_Form" />
         <activity android:name=".Support.Support_Ditributor.Support_Ticket_Form" />
         <activity android:name=".Distributor.ui.support.SupportTicketFormFragment" />
-        <activity
-            android:name=".Select_User.Register_Activity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".Select_User.Register_Activity"/>
         <activity
             android:name=".Language_Selection.Language_Selection"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

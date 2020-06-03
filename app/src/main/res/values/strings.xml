@@ -116,4 +116,5 @@
     <string name="title_activity_profie__tabs__distributor">Profie_Tabs_Distributor</string>
     <string name="title_activity_profie__distributor__tabs">Profie_Distributor_Tabs</string>
     <string name="title_activity_distributor__profile">Distributor_Profile</string>
+    <string name="txt_forgot">Please enter your registered email address or reset your account</string>
 </resources>
