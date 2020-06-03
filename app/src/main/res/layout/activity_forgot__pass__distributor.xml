@@ -31,7 +31,7 @@
                 android:paddingBottom="5dp"
                 android:text="Forgot Password"
                 android:textColor="#96bb3c"
-                android:textSize="34sp" />
+                android:textSize="25sp" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/text_ln"

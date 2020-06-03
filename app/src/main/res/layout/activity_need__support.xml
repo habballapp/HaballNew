@@ -22,13 +22,14 @@
                 android:id="@+id/login_heading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_semibold"
                 android:paddingLeft="20dp"
                 android:paddingTop="5dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="5dp"
                 android:text="Haball Support Center"
                 android:textColor="#96bb3c"
-                android:textSize="34sp" />
+                android:textSize="25sp" />
         </LinearLayout>
 
         <RelativeLayout
@@ -124,7 +125,7 @@
             <RelativeLayout
                 android:id="@+id/relative_issuetype"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:layout_below="@+id/layout_MobileNo"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/edit_text_squared">
@@ -142,7 +143,7 @@
             <RelativeLayout
                 android:id="@+id/relative_criticality"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:layout_below="@+id/relative_issuetype"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/edit_text_squared">
@@ -159,7 +160,7 @@
             <RelativeLayout
                 android:id="@+id/relative_Preffered_Contact"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:layout_below="@+id/relative_criticality"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/edit_text_squared">
@@ -177,9 +178,9 @@
                 android:id="@+id/layout_Comment"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="90dp"
                 android:layout_below="@+id/relative_Preffered_Contact"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:hint="Comment"
                 android:textColorHint="#A9A9A9"
                 android:theme="@style/TextLabel"
@@ -202,53 +203,42 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_login_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/rl_fields"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <Button
-                android:id="@+id/login_btn"
-                android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_round"
-                android:text="Login"
-                android:textAllCaps="false"
-                android:textColor="#fff"
-                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/login_submit"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="30dp"
-                android:layout_weight="1"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/layout_Comment"
                 android:background="@drawable/button_round"
                 android:text="Submit"
                 android:textAllCaps="false"
                 android:textColor="#fff"
                 android:textSize="18sp" />
 
-        </LinearLayout>
+            <Button
+                android:id="@+id/login_btn"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/login_submit"
+                android:background="@drawable/button_round"
+                android:text="Back"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/footer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ll_login_btn"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="© Haball | All rights reserved" />
+            <TextView
+                android:id="@+id/footer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/login_btn"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="© Haball | All rights reserved" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
