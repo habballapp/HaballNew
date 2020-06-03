@@ -96,7 +96,7 @@ public class Distribution_Login extends AppCompatActivity {
         btn_login.setEnabled(false);
         btn_login.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
-        Button btn_signup = findViewById(R.id.btn_signup);
+//        Button btn_signup = findViewById(R.id.btn_signup);
         Button btn_support = findViewById(R.id.btn_support);
         Button btn_password = findViewById(R.id.btn_password);
 
@@ -155,14 +155,14 @@ public class Distribution_Login extends AppCompatActivity {
                 }
             }
         });
-        btn_signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Distribution_Login.this, Registration_main.class);
-                startActivity(intent);
-
-            }
-        });
+//        btn_signup.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(Distribution_Login.this, Registration_main.class);
+//                startActivity(intent);
+//
+//            }
+//        });
         btn_support.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
