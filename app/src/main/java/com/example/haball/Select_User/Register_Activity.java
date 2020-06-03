@@ -26,6 +26,9 @@ public class Register_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_);
+//        Toolbar toolbar = findViewById(R.id.toolbar_wo_back);
+//        setSupportActionBar(toolbar);
+
 //        CardView card_retailer = findViewById(R.id.card_retailer);
 //        CardView card_distributor = findViewById(R.id.card_distributor);
 
