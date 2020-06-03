@@ -17,7 +17,7 @@
             android:id="@+id/ln_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
+            android:layout_marginTop="34dp"
             android:background="@drawable/border_set">
 
             <TextView
@@ -25,16 +25,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_semibold"
-                android:padding="10dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
                 android:text="Forgot Password"
                 android:textColor="#96bb3c"
-                android:textSize="24sp" />
+                android:textSize="34sp" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/text_ln"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="21dp"
             android:layout_below="@+id/ln_login"
             android:orientation="vertical"
             android:weightSum="2"
@@ -45,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:fontFamily="@font/open_sans_semibold"
+                android:fontFamily="@font/open_sans"
                 android:maxLines="2"
                 android:text="@string/txt_forgot"
                 android:textColor="@color/text_color_selection"
@@ -59,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/text_ln"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="22dp"
             android:orientation="vertical"
             android:weightSum="1">
 
@@ -68,8 +71,7 @@
                 android:id="@+id/layout_email_phone"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="53dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="50dp"
                 android:hint="Email Address"
                 android:textColorHint="#A9A9A9"
                 android:theme="@style/TextLabel"
@@ -102,9 +104,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/ln_txt"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="22dp"
             android:orientation="vertical"
-
             android:weightSum="2">
 
             <Button
@@ -126,7 +127,7 @@
                 android:id="@+id/btn_lgn"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="22dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_round"
                 android:fontFamily="@font/open_sans_semibold"
@@ -146,6 +147,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
             android:fontFamily="@font/open_sans_semibold"
             android:gravity="center"
             android:text="© Haball | All rights reserved" />
