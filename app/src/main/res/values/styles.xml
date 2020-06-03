@@ -99,7 +99,7 @@
 
     <style name="AppTheme_My" parent="Theme.AppCompat.Light">
         <!-- set the height of Action Bar . -->
-        <item name="actionBarSize">40dip</item>
+        <item name="actionBarSize">42dip</item>
     </style>
     <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
