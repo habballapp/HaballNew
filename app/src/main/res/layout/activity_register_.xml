@@ -88,14 +88,14 @@
 
 
             <RelativeLayout
-                android:id="@+id/rl_retailer"
+                android:id="@+id/rl_distributor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="30dp"
                 android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/img_retailer"
+                android:id="@+id/img_distributor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -104,10 +104,10 @@
                 />
 
                 <TextView
-                    android:id="@+id/txt_retailer"
+                    android:id="@+id/txt_distributor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/img_retailer"
+                    android:layout_below="@+id/img_distributor"
                     android:fontFamily="@font/open_sans_semibold"
                     android:gravity="center"
                     android:text="Distributor"
@@ -118,13 +118,14 @@
 
 
             <RelativeLayout
+                android:id="@+id/rl_retailor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="30dp"
                 android:layout_weight="1">
 
                 <ImageView
-                    android:id="@+id/img_distributor"
+                    android:id="@+id/img_retailor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -132,12 +133,12 @@
                     android:layout_marginBottom="8dp"/>
 
                 <TextView
-                    android:id="@+id/txt_distributor"
+                    android:id="@+id/txt_retailor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
                     android:gravity="center"
-                    android:layout_below="@+id/img_distributor"
+                    android:layout_below="@+id/img_retailor"
                     android:text="Retailer"
                     android:textColor="@color/text_color_selection"
                     android:textStyle="bold"
