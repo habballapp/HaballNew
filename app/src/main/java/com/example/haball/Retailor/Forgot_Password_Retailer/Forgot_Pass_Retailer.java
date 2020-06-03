@@ -54,7 +54,7 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_forgot__pass__distributor );
+        setContentView( R.layout.actvity_forgot_pass_retailer );
         getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
 
 
@@ -75,7 +75,7 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
         heading = (TextView)findViewById( R.id.heading );
         heading.setText( "Welcome To Retailer Portal" );
         btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
-        btn_reset =  (Button)findViewById( R.id.btn_reset);
+        btn_reset =  (Button)findViewById( R.id.btn_reset_ret);
        Log.i( "Btn-Reset","Button");
         btn_reset.setEnabled( false );
         btn_reset.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
