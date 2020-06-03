@@ -94,7 +94,7 @@
 
 
             <RelativeLayout
-                android:id="@+id/rl_retailor"
+                android:id="@+id/rl_distributor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -123,7 +123,7 @@
 
 
             <RelativeLayout
-                android:id="@+id/rl_distributor"
+                android:id="@+id/rl_retailor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

@@ -54,6 +54,7 @@ import androidx.appcompat.widget.Toolbar;
 public class RetailerLogin extends AppCompatActivity {
 
     private Button btn_login, btn_signup, btn_support, btn_password, btn_reset;
+//    private Button btn_signup;
     public ImageButton btn_back;
     private EditText et_username, et_password, txt_email;
     private TextInputLayout layout_username, layout_password;
@@ -77,7 +78,7 @@ public class RetailerLogin extends AppCompatActivity {
         btn_login = findViewById(R.id.retailer_btn_login);
         btn_login.setEnabled(false);
         btn_login.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
-        btn_signup = findViewById(R.id.ret_btn_signup);
+//        btn_signup = findViewById(R.id.ret_btn_signup);
         btn_support = findViewById(R.id.ret_btn_support);
         btn_password = findViewById(R.id.ret_btn_password);
         layout_username = findViewById(R.id.layout_username);
@@ -176,13 +177,13 @@ public class RetailerLogin extends AppCompatActivity {
                 }
             }
         });
-        btn_signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(RetailerLogin.this, SignUp.class);
-                startActivity(intent);
-            }
-        });
+//        btn_signup.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(RetailerLogin.this, SignUp.class);
+//                startActivity(intent);
+//            }
+//        });
         btn_support.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

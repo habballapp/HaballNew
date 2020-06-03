@@ -210,23 +210,25 @@
                 android:layout_height="45dp"
                 android:layout_marginTop="20dp"
                 android:layout_below="@+id/layout_Comment"
+                android:fontFamily="@font/open_sans"
                 android:background="@drawable/button_round"
                 android:text="Submit"
                 android:textAllCaps="false"
                 android:textColor="#fff"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
             <Button
                 android:id="@+id/login_btn"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/open_sans"
                 android:layout_below="@+id/login_submit"
                 android:background="@drawable/button_round"
                 android:text="Back"
                 android:textAllCaps="false"
                 android:textColor="#fff"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/footer"

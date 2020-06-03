@@ -23,65 +23,70 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:id="@+id/text_ln"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="20dp"
-                    android:orientation="vertical"
-                    android:weightSum="2"
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/text_ln"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:layout_marginBottom="20dp"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:weightSum="2"-->
 
-                    >
+<!--                    >-->
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:layout_weight="1"
-                        android:maxLines="1"
-                        android:padding="10dp"
-                        android:paddingStart="20dp"
-                        android:paddingEnd="20dp"
-                        android:text="Welcome To Retailer Portal"
-                        android:textColor="#96bb3c"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="20dp"-->
+<!--                        android:layout_marginEnd="20dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:maxLines="1"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:paddingStart="20dp"-->
+<!--                        android:paddingEnd="20dp"-->
+<!--                        android:text="Welcome To Retailer Portal"-->
+<!--                        android:textColor="#96bb3c"-->
+<!--                        android:textSize="20sp"-->
+<!--                        android:textStyle="bold"-->
 
-                        />
+<!--                        />-->
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginEnd="40dp"
-                        android:layout_weight="1"
-                        android:justificationMode="inter_word"
-                        android:text="@string/Txt_Description_Retailer"
-                        android:textColor="#676a6c"
-                        android:textSize="14sp" />
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="40dp"-->
+<!--                        android:layout_marginEnd="40dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:justificationMode="inter_word"-->
+<!--                        android:text="@string/Txt_Description_Retailer"-->
+<!--                        android:textColor="#676a6c"-->
+<!--                        android:textSize="14sp" />-->
 
 
-                </LinearLayout>
+<!--                </LinearLayout>-->
 
                 <LinearLayout
                     android:id="@+id/ln_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/text_ln">
+                    android:layout_marginStart="29dp"
+                    android:layout_marginTop="34dp"
+                    android:layout_marginEnd="29dp"
+                    android:background="@drawable/border_set"
+                    android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/login_heading"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginEnd="40dp"
-                        android:background="@drawable/border_set"
-                        android:padding="15dp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="5dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="5dp"
                         android:text="Login"
                         android:textColor="#96bb3c"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
+                        android:textSize="25sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -97,9 +102,9 @@
                         android:id="@+id/layout_username"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginLeft="40dp"
-                        android:layout_marginRight="40dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="29dp"
+                        android:layout_marginRight="29dp"
                         android:hint="Username Or Mobile No"
                         android:textColorHint="#A9A9A9"
                         android:theme="@style/TextLabel"
@@ -111,7 +116,8 @@
                             android:id="@+id/txt_username"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:inputType="textEmailAddress"
+                            android:inputType="text"
+                            android:fontFamily="@font/open_sans_semibold"
                             android:paddingLeft="20dp"
                             android:paddingTop="5dp"
                             android:paddingRight="20dp"
@@ -125,10 +131,10 @@
                         android:id="@+id/layout_password"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginLeft="40dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="29dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginRight="40dp"
+                        android:layout_marginRight="29dp"
                         android:hint="Password"
                         android:textColorHint="#A9A9A9"
                         android:theme="@style/TextLabel"
@@ -142,7 +148,9 @@
                             android:id="@+id/txt_password"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+
                             android:inputType="textPassword"
+                            android:fontFamily="@font/open_sans_semibold"
                             android:paddingLeft="20dp"
                             android:paddingTop="5dp"
                             android:paddingRight="20dp"
@@ -155,38 +163,42 @@
 
                 </LinearLayout>
 
+
                 <LinearLayout
                     android:id="@+id/ln_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/ln_txt"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="22dp"
                     android:orientation="vertical"
                     android:weightSum="2">
 
                     <Button
                         android:id="@+id/retailer_btn_login"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="40dp"
-                        android:layout_marginRight="40dp"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="29dp"
+                        android:layout_marginRight="29dp"
                         android:layout_weight="1"
+                        android:fontFamily="@font/open_sans_semibold"
                         android:background="@drawable/button_round"
                         android:gravity="center"
                         android:stateListAnimator="@null"
                         android:text="Login"
                         android:textAllCaps="false"
                         android:textColor="#fff"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        app:elevation="0dp" />
 
                     <Button
                         android:id="@+id/ret_btn_password"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="40dp"
+                        android:layout_height="45dp"
+                        android:layout_marginStart="29dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="29dp"
                         android:layout_weight="1"
+                        android:fontFamily="@font/open_sans_semibold"
                         android:background="@drawable/button_round"
                         android:gravity="center"
                         android:stateListAnimator="@null"
@@ -205,17 +217,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/ln_btn"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="40dp"
                     android:layout_marginBottom="20dp"
                     android:weightSum="2">
 
                     <Button
                         android:id="@+id/ret_btn_support"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="42dp"
+                        android:layout_marginStart="29dp"
                         android:layout_marginLeft="40dp"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="29dp"
+                        android:layout_marginRight="40dp"
                         android:layout_weight="1"
+                        android:fontFamily="@font/open_sans_semibold"
                         android:background="@drawable/button_round"
                         android:gravity="center"
                         android:stateListAnimator="@null"
@@ -224,24 +239,25 @@
                         android:textColor="#fff"
                         android:textSize="14sp" />
 
-                    <Button
-                        android:id="@+id/ret_btn_signup"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginEnd="40dp"
-                        android:layout_marginRight="40dp"
-                        android:layout_marginBottom="40dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/button_round"
-                        android:gravity="center"
-                        android:stateListAnimator="@null"
-                        android:text="Sign Up"
-                        android:textAllCaps="false"
-                        android:textColor="#fff"
-                        android:textSize="14sp" />
+<!--                    <Button-->
+<!--                        android:id="@+id/ret_btn_signup"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="40dp"-->
+<!--                        android:layout_marginStart="10dp"-->
+<!--                        android:layout_marginLeft="10dp"-->
+<!--                        android:layout_marginEnd="40dp"-->
+<!--                        android:layout_marginRight="40dp"-->
+<!--                        android:layout_marginBottom="40dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:background="@drawable/button_round"-->
+<!--                        android:gravity="center"-->
+<!--                        android:stateListAnimator="@null"-->
+<!--                        android:text="Sign Up"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:textColor="#fff"-->
+<!--                        android:textSize="14sp" />-->
                 </LinearLayout>
+
 
                 <TextView
                     android:id="@+id/footer"
@@ -249,6 +265,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="10dp"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/opensans"
                     android:gravity="center"
                     android:text="© Haball | All rights reserved" />
 
