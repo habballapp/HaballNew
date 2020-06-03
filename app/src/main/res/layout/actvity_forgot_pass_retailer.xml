@@ -6,80 +6,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTintMode="src_over"
+    tools:context=".Retailor.Forgot_Password_Retailer.Forgot_Pass_Retailer"
     >
 
     <RelativeLayout
         android:id="@+id/rl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:id="@+id/text_ln"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-
-            android:orientation="vertical"
-            android:weightSum="2"
-
-            >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:padding="10dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:text="Welcome To Distributor Portal"
-                android:textColor="#96bb3c"
-                android:textSize="20sp"
-                android:textStyle="bold"
-
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                android:layout_weight="1"
-                android:justificationMode="inter_word"
-                android:textColor="#676a6c"
-                android:textSize="14sp" />
-
-
-        </LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
+        android:layout_marginEnd="27dp">
 
         <LinearLayout
             android:id="@+id/ln_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/text_ln"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:background="@drawable/border_set"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="34dp"
+            android:background="@drawable/border_set">
 
             <TextView
                 android:id="@+id/login_heading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
+                android:fontFamily="@font/open_sans_semibold"
+                android:padding="10dp"
                 android:text="Forgot Password"
                 android:textColor="#96bb3c"
-                android:textSize="24sp"
-                android:textStyle="bold"/>
+                android:textSize="24sp" />
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/text_ln_retailor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/ln_login"
+            android:orientation="vertical"
+            android:weightSum="2"
+            >
 
+            <TextView
+                android:id="@+id/heading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/open_sans_semibold"
+                android:maxLines="2"
+                android:text="@string/txt_forgot"
+                android:textColor="@color/text_color_selection"
+                android:textSize="13sp" />
+
+
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/ln_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ln_login"
+            android:layout_below="@+id/text_ln_retailor"
             android:layout_marginTop="15dp"
             android:orientation="vertical"
             android:weightSum="1">
@@ -90,10 +71,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginLeft="40dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="40dp"
-                android:hint="Email Or Phone"
+                android:hint="Email Address"
                 android:textColorHint="#A9A9A9"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
@@ -133,8 +112,6 @@
                 android:id="@+id/btn_reset_ret"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_round"
                 android:gravity="center"
@@ -149,9 +126,7 @@
                 android:id="@+id/btn_lgn"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginStart="40dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginEnd="40dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_round"
                 android:gravity="center"
@@ -172,7 +147,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="25dp"
             android:gravity="center"
             android:text="© Haball | All rights reserved" />
 
