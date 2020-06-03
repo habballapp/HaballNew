@@ -70,7 +70,7 @@
                 android:id="@+id/layout_email_phone"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="53dp"
                 android:layout_marginTop="10dp"
                 android:hint="Email Address"
                 android:textColorHint="#A9A9A9"
