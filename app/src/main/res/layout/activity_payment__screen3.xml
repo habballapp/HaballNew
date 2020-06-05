@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="2"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginRight="27dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/underline"
         android:orientation="vertical">
@@ -24,6 +24,7 @@
             android:layout_marginTop="20dp"
             android:text="Payment"
             android:paddingTop="5dp"
+            android:fontFamily="@font/open_sans_semibold"
             android:paddingBottom="10dp"
             android:layout_weight="1"
             android:layout_marginLeft="0dp"
@@ -58,10 +59,10 @@
                 <Button
                     android:id="@+id/btn_newpayment"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="45dp"
                     android:background="@drawable/button_round"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="27dp"
+                    android:layout_marginRight="27dp"
                     android:layout_marginTop="15dp"
                     android:text="Make New Payment"
                     android:textSize="14sp"
@@ -73,12 +74,12 @@
                 <RelativeLayout
                     android:id="@+id/relative_Preffered_Contact"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:layout_below="@+id/relative_criticality"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginRight="27dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="27dp"
                     android:background="@drawable/edit_round"
                     android:padding="10dp">
 
@@ -94,7 +95,7 @@
                     android:id="@+id/layout_txt_amount"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="55dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="15dp"
@@ -120,7 +121,7 @@
                 <Button
                     android:id="@+id/btn_update"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="45dp"
                     android:background="@drawable/button_round"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
@@ -136,7 +137,7 @@
                 <Button
                     android:id="@+id/btn_voucher"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="45dp"
                     android:background="@drawable/button_round"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
@@ -233,14 +234,14 @@
                 </RelativeLayout>
 
             </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="10dp"
-                android:text="© Haball | All rights reserved"
-                android:gravity="center"
-                />
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentBottom="true"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:text="© Haball | All rights reserved"-->
+<!--                android:gravity="center"-->
+<!--                />-->
 
         </RelativeLayout>
     </ScrollView>

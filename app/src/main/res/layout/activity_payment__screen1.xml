@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="2"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginRight="27dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/underline"
         android:orientation="vertical">
@@ -44,14 +44,14 @@
         android:layout_marginBottom="20dp"
         android:layout_below="@+id/ln_login"
         android:weightSum="3"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:orientation="vertical"
         >
         <RelativeLayout
             android:id="@+id/relative_Preffered_Contact"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_height="50dp"
             android:layout_below="@+id/relative_criticality"
             android:background="@drawable/edit_round">
 
@@ -59,21 +59,15 @@
                 android:id="@+id/spinner_company"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="2dp"
-                android:paddingRight="2dp"
-                android:dropDownWidth="match_parent"/>
+                android:dropDownWidth="match_parent"
+                android:popupBackground="@drawable/spinner_round"
+                android:theme="@style/Spinner" />
         </RelativeLayout>
-
-
-
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_txt_amount"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_height="55dp"
             android:layout_marginTop="15dp"
             android:hint="Amount"
             android:theme="@style/TextLabel"
@@ -106,6 +100,8 @@
         android:layout_below="@id/ln_txt"
         android:layout_marginTop="20sp"
         android:weightSum="2"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:orientation="vertical"
         >
 
@@ -113,9 +109,7 @@
             android:id="@+id/btn_create"
             android:layout_width="match_parent"
             android:background="@drawable/button_round"
-            android:layout_height="40dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_height="45dp"
             android:text="Create Payment"
             android:textSize="14sp"
             android:textColor="#fff"
@@ -124,13 +118,13 @@
             android:textAllCaps="false"
             />
     </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:text="© Haball | All rights reserved"
-        android:gravity="center"
-        />
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginBottom="10dp"-->
+<!--        android:text="© Haball | All rights reserved"-->
+<!--        android:gravity="center"-->
+<!--        />-->
 
 </RelativeLayout>

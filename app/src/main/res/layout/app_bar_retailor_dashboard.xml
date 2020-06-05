@@ -13,7 +13,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="wrap_content"
             android:background="#fff"
             app:popupTheme="@style/PopupOverlay" >
             <RelativeLayout
@@ -35,7 +35,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:textSize="16sp"
+                    android:textSize="11sp"
+                    android:fontFamily="@font/open_sans"
                     android:layout_marginRight="10dp"
                     android:textColor="@android:color/tertiary_text_dark"
                     android:text="Hi, Jawwad Ali"
@@ -45,9 +46,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:fontFamily="@font/open_sans"
                     android:textColor="@android:color/tertiary_text_dark"
                     android:text="Jawwad Associates"
-                    android:textSize="11sp"
+                    android:textSize="7sp"
                     android:layout_marginRight="10dp"
                     android:layout_below="@+id/tv_username"
                     android:textStyle="bold"/>

@@ -22,38 +22,37 @@
                 android:id="@+id/spinner_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="27dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginRight="27dp"
                 android:background="@drawable/edit_text_squared">
 
                 <Spinner
                     android:id="@+id/spinner_conso"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:paddingLeft="2dp"
-                    android:paddingRight="2dp"
+                    android:layout_height="45dp"
+                    android:popupBackground="@drawable/spinner_round"
+                    android:theme="@style/Spinner"
                     android:dropDownWidth="match_parent"/>
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/spinner_container1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:layout_below="@+id/spinner_container"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="27dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginRight="27dp"
                 android:background="@drawable/edit_text_squared"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <Spinner
                     android:id="@+id/conso_spinner2"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:paddingLeft="2dp"
-                    android:paddingRight="2dp"
+                    android:layout_height="45dp"
+                    android:popupBackground="@drawable/spinner_round"
+                    android:theme="@style/Spinner"
                     android:dropDownWidth="match_parent"/>
             </RelativeLayout>
 
@@ -62,9 +61,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/spinner_container"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:visibility="visible">
+                android:layout_marginLeft="27dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="27dp"
+                android:visibility="gone">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/search_bar"
@@ -95,11 +95,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/spinner_container"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="27dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginRight="27dp"
                 android:orientation="horizontal"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:weightSum="4">
 
                 <LinearLayout
@@ -185,10 +185,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/spinner_container"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginLeft="27dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="27dp"
                 android:orientation="horizontal"
                 android:visibility="gone"
                 android:weightSum="4">
@@ -280,9 +279,9 @@
         <RelativeLayout
             android:id="@+id/line_bottom"
             android:layout_width="match_parent"
-            android:layout_height="5dp"
+            android:layout_height="1dp"
             android:layout_below="@+id/spinner_container_main_inner"
-            android:background="@drawable/line_seperator" />
+           />
     </RelativeLayout>
 
 
@@ -291,38 +290,40 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/com_name"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
         android:layout_below="@+id/spinner_container_main">
         <TextView
             android:id="@+id/tv_shipment_no_data"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp"
             android:gravity="center"
             android:text="No Data Available"
             android:textSize="30sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/open_sans" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_fragment_payments"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp"
             android:isScrollContainer="false"
             android:nestedScrollingEnabled="false" />
 
     </RelativeLayout>
 
 
-    <TextView
-        android:id="@+id/com_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:text="© Haball | All rights reserved" />
+<!--    <TextView-->
+<!--        android:id="@+id/com_name"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_marginBottom="10dp"-->
+<!--        android:gravity="center"-->
+<!--        android:text="© Haball | All rights reserved" />-->
 
 
 </RelativeLayout>

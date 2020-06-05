@@ -11,5 +11,7 @@
     <dimen name="text_box">16sp</dimen>
     <dimen name="mtrl_textinput_box_stroke_width_default" tools:override="true">1.75dp</dimen>
     <dimen name="spinner_width">350dp</dimen>
+    <dimen name="paragraph_size">13sp</dimen>
+
 
 </resources>

@@ -48,7 +48,7 @@
             android:layout_marginStart="28dp"
             android:layout_marginTop="18.5dp"
             android:layout_marginEnd="28dp"
-            android:text="@string/txt_popup_alert"
+            android:text="@string/txt_pop_update_pass"
             android:textSize="@dimen/paragraph_size" />
 
         <Button
@@ -63,7 +63,7 @@
             android:fontFamily="@font/open_sans"
             android:layout_marginBottom="27dp"
             android:background="@drawable/button_background"
-            android:text="Yes"
+            android:text="Skip"
             android:textAllCaps="false"
             android:textColor="#fff"
             android:textSize="13sp" />

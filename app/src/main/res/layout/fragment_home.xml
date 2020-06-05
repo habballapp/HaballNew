@@ -16,13 +16,15 @@
             android:layout_height="wrap_content"
             android:background="#fff"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="10dp"
-            app:tabMode="scrollable"
+            android:layout_marginTop="17dp"
             android:layout_marginRight="30dp"
             app:tabBackground="@drawable/custom_indicator"
             app:tabIndicatorColor="#96bb3c"
             app:tabSelectedTextColor="#96bb3c"
-            app:tabTextAppearance="@style/CustomTextAppearanceTab" />
+            app:tabMode="scrollable"
+            app:tabMaxWidth="0dp"
+            app:tabTextAppearance="@style/CustomTextAppearanceTab"
+            android:gravity="start" />
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager1"
             android:layout_below="@+id/tabs1"

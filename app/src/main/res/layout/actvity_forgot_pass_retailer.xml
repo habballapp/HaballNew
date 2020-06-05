@@ -31,7 +31,7 @@
                 android:padding="10dp"
                 android:text="Forgot Password"
                 android:textColor="#96bb3c"
-                android:textSize="24sp" />
+                android:textSize="25sp" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/text_ln_retailor"
@@ -70,7 +70,7 @@
                 android:id="@+id/layout_email_phone"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="53dp"
+                android:layout_height="55dp"
                 android:layout_marginTop="10dp"
                 android:hint="Email Address"
                 android:textColorHint="#A9A9A9"
@@ -111,7 +111,7 @@
             <Button
                 android:id="@+id/btn_reset_ret"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="45dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/open_sans"
                 android:background="@drawable/button_round"
@@ -126,7 +126,7 @@
             <Button
                 android:id="@+id/btn_lgn"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="45dp"
                 android:layout_marginTop="20dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/open_sans"

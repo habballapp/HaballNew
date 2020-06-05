@@ -80,6 +80,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
     private ArrayAdapter<String> arrayAdapterPayments, arrayAdapterPaymentsFilter;
     private String Filter_selected1, Filter_selected2;
     private TextInputLayout search_bar;
+    private RelativeLayout search_rl;
     private Spinner spinner_consolidate;
     private Spinner spinner2;
     private EditText conso_edittext;
@@ -137,6 +138,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
 
         tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
         search_bar = root.findViewById(R.id.search_bar);
+        search_rl = root.findViewById(R.id.search_rl);
 
         // DATE FILTERS ......
         date_filter_rl = root.findViewById(R.id.date_filter_rl);
@@ -170,7 +172,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 spinner_container1.setVisibility(View.GONE);
                 date_filter_rl.setVisibility(View.GONE);
                 conso_edittext.setVisibility(View.GONE);
-
+                search_rl.setVisibility(View.GONE);
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
@@ -190,6 +192,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "TicketNumber";
                         conso_edittext.setVisibility(View.VISIBLE);
+                        search_rl.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Issue Type")) {
                         Filter_selected = "IssueType";
                         spinner_container1.setVisibility(View.VISIBLE);

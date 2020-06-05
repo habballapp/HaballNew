@@ -52,7 +52,7 @@
                 android:maxLines="2"
                 android:text="@string/txt_forgot"
                 android:textColor="@color/text_color_selection"
-                android:textSize="13sp" />
+                android:textSize="@dimen/paragraph_size" />
 
 
         </LinearLayout>
@@ -71,7 +71,7 @@
                 android:id="@+id/layout_email_phone"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="55dp"
                 android:hint="Email Address"
                 android:textColorHint="#A9A9A9"
                 android:theme="@style/TextLabel"
@@ -84,7 +84,7 @@
                     android:id="@+id/txt_email"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/open_sans_semibold"
+                    android:fontFamily="@font/open_sans"
                     android:inputType="textEmailAddress"
                     android:paddingLeft="20dp"
                     android:paddingTop="5dp"
@@ -111,10 +111,10 @@
             <Button
                 android:id="@+id/btn_reset"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="45dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_round"
-                android:fontFamily="@font/open_sans_semibold"
+                android:fontFamily="@font/open_sans"
                 android:gravity="center"
                 android:stateListAnimator="@null"
                 android:text="Reset"
@@ -126,17 +126,17 @@
             <Button
                 android:id="@+id/btn_lgn"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="45dp"
                 android:layout_marginTop="22dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_round"
-                android:fontFamily="@font/open_sans_semibold"
+                android:fontFamily="@font/open_sans"
                 android:gravity="center"
                 android:stateListAnimator="@null"
                 android:text="Login"
                 android:textAllCaps="false"
-                android:textColor="#fff"
 
+                android:textColor="#fff"
                 android:textSize="14sp" />
 
         </LinearLayout>

@@ -82,7 +82,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private String Token, DistributorId;
-    ;
+    private RelativeLayout search_rl;
     private String URL = "http://175.107.203.97:4014/api/prepaidrequests/search";
     private String URL_DISTRIBUTOR_ORDERS = "http://175.107.203.97:4014/api/Orders/Search";
     //    private String URL_DISTRIBUTOR_PAYMENTS_COUNT = "http://175.107.203.97:4013/api/prepaidrequests/searchCount";
@@ -233,7 +233,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         search_bar = root.findViewById(R.id.search_bar);
         recyclerViewPayment = root.findViewById(R.id.rv_fragment_payments);
         recyclerViewPayment.setHasFixedSize(true);
-
+        search_rl = root.findViewById(R.id.search_rl);
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(getContext());
         recyclerViewPayment.setLayoutManager(layoutManager);
@@ -278,6 +278,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 conso_edittext.setVisibility(View.GONE);
                 date_filter_rl.setVisibility(View.GONE);
                 amount_filter_rl.setVisibility(View.GONE);
+                search_rl.setVisibility(View.GONE);
 
                 if (i == 0) {
                     try {
@@ -300,10 +301,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "InvoiceNumber";
                         conso_edittext.setVisibility(View.VISIBLE);
+                        search_rl.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Company")) {
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "CompanyName";
                         conso_edittext.setVisibility(View.VISIBLE);
+                        search_rl.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Paid Date")) {
                         date_filter_rl.setVisibility(View.VISIBLE);
                         Filter_selected = "date";
@@ -915,6 +918,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     }
 
     private void orderFragmentTask(View root) throws JSONException {
+        search_rl = root.findViewById(R.id.search_rl);
         search_bar = root.findViewById(R.id.search_bar);
         recyclerView = (RecyclerView) root.findViewById(R.id.rv_fragment_orders);
         spinner_container_main = root.findViewById(R.id.spinner_container_main);
@@ -963,10 +967,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 conso_edittext.setVisibility(View.GONE);
                 date_filter_rl.setVisibility(View.GONE);
                 amount_filter_rl.setVisibility(View.GONE);
+                search_rl.setVisibility(View.GONE);
 
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -986,10 +992,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "OrderNumber";
                         conso_edittext.setVisibility(View.VISIBLE);
+                        search_rl.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Company")) {
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "CompanyName";
                         conso_edittext.setVisibility(View.VISIBLE);
+                        search_rl.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Transaction Date")) {
                         date_filter_rl.setVisibility(View.VISIBLE);
                         Filter_selected = "date";
