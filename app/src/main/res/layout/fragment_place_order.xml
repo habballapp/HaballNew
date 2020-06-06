@@ -12,8 +12,8 @@
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:weightSum="2"
-         android:layout_marginLeft="30dp"
-         android:layout_marginRight="30dp"
+         android:layout_marginStart="27dp"
+         android:layout_marginEnd="27dp"
          android:layout_marginTop="10dp"
          android:background="@drawable/underline"
          android:orientation="vertical">
@@ -38,12 +38,13 @@
          android:id="@+id/place_order_button"
          android:layout_width="match_parent"
          android:background="@drawable/button_round"
-         android:layout_height="40dp"
-         android:layout_marginLeft="30dp"
-         android:layout_marginRight="30dp"
-         android:layout_marginTop="15dp"
+         android:layout_height="45dp"
+         android:layout_marginStart="27dp"
+         android:layout_marginEnd="27dp"
+         android:layout_marginTop="20dp"
          android:text="Place Order"
          android:textSize="14sp"
+         android:fontFamily="@font/open_sans"
          android:textColor="#fff"
          android:gravity="center"
          android:textAllCaps="false"
@@ -53,35 +54,35 @@
      <RelativeLayout
          android:id="@+id/spinner_container"
          android:layout_width="match_parent"
-         android:layout_height="40dp"
-         android:layout_marginLeft="30dp"
-         android:layout_marginRight="30dp"
-         android:layout_marginTop="15dp"
+         android:layout_height="50dp"
+         android:layout_marginStart="27dp"
+         android:layout_marginEnd="27dp"
+         android:layout_marginTop="20dp"
          android:background="@drawable/edit_text_squared"
          android:layout_below="@+id/place_order_button">
          <Spinner
              android:id="@+id/spinner_criteria"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             android:paddingLeft="2dp"
-             android:paddingRight="2dp"
+             android:popupBackground="@drawable/spinner_round"
+             android:theme="@style/Spinner"
              android:dropDownWidth="match_parent"/>
      </RelativeLayout>
 
      <RelativeLayout
          android:id="@+id/line_bottom"
          android:layout_width="match_parent"
-         android:layout_height="5dp"
+         android:layout_height="1dp"
          android:layout_below="@+id/spinner_container"
-         android:background="@drawable/line_seperator"
-         android:layout_marginTop="15dp"/>
+        />
 
      <androidx.recyclerview.widget.RecyclerView
          android:id="@+id/rv_order_ledger"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:layout_below="@+id/line_bottom"
-         android:layout_marginRight="30dp"
-         android:layout_marginLeft="30dp"/>
+         android:layout_marginRight="27dp"
+         android:layout_marginTop="5dp"
+         android:layout_marginLeft="27dp"/>
 
  </RelativeLayout>
