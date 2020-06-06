@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#80FFFFFF"
     android:background="@color/colorPrimary"
+    android:backgroundTint="#80FFFFFF"
     android:backgroundTintMode="src_over">
 
     <RelativeLayout
@@ -17,22 +17,20 @@
             android:id="@+id/ln_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
                 android:layout_marginTop="10dp"
-                android:text="Payment"
+                android:layout_marginEnd="30dp"
                 android:layout_weight="1"
-                android:textSize="18sp"
-                android:paddingTop="5dp"
                 android:paddingStart="10dp"
+                android:paddingTop="5dp"
                 android:paddingEnd="10dp"
-                />
+                android:text="Payment"
+                android:textSize="18sp" />
         </LinearLayout>
 
 
@@ -41,316 +39,320 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@+id/ln_login"
-            android:background="@drawable/horizontal_black_line"
             android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"/>
+            android:layout_marginRight="40dp"
+            android:background="@drawable/horizontal_black_line" />
 
         <Button
             android:id="@+id/btn_make_payment"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
+            android:layout_below="@+id/ln_login"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:layout_marginStart="27dp"
+            android:layout_marginEnd="27dp"
             android:background="@drawable/button_background"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:text="Make New Payment"
-            android:textSize="14sp"
-            android:textColor="#fff"
             android:gravity="center"
             android:stateListAnimator="@null"
-            android:layout_weight="1"
+            android:text="Make New Payment"
             android:textAllCaps="false"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/ln_login"
+            android:textColor="#fff"
+            android:textSize="14sp"
 
             />
+
         <LinearLayout
             android:id="@+id/ln_txt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="27dp"
+            android:layout_marginEnd="27dp"
             android:layout_below="@+id/btn_make_payment"
-            android:orientation="vertical"
             android:layout_marginTop="20dp"
+            android:orientation="vertical"
 
             >
 
 
             <com.google.android.material.textfield.TextInputLayout
 
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_height="55dp"
+                android:fontFamily="@font/open_sans"
                 android:hint="Retailer Code"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                app:boxStrokeWidth="0.5dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_heading"
-                    android:textSize="14sp"
-                    android:textColor="#676a6c"
-                    android:paddingTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:enabled="false"
+                    android:fontFamily="@font/open_sans"
                     android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
-                    android:enabled="false"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:textColor="#676a6c"
+                    android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
 
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/open_sans"
                 android:hint="Payment ID"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 app:boxStrokeColor="#e5e5e5"
-                android:layout_marginTop="15dp"
-                app:boxStrokeWidth="0.5dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                app:boxStrokeWidth="0.5dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_paymentid"
-                    android:textSize="14sp"
-                    android:textColor="#676a6c"
-                    android:paddingTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:enabled="false"
+                    android:fontFamily="@font/open_sans"
                     android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
-                    android:enabled="false"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:textColor="#676a6c"
+                    android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
 
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/open_sans"
                 android:hint="Created Date"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 app:boxStrokeColor="#e5e5e5"
-                android:layout_marginTop="15dp"
-                app:boxStrokeWidth="0.5dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                app:boxStrokeWidth="0.5dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_created_date"
-                    android:textSize="14sp"
-                    android:textColor="#676a6c"
-                    android:paddingTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:enabled="false"
+                    android:fontFamily="@font/open_sans"
                     android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
-                    android:enabled="false"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:textColor="#676a6c"
+                    android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
 
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/open_sans"
                 android:hint="Transaction Date"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                app:boxStrokeWidth="0.5dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_transaction_date"
-                    android:textSize="14sp"
-                    android:textColor="#676a6c"
-                    android:paddingTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:enabled="false"
+                    android:fontFamily="@font/open_sans"
                     android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
-                    android:enabled="false"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:textColor="#676a6c"
+                    android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
 
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/open_sans"
                 android:hint="Bank"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                app:boxStrokeWidth="0.5dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_bname"
-                    android:textSize="14sp"
-                    android:textColor="#676a6c"
-                    android:paddingTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:enabled="false"
+                    android:fontFamily="@font/open_sans"
                     android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
-                    android:enabled="false"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:textColor="#676a6c"
+                    android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
 
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/open_sans"
                 android:hint="Authorization ID"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                app:boxStrokeWidth="0.5dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_authorization"
-                    android:textSize="14sp"
-                    android:textColor="#676a6c"
-                    android:paddingTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:enabled="false"
+                    android:fontFamily="@font/open_sans"
                     android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
-                    android:enabled="false"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:textColor="#676a6c"
+                    android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
 
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/open_sans"
                 android:hint="Settlement ID"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                app:boxStrokeWidth="0.5dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_settlement"
-                    android:textSize="14sp"
-                    android:textColor="#676a6c"
-                    android:paddingTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:enabled="false"
+                    android:fontFamily="@font/open_sans"
                     android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
-                    android:enabled="false"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:textColor="#676a6c"
+                    android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
 
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/open_sans"
                 android:hint="Amount"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                app:boxStrokeWidth="0.5dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_amount"
-                    android:textSize="14sp"
-                    android:textColor="#676a6c"
-                    android:paddingTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:enabled="false"
+                    android:fontFamily="@font/open_sans"
                     android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
-                    android:enabled="false"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:textColor="#676a6c"
+                    android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
 
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/open_sans"
                 android:hint="Status"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                app:boxStrokeWidth="0.5dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_status"
-                    android:textSize="14sp"
-                    android:textColor="#676a6c"
-                    android:paddingTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:enabled="false"
+                    android:fontFamily="@font/open_sans"
                     android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
-                    android:enabled="false"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:textColor="#676a6c"
+                    android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
 
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/open_sans"
                 android:hint="Transaction Charges"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                app:boxStrokeWidth="0.5dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_transaction_charges"
-                    android:textSize="14sp"
-                    android:textColor="#676a6c"
-                    android:paddingTop="5dp"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="match_parent"
+                    android:enabled="false"
+                    android:fontFamily="@font/open_sans"
                     android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
-                    android:enabled="false"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:textColor="#676a6c"
+                    android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -362,53 +364,43 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/ln_txt"
             android:layout_marginTop="20dp"
-            android:weightSum="2"
             android:orientation="vertical"
-            >
+            android:weightSum="2">
 
             <Button
                 android:id="@+id/btn_vreciept"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="27dp"
+                android:layout_marginRight="27dp"
+                android:layout_weight="1"
                 android:background="@drawable/button_background"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:text="View Receipt"
-                android:textSize="14sp"
-                android:textColor="#fff"
                 android:gravity="center"
                 android:stateListAnimator="@null"
-                android:layout_weight="1"
+                android:text="View Receipt"
                 android:textAllCaps="false"
-                />
+                android:textColor="#fff"
+                android:textSize="14sp" />
 
             <Button
                 android:id="@+id/btn_back"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/button_background"
+                android:layout_height="45dp"
+                android:layout_marginLeft="27dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:text="Back"
-                android:textSize="14sp"
-                android:textColor="#fff"
+                android:layout_marginRight="27dp"
+                android:layout_marginBottom="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_background"
                 android:gravity="center"
                 android:stateListAnimator="@null"
-                android:layout_weight="1"
+                android:text="Back"
                 android:textAllCaps="false"
-                android:layout_marginBottom="20dp"
-                />
+                android:textColor="#fff"
+                android:textSize="14sp" />
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ln_btn"
-            android:layout_marginBottom="10dp"
-            android:text="© Haball | All rights reserved"
-            android:gravity="center"
-            />
+     
 
     </RelativeLayout>
 

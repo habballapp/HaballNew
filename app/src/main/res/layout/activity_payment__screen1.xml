@@ -70,6 +70,7 @@
             android:layout_height="55dp"
             android:layout_marginTop="15dp"
             android:hint="Amount"
+            android:fontFamily="@font/open_sans"
             android:theme="@style/TextLabel"
             android:layout_weight="1"
             app:boxBackgroundColor="#fff"
