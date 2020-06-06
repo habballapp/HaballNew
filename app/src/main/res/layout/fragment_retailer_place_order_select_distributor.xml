@@ -24,7 +24,7 @@
         <RelativeLayout
             android:id="@+id/spinner_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_below="@+id/select_retailer_heading"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
@@ -34,7 +34,7 @@
             <Spinner
                 android:id="@+id/spinner_conso"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:popupBackground="@drawable/spinner_round"
                 android:theme="@style/Spinner"
                 android:dropDownWidth="match_parent"/>

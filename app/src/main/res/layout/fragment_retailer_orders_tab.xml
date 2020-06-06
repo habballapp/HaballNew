@@ -13,7 +13,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="27dp"
+            android:layout_marginEnd="27dp">
 
 
             <RelativeLayout
@@ -28,10 +30,8 @@
                     android:id="@+id/layout_txt_orderID"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="20dp"
                     android:hint="Order ID"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
@@ -45,6 +45,7 @@
                         android:inputType="text"
                         android:paddingLeft="20dp"
                         android:paddingTop="5dp"
+                        android:fontFamily="@font/open_sans"
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
                         android:textColor="#676a6c"
@@ -58,9 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_below="@+id/layout_txt_orderID"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="20dp"
                     android:hint="Company"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
@@ -72,6 +71,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="text"
+                        android:fontFamily="@font/open_sans"
                         android:paddingLeft="20dp"
                         android:paddingTop="5dp"
                         android:paddingRight="20dp"
@@ -86,11 +86,9 @@
                     android:id="@+id/layout_txt_created_date_order"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="55dp"
                     android:layout_below="@+id/layout_txt_order_company"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="20dp"
                     android:hint="Created Date"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
@@ -104,6 +102,7 @@
                         android:inputType="text"
                         android:paddingLeft="20dp"
                         android:paddingTop="5dp"
+                        android:fontFamily="@font/open_sans"
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
                         android:textColor="#676a6c"
@@ -115,11 +114,9 @@
                     android:id="@+id/layout_txt_status_order"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="55dp"
                     android:layout_below="@+id/layout_txt_created_date_order"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="20dp"
                     android:hint="Status"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
@@ -133,6 +130,7 @@
                         android:inputType="text"
                         android:paddingLeft="20dp"
                         android:paddingTop="5dp"
+                        android:fontFamily="@font/open_sans"
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
                         android:textColor="#676a6c"
@@ -146,10 +144,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_below="@+id/layout_txt_status_order"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="20dp"
                     android:hint="Comments"
                     android:inputType="textMultiLine"
                     android:theme="@style/TextLabel"
@@ -165,6 +160,7 @@
                         android:inputType="textPassword"
                         android:paddingLeft="20dp"
                         android:paddingTop="10dp"
+                        android:fontFamily="@font/open_sans"
                         android:paddingRight="20dp"
                         android:paddingBottom="10dp"
                         android:textColor="#676a6c"
@@ -172,14 +168,14 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/footer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center"
-                    android:text="© Haball | All rights reserved" />
+<!--                <TextView-->
+<!--                    android:id="@+id/footer"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_alignParentBottom="true"-->
+<!--                    android:layout_marginBottom="10dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="© Haball | All rights reserved" />-->
             </RelativeLayout>
 
         </RelativeLayout>
