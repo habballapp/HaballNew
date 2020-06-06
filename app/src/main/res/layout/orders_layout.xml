@@ -18,9 +18,9 @@
             android:id="@+id/heading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0.5"
             android:text="Ghulam Rabani &amp; Sons Traders &amp; Distributors"
             android:textSize="@dimen/rv_box_heading_size"
-            android:layout_weight="0.5"
             android:fontFamily="@font/open_sans_semibold"
             android:textColor="@color/rv_box_color"
             />
