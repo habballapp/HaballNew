@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ln_login"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             android:layout_marginLeft="27dp"
             android:layout_marginRight="27dp"
             android:layout_marginBottom="40dp"
@@ -78,7 +78,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:hint="Full Name*"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
@@ -105,7 +105,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:hint="Email Address*"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
@@ -134,7 +134,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:hint="CNIC No"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
@@ -161,7 +161,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:hint="Mobile No"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
@@ -188,7 +188,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:hint="Created Date"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
@@ -215,7 +215,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:hint="Address"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
@@ -238,51 +238,23 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-
+            <Button
+                android:id="@+id/btn_save_password"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:fontFamily="@font/open_sans"
+                android:background="@drawable/disabled_button_background"
+                android:text="Save"
+                android:layout_marginTop="15dp"
+                android:enabled="false"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="14sp" />
 
 
         </LinearLayout>
 
 
-        <RelativeLayout
-            android:id="@+id/ln_btn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/ln_txt"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            android:weightSum="2">
-
-<!--            <Button-->
-<!--                android:id="@+id/btn_changepwd"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="40dp"-->
-<!--                android:layout_marginLeft="30dp"-->
-<!--                android:layout_marginRight="30dp"-->
-<!--                android:layout_weight="1"-->
-<!--                android:background="@drawable/button_background"-->
-<!--                android:gravity="center"-->
-<!--                android:text="Change Password"-->
-<!--                android:textAllCaps="false"-->
-<!--                android:textColor="#fff"-->
-<!--                android:textSize="14sp"-->
-
-<!--                />-->
-
-            <Button
-                android:id="@+id/btn_save_password"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginLeft="27dp"
-                android:layout_marginRight="27dp"
-                android:fontFamily="@font/open_sans"
-                android:background="@drawable/disabled_button_background"
-                android:text="Save"
-                android:enabled="false"
-                android:textAllCaps="false"
-                android:textColor="#fff"
-                android:textSize="14sp" />
-        </RelativeLayout>
 
 
 <!--        <TextView-->
