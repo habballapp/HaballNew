@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
 
 import com.example.haball.R;
 import com.example.haball.Retailor.ui.Dashboard.ui.main.SectionsPagerAdapter;
@@ -39,7 +40,18 @@ public class Dashboard_Tabs extends Fragment {
         viewPager.setAdapter(sectionsPagerAdapter);
         viewPager.setCurrentItem(value);
         final TabLayout tabs = root.findViewById(R.id.tabs_ret5);
+//        tabs.setPadding(0,0,0,0);
         tabs.setupWithViewPager(viewPager);
+
+//        for (int i = 0; i < tabs.getTabCount(); i++) {
+//            View tabView = LayoutInflater.from(getContext())
+//                    .inflate(LayoutInflater.from(getContext()), R.layout.fragment_dashboard__tabs, null, false);
+
+//            tabs.setLayoutParams(new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+//            tabs.setPadding(0, 0, 0, 0);
+//            tabs.getTabAt(i).setCustomView(tabViewBinding.getRoot());
+//        }
+
 
 //        LinearLayout tabStrip = ((LinearLayout)tabs.getChildAt(0));
 //        for(int i = 0; i < tabStrip.getChildCount(); i++) {

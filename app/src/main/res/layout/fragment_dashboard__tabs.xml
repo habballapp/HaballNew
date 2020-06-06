@@ -9,20 +9,24 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#fff">
+        android:background="@drawable/underline">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs_ret5"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="27dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="11dp"
             android:layout_marginRight="27dp"
             android:background="#fff"
             app:tabMode="scrollable"
             app:tabBackground="@drawable/custom_indicator"
             app:tabIndicatorColor="#96bb3c"
             app:tabSelectedTextColor="#96bb3c"
+            app:tabGravity="fill"
+            app:tabPaddingStart="0dp"
+            app:tabPaddingEnd="0dp"
+            app:tabContentStart="0dp"
             app:tabTextAppearance="@style/CustomTextAppearanceTab" />
 
         <androidx.viewpager.widget.ViewPager
