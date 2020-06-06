@@ -16,19 +16,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginEnd="27dp"
             android:weightSum="2">
 
             <Button
                 android:id="@+id/btn_template"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_height="45dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_round"
                 android:gravity="center"
+                android:fontFamily="@font/open_sans"
                 android:text="Save Template"
-                android:stateListAnimator="@null"
                 android:textAllCaps="false"
                 android:textColor="#fff"
                 android:textSize="14sp" />
@@ -36,15 +36,12 @@
             <Button
                 android:id="@+id/btn_more_items"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginStart="20dp"
+                android:layout_height="45dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_round"
                 android:gravity="center"
-                android:stateListAnimator="@null"
+                android:fontFamily="@font/open_sans"
                 android:text="Add Items"
                 android:textAllCaps="false"
                 android:textColor="#fff"
@@ -58,14 +55,15 @@
             android:layout_below="@+id/ll_top_buttons"
             android:layout_above="@+id/rl_line"
             android:layout_marginTop="10dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginEnd="27dp"
             android:orientation="vertical"
             android:weightSum="4">
 
             <RelativeLayout
                 android:id="@+id/rl_orders"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_height="0dp"
                 android:layout_marginBottom="20dp"
                 android:layout_weight="3">
 
@@ -73,13 +71,14 @@
                     android:id="@+id/rv_orders_summary"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"/>
+                   />
             </RelativeLayout>
         </LinearLayout>
         <RelativeLayout
             android:id="@+id/rl_line"
             android:layout_width="wrap_content"
+            android:layout_marginStart="27dp"
+            android:layout_marginEnd="27dp"
             android:layout_alignParentBottom="true"
             android:layout_height="wrap_content">
             <RelativeLayout
@@ -92,7 +91,7 @@
                 android:id="@+id/asd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:layout_weight="1">
 
@@ -100,7 +99,6 @@
                     android:id="@+id/gross"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
                     android:text="Gross Amount:" />
 
                 <TextView
@@ -108,6 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
+                    android:fontFamily="@font/open_sans"
                     android:layout_toRightOf="@+id/gross"
                     android:text="Rs. "
                     android:textStyle="bold" />
@@ -117,6 +116,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/Rss"
+                    android:fontFamily="@font/open_sans"
                     android:text="7,94780"
                     android:textStyle="bold" />
 
@@ -124,8 +124,8 @@
                     android:id="@+id/discount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans"
                     android:layout_below="@id/gross"
-                    android:layout_marginLeft="20dp"
                     android:text="Total Discount:" />
 
                 <TextView
@@ -133,6 +133,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/gross"
+                    android:fontFamily="@font/open_sans"
                     android:layout_toRightOf="@+id/discount"
                     android:layout_marginLeft="5dp"
                     android:text="Rs. "
@@ -143,6 +144,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/gross_amount"
+                    android:fontFamily="@font/open_sans"
                     android:layout_toRightOf="@+id/Rs_discount"
                     android:text="100"
                     android:textStyle="bold" />
@@ -151,8 +153,8 @@
                     android:id="@+id/gst"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans"
                     android:layout_below="@id/discount"
-                    android:layout_marginLeft="20dp"
                     android:text="GST 17%:" />
 
                 <TextView
@@ -161,6 +163,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/Rs_discount"
                     android:layout_marginLeft="5dp"
+                    android:fontFamily="@font/open_sans"
                     android:layout_toRightOf="@+id/gst"
                     android:text="Rs. "
                     android:textStyle="bold" />
@@ -169,6 +172,7 @@
                     android:id="@+id/gst_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans"
                     android:layout_below="@id/discount_amount"
                     android:layout_toRightOf="@+id/Rs_gst"
                     android:text="947.51"
@@ -179,7 +183,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/gst"
-                    android:layout_marginLeft="20dp"
+                    android:fontFamily="@font/open_sans"
                     android:text="Total Amount:" />
 
                 <TextView
@@ -188,6 +192,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/Rs_gst"
                     android:layout_marginLeft="5dp"
+                    android:fontFamily="@font/open_sans"
                     android:layout_toRightOf="@+id/total"
                     android:text="Rs. "
                     android:textStyle="bold" />
@@ -197,6 +202,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/gst_amount"
+                    android:fontFamily="@font/open_sans"
                     android:layout_toRightOf="@+id/rs_total"
                     android:text="143,617,514.90"
                     android:textStyle="bold" />
@@ -215,14 +221,12 @@
                 <Button
                     android:id="@+id/place_item_button"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_height="45dp"
                     android:layout_weight="1"
                     android:background="@drawable/button_round"
                     android:gravity="center"
                     android:text="Draft"
-                    android:stateListAnimator="@null"
+                    android:fontFamily="@font/open_sans"
                     android:textAllCaps="false"
                     android:textColor="#fff"
                     android:textSize="14sp" />
@@ -230,12 +234,11 @@
                 <Button
                     android:id="@+id/btn_confirm"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="45dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp"
                     android:layout_weight="1"
+                    android:fontFamily="@font/open_sans"
                     android:background="@drawable/button_round"
                     android:gravity="center"
                     android:stateListAnimator="@null"

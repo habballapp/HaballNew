@@ -81,14 +81,14 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginLeft="27dp"
                     android:background="@drawable/edit_round"
-                    android:padding="10dp">
+                    >
 
                     <Spinner
                         android:id="@+id/spinner_companyName"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
+                        android:popupBackground="@drawable/spinner_round"
+                        android:theme="@style/Spinner"
                         android:dropDownWidth="match_parent"/>
                 </RelativeLayout>
                 <com.google.android.material.textfield.TextInputLayout

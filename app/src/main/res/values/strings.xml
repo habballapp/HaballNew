@@ -22,25 +22,20 @@
     <string name="tab_text_06_tab">\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</string>
     <string name="tab_text_07">\t\tSent\t\t</string>
     <string name="tab_text_10">\t\tReceived\t\t</string>
-    <string name="tab_text_08">\t\tPlace Order\t\t</string>
-    <string name="tab_text_09">\t\tOrder Summary\t\t</string>
+    <string name="tab_text_08">Place Order\t\t</string>
+    <string name="tab_text_09">Order Summary\t\t</string>
     //retailer_place_order in distributor
-    <string name="tab_text_rpoid_01">\t\tPlace Order\t\t</string>
-    <string name="tab_text_rpoid_02">\t\tOrder Summary\t\t</string>
+    <string name="tab_text_rpoid_01">Place Order\t\t</string>
+    <string name="tab_text_rpoid_02">Order Summary\t\t</string>
 <!--    <string name="tab_retailer_order">\t\t\t\tOrder\t\t\t\t</string>-->
 <!--    <string name="tab_retailer_payment">\t\t\t\tPayment\t\t\t\t</string>-->
     <string name="tab_retailer_order">Order</string>
     <string name="tab_retailer_payment">Payment</string>
-    <string name="tab_retailer_profile">\t\t\t\tProfile\t\t\t\t</string>
-    <string name="tab_retailer_profile1">\t\tChange Password\t\t\t\t</string>
-    <string name="tab_distributor_profile">\t\t\t\tProfile\t\t\t\t</string>
-    <string name="tab_distributor_profile1">\t\tChange Password\t\t\t\t</string>
-
-
-        
+    <string name="tab_retailer_profile">Profile\t\t\t</string>
+    <string name="tab_retailer_profile1">Change Password\t\t\t</string>
+    <string name="tab_distributor_profile">tProfile\t\t\t</string>
+    <string name="tab_distributor_profile1">Change Password\t\t\t</string>
     <string name="load_more"><u>Load More</u></string>
-
-
     <string name="Forgot_Password">Forgot Password</string>
     <string name="info_reset_password">Please enter your registered email address to reset your password</string>
     <string name="Txt_Dashboard">Dashboard</string>
