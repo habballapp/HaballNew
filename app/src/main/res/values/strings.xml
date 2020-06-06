@@ -32,12 +32,9 @@
     <string name="tab_retailer_order">Order</string>
     <string name="tab_retailer_payment">Payment</string>
     <string name="tab_retailer_profile">\t\t\t\tProfile\t\t\t\t</string>
-    <string name="tab_retailer_profile1">\t\tChange Password\t\t\t\t</string>
+    <string name="tab_retailer_profile1">\t\t\t\tChange Password\t\t\t\t</string>
     <string name="tab_distributor_profile">\t\t\t\tProfile\t\t\t\t</string>
-    <string name="tab_distributor_profile1">\t\tChange Password\t\t\t\t</string>
-
-
-        
+    <string name="tab_distributor_profile1">\t\t\t\tChange Password\t\t\t\t</string>  
     <string name="load_more"><u>Load More</u></string>
 
 
