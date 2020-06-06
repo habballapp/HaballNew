@@ -110,7 +110,7 @@
             android:layout_width="match_parent"
             android:background="@drawable/button_round"
             android:layout_height="45dp"
-            android:text="Create Payment"
+            android:text="Next"
             android:textSize="14sp"
             android:textColor="#fff"
             android:gravity="center"

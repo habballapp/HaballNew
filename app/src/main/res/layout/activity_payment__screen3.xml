@@ -212,29 +212,30 @@
                     android:layout_marginBottom="5dp"
                     android:layout_weight="1"
                     android:text="@string/Txt_Payment"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <RelativeLayout
                     android:id="@+id/rl_banking"
                     android:layout_width="match_parent"
-                    android:layout_height="55dp"
+                    android:layout_height="68dp"
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="30dp"
                     android:layout_marginBottom="30dp"
                     android:layout_weight="1"
                     android:background="@drawable/edit_round"
-                    android:padding="10dp">
+                    android:padding="20dp">
 
                     <TextView
                         android:id="@+id/tv_banking_channel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/ic_account_balance_black_24dp"
-                        android:gravity="center"
+                        android:gravity="left"
+                        android:layout_centerInParent="true"
                         android:fontFamily="@font/open_sans"
-                        android:text="Banking Channel"
-                        android:textSize="22dp" />
+                        android:text="\t\t\tBanking Channel"
+                        android:textSize="15sp" />
                 </RelativeLayout>
 
             </LinearLayout>
