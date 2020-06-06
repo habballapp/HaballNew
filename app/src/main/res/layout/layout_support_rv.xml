@@ -10,9 +10,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Dashboard"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="#676a6c"/>
+        android:fontFamily="@font/open_sans_semibold"
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/rv_box_heading_size"
+        />
     <ImageButton
         android:id="@+id/menu_btn"
         android:layout_width="wrap_content"
@@ -29,7 +30,10 @@
         android:layout_below="@+id/heading"
         android:layout_marginTop="20dp"
         android:text="Ticket Id:"
-        android:textSize="14sp"/>
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/rv_box_text_size"
+        />
     <TextView
         android:id="@+id/ticket_id_value"
         android:layout_width="wrap_content"
@@ -37,11 +41,11 @@
         android:layout_below="@+id/heading"
         android:layout_marginTop="20dp"
         android:text="584325"
-        android:textSize="14sp"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/ticket_id"
-        android:textStyle="bold"
-        android:textColor="#676a6c"
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/rv_box_text_size"
         />
     <TextView
         android:id="@+id/status"
@@ -49,18 +53,21 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ticket_id"
         android:text="Status: "
-        android:textSize="14sp"/>
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/rv_box_text_size"
+        />
     <TextView
         android:id="@+id/status_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ticket_id"
         android:text="Pending"
-        android:textSize="14sp"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/status"
-        android:textStyle="bold"
-        android:textColor="#676a6c"
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/rv_box_text_size"
         />
     <TextView
         android:id="@+id/created_date"
@@ -68,7 +75,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/status"
         android:text="Created Date: "
-        android:textSize="14sp"/>
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/rv_box_text_size"
+        />
     <TextView
         android:id="@+id/created_date_value"
         android:layout_width="wrap_content"
@@ -76,10 +86,10 @@
         android:layout_below="@+id/status"
         android:text="01/01/2020"
         android:layout_toRightOf="@+id/created_date"
-        android:textSize="14sp"
         android:layout_marginLeft="5dp"
-        android:textStyle="bold"
-        android:textColor="#676a6c"
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/rv_box_text_size"
         />
 
 </RelativeLayout>

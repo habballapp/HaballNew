@@ -31,9 +31,10 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="0.5"
                 android:text=""
-                android:textColor="#676a6c"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:fontFamily="@font/open_sans_semibold"
+                android:textColor="@color/rv_box_color"
+                android:textSize="@dimen/rv_box_heading_size"
+                />
         </ScrollView>
     </LinearLayout>
 
@@ -44,20 +45,23 @@
         android:layout_below="@+id/ll_products"
         android:layout_marginTop="15dp"
         android:text="Product Code:"
-        android:textSize="16sp" />
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/rv_box_text_size"
+        />
 
     <TextView
         android:id="@+id/product_code_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_products"
-        android:textStyle="bold"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="15dp"
         android:layout_toRightOf="@+id/product_code"
         android:text=""
-        android:textColor="#676a6c"
-        android:textSize="16sp" />
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/rv_box_text_size" />
 
     <TextView
         android:id="@+id/price"
@@ -65,26 +69,33 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/product_code"
         android:text="Price: "
-        android:textSize="16sp" />
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/rv_box_text_size"
+        />
 
     <TextView
         android:id="@+id/price_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/product_code"
-        android:textStyle="bold"
         android:layout_toRightOf="@id/price"
         android:text=""
-        android:textSize="16sp" />
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/rv_box_text_size"
+        />
     <TextView
         android:id="@+id/separator_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/product_code"
-        android:textStyle="bold"
         android:layout_toRightOf="@id/price_value"
         android:text="   |   "
-        android:textSize="16sp" />
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/rv_box_text_size"
+         />
     <TextView
         android:id="@+id/discount"
         android:layout_width="wrap_content"
@@ -92,16 +103,21 @@
         android:layout_below="@+id/product_code"
         android:layout_toRightOf="@id/separator_1"
         android:text="Disc Amt: "
-        android:textSize="16sp" />
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/rv_box_text_size"
+        />
     <TextView
         android:id="@+id/discount_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/product_code"
-        android:textStyle="bold"
         android:layout_toRightOf="@id/discount"
         android:text=""
-        android:textSize="16sp" />
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/rv_box_text_size"
+         />
 
     <TextView
         android:id="@+id/UOM"
@@ -109,26 +125,32 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/price"
         android:text="UOM: "
-        android:textSize="16sp" />
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/rv_box_text_size"
+         />
 
     <TextView
         android:id="@+id/UOM_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/price"
-        android:textStyle="bold"
         android:layout_toRightOf="@id/UOM"
         android:text=""
-        android:textSize="16sp" />
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/rv_box_text_size" />
     <TextView
         android:id="@+id/separator_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/price"
-        android:textStyle="bold"
         android:layout_toRightOf="@id/UOM_value"
         android:text="   |   "
-        android:textSize="16sp" />
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/rv_box_text_size"
+       />
     <TextView
         android:id="@+id/pack_size"
         android:layout_width="wrap_content"
@@ -136,16 +158,21 @@
         android:layout_below="@+id/price"
         android:layout_toRightOf="@id/separator_2"
         android:text="Pack Size: "
-        android:textSize="16sp" />
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/rv_box_text_size"
+        />
     <TextView
         android:id="@+id/pack_size_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/price"
-        android:textStyle="bold"
         android:layout_toRightOf="@id/pack_size"
         android:text=""
-        android:textSize="16sp" />
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/rv_box_text_size"
+         />
 
     <TextView
         android:id="@+id/Quantity"
@@ -153,26 +180,32 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/UOM"
         android:text="Quantity: "
-        android:textSize="16sp" />
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/rv_box_text_size"
+         />
 
     <TextView
         android:id="@+id/Quantity_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/UOM"
-        android:textStyle="bold"
         android:layout_toRightOf="@id/Quantity"
         android:text=""
-        android:textSize="16sp" />
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/rv_box_text_size" />
     <TextView
         android:id="@+id/separator_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/UOM"
-        android:textStyle="bold"
         android:layout_toRightOf="@id/Quantity_value"
         android:text="   |   "
-        android:textSize="16sp" />
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/rv_box_text_size"
+         />
     <TextView
         android:id="@+id/amount"
         android:layout_width="wrap_content"
@@ -180,14 +213,19 @@
         android:layout_below="@+id/UOM"
         android:layout_toRightOf="@id/separator_3"
         android:text="Amount: "
-        android:textSize="16sp" />
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/rv_box_text_size"
+         />
     <TextView
         android:id="@+id/amount_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/UOM"
-        android:textStyle="bold"
         android:layout_toRightOf="@id/amount"
         android:text=""
-        android:textSize="16sp" />
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/rv_box_text_size"
+         />
 </RelativeLayout>

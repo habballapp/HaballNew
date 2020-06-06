@@ -286,6 +286,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -293,6 +294,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         try {
                             ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                             ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+//                            ((TextView) adapterView.getChildAt(0)).setCompoundDrawablesWithIntrinsicBounds(0 ,0,R.drawable.ic_arrow_drop_down_black_24dp ,0);
                         } catch (NullPointerException ex) {
                             ex.printStackTrace();
                         }
