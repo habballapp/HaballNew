@@ -282,13 +282,15 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
                 if (i == 0) {
                     try {
-                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+//                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
                 } else {
                         try {
                             ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
                         } catch (NullPointerException ex) {
                             ex.printStackTrace();
                         }
@@ -362,11 +364,11 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    try {
-                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                    } catch (NullPointerException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+//                    } catch (NullPointerException e) {
+//                        e.printStackTrace();
+//                    }
                     try {
                         fetchPaymentsData();
                     } catch (JSONException e) {
@@ -970,12 +972,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 search_rl.setVisibility(View.GONE);
 
                 if (i == 0) {
-                    try {
-                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-
-                    } catch (NullPointerException ex) {
-                        ex.printStackTrace();
-                    }
+//                    try {
+//                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+//
+//                    } catch (NullPointerException ex) {
+//                        ex.printStackTrace();
+//                    }
                 } else {
                         try {
                             ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
@@ -1068,11 +1070,11 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    try {
-                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                    } catch (NullPointerException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+//                    } catch (NullPointerException e) {
+//                        e.printStackTrace();
+//                    }
                     try {
                         fetchOrderData();
                     } catch (JSONException e) {
