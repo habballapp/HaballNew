@@ -37,17 +37,18 @@
                     android:layout_alignParentRight="true"
                     android:textSize="11sp"
                     android:fontFamily="@font/open_sans"
+                    android:textColor="#6d6e72"
                     android:layout_marginRight="10dp"
-                    android:textColor="@android:color/tertiary_text_dark"
                     android:text="Hi, Jawwad Ali"
                     android:textStyle="bold"/>
+<!--                android:textColor="@android:color/tertiary_text_dark"-->
                 <TextView
                     android:id="@+id/tv_user_company"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:fontFamily="@font/open_sans"
-                    android:textColor="@android:color/tertiary_text_dark"
+                    android:textColor="#6d6e72"
                     android:text="Jawwad Associates"
                     android:textSize="7sp"
                     android:layout_marginRight="10dp"

@@ -89,7 +89,7 @@
     <style name="CustomTextAppearanceTab" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">17sp</item>
         <item name="android:gravity">start</item>
         <item name="tabInlineLabel">true</item>
         <item name="android:fontFamily">@font/open_sans</item>
@@ -113,9 +113,10 @@
         <item name="android:textSize">20sp</item>
     </style>
     <style name="Spinner" parent="Widget.AppCompat.Light.DropDownItem.Spinner">
-        <item name="android:textSize">11.6sp</item>
+        <item name="android:textSize">13.6sp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#6d6e72</item>
         <item name="fontFamily">@font/open_sans</item>
     </style>
 

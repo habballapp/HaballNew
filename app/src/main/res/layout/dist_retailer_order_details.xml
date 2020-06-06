@@ -5,24 +5,24 @@
     android:background="@android:color/white">
 
     <RelativeLayout
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="27dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_dist_retailer_order_details"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="30dp"/>
+            android:layout_height="match_parent" />
     </RelativeLayout>
-    <TextView
-        android:id="@+id/footer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginBottom="10dp"
-        android:layout_alignParentBottom="true"
-        android:text="© Haball | All rights reserved" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/footer"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:gravity="center"-->
+    <!--        android:layout_marginBottom="10dp"-->
+    <!--        android:layout_alignParentBottom="true"-->
+    <!--        android:text="© Haball | All rights reserved" />-->
 </RelativeLayout>

@@ -21,7 +21,7 @@
             <RelativeLayout
                 android:id="@+id/spinner_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginLeft="27dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="27dp"
@@ -30,16 +30,16 @@
                 <Spinner
                     android:id="@+id/spinner_conso"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="match_parent"
+                    android:dropDownWidth="match_parent"
                     android:popupBackground="@drawable/spinner_round"
-                    android:theme="@style/Spinner"
-                    android:dropDownWidth="match_parent"/>
+                    android:theme="@style/Spinner" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/spinner_container1"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="50dp"
                 android:layout_below="@+id/spinner_container"
                 android:layout_marginLeft="27dp"
                 android:layout_marginTop="15dp"
@@ -50,10 +50,10 @@
                 <Spinner
                     android:id="@+id/conso_spinner2"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="match_parent"
+                    android:dropDownWidth="match_parent"
                     android:popupBackground="@drawable/spinner_round"
-                    android:theme="@style/Spinner"
-                    android:dropDownWidth="match_parent"/>
+                    android:theme="@style/Spinner" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -280,8 +280,7 @@
             android:id="@+id/line_bottom"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@+id/spinner_container_main_inner"
-           />
+            android:layout_below="@+id/spinner_container_main_inner" />
     </RelativeLayout>
 
 
@@ -290,19 +289,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/com_name"
-        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/spinner_container_main"
         android:layout_marginTop="5dp"
-        android:layout_below="@+id/spinner_container_main">
+        android:layout_marginBottom="10dp">
+
         <TextView
             android:id="@+id/tv_shipment_no_data"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="27dp"
             android:layout_marginRight="27dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/open_sans"
             android:gravity="center"
             android:text="No Data Available"
-            android:textSize="30sp"
-            android:fontFamily="@font/open_sans" />
+            android:textSize="30sp" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_fragment_payments"
             android:layout_width="match_parent"
@@ -315,15 +317,15 @@
     </RelativeLayout>
 
 
-<!--    <TextView-->
-<!--        android:id="@+id/com_name"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:layout_marginBottom="10dp"-->
-<!--        android:gravity="center"-->
-<!--        android:text="© Haball | All rights reserved" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/com_name"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentBottom="true"-->
+    <!--        android:layout_marginTop="10dp"-->
+    <!--        android:layout_marginBottom="10dp"-->
+    <!--        android:gravity="center"-->
+    <!--        android:text="© Haball | All rights reserved" />-->
 
 
 </RelativeLayout>
