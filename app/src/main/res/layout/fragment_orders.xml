@@ -296,8 +296,7 @@
                 android:gravity="center"
                 android:fontFamily="@font/open_sans"
                 android:text="No Data Available"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/no_data_available_size" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_fragment_orders"

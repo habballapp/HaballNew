@@ -1,51 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".Distributor.ui.orders.OrdersTabsNew.Order_PlaceOrder">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/underline">
+        android:background="#fff">
 
-        <LinearLayout
-            android:id="@+id/ll_tabs_ret5"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs_ret5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="27dp"
             android:layout_marginLeft="27dp"
-            android:orientation="horizontal">
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabs_ret5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="11dp"
-                android:background="#fff"
-                app:tabBackground="@drawable/custom_indicator"
-                app:tabContentStart="0dp"
-                app:tabGravity="fill"
-                app:tabIndicatorColor="#96bb3c"
-                app:tabMode="scrollable"
-                app:tabPaddingEnd="0dp"
-                app:tabPaddingStart="0dp"
-                app:tabSelectedTextColor="#96bb3c"
-                app:tabTextAppearance="@style/CustomTextAppearanceTab" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="57dp"
-                android:layout_marginBottom="10dp"
-                android:background="@android:color/white" />
-
-        </LinearLayout>
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="27dp"
+            android:background="@drawable/tab_indicator"
+            app:tabContentStart="0dp"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="#96bb3c"
+            app:tabMode="scrollable"
+            app:tabPaddingEnd="0dp"
+            app:tabPaddingStart="0dp"
+            android:paddingVertical="0dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:paddingHorizontal="0dp"
+            app:tabPadding="0dp"
+            app:tabSelectedTextColor="#96bb3c"
+            app:tabTextAppearance="@style/CustomTextAppearanceTab" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager_ret5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/ll_tabs_ret5"
+            android:layout_below="@id/tabs_ret5"
             android:layout_marginTop="10dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </RelativeLayout>

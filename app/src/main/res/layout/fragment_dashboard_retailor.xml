@@ -27,12 +27,30 @@
                 android:layout_marginRight="27dp"
                 android:background="@drawable/edit_text_squared">
 
+                <!--                <Spinner-->
+                <!--                    android:id="@+id/spinner_conso"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="match_parent"-->
+                <!--                    android:popupBackground="@drawable/spinner_round"-->
+                <!--                    android:spinnerMode="dropdown"-->
+                <!--                    android:theme="@style/Spinner" />-->
                 <Spinner
                     android:id="@+id/spinner_conso"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@null"
                     android:dropDownWidth="match_parent"
                     android:popupBackground="@drawable/spinner_round"
+                    android:spinnerMode="dropdown" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignTop="@id/spinner_conso"
+                    android:layout_alignEnd="@+id/spinner_conso"
+                    android:layout_alignRight="@+id/spinner_conso"
+                    android:layout_alignBottom="@+id/spinner1"
+                    android:src="@drawable/ic_arrow_drop_down_black_24dp"
                     android:theme="@style/Spinner" />
             </RelativeLayout>
 
@@ -51,7 +69,7 @@
                     android:id="@+id/conso_spinner2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:dropDownWidth="match_parent"
+                    android:dropDownWidth="wrap_content"
                     android:popupBackground="@drawable/spinner_round"
                     android:theme="@style/Spinner" />
             </RelativeLayout>
@@ -303,7 +321,7 @@
             android:fontFamily="@font/open_sans"
             android:gravity="center"
             android:text="No Data Available"
-            android:textSize="30sp" />
+            android:textSize="@dimen/no_data_available_size" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_fragment_payments"
