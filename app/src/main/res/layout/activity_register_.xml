@@ -144,6 +144,7 @@
                     android:layout_below="@+id/img_distributor"
                     android:gravity="center"
                     android:text="Retailer"
+                    android:fontFamily="@font/open_sans_semibold"
                     android:textColor="@color/text_color_selection"
                     android:textSize="15sp" />
 

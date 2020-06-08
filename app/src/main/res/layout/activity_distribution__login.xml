@@ -109,7 +109,7 @@
                         android:textColorHint="#A9A9A9"
                         android:theme="@style/TextLabel"
                         app:boxBackgroundColor="#fff"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="0.5dp">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -140,7 +140,7 @@
                         android:textColorHint="#A9A9A9"
                         android:theme="@style/TextLabel"
                         app:boxBackgroundColor="#fff"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="0.5dp"
                         app:passwordToggleEnabled="true"
                         app:passwordToggleTint="#A9A9A9">

@@ -64,7 +64,7 @@
                         android:hint="Retailer Code"
                         android:textColorHint="#96bb3c"
                         android:theme="@style/TextLabel"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="0.5dp">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -92,7 +92,7 @@
                         android:hint="Retailer Name *"
                         android:textColorHint="#96bb3c"
                         android:theme="@style/TextLabel"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="0.5dp">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -120,7 +120,7 @@
                         android:hint="Full Name *"
                         android:textColorHint="#96bb3c"
                         android:theme="@style/TextLabel"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="0.5dp">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -148,7 +148,7 @@
                         android:hint="Email Address"
                         android:textColorHint="#96bb3c"
                         android:theme="@style/TextLabel"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="0.5dp">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -175,7 +175,7 @@
                         android:hint="CNIC No"
                         android:textColorHint="#96bb3c"
                         android:theme="@style/TextLabel"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="0.5dp">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -203,7 +203,7 @@
                         android:hint="Mobile No"
                         android:textColorHint="#96bb3c"
                         android:theme="@style/TextLabel"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="0.5dp">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -231,7 +231,7 @@
                         android:hint="Company"
                         android:textColorHint="#96bb3c"
                         android:theme="@style/TextLabel"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="0.5dp">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -258,7 +258,7 @@
                         android:hint="Status"
                         android:textColorHint="#96bb3c"
                         android:theme="@style/TextLabel"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="0.5dp">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -285,7 +285,7 @@
                         android:hint="Address"
                         android:textColorHint="#96bb3c"
                         android:theme="@style/TextLabel"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="0.5dp">
 
                         <com.google.android.material.textfield.TextInputEditText

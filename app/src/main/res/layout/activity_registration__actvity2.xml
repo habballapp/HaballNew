@@ -126,7 +126,7 @@
                         android:paddingBottom="5dp"
                         android:theme="@style/TextLabel"
                         app:boxBackgroundColor="#fff"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="1.75dp">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -214,7 +214,7 @@
                         android:hint="Postal Code *"
                         android:theme="@style/TextLabel"
                         app:boxBackgroundColor="#fff"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="1.75dp">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -308,7 +308,7 @@
                             android:paddingBottom="5dp"
                             android:theme="@style/TextLabel"
                             app:boxBackgroundColor="#fff"
-                            app:boxStrokeColor="#e5e5e5"
+                            app:boxStrokeColor="@color/box_stroke"
                             app:boxStrokeWidth="1.75dp">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -395,7 +395,7 @@
                             android:hint="Postal Code *"
                             android:theme="@style/TextLabel"
                             app:boxBackgroundColor="#fff"
-                            app:boxStrokeColor="#e5e5e5"
+                            app:boxStrokeColor="@color/box_stroke"
                             app:boxStrokeWidth="1.75dp">
 
                             <com.google.android.material.textfield.TextInputEditText

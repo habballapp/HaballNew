@@ -109,16 +109,16 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email_retailer"
-                    android:drawableEnd="@drawable/editprofile"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
                     android:paddingBottom="5dp"
+                    android:paddingEnd="40dp"
+                    android:paddingRight="60dp"
                     android:fontFamily="@font/open_sans"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:drawableRight="@drawable/editprofile" />
+                    android:drawableRight="@drawable/ic_edit_black_24dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -161,12 +161,13 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/Rmobile"
-                    android:drawableRight="@drawable/editprofile"
+                    android:drawableRight="@drawable/ic_edit_black_24dp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
                     android:paddingBottom="5dp"
+                    android:paddingEnd="40dp"
+                    android:paddingRight="40dp"
                     android:fontFamily="@font/open_sans"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
@@ -213,10 +214,12 @@
                     android:id="@+id/R_Address"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
+
                     android:paddingBottom="50dp"
+                    android:paddingEnd="40dp"
+                    android:paddingRight="40dp"
                     android:fontFamily="@font/open_sans"
-                    android:drawableRight="@drawable/editprofile"
+                    android:drawableRight="@drawable/ic_edit_black_24dp"
                     android:textColor="#676a6c"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>

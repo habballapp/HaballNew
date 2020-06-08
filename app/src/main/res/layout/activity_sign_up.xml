@@ -103,7 +103,7 @@
                         android:textColorHint="#A9A9A9"
                         android:theme="@style/TextLabel"
                         app:boxBackgroundColor="#fff"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="1.75dp">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -134,7 +134,7 @@
                         android:textColorHint="#A9A9A9"
                         android:theme="@style/TextLabel"
                         app:boxBackgroundColor="#fff"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:errorEnabled="true"
                         app:boxStrokeWidth="1.75dp"
                         app:passwordToggleEnabled="true"
@@ -169,7 +169,7 @@
                         android:textColorHint="#A9A9A9"
                         android:theme="@style/TextLabel"
                         app:boxBackgroundColor="#fff"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="1.75dp"
                         app:passwordToggleEnabled="true"
                         app:passwordToggleTint="#A9A9A9">
@@ -201,7 +201,7 @@
                         android:textColorHint="#A9A9A9"
                         android:theme="@style/TextLabel"
                         app:boxBackgroundColor="#fff"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="1.75dp"
                         app:passwordToggleEnabled="true">
 
@@ -232,7 +232,7 @@
                         android:textColorHint="#A9A9A9"
                         android:theme="@style/TextLabel"
                         app:boxBackgroundColor="#fff"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="1.75dp"
                         app:passwordToggleEnabled="true">
 
@@ -263,7 +263,7 @@
                         android:textColorHint="#A9A9A9"
                         android:theme="@style/TextLabel"
                         app:boxBackgroundColor="#fff"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="1.75dp"
                         app:passwordToggleEnabled="true">
 
@@ -295,7 +295,7 @@
                         android:textColorHint="#A9A9A9"
                         android:theme="@style/TextLabel"
                         app:boxBackgroundColor="#fff"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="1.75dp"
                         app:passwordToggleEnabled="true">
 
@@ -327,7 +327,7 @@
                         android:textColorHint="#A9A9A9"
                         android:theme="@style/TextLabel"
                         app:boxBackgroundColor="#fff"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="1.75dp"
                         app:passwordToggleEnabled="true">
 
@@ -360,7 +360,7 @@
                         android:textColorHint="#A9A9A9"
                         android:theme="@style/TextLabel"
                         app:boxBackgroundColor="#fff"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="1.75dp"
                         app:passwordToggleEnabled="true">
 

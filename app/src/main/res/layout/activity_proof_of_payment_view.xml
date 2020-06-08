@@ -56,7 +56,7 @@
                 android:layout_weight="1"
                 android:hint="POP ID"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeColor="@color/box_stroke"
                 app:boxStrokeWidth="1.75dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -85,7 +85,7 @@
                 android:layout_weight="1"
                 android:hint="Distributor Name"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeColor="@color/box_stroke"
                 app:boxStrokeWidth="1.75dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -113,7 +113,7 @@
                 android:layout_weight="1"
                 android:hint="Created Date"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeColor="@color/box_stroke"
                 app:boxStrokeWidth="1.75dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -141,7 +141,7 @@
                 android:layout_weight="1"
                 android:hint="Mode of Payment"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeColor="@color/box_stroke"
                 app:boxStrokeWidth="1.75dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -169,7 +169,7 @@
                 android:layout_weight="1"
                 android:hint="Bank"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeColor="@color/box_stroke"
                 app:boxStrokeWidth="1.75dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -197,7 +197,7 @@
                 android:layout_weight="1"
                 android:hint="Branch Code"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeColor="@color/box_stroke"
                 app:boxStrokeWidth="1.75dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -225,7 +225,7 @@
                 android:layout_weight="1"
                 android:hint="Transaction No"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeColor="@color/box_stroke"
                 app:boxStrokeWidth="1.75dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -254,7 +254,7 @@
                 android:layout_weight="1"
                 android:hint="Payment ID"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeColor="@color/box_stroke"
                 app:boxStrokeWidth="1.75dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -282,7 +282,7 @@
                 android:layout_weight="1"
                 android:hint="Status"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeColor="@color/box_stroke"
                 app:boxStrokeWidth="1.75dp">
 
                 <com.google.android.material.textfield.TextInputEditText
