@@ -48,8 +48,7 @@
                 android:textColorHint="#A9A9A9"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
-                app:boxStrokeColor="@color/box_stroke"
-                app:boxStrokeWidth="1.75dp">
+                app:boxStrokeColor="@color/box_stroke">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/BName"
@@ -213,8 +212,7 @@
                 android:textColorHint="#A9A9A9"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
-                app:boxStrokeColor="@color/box_stroke"
-                app:boxStrokeWidth="1.75dp">
+                app:boxStrokeColor="@color/box_stroke">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/Comment"

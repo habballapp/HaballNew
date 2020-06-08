@@ -164,7 +164,7 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
 
                 if (i == 0) {
                     try {
-                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -243,7 +243,7 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
                     try {
-                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }

@@ -111,7 +111,7 @@ public class PaymentRequestDashboard extends Fragment {
                 conso_edittext.setVisibility(View.GONE);
                 if (i == 0) {
                         try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                               ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         } catch (NullPointerException e) {
                             e.printStackTrace();
                         }
@@ -174,7 +174,7 @@ public class PaymentRequestDashboard extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
                         try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                               ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         } catch (NullPointerException e) {
                             e.printStackTrace();
                         }

@@ -60,7 +60,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:hint="Username Or Mobile No"
-                        android:textColorHint="@color/textcolor"
+                        android:textColorHint="@color/box_stroke"
                         android:theme="@style/TextLabel"
                         app:boxBackgroundColor="#fff"
                         app:boxStrokeColor="@color/box_stroke"
@@ -87,7 +87,7 @@
                         android:layout_below="@+id/layout_username"
                         android:layout_marginTop="16dp"
                         android:hint="Password"
-                        android:textColorHint="@color/textcolor"
+                        android:textColorHint="@color/box_stroke"
                         android:theme="@style/TextLabel"
                         app:boxBackgroundColor="#fff"
                         app:boxStrokeColor="@color/box_stroke"
@@ -107,8 +107,7 @@
                             android:paddingEnd="60dp"
                             android:paddingRight="60dp"
                             android:paddingBottom="5dp"
-                            android:textColor="#676a6c"
-                            android:textSize="14sp" />
+                           />
 
                     </com.google.android.material.textfield.TextInputLayout>
 

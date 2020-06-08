@@ -119,7 +119,7 @@ public class DashBoardFragment extends Fragment {
 //            @Override
 //            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 //                if(i == 0){
-//                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+//                       ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
 //                }
 //                else{
 //                    Filter_selected = payment.get(i);
@@ -189,7 +189,7 @@ public class DashBoardFragment extends Fragment {
 //            @Override
 //            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 //                if(i == 0){
-//                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+//                       ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
 //                }
 //                else{
 //                    Filter_selected_value = String.valueOf(i-1);

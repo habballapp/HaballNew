@@ -68,6 +68,15 @@
                 android:layout_alignBottom="@+id/spinner_company"
                 android:src="@drawable/ic_arrow_drop_down_black_24dp"
                 android:theme="@style/Spinner" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignTop="@id/spinner_company"
+                android:layout_alignEnd="@+id/spinner_company"
+                android:layout_alignRight="@+id/spinner_company"
+                android:layout_alignBottom="@+id/spinner_company"
+                android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                android:theme="@style/Spinner" />
         </RelativeLayout>
 
         <com.google.android.material.textfield.TextInputLayout
