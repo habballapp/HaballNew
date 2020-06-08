@@ -148,13 +148,15 @@ public class Support_Ticket_Form extends AppCompatActivity {
                 }
                 if (i == 0) {
                         try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
                         } catch (NullPointerException e) {
                             e.printStackTrace();
                         }
                 } else {
                         try {
                             ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
                         } catch (NullPointerException ex) {
                             ex.printStackTrace();
                         }
@@ -181,13 +183,15 @@ public class Support_Ticket_Form extends AppCompatActivity {
                 }
                 if (i == 0) {
                         try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
                         } catch (NullPointerException e) {
                             e.printStackTrace();
                         }
                 } else {
                         try {
                             ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
                         } catch (NullPointerException ex) {
                             ex.printStackTrace();
                         }
@@ -212,13 +216,16 @@ public class Support_Ticket_Form extends AppCompatActivity {
                 }
                 if (i == 0) {
                         try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+
                         } catch (NullPointerException e) {
                             e.printStackTrace();
                         }
                 } else {
                         try {
                             ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
                         } catch (NullPointerException ex) {
                             ex.printStackTrace();
                         }

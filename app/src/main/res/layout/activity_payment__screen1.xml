@@ -11,28 +11,27 @@
         android:id="@+id/ln_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="2"
         android:layout_marginLeft="27dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="27dp"
-        android:layout_marginTop="10dp"
         android:background="@drawable/underline"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="2">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginLeft="0dp"
-            android:layout_marginTop="20dp"
             android:layout_marginEnd="100dp"
             android:layout_marginRight="100dp"
             android:layout_weight="1"
-            android:background="@drawable/half_underline"
+            android:fontFamily="@font/open_sans_semibold"
             android:paddingTop="5dp"
             android:paddingBottom="10dp"
-            android:text="Payment Request"
-            android:textColor="#96bb3c"
-            android:textSize="20sp" />
+            android:text="Payment"
+            android:textSize="@dimen/fragemnt_heading_size"
+            />
 
     </LinearLayout>
 
@@ -40,14 +39,12 @@
         android:id="@+id/ln_txt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="20dp"
         android:layout_below="@+id/ln_login"
-        android:weightSum="3"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:orientation="vertical"
-        >
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="27dp"
+        android:orientation="vertical">
+
         <RelativeLayout
             android:id="@+id/relative_Preffered_Contact"
             android:layout_width="match_parent"
@@ -60,34 +57,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:dropDownWidth="match_parent"
-                android:popupBackground="@drawable/spinner_round"
+                android:background="@null"
+                android:popupBackground="@drawable/spinner_round" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignTop="@id/spinner_company"
+                android:layout_alignEnd="@+id/spinner_company"
+                android:layout_alignRight="@+id/spinner_company"
+                android:layout_alignBottom="@+id/spinner_company"
+                android:src="@drawable/ic_arrow_drop_down_black_24dp"
                 android:theme="@style/Spinner" />
         </RelativeLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_txt_amount"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="55dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/open_sans"
             android:hint="Amount"
             android:theme="@style/TextLabel"
-            app:boxBackgroundColor="#fff"
-           >
+            app:boxBackgroundColor="#fff">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txt_amount"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fontFamily="@font/open_sans"
-                android:inputType="text|textCapSentences"
+                android:inputType="number"
+                android:maxLength="9"
                 android:paddingLeft="20dp"
                 android:paddingTop="5dp"
-                android:paddingRight="20dp"
                 android:paddingBottom="5dp"
-
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
-         </LinearLayout>
+    </LinearLayout>
 
 
     <LinearLayout
@@ -95,33 +101,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ln_txt"
+        android:layout_marginLeft="27dp"
         android:layout_marginTop="20sp"
-        android:weightSum="2"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:orientation="vertical"
-        >
+        android:layout_marginRight="27dp"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/btn_create"
             android:layout_width="match_parent"
-            android:background="@drawable/button_round"
             android:layout_height="45dp"
-            android:text="Next"
-            android:textSize="14sp"
-            android:textColor="#fff"
+            android:background="@drawable/button_round"
             android:gravity="center"
-            android:layout_weight="1"
+            android:text="Next"
             android:textAllCaps="false"
-            />
+            android:textColor="#fff"
+            android:textSize="14sp" />
     </LinearLayout>
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:layout_marginBottom="10dp"-->
-<!--        android:text="© Haball | All rights reserved"-->
-<!--        android:gravity="center"-->
-<!--        />-->
+    <!--    <TextView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentBottom="true"-->
+    <!--        android:layout_marginBottom="10dp"-->
+    <!--        android:text="© Haball | All rights reserved"-->
+    <!--        android:gravity="center"-->
+    <!--        />-->
 
 </RelativeLayout>

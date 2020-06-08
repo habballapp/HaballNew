@@ -76,9 +76,7 @@
                 android:textColorHint="#A9A9A9"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp"
-                app:passwordToggleTint="#A9A9A9">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_email"
