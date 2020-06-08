@@ -24,7 +24,8 @@
             android:name=".Retailor.ui.Profile.Profile_Tabs"
             android:label="@string/title_activity_profile__tabs"
             android:theme="@style/NoActionBar" />
-        <activity android:name=".Retailor.Forgot_Password_Retailer.Forgot_Pass_Retailer" />
+        <activity android:name=".Retailor.Forgot_Password_Retailer.Forgot_Pass_Retailer"
+            />
         <activity android:name=".Forgot_Password.Forgot_Pass_Distributor" />
         <activity
             android:name=".Retailor.ui.Place_Order.Retailer_Place_Order"

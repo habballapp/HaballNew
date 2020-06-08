@@ -129,6 +129,8 @@
                 android:layout_height="50dp"
                 android:layout_below="@+id/layout_MobileNo"
                 android:layout_marginTop="20dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:background="@drawable/edit_text_squared">
 
                 <Spinner
@@ -137,7 +139,8 @@
                     android:layout_height="match_parent"
                     android:dropDownWidth="match_parent"
                     android:background="@null"
-                    android:popupBackground="@drawable/spinner_round" />
+                    android:popupBackground="@drawable/spinner_round"
+                    />
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -153,6 +156,8 @@
                 android:id="@+id/relative_criticality"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:layout_below="@+id/relative_issuetype"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/edit_text_squared">
@@ -179,6 +184,8 @@
                 android:id="@+id/relative_Preffered_Contact"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:layout_below="@+id/relative_criticality"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/edit_text_squared">

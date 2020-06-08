@@ -31,9 +31,9 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="0.5"
                 android:text=""
-                android:textColor="#676a6c"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textColor="@color/rv_box_color"
+                android:textSize="17sp"
+                android:fontFamily="@font/open_sans_semibold" />
         </ScrollView>
     </LinearLayout>
 
@@ -44,20 +44,22 @@
         android:layout_below="@+id/ll_products"
         android:layout_marginTop="15dp"
         android:text="Product Code:"
-        android:textSize="16sp" />
+        android:textColor="@color/rv_box_color"
+        android:fontFamily="@font/open_sans"
+        android:textSize="@dimen/order_child_list_retailer" />
 
     <TextView
         android:id="@+id/list_product_code_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_products"
-        android:textStyle="bold"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="15dp"
         android:layout_toRightOf="@+id/product_code"
         android:text=""
-        android:textColor="#676a6c"
-        android:textSize="16sp" />
+        android:textColor="@color/rv_box_color"
+        android:fontFamily="@font/open_sans_semibold"
+        android:textSize="@dimen/order_child_list_retailer" />
 
     <TextView
         android:id="@+id/price"
@@ -65,17 +67,20 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/product_code"
         android:text="Price: "
-        android:textSize="16sp" />
+        android:textColor="@color/rv_box_color"
+        android:fontFamily="@font/open_sans"
+        android:textSize="@dimen/order_child_list_retailer" />
 
     <TextView
         android:id="@+id/list_price_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/product_code"
-        android:textStyle="bold"
         android:layout_toRightOf="@id/price"
         android:text=""
-        android:textSize="16sp" />
+        android:textColor="@color/rv_box_color"
+        android:fontFamily="@font/open_sans_semibold"
+        android:textSize="@dimen/order_child_list_retailer" />
     <TextView
         android:id="@+id/separator_1"
         android:layout_width="wrap_content"
@@ -84,24 +89,29 @@
         android:textStyle="bold"
         android:layout_toRightOf="@id/list_price_value"
         android:text="   |   "
-        android:textSize="16sp" />
+        android:textColor="@color/rv_box_color"
+        android:textSize="@dimen/order_child_list_retailer" />
     <TextView
         android:id="@+id/discount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/product_code"
         android:layout_toRightOf="@id/separator_1"
-        android:text="Disc Amt: "
-        android:textSize="16sp" />
+        android:text="Discount: "
+        android:textColor="@color/rv_box_color"
+        android:fontFamily="@font/open_sans"
+        android:textSize="@dimen/order_child_list_retailer" />
+
     <TextView
         android:id="@+id/list_discount_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/product_code"
-        android:textStyle="bold"
         android:layout_toRightOf="@id/discount"
         android:text=""
-        android:textSize="16sp" />
+        android:textColor="@color/rv_box_color"
+        android:fontFamily="@font/open_sans_semibold"
+        android:textSize="@dimen/order_child_list_retailer" />
 
     <TextView
         android:id="@+id/UOM"
@@ -109,7 +119,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/price"
         android:text="UOM: "
-        android:textSize="16sp" />
+        android:textColor="@color/rv_box_color"
+        android:fontFamily="@font/open_sans"
+        android:textSize="@dimen/order_child_list_retailer" />
 
     <TextView
         android:id="@+id/list_UOM_value"
@@ -118,34 +130,36 @@
         android:layout_below="@+id/price"
         android:textStyle="bold"
         android:layout_toRightOf="@id/UOM"
-        android:text=""
-        android:textSize="16sp" />
-    <TextView
-        android:id="@+id/separator_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/price"
-        android:textStyle="bold"
-        android:layout_toRightOf="@id/list_UOM_value"
-        android:text="   |   "
-        android:textSize="16sp" />
-    <TextView
-        android:id="@+id/pack_size"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/price"
-        android:layout_toRightOf="@id/separator_2"
-        android:text="Pack Size: "
-        android:textSize="16sp" />
-    <TextView
-        android:id="@+id/list_pack_size_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/price"
-        android:textStyle="bold"
-        android:layout_toRightOf="@id/pack_size"
-        android:text=""
-        android:textSize="16sp" />
+        android:textColor="@color/rv_box_color"
+        android:fontFamily="@font/open_sans_semibold"
+        android:textSize="@dimen/order_child_list_retailer" />
+<!--    <TextView-->
+<!--        android:id="@+id/separator_2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@+id/price"-->
+<!--        android:textStyle="bold"-->
+<!--        android:layout_toRightOf="@id/list_UOM_value"-->
+<!--        android:text="   |   "-->
+<!--        android:textColor="@color/rv_box_color"-->
+<!--        android:textSize="@dimen/order_child_list_retailer" />-->
+<!--    <TextView-->
+<!--        android:id="@+id/pack_size"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@+id/price"-->
+<!--        android:layout_toRightOf="@id/separator_2"-->
+<!--        android:text="Pack Size: "-->
+<!--        android:textSize="16sp" />-->
+<!--    <TextView-->
+<!--        android:id="@+id/list_pack_size_value"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@+id/price"-->
+<!--        android:textStyle="bold"-->
+<!--        android:layout_toRightOf="@id/pack_size"-->
+<!--        android:text=""-->
+<!--        android:textSize="16sp" />-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -161,6 +175,8 @@
         android:inputType="number"
         android:maxLength="9"
         android:padding="10dp"
+        android:textColor="@color/textcolor"
+        android:textSize="@dimen/button_text_size"
         android:text="0"
         android:gravity="center"/>
     </RelativeLayout>

@@ -14,21 +14,22 @@
             android:id="@+id/select_retailer_heading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="30dp"
-            android:text="Select Company"
-            android:textColor="#898989"
-            android:textSize="20sp" />
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="27dp"
+            android:fontFamily="@font/open_sans"
+            android:text="Who do you want to order from?"
+            android:textColor="@color/textcolor"
+            android:textSize="16sp" />
 
         <RelativeLayout
             android:id="@+id/spinner_container"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_below="@+id/select_retailer_heading"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="27dp"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="27dp"
             android:background="@drawable/edit_text_squared">
 
             <Spinner
@@ -54,17 +55,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/spinner_container"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="27dp"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="30dp">
+            android:layout_marginRight="27dp">
 
             <TextView
                 android:id="@+id/retailer_heading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Madina General Super Store"
-                android:textColor="#898989"
-                android:textSize="20sp" />
+                android:fontFamily="@font/open_sans"
+                android:textColor="@color/textcolor"
+                android:textSize="16sp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_name"
@@ -203,10 +205,11 @@
                 android:gravity="center"
                 android:stateListAnimator="@null"
                 android:text="Next"
+                android:fontFamily="@font/open_sans"
                 android:layout_marginBottom="10dp"
                 android:textAllCaps="false"
                 android:textColor="#fff"
-                android:textSize="14sp" />
+                android:textSize="@dimen/button_text_size" />
 
         </RelativeLayout>
 

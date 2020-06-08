@@ -68,7 +68,8 @@ public class Retailer_Order_Summary extends Fragment {
     private String URL_CONFIRM_ORDERS = "http://175.107.203.97:4014/api/Orders/saveOrder";
     //    private String URL_SAVE_TEMPLATE = "http://175.107.203.97:4013/api/ordertemplate/save";
     private String URL_SAVE_DRAFT = "http://175.107.203.97:4014/api/Orders/draft";
-    private Button btn_confirm, btn_template, btn_draft;
+//    private Button btn_confirm, btn_template, btn_draft, btn_add_product;
+    private Button btn_confirm, btn_draft, btn_add_product;
     private TextView gross_amount, discount_amount, gst_amount, total_amount;
     private float totalAmount;
     private ViewPager viewpager;
@@ -84,34 +85,11 @@ public class Retailer_Order_Summary extends Fragment {
         discount_amount = view.findViewById(R.id.discount_amount);
         gst_amount = view.findViewById(R.id.gst_amount);
         total_amount = view.findViewById(R.id.total_amount);
-
         btn_confirm = view.findViewById(R.id.btn_confirm);
-        btn_confirm.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("NewApi")
-            @Override
-            public void onClick(View view) {
 
-                try {
-                    requestConfirmOrder();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+        btn_add_product = view.findViewById(R.id.btn_add_product);
 
-                SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
-                        Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = selectedProducts.edit();
-                editor.putString("selected_products", "");
-                editor.putString("selected_products_qty", "");
-                editor.apply();
-            }
-        });
-        qtyChanged();
-        new MyAsyncTask().execute();
-
-
-        btn_template = view.findViewById(R.id.btn_template);
         btn_draft = view.findViewById(R.id.place_item_button);
-        btn_confirm = view.findViewById(R.id.btn_confirm);
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NewApi")
             @Override
@@ -131,7 +109,7 @@ public class Retailer_Order_Summary extends Fragment {
                 editor.apply();
             }
         });
-        btn_template.setOnClickListener(new View.OnClickListener() {
+        btn_add_product.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NewApi")
             @Override
             public void onClick(View view) {
@@ -161,7 +139,7 @@ public class Retailer_Order_Summary extends Fragment {
                     e.printStackTrace();
                 }
 
-                SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_distributor",
+                SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
                         Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = selectedProducts.edit();
                 editor.putString("selected_products", "");
@@ -170,6 +148,9 @@ public class Retailer_Order_Summary extends Fragment {
             }
         });
 
+
+        qtyChanged();
+        new MyAsyncTask().execute();
 
         recyclerView1 = view.findViewById(R.id.rv_orders_summary);
         recyclerView1.setHasFixedSize(false);

@@ -7,28 +7,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_container_ret">
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/ln_my_network"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:weightSum="2"-->
-<!--        android:layout_marginLeft="30dp"-->
-<!--        android:layout_marginRight="30dp"-->
-<!--        android:layout_marginTop="30dp"-->
-<!--        android:orientation="vertical">-->
-
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="5dp"-->
-<!--            android:background="@drawable/half_underline"-->
-<!--            android:paddingTop="15dp"-->
-<!--            android:paddingBottom="10dp"-->
-<!--            android:text="My Network"-->
-<!--            android:textColor="#96bb3c"-->
-<!--            android:textSize="22sp" />-->
+    <LinearLayout
+        android:id="@+id/ln_my_network"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="27dp"
+        android:background="@drawable/underline"
+        android:orientation="vertical"
+        android:weightSum="2">
 
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginEnd="100dp"
+            android:layout_marginRight="100dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/open_sans_semibold"
+            android:paddingTop="5dp"
+            android:paddingBottom="10dp"
+            android:text="My Network"
+            android:textSize="@dimen/fragemnt_heading_size"
+            />
 <!--        <RelativeLayout-->
 <!--            android:id="@+id/relative_Preffered_Contact"-->
 <!--            android:layout_width="match_parent"-->
@@ -45,7 +49,7 @@
 <!--                android:layout_height="match_parent" />-->
 <!--        </RelativeLayout>-->
 
-<!--    </LinearLayout>-->
+    </LinearLayout>
 
 
     <RelativeLayout

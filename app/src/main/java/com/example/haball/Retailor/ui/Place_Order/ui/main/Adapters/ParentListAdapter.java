@@ -10,10 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bignerdranch.expandablerecyclerview.ExpandableRecyclerAdapter;
-import com.bignerdranch.expandablerecyclerview.model.SimpleParent;
+//import com.bignerdranch.expandablerecyclerview.ExpandableRecyclerAdapter;
+//import com.bignerdranch.expandablerecyclerview.model.SimpleParent;
+import com.example.haball.Distributor.ui.orders.OrdersTabsNew.ExpandableRecyclerAdapter;
+import com.example.haball.Distributor.ui.orders.OrdersTabsNew.ParentViewHolder;
 import com.example.haball.R;
 import com.example.haball.Retailor.ui.Place_Order.ui.main.Models.OrderChildlist_Model;
 import com.example.haball.Retailor.ui.Place_Order.ui.main.Models.OrderParentlist_Model;
@@ -32,11 +35,16 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
     private List<String> selectedProductsQuantityList = new ArrayList<>();
     private String object_string, object_stringqty;
     private int pre_expanded = -1;
+    private List<OrderParentLIst_VH> OrderParentList = new ArrayList<>();
+    private int parentPosition = -1;
+    private List<OrderParentlist_Model> parentItemList;
 
     public ParentListAdapter(Context context, List<OrderParentlist_Model> parentItemList) {
         super(parentItemList);
         inflater = LayoutInflater.from(context);
         this.context = context;
+        this.parentItemList = parentItemList;
+
         SharedPreferences selectedProducts = context.getSharedPreferences("selectedProducts_retailer_own",
                 Context.MODE_PRIVATE);
         Gson gson = new Gson();
@@ -72,7 +80,8 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
     }
 
     @Override
-    public void onBindParentViewHolder(final OrderParentLIst_VH orderParentLIst_vh, final int position, OrderParentlist_Model o) {
+    public void onBindParentViewHolder(@NonNull final OrderParentLIst_VH orderParentLIst_vh, int position, @NonNull OrderParentlist_Model o) {
+//    public void onBindParentViewHolder(final OrderParentLIst_VH orderParentLIst_vh, final int position, OrderParentlist_Model o) {
         Log.i("obj", String.valueOf(o));
         final OrderParentlist_Model orderParentlist_model = (OrderParentlist_Model) o;
         orderParentLIst_vh._textview.setText(orderParentlist_model.getTitle());
@@ -81,7 +90,8 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
 
 
     @Override
-    public void onBindChildViewHolder(OrderChildList_VH orderChildList_vh, int pos, int i, OrderChildlist_Model o) {
+    public void onBindChildViewHolder(@NonNull OrderChildList_VH orderChildList_vh, int pos, int i, @NonNull OrderChildlist_Model o) {
+//    public void onBindChildViewHolder(OrderChildList_VH orderChildList_vh, int pos, int i, OrderChildlist_Model o) {
 
         Log.i("o", String.valueOf(o));
         OrderChildlist_Model orderChildlist_model = (OrderChildlist_Model) o;
@@ -108,8 +118,8 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
         else
             yourFormattedString2 = formatter1.format(Double.parseDouble(orderChildlist_model.getProductUnitPrice()));
         orderChildList_vh.list_discount_value.setText("Rs. " + yourFormattedString2);
-        if (orderChildlist_model.getPackSize() != null)
-            orderChildList_vh.list_pack_size_value.setText(orderChildlist_model.getPackSize());
+//        if (orderChildlist_model.getPackSize() != null)
+//            orderChildList_vh.list_pack_size_value.setText(orderChildlist_model.getPackSize());
         orderChildList_vh.list_UOM_value.setText(orderChildlist_model.getUnitOFMeasure());
         TextWatcher textWatcher = new TextWatcher() {
             @Override

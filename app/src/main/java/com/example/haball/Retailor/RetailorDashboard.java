@@ -144,8 +144,8 @@ public class RetailorDashboard extends AppCompatActivity  {
                         } else if (id == 1) {
 
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new My_NetworkDashboard());
-//                            fragmentTransaction.replace(R.id.main_container_ret, new My_Network_Fragment()).addToBackStack("tag");;
+//                            fragmentTransaction.replace(R.id.main_container_ret, new My_NetworkDashboard());
+                            fragmentTransaction.replace(R.id.main_container_ret, new My_Network_Fragment()).addToBackStack("tag");;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                             Log.i("My Network", "My Network Activity");
