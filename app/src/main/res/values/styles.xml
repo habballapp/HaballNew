@@ -19,15 +19,15 @@
         <!-- Hint color and label color in FALSE state -->
         <item name="android:textColorHint">#96bb3c</item>
         <item name="android:textColor">@color/textcolor</item>
-          <item name="android:textSize">11.6sp</item>-->
         <item name="colorAccent">#A9A9A9</item>
+
         <item name="colorControlNormal">#A9A9A9</item>
-        <item name="colorControlActivated">#96bb3c</item>
-        <item name="boxStrokeWidth">1.5dp</item>
+        <item name="colorControlActivated">#C8C8CA</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="android:textSize">11.6sp</item>
         <item name="boxStrokeColor">#C8C8CA</item>
         <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
     </style>
-
 
     <style name="TextLabelSearchBox" parent="TextAppearance.AppCompat">
         <!-- Hint color and label color in FALSE state -->
@@ -116,8 +116,9 @@
     </style>
     <style name="Spinner" parent="Widget.AppCompat.Light.DropDownItem.Spinner">
         <item name="android:textSize">13.6sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#6d6e72</item>
-        <item name="android:dropDownWidth">match_parent</item>
         <item name="fontFamily">@font/open_sans</item>
     </style>
     <style name="DrawerItemText">

@@ -52,22 +52,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:hint="Retailer Code"
-                android:fontFamily="@font/open_sans"
+                android:fontFamily="@font/open_sans_semibold"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/Rcode"
-                    android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
-                    android:fontFamily="@font/open_sans"
+                    android:fontFamily="@font/open_sans_semibold"
                     android:layout_width="match_parent"
                     android:enabled="false"
                     android:layout_height="match_parent"/>
@@ -83,13 +80,10 @@
                 android:fontFamily="@font/open_sans"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/Rfirstname"
-                    android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
@@ -111,14 +105,11 @@
                 android:fontFamily="@font/open_sans"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email_retailer"
                     android:drawableEnd="@drawable/editprofile"
-                    android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
@@ -141,13 +132,10 @@
                 android:fontFamily="@font/open_sans"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/Rcnic"
-                    android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
@@ -169,14 +157,11 @@
                 android:fontFamily="@font/open_sans"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/Rmobile"
                     android:drawableRight="@drawable/editprofile"
-                    android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
@@ -197,13 +182,10 @@
                 android:fontFamily="@font/open_sans"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/R_created_date"
-                    android:textSize="14sp"
                     android:textColor="#676a6c"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
@@ -225,13 +207,10 @@
                 android:fontFamily="@font/open_sans"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/R_Address"
-                    android:textSize="14sp"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"

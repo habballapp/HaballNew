@@ -64,11 +64,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:hint="Business Name"
-                android:textColorHint="#A9A9A9"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="1.75dp">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/BName"
@@ -81,7 +79,7 @@
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
                     android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,11 +92,9 @@
                 android:layout_marginTop="20dp"
                 android:hint="Email"
                 android:fontFamily="@font/open_sans"
-                android:textColorHint="#A9A9A9"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="1.75dp">
+               >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/Email"
@@ -111,7 +107,7 @@
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
                     android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                   />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,11 +120,9 @@
                 android:layout_marginTop="20dp"
                 android:hint="Mobile No"
                 android:fontFamily="@font/open_sans"
-                android:textColorHint="#A9A9A9"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="1.75dp">
+               >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/MobileNo"
@@ -140,7 +134,7 @@
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
                     android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                   />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -230,11 +224,10 @@
                 android:layout_below="@+id/relative_Preffered_Contact"
                 android:layout_marginTop="20dp"
                 android:hint="Comment"
-                android:textColorHint="#A9A9A9"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="1.75dp">
+
+              >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/Comment"
@@ -248,7 +241,7 @@
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
                     android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 

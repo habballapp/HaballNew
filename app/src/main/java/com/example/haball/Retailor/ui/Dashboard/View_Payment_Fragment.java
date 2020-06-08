@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -50,8 +51,9 @@ public class View_Payment_Fragment extends Fragment {
     private String PAYMENT_REQUEST_URL = "http://175.107.203.97:4014/api/prepaidrequests/";
     private String Token;
     private TextInputEditText txt_heading, txt_paymentid, txt_created_date, txt_transaction_date, txt_bname, txt_authorization, txt_settlement, txt_amount, txt_status, txt_transaction_charges;
-    private Button btn_make_payment, btn_vreciept, btn_back;
+    private Button btn_vreciept, btn_back;
     private FragmentTransaction fragmentTransaction;
+    private TextView btn_make_payment;
 
     public View_Payment_Fragment() {
         // Required empty public constructor

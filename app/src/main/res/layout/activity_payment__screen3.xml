@@ -183,14 +183,14 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1.5"
                         android:layout_marginLeft="-30dp"
-                        android:fontFamily="@font/open_sans"
+                        android:fontFamily="@font/open_sans_semibold"
                         android:background="@android:color/transparent"
                         android:gravity="center_vertical"
                         android:hint="324569697708"
                         android:paddingLeft="10dp"
                         android:textColor="@color/textcolor"
                         android:textSize="@dimen/rv_box_text_size"
-                        android:textStyle="bold" />
+                         />
                 </LinearLayout>
 
 
