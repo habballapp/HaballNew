@@ -52,7 +52,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp">
 
             <LinearLayout
                 android:id="@+id/ln_txt"
@@ -69,9 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_below="@+id/relative_criticality"
-                    android:layout_marginLeft="27dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginRight="27dp"
                     android:layout_weight="1"
                     android:background="@drawable/spinner_round">
 
@@ -89,15 +89,11 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginRight="30dp"
                     android:layout_weight="1"
                     android:hint="Amount"
                     android:fontFamily="@font/open_sans"
-                    android:theme="@style/TextLabel"
-                    app:boxStrokeColor="#C8C8CA"
-                    app:boxStrokeWidth="1.75dp">
+                    android:theme="@style/TextLabel">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt_amount"
@@ -117,9 +113,7 @@
                     android:id="@+id/btn_update"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginRight="30dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/open_sans"
                     android:background="@drawable/button_round"
@@ -133,9 +127,7 @@
                     android:id="@+id/btn_voucher"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginRight="30dp"
                     android:layout_weight="1"
                     android:background="@drawable/button_round"
                     android:gravity="center"
@@ -169,7 +161,7 @@
                         android:id="@+id/payment_txt"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="2"
+                        android:layout_weight="2.6"
                         android:background="@android:color/transparent"
                         android:gravity="center"
                         android:fontFamily="@font/open_sans"
@@ -180,7 +172,8 @@
                         android:id="@+id/payment_id"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="1.5"
+                        android:layout_marginLeft="-30dp"
                         android:fontFamily="@font/open_sans"
                         android:background="@android:color/transparent"
                         android:gravity="center_vertical"
@@ -196,10 +189,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_below="@id/ln_btn"
-                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="5dp"
                     android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:text="@string/Txt_Payment"
                     android:textSize="15.6sp" />
 

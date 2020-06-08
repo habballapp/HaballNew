@@ -23,7 +23,8 @@
         <item name="colorAccent">#A9A9A9</item>
         <item name="colorControlNormal">#A9A9A9</item>
         <item name="colorControlActivated">#96bb3c</item>
-        <item name="boxStrokeWidth">1.75dp</item>
+        <item name="boxStrokeWidth">1.5dp</item>
+        <item name="boxStrokeColor">#C8C8CA</item>
         <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
     </style>
 
