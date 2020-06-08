@@ -111,7 +111,7 @@
                         android:hint="Bank *"
                         android:theme="@style/TextLabel"
                         android:layout_below="@id/rl_mode"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="1.75dp">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -139,7 +139,7 @@
                         android:hint="Branch Code *"
                         android:theme="@style/TextLabel"
                         android:layout_below="@id/layout_txt_bank"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="1.75dp">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -167,7 +167,7 @@
                         android:hint="Transaction No *"
                         android:theme="@style/TextLabel"
                         android:layout_below="@id/layout_txt_branch"
-                        app:boxStrokeColor="#e5e5e5"
+                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="1.75dp">
 
                         <com.google.android.material.textfield.TextInputEditText

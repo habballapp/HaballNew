@@ -35,7 +35,7 @@
                     android:hint="Company Name"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
+                    app:boxStrokeColor="@color/box_stroke"
                     app:boxStrokeWidth="1.75dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -64,7 +64,7 @@
                     android:hint="PaymentID"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
+                    app:boxStrokeColor="@color/box_stroke"
                     app:boxStrokeWidth="1.75dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -92,7 +92,7 @@
                     android:hint="Created Date"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
+                    app:boxStrokeColor="@color/box_stroke"
                     app:boxStrokeWidth="1.75dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -121,7 +121,7 @@
                     android:hint="Transaction Date"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
+                    app:boxStrokeColor="@color/box_stroke"
                     app:boxStrokeWidth="1.75dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -149,7 +149,7 @@
                     android:hint="Bank"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
+                    app:boxStrokeColor="@color/box_stroke"
                     app:boxStrokeWidth="1.75dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -177,7 +177,7 @@
                     android:hint="Authorization ID"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
+                    app:boxStrokeColor="@color/box_stroke"
                     app:boxStrokeWidth="1.75dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -205,7 +205,7 @@
                     android:hint="Settlement ID"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
+                    app:boxStrokeColor="@color/box_stroke"
                     app:boxStrokeWidth="1.75dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -232,7 +232,7 @@
                     android:hint="Status"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
+                    app:boxStrokeColor="@color/box_stroke"
                     app:boxStrokeWidth="1.75dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -261,7 +261,7 @@
                     android:hint="Amount"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
+                    app:boxStrokeColor="@color/box_stroke"
                     app:boxStrokeWidth="1.75dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -289,7 +289,7 @@
                     android:hint="Transaction Charges"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
+                    app:boxStrokeColor="@color/box_stroke"
                     app:boxStrokeWidth="1.75dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -319,7 +319,7 @@
                     android:hint="Total Amount"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#F8F8F8"
-                    app:boxStrokeColor="#e5e5e5"
+                    app:boxStrokeColor="@color/box_stroke"
                     app:boxStrokeWidth="1.75dp">
 
                     <com.google.android.material.textfield.TextInputEditText
