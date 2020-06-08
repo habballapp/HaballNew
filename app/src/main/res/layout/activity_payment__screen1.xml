@@ -83,7 +83,7 @@
                 android:paddingTop="5dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="5dp"
-                android:textColor="#676a6c"
+
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
