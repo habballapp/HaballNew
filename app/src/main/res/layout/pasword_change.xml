@@ -82,8 +82,9 @@
                     android:fontFamily="@font/open_sans"
                     android:inputType="textPassword"
                     android:paddingLeft="20dp"
+                    android:paddingEnd="60dp"
+                    android:paddingRight="60dp"
                     android:paddingTop="5dp"
-                    android:paddingRight="20dp"
                     android:paddingBottom="5dp"
                     android:textColor="#676a6c"
                      />
@@ -119,7 +120,8 @@
                     android:inputType="textPassword"
                     android:paddingLeft="20dp"
                     android:paddingTop="5dp"
-                    android:paddingRight="20dp"
+                    android:paddingEnd="60dp"
+                    android:paddingRight="60dp"
                     android:paddingBottom="5dp"
                     android:textColor="#676a6c"
                      />
@@ -155,7 +157,8 @@
                     android:inputType="textPassword"
                     android:paddingLeft="20dp"
                     android:paddingTop="5dp"
-                    android:paddingRight="20dp"
+                    android:paddingEnd="60dp"
+                    android:paddingRight="60dp"
                     android:paddingBottom="5dp"
                     android:textColor="#676a6c"
                      />

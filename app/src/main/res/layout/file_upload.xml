@@ -47,7 +47,7 @@
             android:theme="@style/TextLabel"
             android:layout_below="@id/txt_header1"
             app:boxBackgroundColor="#fff"
-            app:boxStrokeColor="#e5e5e5"
+            app:boxStrokeColor="@color/box_stroke"
             app:boxStrokeWidth="1.75dp">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -76,7 +76,7 @@
             android:theme="@style/TextLabel"
             android:layout_below="@id/layout_txt_file"
             app:boxBackgroundColor="#fff"
-            app:boxStrokeColor="#e5e5e5"
+            app:boxStrokeColor="@color/box_stroke"
             app:boxStrokeWidth="1.75dp">
 
             <com.google.android.material.textfield.TextInputEditText

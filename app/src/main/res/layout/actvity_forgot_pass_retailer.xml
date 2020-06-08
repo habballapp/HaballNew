@@ -31,7 +31,7 @@
                 android:padding="10dp"
                 android:text="Forgot Password"
                 android:textColor="#96bb3c"
-                android:textSize="25sp" />
+                android:textSize="@dimen/heading_size_retailer" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/text_ln_retailor"
@@ -40,7 +40,6 @@
             android:layout_marginTop="20dp"
             android:layout_below="@+id/ln_login"
             android:orientation="vertical"
-            android:weightSum="2"
             >
 
             <TextView
@@ -48,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:fontFamily="@font/open_sans_semibold"
+                android:fontFamily="@font/open_sans"
                 android:maxLines="2"
                 android:text="@string/txt_forgot"
                 android:textColor="@color/text_color_selection"
@@ -76,6 +75,7 @@
                 android:textColorHint="#A9A9A9"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
+                app:boxStrokeColor="@color/box_stroke"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -118,7 +118,7 @@
                 android:text="Reset"
                 android:textAllCaps="false"
                 android:textColor="#fff"
-                android:textSize="14sp"
+                android:textSize="@dimen/button_text_size"
                 app:elevation="0dp" />
 
             <Button
@@ -134,7 +134,7 @@
                 android:text="Login"
                 android:textAllCaps="false"
                 android:textColor="#fff"
-                android:textSize="14sp"
+                android:textSize="@dimen/button_text_size"
 
                 />
 

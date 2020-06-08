@@ -57,7 +57,7 @@
                 android:layout_weight="1"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
-                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeColor="@color/box_stroke"
                 app:boxStrokeWidth="1.75dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -86,7 +86,7 @@
                 android:layout_weight="1"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
-                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeColor="@color/box_stroke"
                 app:boxStrokeWidth="1.75dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -115,7 +115,7 @@
                 android:layout_weight="1"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
-                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeColor="@color/box_stroke"
                 app:boxStrokeWidth="1.75dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -144,7 +144,7 @@
                 android:layout_weight="1"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
-                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeColor="@color/box_stroke"
                 app:boxStrokeWidth="1.75dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -173,7 +173,7 @@
                 android:layout_weight="1"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
-                app:boxStrokeColor="#e5e5e5"
+                app:boxStrokeColor="@color/box_stroke"
                 app:boxStrokeWidth="1.75dp">
 
                 <com.google.android.material.textfield.TextInputEditText

@@ -67,7 +67,7 @@
             android:layout_below="@id/spinner_container"
             android:theme="@style/TextLabel"
             app:boxBackgroundColor="#fff"
-            app:boxStrokeColor="#e5e5e5"
+            app:boxStrokeColor="@color/box_stroke"
             app:boxStrokeWidth="1.75dp">
 
             <com.google.android.material.textfield.TextInputEditText

@@ -34,7 +34,7 @@
                     android:hint="OrderID"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
+                    app:boxStrokeColor="@color/box_stroke"
                     app:boxStrokeWidth="1.75dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -62,7 +62,7 @@
                     android:hint="Company"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
+                    app:boxStrokeColor="@color/box_stroke"
                     app:boxStrokeWidth="1.75dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -91,7 +91,7 @@
                     android:hint="Created Date"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
+                    app:boxStrokeColor="@color/box_stroke"
                     app:boxStrokeWidth="1.75dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -119,7 +119,7 @@
                     android:hint="Status"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
+                    app:boxStrokeColor="@color/box_stroke"
                     app:boxStrokeWidth="1.75dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -148,7 +148,7 @@
                     android:inputType="textMultiLine"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
+                    app:boxStrokeColor="@color/box_stroke"
                     app:boxStrokeWidth="1.75dp">
 
                     <com.google.android.material.textfield.TextInputEditText

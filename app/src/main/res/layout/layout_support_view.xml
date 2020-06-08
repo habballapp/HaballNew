@@ -95,7 +95,7 @@
                     android:hint="Business Name"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
+                    app:boxStrokeColor="@color/box_stroke"
                     app:boxStrokeWidth="1.75dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -126,7 +126,7 @@
                     android:hint="Email Address"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
+                    app:boxStrokeColor="@color/box_stroke"
                     app:boxStrokeWidth="1.75dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -156,7 +156,7 @@
                     android:hint="Mobile No"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
+                    app:boxStrokeColor="@color/box_stroke"
                     app:boxStrokeWidth="1.75dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -186,7 +186,7 @@
                     android:hint="Issue Type"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
+                    app:boxStrokeColor="@color/box_stroke"
                     app:boxStrokeWidth="1.75dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -215,7 +215,7 @@
                     android:hint="Criticality"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
+                    app:boxStrokeColor="@color/box_stroke"
                     app:boxStrokeWidth="1.75dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -245,7 +245,7 @@
                     android:hint="Preferred Contact Method"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
+                    app:boxStrokeColor="@color/box_stroke"
                     app:boxStrokeWidth="1.75dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -275,7 +275,7 @@
                     android:hint="Comments"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
+                    app:boxStrokeColor="@color/box_stroke"
                     app:boxStrokeWidth="1.75dp">
 
                     <com.google.android.material.textfield.TextInputEditText
