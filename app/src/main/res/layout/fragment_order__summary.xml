@@ -18,25 +18,25 @@
             android:layout_marginTop="30dp"
             android:weightSum="2">
 
-            <Button
-                android:id="@+id/place_item_button"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_round"
-                android:gravity="center"
-                android:stateListAnimator="@null"
-                android:text="Draft"
-                android:textAllCaps="false"
-                android:textColor="#fff"
-                android:textSize="14sp"
+<!--            <Button-->
+<!--                android:id="@+id/btn_template"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:layout_marginStart="20dp"-->
+<!--                android:layout_marginLeft="20dp"-->
+<!--                android:layout_marginEnd="20dp"-->
+<!--                android:layout_marginRight="20dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="@drawable/button_round"-->
+<!--                android:gravity="center"-->
+<!--                android:stateListAnimator="@null"-->
+<!--                android:text="Save Template"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="#fff"-->
+<!--                android:textSize="14sp" />-->
 
-                />
-
             <Button
-                android:id="@+id/btn_template"
+                android:id="@+id/btn_add_product"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginStart="20dp"
@@ -47,11 +47,12 @@
                 android:background="@drawable/button_round"
                 android:gravity="center"
                 android:stateListAnimator="@null"
-                android:text="Save Template"
+                android:text="Add Product"
                 android:textAllCaps="false"
                 android:textColor="#fff"
-                android:textSize="14sp" />
-
+                android:textSize="@dimen/button_text_size"
+                android:fontFamily="@font/open_sans"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -219,6 +220,24 @@
 
 
                 <Button
+                    android:id="@+id/place_item_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_round"
+                    android:gravity="center"
+                    android:stateListAnimator="@null"
+                    android:text="Draft"
+                    android:textAllCaps="false"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/button_text_size"
+                    android:fontFamily="@font/open_sans"
+
+                    />
+
+                <Button
                     android:id="@+id/btn_confirm"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -233,7 +252,9 @@
                     android:text="Confirm Order"
                     android:textAllCaps="false"
                     android:textColor="#fff"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/button_text_size"
+                    android:fontFamily="@font/open_sans"
+                    />
             </LinearLayout>
 
         </RelativeLayout>

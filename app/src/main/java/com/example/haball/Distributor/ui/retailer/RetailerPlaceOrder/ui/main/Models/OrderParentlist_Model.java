@@ -1,11 +1,12 @@
 package com.example.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models;
 
 import com.bignerdranch.expandablerecyclerview.model.SimpleParent;
+import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Parent;
 
 import java.util.List;
 import java.util.UUID;
 
-public class OrderParentlist_Model extends SimpleParent<OrderChildlist_Model> {
+public class OrderParentlist_Model extends SimpleParent<OrderChildlist_Model> implements Parent<com.example.haball.Retailor.ui.Place_Order.ui.main.Models.OrderChildlist_Model> {
     private List<Object> myCHildrenList;
     private UUID _id;
     private String CategoryId;

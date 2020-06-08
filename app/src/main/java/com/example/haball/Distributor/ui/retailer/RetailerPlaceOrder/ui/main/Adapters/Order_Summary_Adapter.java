@@ -115,7 +115,7 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
             list_price_value = itemView.findViewById(R.id.list_price_value);
             list_discount_value = itemView.findViewById(R.id.list_discount_value);
             list_UOM_value = itemView.findViewById(R.id.list_UOM_value);
-            list_pack_size_value = itemView.findViewById(R.id.list_pack_size_value);
+//            list_pack_size_value = itemView.findViewById(R.id.list_pack_size_value);
             list_numberOFitems = itemView.findViewById(R.id.list_numberOFitems);
             totalAmount_value = itemView.findViewById(R.id.totalAmount_value);
         }

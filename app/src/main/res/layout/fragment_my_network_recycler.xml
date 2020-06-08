@@ -47,7 +47,7 @@
                 android:layout_toRightOf="@+id/my_network_fragment_status"
                 android:text="Connected"
                 android:layout_marginTop="10dp"
-                android:fontFamily="@font/open_sans"
+                android:fontFamily="@font/open_sans_semibold"
                 android:textColor="@color/rv_box_color"
                 android:textSize="@dimen/rv_box_text_size"
                 />

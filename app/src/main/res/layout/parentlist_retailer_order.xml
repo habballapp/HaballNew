@@ -40,10 +40,12 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/plus_icon_ll"
                 android:layout_toRightOf="@+id/plus_icon_ll"
-                android:padding="10dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:fontFamily="@font/open_sans_semibold"
+                android:textColor="@color/textcolor"
                 android:text="Chinese"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textSize="17sp" />
 
         </RelativeLayout>
 

@@ -74,7 +74,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
     private List<SimpleParent> parentObjects = new ArrayList<>();
     private String URL_PRODUCT_CATEGORY = "http://175.107.203.97:4014/api/products/GetProductByDealerCode/";
     private String URL_PRODUCT = "http://175.107.203.97:4014/api/products/GetProductByDealerCode/";
-    private String Token, DistributorId, CompanyId;
+    private String Token, Retailer_Id, CompanyId;
     private String object_string, object_stringqty;
     private List<OrderChildlist_Model> selectedProductsDataList = new ArrayList<>();
     private List<OrderChildlist_Model> temp_list = new ArrayList<>();
@@ -460,8 +460,8 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
 
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
-        Log.i("DistributorId ", DistributorId);
+        Retailer_Id = sharedPreferences1.getString("Retailer_Id", "");
+        Log.i("Retailer_Id ", Retailer_Id);
 
         SharedPreferences sharedPreferences2 = this.getActivity().getSharedPreferences("CompanyInfo",
                 Context.MODE_PRIVATE);
@@ -469,9 +469,9 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
         Log.i("CompanyId", CompanyId);
 
 
-        JSONObject map = new JSONObject();
-        map.put("DistributorId", Integer.parseInt(DistributorId));
-        Log.i("Map", String.valueOf(map));
+//        JSONObject map = new JSONObject();
+//        map.put("RetailerId", Integer.parseInt(Retailer_Id));
+//        Log.i("Map", String.valueOf(map));
         if (!URL_PRODUCT_CATEGORY.contains("/" + CompanyId))
             URL_PRODUCT_CATEGORY = URL_PRODUCT_CATEGORY + CompanyId;
 
@@ -567,10 +567,10 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
         Token = sharedPreferences.getString("Login_Token", "");
         Log.i("Token", Token);
 
-        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
-        Log.i("DistributorId ", DistributorId);
+//        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+//                Context.MODE_PRIVATE);
+//        Retailer_Id = sharedPreferences1.getString("Retailer_Id", "");
+//        Log.i("Retailer_Id ", DistributorId);
 
         SharedPreferences sharedPreferences2 = this.getActivity().getSharedPreferences("DealerInfo",
                 Context.MODE_PRIVATE);
@@ -578,13 +578,13 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
         Log.i("DealerCode", CompanyId);
 
 
-        JSONObject map = new JSONObject();
-        map.put("DistributorId", Integer.parseInt(DistributorId));
-        Log.i("Map", String.valueOf(map));
+//        JSONObject map = new JSONObject();
+//        map.put("DistributorId", Integer.parseInt(DistributorId));
+//        Log.i("Map", String.valueOf(map));
         if (!URL_PRODUCT_CATEGORY.contains("/" + CompanyId))
             URL_PRODUCT_CATEGORY = URL_PRODUCT_CATEGORY + CompanyId;
 
-        Log.i("Map", String.valueOf(map));
+//        Log.i("Map", String.valueOf(map));
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_PRODUCT_CATEGORY, null, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)

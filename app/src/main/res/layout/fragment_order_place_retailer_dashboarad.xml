@@ -34,9 +34,9 @@
                         android:id="@+id/spinner_conso"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:dropDownWidth="match_parent"
                         android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:dropDownWidth="match_parent"/>
+                        android:paddingRight="2dp" />
                 </RelativeLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -119,12 +119,13 @@
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_round"
+                android:fontFamily="@font/open_sans"
                 android:gravity="center"
                 android:stateListAnimator="@null"
                 android:text="Close"
                 android:textAllCaps="false"
                 android:textColor="#fff"
-                android:textSize="14sp" />
+                android:textSize="@dimen/button_text_size" />
 
             <Button
                 android:id="@+id/btn_checkout"
@@ -137,12 +138,13 @@
                 android:layout_weight="1"
                 android:background="@drawable/button_grey_round"
                 android:enabled="false"
+                android:fontFamily="@font/open_sans"
                 android:gravity="center"
                 android:stateListAnimator="@null"
                 android:text="Checkout"
                 android:textAllCaps="false"
                 android:textColor="#fff"
-                android:textSize="14sp" />
+                android:textSize="@dimen/button_text_size" />
         </LinearLayout>
 
     </RelativeLayout>

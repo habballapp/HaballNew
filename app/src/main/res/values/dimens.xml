@@ -18,6 +18,7 @@
     <dimen name="button_text_size">11.6sp</dimen>
     <dimen name="fragemnt_heading_size">17sp</dimen>
     <dimen name="heading_size_retailer">24sp</dimen>
+    <dimen name="order_child_list_retailer">11sp</dimen>
 
 
 

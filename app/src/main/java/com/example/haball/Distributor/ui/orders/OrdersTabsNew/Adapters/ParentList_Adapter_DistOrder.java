@@ -121,8 +121,8 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
         orderChildList_vh.list_discount_value.setText("Rs. " + yourFormattedString2);
         if (orderChildlist_model.getUOMTitle() != null)
             orderChildList_vh.list_UOM_value.setText(orderChildlist_model.getUOMTitle());
-        if (orderChildlist_model.getPackSize() != null)
-            orderChildList_vh.list_pack_size_value.setText(orderChildlist_model.getPackSize());
+//        if (orderChildlist_model.getPackSize() != null)
+//            orderChildList_vh.list_pack_size_value.setText(orderChildlist_model.getPackSize());
         TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

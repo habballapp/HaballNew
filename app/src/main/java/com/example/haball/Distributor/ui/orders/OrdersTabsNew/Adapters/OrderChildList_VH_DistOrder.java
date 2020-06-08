@@ -9,7 +9,7 @@ import com.example.haball.R;
 //import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
 
 public class OrderChildList_VH_DistOrder extends ChildViewHolder {
-    TextView list_txt_products, list_product_code_value, list_price_value, list_discount_value, list_UOM_value, list_pack_size_value, list_Quantity_value, list_amount_value;
+    TextView list_txt_products, list_product_code_value, list_price_value, list_discount_value, list_UOM_value, list_Quantity_value, list_amount_value;
     EditText list_numberOFitems;
 
     public OrderChildList_VH_DistOrder(View itemView) {
@@ -19,7 +19,7 @@ public class OrderChildList_VH_DistOrder extends ChildViewHolder {
         list_price_value = itemView.findViewById(R.id.list_price_value);
         list_discount_value = itemView.findViewById(R.id.list_discount_value);
         list_UOM_value = itemView.findViewById(R.id.list_UOM_value);
-        list_pack_size_value = itemView.findViewById(R.id.list_pack_size_value);
+//        list_pack_size_value = itemView.findViewById(R.id.list_pack_size_value);
         list_numberOFitems = itemView.findViewById(R.id.list_numberOFitems);
     }
 }
