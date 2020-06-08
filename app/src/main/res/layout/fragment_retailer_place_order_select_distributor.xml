@@ -35,9 +35,9 @@
                 android:id="@+id/spinner_conso"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:popupBackground="@drawable/spinner_round"
-                android:theme="@style/Spinner"
-                android:dropDownWidth="match_parent"/>
+                android:dropDownWidth="match_parent"
+                android:background="@null"
+                android:popupBackground="@drawable/spinner_round" />
         </RelativeLayout>
 
         <RelativeLayout

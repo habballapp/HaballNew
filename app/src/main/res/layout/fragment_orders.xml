@@ -27,16 +27,16 @@
                     <Spinner
                         android:id="@+id/spinner_conso"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="match_parent"
                         android:dropDownWidth="match_parent"
-                        android:popupBackground="@drawable/spinner_round"
-                        android:theme="@style/Spinner" />
+                        android:background="@null"
+                        android:popupBackground="@drawable/spinner_round" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/spinner_container1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_below="@+id/spinner_container"
                     android:layout_marginLeft="27dp"
                     android:layout_marginRight="27dp"
@@ -47,11 +47,10 @@
                     <Spinner
                         android:id="@+id/conso_spinner2"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="match_parent"
                         android:dropDownWidth="match_parent"
-                        android:popupBackground="@drawable/spinner_round"
-                        android:theme="@style/Spinner"
-                        />
+                        android:background="@null"
+                        android:popupBackground="@drawable/spinner_round" />
                 </RelativeLayout>
 
                 <RelativeLayout

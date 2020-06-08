@@ -63,7 +63,7 @@
                 <RelativeLayout
                     android:id="@+id/spinner_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_marginLeft="27dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginRight="27dp"
@@ -72,9 +72,17 @@
                     <Spinner
                         android:id="@+id/spinner_conso"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="match_parent"
                         android:dropDownWidth="match_parent"
-                        android:popupBackground="@drawable/spinner_round"
+                        android:background="@null"
+                        android:popupBackground="@drawable/spinner_round" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignTop="@id/spinner_conso"
+                        android:layout_alignEnd="@+id/spinner_conso"
+                        android:layout_alignRight="@+id/spinner_conso"
+                        android:src="@drawable/ic_arrow_drop_down_black_24dp"
                         android:theme="@style/Spinner" />
                 </RelativeLayout>
 

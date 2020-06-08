@@ -138,8 +138,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:dropDownWidth="match_parent"
-                    android:paddingLeft="2dp"
-                    android:paddingRight="2dp" />
+                    android:background="@null"
+                    android:popupBackground="@drawable/spinner_round" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignTop="@id/IssueType"
+                    android:layout_alignEnd="@+id/IssueType"
+                    android:layout_alignRight="@+id/IssueType"
+                    android:layout_alignBottom="@+id/IssueType"
+                    android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                    android:theme="@style/Spinner" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -155,8 +164,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:dropDownWidth="match_parent"
-                    android:paddingLeft="2dp"
-                    android:paddingRight="2dp" />
+                    android:background="@null"
+                    android:popupBackground="@drawable/spinner_round" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignTop="@id/critcicality"
+                    android:layout_alignEnd="@+id/critcicality"
+                    android:layout_alignRight="@+id/critcicality"
+                    android:layout_alignBottom="@+id/critcicality"
+                    android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                    android:theme="@style/Spinner" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -172,8 +190,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:dropDownWidth="match_parent"
-                    android:paddingLeft="2dp"
-                    android:paddingRight="2dp" />
+                    android:background="@null"
+                    android:popupBackground="@drawable/spinner_round" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignTop="@id/Preffered_Contact"
+                    android:layout_alignEnd="@+id/Preffered_Contact"
+                    android:layout_alignRight="@+id/Preffered_Contact"
+                    android:layout_alignBottom="@+id/Preffered_Contact"
+                    android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                    android:theme="@style/Spinner" />
             </RelativeLayout>
 
             <com.google.android.material.textfield.TextInputLayout
