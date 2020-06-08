@@ -13,15 +13,23 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs_ret5"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="27dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="27dp"
-            android:background="#fff"
-            app:tabMode="scrollable"
-            app:tabBackground="@drawable/custom_indicator"
+            android:background="@drawable/tab_indicator"
+            app:tabContentStart="0dp"
+            app:tabGravity="fill"
             app:tabIndicatorColor="#96bb3c"
+            app:tabMode="scrollable"
+            app:tabPaddingEnd="0dp"
+            app:tabPaddingStart="0dp"
+            android:paddingVertical="0dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:paddingHorizontal="0dp"
+            app:tabPadding="0dp"
             app:tabSelectedTextColor="#96bb3c"
             app:tabTextAppearance="@style/CustomTextAppearanceTab" />
 
