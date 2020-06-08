@@ -31,8 +31,8 @@
 <!--    <string name="tab_retailer_payment">\t\t\t\tPayment\t\t\t\t</string>-->
     <string name="tab_retailer_order">Order</string>
     <string name="tab_retailer_payment">Payment</string>
-    <string name="tab_retailer_profile">Profile\t\t\t</string>
-    <string name="tab_retailer_profile1">Change Password\t\t\t</string>
+    <string name="tab_retailer_profile">Profile</string>
+    <string name="tab_retailer_profile1">Change Password</string>
     <string name="tab_distributor_profile">tProfile\t\t\t</string>
     <string name="tab_distributor_profile1">Change Password\t\t\t</string>
     <string name="load_more"><u>Load More</u></string>

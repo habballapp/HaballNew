@@ -19,6 +19,8 @@
     <dimen name="fragemnt_heading_size">17sp</dimen>
     <dimen name="heading_size_retailer">24sp</dimen>
     <dimen name="order_child_list_retailer">11sp</dimen>
+    <dimen name="payment_options_retailer">10sp</dimen>
+    <dimen name="payment_options_text_retailer">8sp</dimen>
 
 
 

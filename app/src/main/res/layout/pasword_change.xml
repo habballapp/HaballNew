@@ -22,7 +22,7 @@
            <TextView
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:fontFamily="@font/open_sans_semibold"
+               android:fontFamily="@font/open_sans"
                android:text="Enter Old Password"
                android:textColor="@color/textcolor"
                android:textSize="16sp"
@@ -79,7 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:fontFamily="@font/open_sans_semibold"
+                android:fontFamily="@font/open_sans"
                 android:text="Enter New Password"
                 android:textColor="@color/textcolor"
                 android:textSize="16sp"
@@ -117,29 +117,29 @@
                     android:paddingRight="60dp"
                     android:paddingBottom="5dp"
                     android:textColor="#676a6c"
-                    />
+                    android:drawableRight="@drawable/ic_edit_black_24dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/info_red_eye"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="260dp"
-            android:layout_below="@+id/txt_header"
+<!--        <LinearLayout-->
+<!--            android:id="@+id/info_red_eye"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="55dp"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:layout_marginLeft="260dp"-->
+<!--            android:layout_below="@+id/txt_header"-->
 
-           >
-          <TextView
-              android:paddingTop="5dp"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:keepScreenOn="true"
-              android:drawableStart="@drawable/ic_info_black_24dp"
-              android:drawableLeft="@drawable/ic_info_black_24dp" />
-        </LinearLayout>
+<!--           >-->
+<!--          <TextView-->
+<!--              android:paddingTop="5dp"-->
+<!--              android:layout_width="match_parent"-->
+<!--              android:layout_height="match_parent"-->
+<!--              android:keepScreenOn="true"-->
+<!--              android:drawableStart="@drawable/ic_info_black_24dp"-->
+<!--              android:drawableLeft="@drawable/ic_info_black_24dp" />-->
+<!--        </LinearLayout>-->
 
         <LinearLayout
             android:id="@+id/ll_fields3"
@@ -190,7 +190,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="*On changing the password,you woulde be logged out of the account"
+                android:fontFamily="@font/open_sans_semibold"
+                android:text="* On changing the password,you woulde be logged out of the account"
                 ></TextView>
 
 

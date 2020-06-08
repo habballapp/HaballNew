@@ -45,19 +45,19 @@
             android:textSize="17sp" />
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/ll_tv_support"
-        android:layout_marginLeft="27dp"
-        android:layout_marginRight="27dp"
-        android:background="@drawable/horizontal_black_line" />
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/line"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:layout_below="@+id/ll_tv_support"-->
+<!--        android:layout_marginLeft="27dp"-->
+<!--        android:layout_marginRight="27dp"-->
+<!--        android:background="@drawable/horizontal_black_line" />-->
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/line">
+        android:layout_below="@+id/ll_tv_support">
 
         <RelativeLayout
             android:id="@+id/spinner_container_main"
