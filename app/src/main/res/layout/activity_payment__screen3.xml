@@ -12,28 +12,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="27dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="27dp"
         android:background="@drawable/underline"
-        android:orientation="vertical"
-        android:weightSum="2">
+        android:orientation="horizontal"
+        android:weightSum="5.3">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="100dp"
-            android:layout_weight="1"
-            android:background="@drawable/half_underline"
-            android:fontFamily="@font/open_sans_semibold"
+            android:layout_weight="3"
+            android:fontFamily="@font/open_sans"
             android:paddingTop="5dp"
             android:paddingBottom="10dp"
             android:text="Payment"
-            android:textColor="#96bb3c"
-            android:textSize="20sp"
-
-            />
+            android:textColor="@color/textcolor"
+            android:textSize="17sp" />
+        <TextView
+            android:id="@+id/btn_newpayment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.3"
+            android:fontFamily="@font/open_sans"
+            android:paddingTop="5dp"
+            android:paddingBottom="10dp"
+            android:maxLines="1"
+            android:text="Create Payment"
+            android:drawableLeft="@drawable/ic_baseline_add_24"
+            android:textColor="@color/textcolor"
+            android:textSize="17sp" />
 
     </LinearLayout>
 
@@ -56,21 +63,6 @@
                 android:orientation="vertical"
                 android:weightSum="5">
 
-                <Button
-                    android:id="@+id/btn_newpayment"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginLeft="27dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="27dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/open_sans"
-                    android:background="@drawable/button_round"
-                    android:gravity="center"
-                    android:text="Make New Payment"
-                    android:textAllCaps="false"
-                    android:textColor="#fff"
-                    android:textSize="14sp" />
 
                 <RelativeLayout
                     android:id="@+id/relative_Preffered_Contact"
@@ -78,10 +70,10 @@
                     android:layout_height="50dp"
                     android:layout_below="@+id/relative_criticality"
                     android:layout_marginLeft="27dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginRight="27dp"
                     android:layout_weight="1"
-                    android:background="@drawable/edit_round">
+                    android:background="@drawable/spinner_round">
 
                     <Spinner
                         android:id="@+id/spinner_companyName"
@@ -98,13 +90,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginRight="30dp"
                     android:layout_weight="1"
                     android:hint="Amount"
                     android:fontFamily="@font/open_sans"
                     android:theme="@style/TextLabel"
-                    app:boxStrokeColor="#e5e5e5"
+                    app:boxStrokeColor="#C8C8CA"
                     app:boxStrokeWidth="1.75dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -116,7 +108,7 @@
                         android:fontFamily="@font/open_sans"
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
-                        android:textColor="#676a6c"
+                        android:textColor="@color/textcolor"
                         android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -126,7 +118,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginRight="30dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/open_sans"
@@ -142,7 +134,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginRight="30dp"
                     android:layout_weight="1"
                     android:background="@drawable/button_round"
@@ -160,16 +152,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ln_txt"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical"
                 android:weightSum="4">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:background="@drawable/edit_round"
+                    android:background="@drawable/spinner_round"
                     android:orientation="horizontal"
                     android:weightSum="4"
 
@@ -179,27 +169,25 @@
                         android:id="@+id/payment_txt"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginRight="30dp"
                         android:layout_weight="2"
                         android:background="@android:color/transparent"
                         android:gravity="center"
                         android:fontFamily="@font/open_sans"
                         android:hint="Payment ID:"
-                        android:textSize="14sp" />
+                        android:textSize="@dimen/rv_box_text_size" />
 
                     <TextView
                         android:id="@+id/payment_id"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="-56dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/open_sans"
                         android:background="@android:color/transparent"
                         android:gravity="center_vertical"
                         android:hint="324569697708"
                         android:paddingLeft="10dp"
-                        android:textColor="#000000"
-                        android:textSize="14sp"
+                        android:textColor="@color/textcolor"
+                        android:textSize="@dimen/rv_box_text_size"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -209,22 +197,20 @@
                     android:layout_height="30dp"
                     android:layout_below="@id/ln_btn"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginBottom="5dp"
                     android:layout_weight="1"
                     android:text="@string/Txt_Payment"
-                    android:textSize="18sp" />
+                    android:textSize="15.6sp" />
 
                 <RelativeLayout
                     android:id="@+id/rl_banking"
                     android:layout_width="match_parent"
                     android:layout_height="68dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="1"
-                    android:background="@drawable/edit_round"
+                    android:background="@drawable/spinner_round"
                     android:padding="20dp">
 
                     <TextView
@@ -233,6 +219,7 @@
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/ic_account_balance_black_24dp"
                         android:gravity="left"
+                        android:textColor="@color/textcolor"
                         android:layout_centerInParent="true"
                         android:fontFamily="@font/open_sans"
                         android:text="\t\t\tBanking Channel"
