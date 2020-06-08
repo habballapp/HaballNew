@@ -37,8 +37,7 @@
                     android:fontFamily="@font/open_sans"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
-                    app:boxStrokeWidth="1.75dp">
+                    >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt_companyName"
@@ -51,7 +50,7 @@
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
                         android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                         />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,11 +63,9 @@
                     android:layout_below="@+id/layout_txt_companName"
                     android:layout_marginTop="20dp"
                     android:hint="Payment ID"
-                    android:fontFamily="@font/open_sans"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
-                    app:boxStrokeWidth="1.75dp">
+                   >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt_paymentID"
@@ -77,11 +74,11 @@
                         android:inputType="text"
                         android:paddingLeft="20dp"
                         android:paddingTop="5dp"
-                        android:fontFamily="@font/open_sans"
+                        android:fontFamily="@font/open_sans_semibold"
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
                         android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                         />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,8 +93,7 @@
                     android:fontFamily="@font/open_sans"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
-                    app:boxStrokeWidth="1.75dp">
+                   >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt_created_date"
@@ -110,7 +106,7 @@
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
                         android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                        />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -126,8 +122,7 @@
                     android:fontFamily="@font/open_sans"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
-                    app:boxStrokeWidth="1.75dp">
+                  >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt_confirm"
@@ -140,7 +135,7 @@
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
                         android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                         />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -155,8 +150,7 @@
                     android:fontFamily="@font/open_sans"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
-                    app:boxStrokeWidth="1.75dp">
+                   >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt_bank"
@@ -169,7 +163,7 @@
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
                         android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                        />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -184,8 +178,7 @@
                     android:fontFamily="@font/open_sans"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
-                    app:boxStrokeWidth="1.75dp">
+                    >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt_authorization_id"
@@ -198,7 +191,7 @@
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
                         android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                        />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -213,8 +206,7 @@
                     android:fontFamily="@font/open_sans"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
-                    app:boxStrokeWidth="1.75dp">
+                   >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt_settlement_id"
@@ -227,7 +219,7 @@
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
                         android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                         />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -242,8 +234,7 @@
                     android:fontFamily="@font/open_sans"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
-                    app:boxStrokeWidth="1.75dp">
+                    >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt_status"
@@ -256,7 +247,7 @@
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
                         android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                        />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -272,8 +263,7 @@
                     android:fontFamily="@font/open_sans"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
-                    app:boxStrokeWidth="1.75dp">
+                  >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt_amount"
@@ -286,7 +276,7 @@
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
                         android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                        />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -301,8 +291,7 @@
                     android:fontFamily="@font/open_sans"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#fff"
-                    app:boxStrokeColor="#e5e5e5"
-                    app:boxStrokeWidth="1.75dp">
+                   >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt_transaction_charges"
@@ -315,7 +304,7 @@
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
                         android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                         />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -332,8 +321,7 @@
                     android:fontFamily="@font/open_sans"
                     android:theme="@style/TextLabel"
                     app:boxBackgroundColor="#F8F8F8"
-                    app:boxStrokeColor="#e5e5e5"
-                    app:boxStrokeWidth="1.75dp">
+                   >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt_total_amount"
@@ -346,7 +334,7 @@
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
                         android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                        />
 
                 </com.google.android.material.textfield.TextInputLayout>
 

@@ -17,59 +17,69 @@
             android:id="@+id/ln_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="27dp"
+            android:orientation="horizontal"
+            android:background="@drawable/underline"
+            android:weightSum="5.3">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="30dp"
-                android:layout_weight="1"
-                android:paddingStart="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:fontFamily="@font/open_sans"
                 android:paddingTop="5dp"
-                android:paddingEnd="10dp"
+                android:paddingBottom="10dp"
                 android:text="Payment"
-                android:textSize="18sp" />
+                android:textColor="@color/textcolor"
+                android:textSize="17sp" />
+            <TextView
+                android:id="@+id/btn_make_payment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2.3"
+                android:fontFamily="@font/open_sans"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp"
+                android:maxLines="1"
+                android:text="Create Payment"
+                android:drawableLeft="@drawable/ic_baseline_add_24"
+                android:textColor="@color/textcolor"
+                android:textSize="17sp" />
+
         </LinearLayout>
 
 
-        <RelativeLayout
-            android:id="@+id/line"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/ln_login"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:background="@drawable/horizontal_black_line" />
 
-        <Button
-            android:id="@+id/btn_make_payment"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_below="@+id/ln_login"
-            android:layout_marginTop="20dp"
-            android:layout_weight="1"
-            android:layout_marginStart="27dp"
-            android:layout_marginEnd="27dp"
-            android:background="@drawable/button_background"
-            android:gravity="center"
-            android:stateListAnimator="@null"
-            android:text="Make New Payment"
-            android:textAllCaps="false"
-            android:textColor="#fff"
-            android:textSize="14sp"
 
-            />
+<!--        <Button-->
+<!--            android:id="@+id/btn_make_payment"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="45dp"-->
+<!--            android:layout_below="@+id/ln_login"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_marginStart="27dp"-->
+<!--            android:layout_marginEnd="27dp"-->
+<!--            android:background="@drawable/button_background"-->
+<!--            android:gravity="center"-->
+<!--            android:stateListAnimator="@null"-->
+<!--            android:text="Make New Payment"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textColor="#fff"-->
+<!--            android:textSize="14sp"-->
+
+<!--            />-->
 
         <LinearLayout
             android:id="@+id/ln_txt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="27dp"
-            android:layout_marginEnd="27dp"
-            android:layout_below="@+id/btn_make_payment"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="27dp"
+            android:layout_below="@+id/ln_login"
             android:orientation="vertical"
 
             >
@@ -84,8 +94,7 @@
                 android:hint="Retailer Code"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp">
+               >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_heading"
@@ -97,8 +106,7 @@
                     android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                     />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -113,21 +121,19 @@
                 android:hint="Payment ID"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_paymentid"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/open_sans_semibold"
                     android:enabled="false"
-                    android:fontFamily="@font/open_sans"
                     android:paddingLeft="20dp"
                     android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -141,8 +147,7 @@
                 android:hint="Created Date"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_created_date"
@@ -154,8 +159,7 @@
                     android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                     />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -169,8 +173,7 @@
                 android:hint="Transaction Date"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_transaction_date"
@@ -182,8 +185,7 @@
                     android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                     />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -197,8 +199,7 @@
                 android:hint="Bank"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp">
+               >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_bname"
@@ -210,8 +211,7 @@
                     android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -225,21 +225,19 @@
                 android:hint="Authorization ID"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_authorization"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:enabled="false"
-                    android:fontFamily="@font/open_sans"
+                    android:fontFamily="@font/open_sans_semibold"
                     android:paddingLeft="20dp"
                     android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                     />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -253,8 +251,7 @@
                 android:hint="Settlement ID"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_settlement"
@@ -266,8 +263,7 @@
                     android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -281,8 +277,7 @@
                 android:hint="Amount"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_amount"
@@ -294,8 +289,7 @@
                     android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                     />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -309,8 +303,7 @@
                 android:hint="Status"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_status"
@@ -322,8 +315,7 @@
                     android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                     />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -337,8 +329,7 @@
                 android:hint="Transaction Charges"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_transaction_charges"
@@ -351,8 +342,7 @@
                     android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 

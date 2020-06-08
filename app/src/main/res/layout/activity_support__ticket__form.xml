@@ -69,8 +69,7 @@
                 android:textColorHint="#A9A9A9"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="1.75dp">
+               >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/BName"
@@ -82,7 +81,7 @@
                     android:paddingBottom="5dp"
                     android:textColor="#676a6c"
                     android:inputType="text|textCapSentences"
-                    android:textSize="14sp" />
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -99,8 +98,7 @@
                 android:layout_below="@+id/layout_BName"
                 android:textColorHint="#A9A9A9"
                 app:boxBackgroundColor="#fff"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="1.75dp">
+               >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/Email"
@@ -112,7 +110,7 @@
                     android:paddingBottom="5dp"
                     android:textColor="#676a6c"
                     android:inputType="textEmailAddress"
-                    android:textSize="14sp" />
+                   />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -129,8 +127,7 @@
                 android:theme="@style/TextLabel"
                 android:layout_below="@+id/layout_Email"
                 app:boxBackgroundColor="#fff"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="1.75dp">
+               >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/MobileNo"
@@ -142,7 +139,7 @@
                     android:paddingBottom="5dp"
                     android:textColor="#676a6c"
                     android:inputType="number"
-                    android:textSize="14sp" />
+                     />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -213,8 +210,7 @@
                 android:layout_below="@+id/relative_Preffered_Contact"
                 android:textColorHint="#A9A9A9"
                 app:boxBackgroundColor="#fff"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="1.75dp">
+               >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/Comment"
@@ -227,7 +223,7 @@
                     android:textColor="#676a6c"
                     android:gravity="top|left"
                     android:inputType="textMultiLine|textCapSentences"
-                    android:textSize="14sp" />
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 

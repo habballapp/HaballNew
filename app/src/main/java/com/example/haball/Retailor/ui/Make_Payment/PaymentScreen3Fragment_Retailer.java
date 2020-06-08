@@ -31,9 +31,9 @@ import java.util.List;
 
 public class PaymentScreen3Fragment_Retailer extends Fragment {
 
-    private TextView tv_banking_channel, payment_id;
+    private TextView tv_banking_channel, payment_id ,btn_newpayment;
     private String PrePaidNumber = "", PrePaidId = "", CompanyName = "", Amount = "", CompanyId = "";
-    private Button btn_voucher, btn_newpayment, btn_update;
+    private Button btn_voucher,  btn_update;
     private Spinner spinner_companyName;
     private TextInputEditText txt_amount;
     private ArrayAdapter<String> arrayAdapterPayments;

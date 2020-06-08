@@ -68,19 +68,18 @@
                 android:layout_marginTop="20dp"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp">
+               >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingLeft="20dp"
+                    android:fontFamily="@font/open_sans"
                     android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,20 +93,17 @@
                 android:fontFamily="@font/open_sans"
                 android:layout_marginTop="20dp"
                 android:theme="@style/TextLabel"
-                app:boxBackgroundColor="#fff"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_mobile_no"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/open_sans"
                     android:paddingLeft="20dp"
                     android:paddingTop="5dp"
                     android:paddingRight="20dp"
-                    android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                    android:paddingBottom="5dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -121,20 +117,18 @@
                 android:fontFamily="@font/open_sans"
                 android:layout_marginTop="20dp"
                 android:theme="@style/TextLabel"
-                app:boxBackgroundColor="#fff"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp">
+               >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_email_address"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/open_sans"
                     android:paddingLeft="20dp"
                     android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                     />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -148,20 +142,18 @@
                 android:fontFamily="@font/open_sans"
                 android:layout_marginTop="20dp"
                 android:theme="@style/TextLabel"
-                app:boxBackgroundColor="#fff"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="0.5dp">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_cnic_no"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/open_sans"
                     android:paddingLeft="20dp"
                     android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                     />
 
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
@@ -175,22 +167,20 @@
                 android:fontFamily="@font/open_sans"
                 android:theme="@style/TextLabel"
                 android:inputType="textMultiLine"
-                app:boxBackgroundColor="#fff"
-                app:boxStrokeColor="#e5e5e5"
-                app:boxStrokeWidth="1.75dp">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_address"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/open_sans"
                     android:inputType="text"
                     android:paddingLeft="20dp"
                     android:paddingTop="10dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="10dp"
                     android:gravity="top|left"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
