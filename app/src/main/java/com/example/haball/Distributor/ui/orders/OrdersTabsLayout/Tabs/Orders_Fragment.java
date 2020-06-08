@@ -113,7 +113,7 @@ public class Orders_Fragment extends Fragment {
 //                spinner2.setVisibility(View.GONE);
 //                conso_edittext.setVisibility(View.GONE);
 //                if(i == 0){
-//                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+//                       ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
 //                }
 //                else{
 //                    Filter_selected = consolidate_felter.get(i);
@@ -188,7 +188,7 @@ public class Orders_Fragment extends Fragment {
 //            @Override
 //            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 //                if(i == 0){
-//                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+//                       ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
 //                }
 //                else{
 //                    if(Filter_selected.equals("Status"))

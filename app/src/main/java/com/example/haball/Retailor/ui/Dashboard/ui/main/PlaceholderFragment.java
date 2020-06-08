@@ -286,18 +286,20 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
 
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
                 } else {
-                        try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
 //                            ((TextView) adapterView.getChildAt(0)).setCompoundDrawablesWithIntrinsicBounds(0 ,0,R.drawable.ic_arrow_drop_down_black_24dp ,0);
-                        } catch (NullPointerException ex) {
-                            ex.printStackTrace();
-                        }
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
                     Filter_selected = consolidate_felter.get(i);
 
                     spinner2.setSelection(0);
@@ -370,6 +372,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                     } catch (NullPointerException e) {
                         e.printStackTrace();
                     }
@@ -379,11 +383,13 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         e.printStackTrace();
                     }
                 } else {
-                        try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                        } catch (NullPointerException ex) {
-                            ex.printStackTrace();
-                        }
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
 
                     Filter_selected_value = String.valueOf(filters.get(i));
 //                    Log.i("Filter_selected_value", String.valueOf(i));
@@ -978,16 +984,19 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
                 } else {
-                        try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                        } catch (NullPointerException ex) {
-                            ex.printStackTrace();
-                        }
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
 
                     Filter_selected = consolidate_felter.get(i);
 
@@ -1076,6 +1085,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                     } catch (NullPointerException e) {
                         e.printStackTrace();
                     }
@@ -1085,11 +1096,13 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         e.printStackTrace();
                     }
                 } else {
-                        try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                        } catch (NullPointerException ex) {
-                            ex.printStackTrace();
-                        }
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
                     Filter_selected_value = String.valueOf(i - 1);
 //                    Log.i("Filter_selected_value", String.valueOf(i));
 

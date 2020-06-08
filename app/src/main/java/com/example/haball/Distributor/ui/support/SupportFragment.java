@@ -185,13 +185,17 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
 
                 if (i == 0) {
                     try {
-                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
                 } else {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -284,13 +288,17 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 if (Filter_selected.equals("Status")) {
                     if (i == 0) {
                         try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                               ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                            ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
                         } catch (NullPointerException ex) {
                             ex.printStackTrace();
                         }
                     } else {
                         try {
                             ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                            ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
                         } catch (NullPointerException ex) {
                             ex.printStackTrace();
                         }

@@ -6,9 +6,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -68,6 +70,19 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, CompanyNames);
         spinner_companyName.setAdapter(arrayAdapterPayments);
+        spinner_companyName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         txt_amount.setText(Amount);
 
         btn_newpayment.setOnClickListener(new View.OnClickListener() {

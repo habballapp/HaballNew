@@ -26,6 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -141,6 +142,9 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Category_selected = totalCategoryTitle.get(position);
+                ((TextView) parent.getChildAt(position)).setTextColor(getResources().getColor(R.color.textcolor));
+                ((TextView) parent.getChildAt(position)).setTextSize((float) 13.6);
+                ((TextView) parent.getChildAt(position)).setPadding(50, 0, 50, 0);
 //                try {
 //                    Log.i("Categoriesselected", Categories.get(Category_selected) + " - " + Category_selected);
 //                    getFilteredProductCategory(Categories.get(Category_selected));
