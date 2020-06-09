@@ -142,23 +142,17 @@
                 android:id="@+id/relative_issuetype"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
                 android:layout_below="@+id/layout_MobileNo"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/edit_round"
-                >
+                android:background="@drawable/edit_round">
 
                 <Spinner
                     android:id="@+id/IssueType"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:dropDownWidth="match_parent"
-                    android:layout_marginStart="20dp"
                     android:background="@null"
-                    android:popupBackground="@drawable/spinner_round"
-                    android:layout_marginLeft="20dp"
-                    />
+                    android:popupBackground="@drawable/spinner_round" />
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -174,8 +168,6 @@
                 android:id="@+id/relative_criticality"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
                 android:layout_below="@+id/relative_issuetype"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/edit_round">
@@ -202,8 +194,6 @@
                 android:id="@+id/relative_Preffered_Contact"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
                 android:layout_below="@+id/relative_criticality"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/edit_round">
@@ -272,7 +262,7 @@
             android:layout_marginBottom="10dp"
             android:textAllCaps="false"
             android:textColor="#fff"
-            android:textSize="11.6sp" />
+            android:textSize="18sp" />
 
 <!--        <TextView-->
 <!--            android:id="@+id/footer"-->
