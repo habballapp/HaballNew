@@ -52,7 +52,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ln_login"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
+                    >
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_username"
@@ -64,7 +65,8 @@
                         android:theme="@style/TextLabel"
                         app:boxBackgroundColor="#fff"
                         app:boxStrokeColor="@color/box_stroke"
-                        app:boxStrokeWidth="0.5dp">
+                        app:boxStrokeWidth="0.5dp"
+                        >
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_username"
@@ -75,7 +77,8 @@
                             android:paddingLeft="20dp"
                             android:paddingTop="5dp"
                             android:paddingRight="20dp"
-                            android:paddingBottom="5dp" />
+                            android:paddingBottom="5dp"
+                            />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,7 +95,8 @@
                         app:boxBackgroundColor="#fff"
                         app:boxStrokeColor="@color/box_stroke"
                         app:passwordToggleEnabled="true"
-                        app:passwordToggleTint="#A9A9A9">
+                        app:passwordToggleTint="#A9A9A9"
+                        >
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_password"
