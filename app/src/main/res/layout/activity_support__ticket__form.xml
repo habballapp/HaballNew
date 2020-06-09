@@ -9,7 +9,9 @@
     tools:context=".MainActivity">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginStart="27dp"
+        android:layout_marginEnd="27dp">
 
         <LinearLayout
             android:id="@+id/header"
@@ -24,8 +26,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginLeft="40dp"
                 android:layout_weight="1"
                 android:paddingBottom="10dp"
                 android:paddingTop="5dp"
@@ -36,15 +36,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/tv_support"
-                android:background="@drawable/horizontal_black_line"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"/>
+                android:background="@drawable/horizontal_black_line" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Welcome to Haball Support Center"
-                android:layout_marginRight="40dp"
-                android:layout_marginLeft="40dp"
                 android:layout_marginTop="20dp"
                 android:textSize="18sp"
                 android:layout_weight="1"/>
@@ -55,8 +51,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/header"
-            android:layout_marginStart="27dp"
-            android:layout_marginEnd="27dp"
             android:layout_marginTop="20dp"
             >
 
@@ -144,8 +138,6 @@
                 android:id="@+id/relative_issuetype"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
                 android:layout_below="@+id/layout_MobileNo"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/edit_round"
@@ -154,18 +146,26 @@
                     android:id="@+id/IssueType"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingLeft="2dp"
-                    android:paddingRight="2dp"
+                    android:background="@null"
                     android:dropDownWidth="match_parent"
-                    />
+                    android:popupBackground="@drawable/spinner_round" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignTop="@id/IssueType"
+                    android:layout_alignEnd="@+id/IssueType"
+                    android:layout_alignRight="@+id/IssueType"
+                    android:layout_alignBottom="@+id/IssueType"
+                    android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                    android:theme="@style/Spinner" />
+
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/relative_criticality"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginLeft="40dp"
+                android:layout_height="50dp"
                 android:layout_below="@+id/relative_issuetype"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/edit_round">
@@ -173,17 +173,25 @@
                     android:id="@+id/critcicality"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingLeft="2dp"
-                    android:paddingRight="2dp"
-                    android:dropDownWidth="match_parent"/>
+                    android:background="@null"
+                    android:dropDownWidth="match_parent"
+                    android:popupBackground="@drawable/spinner_round" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignTop="@id/critcicality"
+                    android:layout_alignEnd="@+id/critcicality"
+                    android:layout_alignRight="@+id/critcicality"
+                    android:layout_alignBottom="@+id/critcicality"
+                    android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                    android:theme="@style/Spinner" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/relative_Preffered_Contact"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="20dp"
                 android:layout_below="@+id/relative_criticality"
                 android:background="@drawable/edit_round">
@@ -191,9 +199,19 @@
                     android:id="@+id/Preffered_Contact"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingLeft="2dp"
-                    android:paddingRight="2dp"
-                    android:dropDownWidth="match_parent"/>
+                    android:background="@null"
+                    android:dropDownWidth="match_parent"
+                    android:popupBackground="@drawable/spinner_round" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignTop="@id/Preffered_Contact"
+                    android:layout_alignEnd="@+id/Preffered_Contact"
+                    android:layout_alignRight="@+id/Preffered_Contact"
+                    android:layout_alignBottom="@+id/Preffered_Contact"
+                    android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                    android:theme="@style/Spinner" />
             </RelativeLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -234,10 +252,9 @@
             android:layout_height="45dp"
             android:fontFamily="@font/open_sans"
             android:layout_marginTop="20dp"
-            android:layout_marginStart="27dp"
-            android:layout_marginEnd="27dp"
             android:textAllCaps="false"
             android:textSize="11.6sp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/button_round"
             android:text="Add Ticket"
             android:textColor="#fff"

@@ -143,7 +143,7 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         btn_load_more.setText(content);
         btn_load_more.setVisibility(View.GONE);
-        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data1);
+        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
         search_bar = root.findViewById(R.id.search_bar);
         spinner_container_main = root.findViewById(R.id.spinner_container_main);
         // DATE FILTERS ......
