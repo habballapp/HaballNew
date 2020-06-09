@@ -24,7 +24,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ln_login"
-                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -74,7 +73,7 @@
                         android:inputType="text"
                         android:paddingLeft="20dp"
                         android:paddingTop="5dp"
-                        android:fontFamily="@font/open_sans_semibold"
+                        android:fontFamily="@font/open_sans"
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
                         android:textColor="#676a6c"
@@ -346,6 +345,39 @@
 <!--                    android:layout_marginBottom="10dp"-->
 <!--                    android:gravity="center"-->
 <!--                    android:text="© Haball | All rights reserved" />-->
+                <Button
+                    android:id="@+id/button_view_receipt"
+                    android:layout_width="match_parent"
+                    android:layout_height="37dp"
+                    android:layout_below="@+id/layout_txt_total_amount"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/button_round"
+                    android:fontFamily="@font/open_sans"
+                    android:gravity="center"
+                    android:stateListAnimator="@null"
+                    android:text="View Receipt"
+                    android:textAllCaps="false"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/button_text_size"
+                    />
+
+                <Button
+                    android:id="@+id/button_back"
+                    android:layout_width="match_parent"
+                    android:layout_height="37dp"
+                    android:layout_below="@+id/button_view_receipt"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/button_round"
+                    android:fontFamily="@font/open_sans"
+                    android:gravity="center"
+                    android:stateListAnimator="@null"
+                    android:text="Back"
+                    android:textAllCaps="false"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/button_text_size"
+                    />
             </RelativeLayout>
 
         </RelativeLayout>

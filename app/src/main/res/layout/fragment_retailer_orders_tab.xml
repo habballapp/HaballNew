@@ -23,7 +23,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ln_login"
-                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -45,7 +44,7 @@
                         android:inputType="text"
                         android:paddingLeft="20dp"
                         android:paddingTop="5dp"
-                        android:fontFamily="@font/open_sans_semibold"
+                        android:fontFamily="@font/open_sans"
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
                         android:textColor="#676a6c"
@@ -57,7 +56,7 @@
                     android:id="@+id/layout_txt_order_company"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="55dp"
                     android:layout_below="@+id/layout_txt_orderID"
                     android:layout_marginTop="20dp"
                     android:hint="Company"
@@ -142,7 +141,7 @@
                     android:id="@+id/layout_txt_comments"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="90dp"
                     android:layout_below="@+id/layout_txt_status_order"
                     android:layout_marginTop="20dp"
                     android:hint="Comments"
@@ -176,6 +175,23 @@
 <!--                    android:layout_marginBottom="10dp"-->
 <!--                    android:gravity="center"-->
 <!--                    android:text="© Haball | All rights reserved" />-->
+
+                <Button
+                    android:id="@+id/button_back"
+                    android:layout_width="match_parent"
+                    android:layout_height="37dp"
+                    android:layout_below="@+id/layout_txt_comments"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/button_round"
+                    android:fontFamily="@font/open_sans"
+                    android:gravity="center"
+                    android:stateListAnimator="@null"
+                    android:text="Back"
+                    android:textAllCaps="false"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/button_text_size"
+                    />
             </RelativeLayout>
 
         </RelativeLayout>

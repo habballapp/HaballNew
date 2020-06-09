@@ -40,7 +40,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/ln_my_network"
         android:layout_marginLeft="27dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:layout_marginRight="27dp">
 
         <androidx.recyclerview.widget.RecyclerView

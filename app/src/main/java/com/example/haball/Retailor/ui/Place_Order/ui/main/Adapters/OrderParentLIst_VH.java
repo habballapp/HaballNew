@@ -18,6 +18,7 @@ public class OrderParentLIst_VH extends ParentViewHolder {
     public RelativeLayout layout_expandable, rl_orderName_retailer;
     public ImageView minus_icon;
     public RecyclerView subchlid_RV;
+    public RelativeLayout rl_parentList;
 
     public OrderParentLIst_VH(View itemView) {
         super(itemView);
@@ -27,6 +28,7 @@ public class OrderParentLIst_VH extends ParentViewHolder {
         subchlid_RV = itemView.findViewById(R.id.subchlid_RV);
         layout_expandable = itemView.findViewById(R.id.layout_expandable);
         rl_orderName_retailer = itemView.findViewById(R.id.rl_orderName_retailer);
+        rl_parentList = itemView.findViewById(R.id.rl_parentList);
         minus_icon.setVisibility(View.GONE);
         View.OnClickListener plusMinusOnClick = new View.OnClickListener() {
             @Override
@@ -47,10 +49,12 @@ public class OrderParentLIst_VH extends ParentViewHolder {
             collapseView();
             minus_icon.setVisibility(View.GONE);
             imageView.setVisibility(View.VISIBLE);
+            rl_orderName_retailer.setBackgroundResource(R.drawable.underline);
         } else {
             expandView();
             imageView.setVisibility(View.GONE);
             minus_icon.setVisibility(View.VISIBLE);
+            rl_orderName_retailer.setBackground(null);
         }
 
     }

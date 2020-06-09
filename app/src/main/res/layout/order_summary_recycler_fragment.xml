@@ -79,6 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_products"
         android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
         android:textColor="@color/rv_box_color"
         android:fontFamily="@font/open_sans"
         android:text="Product Code:"
@@ -103,6 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/product_code"
         android:textColor="@color/rv_box_color"
+        android:layout_marginBottom="5dp"
         android:text="Price: "
         android:fontFamily="@font/open_sans"
         android:textSize="@dimen/order_child_list_retailer" />
@@ -246,7 +248,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/UOM"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
         android:weightSum="2">
 
@@ -254,7 +256,6 @@
             android:id="@+id/rl_list_numberOfItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_weight="1.25"
             android:background="@drawable/edit_text_squared"
             android:gravity="center">
@@ -262,7 +263,7 @@
             <EditText
                 android:id="@+id/list_numberOFitems"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="37dp"
                 android:background="@android:color/transparent"
                 android:gravity="center"
                 android:inputType="number"

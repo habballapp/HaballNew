@@ -17,7 +17,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_retailer_payment, R.string.tab_retailer_order, R.string.tab_text_06_tab};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_retailer_payment, R.string.tab_retailer_order};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {

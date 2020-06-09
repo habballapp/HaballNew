@@ -40,7 +40,8 @@
             android:text="Create Payment"
             android:drawableLeft="@drawable/ic_baseline_add_24"
             android:textColor="@color/textcolor"
-            android:textSize="17sp" />
+            android:textSize="13.6sp"
+            android:drawableStart="@drawable/ic_baseline_add_24" />
 
     </LinearLayout>
 

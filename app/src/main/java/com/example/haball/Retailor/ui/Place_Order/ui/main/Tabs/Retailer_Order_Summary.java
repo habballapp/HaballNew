@@ -70,7 +70,8 @@ public class Retailer_Order_Summary extends Fragment {
     private String URL_SAVE_DRAFT = "http://175.107.203.97:4014/api/Orders/draft";
 //    private Button btn_confirm, btn_template, btn_draft, btn_add_product;
     private Button btn_confirm, btn_draft, btn_add_product;
-    private TextView gross_amount, discount_amount, gst_amount, total_amount;
+    private TextView gross_amount, discount_amount, total_amount;
+//    private TextView gst_amount;
     private float totalAmount;
     private ViewPager viewpager;
     private List<OrderChildlist_Model> temp_list = new ArrayList<>();
@@ -81,9 +82,9 @@ public class Retailer_Order_Summary extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_order__summary, container, false);
-        gross_amount = view.findViewById(R.id.gross_amount);
+//        gross_amount = view.findViewById(R.id.gross_amount);
         discount_amount = view.findViewById(R.id.discount_amount);
-        gst_amount = view.findViewById(R.id.gst_amount);
+//        gst_amount = view.findViewById(R.id.gst_amount);
         total_amount = view.findViewById(R.id.total_amount);
         btn_confirm = view.findViewById(R.id.btn_confirm);
 
@@ -492,7 +493,7 @@ public class Retailer_Order_Summary extends Fragment {
                 Context.MODE_PRIVATE);
 //        gross_amount.setText(grossamount.getString("grossamount", "0"));
         float temp_grossAmount = Float.parseFloat(grossamount.getString("grossamount", "0"));
-        gross_amount.setText(String.format("%.0f", temp_grossAmount));
+//        gross_amount.setText(String.format("%.0f", temp_grossAmount));
         discount_amount.setText(" - ");
 
 //        float gstAmount = (Float.parseFloat(grossamount.getString("grossamount", "")) * 17) / 100;

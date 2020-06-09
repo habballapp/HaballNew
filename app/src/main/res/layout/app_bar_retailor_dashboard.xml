@@ -13,9 +13,9 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="42dip"
             android:background="#fff"
-            app:popupTheme="@style/PopupOverlay" >
+            app:popupTheme="@style/PopupOverlay">
             <RelativeLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"

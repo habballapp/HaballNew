@@ -19,17 +19,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginRight="27dp"
             android:background="@drawable/tab_indicator"
-            app:tabContentStart="0dp"
-            app:tabGravity="fill"
             app:tabIndicatorColor="#96bb3c"
             app:tabMode="scrollable"
-            app:tabPaddingEnd="0dp"
-            app:tabPaddingStart="0dp"
-            android:paddingVertical="0dp"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
-            android:paddingHorizontal="0dp"
-            app:tabPadding="0dp"
             app:tabSelectedTextColor="#96bb3c"
             app:tabTextAppearance="@style/CustomTextAppearanceTab" />
 
@@ -38,7 +29,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/tabs_ret5"
-            android:layout_marginTop="10dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

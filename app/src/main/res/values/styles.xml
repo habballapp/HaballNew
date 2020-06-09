@@ -35,8 +35,8 @@
         <item name="android:textColorHint">#96bb3c</item>
         <item name="android:textColor">#676a6c</item>
         <!--        <item name="android:textSize">20sp</item>-->
-        <item name="colorAccent">#A9A9A9</item>
-        <item name="colorControlNormal">#A9A9A9</item>
+        <item name="colorAccent">#C7C8CA</item>
+        <item name="colorControlNormal">#C7C8CA</item>
         <item name="colorControlActivated">#96bb3c</item>
         <item name="boxStrokeColor">#96bb3c</item>
         <item name="colorPrimary">#96bb3c</item>
@@ -91,10 +91,10 @@
 
     <style name="CustomTextAppearanceTab" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
+
+
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">17sp</item>
-        <item name="android:gravity">start</item>
-        <item name="tabInlineLabel">true</item>
         <item name="android:fontFamily">@font/open_sans</item>
     </style>
 

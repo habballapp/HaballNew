@@ -9,14 +9,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="27dp"
-        android:layout_marginEnd="27dp"
         android:layout_above="@+id/rl_line">
 
         <RelativeLayout
             android:id="@+id/spinner_container_main"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="27dp"
+            android:layout_marginEnd="27dp">
 
             <RelativeLayout
                 android:id="@+id/spinner_container_main_inner"
@@ -34,9 +34,10 @@
                         android:id="@+id/spinner_conso"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:dropDownWidth="match_parent"
                         android:background="@null"
+                        android:dropDownWidth="match_parent"
                         android:popupBackground="@drawable/spinner_round" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -72,13 +73,13 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </RelativeLayout>
 
-<!--            <RelativeLayout-->
-<!--                android:id="@+id/line_bottom_1"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="1dp"-->
-<!--                android:layout_below="@+id/spinner_container_main_inner"-->
-<!--                android:layout_marginTop="20dp"-->
-<!--                android:background="@drawable/line_seperator" />-->
+            <!--            <RelativeLayout-->
+            <!--                android:id="@+id/line_bottom_1"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="1dp"-->
+            <!--                android:layout_below="@+id/spinner_container_main_inner"-->
+            <!--                android:layout_marginTop="20dp"-->
+            <!--                android:background="@drawable/line_seperator" />-->
         </RelativeLayout>
 
         <RelativeLayout
@@ -105,15 +106,29 @@
             android:id="@+id/line_bottom"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@drawable/line_seperator" />
+            android:background="@drawable/line_separator_light_grey" />
 
+        <TextView
+            android:id="@+id/asd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="9.5dp"
+            android:paddingLeft="27dp"
+            android:paddingRight="27dp"
+            android:textColor="@color/error_stroke_color"
+            android:fontFamily="@font/open_sans_semibold"
+            android:textSize="13sp"
+            android:text="Prices listed here are subject to change based on Order approval."
+
+
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/asd"
-            android:layout_marginTop="20dp"
             android:layout_marginStart="27dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="27dp"
             android:layout_marginBottom="10dp"
             android:weightSum="2">
@@ -121,33 +136,35 @@
             <Button
                 android:id="@+id/close_button"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="37dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_round"
+                android:fontFamily="@font/open_sans"
                 android:gravity="center"
                 android:stateListAnimator="@null"
                 android:text="Close"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
                 android:textAllCaps="false"
                 android:textColor="#fff"
-                android:textSize="14sp" />
+                android:textSize="11.6sp" />
 
             <Button
                 android:id="@+id/btn_checkout"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="-20dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_grey_round"
                 android:enabled="false"
+                android:fontFamily="@font/open_sans"
                 android:gravity="center"
                 android:stateListAnimator="@null"
                 android:text="Checkout"
                 android:textAllCaps="false"
                 android:textColor="#fff"
-                android:textSize="14sp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="-20dp" />
+                android:textSize="11.6sp" />
         </LinearLayout>
 
     </RelativeLayout>

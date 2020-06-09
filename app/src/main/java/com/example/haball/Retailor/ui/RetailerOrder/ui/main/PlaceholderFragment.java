@@ -162,16 +162,16 @@ public class PlaceholderFragment extends Fragment {
                 layout_txt_amount = rootView.findViewById(R.id.layout_txt_amount);
                 layout_txt_transaction_charges = rootView.findViewById(R.id.layout_txt_transaction_charges);
                 layout_txt_total_amount = rootView.findViewById(R.id.layout_txt_total_amount);
-
-                layout_txt_created_date.setVisibility(View.GONE);
-                layout_transaction_date.setVisibility(View.GONE);
-                layout_txt_bank.setVisibility(View.GONE);
-                layout_txt_authorization_id.setVisibility(View.GONE);
-                layout_txt_settlement_id.setVisibility(View.GONE);
-                layout_txt_status.setVisibility(View.GONE);
-                layout_txt_amount.setVisibility(View.GONE);
-                layout_txt_transaction_charges.setVisibility(View.GONE);
-                layout_txt_total_amount.setVisibility(View.GONE);
+//
+//                layout_txt_created_date.setVisibility(View.GONE);
+//                layout_transaction_date.setVisibility(View.GONE);
+//                layout_txt_bank.setVisibility(View.GONE);
+//                layout_txt_authorization_id.setVisibility(View.GONE);
+//                layout_txt_settlement_id.setVisibility(View.GONE);
+//                layout_txt_status.setVisibility(View.GONE);
+//                layout_txt_amount.setVisibility(View.GONE);
+//                layout_txt_transaction_charges.setVisibility(View.GONE);
+//                layout_txt_total_amount.setVisibility(View.GONE);
 
                 txt_companyName.setEnabled(false);
                 txt_paymentID.setEnabled(false);

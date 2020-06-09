@@ -21,6 +21,7 @@ import com.example.haball.Retailer_Login.RetailerLogin;
 import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Retailor.ui.Make_Payment.EditPaymentRequestFragment;
 import com.example.haball.Retailor.ui.Make_Payment.PaymentScreen3Fragment_Retailer;
+import com.example.haball.Retailor.ui.RetailerPayment.RetailerViewInvoice;
 
 import org.json.JSONException;
 
@@ -80,10 +81,13 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
                                 case R.id.view_invoice:
-                                    // Toast.makeText(context, "View payments", Toast.LENGTH_LONG).show();
+//                                     Toast.makeText(context, "View payments", Toast.LENGTH_LONG).show();
 //                                FragmentTransaction fragmentTransaction= ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
 //                                fragmentTransaction.add(R.id.main_container,new Distributor_Invoice_DashBoard());
 //                                fragmentTransaction.commit();
+                                    fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+                                    fragmentTransaction.replace(R.id.main_container_ret, new RetailerViewInvoice()).addToBackStack("tag");
+                                    fragmentTransaction.commit();
 
                                     break;
                                 case R.id.view_pdf:
