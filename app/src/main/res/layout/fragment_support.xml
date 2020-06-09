@@ -52,7 +52,7 @@
         android:layout_below="@+id/ll_tv_support"
         android:layout_marginLeft="27dp"
         android:layout_marginRight="27dp"
-        android:background="@drawable/horizontal_black_line" />
+         />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -63,20 +63,6 @@
             android:id="@+id/spinner_container_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <!--            <Button-->
-            <!--                android:id="@+id/btn_add_ticket_retailer"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="45dp"-->
-            <!--                android:layout_marginLeft="27dp"-->
-            <!--                android:layout_marginTop="15dp"-->
-            <!--                android:layout_marginRight="27dp"-->
-            <!--                android:background="@drawable/button_background"-->
-            <!--                android:text="Add Ticket"-->
-            <!--                android:textAllCaps="false"-->
-            <!--                android:textColor="#fff"-->
-            <!--                android:textSize="18sp" />-->
-
 
             <RelativeLayout
                 android:id="@+id/spinner_container_main_inner"

@@ -20,7 +20,6 @@
         android:paddingBottom="10dp"
         android:text="Support"
         android:textSize="20sp" />
-59 68 88 98
     <RelativeLayout
         android:id="@+id/line"
         android:layout_width="match_parent"

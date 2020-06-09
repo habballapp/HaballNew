@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -33,9 +35,9 @@ import java.util.List;
 
 public class PaymentScreen3Fragment extends Fragment {
 
-    private TextView tv_banking_channel, payment_id;
+    private TextView tv_banking_channel, payment_id,btn_addpayment;
     private String PrePaidNumber = "", PrePaidId = "", CompanyName = "", Amount = "", CompanyId = "";
-    private Button btn_voucher, btn_newpayment, btn_update;
+    private Button btn_voucher, btn_update;
     private Spinner spinner_companyName;
     private TextInputEditText txt_amount;
     private ArrayAdapter<String> arrayAdapterPayments;
@@ -61,7 +63,7 @@ public class PaymentScreen3Fragment extends Fragment {
         payment_id = root.findViewById(R.id.payment_id);
         spinner_companyName = root.findViewById(R.id.spinner_companyName);
         txt_amount = root.findViewById(R.id.txt_amount);
-        btn_newpayment = root.findViewById(R.id.btn_newpayment);
+        btn_addpayment= root.findViewById(R.id.btn_addpayment);
         btn_update = root.findViewById(R.id.btn_update);
         btn_voucher = root.findViewById(R.id.btn_voucher);
 
@@ -76,9 +78,10 @@ public class PaymentScreen3Fragment extends Fragment {
         spinner_companyName.setClickable(false);
         btn_update.setText("Back");
 
-        btn_newpayment.setOnClickListener(new View.OnClickListener() {
+        btn_addpayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.i("Payment","In Payment Button Click");
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.main_container, new CreatePaymentRequestFragment());
                 fragmentTransaction.commit();

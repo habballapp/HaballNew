@@ -55,6 +55,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/header"
+            android:layout_marginStart="27dp"
+            android:layout_marginEnd="27dp"
             android:layout_marginTop="20dp"
             >
 
@@ -62,11 +64,8 @@
                 android:id="@+id/layout_BName"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
+                android:layout_height="55dp"
                 android:hint="Business Name"
-                android:textColorHint="#A9A9A9"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
                >
@@ -75,12 +74,13 @@
                     android:id="@+id/BName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/open_sans"
+                    android:inputType="text|textCapSentences"
                     android:paddingLeft="20dp"
                     android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
                     android:textColor="#676a6c"
-                    android:inputType="text|textCapSentences"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -89,14 +89,12 @@
                 android:id="@+id/layout_Email"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:hint="Email"
-                android:theme="@style/TextLabel"
+                android:layout_height="55dp"
                 android:layout_below="@+id/layout_BName"
-                android:textColorHint="#A9A9A9"
+                android:layout_marginTop="20dp"
+                android:hint="Email"
+                android:fontFamily="@font/open_sans"
+                android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
                >
 
@@ -104,12 +102,13 @@
                     android:id="@+id/Email"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:inputType="textEmailAddress"
                     android:paddingLeft="20dp"
+                    android:fontFamily="@font/open_sans"
                     android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
                     android:textColor="#676a6c"
-                    android:inputType="textEmailAddress"
                    />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -118,14 +117,12 @@
                 android:id="@+id/layout_MobileNo"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:hint="Mobile No"
-                android:textColorHint="#A9A9A9"
-                android:theme="@style/TextLabel"
+                android:layout_height="55dp"
                 android:layout_below="@+id/layout_Email"
+                android:layout_marginTop="20dp"
+                android:hint="Mobile No"
+                android:fontFamily="@font/open_sans"
+                android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
                >
 
@@ -133,12 +130,12 @@
                     android:id="@+id/MobileNo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:inputType="number"
                     android:paddingLeft="20dp"
                     android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
                     android:textColor="#676a6c"
-                    android:inputType="number"
                      />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -146,19 +143,21 @@
             <RelativeLayout
                 android:id="@+id/relative_issuetype"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="50dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:layout_below="@+id/layout_MobileNo"
-                android:background="@drawable/edit_round">
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edit_round"
+                >
                 <Spinner
                     android:id="@+id/IssueType"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingLeft="2dp"
                     android:paddingRight="2dp"
-                    android:dropDownWidth="match_parent"/>
+                    android:dropDownWidth="match_parent"
+                    />
             </RelativeLayout>
 
             <RelativeLayout
@@ -202,13 +201,10 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
+                android:layout_below="@+id/relative_Preffered_Contact"
+                android:layout_marginTop="20dp"
                 android:hint="Comment"
                 android:theme="@style/TextLabel"
-                android:layout_below="@+id/relative_Preffered_Contact"
-                android:textColorHint="#A9A9A9"
                 app:boxBackgroundColor="#fff"
                >
 
@@ -216,13 +212,14 @@
                     android:id="@+id/Comment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:gravity="top|left"
+                    android:inputType="textMultiLine|textCapSentences"
                     android:paddingLeft="20dp"
                     android:paddingTop="10dp"
+                    android:fontFamily="@font/open_sans"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
                     android:textColor="#676a6c"
-                    android:gravity="top|left"
-                    android:inputType="textMultiLine|textCapSentences"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -234,26 +231,19 @@
             android:id="@+id/ticket_btn"
             android:layout_width="match_parent"
             android:layout_below="@id/rl_fields"
-            android:layout_height="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="30dp"
+            android:layout_height="45dp"
+            android:fontFamily="@font/open_sans"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginEnd="27dp"
             android:textAllCaps="false"
-            android:textSize="18sp"
+            android:textSize="11.6sp"
             android:background="@drawable/button_round"
             android:text="Add Ticket"
             android:textColor="#fff"
             />
 
-        <TextView
-            android:id="@+id/footer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ticket_btn"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="© Haball | All rights reserved" />
+
 
 
     </RelativeLayout>
