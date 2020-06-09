@@ -10,12 +10,14 @@ import android.os.Bundle;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -30,6 +32,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Distributor.ui.payments.CreatePaymentRequestFragment;
 import com.example.haball.Distributor.ui.payments.ViewPDFRequest;
 import com.example.haball.Distributor.ui.payments.ViewVoucherRequest;
 import com.example.haball.R;
@@ -56,6 +59,7 @@ public class View_Payment_Fragment extends Fragment {
     private TextInputEditText txt_heading, txt_paymentid, txt_created_date, txt_transaction_date, txt_bname, txt_authorization, txt_settlement, txt_amount, txt_status, txt_transaction_charges;
     private Button btn_vreciept;
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
+    private TextView btn_make_payment;
 
     public View_Payment_Fragment() {
         // Required empty public constructor
@@ -78,7 +82,7 @@ public class View_Payment_Fragment extends Fragment {
         if (!PAYMENT_REQUEST_URL.contains(PaymentsRequestId))
             PAYMENT_REQUEST_URL = PAYMENT_REQUEST_URL + PaymentsRequestId;
 
-
+        btn_make_payment = root.findViewById(R.id.btn_make_payment);
         txt_heading = root.findViewById(R.id.txt_heading);
         txt_paymentid = root.findViewById(R.id.txt_paymentid);
         txt_created_date = root.findViewById(R.id.txt_created_date);
@@ -102,6 +106,17 @@ public class View_Payment_Fragment extends Fragment {
         txt_status.setEnabled(false);
         txt_transaction_charges.setEnabled(false);
 
+        btn_make_payment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "On Click", Toast.LENGTH_LONG).show();
+                Log.i("Payment","In Payment Button Click");
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, new CreatePaymentRequestFragment());
+                fragmentTransaction.commit();
+            }
+        });
+
         btn_vreciept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,6 +138,8 @@ public class View_Payment_Fragment extends Fragment {
         return root;
 
     }
+
+
 
     private void fetchPaymentData() throws JSONException {
 

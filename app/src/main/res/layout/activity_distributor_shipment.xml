@@ -48,26 +48,36 @@
 
                 <RelativeLayout
                     android:id="@+id/spinner_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="30dp"
+         android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="27dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="27dp"
                     android:background="@drawable/edit_text_squared">
+
 
                     <Spinner
                         android:id="@+id/spinner_conso"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                         android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:dropDownWidth="match_parent"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp" />
+                        android:background="@null"
+                        android:popupBackground="@drawable/spinner_round" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignTop="@id/spinner_conso"
+                        android:layout_alignEnd="@+id/spinner_conso"
+                        android:layout_alignRight="@+id/spinner_conso"
+                        android:layout_alignBottom="@+id/spinner_conso"
+                        android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:theme="@style/Spinner" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/spinner_container1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_below="@+id/spinner_container"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="15dp"
@@ -79,10 +89,19 @@
                     <Spinner
                         android:id="@+id/conso_spinner2"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="match_parent"
                         android:dropDownWidth="match_parent"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp" />
+                        android:background="@null"
+                        android:popupBackground="@drawable/spinner_round" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignTop="@id/conso_spinner2"
+                        android:layout_alignEnd="@+id/conso_spinner2"
+                        android:layout_alignRight="@+id/conso_spinner2"
+                        android:layout_alignBottom="@+id/conso_spinner2"
+                        android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:theme="@style/Spinner" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -303,14 +322,13 @@
             android:id="@+id/tv_shipment_no_data"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/spinner_container_main"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp"
             android:gravity="center"
+            android:fontFamily="@font/open_sans"
             android:text="No Data Available"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/no_data_available_size"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_shipment"
@@ -321,13 +339,6 @@
             android:layout_marginRight="30dp"
             android:layout_marginBottom="30dp" />
 
-        <TextView
-            android:id="@+id/com_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="© Haball | All rights reserved" />
+
     </RelativeLayout>
 </RelativeLayout>

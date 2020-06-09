@@ -113,6 +113,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private String Filter_selected, Filter_selected1, Filter_selected2, Filter_selected_value;
     private RecyclerView.Adapter mAdapter;
     private TextInputLayout search_bar;
+    private RelativeLayout search_rl;
 
     private int pageNumber = 0;
     private double totalPages = 0;
@@ -550,8 +551,9 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     }
 
     private void paymentFragmentTask(final View rootView) {
-        tv_shipment_no_data1 = rootView.findViewById(R.id.tv_shipment_no_data1);
+        tv_shipment_no_data1 = rootView.findViewById(R.id.tv_shipment_no_data);
         search_bar = rootView.findViewById(R.id.search_bar);
+        search_rl = rootView.findViewById(R.id.search_rl);
 //        consolidate = rootView.findViewById(R.id.consolidate);
 
         // DATE FILTERS ......
@@ -595,21 +597,25 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 conso_edittext.setVisibility(View.GONE);
                 date_filter_rl.setVisibility(View.GONE);
                 amount_filter_rl.setVisibility(View.GONE);
+                search_rl.setVisibility(View.GONE);
 
-                 if (i == 0) {
+
+                if (i == 0) {
                     try {
-                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
-                 } else {
-                     try {
-                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                         ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
-                        } catch (NullPointerException ex) {
-                         ex.printStackTrace();
-                     }
+                } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
 //                if (i > 0) {
                     Filter_selected = consolidate_felter.get(i);
 
@@ -622,10 +628,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "PrePaidNumber";
                         conso_edittext.setVisibility(View.VISIBLE);
+                        search_rl.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Company")) {
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "CompanyName";
                         conso_edittext.setVisibility(View.VISIBLE);
+                        search_rl.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Transaction Date")) {
                         date_filter_rl.setVisibility(View.VISIBLE);
                         Filter_selected = "date";
@@ -695,16 +703,18 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
                 if (i == 0) {
                     try {
-                        ((TextView) adapterView.getChildAt(i)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                        ((TextView) adapterView.getChildAt(i)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
                 } else {
-                // if (i > 0) {
+                    // if (i > 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -766,7 +776,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 //                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                fragmentTransaction.replace(R.id.main_container, new RetailerPlaceOrder());
 //                fragmentTransaction.commit();
-                // Toast.makeText(getContext(), "Consolidate clicked", Toast.LENGTH_LONG).show();
+        // Toast.makeText(getContext(), "Consolidate clicked", Toast.LENGTH_LONG).show();
 //                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                        fragmentTransaction.remove(PaymentRequestDashboard.this);
 //                        fragmentTransaction.replace(((ViewGroup)getView().getParent()).getId(), new CreatePaymentRequestFragment());
@@ -862,6 +872,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private void orderFragmentTask(final View rootView) {
         tv_shipment_no_data = rootView.findViewById(R.id.tv_shipment_no_data);
         search_bar = rootView.findViewById(R.id.search_bar);
+        search_rl = rootView.findViewById(R.id.search_rl);
 
         // DATE FILTERS ......
         date_filter_rl = rootView.findViewById(R.id.date_filter_rl);
@@ -903,19 +914,22 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 conso_edittext.setVisibility(View.GONE);
                 date_filter_rl.setVisibility(View.GONE);
                 amount_filter_rl.setVisibility(View.GONE);
+                search_rl.setVisibility(View.GONE);
 
                 if (i == 0) {
                     try {
-                        ((TextView) adapterView.getChildAt(i)).setTextColor(getResources().getColor(android.R.color.darker_gray));
+                        ((TextView) adapterView.getChildAt(i)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
                 } else {
-                // if (i > 0) {
+                    // if (i > 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -929,10 +943,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "OrderNumber";
                         conso_edittext.setVisibility(View.VISIBLE);
+                        search_rl.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Company")) {
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "CompanyName";
                         conso_edittext.setVisibility(View.VISIBLE);
+                        search_rl.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Payment Term")) {
                         Filter_selected = "PaymentType";
                         filters = new ArrayList<>();
@@ -940,6 +956,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         filters.add("Pre Payment");
                         arrayAdapterFeltter = new ArrayAdapter<>(rootView.getContext(),
                                 android.R.layout.simple_spinner_dropdown_item, filters);
+
                         spinner2.setAdapter(arrayAdapterFeltter);
                         spinner_container1.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Created Date")) {
@@ -1001,20 +1018,22 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (Filter_selected.equals("Status")) {
+                if (Filter_selected.equals("Status") || Filter_selected.equals("PaymentType") ) {
 
-                if (i == 0) {
-                    try {
-                        ((TextView) adapterView.getChildAt(i)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                    } catch (NullPointerException ex) {
-                        ex.printStackTrace();
-                    }
-                } else {
-                // if (i > 0) {
+                    if (i == 0) {
+                        try {
+                            ((TextView) adapterView.getChildAt(i)).setTextColor(getResources().getColor(R.color.textcolor));
+                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                            ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        } catch (NullPointerException ex) {
+                            ex.printStackTrace();
+                        }
+                    } else {
+                        // if (i > 0) {
                         try {
                             ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                             ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                            ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                            ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                         } catch (NullPointerException ex) {
                             ex.printStackTrace();
                         }
@@ -1394,7 +1413,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
-            Log.i("Payments Requests11", result.toString());
+                Log.i("Payments Requests11", result.toString());
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
                 }.getType();

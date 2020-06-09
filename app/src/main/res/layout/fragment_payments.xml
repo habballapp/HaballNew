@@ -15,65 +15,65 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!--            <Button-->
-            <!--                android:id="@+id/consolidate"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="40dp"-->
-            <!--                android:layout_marginLeft="30dp"-->
-            <!--                android:layout_marginTop="15dp"-->
-            <!--                android:layout_marginRight="30dp"-->
-            <!--                android:background="@drawable/button_round"-->
-            <!--                android:gravity="center"-->
-            <!--                android:stateListAnimator="@null"-->
-            <!--                android:text="Consolidate"-->
-            <!--                android:textAllCaps="false"-->
-            <!--                android:textColor="#fff"-->
-            <!--                android:textSize="14sp" />-->
-
             <RelativeLayout
                 android:id="@+id/spinner_container_main"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-<!--                android:layout_below="@+id/consolidate"-->
-<!--                >-->
+                android:layout_height="wrap_content"
+                android:layout_marginStart="27dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="27dp">
 
                 <RelativeLayout
                     android:id="@+id/spinner_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_height="50dp"
                     android:background="@drawable/edit_text_squared">
 
                     <Spinner
                         android:id="@+id/spinner_conso"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="match_parent"
+                        android:background="@null"
                         android:dropDownWidth="match_parent"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp" />
+                        android:popupBackground="@drawable/spinner_round" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignTop="@id/spinner_conso"
+                        android:layout_alignEnd="@+id/spinner_conso"
+                        android:layout_alignRight="@+id/spinner_conso"
+                        android:layout_alignBottom="@+id/spinner_conso"
+                        android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:theme="@style/Spinner" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/spinner_container1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_below="@+id/spinner_container"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/edit_text_squared"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <Spinner
                         android:id="@+id/conso_spinner2"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="match_parent"
+                        android:background="@null"
                         android:dropDownWidth="match_parent"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp" />
+                        android:popupBackground="@drawable/spinner_round" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignTop="@id/conso_spinner2"
+                        android:layout_alignEnd="@+id/conso_spinner2"
+                        android:layout_alignRight="@+id/conso_spinner2"
+                        android:layout_alignBottom="@+id/conso_spinner2"
+                        android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:theme="@style/Spinner" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -81,9 +81,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/spinner_container"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:visibility="visible">
+                    android:layout_marginTop="5dp"
+                    android:visibility="gone">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/search_bar"
@@ -114,11 +113,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/spinner_container"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="20dp"
                     android:orientation="horizontal"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:weightSum="4">
 
                     <LinearLayout
@@ -201,9 +198,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/spinner_container"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="20dp"
                     android:orientation="horizontal"
                     android:visibility="gone"
                     android:weightSum="4">
@@ -293,10 +288,8 @@
             <RelativeLayout
                 android:id="@+id/line_bottom"
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:layout_below="@+id/spinner_container_main"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/line_seperator" />
+                android:layout_height="1dp"
+                android:layout_below="@+id/spinner_container_main_inner" />
         </RelativeLayout>
         <!--    </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>-->
         <RelativeLayout
@@ -304,40 +297,42 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/haballCopyright"
-            android:layout_below="@+id/rv_filter">
+            android:layout_below="@+id/rv_filter"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginEnd="27dp"
+            android:layout_marginTop="5dp">
 
-            <TextView
-                android:id="@+id/tv_shipment_no_data1"
+               <TextView
+                android:id="@+id/tv_shipment_no_data"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginLeft="27dp"
+                android:layout_marginRight="27dp"
                 android:gravity="center"
+                android:fontFamily="@font/open_sans"
                 android:text="No Data Available"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/no_data_available_size" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_fragment_payments"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
                 android:isScrollContainer="false"
                 android:nestedScrollingEnabled="false" />
 
         </RelativeLayout>
 
 
-        <TextView
-            android:id="@+id/haballCopyright"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="© Haball | All rights reserved" />
+<!--        <TextView-->
+<!--            android:id="@+id/haballCopyright"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginBottom="10dp"-->
+<!--            android:gravity="center"-->
+<!--            android:text="© Haball | All rights reserved" />-->
 
     </RelativeLayout>
 </RelativeLayout>

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.haball.R;
 import com.example.haball.Support.Support_Ditributor.Support_Ticket_Form;
@@ -20,7 +21,7 @@ public class Support_dashboard extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<String> array = new ArrayList<>();
-    private Button btn_add_ticket;
+    private TextView btn_add_ticket;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

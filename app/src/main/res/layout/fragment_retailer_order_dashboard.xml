@@ -10,8 +10,9 @@
         android:id="@+id/tv_retailer_order_dashboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/underline"
         android:orientation="vertical"
         android:weightSum="2">
@@ -19,7 +20,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:background="@drawable/half_underline"
             android:paddingTop="5dp"
             android:paddingBottom="10dp"
@@ -30,10 +30,12 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_below="@+id/tv_retailer_order_dashboard"
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginStart="27dp"
+        android:layout_marginEnd="27dp"
+        android:layout_below="@+id/tv_retailer_order_dashboard"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/spinner_container_main"
@@ -44,9 +46,7 @@
                 android:id="@+id/btn_place_order"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginLeft="30dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginRight="30dp"
                 android:background="@drawable/button_background"
                 android:text="Place Order"
                 android:textAllCaps="false"
@@ -62,49 +62,61 @@
                 <RelativeLayout
                     android:id="@+id/spinner_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/edit_text_squared">
-
                     <Spinner
                         android:id="@+id/spinner_conso"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:dropDownWidth="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:dropDownWidth="match_parent"
+                        android:popupBackground="@drawable/spinner_round" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignTop="@id/spinner_conso"
+                        android:layout_alignEnd="@+id/spinner_conso"
+                        android:layout_alignRight="@+id/spinner_conso"
+                        android:layout_alignBottom="@+id/spinner_conso"
+                        android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:theme="@style/Spinner" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/spinner_container1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_below="@+id/spinner_container"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/edit_text_squared"
                     android:visibility="visible">
 
                     <Spinner
                         android:id="@+id/conso_spinner2"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:dropDownWidth="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:dropDownWidth="match_parent"
+                        android:background="@null"
+                        android:popupBackground="@drawable/spinner_round" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignTop="@id/conso_spinner2"
+                        android:layout_alignEnd="@+id/conso_spinner2"
+                        android:layout_alignRight="@+id/conso_spinner2"
+                        android:layout_alignBottom="@+id/conso_spinner2"
+                        android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:theme="@style/Spinner" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/search_rl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:layout_below="@+id/spinner_container"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
                     android:visibility="visible">
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -136,9 +148,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/spinner_container"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="20dp"
                     android:orientation="horizontal"
                     android:visibility="visible"
                     android:weightSum="4">
@@ -176,8 +186,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1.75"
-                        android:paddingTop="10dp"
                         android:orientation="vertical"
+                        android:paddingTop="10dp"
                         android:paddingBottom="10dp">
 
                         <RelativeLayout
@@ -227,9 +237,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/spinner_container"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="20dp"
                     android:orientation="horizontal"
                     android:visibility="gone"
                     android:weightSum="4">
@@ -294,6 +302,7 @@
                         android:paddingRight="5dp"
                         android:paddingBottom="10dp"
                         android:weightSum="2">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -308,8 +317,8 @@
                             android:layout_weight="0.5"
                             android:background="@android:color/transparent"
                             android:inputType="number"
-                            android:textColor="#676A6C"
                             android:maxLength="9"
+                            android:textColor="#676A6C"
                             android:textColorHint="#676A6C"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -322,36 +331,30 @@
             <RelativeLayout
                 android:id="@+id/line_bottom"
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
+                android:layout_height="1dp"
                 android:layout_below="@+id/spinner_container_main_inner"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/line_seperator" />
+                />
         </RelativeLayout>
 
 
-            <TextView
-                android:id="@+id/tv_shipment_no_data"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/spinner_container_main"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="30dp"
-                android:gravity="center"
-                android:text="No Data Available"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
+        <TextView
+            android:id="@+id/tv_shipment_no_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:fontFamily="@font/open_sans"
+            android:text="No Data Available"
+            android:textSize="@dimen/no_data_available_size"
+            android:visibility="gone" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_retailer_order_dashboard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/spinner_container_main"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="30dp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_retailer_order_dashboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spinner_container_main"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp" />
 
 
         <Button
@@ -364,20 +367,6 @@
             android:textAllCaps="false"
             android:textSize="18sp" />
 
-        </LinearLayout>
+    </LinearLayout>
 
-
-
-
-
-
-
-            <TextView
-                android:id="@+id/text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:text="© Haball | All rights reserved" />
-        </RelativeLayout>
+</RelativeLayout>
