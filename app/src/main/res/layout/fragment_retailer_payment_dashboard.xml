@@ -65,22 +65,31 @@
         <RelativeLayout
             android:id="@+id/spinner_container1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_below="@+id/spinner_container"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="15dp"
             android:layout_marginRight="30dp"
-            android:layout_marginBottom="15dp"
             android:visibility="visible"
             android:background="@drawable/edit_text_squared">
 
             <Spinner
                 android:id="@+id/conso_spinner2"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:paddingLeft="2dp"
-                android:paddingRight="2dp"
-                android:dropDownWidth="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:dropDownWidth="match_parent"
+                    android:background="@null"
+                    android:popupBackground="@drawable/spinner_round"
+                    />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignTop="@id/conso_spinner2"
+                    android:layout_alignEnd="@+id/conso_spinner2"
+                    android:layout_alignRight="@+id/conso_spinner2"
+                    android:layout_alignBottom="@+id/conso_spinner2"
+                    android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                    android:theme="@style/Spinner" />
         </RelativeLayout>
 
         <RelativeLayout

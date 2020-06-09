@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -142,6 +143,9 @@ public class Dist_OrderPlace extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Category_selected = totalCategoryTitle.get(position);
                 try {
+                    ((TextView) parent.getChildAt(position)).setTextColor(getResources().getColor(R.color.textcolor));
+                    ((TextView) parent.getChildAt(position)).setTextSize((float) 13.6);
+                    ((TextView) parent.getChildAt(position)).setPadding(50, 0, 50, 0);
                     Log.i("Categoriesselected", Categories.get(Category_selected) + " - " + Category_selected);
                     getFilteredProductCategory(Categories.get(Category_selected));
                 } catch (JSONException e) {

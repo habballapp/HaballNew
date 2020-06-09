@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="#fff"
     tools:context=".Distributor.ui.orders.OrdersTabsNew.Order_PlaceOrder">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -24,7 +25,7 @@
         <RelativeLayout
             android:id="@+id/spinner_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_below="@+id/select_retailer_heading"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="15dp"
@@ -34,10 +35,20 @@
             <Spinner
                 android:id="@+id/spinner_conso"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:paddingLeft="2dp"
-                android:paddingRight="2dp"
-                android:dropDownWidth="match_parent"/>
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:dropDownWidth="match_parent"
+                android:popupBackground="@drawable/spinner_round" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignTop="@id/spinner_conso"
+                android:layout_alignEnd="@+id/spinner_conso"
+                android:layout_alignRight="@+id/spinner_conso"
+                android:layout_alignBottom="@+id/spinner_conso"
+                android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                android:theme="@style/Spinner" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -60,11 +71,11 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_name"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_below="@+id/retailer_heading"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:hint="Name"
+                android:layout_below="@+id/retailer_heading"
                 android:layout_marginTop="15dp"
+                android:hint="Name"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
                 app:boxStrokeColor="@color/box_stroke"
@@ -86,11 +97,11 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_mobile_no"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_below="@+id/layout_name"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:hint="Mobile No"
+                android:layout_below="@+id/layout_name"
                 android:layout_marginTop="15dp"
+                android:hint="Mobile No"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
                 app:boxStrokeColor="@color/box_stroke"
@@ -112,11 +123,11 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_email_address"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_below="@+id/layout_mobile_no"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:hint="Email Address"
+                android:layout_below="@+id/layout_mobile_no"
                 android:layout_marginTop="15dp"
+                android:hint="Email Address"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
                 app:boxStrokeColor="@color/box_stroke"
@@ -138,11 +149,11 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_cnic_no"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_below="@+id/layout_email_address"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:hint="NTN"
+                android:layout_below="@+id/layout_email_address"
                 android:layout_marginTop="15dp"
+                android:hint="NTN"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
                 app:boxStrokeColor="@color/box_stroke"
@@ -160,16 +171,17 @@
                     android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_txt_address"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_marginTop="15dp"
                 android:layout_below="@+id/layout_cnic_no"
+                android:layout_marginTop="15dp"
                 android:hint="Address"
-                android:theme="@style/TextLabel"
                 android:inputType="textMultiLine"
+                android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
                 app:boxStrokeColor="@color/box_stroke"
                 app:boxStrokeWidth="1.75dp">
@@ -178,12 +190,12 @@
                     android:id="@+id/txt_address"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:gravity="top|left"
                     android:inputType="text"
                     android:paddingLeft="20dp"
                     android:paddingTop="10dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="10dp"
-                    android:gravity="top|left"
                     android:textColor="#676a6c"
                     android:textSize="14sp" />
 
@@ -191,9 +203,9 @@
 
             <Button
                 android:id="@+id/btn_next"
-                android:layout_below="@+id/layout_txt_address"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:layout_below="@+id/layout_txt_address"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/button_round"
                 android:gravity="center"
