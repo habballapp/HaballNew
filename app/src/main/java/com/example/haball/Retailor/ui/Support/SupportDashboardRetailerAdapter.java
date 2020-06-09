@@ -155,91 +155,101 @@ public class SupportDashboardRetailerAdapter extends RecyclerView.Adapter<Suppor
     }
 
     private void supportView(final int position) {
-        SharedPreferences sharedPreferences = mContxt.getSharedPreferences("LoginToken",
+        SharedPreferences SupportId = ((FragmentActivity)mContxt).getSharedPreferences("SupportId",
                 Context.MODE_PRIVATE);
-        final String Token = sharedPreferences.getString("Login_Token", "");
-        Log.i("Token  ", Token);
-        StatusKVP statusKVP = new StatusKVP(mContxt, Token);
-        final HashMap<String, String> RetailerIssueTypePrivateKVP = statusKVP.getRetailerIssueTypePrivateKVP();
-        final HashMap<String, String> RetailerCriticalityPrivateKVP = statusKVP.getRetailerCriticalityPrivateKVP();
-        final HashMap<String, String> RetailerContactingMethodKVP = statusKVP.getRetailerContactingMethodKVP();
+        SharedPreferences.Editor editor = SupportId.edit();
+        editor.putString("SupportId", supportList.get(position).getID());
+        editor.commit();
 
-        if (!URL_SUPPORT_VIEW.contains("/" + supportList.get(position).getID()))
-            URL_SUPPORT_VIEW = URL_SUPPORT_VIEW + supportList.get(position).getID();
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_SUPPORT_VIEW, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                TextView tv_username, et_email, et_phone, et_issue_type, et_criticality, et_preffered_contact, et_status, et_comments;
-//                                        Toast.makeText(mContxt, "View Clicked", Toast.LENGTH_LONG).show();
-                final AlertDialog alertDialog = new AlertDialog.Builder(mContxt).create();
-                LayoutInflater inflater = LayoutInflater.from(mContxt);
-                View view_popup = inflater.inflate(R.layout.view_popup, null);
-                alertDialog.setView(view_popup);
+        FragmentTransaction fragmentTransaction= ((FragmentActivity)mContxt).getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.main_container_ret,new Retailer_Support_Ticket_View());
+        fragmentTransaction.commit();
 
-                tv_username = view_popup.findViewById(R.id.tv_username);
-                et_email = view_popup.findViewById(R.id.et_email);
-                et_phone = view_popup.findViewById(R.id.et_phone);
-                et_issue_type = view_popup.findViewById(R.id.et_issue_type);
-                et_criticality = view_popup.findViewById(R.id.et_criticality);
-                et_preffered_contact = view_popup.findViewById(R.id.et_preffered_contact);
-                et_status = view_popup.findViewById(R.id.et_status);
-                et_comments = view_popup.findViewById(R.id.et_comments);
-                String issue_type = "", criticality = "", preffered_contact = "";
-
-                try {
-                    for (Map.Entry<String, String> entry : RetailerIssueTypePrivateKVP.entrySet()) {
-                        if(entry.getKey().equals(String.valueOf(response.get("IssueType"))))
-                            issue_type = entry.getValue();
-                    }
-                    for (Map.Entry<String, String> entry : RetailerCriticalityPrivateKVP.entrySet()) {
-                        if(entry.getKey().equals(String.valueOf(response.get("Criticality"))))
-                            criticality = entry.getValue();
-                    }
-                    for (Map.Entry<String, String> entry : RetailerContactingMethodKVP.entrySet()) {
-                        if(entry.getKey().equals(String.valueOf(response.get("PreferredContactMethod"))))
-                            preffered_contact = entry.getValue();
-                    }
-
-                    tv_username.setText(String.valueOf(response.get("ContactName")));
-                    et_email.setText("Email Address: " + String.valueOf(response.get("Email")));
-                    et_phone.setText("Phone: " + String.valueOf(response.get("MobileNumber")));
-                    et_issue_type.setText("Issue Type: " + issue_type);
-                    et_criticality.setText("Criticality: " + criticality);
-                    et_preffered_contact.setText("Preferred Contact Method: " + preffered_contact);
-                    et_status.setText("Status: " + supportList.get(position).getStatus());
-                    et_comments.setText("Message: " + String.valueOf(response.get("Description")));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
-                img_email.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
-                    }
-                });
-                alertDialog.show();
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
-
-                error.printStackTrace();
-                Log.i("onErrorResponse", "Error");
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer " + Token);
-                params.put("Content-Type", "application/json");
-
-                return params;
-            }
-        };
-        Volley.newRequestQueue(mContxt).add(request);
+//        SharedPreferences sharedPreferences = mContxt.getSharedPreferences("LoginToken",
+//                Context.MODE_PRIVATE);
+//        final String Token = sharedPreferences.getString("Login_Token", "");
+//        Log.i("Token  ", Token);
+//        StatusKVP statusKVP = new StatusKVP(mContxt, Token);
+//        final HashMap<String, String> RetailerIssueTypePrivateKVP = statusKVP.getRetailerIssueTypePrivateKVP();
+//        final HashMap<String, String> RetailerCriticalityPrivateKVP = statusKVP.getRetailerCriticalityPrivateKVP();
+//        final HashMap<String, String> RetailerContactingMethodKVP = statusKVP.getRetailerContactingMethodKVP();
+//
+//        if (!URL_SUPPORT_VIEW.contains("/" + supportList.get(position).getID()))
+//            URL_SUPPORT_VIEW = URL_SUPPORT_VIEW + supportList.get(position).getID();
+//        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_SUPPORT_VIEW, null, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                TextView tv_username, et_email, et_phone, et_issue_type, et_criticality, et_preffered_contact, et_status, et_comments;
+////                                        Toast.makeText(mContxt, "View Clicked", Toast.LENGTH_LONG).show();
+//                final AlertDialog alertDialog = new AlertDialog.Builder(mContxt).create();
+//                LayoutInflater inflater = LayoutInflater.from(mContxt);
+//                View view_popup = inflater.inflate(R.layout.view_popup, null);
+//                alertDialog.setView(view_popup);
+//
+//                tv_username = view_popup.findViewById(R.id.tv_username);
+//                et_email = view_popup.findViewById(R.id.et_email);
+//                et_phone = view_popup.findViewById(R.id.et_phone);
+//                et_issue_type = view_popup.findViewById(R.id.et_issue_type);
+//                et_criticality = view_popup.findViewById(R.id.et_criticality);
+//                et_preffered_contact = view_popup.findViewById(R.id.et_preffered_contact);
+//                et_status = view_popup.findViewById(R.id.et_status);
+//                et_comments = view_popup.findViewById(R.id.et_comments);
+//                String issue_type = "", criticality = "", preffered_contact = "";
+//
+//                try {
+//                    for (Map.Entry<String, String> entry : RetailerIssueTypePrivateKVP.entrySet()) {
+//                        if(entry.getKey().equals(String.valueOf(response.get("IssueType"))))
+//                            issue_type = entry.getValue();
+//                    }
+//                    for (Map.Entry<String, String> entry : RetailerCriticalityPrivateKVP.entrySet()) {
+//                        if(entry.getKey().equals(String.valueOf(response.get("Criticality"))))
+//                            criticality = entry.getValue();
+//                    }
+//                    for (Map.Entry<String, String> entry : RetailerContactingMethodKVP.entrySet()) {
+//                        if(entry.getKey().equals(String.valueOf(response.get("PreferredContactMethod"))))
+//                            preffered_contact = entry.getValue();
+//                    }
+//
+//                    tv_username.setText(String.valueOf(response.get("ContactName")));
+//                    et_email.setText("Email Address: " + String.valueOf(response.get("Email")));
+//                    et_phone.setText("Phone: " + String.valueOf(response.get("MobileNumber")));
+//                    et_issue_type.setText("Issue Type: " + issue_type);
+//                    et_criticality.setText("Criticality: " + criticality);
+//                    et_preffered_contact.setText("Preferred Contact Method: " + preffered_contact);
+//                    et_status.setText("Status: " + supportList.get(position).getStatus());
+//                    et_comments.setText("Message: " + String.valueOf(response.get("Description")));
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+//                img_email.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        alertDialog.dismiss();
+//                    }
+//                });
+//                alertDialog.show();
+//
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                printErrorMessage(error);
+//
+//                error.printStackTrace();
+//                Log.i("onErrorResponse", "Error");
+//            }
+//        }) {
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                Map<String, String> params = new HashMap<String, String>();
+//                params.put("Authorization", "bearer " + Token);
+//                params.put("Content-Type", "application/json");
+//
+//                return params;
+//            }
+//        };
+//        Volley.newRequestQueue(mContxt).add(request);
     }
 
     private void DeleteSupportTicket(String ID) throws JSONException {

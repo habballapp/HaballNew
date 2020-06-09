@@ -44,7 +44,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Forgot_Pass_Retailer extends AppCompatActivity {
-    private ImageButton btn_back;
+//    private ImageButton btn_back;
     private EditText txt_email;
     private TextView heading;
     private Button btn_lgn,btn_reset;
@@ -58,23 +58,23 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
         getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
 
 
-        ActionBar bar = getSupportActionBar();
-        assert bar != null;
-        bar.setBackgroundDrawable( new ColorDrawable( Color.parseColor( "#FFFFFF" ) ) );
-
-        LayoutInflater inflater = LayoutInflater.from( this );
+//        ActionBar bar = getSupportActionBar();
+//        assert bar != null;
+//        bar.setBackgroundDrawable( new ColorDrawable( Color.parseColor( "#FFFFFF" ) ) );
+//
+//        LayoutInflater inflater = LayoutInflater.from( this );
         txt_email = findViewById( R.id.txt_email );
-        progressDialog = new ProgressDialog( this );
-
-        @SuppressLint("InflateParams") View customView = inflater.inflate( R.layout.action_bar_main, null );
-
-        bar.setCustomView( customView );
-        bar.setDisplayShowCustomEnabled( true );
-        bar.setBackgroundDrawable( new ColorDrawable( Color.parseColor( "#FFFFFF" ) ) );
-        bar.setTitle( "" );
+//        progressDialog = new ProgressDialog( this );
+//
+//        @SuppressLint("InflateParams") View customView = inflater.inflate( R.layout.action_bar_main_without_back, null );
+//
+//        bar.setCustomView( customView );
+//        bar.setDisplayShowCustomEnabled( true );
+////        bar.setBackgroundDrawable( new ColorDrawable( Color.parseColor( "#FFFFFF" ) ) );
+//        bar.setTitle( "" );
 //        heading = (TextView)findViewById( R.id.heading );
 //        heading.setText( "Welcome To Retailer Portal" );
-        btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
+//        btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
         btn_reset =  (Button)findViewById( R.id.btn_reset_ret);
        Log.i( "Btn-Reset","Button");
         btn_reset.setEnabled( false );
@@ -102,12 +102,12 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
             }
         } );
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+//        btn_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
 
         btn_lgn = findViewById( R.id.btn_lgn );
         btn_lgn.setOnClickListener( new View.OnClickListener() {

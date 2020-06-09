@@ -49,6 +49,7 @@
                 android:fontFamily="@font/open_sans"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
+                app:boxStrokeColor="@color/box_stroke"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="#A9A9A9">
 
@@ -102,6 +103,7 @@
                 android:theme="@style/TextLabel"
                 android:fontFamily="@font/open_sans"
                 app:boxBackgroundColor="#fff"
+                app:boxStrokeColor="@color/box_stroke"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="#A9A9A9">
 
@@ -157,6 +159,7 @@
                 android:fontFamily="@font/open_sans"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
+                app:boxStrokeColor="@color/box_stroke"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="#A9A9A9">
 

@@ -103,6 +103,7 @@
                     android:layout_weight="1"
                     android:hint="Amount"
                     android:fontFamily="@font/open_sans"
+                    app:boxStrokeColor="@color/box_stroke"
                     android:theme="@style/TextLabel">
 
                     <com.google.android.material.textfield.TextInputEditText

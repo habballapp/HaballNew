@@ -8,19 +8,24 @@
     android:backgroundTintMode="src_over"
     tools:context=".Retailor.Forgot_Password_Retailer.Forgot_Pass_Retailer"
     >
+    <include
+        layout="@layout/action_bar_main_without_back"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <RelativeLayout
         android:id="@+id/rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="27dp"
+        android:layout_marginTop="44dp"
         android:layout_marginEnd="27dp">
 
         <LinearLayout
             android:id="@+id/ln_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/border_set">
 
             <TextView

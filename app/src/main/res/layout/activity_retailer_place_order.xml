@@ -21,14 +21,11 @@
             app:tabContentStart="0dp"
             app:tabGravity="fill"
             app:tabIndicatorColor="#96bb3c"
+            app:tabMinWidth="0dp"
+            android:clipToPadding="false"
+            app:tabPaddingStart="5dp"
+            app:tabPaddingEnd="5dp"
             app:tabMode="scrollable"
-            app:tabPaddingEnd="0dp"
-            app:tabPaddingStart="0dp"
-            android:paddingVertical="0dp"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
-            android:paddingHorizontal="0dp"
-            app:tabPadding="0dp"
             app:tabSelectedTextColor="#96bb3c"
             app:tabTextAppearance="@style/CustomTextAppearanceTab" />
 

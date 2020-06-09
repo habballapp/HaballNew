@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -113,6 +114,7 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
         final PopupMenu popup = new PopupMenu(context, view);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.retailer_payment_action_buttons, popup.getMenu());
+
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -167,7 +169,7 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
 
                         break;
                     case R.id.pay_by_retailer:
-                        setUnpaidPaymentMenu(position, view);
+//                        setUnpaidPaymentMenu(position, view);
 //                        //handle menu3 click
 //                        final AlertDialog alertDialog2 = new AlertDialog.Builder(context).create();
 //                        LayoutInflater inflater2 = LayoutInflater.from(context);
@@ -259,5 +261,14 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
             menu_btn = itemView.findViewById(R.id.menu_btn);
 
         }
+    }
+
+    private static class ViewUtil {
+        @SuppressWarnings("unused")
+        public static int dp2px(int dp) {
+            float density = Resources.getSystem().getDisplayMetrics().density;
+            return Math.round(dp * density);
+        }
+
     }
 }

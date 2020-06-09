@@ -25,8 +25,10 @@
             android:label="@string/title_activity_profile__tabs"
             android:theme="@style/NoActionBar" />
         <activity android:name=".Retailor.Forgot_Password_Retailer.Forgot_Pass_Retailer"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             />
-        <activity android:name=".Forgot_Password.Forgot_Pass_Distributor" />
+        <activity android:name=".Forgot_Password.Forgot_Pass_Distributor"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Retailor.ui.Place_Order.Retailer_Place_Order"
             android:theme="@style/NoActionBar" />
@@ -91,8 +93,10 @@
         <activity android:name=".Registration.Registration_main" />
         <activity android:name=".Registration.Registeration_Page1" />
         <activity android:name=".Registration.Registration_page2" />
-        <activity android:name=".Support.Support_Retailer.Support_Ticket_Form" />
-        <activity android:name=".Support.Support_Ditributor.Support_Ticket_Form" />
+        <activity android:name=".Support.Support_Retailer.Support_Ticket_Form"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".Support.Support_Ditributor.Support_Ticket_Form"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".Distributor.ui.support.SupportTicketFormFragment" />
         <activity android:name=".Select_User.Register_Activity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>

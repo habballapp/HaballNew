@@ -61,7 +61,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         payment_id = root.findViewById(R.id.payment_id);
         spinner_companyName = root.findViewById(R.id.spinner_companyName);
         txt_amount = root.findViewById(R.id.txt_amount);
-        btn_newpayment = root.findViewById(R.id.btn_newpayment);
+        btn_newpayment = root.findViewById(R.id.btn_addpayment);
         btn_update = root.findViewById(R.id.btn_update);
         btn_voucher = root.findViewById(R.id.btn_voucher);
 

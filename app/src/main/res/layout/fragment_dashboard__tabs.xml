@@ -20,6 +20,10 @@
             android:layout_marginRight="27dp"
             android:background="@drawable/tab_indicator"
             app:tabIndicatorColor="#96bb3c"
+            app:tabMinWidth="0dp"
+            android:clipToPadding="false"
+            app:tabPaddingStart="5dp"
+            app:tabPaddingEnd="5dp"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="#96bb3c"
             app:tabTextAppearance="@style/CustomTextAppearanceTab" />

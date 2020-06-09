@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -44,9 +43,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ln_login"
                 android:layout_marginTop="20dp"
-                android:textSize="@dimen/paragraph_size"
                 android:fontFamily="@font/open_sans"
-                android:text="@string/end_user_license_agreement_eula_of_retailer_portal_this_end_user_license_agreement_eula_is_a_legal_agreement_between_you_and_haball_n_this_eula_agreement_governs_your_acquisition_and_use_of_our_retailer_portal_software_software_directly_from_haball_or_indirectly_through_a_haball_authorized_reseller_or_distributor_a_reseller_n_please_read_this_eula_agreement_carefully_before_completing_the_installation_process_and_using_the_retailer_portal_software_it_provides_a_license_to_use_the_retailer_portal_software_and_contains_warranty_information_and_liability_disclaimers_n_if_you_register_for_a_free_trial_of_the_retailer_portal_software_this_eula_agreement_will_also_govern_that_trial_by_clicking_accept_or_installing_and_or_using_the_retailer_portal_software_you_are_confirming_your_acceptance_of_the_software_and_agreeing_to_become_bound_by_the_terms_of_this_eula_agreement_n_if_you_are_entering_into_this_eula_agreement_on_behalf_of_a_company_or_other_legal_entity_you_represent_that_you_have_the_authority_to_bind_such_entity_and_its_affiliates_to_these_terms_and_conditions_if_you_do_not_have_such_authority_or_if_you_do_not_agree_with_the_terms_and_conditions_of_this_eula_agreement_do_not_install_or_use_the_software_and_you_must_not_accept_this_eula_agreement" />
+                android:text="@string/end_user_license_agreement_eula_of_retailer_portal_this_end_user_license_agreement_eula_is_a_legal_agreement_between_you_and_haball_n_this_eula_agreement_governs_your_acquisition_and_use_of_our_retailer_portal_software_software_directly_from_haball_or_indirectly_through_a_haball_authorized_reseller_or_distributor_a_reseller_n_please_read_this_eula_agreement_carefully_before_completing_the_installation_process_and_using_the_retailer_portal_software_it_provides_a_license_to_use_the_retailer_portal_software_and_contains_warranty_information_and_liability_disclaimers_n_if_you_register_for_a_free_trial_of_the_retailer_portal_software_this_eula_agreement_will_also_govern_that_trial_by_clicking_accept_or_installing_and_or_using_the_retailer_portal_software_you_are_confirming_your_acceptance_of_the_software_and_agreeing_to_become_bound_by_the_terms_of_this_eula_agreement_n_if_you_are_entering_into_this_eula_agreement_on_behalf_of_a_company_or_other_legal_entity_you_represent_that_you_have_the_authority_to_bind_such_entity_and_its_affiliates_to_these_terms_and_conditions_if_you_do_not_have_such_authority_or_if_you_do_not_agree_with_the_terms_and_conditions_of_this_eula_agreement_do_not_install_or_use_the_software_and_you_must_not_accept_this_eula_agreement"
+                android:textSize="@dimen/paragraph_size" />
 
             <RelativeLayout
                 android:id="@+id/ln_btn"
@@ -63,8 +62,8 @@
                     android:layout_height="45dp"
                     android:background="@drawable/button_round"
                     android:enabled="false"
-                    android:text="Agree"
                     android:fontFamily="@font/open_sans"
+                    android:text="Agree"
                     android:textAllCaps="false"
                     android:textColor="#fff"
                     android:textSize="14sp" />
@@ -83,18 +82,19 @@
                     android:id="@+id/btn_back"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
+                    android:layout_marginBottom="20dp"
                     android:background="@drawable/button_round"
                     android:enabled="false"
-                    android:text="Disagree"
                     android:fontFamily="@font/open_sans"
+                    android:text="Disagree"
                     android:textAllCaps="false"
                     android:textColor="#fff"
-                    android:layout_marginBottom="20dp"
                     android:textSize="14sp" />
 
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
+
     <TextView
         android:id="@+id/footer"
         android:layout_width="match_parent"
@@ -105,5 +105,5 @@
         android:gravity="center"
         android:text="© Haball | All rights reserved" />
 
-</LinearLayout>
+</RelativeLayout>
 

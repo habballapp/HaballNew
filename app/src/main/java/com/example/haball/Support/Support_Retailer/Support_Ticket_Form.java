@@ -54,7 +54,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Support_Ticket_Form extends AppCompatActivity {
 
     private EditText BName, Email, MobileNo, Comment;
-    private ImageButton btn_back;
+//    private ImageButton btn_back;
     private Spinner IssueType, critcicality, Preffered_Contact;
     private String URL_SPINNER_DATA = "http://175.107.203.97:4014/api/support/PublicUsers";
     //    private String URL_SPINNER_ISSUETYPE = "http://175.107.203.97:4013/api/lookup/public/ISSUE_TYPE_PUBLIC";
@@ -85,15 +85,15 @@ public class Support_Ticket_Form extends AppCompatActivity {
         setContentView(R.layout.activity_need__support);
         getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.setDisplayShowHomeEnabled(false);
+//        actionBar.setDisplayShowTitleEnabled(false);
 
         LayoutInflater inflater = LayoutInflater.from(this);
-        View customView = inflater.inflate(R.layout.action_bar_main, null);
+//        View customView = inflater.inflate(R.layout.action_bar_main_without_back, null);
 
-        actionBar.setCustomView(customView);
-        actionBar.setDisplayShowCustomEnabled(true);
+//        actionBar.setCustomView(customView);
+//        actionBar.setDisplayShowCustomEnabled(true);
 
 
         BName = findViewById(R.id.BName);
@@ -113,7 +113,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
         login_submit.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
         login_btn = findViewById(R.id.login_btn);
-        btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
+//        btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
 
         issue_type.add("Issue Type *");
         criticality.add("Criticality *");
@@ -131,12 +131,12 @@ public class Support_Ticket_Form extends AppCompatActivity {
 //        fetchPrefferedContact();
         fetchSpinnerData();
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+//        btn_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
 
         IssueType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

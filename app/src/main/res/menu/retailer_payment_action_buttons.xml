@@ -17,7 +17,21 @@
             android:title="Pay By"
             android:titleCondensed="Pay By"
             android:visible="true">
-            <menu></menu>
+            <menu>
+                <item
+                    android:id="@+id/retailer_psid"
+                    android:title="PSID" />
+                <item
+                    android:id="@+id/ePay_retailer"
+                    android:title="ePay" />
+                <item
+                    android:id="@+id/retailer_meezan_account"
+                    android:title="Meezan Account" />
+                <item
+                    android:id="@+id/retailer_meezan_smart"
+                    android:title="Meezan Smart" />
+
+            </menu>
         </item>
     </group>
 </menu>

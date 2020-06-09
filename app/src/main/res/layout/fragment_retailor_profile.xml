@@ -83,6 +83,7 @@
                 android:fontFamily="@font/open_sans"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
+                app:boxStrokeColor="@color/box_stroke"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -135,6 +136,7 @@
                 android:fontFamily="@font/open_sans"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
+                app:boxStrokeColor="@color/box_stroke"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -186,6 +188,7 @@
                 android:fontFamily="@font/open_sans"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
+                app:boxStrokeColor="@color/box_stroke"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
