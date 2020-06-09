@@ -45,7 +45,6 @@
         android:fontFamily="@font/open_sans"
         android:textColor="@color/rv_box_color"
         android:textSize="@dimen/rv_box_text_size"
-
         />
     <TextView
         android:id="@+id/payment_id_value"

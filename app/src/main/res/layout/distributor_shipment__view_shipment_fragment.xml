@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     android:backgroundTint="#80FFFFFF"
     android:backgroundTintMode="src_over"
     tools:context=".Distributor.ui.shipments.main.Distributor_shipmentDetails">
@@ -28,7 +29,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ln_login"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="27dp"
+                    android:layout_marginTop="34dp"
+                    android:layout_marginRight="27dp"
                     android:layout_marginBottom="40dp"
                     android:orientation="vertical"
                     android:weightSum="8">
@@ -37,28 +40,24 @@
                         android:id="@+id/layout_shipment_id"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
+                        android:layout_height="55dp"
+                        android:fontFamily="@font/open_sans_semibold"
                         android:hint="Shipment ID"
-                        android:theme="@style/TextLabel"
-                        android:layout_weight="1"
-                        app:boxBackgroundColor="#fff"
-                        app:boxStrokeColor="@color/box_stroke"
-                        app:boxStrokeWidth="1.75dp">
+                        android:textColorHint="#96bb3c"
+                        android:theme="@style/TextLabel">
+
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/shipment_id"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:enabled="false"
+                            android:fontFamily="@font/open_sans_semibold"
                             android:paddingLeft="20dp"
                             android:paddingTop="5dp"
                             android:paddingRight="20dp"
                             android:paddingBottom="5dp"
-                            android:textColor="#676a6c"
-                            android:enabled="false"
-                            android:textSize="14sp" />
+                            android:textColor="#676a6c" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -66,28 +65,25 @@
                         android:id="@+id/layout_shipment_delivery_date"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/open_sans"
                         android:hint="Delivery Date"
-                        android:theme="@style/TextLabel"
-                        android:layout_weight="1"
-                        app:boxBackgroundColor="#fff"
-                        app:boxStrokeColor="@color/box_stroke"
-                        app:boxStrokeWidth="1.75dp">
+                        android:textColorHint="#96bb3c"
+                        android:theme="@style/TextLabel">
+
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/shipment_delivery_date"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:enabled="false"
+                            android:fontFamily="@font/open_sans_semibold"
                             android:paddingLeft="20dp"
                             android:paddingTop="5dp"
                             android:paddingRight="20dp"
                             android:paddingBottom="5dp"
-                            android:textColor="#676a6c"
-                            android:enabled="false"
-                            android:textSize="14sp" />
+                            android:textColor="#676a6c" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -95,28 +91,25 @@
                         android:id="@+id/layout_shipment_recieving_date"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/open_sans"
                         android:hint="Recieving Date"
-                        android:theme="@style/TextLabel"
-                        android:layout_weight="1"
-                        app:boxBackgroundColor="#fff"
-                        app:boxStrokeColor="@color/box_stroke"
-                        app:boxStrokeWidth="1.75dp">
+                        android:textColorHint="#96bb3c"
+                        android:theme="@style/TextLabel">
+
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/shipment_recieving_date"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:enabled="false"
+                            android:fontFamily="@font/open_sans_semibold"
                             android:paddingLeft="20dp"
                             android:paddingTop="5dp"
                             android:paddingRight="20dp"
                             android:paddingBottom="5dp"
-                            android:textColor="#676a6c"
-                            android:enabled="false"
-                            android:textSize="14sp" />
+                            android:textColor="#676a6c" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,77 +117,73 @@
                         android:id="@+id/layout_shipment_tv_quantity"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/open_sans"
                         android:hint="Quantity"
-                        android:theme="@style/TextLabel"
-                        android:layout_weight="1"
-                        app:boxBackgroundColor="#fff"
-                        app:boxStrokeColor="@color/box_stroke"
-                        app:boxStrokeWidth="1.75dp">
+                        android:textColorHint="#96bb3c"
+                        android:theme="@style/TextLabel">
+
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/shipment_tv_quantity"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:enabled="false"
+                            android:fontFamily="@font/open_sans_semibold"
                             android:paddingLeft="20dp"
                             android:paddingTop="5dp"
                             android:paddingRight="20dp"
                             android:paddingBottom="5dp"
-                            android:textColor="#676a6c"
-                            android:enabled="false"
-                            android:textSize="14sp" />
+                            android:textColor="#676a6c" />
 
                     </com.google.android.material.textfield.TextInputLayout>
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_shipment_tv_shstatus"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/open_sans"
                         android:hint="Shipment Status"
-                        android:theme="@style/TextLabel"
-                        android:layout_weight="1"
-                        app:boxBackgroundColor="#fff"
-                        app:boxStrokeColor="@color/box_stroke"
-                        app:boxStrokeWidth="1.75dp">
+                        android:textColorHint="#96bb3c"
+                        android:theme="@style/TextLabel">
+
 
                         <com.google.android.material.textfield.TextInputEditText
+
                             android:id="@+id/shipment_tv_shstatus"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:enabled="false"
+                            android:fontFamily="@font/open_sans_semibold"
                             android:paddingLeft="20dp"
                             android:paddingTop="5dp"
                             android:paddingRight="20dp"
                             android:paddingBottom="5dp"
-                            android:textColor="#676a6c"
-                            android:enabled="false"
-                            android:textSize="14sp" />
+                            android:textColor="#676a6c" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
 
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_marginTop="10dp"
-                    android:layout_below="@+id/ln_btn">
-                    <TextView
-                        android:id="@+id/footer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_marginBottom="10dp"
-                        android:layout_alignParentBottom="true"
-                        android:text="© Haball | All rights reserved" />
-                </RelativeLayout>
+                <!--                <RelativeLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="match_parent"-->
+                <!--                    android:orientation="vertical"-->
+                <!--                    android:layout_marginTop="10dp"-->
+                <!--                    android:layout_below="@+id/ln_btn">-->
+                <!--                    <TextView-->
+                <!--                        android:id="@+id/footer"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:gravity="center"-->
+                <!--                        android:layout_marginBottom="10dp"-->
+                <!--                        android:layout_alignParentBottom="true"-->
+                <!--                        android:text="© Haball | All rights reserved" />-->
+                <!--                </RelativeLayout>-->
             </RelativeLayout>
         </ScrollView>
     </RelativeLayout>

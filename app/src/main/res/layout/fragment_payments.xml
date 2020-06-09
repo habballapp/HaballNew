@@ -307,10 +307,14 @@
                 android:id="@+id/tv_shipment_no_data1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="27dp"
+                android:layout_marginRight="27dp"
                 android:gravity="center"
+                android:fontFamily="@font/open_sans"
                 android:text="No Data Available"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/no_data_available_size"
+
+             />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_fragment_payments"

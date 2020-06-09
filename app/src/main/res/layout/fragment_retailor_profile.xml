@@ -43,7 +43,8 @@
                     android:fontFamily="@font/open_sans_semibold"
                     android:layout_width="match_parent"
                     android:enabled="false"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,7 +69,8 @@
                     android:fontFamily="@font/open_sans"
                     android:layout_width="match_parent"
                     android:enabled="false"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -190,7 +192,6 @@
                     android:id="@+id/R_Address"
                     android:paddingTop="5dp"
                     android:paddingLeft="20dp"
-
                     android:paddingBottom="50dp"
                     android:paddingEnd="40dp"
                     android:paddingRight="40dp"
@@ -198,7 +199,8 @@
                     android:drawableRight="@drawable/ic_edit_black_24dp"
                     android:textColor="#676a6c"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
