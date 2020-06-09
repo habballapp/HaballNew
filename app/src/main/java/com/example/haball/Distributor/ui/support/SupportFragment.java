@@ -68,7 +68,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<String> array = new ArrayList<>();
-    private Button btn_add_ticket;
+    private TextView btn_add_ticket;
     private TextView tv_shipment_no_data;
     private String Token;
     private String URL_SUPPORT = "http://175.107.203.97:4013/api/contact/search";

@@ -8,246 +8,262 @@
     android:theme="@style/AppTheme"
     tools:context="Distributor.ui.support.SupportFragment">
 
-    <TextView
-        android:id="@+id/tv_support"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="30dp"
-        android:paddingTop="5dp"
-        android:paddingRight="5dp"
-        android:paddingBottom="10dp"
-        android:text="Support"
-        android:textSize="20sp" />
     <RelativeLayout
-        android:id="@+id/line"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/tv_support"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/horizontal_black_line" />
+        android:layout_height="match_parent"
+        android:layout_marginStart="27dp"
+        android:layout_marginEnd="27dp">
 
-        <RelativeLayout
-            android:layout_below="@+id/line"
+        <LinearLayout
+            android:id="@+id/ll_tv_support"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            >
+            android:layout_marginTop="20dp"
+            android:background="@drawable/underline"
+            android:orientation="horizontal"
+            android:weightSum="5.3">
+            <TextView
+                android:id="@+id/tv_support"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.3"
+                android:fontFamily="@font/open_sans"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp"
+                android:text="Support"
+                android:textColor="@color/textcolor"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/btn_add_ticket"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:drawableLeft="@drawable/ic_baseline_add_24"
+                android:fontFamily="@font/open_sans"
+                android:maxLines="1"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp"
+                android:text="Create Ticket"
+                android:textColor="@color/textcolor"
+                android:textSize="17sp" />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_tv_support">
+
             <RelativeLayout
                 android:id="@+id/spinner_container_main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/btn_add_ticket"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="30dp"
-                android:background="@drawable/button_background"
-                android:clickable="true"
-                android:text="Add Ticket"
-                android:textAllCaps="false"
-                android:textColor="#fff"
-                android:textSize="18sp" />
-        <RelativeLayout
-            android:id="@+id/spinner_container_main_inner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_add_ticket">
-    <RelativeLayout
-        android:id="@+id/spinner_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/edit_text_squared">
-
-        <Spinner
-            android:id="@+id/spinner_conso"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:paddingLeft="2dp"
-            android:paddingRight="2dp"
-            android:dropDownWidth="match_parent"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/spinner_container1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/spinner_container"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/edit_text_squared">
-
-        <Spinner
-            android:id="@+id/conso_spinner2"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:paddingLeft="2dp"
-            android:paddingRight="2dp"
-            android:dropDownWidth="match_parent"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/search_rl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/spinner_container"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:visibility="visible">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/search_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Search by Item"
-            android:textColorHint="#676a6c"
-            android:theme="@style/TextLabelSearchBox">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/conso_edittext"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:drawableRight="@drawable/ic_search_black_24dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:textColor="#676a6c"
-                android:textSize="14sp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-    </RelativeLayout>
-        <LinearLayout
-            android:id="@+id/date_filter_rl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/spinner_container"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="30dp"
-            android:orientation="horizontal"
-            android:visibility="visible"
-            android:weightSum="4">
-
-            <LinearLayout
-                android:id="@+id/date_filter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.125"
-                android:background="@drawable/line_bottom"
-                android:orientation="horizontal"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:paddingRight="5dp"
-                android:paddingBottom="10dp"
-                android:weightSum="2">
-
-                <TextView
-                    android:id="@+id/first_date"
+                <RelativeLayout
+                    android:id="@+id/spinner_container_main_inner"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.25"
-                    android:text="22-12-2020" />
+                    android:layout_height="wrap_content"
+                   >
 
-                <ImageButton
-                    android:id="@+id/first_date_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:layout_weight="1.75"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_date_range_black_24dp" />
-            </LinearLayout>
+                    <RelativeLayout
+                        android:id="@+id/spinner_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/edit_text_squared">
+
+                        <Spinner
+                            android:id="@+id/spinner_conso"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:dropDownWidth="match_parent"
+                            android:popupBackground="@drawable/spinner_round" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignTop="@id/spinner_conso"
+                            android:layout_alignEnd="@+id/spinner_conso"
+                            android:layout_alignRight="@+id/spinner_conso"
+                            android:layout_alignBottom="@+id/spinner_conso"
+                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                            android:theme="@style/Spinner" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/spinner_container1"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/spinner_container"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/edit_text_squared">
+
+                        <Spinner
+                            android:id="@+id/conso_spinner2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:dropDownWidth="match_parent"
+                            android:popupBackground="@drawable/spinner_round" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignTop="@id/conso_spinner2"
+                            android:layout_alignEnd="@+id/conso_spinner2"
+                            android:layout_alignRight="@+id/conso_spinner2"
+                            android:layout_alignBottom="@+id/conso_spinner2"
+                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                            android:theme="@style/Spinner" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/search_rl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/spinner_container"
+                        android:visibility="visible">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/search_bar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Search by Item"
+                            android:textColorHint="#676a6c"
+                            android:theme="@style/TextLabelSearchBox">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/conso_edittext"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:drawableRight="@drawable/ic_search_black_24dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:textColor="#676a6c"
+                                android:textSize="14sp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/date_filter_rl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/spinner_container"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        android:visibility="visible"
+                        android:weightSum="4">
+
+                        <LinearLayout
+                            android:id="@+id/date_filter"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.125"
+                            android:background="@drawable/line_bottom"
+                            android:orientation="horizontal"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="10dp"
+                            android:paddingRight="5dp"
+                            android:paddingBottom="10dp"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/first_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.25"
+                                android:text="22-12-2020" />
+
+                            <ImageButton
+                                android:id="@+id/first_date_btn"
+                                android:layout_width="match_parent"
+                                android:layout_height="20dp"
+                                android:layout_weight="1.75"
+                                android:background="@android:color/transparent"
+                                android:src="@drawable/ic_date_range_black_24dp" />
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1.75"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp">
+
+                            <RelativeLayout
+                                android:layout_width="2dp"
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                android:background="#676A6C" />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:id="@+id/date1_filter"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.125"
+                            android:background="@drawable/line_bottom"
+                            android:orientation="horizontal"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="10dp"
+                            android:paddingRight="5dp"
+                            android:paddingBottom="10dp"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/second_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.25"
+                                android:text="22-12-2020" />
+
+                            <ImageButton
+                                android:id="@+id/second_date_btn"
+                                android:layout_width="match_parent"
+                                android:layout_height="20dp"
+                                android:layout_weight="1.75"
+                                android:background="@android:color/transparent"
+                                android:src="@drawable/ic_date_range_black_24dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1.75"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
-
-                <RelativeLayout
-                    android:layout_width="2dp"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:background="#676A6C" />
-            </RelativeLayout>
-
-            <LinearLayout
-                android:id="@+id/date1_filter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.125"
-                android:background="@drawable/line_bottom"
-                android:orientation="horizontal"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:paddingRight="5dp"
-                android:paddingBottom="10dp"
-                android:weightSum="2">
+                android:layout_below="@+id/spinner_container_main">
 
                 <TextView
-                    android:id="@+id/second_date"
+                    android:id="@+id/tv_shipment_no_data"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.25"
-                    android:text="22-12-2020" />
+                    android:fontFamily="@font/open_sans"
+                    android:gravity="center"
+                    android:text="No Data Available"
+                    android:textSize="@dimen/no_data_available_size" />
 
-                <ImageButton
-                    android:id="@+id/second_date_btn"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_support_complaints"
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:layout_weight="1.75"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_date_range_black_24dp" />
-            </LinearLayout>
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp" />
 
-        </LinearLayout>
-        </RelativeLayout>
             </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/spinner_container_main">
-
-        <TextView
-            android:id="@+id/tv_shipment_no_data"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:gravity="center"
-            android:layout_marginTop="50dp"
-            android:text="No Data Available"
-            android:textSize="30sp"
-            android:textStyle="bold" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_support_complaints"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="30dp" />
-
-    </RelativeLayout>
-    <TextView
-        android:layout_below="@+id/rl_recycler"
-        android:id="@+id/footer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:text="© Haball | All rights reserved" />
+            <!--    <TextView-->
+            <!--        android:layout_below="@+id/rl_recycler"-->
+            <!--        android:id="@+id/footer"-->
+            <!--        android:layout_width="match_parent"-->
+            <!--        android:layout_height="wrap_content"-->
+            <!--        android:layout_alignParentBottom="true"-->
+            <!--        android:layout_marginTop="30dp"-->
+            <!--        android:layout_marginBottom="10dp"-->
+            <!--        android:gravity="center"-->
+            <!--        android:text="© Haball | All rights reserved" />-->
         </RelativeLayout>
+    </RelativeLayout>
 </RelativeLayout>

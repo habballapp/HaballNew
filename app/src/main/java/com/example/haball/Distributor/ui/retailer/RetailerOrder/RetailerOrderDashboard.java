@@ -91,7 +91,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
     private List<String> filters = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapterPayments;
     private ArrayAdapter<String> arrayAdapterFeltter;
-//    private Button consolidate;
+    //    private Button consolidate;
     private String Filter_selected, Filter_selected1, Filter_selected2, Filter_selected_value;
     private int pageNumber = 0;
     private double totalPages = 0;
@@ -190,9 +190,9 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
 
                 if (i == 0) {
                     try {
-                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -201,7 +201,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -283,7 +283,9 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
                     try {
-                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -291,7 +293,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -300,7 +302,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
 //                    Log.i("Filter_selected_value", Filter_selected_value);
 
                     for (Map.Entry<String, String> entry : OrderStatusKVP.entrySet()) {
-                        if(entry.getValue().equals(filters.get(i)))
+                        if (entry.getValue().equals(filters.get(i)))
                             Filter_selected_value = entry.getKey();
                     }
 

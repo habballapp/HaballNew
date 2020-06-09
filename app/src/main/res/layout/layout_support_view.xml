@@ -87,7 +87,7 @@
                     android:id="@+id/layout_txt_business_name"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="55dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="30dp"
