@@ -9,6 +9,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="27dp"
+        android:layout_marginEnd="27dp"
         android:layout_above="@+id/rl_line">
 
         <RelativeLayout
@@ -25,9 +27,7 @@
                     android:id="@+id/spinner_container"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/edit_text_squared">
 
                     <Spinner
@@ -53,9 +53,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_below="@id/spinner_container"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="5dp"
                     android:hint="Search by Item"
                     android:textColorHint="#676a6c"
                     android:theme="@style/TextLabelSearchBox">
@@ -74,13 +72,13 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/line_bottom_1"
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:layout_below="@+id/spinner_container_main_inner"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/line_seperator" />
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/line_bottom_1"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:layout_below="@+id/spinner_container_main_inner"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:background="@drawable/line_seperator" />-->
         </RelativeLayout>
 
         <RelativeLayout
@@ -91,9 +89,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_order_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp" />
+                android:layout_height="wrap_content" />
 
         </RelativeLayout>
     </RelativeLayout>
@@ -108,7 +104,7 @@
         <RelativeLayout
             android:id="@+id/line_bottom"
             android:layout_width="match_parent"
-            android:layout_height="5dp"
+            android:layout_height="1dp"
             android:background="@drawable/line_seperator" />
 
 
@@ -116,16 +112,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/asd"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginEnd="27dp"
+            android:layout_marginBottom="10dp"
             android:weightSum="2">
 
             <Button
                 android:id="@+id/close_button"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_height="45dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_round"
                 android:gravity="center"
@@ -138,11 +134,9 @@
             <Button
                 android:id="@+id/btn_checkout"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="45dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginEnd="-20dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_grey_round"
                 android:enabled="false"
@@ -151,7 +145,9 @@
                 android:text="Checkout"
                 android:textAllCaps="false"
                 android:textColor="#fff"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="-20dp" />
         </LinearLayout>
 
     </RelativeLayout>
