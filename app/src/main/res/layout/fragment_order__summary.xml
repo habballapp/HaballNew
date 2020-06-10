@@ -127,6 +127,7 @@
                     android:layout_height="wrap_content"
                     android:text="Total Discount:"
                     android:textSize="13sp"
+                    android:textColor="@color/rv_box_color"
                     android:fontFamily="@font/open_sans" />
 
                 <TextView
@@ -136,6 +137,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@+id/discount"
                     android:text="Rs. "
+                    android:textColor="@color/rv_box_color"
                     android:textSize="13sp"
                     android:fontFamily="@font/open_sans_semibold" />
 
@@ -145,35 +147,9 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/Rs_discount"
                     android:text=""
+                    android:textColor="@color/rv_box_color"
                     android:textSize="13sp"
                     android:fontFamily="@font/open_sans_semibold" />
-
-<!--                <TextView-->
-<!--                    android:id="@+id/gst"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_below="@id/discount"-->
-<!--                    android:layout_marginLeft="20dp"-->
-<!--                    android:text="GST 17%:" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/Rs_gst"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_below="@id/Rs_discount"-->
-<!--                    android:layout_marginLeft="5dp"-->
-<!--                    android:layout_toRightOf="@+id/gst"-->
-<!--                    android:text="Rs. "-->
-<!--                    android:textStyle="bold" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/gst_amount"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_below="@id/discount_amount"-->
-<!--                    android:layout_toRightOf="@+id/Rs_gst"-->
-<!--                    android:text="947.51"-->
-<!--                    android:textStyle="bold" />-->
 
                 <TextView
                     android:id="@+id/total"
@@ -182,6 +158,7 @@
                     android:layout_below="@id/discount"
                     android:text="Total Amount:"
                     android:textSize="13sp"
+                    android:textColor="@color/rv_box_color"
                     android:fontFamily="@font/open_sans" />
 
                 <TextView
@@ -192,6 +169,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@+id/total"
                     android:text="Rs. "
+                    android:textColor="@color/rv_box_color"
                     android:textSize="13sp"
                     android:fontFamily="@font/open_sans_semibold" />
 
@@ -202,6 +180,7 @@
                     android:layout_below="@id/discount_amount"
                     android:layout_toRightOf="@+id/rs_total"
                     android:text=""
+                    android:textColor="@color/rv_box_color"
                     android:textSize="13sp"
                     android:fontFamily="@font/open_sans_semibold" />
 

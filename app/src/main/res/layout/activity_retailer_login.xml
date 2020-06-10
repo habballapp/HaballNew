@@ -64,7 +64,6 @@
                         android:hint="Username Or Mobile No"
                         android:theme="@style/TextLabel"
                         app:boxBackgroundColor="#fff"
-                        app:boxStrokeColor="@color/box_stroke"
                         app:boxStrokeWidth="0.5dp"
                         >
 
