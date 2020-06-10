@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -66,7 +68,11 @@ public class Distribution_Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_distribution__login);
-        getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
+//        getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
+        Drawable background_drawable = getResources().getDrawable(R.drawable.background_logo);
+        background_drawable.setAlpha(80);
+        RelativeLayout rl_main_background = findViewById(R.id.rl_main_background);
+        rl_main_background.setBackground(background_drawable);
 
         et_username = findViewById(R.id.txt_username);
         et_password = findViewById(R.id.txt_password);

@@ -17,6 +17,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -67,6 +68,16 @@ public class StatusKVP {
         GetOrderStatusDefault();
         GetInvoiceStatusDefault();
         GetRetailerStatusDefault();
+
+    }
+
+    public void putInSharedPreferences() {
+        Gson gson = new Gson();
+        SharedPreferences prefs = context.getSharedPreferences("StatusKVP", context.MODE_PRIVATE);
+        prefs.edit().putString("RetailerIssueTypePrivateKVP", gson.toJson(RetailerIssueTypePrivateKVP)).apply();
+        prefs.edit().putString("RetailerContactingMethodKVP", gson.toJson(RetailerContactingMethodKVP)).apply();
+        prefs.edit().putString("RetailerCriticalityPrivateKVP", gson.toJson(RetailerCriticalityPrivateKVP)).apply();
+
     }
 
     private void GetOrderStatusDefault() {
@@ -109,6 +120,7 @@ public class StatusKVP {
 
     public HashMap<String, String> getOrderStatus() {
         wait_until_fetched(OrderStatusKVP);
+//        Log.i("StatusKVP1", String.valueOf(OrderStatusKVP));
         return OrderStatusKVP;
     }
 
@@ -206,53 +218,56 @@ public class StatusKVP {
                     JSONObject jsonObject = null;
                     for (int i = 0; i < result.length(); i++) {
                         jsonObject = result.getJSONObject(i);
-                        if(jsonObject.getString("type").equals("ORDER_STATUS"))
+                        if (jsonObject.getString("type").equals("ORDER_STATUS"))
                             RetailerOrderStatusKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
-                        else if(jsonObject.getString("type").equals("ORDER_STATE"))
+                        else if (jsonObject.getString("type").equals("ORDER_STATE"))
                             RetailerOrderStateKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
-                        else if(jsonObject.getString("type").equals("INVOICE_STATUS"))
+                        else if (jsonObject.getString("type").equals("INVOICE_STATUS"))
                             RetailerInvoiceStatusKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
-                        else if(jsonObject.getString("type").equals("DELIVERY_STATUS"))
+                        else if (jsonObject.getString("type").equals("DELIVERY_STATUS"))
                             RetailerDeliveryStatusKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
-                        else if(jsonObject.getString("type").equals("INVOICE_TYPE"))
+                        else if (jsonObject.getString("type").equals("INVOICE_TYPE"))
                             RetailerInvoiceTypeKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
-                        else if(jsonObject.getString("type").equals("KYC_STATUS"))
+                        else if (jsonObject.getString("type").equals("KYC_STATUS"))
                             RetailerKYCStatusKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
-                        else if(jsonObject.getString("type").equals("CONTRACT_STATUS"))
+                        else if (jsonObject.getString("type").equals("CONTRACT_STATUS"))
                             RetailerContractStatusKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
-                        else if(jsonObject.getString("type").equals("PREPAID_STATUS"))
+                        else if (jsonObject.getString("type").equals("PREPAID_STATUS"))
                             RetailerPrepaidStatusKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
-                        else if(jsonObject.getString("type").equals("ADDRESS_TYPE"))
+                        else if (jsonObject.getString("type").equals("ADDRESS_TYPE"))
                             RetailerAddressTypeKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
-                        else if(jsonObject.getString("type").equals("STATUS"))
+                        else if (jsonObject.getString("type").equals("STATUS"))
                             RetailerStatusKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
-                        else if(jsonObject.getString("type").equals("YES_NO"))
+                        else if (jsonObject.getString("type").equals("YES_NO"))
                             RetailerYesNoKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
-                        else if(jsonObject.getString("type").equals("ISSUE_TYPE_PRIVATE"))
+                        else if (jsonObject.getString("type").equals("ISSUE_TYPE_PRIVATE"))
                             RetailerIssueTypePrivateKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
-                        else if(jsonObject.getString("type").equals("CRITICALITY_PRIVATE"))
+                        else if (jsonObject.getString("type").equals("CRITICALITY_PRIVATE"))
                             RetailerCriticalityPrivateKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
-                        else if(jsonObject.getString("type").equals("CONTACTING_METHOD"))
+                        else if (jsonObject.getString("type").equals("CONTACTING_METHOD")) {
                             RetailerContactingMethodKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
-                        else if(jsonObject.getString("type").equals("TRANSACTION_DOC_TYPE"))
+//                            Log.i("statuskvp", String.valueOf(RetailerContactingMethodKVP));
+                        } else if (jsonObject.getString("type").equals("TRANSACTION_DOC_TYPE"))
                             RetailerTransactionDocTypeKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
-                        else if(jsonObject.getString("type").equals("ISSUE_TYPE_PUBLIC"))
+                        else if (jsonObject.getString("type").equals("ISSUE_TYPE_PUBLIC"))
                             RetailerIssueTypePublicKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
-                        else if(jsonObject.getString("type").equals("CRITICALITY_PUBLIC"))
+                        else if (jsonObject.getString("type").equals("CRITICALITY_PUBLIC"))
                             RetailerCriticalityPublicKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
-                        else if(jsonObject.getString("type").equals("INVOICE_STATE"))
+                        else if (jsonObject.getString("type").equals("INVOICE_STATE"))
                             RetailerInvoiceStateKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
-                        else if(jsonObject.getString("type").equals("RETURN_REASON"))
+                        else if (jsonObject.getString("type").equals("RETURN_REASON"))
                             RetailerReturnReasonKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
-                        else if(jsonObject.getString("type").equals("PROOF_OF_PAYMENT"))
+                        else if (jsonObject.getString("type").equals("PROOF_OF_PAYMENT"))
                             RetailerProofOfPaymentKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
-                        else if(jsonObject.getString("type").equals("ACCOUNT_WALLET_TYPE"))
+                        else if (jsonObject.getString("type").equals("ACCOUNT_WALLET_TYPE"))
                             RetailerAccountWalletTypeKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
-                        else if(jsonObject.getString("type").equals("ACCOUNT_WALLET_STATUS"))
+                        else if (jsonObject.getString("type").equals("ACCOUNT_WALLET_STATUS"))
                             RetailerAccountWalletStatusKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
-                        else if(jsonObject.getString("type").equals("SUPPORT_STATUS"))
+                        else if (jsonObject.getString("type").equals("SUPPORT_STATUS"))
                             RetailerSupportStatusKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                        putInSharedPreferences();
                     }
+//                    ReturnRetailerContactingMethodKVP();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -279,6 +294,10 @@ public class StatusKVP {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(context).add(sr);
+    }
+
+    public HashMap<String, String> ReturnRetailerContactingMethodKVP() {
+        return RetailerContactingMethodKVP;
     }
 
     public HashMap<String, String> getRetailerOrderStatusKVP() {
@@ -343,6 +362,7 @@ public class StatusKVP {
 
     public HashMap<String, String> getRetailerContactingMethodKVP() {
         wait_until_fetched(RetailerContactingMethodKVP);
+//        Log.i("statuskvp", String.valueOf(RetailerContactingMethodKVP));
         return RetailerContactingMethodKVP;
     }
 

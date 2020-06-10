@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -28,7 +29,11 @@ public class Register_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_);
-        LinearLayout ll_main_background;
+        Drawable background_drawable = getResources().getDrawable(R.drawable.background_logo);
+        background_drawable.setAlpha(80);
+        LinearLayout ll_main_background = findViewById(R.id.ll_main_background);
+        ll_main_background.setBackground(background_drawable);
+
         RelativeLayout rl_distributor = findViewById(R.id.rl_distributor);
         RelativeLayout rl_retailor = findViewById(R.id.rl_retailor);
 

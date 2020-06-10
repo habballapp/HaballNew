@@ -43,37 +43,47 @@
                 <!--                    android:background="@drawable/border_set"-->
                 <!--                    android:layout_marginLeft="20dp"-->
                 <!--                    android:layout_marginRight="40dp" />-->
-
-                <TextView
-                    android:id="@+id/payment_information_txt2"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:id="@+id/rl_payment_information_txt2"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
                     android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginTop="20dp"
-                    android:fontFamily="@font/open_sans_semibold"
-                    android:justificationMode="inter_word"
-                    android:text="PSID: "
-                    android:textAlignment="gravity"
-                    android:textSize="@dimen/payment_options_retailer" />
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/underline"
+                    >
 
-                <TextView
-                    android:id="@+id/payment_information_txt3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_toRightOf="@+id/payment_information_txt2"
-                    android:fontFamily="@font/open_sans_semibold"
-                    android:text="5494399392291912929"
-                    android:textSize="@dimen/payment_options_retailer" />
+                    <TextView
+                        android:id="@+id/payment_information_txt2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:justificationMode="inter_word"
+                        android:text="PSID: "
+                        android:textAlignment="gravity"
+                        android:textSize="@dimen/payment_options_retailer" />
+
+                    <TextView
+                        android:id="@+id/payment_information_txt3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/payment_information_txt2"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:text="5494399392291912929"
+                        android:textSize="@dimen/payment_options_retailer" />
+                </RelativeLayout>
+
 
                 <Button
                     android:id="@+id/update_password"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:layout_below="@+id/payment_information_txt2"
+                    android:layout_below="@+id/rl_payment_information_txt2"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="7dp"
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/button_round"
                     android:enabled="false"
@@ -104,6 +114,7 @@
                     android:layout_marginRight="40dp"
                     android:background="@drawable/border_set"
                     android:padding="10dp"
+                    android:fontFamily="@font/open_sans_semibold"
                     android:text="Internet &amp; Mobile Banking"
                     android:textColor="#96bb3c"
                     android:textSize="12sp" />
@@ -130,10 +141,10 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="20dp"
-                    android:textSize="@dimen/payment_options_text_retailer"
                     android:fontFamily="@font/open_sans"
                     android:justificationMode="none"
-                    android:text="@string/Txt_Pr1" />
+                    android:text="@string/Txt_Pr1"
+                    android:textSize="@dimen/payment_options_text_retailer" />
 
                 <TextView
                     android:id="@+id/txt_pr2"
@@ -143,8 +154,8 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:fontFamily="@font/open_sans"
-                    android:textSize="@dimen/payment_options_text_retailer"
                     android:text="@string/Txt_Pr2"
+                    android:textSize="@dimen/payment_options_text_retailer"
 
                     />
 
@@ -156,8 +167,8 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:fontFamily="@font/open_sans"
-                    android:textSize="@dimen/payment_options_text_retailer"
-                    android:text="@string/Txt_Pr3" />
+                    android:text="@string/Txt_Pr3"
+                    android:textSize="@dimen/payment_options_text_retailer" />
 
                 <TextView
                     android:id="@+id/txt_pr4"
@@ -167,8 +178,8 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:fontFamily="@font/open_sans"
-                    android:textSize="@dimen/payment_options_text_retailer"
-                    android:text="@string/Txt_Pr4" />
+                    android:text="@string/Txt_Pr4"
+                    android:textSize="@dimen/payment_options_text_retailer" />
 
                 <TextView
                     android:id="@+id/txt_pr5"
@@ -177,8 +188,8 @@
                     android:layout_below="@id/txt_pr4"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
-                    android:textSize="@dimen/payment_options_text_retailer"
-                    android:text="@string/Txt_Pr1" />
+                    android:text="@string/Txt_Pr1"
+                    android:textSize="@dimen/payment_options_text_retailer" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -198,6 +209,7 @@
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/border_set"
                     android:padding="10dp"
+                    android:fontFamily="@font/open_sans_semibold"
                     android:text="Over the Counter"
                     android:textColor="#96bb3c"
                     android:textSize="12sp" />
@@ -210,11 +222,11 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="20dp"
-                    android:textSize="@dimen/payment_options_text_retailer"
                     android:fontFamily="@font/open_sans_semibold"
                     android:justificationMode="inter_word"
                     android:text="@string/Txt_Header2"
-                    android:textAlignment="gravity" />
+                    android:textAlignment="gravity"
+                    android:textSize="@dimen/payment_options_text_retailer" />
 
                 <TextView
                     android:id="@+id/txt_counter1"
@@ -224,9 +236,9 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="20dp"
-                    android:textSize="@dimen/payment_options_text_retailer"
                     android:fontFamily="@font/open_sans"
-                    android:text="@string/Txt_Pr6" />
+                    android:text="@string/Txt_Pr6"
+                    android:textSize="@dimen/payment_options_text_retailer" />
 
                 <TextView
                     android:id="@+id/txt_counter2"
@@ -236,8 +248,8 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:fontFamily="@font/open_sans"
-                    android:textSize="@dimen/payment_options_text_retailer"
-                    android:text="@string/Txt_Pr7" />
+                    android:text="@string/Txt_Pr7"
+                    android:textSize="@dimen/payment_options_text_retailer" />
 
 
                 <TextView
@@ -248,8 +260,8 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:fontFamily="@font/open_sans"
-                    android:textSize="@dimen/payment_options_text_retailer"
-                    android:text="@string/Txt_Pr8" />
+                    android:text="@string/Txt_Pr8"
+                    android:textSize="@dimen/payment_options_text_retailer" />
 
                 <TextView
                     android:id="@+id/txt_counter4"
@@ -259,8 +271,8 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:fontFamily="@font/open_sans"
-                    android:textSize="@dimen/payment_options_text_retailer"
-                    android:text="@string/Txt_Pr9" />
+                    android:text="@string/Txt_Pr9"
+                    android:textSize="@dimen/payment_options_text_retailer" />
 
                 <TextView
                     android:id="@+id/txt_counter5"
@@ -270,8 +282,8 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:fontFamily="@font/open_sans"
-                    android:textSize="@dimen/payment_options_text_retailer"
-                    android:text="@string/Txt_Pr10" />
+                    android:text="@string/Txt_Pr10"
+                    android:textSize="@dimen/payment_options_text_retailer" />
 
 
             </RelativeLayout>
@@ -292,6 +304,7 @@
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/border_set"
                     android:padding="10dp"
+                    android:fontFamily="@font/open_sans_semibold"
                     android:text="ATM"
                     android:textColor="#96bb3c"
                     android:textSize="12sp" />
@@ -304,10 +317,10 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="20dp"
-                    android:textSize="@dimen/payment_options_text_retailer"
                     android:fontFamily="@font/open_sans_semibold"
                     android:text="@string/Txt_Header3"
-                    android:textAlignment="gravity" />
+                    android:textAlignment="gravity"
+                    android:textSize="@dimen/payment_options_text_retailer" />
 
                 <TextView
                     android:id="@+id/txt_atm1"
@@ -318,8 +331,8 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="20dp"
                     android:fontFamily="@font/open_sans"
-                    android:textSize="@dimen/payment_options_text_retailer"
-                    android:text="@string/Txt_Pr11" />
+                    android:text="@string/Txt_Pr11"
+                    android:textSize="@dimen/payment_options_text_retailer" />
 
                 <TextView
                     android:id="@+id/txt_atm2"
@@ -329,8 +342,8 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:fontFamily="@font/open_sans"
-                    android:textSize="@dimen/payment_options_text_retailer"
-                    android:text="@string/Txt_Pr12" />
+                    android:text="@string/Txt_Pr12"
+                    android:textSize="@dimen/payment_options_text_retailer" />
 
 
                 <TextView
@@ -341,8 +354,8 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:fontFamily="@font/open_sans"
-                    android:textSize="@dimen/payment_options_text_retailer"
-                    android:text="@string/Txt_Pr13" />
+                    android:text="@string/Txt_Pr13"
+                    android:textSize="@dimen/payment_options_text_retailer" />
 
                 <TextView
                     android:id="@+id/txt_atm4"
@@ -352,8 +365,8 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:fontFamily="@font/open_sans"
-                    android:textSize="@dimen/payment_options_text_retailer"
-                    android:text="@string/Txt_Pr14" />
+                    android:text="@string/Txt_Pr14"
+                    android:textSize="@dimen/payment_options_text_retailer" />
 
             </RelativeLayout>
 

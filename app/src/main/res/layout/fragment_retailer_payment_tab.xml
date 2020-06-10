@@ -348,7 +348,7 @@
                 <Button
                     android:id="@+id/button_view_receipt"
                     android:layout_width="match_parent"
-                    android:layout_height="37dp"
+                    android:layout_height="@dimen/retailer_button_size"
                     android:layout_below="@+id/layout_txt_total_amount"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="10dp"
@@ -365,7 +365,7 @@
                 <Button
                     android:id="@+id/button_back"
                     android:layout_width="match_parent"
-                    android:layout_height="37dp"
+                    android:layout_height="@dimen/retailer_button_size"
                     android:layout_below="@+id/button_view_receipt"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="10dp"
