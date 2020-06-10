@@ -119,7 +119,8 @@ public class PlaceholderFragment extends Fragment {
         StatusKVPClass = new StatusKVP(getContext(), Token);
         OrderStatusKVP = StatusKVPClass.getOrderStatus();
         InvoiceStatusKVP = StatusKVPClass.getInvoiceStatus();
-//        Log.i("StatusKVP1", String.valueOf(StatusKVP));
+        Log.i("StatusKVP1", "String.valueOf(OrderStatusKVP)");
+        Log.i("StatusKVP1", String.valueOf(OrderStatusKVP));
 
         View rootView = null;
         switch (getArguments().getInt(ARG_SECTION_NUMBER)) {

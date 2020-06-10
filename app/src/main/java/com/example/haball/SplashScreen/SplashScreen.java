@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.example.haball.Distributor.DistributorDashboard;
+import com.example.haball.Distributor.StatusKVP;
 import com.example.haball.R;
 import com.example.haball.Distribution_Login.Distribution_Login;
 import com.example.haball.Retailer_Login.RetailerLogin;
@@ -72,6 +73,7 @@ public class SplashScreen extends AppCompatActivity {
                         finish();
                     } else if (sharedPreferences.getString("User_Type", "").equals("Retailer")) {
                         Intent intent = new Intent(SplashScreen.this, RetailorDashboard.class);
+                        StatusKVP statusKVP = new StatusKVP(getApplicationContext(), Token);
                         startActivity(intent);
                         finish();
                     } else {

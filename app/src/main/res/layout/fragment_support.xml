@@ -269,17 +269,16 @@
                 android:layout_marginLeft="27dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="27dp" />
-
             <TextView
                 android:id="@+id/tv_shipment_no_data"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="27dp"
-                android:layout_marginRight="27dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/open_sans"
                 android:gravity="center"
                 android:text="No Data Available"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/no_data_available_size" />
+
         </RelativeLayout>
 
         <!--            <TextView-->

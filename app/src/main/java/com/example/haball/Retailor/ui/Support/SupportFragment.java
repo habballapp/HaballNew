@@ -128,7 +128,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
-        tv_shipment_no_data.setVisibility(View.GONE);
+        tv_shipment_no_data.setVisibility(View.VISIBLE);
 
         try {
             fetchSupport();
@@ -136,7 +136,6 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
             e.printStackTrace();
         }
 
-        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
         search_bar = root.findViewById(R.id.search_bar);
         search_rl = root.findViewById(R.id.search_rl);
 
@@ -150,8 +149,6 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
-        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
-        tv_shipment_no_data.setVisibility(View.GONE);
         spinner_container1 = root.findViewById(R.id.spinner_container1);
         spinner_container1.setVisibility(View.GONE);
         date_filter_rl.setVisibility(View.GONE);
@@ -234,7 +231,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                     } else if (Filter_selected.equals("Status")) {
 
                         Filter_selected = "Status";
-                        tv_shipment_no_data.setVisibility(View.GONE);
+                        tv_shipment_no_data.setVisibility(View.VISIBLE);
                         spinner_container1.setVisibility(View.VISIBLE);
 
                         filters.add("Status");
@@ -450,13 +447,20 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 }.getType();
                 try {
                     SupportList = gson.fromJson(String.valueOf(response.get(0)), type);
+
+                    if (SupportList.size() != 0) {
+                        tv_shipment_no_data.setVisibility(View.GONE);
+
+                    } else {
+
+                        tv_shipment_no_data.setVisibility(View.VISIBLE);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
                 mAdapter = new SupportDashboardRetailerAdapter(getContext(), SupportList);
                 recyclerView.setAdapter(mAdapter);
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -506,6 +510,15 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 }.getType();
                 try {
                     SupportList = gson.fromJson(String.valueOf(response.get(0)), type);
+
+                    if (SupportList.size() != 0) {
+                        tv_shipment_no_data.setVisibility(View.GONE);
+
+                    } else {
+
+                        tv_shipment_no_data.setVisibility(View.VISIBLE);
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -513,13 +526,6 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 mAdapter = new SupportDashboardRetailerAdapter(getContext(), SupportList);
                 recyclerView.setAdapter(mAdapter);
 
-                if (response.length() != 0) {
-                    tv_shipment_no_data.setVisibility(View.GONE);
-
-                } else {
-
-                    tv_shipment_no_data.setVisibility(View.VISIBLE);
-                }
 
             }
         }, new Response.ErrorListener() {
