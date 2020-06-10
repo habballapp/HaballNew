@@ -194,7 +194,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/open_sans_semibold"
-                android:text="* On changing the password,you woulde be logged out of the account"
+                android:text="* On changing the password, you would be logged out of the account"
                 ></TextView>
 
 
