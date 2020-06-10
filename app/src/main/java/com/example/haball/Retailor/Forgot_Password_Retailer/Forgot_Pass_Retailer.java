@@ -30,6 +30,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
+import com.example.haball.TextField;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,7 +48,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Forgot_Pass_Retailer extends AppCompatActivity {
 //    private ImageButton btn_back;
-    private EditText txt_email;
+    private TextInputEditText txt_email;
+    private TextInputLayout layout_email_phone;
     private TextView heading;
     private Button btn_lgn,btn_reset;
     private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4014/api/retailer/CheckEmail";
@@ -56,6 +60,11 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.actvity_forgot_pass_retailer );
         getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
+        layout_email_phone = findViewById(R.id.layout_email_phone);
+        txt_email = findViewById(R.id.txt_email);
+
+
+        new TextField().changeColor(this,layout_email_phone,txt_email);
 
 
 //        ActionBar bar = getSupportActionBar();
