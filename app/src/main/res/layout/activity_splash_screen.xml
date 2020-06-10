@@ -4,13 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FBFBFB"
     android:backgroundTintMode="src_over"
-    android:background="@drawable/background_logo"
     tools:context=".SplashScreen.SplashScreen">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="@drawable/haballlogo1" />
+    <RelativeLayout
+        android:id="@+id/rl_main_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/haballlogo1" />
+
+    </RelativeLayout>
 </RelativeLayout>

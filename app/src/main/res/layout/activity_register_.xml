@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:background="@drawable/background_logo"
+    android:background="#FBFBFB"
     tools:context=".Select_User.Register_Activity">
 
     <include
@@ -16,7 +16,7 @@
         android:id="@+id/ll_main_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="44dp"
         android:orientation="vertical"
         android:weightSum="6">
 

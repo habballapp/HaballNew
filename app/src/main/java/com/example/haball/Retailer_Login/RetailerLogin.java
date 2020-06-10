@@ -76,14 +76,11 @@ public class RetailerLogin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        Drawable background_drawable = getResources().getDrawable(R.drawable.background_logo);
-//        background_drawable.setAlpha(20);
-//        getWindow().setBackgroundDrawable(background_drawable);
-////        getWindow().alp
-////        getBackground().setAlpha(50)
         setContentView(R.layout.activity_retailer_login);
-        getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
-//        RelativeLayout rl_main_background = findViewById(R.id.rl_main_background);
+        Drawable background_drawable = getResources().getDrawable(R.drawable.background_logo);
+        background_drawable.setAlpha(80);
+        RelativeLayout rl_main_background = findViewById(R.id.rl_main_background);
+        rl_main_background.setBackground(background_drawable);
         btn_login = findViewById(R.id.retailer_btn_login);
         btn_login.setEnabled(false);
         btn_login.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));

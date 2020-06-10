@@ -2,6 +2,7 @@ package com.example.haball.Support.Support_Ditributor;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -16,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -83,6 +85,10 @@ public class Support_Ticket_Form extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_need__support);
         getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
+        Drawable background_drawable = getResources().getDrawable(R.drawable.background_logo);
+        background_drawable.setAlpha(80);
+        RelativeLayout rl_main_background = findViewById(R.id.rl_main_background);
+        rl_main_background.setBackground(background_drawable);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(false);

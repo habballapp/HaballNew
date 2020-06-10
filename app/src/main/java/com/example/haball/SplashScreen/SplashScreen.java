@@ -9,9 +9,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.RelativeLayout;
 
 import com.example.haball.Distributor.DistributorDashboard;
 import com.example.haball.Distributor.StatusKVP;
@@ -33,6 +35,10 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        Drawable background_drawable = getResources().getDrawable(R.drawable.background_logo);
+        background_drawable.setAlpha(80);
+        RelativeLayout rl_main_background = findViewById(R.id.rl_main_background);
+        rl_main_background.setBackground(background_drawable);
 
         new Handler().postDelayed(new Runnable() {
 

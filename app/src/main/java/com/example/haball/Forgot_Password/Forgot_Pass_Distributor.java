@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -57,25 +59,29 @@ public class Forgot_Pass_Distributor extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_forgot__pass__distributor );
-        getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
+//        getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
+        Drawable background_drawable = getResources().getDrawable(R.drawable.background_logo);
+        background_drawable.setAlpha(80);
+        RelativeLayout rl_main_background = findViewById(R.id.rl_main_background);
+        rl_main_background.setBackground(background_drawable);
 
-
-        ActionBar bar = getSupportActionBar();
-        assert bar != null;
-        bar.setBackgroundDrawable( new ColorDrawable( Color.parseColor( "#FFFFFF" ) ) );
+//
+//        ActionBar bar = getSupportActionBar();
+//        assert bar != null;
+//        bar.setBackgroundDrawable( new ColorDrawable( Color.parseColor( "#FFFFFF" ) ) );
 
         LayoutInflater inflater = LayoutInflater.from( this );
         txt_email = findViewById( R.id.txt_email );
         layout_email_phone = findViewById(R.id.layout_email_phone);
         progressDialog = new ProgressDialog( this );
 
-        @SuppressLint("InflateParams") View customView = inflater.inflate( R.layout.action_bar_main, null );
-
-        bar.setCustomView( customView );
-        bar.setDisplayShowCustomEnabled( true );
-        bar.setBackgroundDrawable( new ColorDrawable( Color.parseColor( "#FFFFFF" ) ) );
-        bar.setTitle( "" );
-        btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
+//        @SuppressLint("InflateParams") View customView = inflater.inflate( R.layout.action_bar_main, null );
+//
+//        bar.setCustomView( customView );
+//        bar.setDisplayShowCustomEnabled( true );
+//        bar.setBackgroundDrawable( new ColorDrawable( Color.parseColor( "#FFFFFF" ) ) );
+//        bar.setTitle( "" );
+//        btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
          btn_reset = findViewById( R.id.btn_reset );
 
         btn_reset.setEnabled( false );
@@ -102,13 +108,13 @@ public class Forgot_Pass_Distributor extends AppCompatActivity {
 
             }
         } );
-
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+//
+//        btn_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
 
         btn_lgn = findViewById( R.id.btn_lgn );
         btn_lgn.setOnClickListener( new View.OnClickListener() {
