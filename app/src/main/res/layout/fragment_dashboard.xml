@@ -8,14 +8,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="30dp">
+        android:layout_marginLeft="27dp"
+        android:layout_marginRight="27dp"
+        >
 
         <RelativeLayout
             android:id="@+id/rl_unpaid_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/edit_text_squared">
             <TextView
                 android:id="@+id/tv_unpaid_amount"
@@ -42,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_below="@+id/rl_unpaid_amount"
             android:background="@drawable/edit_text_squared">
             <TextView
@@ -71,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_below="@+id/rl_paid_amount"
             android:background="@drawable/edit_text_squared">
             <TextView

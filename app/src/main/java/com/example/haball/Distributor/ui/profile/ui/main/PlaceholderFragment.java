@@ -737,7 +737,7 @@ public class PlaceholderFragment extends Fragment {
                             final Dialog fbDialogue = new Dialog(getActivity());
                             //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
                             fbDialogue.setContentView(R.layout.password_updatepopup);
-                            tv_pr1 = fbDialogue.findViewById(R.id.tv_pr1);
+                            tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
                             tv_pr1.setText("User Profile ID " + ID + " password has been changed successfully.");
                             fbDialogue.setCancelable(true);
                             fbDialogue.show();

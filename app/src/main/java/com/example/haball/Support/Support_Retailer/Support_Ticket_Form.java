@@ -37,7 +37,10 @@ import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
 import com.example.haball.Retailer_Login.RetailerLogin;
 import com.example.haball.Select_User.Register_Activity;
+import com.example.haball.TextField;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,7 +58,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Support_Ticket_Form extends AppCompatActivity {
 
-    private EditText BName, Email, MobileNo, Comment;
+    private TextInputEditText BName, Email, MobileNo, Comment;
+    private TextInputLayout layout_BName,layout_Email,layout_MobileNo,layout_Comment;
 //    private ImageButton btn_back;
     private Spinner IssueType, critcicality, Preffered_Contact;
     private String URL_SPINNER_DATA = "http://175.107.203.97:4014/api/support/PublicUsers";
@@ -76,6 +80,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
     private ArrayAdapter<String> arrayAdapterIssueType, arrayAdapterCriticality, arrayAdapterPreferredContact;
 
     private Button login_submit, login_btn;
+
 
     private String DistributorId;
 //    private TextView tv_main_heading, tv_sub_heading;
@@ -111,6 +116,11 @@ public class Support_Ticket_Form extends AppCompatActivity {
         critcicality = findViewById(R.id.critcicality);
         Preffered_Contact = findViewById(R.id.Preffered_Contact);
         login_submit = findViewById(R.id.login_submit);
+        layout_BName = findViewById(R.id.layout_BName);
+        layout_Email = findViewById(R.id.layout_Email);
+        layout_MobileNo = findViewById(R.id.layout_MobileNo);
+        layout_Comment = findViewById(R.id.layout_Comment);
+
 //        tv_main_heading = findViewById(R.id.tv_main_heading);
 //        tv_main_heading.setText(String.valueOf(tv_main_heading.getText()).replace("Distributor", "Retailer"));
 //        tv_sub_heading = findViewById(R.id.tv_sub_heading);
@@ -118,6 +128,10 @@ public class Support_Ticket_Form extends AppCompatActivity {
 
         login_submit.setEnabled(false);
         login_submit.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+        new TextField().changeColor(this, layout_BName, BName);
+        new TextField().changeColor(this, layout_Email, Email);
+        new TextField().changeColor(this,  layout_MobileNo , MobileNo);
+        new TextField().changeColor(this, layout_Comment, Comment);
 
         login_btn = findViewById(R.id.login_btn);
 //        btn_back = (ImageButton) customView.findViewById(R.id.btn_back);

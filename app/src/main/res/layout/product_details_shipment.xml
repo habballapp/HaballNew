@@ -29,8 +29,8 @@
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/product_code"
         android:text="PC_1002312324251524"
-        android:textStyle="bold"
-        android:fontFamily="@font/open_sans"
+
+        android:fontFamily="@font/open_sans_semibold"
         android:textColor="@color/rv_box_color"
         android:textSize="@dimen/rv_box_text_size" />
 
@@ -89,7 +89,6 @@
        />
 
 
-
     <TextView
         android:id="@+id/unit_pkr"
         android:layout_width="wrap_content"
@@ -97,8 +96,8 @@
         android:layout_below="@+id/shipment_quantity"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/tv_consolidate_amount"
-        android:text="PKR "
         android:fontFamily="@font/open_sans"
+        android:text="PKR "
         android:textColor="@color/rv_box_color"
         android:textSize="@dimen/rv_box_text_size" />
     <TextView

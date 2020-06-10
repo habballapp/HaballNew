@@ -90,15 +90,15 @@ public class Support_Ticket_Form extends AppCompatActivity {
         RelativeLayout rl_main_background = findViewById(R.id.rl_main_background);
         rl_main_background.setBackground(background_drawable);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.setDisplayShowHomeEnabled(false);
+//        actionBar.setDisplayShowTitleEnabled(false);
 
         LayoutInflater inflater = LayoutInflater.from(this);
         View customView = inflater.inflate(R.layout.action_bar_main, null);
 
-        actionBar.setCustomView(customView);
-        actionBar.setDisplayShowCustomEnabled(true);
+//        actionBar.setCustomView(customView);
+//        actionBar.setDisplayShowCustomEnabled(true);
 
 
         BName = findViewById(R.id.BName);
