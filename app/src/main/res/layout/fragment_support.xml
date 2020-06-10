@@ -7,14 +7,18 @@
     android:background="#fff"
     android:theme="@style/AppTheme"
     tools:context=".Retailor.ui.Support.SupportFragment">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="27dp"
+        android:layout_marginEnd="27dp"
+        >
 
     <LinearLayout
         android:id="@+id/ll_tv_support"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="27dp"
         android:layout_marginTop="20dp"
-        android:layout_marginRight="27dp"
         android:background="@drawable/underline"
         android:orientation="horizontal"
         android:weightSum="5.3">
@@ -45,15 +49,6 @@
             android:textSize="13.6sp" />
     </LinearLayout>
 
-<!--    <RelativeLayout-->
-<!--        android:id="@+id/line"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="1dp"-->
-<!--        android:layout_below="@+id/ll_tv_support"-->
-<!--        android:layout_marginLeft="27dp"-->
-<!--        android:layout_marginRight="27dp"-->
-<!--        android:background="@drawable/horizontal_black_line" />-->
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -63,21 +58,6 @@
             android:id="@+id/spinner_container_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <!--            <Button-->
-            <!--                android:id="@+id/btn_add_ticket_retailer"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="45dp"-->
-            <!--                android:layout_marginLeft="27dp"-->
-            <!--                android:layout_marginTop="15dp"-->
-            <!--                android:layout_marginRight="27dp"-->
-            <!--                android:background="@drawable/button_background"-->
-            <!--                android:text="Add Ticket"-->
-            <!--                android:textAllCaps="false"-->
-            <!--                android:textColor="#fff"-->
-            <!--                android:textSize="18sp" />-->
-
-
             <RelativeLayout
                 android:id="@+id/spinner_container_main_inner"
                 android:layout_width="match_parent"
@@ -87,9 +67,7 @@
                     android:id="@+id/spinner_container"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="27dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginRight="27dp"
                     android:background="@drawable/edit_text_squared">
 
                     <Spinner
@@ -113,20 +91,27 @@
                 <RelativeLayout
                     android:id="@+id/spinner_container1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_below="@+id/spinner_container"
-                    android:layout_marginLeft="27dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="27dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/edit_text_squared"
                     android:visibility="gone">
 
                     <Spinner
                         android:id="@+id/conso_spinner2"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="match_parent"
+                        android:background="@null"
                         android:dropDownWidth="match_parent"
-                        android:popupBackground="@drawable/spinner_round"
+                        android:popupBackground="@drawable/spinner_round" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignTop="@id/conso_spinner2"
+                        android:layout_alignEnd="@+id/conso_spinner2"
+                        android:layout_alignRight="@+id/conso_spinner2"
+                        android:src="@drawable/ic_arrow_drop_down_black_24dp"
                         android:theme="@style/Spinner" />
                 </RelativeLayout>
 
@@ -135,9 +120,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/spinner_container"
-                    android:layout_marginLeft="27dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="27dp"
+                    android:layout_marginTop="5dp"
                     android:visibility="gone">
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -166,9 +149,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/spinner_container"
-                    android:layout_marginLeft="27dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="27dp"
+                    android:layout_marginTop="20dp"
                     android:orientation="horizontal"
                     android:visibility="gone"
                     android:weightSum="4">
@@ -265,10 +246,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_support_complaints_retailer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="27dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="27dp" />
+                android:layout_height="match_parent" />
             <TextView
                 android:id="@+id/tv_shipment_no_data"
                 android:layout_width="match_parent"
@@ -291,4 +269,5 @@
         <!--                android:gravity="center"-->
         <!--                android:text="© Haball | All rights reserved" />-->
     </RelativeLayout>
+</RelativeLayout>
 </RelativeLayout>

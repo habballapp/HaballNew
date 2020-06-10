@@ -172,20 +172,20 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 search_rl.setVisibility(View.GONE);
                 if (i == 0) {
                     try {
-                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
                 } else {
-                        try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                            ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
-                        } catch (NullPointerException ex) {
-                            ex.printStackTrace();
-                        }
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
                     Filter_selected = consolidate_felter.get(i);
                     spinner2.setSelection(0);
                     conso_edittext.setText("");
@@ -266,12 +266,12 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (Filter_selected.equals("Status")) {
+                if (Filter_selected.equals("Status") || Filter_selected.equals("IssueType")) {
                     if (i == 0) {
                         try {
-                               ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                             ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                            ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                            ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                         } catch (NullPointerException e) {
                             e.printStackTrace();
                         }
@@ -279,7 +279,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                         try {
                             ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                             ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                            ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                            ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                         } catch (NullPointerException ex) {
                             ex.printStackTrace();
                         }
