@@ -75,6 +75,7 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
 //        heading = (TextView)findViewById( R.id.heading );
 //        heading.setText( "Welcome To Retailer Portal" );
 //        btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
+
         btn_reset =  (Button)findViewById( R.id.btn_reset_ret);
        Log.i( "Btn-Reset","Button");
         btn_reset.setEnabled( false );

@@ -59,10 +59,10 @@ public class Forgot_Pass_Distributor extends AppCompatActivity {
         setContentView( R.layout.activity_forgot__pass__distributor );
         getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
 
-
-        ActionBar bar = getSupportActionBar();
-        assert bar != null;
-        bar.setBackgroundDrawable( new ColorDrawable( Color.parseColor( "#FFFFFF" ) ) );
+//
+//        ActionBar bar = getSupportActionBar();
+//        assert bar != null;
+//       bar.setBackgroundDrawable( new ColorDrawable( Color.parseColor( "#FFFFFF" ) ) );
 
         LayoutInflater inflater = LayoutInflater.from( this );
         txt_email = findViewById( R.id.txt_email );
@@ -71,11 +71,11 @@ public class Forgot_Pass_Distributor extends AppCompatActivity {
 
         @SuppressLint("InflateParams") View customView = inflater.inflate( R.layout.action_bar_main, null );
 
-        bar.setCustomView( customView );
-        bar.setDisplayShowCustomEnabled( true );
-        bar.setBackgroundDrawable( new ColorDrawable( Color.parseColor( "#FFFFFF" ) ) );
-        bar.setTitle( "" );
-        btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
+//        bar.setCustomView( customView );
+//        bar.setDisplayShowCustomEnabled( true );
+//     bar.setBackgroundDrawable( new ColorDrawable( Color.parseColor( "#FFFFFF" ) ) );
+//        bar.setTitle( "" );
+ //       btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
          btn_reset = findViewById( R.id.btn_reset );
 
         btn_reset.setEnabled( false );
@@ -103,12 +103,12 @@ public class Forgot_Pass_Distributor extends AppCompatActivity {
             }
         } );
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+//        btn_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
 
         btn_lgn = findViewById( R.id.btn_lgn );
         btn_lgn.setOnClickListener( new View.OnClickListener() {
