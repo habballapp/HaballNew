@@ -90,8 +90,8 @@ public class RetailerLogin extends AppCompatActivity {
         layout_username = findViewById(R.id.layout_username);
         layout_password = findViewById(R.id.layout_password);
 
-        layout_username.setBoxStrokeColor(getResources().getColor(R.color.color_text));
-        layout_password.setBoxStrokeColor(getResources().getColor(R.color.color_text));
+        layout_username.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
+        layout_password.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
 
         progressDialog = new ProgressDialog(this);
 
@@ -108,7 +108,7 @@ public class RetailerLogin extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                layout_password.setBoxStrokeColor(getResources().getColor(R.color.color_text));
+                layout_password.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
              //   layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
                 et_password.setTextColor(getResources().getColor(R.color.textcolor));
                 layout_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));

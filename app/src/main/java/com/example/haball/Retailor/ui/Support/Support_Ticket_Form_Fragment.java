@@ -35,7 +35,10 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
 import com.example.haball.Support.Support_Ditributor.Support_Ticket_Form;
+import com.example.haball.TextField;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,7 +60,8 @@ import androidx.fragment.app.FragmentTransaction;
  */
 public class Support_Ticket_Form_Fragment extends Fragment {
 
-    private EditText BName, Email, MobileNo, Comment;
+    private TextInputEditText BName, Email, MobileNo, Comment;
+    private TextInputLayout layout_BName, layout_Email, layout_MobileNo, layout_Comment;
     private String DistributorId;
     private ImageButton btn_back;
     private Spinner IssueType, critcicality, Preffered_Contact;
@@ -105,12 +109,23 @@ public class Support_Ticket_Form_Fragment extends Fragment {
         Email = root.findViewById(R.id.Email);
         MobileNo = root.findViewById(R.id.MobileNo);
         Comment = root.findViewById(R.id.Comment);
+
+        layout_BName = root.findViewById(R.id.layout_BName);
+        layout_Email = root.findViewById(R.id.layout_Email);
+        layout_MobileNo = root.findViewById(R.id.layout_MobileNo);
+        layout_Comment = root.findViewById(R.id.layout_Comment);
+
         IssueType = root.findViewById(R.id.IssueType);
         critcicality = root.findViewById(R.id.critcicality);
         Preffered_Contact = root.findViewById(R.id.Preffered_Contact);
         ticket_btn = root.findViewById(R.id.ticket_btn);
         ticket_btn.setEnabled(false);
         ticket_btn.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+
+        new TextField().changeColor(getContext(), layout_BName, BName);
+        new TextField().changeColor(getContext(), layout_Email, Email);
+        new TextField().changeColor(getContext(), layout_MobileNo, MobileNo);
+        new TextField().changeColor(getContext(), layout_Comment, Comment);
 
         Email.setText(email);
         MobileNo.setText(phone_number);

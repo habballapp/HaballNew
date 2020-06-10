@@ -31,6 +31,7 @@
                 android:fontFamily="@font/open_sans_semibold"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
+                app:boxStrokeColor="@color/box_stroke"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -57,6 +58,7 @@
                 android:fontFamily="@font/open_sans"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
+                app:boxStrokeColor="@color/box_stroke"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -75,7 +77,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-
+                android:id="@+id/layout_email_retailer"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="20dp"
@@ -111,6 +113,7 @@
                 android:fontFamily="@font/open_sans"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
+                app:boxStrokeColor="@color/box_stroke"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -128,7 +131,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-
+                android:id="@+id/layout_Rmobile"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="20dp"
@@ -163,6 +166,7 @@
                 android:fontFamily="@font/open_sans"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
+                app:boxStrokeColor="@color/box_stroke"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -180,7 +184,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-
+                android:id="@+id/layout_R_Address"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginTop="20dp"

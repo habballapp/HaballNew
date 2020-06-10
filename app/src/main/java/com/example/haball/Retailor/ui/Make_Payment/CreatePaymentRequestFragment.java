@@ -36,6 +36,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.payments.PaymentScreen3Fragment;
 import com.example.haball.R;
+import com.example.haball.TextField;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,7 +72,8 @@ public class CreatePaymentRequestFragment extends Fragment {
     private Spinner spinner_company;
     private ArrayAdapter<String> arrayAdapterPayments;
     private String company_names;
-    private EditText txt_amount;
+    private TextInputEditText txt_amount;
+    private TextInputLayout layout_txt_amount;
     private String prepaid_number;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -82,9 +86,12 @@ public class CreatePaymentRequestFragment extends Fragment {
         btn_create.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
         spinner_company = root.findViewById(R.id.spinner_company);
         txt_amount = root.findViewById(R.id.txt_amount);
-
+        layout_txt_amount = root.findViewById(R.id.layout_txt_amount);
         CompanyNames.add("Company *");
         company_names = "";
+
+        new TextField().changeColor(getContext(), layout_txt_amount, txt_amount);
+
 
         arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, CompanyNames);

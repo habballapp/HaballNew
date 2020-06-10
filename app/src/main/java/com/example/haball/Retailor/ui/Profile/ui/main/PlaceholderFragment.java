@@ -47,6 +47,8 @@ import com.example.haball.Retailer_Login.RetailerLogin;
 import com.example.haball.Retailor.ui.Profile.Profile_Tabs;
 import com.example.haball.Select_User.Register_Activity;
 import com.example.haball.SplashScreen.SplashScreen;
+import com.example.haball.TextField;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
@@ -77,7 +79,8 @@ public class PlaceholderFragment extends Fragment {
     private String PROFILE_URL = "http://175.107.203.97:4014/api/retailer/";
     private String RetailerId, ID, username, CompanyName;
     private Button btn_changepwd, btn_save_password, update_password;
-    private EditText Rfirstname, Remail, Rcode, Rcnic, Rmobile, R_created_date, R_Address, txt_password, txt_newpassword, txt_cfmpassword;
+    private TextInputEditText Rfirstname, Remail, Rcode, Rcnic, Rmobile, R_created_date, R_Address, txt_password, txt_newpassword, txt_cfmpassword;
+    private TextInputLayout layout_Remail, layout_Rmobile, layout_R_Address;
     private Dialog change_password_dail;
     private Boolean password_check = false, confirm_password_check = false;
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -124,6 +127,10 @@ public class PlaceholderFragment extends Fragment {
                 Rcnic = root.findViewById(R.id.Rcnic);
                 R_created_date = root.findViewById(R.id.R_created_date);
 
+                layout_Remail = root.findViewById(R.id.layout_email_retailer);
+                layout_Rmobile = root.findViewById(R.id.layout_Rmobile);
+                layout_R_Address = root.findViewById(R.id.layout_R_Address);
+
                 Remail = root.findViewById(R.id.email_retailer);
                 Rmobile = root.findViewById(R.id.Rmobile);
                 R_Address = root.findViewById(R.id.R_Address);
@@ -131,6 +138,10 @@ public class PlaceholderFragment extends Fragment {
                 Remail.setFocusable(false);
                 Rmobile.setFocusable(false);
                 R_Address.setFocusable(false);
+
+                new TextField().changeColor(getContext(), layout_Remail, Remail);
+                new TextField().changeColor(getContext(), layout_Rmobile, Rmobile);
+                new TextField().changeColor(getContext(), layout_R_Address, R_Address);
 
                 Remail.setOnTouchListener(new View.OnTouchListener() {
                     @Override

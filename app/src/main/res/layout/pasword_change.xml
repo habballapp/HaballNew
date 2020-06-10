@@ -10,9 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="27dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="27dp"
-        android:padding="10dp">
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="27dp">
 
        <LinearLayout
            android:id="@+id/txt_header1"
@@ -216,7 +215,7 @@
                 android:background="@drawable/button_round"
                 android:enabled="false"
                 android:fontFamily="@font/open_sans"
-                android:text="Update Password"
+                android:text="Set Password"
 
                 android:textAllCaps="false"
                 android:textColor="#fff"

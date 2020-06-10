@@ -66,7 +66,6 @@
                         android:theme="@style/TextLabel"
                         app:boxBackgroundColor="#fff"
                         app:boxStrokeColor="@color/box_stroke"
-                        app:boxStrokeWidth="0.5dp"
                         >
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -74,6 +73,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/open_sans"
+                            android:textColor="@color/textcolor"
                             android:inputType="text"
                             android:paddingLeft="20dp"
                             android:paddingTop="5dp"

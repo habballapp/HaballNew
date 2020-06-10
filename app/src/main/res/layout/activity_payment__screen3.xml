@@ -188,7 +188,6 @@
                         android:background="@android:color/transparent"
                         android:gravity="center_vertical"
                         android:hint="324569697708"
-                        android:paddingLeft="10dp"
                         android:textColor="@color/textcolor"
                         android:textSize="@dimen/rv_box_text_size"
                          />
