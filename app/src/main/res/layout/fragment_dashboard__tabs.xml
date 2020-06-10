@@ -22,6 +22,7 @@
             app:tabIndicatorColor="#96bb3c"
             app:tabMinWidth="0dp"
             android:clipToPadding="false"
+            app:tabRippleColor="@color/tab_ripple_color"
             app:tabPaddingStart="5dp"
             app:tabPaddingEnd="5dp"
             app:tabMode="scrollable"

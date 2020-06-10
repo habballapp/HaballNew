@@ -2,6 +2,8 @@ package com.example.haball.Support.Support_Retailer;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -55,6 +58,7 @@ import java.util.Map;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 public class Support_Ticket_Form extends AppCompatActivity {
 
@@ -81,6 +85,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
 
     private Button login_submit, login_btn;
 
+    private Typeface myFont;
 
     private String DistributorId;
 //    private TextView tv_main_heading, tv_sub_heading;
@@ -107,6 +112,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
 //        actionBar.setCustomView(customView);
 //        actionBar.setDisplayShowCustomEnabled(true);
 
+        myFont = ResourcesCompat.getFont(this, R.font.open_sans);
 
         BName = findViewById(R.id.BName);
         Email = findViewById(R.id.Email);
@@ -140,12 +146,84 @@ public class Support_Ticket_Form extends AppCompatActivity {
         criticality.add("Criticality *");
         preffered_contact.add("Preferred Method of Contacting *");
 
-        arrayAdapterIssueType = new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, issue_type);
-        arrayAdapterCriticality = new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, criticality);
-        arrayAdapterPreferredContact = new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, preffered_contact);
+//        arrayAdapterIssueType = new ArrayAdapter<>(this,
+//                android.R.layout.simple_dropdown_item_1line, issue_type);
+        arrayAdapterIssueType = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, issue_type) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(50, 0, 50, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(50, 0, 50, 0);
+                return view;
+            }
+        };
+//        arrayAdapterCriticality = new ArrayAdapter<>(this,
+//                android.R.layout.simple_dropdown_item_1line, criticality);
+        arrayAdapterCriticality = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, criticality) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(50, 0, 50, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(50, 0, 50, 0);
+                return view;
+            }
+        };
+//        arrayAdapterPreferredContact = new ArrayAdapter<>(this,
+//                android.R.layout.simple_dropdown_item_1line, preffered_contact);
+        arrayAdapterPreferredContact = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, preffered_contact) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(50, 0, 50, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(50, 0, 50, 0);
+                return view;
+            }
+        };
 
         new TextField().changeColor(this, layout_BName, BName);
         new TextField().changeColor(this, layout_Email, Email);
@@ -171,6 +249,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                     ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
                     ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                    ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
@@ -179,6 +258,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
                             ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
                             ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
                             ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                            ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
                         } catch (NullPointerException e) {
                             e.printStackTrace();
                         }
@@ -187,6 +267,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
                             ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                             ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
                             ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                            ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
                         } catch (NullPointerException ex) {
                             ex.printStackTrace();
                         }
@@ -210,6 +291,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                     ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
                     ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                    ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
@@ -218,6 +300,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
                             ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
                             ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
                             ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                            ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
                         } catch (NullPointerException e) {
                             e.printStackTrace();
                         }
@@ -226,6 +309,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
                             ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                             ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
                             ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                            ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
                         } catch (NullPointerException ex) {
                             ex.printStackTrace();
                         }
@@ -247,6 +331,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                     ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
                     ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                    ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
@@ -255,6 +340,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
                             ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
                             ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
                             ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                            ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
                         } catch (NullPointerException e) {
                             e.printStackTrace();
                         }
@@ -263,6 +349,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
                             ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                             ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
                             ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                            ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
                         } catch (NullPointerException ex) {
                             ex.printStackTrace();
                         }

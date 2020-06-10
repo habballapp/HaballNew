@@ -75,7 +75,7 @@
                             android:paddingTop="5dp"
                             android:paddingRight="20dp"
                             android:paddingBottom="5dp"
-                            android:textColor="#676a6c"
+                            android:textColor="@color/textcolor"
                             android:textSize="@dimen/edit_text_box_size" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -103,7 +103,7 @@
                             android:paddingTop="5dp"
                             android:paddingRight="20dp"
                             android:paddingBottom="5dp"
-                            android:textColor="#676a6c"
+                            android:textColor="@color/textcolor"
                             android:textSize="@dimen/edit_text_box_size" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -132,7 +132,7 @@
                             android:paddingTop="5dp"
                             android:paddingRight="20dp"
                             android:paddingBottom="5dp"
-                            android:textColor="#676a6c"
+                            android:textColor="@color/textcolor"
                             android:textSize="@dimen/edit_text_box_size" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -225,7 +225,7 @@
                         android:layout_height="90dp"
                         android:layout_below="@+id/relative_Preffered_Contact"
                         android:layout_marginTop="20dp"
-                        android:hint="Comment"
+                        android:hint="Please describe the problem you are facing."
                         android:theme="@style/TextLabel"
                         app:boxBackgroundColor="#fff"
                         app:boxStrokeColor="@color/box_stroke">
@@ -255,6 +255,7 @@
                         android:layout_marginTop="20dp"
                         android:background="@drawable/button_round"
                         android:fontFamily="@font/open_sans"
+                        android:stateListAnimator="@null"
                         android:text="Submit"
                         android:textAllCaps="false"
                         android:textColor="#fff"
@@ -269,6 +270,7 @@
                         android:background="@drawable/button_round"
                         android:fontFamily="@font/open_sans"
                         android:text="Back"
+                        android:stateListAnimator="@null"
                         android:textAllCaps="false"
                         android:textColor="#fff"
                         android:textSize="@dimen/button_text_size" />

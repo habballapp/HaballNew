@@ -16,10 +16,22 @@
         >
 
         <ImageView
+            android:id="@+id/haballLogo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="@drawable/haballlogo1" />
+            android:background="@drawable/haballlogo_final" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/haballLogo"
+            android:layout_centerInParent="true"
+            android:paddingTop="10dp"
+            android:text="Context Driven Payments"
+            android:textSize="13sp"
+            android:fontFamily="@font/open_sans"
+            android:textColor="@color/splash_black_color"
+            />
 
     </RelativeLayout>
 </RelativeLayout>

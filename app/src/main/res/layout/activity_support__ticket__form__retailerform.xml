@@ -133,6 +133,7 @@
                     android:layout_height="match_parent"
                     android:inputType="number"
                     android:paddingLeft="20dp"
+                    android:fontFamily="@font/open_sans"
                     android:paddingTop="5dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="5dp"
