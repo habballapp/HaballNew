@@ -144,6 +144,7 @@ public class Retailer_Support_Ticket_View extends Fragment {
 
         ID = sharedPreferences3.getString("SupportId", "");
 
+
         StatusKVP statusKVP = new StatusKVP(getContext(), Token);
         final HashMap<String, String> RetailerIssueTypePrivateKVP = statusKVP.getRetailerIssueTypePrivateKVP();
         final HashMap<String, String> RetailerCriticalityPrivateKVP = statusKVP.getRetailerCriticalityPrivateKVP();
@@ -168,9 +169,8 @@ public class Retailer_Support_Ticket_View extends Fragment {
                         if(entry.getKey().equals(String.valueOf(response.get("PreferredContactMethod"))))
                             preffered_contact = entry.getValue();
                     }
-                    ID = String.valueOf(response.get("Id"));
-                    tv_ticket_id.setText(ID);
 
+                    ID = String.valueOf(response.get("Id"));
                     txt_business_name.setText(String.valueOf(response.get("ContactName")));
                     txt_email_address.setText(String.valueOf(response.get("Email")));
                     txt_mobile_number.setText(String.valueOf(response.get("MobileNumber")));
