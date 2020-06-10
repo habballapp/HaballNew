@@ -39,6 +39,8 @@ import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Retailor.Retailor_SignUp.SignUp;
 import com.example.haball.Select_User.Register_Activity;
 import com.example.haball.Support.Support_Retailer.Support_Ticket_Form;
+import com.example.haball.TextField;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
@@ -58,7 +60,7 @@ public class RetailerLogin extends AppCompatActivity {
     private Button btn_login, btn_signup, btn_support, btn_password, btn_reset;
 //    private Button btn_signup;
     public ImageButton btn_back;
-    private EditText et_username, et_password, txt_email;
+    private TextInputEditText et_username, et_password, txt_email;
     private TextInputLayout layout_username, layout_password;
     private Toolbar tb;
     private RequestQueue queue;
@@ -99,16 +101,18 @@ public class RetailerLogin extends AppCompatActivity {
         et_username = findViewById(R.id.txt_username);
         et_password = findViewById(R.id.txt_password);
 
+        new TextField().changeColor(this, layout_username, et_username);
+        new TextField().changeColor(this, layout_password, et_password);
+
         et_password.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { ;
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 layout_password.setBoxStrokeColor(getResources().getColor(R.color.color_text));
-                layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+             //   layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
                 et_password.setTextColor(getResources().getColor(R.color.textcolor));
                 layout_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
 

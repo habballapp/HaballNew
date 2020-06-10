@@ -21,6 +21,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -510,11 +511,18 @@ public class PlaceholderFragment extends Fragment {
                         final Dialog fbDialogue = new Dialog(getActivity());
                         //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
                         fbDialogue.setContentView(R.layout.password_updatepopup);
-                        tv_pr1 = fbDialogue.findViewById(R.id.tv_pr1);
+
+                        tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
 //                            tv_pr1.setText("User Profile ID " + ID + " password has been changed successfully.");
                         tv_pr1.setText("Your password has been updated. You would be logged out of your account");
                         fbDialogue.setCancelable(true);
+                        fbDialogue.getWindow().setGravity(Gravity.TOP|Gravity.START|Gravity.END);
+                        WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+                        layoutParams.y = -200;
+                        layoutParams.x = -70;// top margin
+                        fbDialogue.getWindow().setAttributes(layoutParams);
                         fbDialogue.show();
+
                         ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
                         close_button.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -583,9 +591,8 @@ public class PlaceholderFragment extends Fragment {
         } else {
             Toast.makeText(getActivity(), "Password do not Match", Toast.LENGTH_LONG).show();
 
-            final Dialog fbDialogue = new Dialog(getActivity(), R.style.Theme_Dialog);
+            final Dialog fbDialogue = new Dialog(getActivity());
             //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
-
             fbDialogue.setContentView(R.layout.password_updatepopup);
             txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
             tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
@@ -595,8 +602,15 @@ public class PlaceholderFragment extends Fragment {
             tv_pr1.setText("Password do not Match");
             fbDialogue.setCancelable(true);
 // Setting dialogview
-            Window window = fbDialogue.getWindow();
-            window.setGravity(Gravity.FILL);
+//            Window window = fbDialogue.getWindow();
+//            window.setGravity(Gravity.TOP);
+
+            fbDialogue.getWindow().setGravity(Gravity.TOP|Gravity.START|Gravity.END);
+            WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+            layoutParams.y = 200;
+            layoutParams.x = -70;// top margin
+            fbDialogue.getWindow().setAttributes(layoutParams);
+
 
             fbDialogue.show();
             ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
