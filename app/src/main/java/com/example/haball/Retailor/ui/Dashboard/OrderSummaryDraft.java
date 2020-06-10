@@ -84,7 +84,7 @@ public class OrderSummaryDraft extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_order__summary, container, false);
-        gross_amount = view.findViewById(R.id.gross_amount);
+//        gross_amount = view.findViewById(R.id.gross_amount);
         discount_amount = view.findViewById(R.id.discount_amount);
         gst_amount = view.findViewById(R.id.gst_amount);
         total_amount = view.findViewById(R.id.total_amount);
@@ -113,7 +113,7 @@ public class OrderSummaryDraft extends Fragment {
         new MyAsyncTask().execute();
 
 
-        btn_template = view.findViewById(R.id.btn_template);
+//        btn_template = view.findViewById(R.id.btn_template);
         btn_draft = view.findViewById(R.id.place_item_button);
         btn_confirm = view.findViewById(R.id.btn_confirm);
         btn_confirm.setOnClickListener(new View.OnClickListener() {
@@ -135,25 +135,25 @@ public class OrderSummaryDraft extends Fragment {
                 editor.apply();
             }
         });
-        btn_template.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("NewApi")
-            @Override
-            public void onClick(View view) {
-
-//                try {
-//                    requestSaveTemplate();
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
+//        btn_template.setOnClickListener(new View.OnClickListener() {
+//            @SuppressLint("NewApi")
+//            @Override
+//            public void onClick(View view) {
 //
-//                SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
-//                        Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = selectedProducts.edit();
-//                editor.putString("selected_products", "");
-//                editor.putString("selected_products_qty", "");
-//                editor.apply();
-            }
-        });
+////                try {
+////                    requestSaveTemplate();
+////                } catch (JSONException e) {
+////                    e.printStackTrace();
+////                }
+////
+////                SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
+////                        Context.MODE_PRIVATE);
+////                SharedPreferences.Editor editor = selectedProducts.edit();
+////                editor.putString("selected_products", "");
+////                editor.putString("selected_products_qty", "");
+////                editor.apply();
+//            }
+//        });
         btn_draft.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NewApi")
             @Override
@@ -562,7 +562,7 @@ public class OrderSummaryDraft extends Fragment {
 
         SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
                 Context.MODE_PRIVATE);
-        gross_amount.setText(grossamount.getString("grossamount", "0"));
+//        gross_amount.setText(grossamount.getString("grossamount", "0"));
         discount_amount.setText(" - ");
 
 //        float gstAmount = (Float.parseFloat(grossamount.getString("grossamount", "")) * 17) / 100;
