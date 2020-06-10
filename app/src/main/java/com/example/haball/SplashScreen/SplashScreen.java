@@ -13,6 +13,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.example.haball.Distributor.DistributorDashboard;
@@ -39,7 +40,7 @@ public class SplashScreen extends AppCompatActivity {
         background_drawable.setAlpha(80);
         RelativeLayout rl_main_background = findViewById(R.id.rl_main_background);
         rl_main_background.setBackground(background_drawable);
-
+//        rl_main_background.typ
         new Handler().postDelayed(new Runnable() {
 
             /*

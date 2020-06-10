@@ -37,7 +37,10 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distribution_Login.Distribution_Login;
 import com.example.haball.R;
+import com.example.haball.TextField;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,7 +59,7 @@ import androidx.fragment.app.FragmentManager;
 
 public class Support_Ticket_Form extends AppCompatActivity {
 
-    private EditText BName, Email, MobileNo, Comment;
+    private TextInputEditText  BName, Email, MobileNo, Comment;
     private ImageButton btn_back;
     private Spinner IssueType, critcicality, Preffered_Contact;
     private String URL_SPINNER_ISSUETYPE = "http://175.107.203.97:4013/api/lookup/public/ISSUE_TYPE_PUBLIC";
@@ -79,6 +82,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
     private int keyDel;
 
     private String DistributorId;
+    private TextInputLayout layout_BName,layout_Email,layout_MobileNo,layout_Comment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +113,12 @@ public class Support_Ticket_Form extends AppCompatActivity {
         critcicality = findViewById(R.id.critcicality);
         Preffered_Contact = findViewById(R.id.Preffered_Contact);
         login_submit = findViewById(R.id.login_submit);
+
+        layout_BName = findViewById(R.id.layout_BName);
+        layout_Email = findViewById(R.id.layout_Email);
+        layout_MobileNo = findViewById(R.id.layout_MobileNo);
+        layout_Comment = findViewById(R.id.layout_Comment);
+
         login_submit.setEnabled(false);
         login_submit.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
@@ -125,6 +135,11 @@ public class Support_Ticket_Form extends AppCompatActivity {
                 android.R.layout.simple_dropdown_item_1line, criticality);
         arrayAdapterPreferredContact = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, preffered_contact);
+
+        new TextField().changeColor(this, layout_BName, BName);
+        new TextField().changeColor(this, layout_Email, Email);
+        new TextField().changeColor(this,  layout_MobileNo , MobileNo);
+        new TextField().changeColor(this, layout_Comment, Comment);
 
         fetchIssueType();
         fetchCriticality();

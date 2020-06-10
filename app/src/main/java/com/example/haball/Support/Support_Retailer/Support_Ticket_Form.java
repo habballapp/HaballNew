@@ -147,6 +147,11 @@ public class Support_Ticket_Form extends AppCompatActivity {
         arrayAdapterPreferredContact = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, preffered_contact);
 
+        new TextField().changeColor(this, layout_BName, BName);
+        new TextField().changeColor(this, layout_Email, Email);
+        new TextField().changeColor(this,  layout_MobileNo , MobileNo);
+        new TextField().changeColor(this, layout_Comment, Comment);
+
 //        fetchIssueType();
 //        fetchCriticality();
 //        fetchPrefferedContact();
