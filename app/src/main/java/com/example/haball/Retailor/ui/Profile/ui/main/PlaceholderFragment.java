@@ -47,6 +47,8 @@ import com.example.haball.Retailer_Login.RetailerLogin;
 import com.example.haball.Retailor.ui.Profile.Profile_Tabs;
 import com.example.haball.Select_User.Register_Activity;
 import com.example.haball.SplashScreen.SplashScreen;
+import com.example.haball.TextField;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
@@ -77,13 +79,15 @@ public class PlaceholderFragment extends Fragment {
     private String PROFILE_URL = "http://175.107.203.97:4014/api/retailer/";
     private String RetailerId, ID, username, CompanyName;
     private Button btn_changepwd, btn_save_password, update_password;
-    private EditText Rfirstname, Remail, Rcode, Rcnic, Rmobile, R_created_date, R_Address, txt_password, txt_newpassword, txt_cfmpassword;
+    private EditText Rfirstname, Remail, Rcode, Rcnic, Rmobile, R_created_date, R_Address ;
     private Dialog change_password_dail;
     private Boolean password_check = false, confirm_password_check = false;
     private static final String ARG_SECTION_NUMBER = "section_number";
     private TextView tv_pr1, txt_header1;
-    private TextInputLayout layout_password1, layout_password3;
+    private TextInputLayout layout_password1, layout_password3,layout_password;
+    private TextInputEditText txt_password ,txt_newpassword, txt_cfmpassword;
     private FragmentTransaction fragmentTransaction;
+
     private String currentTab = "";
     private Boolean changed = false;
 
@@ -225,6 +229,7 @@ public class PlaceholderFragment extends Fragment {
             case 2: {
                 root = inflater.inflate(R.layout.pasword_change, container, false);
                 currentTab = "Password";
+                layout_password = root.findViewById(R.id.layout_password);
                 txt_password = root.findViewById(R.id.txt_password);
                 txt_newpassword = root.findViewById(R.id.txt_newpassword);
                 txt_cfmpassword = root.findViewById(R.id.txt_cfmpassword);
@@ -233,6 +238,10 @@ public class PlaceholderFragment extends Fragment {
                 update_password = root.findViewById(R.id.update_password);
                 update_password.setEnabled(false);
                 update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+
+                new TextField().changeColor(getContext(), layout_password1, txt_newpassword);
+                new TextField().changeColor(getContext(), layout_password3, txt_cfmpassword);
+                new TextField().changeColor(getContext(), layout_password, txt_password);
                 update_password.setOnClickListener(new View.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
@@ -460,6 +469,8 @@ public class PlaceholderFragment extends Fragment {
         alertDialog.show();
     }
     private void checkFieldsForEmptyValues() {
+
+
         String password = txt_password.getText().toString();
         String newPass = txt_newpassword.getText().toString();
         String confrm_pass = txt_cfmpassword.getText().toString();
