@@ -55,14 +55,5 @@
                 android:inputType="textMultiLine"/>
 
         </LinearLayout>
-
-
-
-
-
-
-
-
-
     </RelativeLayout>
 </LinearLayout>

@@ -100,6 +100,7 @@ public class Retailer_Support_Ticket_View extends Fragment {
 
         fetchSupportData();
 
+
         btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,23 +141,29 @@ public class Retailer_Support_Ticket_View extends Fragment {
         Log.i("Token  ", Token);
         SharedPreferences sharedPreferences3 = getContext().getSharedPreferences("SupportId",
                 Context.MODE_PRIVATE);
-
-
         ID = sharedPreferences3.getString("SupportId", "");
-
+        tv_ticket_id.setText(ID);
 
         StatusKVP statusKVP = new StatusKVP(getContext(), Token);
         final HashMap<String, String> RetailerIssueTypePrivateKVP = statusKVP.getRetailerIssueTypePrivateKVP();
         final HashMap<String, String> RetailerCriticalityPrivateKVP = statusKVP.getRetailerCriticalityPrivateKVP();
         final HashMap<String, String> RetailerContactingMethodKVP = statusKVP.getRetailerContactingMethodKVP();
-
+        Log.i("IDDDD" , ID);
         if (!URL_SUPPORT_VIEW.contains("/" + ID))
             URL_SUPPORT_VIEW = URL_SUPPORT_VIEW + ID;
+
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_SUPPORT_VIEW, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                Log.i("ticket_viewdata" , String.valueOf(response));
                 String issue_type = "", criticality = "", preffered_contact = "";
                 try {
+                    txt_business_name.setText(String.valueOf(response.get("ContactName")));
+                    txt_email_address.setText(String.valueOf(response.get("Email")));
+                    txt_mobile_number.setText(String.valueOf(response.get("MobileNumber")));
+                    txt_comments.setText(String.valueOf(response.get("Description")));
+                    ID = String.valueOf(response.get("Id"));
+
                     for (Map.Entry<String, String> entry : RetailerIssueTypePrivateKVP.entrySet()) {
                         if(entry.getKey().equals(String.valueOf(response.get("IssueType"))))
                             issue_type = entry.getValue();
@@ -169,16 +176,11 @@ public class Retailer_Support_Ticket_View extends Fragment {
                         if(entry.getKey().equals(String.valueOf(response.get("PreferredContactMethod"))))
                             preffered_contact = entry.getValue();
                     }
-
-                    ID = String.valueOf(response.get("Id"));
-                    txt_business_name.setText(String.valueOf(response.get("ContactName")));
-                    txt_email_address.setText(String.valueOf(response.get("Email")));
-                    txt_mobile_number.setText(String.valueOf(response.get("MobileNumber")));
                     txt_issue_type.setText(issue_type);
                     txt_criticality.setText(criticality);
                     txt_preferred_contact_method.setText(preffered_contact);
 //                    et_status.setText("Status: " + supportList.get(position).getStatus());
-                    txt_comments.setText(String.valueOf(response.get("Description")));
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

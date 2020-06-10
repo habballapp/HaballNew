@@ -1,5 +1,6 @@
 package com.example.haball.Retailor.ui.Profile.ui.main;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -13,11 +14,13 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -580,16 +583,21 @@ public class PlaceholderFragment extends Fragment {
         } else {
             Toast.makeText(getActivity(), "Password do not Match", Toast.LENGTH_LONG).show();
 
-            final Dialog fbDialogue = new Dialog(getActivity());
+            final Dialog fbDialogue = new Dialog(getActivity(), R.style.Theme_Dialog);
             //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+
             fbDialogue.setContentView(R.layout.password_updatepopup);
             txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
-            tv_pr1 = fbDialogue.findViewById(R.id.tv_pr1);
+            tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
             txt_header1.setText("Error");
             txt_header1.setTextColor(getResources().getColor(R.color.error_stroke_color));
             txt_header1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.border_set_error));
             tv_pr1.setText("Password do not Match");
             fbDialogue.setCancelable(true);
+// Setting dialogview
+            Window window = fbDialogue.getWindow();
+            window.setGravity(Gravity.FILL);
+
             fbDialogue.show();
             ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
             close_button.setOnClickListener(new View.OnClickListener() {
