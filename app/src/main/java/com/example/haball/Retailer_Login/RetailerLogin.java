@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -73,8 +75,13 @@ public class RetailerLogin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
-
-        setContentView(R.layout.activity_retailer_login);
+//        Drawable background_drawable = getResources().getDrawable(R.drawable.background_logo);
+//        background_drawable.setAlpha(20);
+//        getWindow().setBackgroundDrawable(background_drawable);
+////        getWindow().alp
+////        getBackground().setAlpha(50)
+//        setContentView(R.layout.activity_retailer_login);
+//        RelativeLayout rl_main_background = findViewById(R.id.rl_main_background);
         btn_login = findViewById(R.id.retailer_btn_login);
         btn_login.setEnabled(false);
         btn_login.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));

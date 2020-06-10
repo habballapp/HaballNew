@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.haball.Distribution_Login.Distribution_Login;
@@ -27,6 +28,7 @@ public class Register_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_);
+        LinearLayout ll_main_background;
         RelativeLayout rl_distributor = findViewById(R.id.rl_distributor);
         RelativeLayout rl_retailor = findViewById(R.id.rl_retailor);
 

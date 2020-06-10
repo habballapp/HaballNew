@@ -29,22 +29,22 @@
             app:tabSelectedTextColor="#96bb3c"
             app:tabTextAppearance="@style/CustomTextAppearanceTab" />
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs_ret5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="27dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="27dp"
-            android:background="@drawable/tab_indicator"
-            app:tabIndicatorColor="#96bb3c"
-            app:tabMinWidth="0dp"
-            android:clipToPadding="false"
-            app:tabPaddingStart="5dp"
-            app:tabPaddingEnd="5dp"
-            app:tabMode="scrollable"
-            app:tabSelectedTextColor="#96bb3c"
-            app:tabTextAppearance="@style/CustomTextAppearanceTab" />
+<!--        <com.google.android.material.tabs.TabLayout-->
+<!--            android:id="@+id/tabs_ret5"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="27dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_marginRight="27dp"-->
+<!--            android:background="@drawable/tab_indicator"-->
+<!--            app:tabIndicatorColor="#96bb3c"-->
+<!--            app:tabMinWidth="0dp"-->
+<!--            android:clipToPadding="false"-->
+<!--            app:tabPaddingStart="5dp"-->
+<!--            app:tabPaddingEnd="5dp"-->
+<!--            app:tabMode="scrollable"-->
+<!--            app:tabSelectedTextColor="#96bb3c"-->
+<!--            app:tabTextAppearance="@style/CustomTextAppearanceTab" />-->
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager_ret_view_order"

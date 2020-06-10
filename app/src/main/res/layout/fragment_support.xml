@@ -42,7 +42,7 @@
             android:paddingBottom="10dp"
             android:text="Create Ticket"
             android:textColor="@color/textcolor"
-            android:textSize="17sp" />
+            android:textSize="13.6sp" />
     </LinearLayout>
 
 <!--    <RelativeLayout-->
