@@ -21,6 +21,6 @@
         android:layout_marginLeft="5dp"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/btn_back"
-        android:src="@drawable/logohaball" />
+        android:src="@drawable/haballlogo1" />
 
 </RelativeLayout>
