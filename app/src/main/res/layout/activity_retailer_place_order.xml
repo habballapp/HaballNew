@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="27dp"
             android:layout_marginTop="8dp"
+            app:tabRippleColor="@color/tab_ripple_color"
             android:layout_marginRight="27dp"
             android:background="@drawable/tab_indicator"
             app:tabContentStart="0dp"
