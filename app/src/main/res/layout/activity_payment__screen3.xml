@@ -11,39 +11,50 @@
         android:id="@+id/ln_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="27dp"
+        android:layout_marginStart="27dp"
         android:layout_marginTop="20dp"
-        android:layout_marginRight="27dp"
+        android:layout_marginEnd="27dp"
         android:background="@drawable/underline"
         android:orientation="horizontal"
-        android:weightSum="2.5">
+        android:weightSum="4">
 
         <TextView
+            android:id="@+id/tv_support"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.5"
+            android:layout_weight="2.5"
             android:fontFamily="@font/open_sans"
-            android:paddingTop="5dp"
+            android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:text="Payment"
             android:textColor="@color/textcolor"
             android:textSize="17sp" />
 
-        <TextView
-            android:id="@+id/btn_addpayment"
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableLeft="@drawable/ic_baseline_add_24"
-            android:fontFamily="@font/open_sans"
-            android:gravity="center_vertical"
-            android:paddingTop="5dp"
-            android:paddingLeft="10dp"
-            android:paddingBottom="10dp"
-            android:text="Create Payment"
-            android:textColor="@color/textcolor"
-            android:textSize="13.6sp"  />
+            android:layout_weight="1.5">
 
+            <ImageView
+                android:id="@+id/image_plus"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/ic_baseline_add_24" />
+
+            <TextView
+                android:id="@+id/btn_addpayment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/image_plus"
+                android:fontFamily="@font/open_sans"
+                android:gravity="center_vertical"
+                android:text="Create Ticket"
+                android:textColor="@color/textcolor"
+                android:textSize="13sp" />
+            />
+        </RelativeLayout>
     </LinearLayout>
 
     <ScrollView
@@ -75,35 +86,36 @@
                     android:layout_marginTop="20dp"
                     android:background="@drawable/spinner_round">
 
+                    <!--                    <Spinner-->
+                    <!--                        android:id="@+id/spinner_companyName"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="match_parent"-->
+                    <!--                        android:background="@null"-->
+                    <!--                        android:fontFamily="@font/open_sans"-->
+                    <!--                        android:paddingLeft="20dp"-->
+                    <!--                        android:paddingTop="5dp"-->
+                    <!--                        android:paddingRight="20dp"-->
+                    <!--                        android:paddingBottom="5dp"-->
+                    <!--                        android:textColor="@color/textcolor"-->
+                    <!--                        android:textSize="14sp"-->
+                    <!--                        app:boxStrokeColor="@color/box_stroke" />-->
                     <Spinner
                         android:id="@+id/spinner_companyName"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:fontFamily="@font/open_sans"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="5dp"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="5dp"
-                        android:textColor="@color/textcolor"
-                        android:textSize="14sp"
-                        app:boxStrokeColor="@color/box_stroke" />
-                    <!--                    <Spinner-->
-                    <!--                        android:id="@+id/spinner_companyName"-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="match_parent"-->
-                    <!--                        android:dropDownWidth="match_parent"-->
-                    <!--                        android:background="@null"-->
-                    <!--                        android:popupBackground="@drawable/spinner_round" />-->
-                    <!--                    <ImageView-->
-                    <!--                        android:layout_width="wrap_content"-->
-                    <!--                        android:layout_height="match_parent"-->
-                    <!--                        android:layout_alignTop="@id/spinner_companyName"-->
-                    <!--                        android:layout_alignEnd="@+id/spinner_companyName"-->
-                    <!--                        android:layout_alignRight="@+id/spinner_companyName"-->
-                    <!--                        android:layout_alignBottom="@+id/spinner_companyName"-->
-                    <!--                        android:src="@drawable/ic_arrow_drop_down_black_24dp"-->
-                    <!--                        android:theme="@style/Spinner" />-->
+                        android:dropDownWidth="match_parent"
+                        android:popupBackground="@drawable/spinner_round" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignTop="@id/spinner_companyName"
+                        android:layout_alignEnd="@+id/spinner_companyName"
+                        android:layout_alignRight="@+id/spinner_companyName"
+                        android:layout_alignBottom="@+id/spinner_companyName"
+                        android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:theme="@style/Spinner" />
                 </RelativeLayout>
 
                 <!--                <com.google.android.material.textfield.TextInputLayout-->
@@ -208,10 +220,10 @@
                         android:background="@android:color/transparent"
                         android:fontFamily="@font/open_sans"
                         android:gravity="center"
-                        android:textColor="@color/textcolor"
-
                         android:hint="Payment ID: "
+
                         android:paddingLeft="20dp"
+                        android:textColor="@color/textcolor"
                         android:textSize="@dimen/rv_box_text_size" />
 
                     <TextView

@@ -54,8 +54,13 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
             yourFormattedString2 = formatter1.format(Double.parseDouble(OrdersList.get(position).getUnitPrice()));
         holder.discount_value.setText("Rs. " + yourFormattedString2);
         holder.UOM_value.setText(OrdersList.get(position).getUOMTitle());
-        holder.pack_size_value.setText(OrdersList.get(position).getPackSize());
+        if (OrdersList.get(position).getTaxValue().equals("0") || OrdersList.get(position).getTaxValue().equals("") || OrdersList.get(position).getTaxValue().equals("null")){
+            holder.pack_size_value.setText("");
+        }
+        else {
+            holder.pack_size_value.setText("   |   " + "Tax Value: " + OrdersList.get(position).getTaxValue());
 
+        }
         holder.Quantity_value.setText(OrdersList.get(position).getOrderQty());
 
         String yourFormattedString3 = formatter1.format(Double.parseDouble(OrdersList.get(position).getTotalPrice()));
@@ -68,7 +73,7 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txt_products, product_code_value, price_value, discount_value, UOM_value, pack_size_value, Quantity_value, amount_value;
+        TextView txt_products, product_code_value, price_value, discount_value, UOM_value, pack_size_value, Quantity_value, amount_value ,separator_2 ,tv_taxValue;
         public ImageButton menu_btn;
 
         public ViewHolder(@NonNull View itemView) {
@@ -78,9 +83,11 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
             price_value = itemView.findViewById(R.id.price_value);
             discount_value = itemView.findViewById(R.id.discount_value);
             UOM_value = itemView.findViewById(R.id.UOM_value);
-            pack_size_value = itemView.findViewById(R.id.pack_size_value);
+            pack_size_value = itemView.findViewById(R.id.tax_value);
             Quantity_value = itemView.findViewById(R.id.Quantity_value);
             amount_value = itemView.findViewById(R.id.amount_value);
+            separator_2 = itemView.findViewById(R.id.separator_2);
+            //tv_taxValue = itemView.findViewById(R.id.tv_taxValue);
         }
     }
 }
