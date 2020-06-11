@@ -34,6 +34,7 @@ import com.example.haball.Distributor.StatusKVP;
 import com.example.haball.R;
 import com.example.haball.Retailor.ui.RetailerOrder.RetailerOrdersAdapter.RetailerViewOrderProductAdapter;
 import com.example.haball.Retailor.ui.RetailerOrder.RetailerOrdersModel.RetailerViewOrderProductModel;
+import com.example.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -67,7 +68,8 @@ public class PlaceholderFragment extends Fragment {
     private HashMap<String, String> RetailerOrderStatusKVP = new HashMap<>();
     private StatusKVP StatusKVPClass;
 //    private String DistributorId;
-    private TextInputLayout layout_txt_created_date, layout_transaction_date, layout_txt_bank, layout_txt_authorization_id, layout_txt_settlement_id, layout_txt_status, layout_txt_amount, layout_txt_transaction_charges, layout_txt_total_amount;
+    private TextInputLayout layout_txt_companName, layout_txt_paymentID, layout_txt_created_date, layout_transaction_date, layout_txt_bank, layout_txt_authorization_id, layout_txt_settlement_id, layout_txt_status, layout_txt_amount, layout_txt_transaction_charges, layout_txt_total_amount;
+    private TextInputLayout layout_txt_orderID, layout_txt_order_company, layout_txt_created_date_order, layout_txt_status_order, layout_txt_comments;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -113,11 +115,22 @@ public class PlaceholderFragment extends Fragment {
         switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
             case 2: {
                 rootView = inflater.inflate(R.layout.fragment_retailer_orders_tab, container, false);
+                layout_txt_orderID = rootView.findViewById(R.id.layout_txt_orderID);
+                layout_txt_order_company = rootView.findViewById(R.id.layout_txt_order_company);
+                layout_txt_created_date_order = rootView.findViewById(R.id.layout_txt_created_date_order);
+                layout_txt_status_order = rootView.findViewById(R.id.layout_txt_status_order);
+                layout_txt_comments = rootView.findViewById(R.id.layout_txt_comments);
                 txt_orderID = rootView.findViewById(R.id.txt_orderID);
                 txt_company_order = rootView.findViewById(R.id.txt_company_order);
                 txt_created_date_order = rootView.findViewById(R.id.txt_created_date_order);
                 txt_status_order = rootView.findViewById(R.id.txt_status_order);
                 txt_comments = rootView.findViewById(R.id.txt_comments);
+
+                new TextField().changeColor(getContext(), layout_txt_orderID, txt_orderID);
+                new TextField().changeColor(getContext(), layout_txt_order_company, txt_company_order);
+                new TextField().changeColor(getContext(), layout_txt_created_date_order, txt_created_date_order);
+                new TextField().changeColor(getContext(), layout_txt_status_order, txt_status_order);
+                new TextField().changeColor(getContext(), layout_txt_comments, txt_comments);
 
                 txt_orderID.setEnabled(false);
                 txt_company_order.setEnabled(false);
@@ -155,6 +168,8 @@ public class PlaceholderFragment extends Fragment {
                 txt_transaction_charges = rootView.findViewById(R.id.txt_transaction_charges);
                 txt_total_amount = rootView.findViewById(R.id.txt_total_amount);
 
+                layout_txt_companName = rootView.findViewById(R.id.layout_txt_companName);
+                layout_txt_paymentID = rootView.findViewById(R.id.layout_txt_paymentID);
                 layout_txt_created_date = rootView.findViewById(R.id.layout_txt_created_date);
                 layout_transaction_date = rootView.findViewById(R.id.layout_transaction_date);
                 layout_txt_bank = rootView.findViewById(R.id.layout_txt_bank);
@@ -164,6 +179,20 @@ public class PlaceholderFragment extends Fragment {
                 layout_txt_amount = rootView.findViewById(R.id.layout_txt_amount);
                 layout_txt_transaction_charges = rootView.findViewById(R.id.layout_txt_transaction_charges);
                 layout_txt_total_amount = rootView.findViewById(R.id.layout_txt_total_amount);
+
+
+                new TextField().changeColor(getContext(), layout_txt_companName, txt_companyName);
+                new TextField().changeColor(getContext(), layout_txt_paymentID, txt_paymentID);
+                new TextField().changeColor(getContext(), layout_txt_created_date, txt_created_date);
+                new TextField().changeColor(getContext(), layout_transaction_date, txt_confirm);
+                new TextField().changeColor(getContext(), layout_txt_bank, txt_bank);
+                new TextField().changeColor(getContext(), layout_txt_authorization_id, txt_authorization_id);
+                new TextField().changeColor(getContext(), layout_txt_settlement_id, txt_settlement_id);
+                new TextField().changeColor(getContext(), layout_txt_status, txt_status);
+                new TextField().changeColor(getContext(), layout_txt_amount, txt_amount);
+                new TextField().changeColor(getContext(), layout_txt_transaction_charges, txt_transaction_charges);
+                new TextField().changeColor(getContext(), layout_txt_total_amount, txt_total_amount);
+
 //
 //                layout_txt_created_date.setVisibility(View.GONE);
 //                layout_transaction_date.setVisibility(View.GONE);
