@@ -10,38 +10,6 @@
     android:paddingRight="20dp"
     android:paddingBottom="20dp"
     tools:ignore="MissingDefaultResource">
-
-<!--    <LinearLayout-->
-<!--        android:id="@+id/ll_products"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:weightSum="3"-->
-<!--        android:orientation="horizontal">-->
-
-<!--        <ScrollView-->
-<!--            android:id="@+id/SCROLLER_ID"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="fill_parent"-->
-<!--            android:fillViewport="true"-->
-<!--            android:scrollbars="vertical">-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/list_txt_products_"-->
-<!--                android:layout_width="fill_parent"-->
-<!--                android:layout_height="fill_parent"-->
-<!--                android:layout_weight="0.5"-->
-<!--                android:text=""-->
-<!--                android:textColor="#676a6c"-->
-<!--                android:textSize="18sp"-->
-<!--                android:textStyle="bold" />-->
-<!--        </ScrollView>-->
-<!--        <ImageView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="2.5"-->
-<!--            android:src="@drawable/ic_delete_black_24dp"/>-->
-<!--    </LinearLayout>-->
-
     <LinearLayout
         android:id="@+id/ll_products"
         android:layout_width="match_parent"
@@ -58,7 +26,7 @@
             android:paddingTop="5dp"
             android:paddingBottom="10dp"
             android:textColor="@color/rv_box_color"
-            android:textSize="17sp" />
+            android:textSize="@dimen/rv_box_heading_size" />
 
         <TextView
             android:id="@+id/btn_newpayment"
@@ -83,7 +51,7 @@
         android:textColor="@color/rv_box_color"
         android:fontFamily="@font/open_sans"
         android:text="Product Code:"
-        android:textSize="@dimen/order_child_list_retailer" />
+        android:textSize="@dimen/rv_box_text_size" />
 
     <TextView
         android:id="@+id/list_product_code_value"
@@ -96,7 +64,7 @@
         android:layout_toRightOf="@+id/product_code"
         android:text=""
         android:fontFamily="@font/open_sans_semibold"
-        android:textSize="@dimen/order_child_list_retailer" />
+        android:textSize="@dimen/rv_box_text_size" />
 
     <TextView
         android:id="@+id/price"
@@ -107,7 +75,7 @@
         android:layout_marginBottom="5dp"
         android:text="Price: "
         android:fontFamily="@font/open_sans"
-        android:textSize="@dimen/order_child_list_retailer" />
+        android:textSize="@dimen/rv_box_text_size" />
 
     <TextView
         android:id="@+id/list_price_value"
@@ -118,7 +86,7 @@
         android:layout_toRightOf="@id/price"
         android:fontFamily="@font/open_sans_semibold"
         android:text=""
-        android:textSize="@dimen/order_child_list_retailer" />
+        android:textSize="@dimen/rv_box_text_size" />
 
     <TextView
         android:id="@+id/separator_1"
@@ -129,7 +97,7 @@
         android:layout_toRightOf="@id/list_price_value"
         android:text="   |   "
         android:fontFamily="@font/open_sans"
-        android:textSize="@dimen/order_child_list_retailer" />
+        android:textSize="@dimen/rv_box_text_size" />
 
     <TextView
         android:id="@+id/discount"
@@ -140,7 +108,7 @@
         android:layout_toRightOf="@id/separator_1"
         android:fontFamily="@font/open_sans"
         android:text="Discount: "
-        android:textSize="@dimen/order_child_list_retailer" />
+        android:textSize="@dimen/rv_box_text_size" />
 
     <TextView
         android:id="@+id/list_discount_value"
@@ -151,7 +119,7 @@
         android:textColor="@color/rv_box_color"
         android:layout_toRightOf="@id/discount"
         android:text=""
-        android:textSize="@dimen/order_child_list_retailer" />
+        android:textSize="@dimen/rv_box_text_size" />
 
     <TextView
         android:id="@+id/UOM"
@@ -161,7 +129,7 @@
         android:text="UOM: "
         android:textColor="@color/rv_box_color"
         android:fontFamily="@font/open_sans"
-        android:textSize="@dimen/order_child_list_retailer" />
+        android:textSize="@dimen/rv_box_text_size" />
 
     <TextView
         android:id="@+id/list_UOM_value"
@@ -172,7 +140,7 @@
         android:layout_toRightOf="@id/UOM"
         android:text=""
         android:fontFamily="@font/open_sans_semibold"
-        android:textSize="@dimen/order_child_list_retailer" />
+        android:textSize="@dimen/rv_box_text_size"/>
 
     <TextView
         android:id="@+id/separator_2"
@@ -183,7 +151,7 @@
         android:layout_toRightOf="@id/list_UOM_value"
         android:text="   |   "
         android:fontFamily="@font/open_sans"
-        android:textSize="@dimen/order_child_list_retailer" />
+        android:textSize="@dimen/rv_box_text_size" />
 
     <TextView
         android:id="@+id/totalAmount"
@@ -196,7 +164,7 @@
         android:layout_toRightOf="@+id/separator_2"
         android:stateListAnimator="@null"
         android:text="Amount: "
-        android:textSize="@dimen/order_child_list_retailer" />
+        android:textSize="@dimen/rv_box_text_size" />
 
     <TextView
         android:id="@+id/totalAmount_Rs"
@@ -210,7 +178,7 @@
         android:layout_below="@+id/price"
         android:stateListAnimator="@null"
         android:text="Rs. "
-        android:textSize="@dimen/order_child_list_retailer" />
+        android:textSize="@dimen/rv_box_text_size" />
 
     <TextView
         android:id="@+id/totalAmount_value"
@@ -223,7 +191,7 @@
         android:gravity="center"
         android:stateListAnimator="@null"
         android:text=""
-        android:textSize="@dimen/order_child_list_retailer" />
+        android:textSize="@dimen/rv_box_text_size" />
 <!--    <TextView-->
 <!--        android:id="@+id/pack_size"-->
 <!--        android:layout_width="wrap_content"-->
@@ -267,7 +235,7 @@
                 android:background="@android:color/transparent"
                 android:gravity="center"
                 android:inputType="number"
-                android:textSize="@dimen/button_text_size"
+                android:textSize="@dimen/rv_box_text_size"
                 android:textColor="@color/textcolor"
                 android:padding="10dp" />
         </RelativeLayout>

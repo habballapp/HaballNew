@@ -85,8 +85,9 @@ public class PlaceholderFragment extends Fragment {
     private Boolean password_check = false, confirm_password_check = false;
     private static final String ARG_SECTION_NUMBER = "section_number";
     private TextView tv_pr1, txt_header1;
-    private TextInputLayout layout_password1, layout_password3;
+    private TextInputLayout layout_password1, layout_password3,layout_password;
     private FragmentTransaction fragmentTransaction;
+
     private String currentTab = "";
     private Boolean changed = false;
 
@@ -236,6 +237,7 @@ public class PlaceholderFragment extends Fragment {
             case 2: {
                 root = inflater.inflate(R.layout.pasword_change, container, false);
                 currentTab = "Password";
+                layout_password = root.findViewById(R.id.layout_password);
                 txt_password = root.findViewById(R.id.txt_password);
                 txt_newpassword = root.findViewById(R.id.txt_newpassword);
                 txt_cfmpassword = root.findViewById(R.id.txt_cfmpassword);
@@ -244,6 +246,10 @@ public class PlaceholderFragment extends Fragment {
                 update_password = root.findViewById(R.id.update_password);
                 update_password.setEnabled(false);
                 update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+
+                new TextField().changeColor(getContext(), layout_password1, txt_newpassword);
+                new TextField().changeColor(getContext(), layout_password3, txt_cfmpassword);
+                new TextField().changeColor(getContext(), layout_password, txt_password);
                 update_password.setOnClickListener(new View.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
@@ -471,6 +477,8 @@ public class PlaceholderFragment extends Fragment {
         alertDialog.show();
     }
     private void checkFieldsForEmptyValues() {
+
+
         String password = txt_password.getText().toString();
         String newPass = txt_newpassword.getText().toString();
         String confrm_pass = txt_cfmpassword.getText().toString();
