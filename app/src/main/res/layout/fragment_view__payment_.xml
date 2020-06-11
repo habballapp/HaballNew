@@ -87,6 +87,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
 
+                android:id="@+id/layout_txt_heading"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
@@ -95,7 +96,6 @@
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                >
-
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_heading"
                     android:layout_width="match_parent"
@@ -113,6 +113,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
 
+                android:id="@+id/layout_txt_paymentid"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
@@ -139,6 +140,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
 
+                android:id="@+id/layout_created_date"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
@@ -165,6 +167,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
 
+                android:id="@+id/layout_transaction_date"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
@@ -191,6 +194,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
 
+                android:id="@+id/layout_txt_bname"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
@@ -217,6 +221,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
 
+                android:id="@+id/layout_txt_authorization"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
@@ -243,6 +248,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
 
+                android:id="@+id/layout_txt_settlement"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
@@ -269,6 +275,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
 
+                android:id="@+id/layout_txt_amount"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
@@ -295,6 +302,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
 
+                android:id="@+id/layout_txt_status"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
@@ -321,6 +329,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
 
+                android:id="@+id/layout_txt_transaction_charges"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"

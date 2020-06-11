@@ -62,7 +62,8 @@ import java.util.Map;
 
 public class EditPaymentRequestFragment extends Fragment {
     private String Token, DistributorId;
-    private Button btn_create, btn_newpayment, btn_voucher;
+    private Button btn_create, btn_voucher;
+   // private TextView btn_newpayment;
 
     private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4013/api/company/ReadActiveCompanyContract/";
     private String URL_PAYMENT_REQUESTS_SAVE = "http://175.107.203.97:4013/api/prepaidrequests/save";
@@ -95,7 +96,7 @@ public class EditPaymentRequestFragment extends Fragment {
         Amount = sharedPreferences.getString("Amount", "");
 
         payment_id = root.findViewById(R.id.payment_id);
-        btn_newpayment = root.findViewById(R.id.btn_newpayment);
+       // btn_newpayment = root.findViewById(R.id.btn_newpayment);
         btn_voucher = root.findViewById(R.id.btn_voucher);
         btn_create = root.findViewById(R.id.btn_update);
         spinner_company = root.findViewById(R.id.spinner_companyName);
@@ -103,18 +104,18 @@ public class EditPaymentRequestFragment extends Fragment {
 
         payment_id.setText(PrePaidNumber);
         layout_txt_amount = root.findViewById(R.id.layout_txt_amount);
-        layout_txt_amount.setBoxStrokeColor(Color.parseColor("#e5e5e5"));
+//      layout_txt_amount.setBoxStrokeColor(Color.parseColor("#e5e5e5"));
         CompanyNames.add("Company *");
         company_names = "";
 
-        btn_newpayment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, new CreatePaymentRequestFragment());
-                fragmentTransaction.commit();
-            }
-        });
+//        btn_newpayment.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.replace(R.id.main_container, new CreatePaymentRequestFragment());
+//                fragmentTransaction.commit();
+//            }
+//        });
 
 
         btn_voucher.setOnClickListener(new View.OnClickListener() {

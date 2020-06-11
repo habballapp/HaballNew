@@ -48,7 +48,10 @@ import com.example.haball.Shipment.ui.main.Models.Distributor_InvoiceModel;
 import com.example.haball.Shipment.ui.main.Models.Distributor_OrderModel;
 import com.example.haball.Shipment.ui.main.Models.Distributor_ProductModel;
 import com.example.haball.Shipment.ui.main.Models.Distributor_ShipmentModel;
+import com.example.haball.TextField;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -69,7 +72,7 @@ import java.util.Map;
  */
 public class PlaceholderFragment extends Fragment {
     // invoice data
-    private TextView invoice_id, invoice_tv_date, invoice_tv_amount, tv_status;
+    private TextInputEditText invoice_id, invoice_tv_date, invoice_tv_amount, tv_status;
     private String INVOICE_URL = "http://175.107.203.97:4013/api/deliverynotes/";
     private String Token;
     private String DistributorId;
@@ -77,9 +80,15 @@ public class PlaceholderFragment extends Fragment {
     private View view;
     // order data
     private Button btn_next;
-    private TextView order_id, order_company_name, order_tr_mode, order_payment_term, order_tv_cdate, order_tv_status, order_tv_shaddress, order_tv_billingAdd;
+    private TextInputLayout layout_shipment_invoice_id,layout_invoice_tv_date,layout_invoice_tv_amount,layout_shipment_tv_status;
+    private TextInputEditText order_id, order_company_name, order_tr_mode, order_payment_term, order_tv_cdate, order_tv_status, order_tv_shaddress, order_tv_billingAdd;
+    private TextInputLayout layout_order_id,layout_order_company_name,layout_order_tr_mode,layout_order_payment_term,
+                            layout_order_tv_cdate,layout_order_tv_status,layout_order_tv_shaddress,layout_order_tv_billingAdd,
+                            layout_total_price,layout_shipment_id,layout_shipment_delivery_date,layout_shipment_recieving_date,layout_shipment_tv_quantity,
+                            layout_shipment_tv_shstatus;
+
     //shipmentDetails
-    private TextView total_price, shipment_id, shipment_delivery_date, shipment_recieving_date, shipment_tv_quantity, shipment_tv_shstatus;
+    private TextInputEditText total_price, shipment_id, shipment_delivery_date, shipment_recieving_date, shipment_tv_quantity, shipment_tv_shstatus;
     //product details
     private RecyclerView product_RecyclerV;
     private RecyclerView.Adapter productDetailsAdapter;
@@ -128,16 +137,36 @@ public class PlaceholderFragment extends Fragment {
                 rootView = inflater.inflate(R.layout.distributor_shipment__view_shipment_1_fragment, container, false);
                 final View root = inflater.inflate(R.layout.activity_distributor_shipment__view_dashboard, container, false);
 
+                layout_shipment_invoice_id = rootView.findViewById(R.id.layout_shipment_invoice_id);
+                layout_invoice_tv_date = rootView.findViewById(R.id.layout_invoice_tv_date);
+                layout_invoice_tv_amount = rootView.findViewById(R.id.layout_invoice_tv_amount);
+                layout_shipment_tv_status = rootView.findViewById(R.id.layout_shipment_tv_status);
+
                 invoice_id = rootView.findViewById(R.id.shipment_invoice_id);
                 invoice_tv_date = rootView.findViewById(R.id.invoice_tv_date);
                 invoice_tv_amount = rootView.findViewById(R.id.invoice_tv_amount);
                 tv_status = rootView.findViewById(R.id.shipment_tv_status);
+
+                new TextField().changeColor(this.getContext(), layout_shipment_invoice_id,invoice_id);
+                new TextField().changeColor(this.getContext(), layout_invoice_tv_date,invoice_tv_date);
+                new TextField().changeColor(this.getContext(), layout_invoice_tv_amount, invoice_tv_amount);
+                new TextField().changeColor(this.getContext(), layout_shipment_tv_status, tv_status);
 
                 InvoiceData();
                 break;
             }
             case 2: {
                 rootView = inflater.inflate(R.layout.distributor_shipment__view_shipment_2_fragment, container, false);
+
+                layout_order_id = rootView.findViewById(R.id. layout_order_id);
+                layout_order_company_name = rootView.findViewById( R.id.layout_order_company_name);
+                layout_order_tr_mode = rootView.findViewById( R.id.layout_order_tr_mode);
+                layout_order_payment_term = rootView.findViewById( R.id. layout_order_payment_term);
+                layout_order_tv_cdate = rootView.findViewById( R.id.layout_order_tv_cdate);
+                layout_order_tv_status = rootView.findViewById( R.id.layout_order_tv_status);
+                layout_order_tv_shaddress = rootView.findViewById( R.id.layout_order_tv_shaddress);
+                layout_order_tv_billingAdd = rootView.findViewById( R.id.layout_order_tv_billingAdd );
+
                 order_id = rootView.findViewById(R.id.order_id);
                 order_company_name = rootView.findViewById(R.id.order_company_name);
                 order_tr_mode = rootView.findViewById(R.id.order_tr_mode);
@@ -147,6 +176,16 @@ public class PlaceholderFragment extends Fragment {
                 order_tv_shaddress = rootView.findViewById(R.id.order_tv_shaddress);
                 order_tv_billingAdd = rootView.findViewById(R.id.order_tv_billingAdd);
 
+                new TextField().changeColor(this.getContext(), layout_order_id,order_id );
+                new TextField().changeColor(this.getContext(), layout_order_company_name,order_company_name);
+                new TextField().changeColor(this.getContext(), layout_order_tr_mode,order_tr_mode);
+                new TextField().changeColor(this.getContext(), layout_order_payment_term,order_payment_term);
+                new TextField().changeColor(this.getContext(), layout_order_tv_cdate,order_tv_cdate);
+                new TextField().changeColor(this.getContext(), layout_order_tv_status,order_tv_status);
+                new TextField().changeColor(this.getContext(), layout_order_tv_shaddress,order_tv_shaddress);
+                new TextField().changeColor(this.getContext(), layout_order_tv_billingAdd ,order_tv_billingAdd );
+
+
                 orderData();
                 break;
             }
@@ -154,21 +193,37 @@ public class PlaceholderFragment extends Fragment {
             case 3: {
                 rootView = inflater.inflate(R.layout.distributor_shipment__view_shipment_3_fragment, container, false);
                 product_RecyclerV = (RecyclerView) rootView.findViewById(R.id.product_rv_shipment);
+                layout_total_price = rootView.findViewById(R.id.layout_total_price);
                 ProductData();
                 product_RecyclerV.setHasFixedSize(true);
                 layoutManager = new LinearLayoutManager(rootView.getContext());
                 product_RecyclerV.setLayoutManager(layoutManager);
                 total_price = rootView.findViewById(R.id.total_price);
+                new TextField().changeColor(this.getContext(), layout_total_price,total_price);
                 break;
             }
 
             case 4: {
                 rootView = inflater.inflate(R.layout.distributor_shipment__view_shipment_fragment, container, false);
+
+                layout_shipment_id = rootView.findViewById(R.id.layout_shipment_id);
+                layout_shipment_delivery_date = rootView.findViewById(R.id.layout_shipment_delivery_date);
+                layout_shipment_recieving_date = rootView.findViewById(R.id.layout_shipment_recieving_date);
+                layout_shipment_tv_quantity = rootView.findViewById(R.id.layout_shipment_tv_quantity);
+                layout_shipment_tv_shstatus = rootView.findViewById(R.id.layout_shipment_tv_shstatus);
+
+
                 shipment_id = rootView.findViewById(R.id.shipment_id);
                 shipment_delivery_date = rootView.findViewById(R.id.shipment_delivery_date);
                 shipment_tv_quantity = rootView.findViewById(R.id.shipment_tv_quantity);
                 shipment_tv_shstatus = rootView.findViewById(R.id.shipment_tv_shstatus);
                 shipment_recieving_date = rootView.findViewById(R.id.shipment_recieving_date);
+
+                new TextField().changeColor(this.getContext(),layout_shipment_id,shipment_id );
+                new TextField().changeColor(this.getContext(),layout_shipment_delivery_date,shipment_delivery_date);
+                new TextField().changeColor(this.getContext(),layout_shipment_recieving_date,shipment_recieving_date);
+                new TextField().changeColor(this.getContext(),layout_shipment_tv_quantity,shipment_tv_quantity);
+                new TextField().changeColor(this.getContext(),layout_shipment_tv_shstatus, shipment_tv_shstatus);
                 shipmentData();
                 break;
             }

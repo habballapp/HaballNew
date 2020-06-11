@@ -75,7 +75,7 @@
                     android:layout_marginTop="20dp"
                     android:background="@drawable/spinner_round">
 
-                    <EditText
+                    <Spinner
                         android:id="@+id/spinner_companyName"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
