@@ -21,34 +21,47 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/underline"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="4">
+
             <TextView
                 android:id="@+id/tv_support"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2.5"
                 android:fontFamily="@font/open_sans"
-                android:paddingTop="5dp"
+                android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:text="Support"
                 android:textColor="@color/textcolor"
-                android:textSize="17sp"/>
+                android:textSize="17sp" />
 
-            <TextView
-                android:id="@+id/btn_add_ticket"
+            <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/ic_baseline_add_24"
-                android:fontFamily="@font/open_sans"
-                android:gravity="center_vertical"
-                android:paddingTop="5dp"
-                android:paddingLeft="50dp"
-                android:paddingBottom="10dp"
-                android:text="Create Ticket"
-                android:textColor="@color/textcolor"
-                android:textSize="17sp"/>
+                android:layout_weight="1.5">
+
+                <ImageView
+                    android:id="@+id/image_plus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="17dp"
+                    android:src="@drawable/ic_baseline_add_24" />
+
+                <TextView
+                    android:id="@+id/btn_add_ticket"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/open_sans"
+                    android:gravity="center_vertical"
+                    android:layout_toRightOf="@+id/image_plus"
+                    android:text="Create Ticket"
+                    android:textColor="@color/textcolor"
+                    android:textSize="13sp" />
+                />
+            </RelativeLayout>
         </LinearLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

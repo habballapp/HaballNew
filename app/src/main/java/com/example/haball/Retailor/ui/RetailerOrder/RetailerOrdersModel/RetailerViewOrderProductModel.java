@@ -9,10 +9,10 @@ public class RetailerViewOrderProductModel {
     String Discount;
     String TotalPrice;
     String UOM;
-    String PackSize;
+    String TaxValue;
     String UOMTitle;
 
-    public RetailerViewOrderProductModel(String productId, String productCode, String productName, String orderQty, String unitPrice, String discount, String totalPrice, String UOM, String packSize, String uOMTitle) {
+    public RetailerViewOrderProductModel(String productId, String productCode, String productName, String orderQty, String unitPrice, String discount, String totalPrice, String UOM, String taxValue, String UOMTitle) {
         ProductId = productId;
         ProductCode = productCode;
         ProductName = productName;
@@ -21,8 +21,8 @@ public class RetailerViewOrderProductModel {
         Discount = discount;
         TotalPrice = totalPrice;
         this.UOM = UOM;
-        PackSize = packSize;
-        UOMTitle = uOMTitle;
+        TaxValue = taxValue;
+        this.UOMTitle = UOMTitle;
     }
 
     public String getProductId() {
@@ -89,12 +89,12 @@ public class RetailerViewOrderProductModel {
         this.UOM = UOM;
     }
 
-    public String getPackSize() {
-        return PackSize;
+    public String getTaxValue() {
+        return TaxValue;
     }
 
-    public void setPackSize(String packSize) {
-        PackSize = packSize;
+    public void setTaxValue(String taxValue) {
+        TaxValue = taxValue;
     }
 
     public String getUOMTitle() {

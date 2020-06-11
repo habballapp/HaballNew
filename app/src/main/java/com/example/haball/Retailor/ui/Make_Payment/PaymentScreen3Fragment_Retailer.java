@@ -5,7 +5,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +40,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
     private TextView tv_banking_channel, payment_id ,btn_newpayment;
     private String PrePaidNumber = "", PrePaidId = "", CompanyName = "", Amount = "", CompanyId = "";
     private Button btn_voucher,  btn_update;
-    private EditText spinner_companyName;
+    private Spinner spinner_companyName;
     private EditText txt_amount;
     private ArrayAdapter<String> arrayAdapterPayments;
     private List<String> CompanyNames = new ArrayList<>();
@@ -67,27 +70,48 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         btn_voucher = root.findViewById(R.id.btn_voucher);
 
         payment_id.setText(PrePaidNumber);
-        spinner_companyName.setText(CompanyName);
-//        CompanyNames.add(CompanyName);
-//        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
-//                android.R.layout.simple_spinner_dropdown_item, CompanyNames);
-//        spinner_companyName.setAdapter(arrayAdapterPayments);
-//        spinner_companyName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-//                ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-//                ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
+     //   spinner_companyName.setText(CompanyName);
+        CompanyNames.add(CompanyName);
+        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, CompanyNames);
+        spinner_companyName.setAdapter(arrayAdapterPayments);
+        spinner_companyName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         txt_amount.setText("PKR " + Amount);
-        txt_amount.setEnabled(false);
-        spinner_companyName.setEnabled(false);
+        txt_amount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { ;
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                txt_amount.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
+//                //   layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+//                txt_amount.setTextColor(getResources().getColor(R.color.textcolor));
+//                txt_amount.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
+
 
         btn_newpayment.setOnClickListener(new View.OnClickListener() {
             @Override
