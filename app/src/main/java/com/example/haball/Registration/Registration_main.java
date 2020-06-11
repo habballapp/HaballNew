@@ -167,7 +167,7 @@ public class Registration_main extends AppCompatActivity implements View.OnFocus
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                layout_txt_password.setBoxStrokeColor(getResources().getColor(R.color.color_text));
+                layout_txt_password.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
                 layout_txt_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
                 layout_txt_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
                 txt_password.setTextColor(getResources().getColor(R.color.textcolor));
@@ -270,7 +270,7 @@ public class Registration_main extends AppCompatActivity implements View.OnFocus
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                layout_txt_username.setBoxStrokeColor(getResources().getColor(R.color.color_text));
+                layout_txt_username.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
                 layout_txt_username.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
                 layout_txt_username.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
                 txt_username.setTextColor(getResources().getColor(R.color.textcolor));
@@ -326,7 +326,7 @@ public class Registration_main extends AppCompatActivity implements View.OnFocus
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                layout_txt_confirm.setBoxStrokeColor(getResources().getColor(R.color.color_text));
+                layout_txt_confirm.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
                 layout_txt_confirm.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
                 layout_txt_confirm.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
                 txt_confirm.setTextColor(getResources().getColor(R.color.textcolor));

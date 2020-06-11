@@ -47,7 +47,6 @@ public class Register_Activity extends AppCompatActivity {
         });
         rl_retailor.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-
                 Intent intent = new Intent(Register_Activity.this, RetailerLogin.class);
                 startActivity(intent);
             }

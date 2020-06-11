@@ -55,8 +55,8 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
             holder.list_price_value.setText(selectedProductsDataList.get(position).getUnitPrice());
         if (selectedProductsDataList.get(position).getUOMTitle() != null)
             holder.list_UOM_value.setText(selectedProductsDataList.get(position).getUOMTitle());
-        if (selectedProductsDataList.get(position).getPackSize() != null)
-            holder.list_pack_size_value.setText(selectedProductsDataList.get(position).getPackSize());
+//        if (selectedProductsDataList.get(position).getPackSize() != null)
+//            holder.list_pack_size_value.setText(selectedProductsDataList.get(position).getPackSize());
         DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
         String yourFormattedString2 = "0";
         if (selectedProductsDataList.get(position).getDiscountAmount() != null) {
@@ -122,7 +122,7 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView list_txt_products_, list_product_code_value, list_price_value, list_discount_value, list_UOM_value, list_pack_size_value, totalAmount_value;
+        public TextView list_txt_products_, list_product_code_value, list_price_value, list_discount_value, list_UOM_value, totalAmount_value;
         public EditText list_numberOFitems;
 
         public ViewHolder(@NonNull View itemView) {

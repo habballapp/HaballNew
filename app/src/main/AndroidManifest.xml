@@ -91,6 +91,17 @@
         <activity android:name=".Retailer_Login.RetailerLogin"
             android:windowSoftInputMode="stateVisible|adjustPan"
             />
+
+        <activity android:name=".Distributor.ui.terms_and_conditions.TermsAndConditionsFragment"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            />
+        <activity android:name=".Retailor.Retailer_TermsAndConditionsFragment"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            />
+        <activity android:name=".Retailor.Retailer_UpdatePassword"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            />
+
         <activity android:name=".Distribution_Login.Distribution_Login"
             android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity android:name=".Registration.Registration_main" />

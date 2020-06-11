@@ -33,8 +33,10 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Distributor.ui.terms_and_conditions.TermsAndConditionsFragment;
 import com.example.haball.R;
 import com.example.haball.Retailor.Forgot_Password_Retailer.Forgot_Pass_Retailer;
+import com.example.haball.Retailor.Retailer_TermsAndConditionsFragment;
 import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Retailor.Retailor_SignUp.SignUp;
 import com.example.haball.Select_User.Register_Activity;
@@ -100,6 +102,8 @@ public class RetailerLogin extends AppCompatActivity {
 
         new TextField().changeColor(this, layout_username, et_username);
         new TextField().changeColor(this, layout_password, et_password);
+
+        nullifySharedPreference();
 
         et_password.addTextChangedListener(new TextWatcher() {
             @Override
@@ -210,6 +214,36 @@ public class RetailerLogin extends AppCompatActivity {
 
     }
 
+    private void nullifySharedPreference() {
+        SharedPreferences login_token = getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = login_token.edit();
+        editor.putString("Login_Token", "");
+        editor.putString("User_Type", "");
+        editor.putString("Retailer_Id", "");
+        editor.putString("username", "");
+        editor.putString("CompanyName", "");
+        editor.putString("IsTermAndConditionAccepted", "");
+        editor.putString("UserId", "");
+
+        editor.commit();
+
+        SharedPreferences retailerInfo = getSharedPreferences("RetailerInfo",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor retailerInfo_editor = retailerInfo.edit();
+        retailerInfo_editor.putString("RetailerCode", "");
+        retailerInfo_editor.putString("RetailerID", "");
+        retailerInfo_editor.apply();
+
+        SharedPreferences companyId = getSharedPreferences("SendData",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editorCompany = companyId.edit();
+        editorCompany.putString("first_name", "");
+        editorCompany.putString("email", "");
+        editorCompany.putString("phone_number", "");
+        editorCompany.apply();
+    }
+
     private void checkFieldsForEmptyValues() {
         String username_ = et_username.getText().toString();
         String password = et_password.getText().toString();
@@ -240,6 +274,7 @@ public class RetailerLogin extends AppCompatActivity {
                     if (!result.get("access_token").toString().isEmpty()) {
                         token = result.get("access_token").toString();
                         JSONObject userAccount = new JSONObject(String.valueOf(result.get("UserAccount")));
+                        String IsTermAndConditionAccepted = userAccount.get("IsTermAndConditionAccepted").toString();
                         Log.i("user account => ", userAccount.get("RetailerID").toString());
                         String RetailerId = userAccount.get("RetailerID").toString();
                         String RetailerCode = userAccount.get("RetailerCode").toString();
@@ -258,6 +293,7 @@ public class RetailerLogin extends AppCompatActivity {
                         editor.putString("Retailer_Id", RetailerId);
                         editor.putString("username", username);
                         editor.putString("CompanyName", CompanyName);
+                        editor.putString("IsTermAndConditionAccepted", IsTermAndConditionAccepted);
                         editor.putString("UserId", ID);
 
                         editor.commit();
@@ -276,11 +312,15 @@ public class RetailerLogin extends AppCompatActivity {
                         editorCompany.putString("email", EmailAddress);
                         editorCompany.putString("phone_number", Mobile);
                         editorCompany.apply();
-
-                        // Toast.makeText(RetailerLogin.this, "Login Success", Toast.LENGTH_LONG).show();
-                        Intent login_intent = new Intent(RetailerLogin.this, RetailorDashboard.class);
-                        startActivity(login_intent);
-                        finish();
+                        if(IsTermAndConditionAccepted.equals("1")) {
+                            // Toast.makeText(RetailerLogin.this, "Login Success", Toast.LENGTH_LONG).show();
+                            Intent login_intent = new Intent(RetailerLogin.this, RetailorDashboard.class);
+                            startActivity(login_intent);
+                            finish();
+                        } else if (IsTermAndConditionAccepted.equals("0")) {
+                            Intent login_intent = new Intent(RetailerLogin.this, Retailer_TermsAndConditionsFragment.class);
+                            startActivity(login_intent);
+                        }
                     }
 
                 } catch (JSONException e) {

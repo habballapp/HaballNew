@@ -228,7 +228,6 @@
                 android:text="Next"
                 android:textSize="@dimen/button_text_size"
                 android:layout_marginTop="20dp"
-                android:enabled="false"
                 android:textAllCaps="false"
                 android:textColor="#fff"
 
