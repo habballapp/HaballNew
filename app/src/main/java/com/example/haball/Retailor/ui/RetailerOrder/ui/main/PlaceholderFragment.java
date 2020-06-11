@@ -184,12 +184,18 @@ public class PlaceholderFragment extends Fragment {
                 txt_total_amount = rootView.findViewById(R.id.txt_total_amount);
 
 
+                new TextField().changeColor(getContext(), layout_txt_companName, txt_companyName);
+                new TextField().changeColor(getContext(), layout_txt_paymentID, txt_paymentID);
+                new TextField().changeColor(getContext(), layout_txt_created_date, txt_created_date);
+                new TextField().changeColor(getContext(), layout_transaction_date, txt_confirm);
+                new TextField().changeColor(getContext(), layout_txt_bank, txt_bank);
+                new TextField().changeColor(getContext(), layout_txt_authorization_id, txt_authorization_id);
+                new TextField().changeColor(getContext(), layout_txt_settlement_id, txt_settlement_id);
+                new TextField().changeColor(getContext(), layout_txt_status, txt_status);
+                new TextField().changeColor(getContext(), layout_txt_amount, txt_amount);
+                new TextField().changeColor(getContext(), layout_txt_transaction_charges, txt_transaction_charges);
+                new TextField().changeColor(getContext(), layout_txt_total_amount, txt_total_amount);
 
-                new TextField().changeColor(this.getContext(), layout_txt_companName, txt_companyName);
-                new TextField().changeColor(this.getContext(), layout_txt_paymentID,  txt_paymentID);
-                new TextField().changeColor(this.getContext(), layout_txt_created_date, txt_created_date );
-                new TextField().changeColor(this.getContext(), layout_transaction_date, txt_confirm );
-//
 //                layout_txt_created_date.setVisibility(View.GONE);
 //                layout_transaction_date.setVisibility(View.GONE);
 //                layout_txt_bank.setVisibility(View.GONE);

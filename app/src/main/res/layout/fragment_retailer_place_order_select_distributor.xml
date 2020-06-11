@@ -78,7 +78,6 @@
                 android:fontFamily="@font/open_sans"
                 android:layout_marginTop="20dp"
                 android:theme="@style/TextLabel"
-                android:textColor="@color/textcolor"
                 app:boxBackgroundColor="#fff"
                >
 
@@ -87,6 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/open_sans"
+                    android:textColor="@color/textcolor"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
                     />
@@ -109,6 +109,7 @@
                     android:id="@+id/txt_mobile_no"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textColor="@color/textcolor"
                     android:fontFamily="@font/open_sans"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp" />
@@ -131,6 +132,7 @@
                     android:id="@+id/txt_email_address"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textColor="@color/textcolor"
                     android:fontFamily="@font/open_sans"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
@@ -154,6 +156,7 @@
                     android:id="@+id/txt_cnic_no"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textColor="@color/textcolor"
                     android:fontFamily="@font/open_sans"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
@@ -177,6 +180,7 @@
                     android:id="@+id/txt_address"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textColor="@color/textcolor"
                     android:fontFamily="@font/open_sans"
                     android:inputType="text"
                     android:paddingTop="10dp"

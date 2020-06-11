@@ -43,6 +43,7 @@ import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.example.haball.R;
 import com.example.haball.Retailor.ui.Place_Order.ui.main.Models.Company_Fragment_Model;
 import com.example.haball.Retailor.ui.Place_Order.ui.main.Tabs.Retailer_OrderPlace_retailer_dashboarad;
+import com.example.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -87,6 +88,7 @@ public class PlaceholderFragment extends Fragment {
     private PageViewModel pageViewModel;
     private TextView retailer_heading;
     private TextInputEditText txt_name, txt_mobile_no, txt_email_address, txt_cnic_no, txt_address;
+    private TextInputLayout layout_name, layout_mobile_no, layout_email_address, layout_cnic_no, layout_txt_address;
     private String object_string;
     private Typeface myFont;
 
@@ -122,6 +124,12 @@ public class PlaceholderFragment extends Fragment {
                 spinner_conso = rootView.findViewById(R.id.spinner_conso);
                 spinner_retailer_details = rootView.findViewById(R.id.spinner_retailer_details);
                 retailer_heading = rootView.findViewById(R.id.retailer_heading);
+                layout_name = rootView.findViewById(R.id.layout_name);
+                layout_mobile_no = rootView.findViewById(R.id.layout_mobile_no);
+                layout_email_address = rootView.findViewById(R.id.layout_email_address);
+                layout_cnic_no = rootView.findViewById(R.id.layout_cnic_no);
+                layout_txt_address = rootView.findViewById(R.id.layout_txt_address);
+
                 txt_name = rootView.findViewById(R.id.txt_name);
                 txt_mobile_no = rootView.findViewById(R.id.txt_mobile_no);
                 txt_email_address = rootView.findViewById(R.id.txt_email_address);
@@ -133,6 +141,11 @@ public class PlaceholderFragment extends Fragment {
                 txt_email_address.setEnabled(false);
                 txt_cnic_no.setEnabled(false);
                 txt_address.setEnabled(false);
+                new TextField().changeColor(getContext(), layout_name, txt_name);
+                new TextField().changeColor(getContext(), layout_mobile_no, txt_mobile_no);
+                new TextField().changeColor(getContext(), layout_email_address, txt_email_address);
+                new TextField().changeColor(getContext(), layout_cnic_no, txt_cnic_no);
+                new TextField().changeColor(getContext(), layout_txt_address, txt_address);
 
 //                arrayAdapterPayments = new ArrayAdapter<>(rootView.getContext(),
 //                        android.R.layout.simple_spinner_dropdown_item, company_names);
