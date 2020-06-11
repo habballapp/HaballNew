@@ -172,7 +172,7 @@
         android:layout_below="@+id/price"
         android:layout_toRightOf="@id/UOM_value"
         android:text=""
-        android:fontFamily="@font/open_sans_semibold"
+        android:fontFamily="@font/open_sans"
         android:textColor="@color/rv_box_color"
         android:textSize="@dimen/rv_order_view_box_text_size"
          />
