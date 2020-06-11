@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -36,8 +37,8 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
     private TextView tv_banking_channel, payment_id ,btn_newpayment;
     private String PrePaidNumber = "", PrePaidId = "", CompanyName = "", Amount = "", CompanyId = "";
     private Button btn_voucher,  btn_update;
-    private Spinner spinner_companyName;
-    private TextInputEditText txt_amount;
+    private EditText spinner_companyName;
+    private EditText txt_amount;
     private ArrayAdapter<String> arrayAdapterPayments;
     private List<String> CompanyNames = new ArrayList<>();
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
@@ -66,24 +67,27 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         btn_voucher = root.findViewById(R.id.btn_voucher);
 
         payment_id.setText(PrePaidNumber);
-        CompanyNames.add(CompanyName);
-        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, CompanyNames);
-        spinner_companyName.setAdapter(arrayAdapterPayments);
-        spinner_companyName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-        txt_amount.setText(Amount);
+        spinner_companyName.setText(CompanyName);
+//        CompanyNames.add(CompanyName);
+//        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
+//                android.R.layout.simple_spinner_dropdown_item, CompanyNames);
+//        spinner_companyName.setAdapter(arrayAdapterPayments);
+//        spinner_companyName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+//                ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+//                ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
+        txt_amount.setText("PKR " + Amount);
+        txt_amount.setEnabled(false);
+        spinner_companyName.setEnabled(false);
 
         btn_newpayment.setOnClickListener(new View.OnClickListener() {
             @Override

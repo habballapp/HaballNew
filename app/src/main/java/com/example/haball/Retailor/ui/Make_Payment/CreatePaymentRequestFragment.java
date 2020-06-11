@@ -87,7 +87,7 @@ public class CreatePaymentRequestFragment extends Fragment {
         spinner_company = root.findViewById(R.id.spinner_company);
         txt_amount = root.findViewById(R.id.txt_amount);
         layout_txt_amount = root.findViewById(R.id.layout_txt_amount);
-        CompanyNames.add("Company *");
+        CompanyNames.add("Select Company");
         company_names = "";
 
         new TextField().changeColor(getContext(), layout_txt_amount, txt_amount);
