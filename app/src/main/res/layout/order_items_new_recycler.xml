@@ -143,34 +143,34 @@
         android:fontFamily="@font/open_sans_semibold"
         android:textColor="@color/rv_box_color"
         android:textSize="@dimen/rv_order_view_box_text_size" />
+<!--    <TextView-->
+<!--        android:id="@+id/separator_2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@+id/price"-->
+<!--        android:layout_toRightOf="@id/UOM_value"-->
+<!--        android:text="   |   "-->
+<!--        android:fontFamily="@font/open_sans"-->
+<!--        android:textColor="@color/rv_box_color"-->
+<!--        android:textSize="@dimen/rv_order_view_box_text_size"-->
+<!--       />-->
+<!--    <TextView-->
+<!--        android:id="@+id/tv_taxValue"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@+id/price"-->
+<!--        android:layout_toRightOf="@id/separator_2"-->
+<!--        android:text="Tax Value: "-->
+<!--        android:fontFamily="@font/open_sans_semibold"-->
+<!--        android:textColor="@color/rv_box_color"-->
+<!--        android:textSize="@dimen/rv_order_view_box_text_size"-->
+<!--        />-->
     <TextView
-        android:id="@+id/separator_2"
+        android:id="@+id/tax_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/price"
         android:layout_toRightOf="@id/UOM_value"
-        android:text="   |   "
-        android:fontFamily="@font/open_sans"
-        android:textColor="@color/rv_box_color"
-        android:textSize="@dimen/rv_order_view_box_text_size"
-       />
-    <TextView
-        android:id="@+id/pack_size"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/price"
-        android:layout_toRightOf="@id/separator_2"
-        android:text="Tax Value: "
-        android:fontFamily="@font/open_sans_semibold"
-        android:textColor="@color/rv_box_color"
-        android:textSize="@dimen/rv_order_view_box_text_size"
-        />
-    <TextView
-        android:id="@+id/pack_size_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/price"
-        android:layout_toRightOf="@id/pack_size"
         android:text=""
         android:fontFamily="@font/open_sans_semibold"
         android:textColor="@color/rv_box_color"

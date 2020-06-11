@@ -79,7 +79,7 @@ public class Payment_View_Adapter extends RecyclerView.Adapter<Payment_View_Adap
             price_value = itemView.findViewById(R.id.price_value);
             discount_value = itemView.findViewById(R.id.discount_value);
             UOM_value = itemView.findViewById(R.id.UOM_value);
-            pack_size_value = itemView.findViewById(R.id.pack_size_value);
+            pack_size_value = itemView.findViewById(R.id.tax_value);
             Quantity_value = itemView.findViewById(R.id.Quantity_value);
             amount_value = itemView.findViewById(R.id.amount_value);
         }
