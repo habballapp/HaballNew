@@ -42,6 +42,7 @@ import com.example.haball.R;
 import com.example.haball.Retailor.ui.Place_Order.ui.main.Models.Company_Fragment_Model;
 import com.example.haball.Retailor.ui.Place_Order.ui.main.Tabs.Retailer_OrderPlace_retailer_dashboarad;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -62,6 +63,9 @@ import java.util.Objects;
  * A placeholder fragment containing a simple view.
  */
 public class PlaceholderFragment extends Fragment {
+
+
+    private TextInputLayout layout_username, layout_password;
     private RecyclerView recyclerView, recyclerView1;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.Adapter mAdapter1;
