@@ -34,6 +34,7 @@ import com.example.haball.Distributor.ui.orders.Models.OrderFragmentModel;
 import com.example.haball.Distributor.ui.orders.OrdersTabsLayout.Tabs.Orders_Items_Fragment;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.example.haball.R;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -70,6 +71,8 @@ public class PlaceholderFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager, layoutManager1;
     private Button create_payment;
     private Spinner spinner_consolidate;
+
+
     private List<Company_Fragment_Model> CompanyList;
     private String URL_Company = "http://175.107.203.97:4013/api/company/ReadActiveCompanyOrders/";
     private String Token, DistributorId;

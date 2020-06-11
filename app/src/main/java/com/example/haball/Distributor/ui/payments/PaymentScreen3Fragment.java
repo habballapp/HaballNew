@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,7 +40,7 @@ public class PaymentScreen3Fragment extends Fragment {
     private String PrePaidNumber = "", PrePaidId = "", CompanyName = "", Amount = "", CompanyId = "";
     private Button btn_voucher, btn_update;
     private Spinner spinner_companyName;
-    private TextInputEditText txt_amount;
+    private EditText txt_amount;
     private ArrayAdapter<String> arrayAdapterPayments;
     private List<String> CompanyNames = new ArrayList<>();
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;

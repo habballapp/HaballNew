@@ -42,6 +42,7 @@ import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.example.haball.Distributor.ui.profile.Profile_Model;
 import com.example.haball.R;
 import com.example.haball.Registration.BooleanRequest;
+import com.example.haball.TextField;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -71,9 +72,12 @@ public class PlaceholderFragment extends Fragment {
 
     private PageViewModel pageViewModel;
     private Button change_pwd, update_password, distri_btn_save;
-    private EditText edt_firstname, edt_lastname, edt_email, edt_dist_mobile, R_Address;
+    private TextInputEditText   edt_firstname, edt_lastname, edt_email, edt_dist_mobile, R_Address;
+    private TextInputLayout layout_edt_dist_code,layout_edt_firstname,layout_edt_lastname,layout_edt_email,
+                            layout_tv_cnic,layout_edt_dist_mobile,layout_tv_NTN,layout_tv_companyname,layout_tv_created_date,
+                            layout_R_Address;
     private TextInputEditText txt_password, txt_newpassword, txt_cfmpassword;
-    public TextView edt_dist_code, tv_cnic, tv_NTN, tv_companyname, tv_created_date, tv_pr1;
+    public TextInputEditText edt_dist_code, tv_cnic, tv_NTN, tv_companyname, tv_created_date, tv_pr1;
     private String PROFILE_URL = "http://175.107.203.97:4013/api/distributor/";
     private String PROFILE_ADDRESS_URL = "http://175.107.203.97:4013/api/distributor/ReadAdditionalAddress/";
     private String ChangePass_URL = "http://175.107.203.97:4013/api/Users/ChangePassword";
@@ -83,7 +87,7 @@ public class PlaceholderFragment extends Fragment {
     private Dialog change_password_dail;
     private Boolean password_check = false, confirm_password_check = false;
     private int keyDel;
-    private TextInputLayout layout_password1, layout_password3;
+    private TextInputLayout layout_password1, layout_password3,layout_password;
     private String currentTab = "";
     private Boolean changed = false;
 
@@ -105,9 +109,20 @@ public class PlaceholderFragment extends Fragment {
         switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
             case 1: {
 
-
                 root = inflater.inflate(R.layout.fragment_distributor_profile, container, false);
+
+                layout_edt_dist_code = root.findViewById(R.id.layout_edt_dist_code);
+                layout_edt_firstname = root.findViewById(R.id.layout_edt_firstname);
+                layout_edt_lastname = root.findViewById(R.id.layout_edt_lastname);
+                layout_edt_email = root.findViewById(R.id.layout_edt_email);
+                layout_tv_cnic = root.findViewById(R.id.layout_tv_cnic);
+                layout_edt_dist_mobile = root.findViewById(R.id.layout_edt_dist_mobile);
+                layout_tv_NTN = root.findViewById(R.id.layout_tv_NTN);
+                layout_tv_companyname = root.findViewById(R.id.layout_tv_companyname);
+                layout_tv_created_date = root.findViewById(R.id.layout_tv_created_date);
+
                 currentTab = "Profile";
+
                 edt_dist_code = root.findViewById(R.id.edt_dist_code);
                 edt_firstname = root.findViewById(R.id.edt_firstname);
                 edt_lastname = root.findViewById(R.id.edt_lastname);
@@ -117,13 +132,23 @@ public class PlaceholderFragment extends Fragment {
                 tv_NTN = root.findViewById(R.id.tv_NTN);
                 tv_companyname = root.findViewById(R.id.tv_companyname);
                 tv_created_date = root.findViewById(R.id.tv_created_date);
-                distri_btn_save = root.findViewById(R.id.distri_btn_save);
                 R_Address = root.findViewById(R.id.R_Address);
+                distri_btn_save = root.findViewById(R.id.distri_btn_save);
                 edt_firstname.setFocusable(false);
                 R_Address.setFocusable(false);
                 edt_lastname.setFocusable(false);
                 edt_email.setFocusable(false);
                 edt_dist_mobile.setFocusable(false);
+
+                new TextField().changeColor(this.getContext(),layout_edt_dist_code,edt_dist_code);
+                new TextField().changeColor(this.getContext(),layout_edt_firstname,edt_firstname);
+                new TextField().changeColor(this.getContext(),layout_edt_lastname,edt_lastname);
+                new TextField().changeColor(this.getContext(),layout_edt_email,edt_email);
+                new TextField().changeColor(this.getContext(),layout_tv_cnic,tv_cnic);
+                new TextField().changeColor(this.getContext(),layout_edt_dist_mobile,edt_dist_mobile);
+                new TextField().changeColor(this.getContext(), layout_tv_NTN, tv_NTN);
+                new TextField().changeColor(this.getContext(), layout_tv_companyname, tv_companyname);
+                new TextField().changeColor(this.getContext(), layout_tv_created_date,tv_created_date);
 
                 edt_firstname.setOnTouchListener(new View.OnTouchListener() {
                     @Override
@@ -313,7 +338,13 @@ public class PlaceholderFragment extends Fragment {
                 txt_newpassword = root.findViewById(R.id.txt_newpassword);
                 txt_cfmpassword = root.findViewById(R.id.txt_cfmpassword);
                 layout_password1 = root.findViewById(R.id.layout_password1);
+                layout_password =  root.findViewById(R.id.layout_password );
                 update_password = root.findViewById(R.id.update_password);
+
+                new TextField().changeColor(this.getContext(),layout_password,txt_password);
+                new TextField().changeColor(this.getContext(),layout_password1,txt_newpassword);
+                new TextField().changeColor(this.getContext(),layout_password3,txt_cfmpassword);
+
                 update_password.setEnabled(false);
                 update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
                 update_password.setOnClickListener(new View.OnClickListener() {

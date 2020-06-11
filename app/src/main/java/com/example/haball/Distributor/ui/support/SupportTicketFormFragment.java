@@ -33,7 +33,10 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
+import com.example.haball.TextField;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,8 +56,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class SupportTicketFormFragment extends Fragment {
 
-    private EditText BName, Email, MobileNo, Comment;
+    private TextInputEditText BName, Email, MobileNo, Comment;
     private ImageButton btn_back;
+    private TextInputLayout layout_BName,layout_Email,layout_MobileNo,layout_Comment;
     private Spinner IssueType, critcicality, Preffered_Contact;
     private String URL_SPINNER_ISSUETYPE = "http://175.107.203.97:4013/api/lookup/ISSUE_TYPE_PRIVATE";
     private String URL_SPINNER_CRITICALITY = "http://175.107.203.97:4013/api/lookup/CRITICALITY_PRIVATE";
@@ -92,6 +96,16 @@ public class SupportTicketFormFragment extends Fragment {
         Email = root.findViewById(R.id.Email);
         MobileNo = root.findViewById(R.id.MobileNo);
         Comment = root.findViewById(R.id.Comment);
+        layout_BName = root.findViewById( R.id.layout_BName );
+        layout_Email = root.findViewById( R.id.layout_Email );
+        layout_MobileNo = root.findViewById( R.id.layout_MobileNo);
+        layout_Comment = root.findViewById( R.id.layout_Comment);
+
+        new TextField().changeColor(this.getContext(),layout_BName,BName);
+        new TextField().changeColor(this.getContext(), layout_Email,Email);
+        new TextField().changeColor(this.getContext(), layout_MobileNo,MobileNo);
+        new TextField().changeColor(this.getContext(),layout_Comment,Comment);
+
         IssueType = root.findViewById(R.id.IssueType);
         critcicality = root.findViewById(R.id.critcicality);
         Preffered_Contact = root.findViewById(R.id.Preffered_Contact);

@@ -42,7 +42,9 @@ import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Tabs.Dist_OrderPla
 import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Tabs.Dist_Order_Summary;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.example.haball.R;
+import com.example.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -70,13 +72,14 @@ public class PlaceholderFragment extends Fragment {
     private LayoutInflater myinflater;
     private Button btn_checkout;
     private HashMap<String, String> companies = new HashMap<>();
+    private TextInputLayout layout_name,layout_mobile_no,layout_email_address,layout_cnic_no,layout_txt_address;
+    private TextInputEditText txt_name,txt_mobile_no,txt_email_address,txt_cnic_no,txt_address;
     private List<String> company_names = new ArrayList<>();
     private String Company_selected;
     private ArrayAdapter<String> arrayAdapterPayments, arrayAdapterPaymentsFilter;
     private Spinner spinner_conso;
     private RelativeLayout spinner_retailer_details;
     private TextView retailer_heading;
-    private TextInputEditText txt_name, txt_mobile_no, txt_email_address, txt_cnic_no, txt_address;
     private Button btn_next;
     private String Token, DistributorId;
     private String URL_Company = "http://175.107.203.97:4013/api/company/ReadActiveCompanyOrders/"; // To be done
@@ -128,6 +131,12 @@ public class PlaceholderFragment extends Fragment {
 //                break;
                 rootView = inflater.inflate(R.layout.fragment_place_order_company, container, false);
                 company_names.add("Company ");
+
+                layout_name = rootView.findViewById(R.id.layout_name);
+                layout_mobile_no = rootView.findViewById( R.id.layout_mobile_no );
+                layout_email_address= rootView.findViewById( R.id.layout_email_address );
+                layout_cnic_no= rootView.findViewById( R.id.layout_cnic_no );
+                layout_txt_address = rootView.findViewById( R.id.layout_txt_address );
                 spinner_conso = rootView.findViewById(R.id.spinner_conso);
                 spinner_retailer_details = rootView.findViewById(R.id.spinner_retailer_details);
                 retailer_heading = rootView.findViewById(R.id.retailer_heading);
@@ -142,6 +151,12 @@ public class PlaceholderFragment extends Fragment {
                 txt_email_address.setEnabled(false);
                 txt_cnic_no.setEnabled(false);
                 txt_address.setEnabled(false);
+
+                new TextField().changeColor(this.getContext(), layout_name,  txt_name );
+                new TextField().changeColor(this.getContext(), layout_mobile_no, txt_mobile_no);
+                new TextField().changeColor(this.getContext(), layout_email_address, txt_email_address);
+                new TextField().changeColor(this.getContext(), layout_cnic_no, txt_cnic_no);
+                new TextField().changeColor(this.getContext(),  layout_txt_address,txt_address);
 
                 arrayAdapterPayments = new ArrayAdapter<>(rootView.getContext(),
                         android.R.layout.simple_spinner_dropdown_item, company_names);
