@@ -132,9 +132,9 @@ public class Support_Ticket_Form_Fragment extends Fragment {
         BName.setText(first_name);
 
 
-        issue_type.add("Issue Type *");
-        criticality.add("Criticality *");
-        preffered_contact.add("Preferred Method of Contacting *");
+        issue_type.add("Issue Type");
+        criticality.add("Criticality");
+        preffered_contact.add("Preferred Method of Contacting");
 
 
 //        arrayAdapterIssueType = new ArrayAdapter<>(this,
@@ -226,7 +226,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
                     try {
-                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
                         ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
                         ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
@@ -259,7 +259,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
                     try {
-                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
                         ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
                         ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
@@ -292,7 +292,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
                     try {
-                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
                         ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
                         ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);

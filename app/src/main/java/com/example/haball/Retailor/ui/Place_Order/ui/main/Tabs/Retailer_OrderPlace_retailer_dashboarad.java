@@ -2,6 +2,7 @@ package com.example.haball.Retailor.ui.Place_Order.ui.main.Tabs;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -93,6 +95,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
     private static int y;
     private List<String> scrollEvent = new ArrayList<>();
     private RelativeLayout spinner_container_main;
+    private Typeface myFont;
 
     public Retailer_OrderPlace_retailer_dashboarad() {
         // Required empty public constructor
@@ -105,6 +108,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_order_place_retailer_dashboarad, container, false);
+        myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
         btn_checkout = view.findViewById(R.id.btn_checkout);
         btn_close = view.findViewById(R.id.close_button);
         btn_close.setOnClickListener(new View.OnClickListener() {
@@ -125,8 +129,35 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
         spinner_conso = view.findViewById(R.id.spinner_conso);
         et_test = view.findViewById(R.id.et_test);
 //        totalCategoryTitle.add("Select All");
-        arrayAdapterSpinnerConso = new ArrayAdapter<>(view.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, totalCategoryTitle);
+//        arrayAdapterSpinnerConso = new ArrayAdapter<>(view.getContext(),
+//                android.R.layout.simple_spinner_dropdown_item, totalCategoryTitle);
+
+
+        arrayAdapterSpinnerConso = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, totalCategoryTitle) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(50, 0, 50, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(50, 0, 50, 0);
+                return view;
+            }
+        };
+
 
         SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
                 Context.MODE_PRIVATE);

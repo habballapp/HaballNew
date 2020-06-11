@@ -2,6 +2,7 @@ package com.example.haball.Retailor.ui.Place_Order.ui.main;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
@@ -82,6 +84,7 @@ public class PlaceholderFragment extends Fragment {
     private TextView retailer_heading;
     private TextInputEditText txt_name, txt_mobile_no, txt_email_address, txt_cnic_no, txt_address;
     private String object_string;
+    private Typeface myFont;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -109,8 +112,9 @@ public class PlaceholderFragment extends Fragment {
         View rootView = null;
         switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
             case 1: {
+                myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
                 rootView = inflater.inflate(R.layout.fragment_retailer_place_order_select_distributor, container, false);
-                company_names.add("Company ");
+                company_names.add("Select Company");
                 spinner_conso = rootView.findViewById(R.id.spinner_conso);
                 spinner_retailer_details = rootView.findViewById(R.id.spinner_retailer_details);
                 retailer_heading = rootView.findViewById(R.id.retailer_heading);
@@ -126,8 +130,37 @@ public class PlaceholderFragment extends Fragment {
                 txt_cnic_no.setEnabled(false);
                 txt_address.setEnabled(false);
 
-                arrayAdapterPayments = new ArrayAdapter<>(rootView.getContext(),
-                        android.R.layout.simple_spinner_dropdown_item, company_names);
+//                arrayAdapterPayments = new ArrayAdapter<>(rootView.getContext(),
+//                        android.R.layout.simple_spinner_dropdown_item, company_names);
+
+
+
+                arrayAdapterPayments = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, company_names) {
+                    @Override
+                    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                        // TODO Auto-generated method stub
+                        View view = super.getView(position, convertView, parent);
+                        TextView text = (TextView) view.findViewById(android.R.id.text1);
+                        text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                        text.setTextSize((float) 13.6);
+                        text.setPadding(50, 0, 50, 0);
+                        text.setTypeface(myFont);
+                        return view;
+                    }
+
+                    @Override
+                    public View getView(int position, View convertView, ViewGroup parent) {
+                        // TODO Auto-generated method stub
+                        View view = super.getView(position, convertView, parent);
+                        TextView text = (TextView) view.findViewById(android.R.id.text1);
+                        text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                        text.setTextSize((float) 13.6);
+                        text.setPadding(50, 0, 50, 0);
+                        return view;
+                    }
+                };
+
+
                 spinner_retailer_details.setVisibility(View.GONE);
 
                 spinner_conso.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

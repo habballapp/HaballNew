@@ -4,6 +4,7 @@ package com.example.haball.Retailor.ui.Support;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -56,6 +57,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -98,6 +100,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
     private String dateType = "";
     private int year1, year2, month1, month2, date1, date2;
     private List<String> scrollEvent = new ArrayList<>();
+    private Typeface myFont;
 
     public SupportFragment() {
         // Required empty public constructor
@@ -108,6 +111,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_support, container, false);
+        myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
 
         btn_add_ticket_retailer = root.findViewById(R.id.btn_add_ticket_retailer);
         btn_add_ticket_retailer.setOnClickListener(new View.OnClickListener() {
@@ -158,9 +162,34 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         consolidate_felter.add("Status");
         consolidate_felter.add("Created Date");
         consolidate_felter.add("Issue Type");
+//
+//        arrayAdapterPaymentsFilter = new ArrayAdapter<>(root.getContext(),
+//                android.R.layout.simple_dropdown_item_1line, consolidate_felter);
 
-        arrayAdapterPaymentsFilter = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_dropdown_item_1line, consolidate_felter);
+        arrayAdapterPaymentsFilter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, consolidate_felter) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(50, 0, 50, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(50, 0, 50, 0);
+                return view;
+            }
+        };
 
         spinner_consolidate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -203,10 +232,35 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                         filters.add("Account & Wallet");
                         filters.add("Change Password");
 
-                        arrayAdapterFeltter = new ArrayAdapter<>(getContext(),
-                                android.R.layout.simple_dropdown_item_1line, filters);
+//                        arrayAdapterFeltter = new ArrayAdapter<>(getContext(),
+//                                android.R.layout.simple_dropdown_item_1line, filters);
+//
+//                        arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-                        arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        arrayAdapterFeltter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, filters) {
+                            @Override
+                            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                                // TODO Auto-generated method stub
+                                View view = super.getView(position, convertView, parent);
+                                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                                text.setTextSize((float) 13.6);
+                                text.setPadding(50, 0, 50, 0);
+                                text.setTypeface(myFont);
+                                return view;
+                            }
+
+                            @Override
+                            public View getView(int position, View convertView, ViewGroup parent) {
+                                // TODO Auto-generated method stub
+                                View view = super.getView(position, convertView, parent);
+                                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                                text.setTextSize((float) 13.6);
+                                text.setPadding(50, 0, 50, 0);
+                                return view;
+                            }
+                        };
                         arrayAdapterFeltter.notifyDataSetChanged();
                         spinner2.setAdapter(arrayAdapterFeltter);
 
@@ -238,11 +292,35 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                         filters.add("Pending");
                         filters.add("Resolved");
                         filters.add("Inactive");
+//
+//                        arrayAdapterFeltter = new ArrayAdapter<>(getContext(),
+//                                android.R.layout.simple_dropdown_item_1line, filters);
 
-                        arrayAdapterFeltter = new ArrayAdapter<>(getContext(),
-                                android.R.layout.simple_dropdown_item_1line, filters);
+                        arrayAdapterFeltter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, filters) {
+                            @Override
+                            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                                // TODO Auto-generated method stub
+                                View view = super.getView(position, convertView, parent);
+                                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                                text.setTextSize((float) 13.6);
+                                text.setPadding(50, 0, 50, 0);
+                                text.setTypeface(myFont);
+                                return view;
+                            }
 
-                        arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            @Override
+                            public View getView(int position, View convertView, ViewGroup parent) {
+                                // TODO Auto-generated method stub
+                                View view = super.getView(position, convertView, parent);
+                                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                                text.setTextSize((float) 13.6);
+                                text.setPadding(50, 0, 50, 0);
+                                return view;
+                            }
+                        };
+//                        arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         arrayAdapterFeltter.notifyDataSetChanged();
                         spinner2.setAdapter(arrayAdapterFeltter);
 

@@ -3,6 +3,7 @@ package com.example.haball.Retailor.ui.Make_Payment;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -52,6 +53,7 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -75,11 +77,13 @@ public class CreatePaymentRequestFragment extends Fragment {
     private TextInputEditText txt_amount;
     private TextInputLayout layout_txt_amount;
     private String prepaid_number;
+    private Typeface myFont;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.activity_payment__screen1, container, false);
+        myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
 
         btn_create = root.findViewById(R.id.btn_create);
         btn_create.setEnabled(false);
@@ -93,28 +97,54 @@ public class CreatePaymentRequestFragment extends Fragment {
         new TextField().changeColor(getContext(), layout_txt_amount, txt_amount);
 
 
-        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, CompanyNames);
+//        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
+//                android.R.layout.simple_spinner_dropdown_item, CompanyNames);
+
+        arrayAdapterPayments = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, CompanyNames) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(50, 0, 50, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(50, 0, 50, 0);
+                return view;
+            }
+        };
+
 
         spinner_company.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
                     try {
-                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                     } catch (NullPointerException e) {
                         e.printStackTrace();
                     }
                 } else {
-                        try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                            ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
-                        } catch (NullPointerException ex) {
-                            ex.printStackTrace();
-                        }
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
                     company_names = CompanyNames.get(i);
                     Log.i("company name and id ", companyNameAndId.get(company_names));
                     checkFieldsForEmptyValues();
@@ -164,6 +194,7 @@ public class CreatePaymentRequestFragment extends Fragment {
 
         return root;
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -288,7 +319,6 @@ public class CreatePaymentRequestFragment extends Fragment {
                 editor.putString("CompanyName", company_names);
                 editor.putString("Amount", txt_amount.getText().toString());
                 editor.apply();
-
 
 
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();

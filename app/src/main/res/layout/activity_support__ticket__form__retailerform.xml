@@ -227,7 +227,7 @@
                 android:layout_height="100dp"
                 android:layout_below="@+id/relative_Preffered_Contact"
                 android:layout_marginTop="20dp"
-                android:hint="Comment"
+                android:hint="Comments"
                 android:theme="@style/TextLabel"
                 app:boxStrokeColor="@color/box_stroke"
                 app:boxBackgroundColor="#fff"

@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -85,7 +86,7 @@ public class PlaceholderFragment extends Fragment {
     private Boolean password_check = false, confirm_password_check = false;
     private static final String ARG_SECTION_NUMBER = "section_number";
     private TextView tv_pr1, txt_header1;
-    private TextInputLayout layout_password1, layout_password3,layout_password;
+    private TextInputLayout layout_password1, layout_password3, layout_password;
     private FragmentTransaction fragmentTransaction;
 
     private String currentTab = "";
@@ -156,9 +157,12 @@ public class PlaceholderFragment extends Fragment {
                             if (event.getRawX() >= (Remail.getRight() - Remail.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                                 // your action here
                                 Remail.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-                                Remail.requestFocus();
                                 Remail.setFocusable(true);
                                 Remail.setFocusableInTouchMode(true);
+                                Remail.requestFocus();
+
+                                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                                 Remail.setSelection(Remail.getText().length());
                                 btn_save_password.setEnabled(true);
                                 btn_save_password.setBackground(getResources().getDrawable(R.drawable.button_background));
@@ -181,9 +185,12 @@ public class PlaceholderFragment extends Fragment {
                             if (event.getRawX() >= (Rmobile.getRight() - Rmobile.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                                 // your action here
                                 Rmobile.setInputType(InputType.TYPE_CLASS_NUMBER);
-                                Rmobile.requestFocus();
                                 Rmobile.setFocusable(true);
                                 Rmobile.setFocusableInTouchMode(true);
+                                Rmobile.requestFocus();
+                                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+
                                 Rmobile.setSelection(Rmobile.getText().length());
                                 btn_save_password.setEnabled(true);
                                 btn_save_password.setBackground(getResources().getDrawable(R.drawable.button_background));
@@ -206,9 +213,11 @@ public class PlaceholderFragment extends Fragment {
                             if (event.getRawX() >= (R_Address.getRight() - R_Address.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                                 // your action here
                                 R_Address.setInputType(InputType.TYPE_TEXT_FLAG_IME_MULTI_LINE);
-                                R_Address.requestFocus();
                                 R_Address.setFocusable(true);
                                 R_Address.setFocusableInTouchMode(true);
+                                R_Address.requestFocus();
+                                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                                 R_Address.setSelection(R_Address.getText().length());
                                 btn_save_password.setEnabled(true);
                                 btn_save_password.setBackground(getResources().getDrawable(R.drawable.button_background));
@@ -363,13 +372,13 @@ public class PlaceholderFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(currentTab.equals("Profile"))
+        if (currentTab.equals("Profile"))
             onResumeProfile();
-        else if(currentTab.equals("Password"))
+        else if (currentTab.equals("Password"))
             onResumePassword();
     }
 
-    private void onResumeProfile(){
+    private void onResumeProfile() {
         View.OnKeyListener listener = new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -407,7 +416,7 @@ public class PlaceholderFragment extends Fragment {
 
     }
 
-    private void onResumePassword(){
+    private void onResumePassword() {
         View.OnKeyListener listener = new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -476,6 +485,7 @@ public class PlaceholderFragment extends Fragment {
 
         alertDialog.show();
     }
+
     private void checkFieldsForEmptyValues() {
 
 
@@ -535,7 +545,7 @@ public class PlaceholderFragment extends Fragment {
 //                            tv_pr1.setText("User Profile ID " + ID + " password has been changed successfully.");
                         tv_pr1.setText("Your password has been updated. You would be logged out of your account");
                         fbDialogue.setCancelable(true);
-                        fbDialogue.getWindow().setGravity(Gravity.TOP|Gravity.START|Gravity.END);
+                        fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
                         WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
                         layoutParams.y = -200;
                         layoutParams.x = -70;// top margin
@@ -624,7 +634,7 @@ public class PlaceholderFragment extends Fragment {
 //            Window window = fbDialogue.getWindow();
 //            window.setGravity(Gravity.TOP);
 
-            fbDialogue.getWindow().setGravity(Gravity.TOP|Gravity.START|Gravity.END);
+            fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
             WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
             layoutParams.y = 200;
             layoutParams.x = -70;// top margin
@@ -742,7 +752,8 @@ public class PlaceholderFragment extends Fragment {
                 try {
                     Toast.makeText(getContext(), "Profile Information Successfully updated for " + result.getString("RetailerCode"), Toast.LENGTH_LONG).show();
                     fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.main_container_ret, new Profile_Tabs()).addToBackStack("tag");;
+                    fragmentTransaction.replace(R.id.main_container_ret, new Profile_Tabs()).addToBackStack("tag");
+                    ;
                     fragmentTransaction.commit();
 
                 } catch (JSONException e) {

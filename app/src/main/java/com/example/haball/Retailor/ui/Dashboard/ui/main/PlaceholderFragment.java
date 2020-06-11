@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -66,6 +67,7 @@ import java.util.TimeZone;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
@@ -145,6 +147,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
 
     private Button create_payment;
+    private Typeface myFont;
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -230,6 +233,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     }
 
     private void paymentFragmentTask(View root) throws JSONException {
+        myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
         tv_shipment_no_data1 = root.findViewById(R.id.tv_shipment_no_data);
         search_bar = root.findViewById(R.id.search_bar);
         recyclerViewPayment = root.findViewById(R.id.rv_fragment_payments);
@@ -268,8 +272,36 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         consolidate_felter.add("Paid Date");
         consolidate_felter.add("Amount");
 
-        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, consolidate_felter);
+//        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
+//                android.R.layout.simple_spinner_dropdown_item, consolidate_felter);
+
+
+//        arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
+//                android.R.layout.simple_spinner_dropdown_item, filters);
+        arrayAdapterPayments = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, consolidate_felter) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(50, 0, 50, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(50, 0, 50, 0);
+                return view;
+            }
+        };
 //        int width = Resources.getSystem().getDisplayMetrics().widthPixels;
 //        spinner_consolidate.setDropDownWidth(width - 20 - 15);
         spinner_consolidate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -352,7 +384,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         });
         Log.i("asssss", String.valueOf(consolidate_felter));
         Log.i("asdsdad", String.valueOf(Filter_selected));
-        arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner_consolidate.setAdapter(arrayAdapterPayments);
 
@@ -363,8 +395,34 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         filters.add("Delete");
         filters.add("Pending");
         filters.add("Partially Paid");
-        arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, filters);
+//        arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
+//                android.R.layout.simple_spinner_dropdown_item, filters);
+
+        arrayAdapterFeltter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, filters) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(50, 0, 50, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(50, 0, 50, 0);
+                return view;
+            }
+        };
+
 //        Log.i("aaaa1111", String.valueOf(consolidate_felter));
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -410,8 +468,34 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
             }
         });
-        arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        arrayAdapterFeltter.notifyDataSetChanged();
+//        arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//        arrayAdapterFeltter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item) {
+//            @Override
+//            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+//                // TODO Auto-generated method stub
+//                View view = super.getView(position, convertView, parent);
+//                TextView text = (TextView) view.findViewById(android.R.id.text1);
+//                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+//                text.setTextSize((float) 13.6);
+//                text.setPadding(50, 0, 50, 0);
+//                text.setTypeface(myFont);
+//                return view;
+//            }
+//
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent) {
+//                // TODO Auto-generated method stub
+//                View view = super.getView(position, convertView, parent);
+//                TextView text = (TextView) view.findViewById(android.R.id.text1);
+//                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+//                text.setTextSize((float) 13.6);
+//                text.setPadding(50, 0, 50, 0);
+//                return view;
+//            }
+//        };
+
+        arrayAdapterFeltter.notifyDataSetChanged();
         spinner2.setAdapter(arrayAdapterFeltter);
 
         conso_edittext.addTextChangedListener(new TextWatcher() {
@@ -930,6 +1014,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     }
 
     private void orderFragmentTask(View root) throws JSONException {
+        myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
         search_rl = root.findViewById(R.id.search_rl);
         search_bar = root.findViewById(R.id.search_bar);
         recyclerView = (RecyclerView) root.findViewById(R.id.rv_fragment_orders);
@@ -968,9 +1053,32 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         consolidate_felter.add("Created Date");
         consolidate_felter.add("Amount");
 
-        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, consolidate_felter);
+//        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
+//                android.R.layout.simple_spinner_dropdown_item, consolidate_felter);
+        arrayAdapterPayments = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, consolidate_felter) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(50, 0, 50, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
 
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(50, 0, 50, 0);
+                return view;
+            }
+        };
         spinner_consolidate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -1065,7 +1173,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
             }
         });
-        arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner_consolidate.setAdapter(arrayAdapterPayments);
 
@@ -1076,8 +1184,32 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         filters.add("Draft");
         filters.add("Cancelled");
 
-        arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, filters);
+//        arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
+//                android.R.layout.simple_spinner_dropdown_item, filters);
+        arrayAdapterFeltter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, filters) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(50, 0, 50, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(50, 0, 50, 0);
+                return view;
+            }
+        };
 //        Log.i("aaaa1111", String.valueOf(consolidate_felter));
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -1122,7 +1254,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
             }
         });
-        arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //        arrayAdapterFeltter.notifyDataSetChanged();
         spinner2.setAdapter(arrayAdapterFeltter);
 
