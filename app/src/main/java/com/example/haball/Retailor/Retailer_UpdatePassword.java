@@ -167,6 +167,9 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
         LayoutInflater inflater = LayoutInflater.from(this);
         View view_popup = inflater.inflate(R.layout.discard_changes, null);
         alertDialog.setCancelable(true);
+       TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+       tv_discard_txt.setText("" );
+
         alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
         WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
         layoutParams.y = 200;
