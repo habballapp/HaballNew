@@ -35,6 +35,7 @@ import com.example.haball.R;
 import com.example.haball.Retailor.ui.RetailerOrder.RetailerOrdersAdapter.RetailerViewOrderProductAdapter;
 import com.example.haball.Retailor.ui.RetailerOrder.RetailerOrdersModel.RetailerViewOrderProductModel;
 import com.example.haball.TextField;
+import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -54,7 +55,7 @@ import java.util.Map;
 public class PlaceholderFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private String orderID;
+    private String orderID, InvoiceStatus;
     private String URL_Order_Data = "http://175.107.203.97:4014/api/Orders/";
     private PageViewModel pageViewModel;
     private TextInputLayout layout_txt_orderID,layout_txt_order_company,layout_txt_created_date_order,layout_txt_status_order,layout_txt_comments,

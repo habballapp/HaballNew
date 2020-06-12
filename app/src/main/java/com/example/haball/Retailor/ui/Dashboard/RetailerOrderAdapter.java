@@ -2,6 +2,7 @@ package com.example.haball.Retailor.ui.Dashboard;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -165,6 +166,8 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
                         SharedPreferences.Editor editor = OrderId.edit();
                         editor.putString("OrderId", OrderList.get(position).getID());
                         editor.putString("Status", OrderList.get(position).getOrderStatusValue());
+                        editor.putString("InvoiceStatus", String.valueOf(OrderList.get(position).getInvoiceStatus()));
+                        Log.i("InvoiceStatus_Adapter", String.valueOf(OrderList.get(position).getInvoiceStatus()));
                         editor.commit();
                         break;
                     case R.id.orders_cancel:
