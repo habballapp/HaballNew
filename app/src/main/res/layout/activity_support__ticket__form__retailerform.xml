@@ -224,7 +224,7 @@
                     android:inputType="textMultiLine|textCapSentences"
                     android:paddingLeft="20dp"
                     android:paddingTop="10dp"
-                    android:paddingRight="20dp"
+
                     android:paddingBottom="5dp"
                     android:textColor="#676a6c" />
 

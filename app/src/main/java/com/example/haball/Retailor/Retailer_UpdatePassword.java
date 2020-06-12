@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -26,8 +27,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
+import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -57,6 +60,8 @@ import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
 import com.example.haball.Registration.BooleanRequest;
 import com.example.haball.Retailer_Login.RetailerLogin;
+import com.example.haball.Retailor.ui.Dashboard.DashBoardFragment;
+import com.example.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
 import com.example.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -165,10 +170,17 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
 
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         LayoutInflater inflater = LayoutInflater.from(this);
-        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        final View view_popup = inflater.inflate(R.layout.discard_changes, null);
         alertDialog.setCancelable(true);
        TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
-       tv_discard_txt.setText("" );
+        String steps = "It is recommended to change the default generated password.";
+        String title="Are you sure, you want to skip?";
+
+        SpannableString ss1=  new SpannableString(title);
+        ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
+        tv_discard_txt.append(steps);
+        tv_discard_txt.append(" ");
+        tv_discard_txt.append(ss1);
 
         alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
         WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
@@ -181,28 +193,26 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i("CreatePayment", "Button Clicked");
                 alertDialog.dismiss();
-                Intent intent = new Intent(Retailer_UpdatePassword.this, RetailerLogin.class);
+                Intent intent = new Intent(Retailer_UpdatePassword.this, RetailorDashboard.class);
                 startActivity(intent);
-                finish();
             }
         });
 
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                Intent intent = new Intent(Retailer_UpdatePassword.this, RetailerLogin.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
-        img_email.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
+                ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+                img_email.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+
+                    }
+                });
 
             }
         });
+
 
         alertDialog.show();
     }
@@ -274,6 +284,7 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
                         fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
                             @Override
                             public void onDismiss(DialogInterface dialog) {
+                                nullifySharedPreference();
                                 Intent intent = new Intent(Retailer_UpdatePassword.this, RetailerLogin.class);
                                 startActivity(intent);
                                 finish();
@@ -466,4 +477,34 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
             }
         }
     }
+    private void nullifySharedPreference() {
+        SharedPreferences login_token = getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = login_token.edit();
+        editor.putString("Login_Token", "");
+        editor.putString("User_Type", "");
+        editor.putString("Retailer_Id", "");
+        editor.putString("username", "");
+        editor.putString("CompanyName", "");
+        editor.putString("IsTermAndConditionAccepted", "");
+        editor.putString("UserId", "");
+
+        editor.commit();
+
+        SharedPreferences retailerInfo = getSharedPreferences("RetailerInfo",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor retailerInfo_editor = retailerInfo.edit();
+        retailerInfo_editor.putString("RetailerCode", "");
+        retailerInfo_editor.putString("RetailerID", "");
+        retailerInfo_editor.apply();
+
+        SharedPreferences companyId = getSharedPreferences("SendData",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editorCompany = companyId.edit();
+        editorCompany.putString("first_name", "");
+        editorCompany.putString("email", "");
+        editorCompany.putString("phone_number", "");
+        editorCompany.apply();
+    }
+
 }

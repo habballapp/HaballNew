@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -151,6 +152,7 @@ public class PlaceholderFragment extends Fragment {
                 new TextField().changeColor(this.getContext(), layout_tv_created_date,tv_created_date);
 
                 edt_firstname.setOnTouchListener(new View.OnTouchListener() {
+                    @SuppressLint("ClickableViewAccessibility")
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
                         final int DRAWABLE_LEFT = 0;
@@ -165,6 +167,8 @@ public class PlaceholderFragment extends Fragment {
                                 edt_firstname.requestFocus();
                                 edt_firstname.setFocusable(true);
                                 edt_firstname.setFocusableInTouchMode(true);
+                                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                                 edt_firstname.setSelection(edt_firstname.getText().length());
                                 distri_btn_save.setEnabled(true);
                                 distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
@@ -177,8 +181,10 @@ public class PlaceholderFragment extends Fragment {
                 });
 
                 R_Address.setOnTouchListener(new View.OnTouchListener() {
+                    @SuppressLint("ClickableViewAccessibility")
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
+
                         final int DRAWABLE_LEFT = 0;
                         final int DRAWABLE_TOP = 1;
                         final int DRAWABLE_RIGHT = 2;
@@ -192,6 +198,8 @@ public class PlaceholderFragment extends Fragment {
                                 R_Address.setFocusable(true);
                                 R_Address.setFocusableInTouchMode(true);
                                 R_Address.setSelection(R_Address.getText().length());
+                                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                                 distri_btn_save.setEnabled(true);
                                 distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
                                 changed = true;
@@ -202,6 +210,7 @@ public class PlaceholderFragment extends Fragment {
                     }
                 });
                 edt_lastname.setOnTouchListener(new View.OnTouchListener() {
+                    @SuppressLint("ClickableViewAccessibility")
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
                         final int DRAWABLE_LEFT = 0;
@@ -216,6 +225,8 @@ public class PlaceholderFragment extends Fragment {
                                 edt_lastname.requestFocus();
                                 edt_lastname.setFocusable(true);
                                 edt_lastname.setFocusableInTouchMode(true);
+                                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                                 edt_lastname.setSelection(edt_lastname.getText().length());
                                 distri_btn_save.setEnabled(true);
                                 distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
@@ -227,8 +238,10 @@ public class PlaceholderFragment extends Fragment {
                     }
                 });
                 edt_email.setOnTouchListener(new View.OnTouchListener() {
+                    @SuppressLint("ClickableViewAccessibility")
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
+
                         final int DRAWABLE_LEFT = 0;
                         final int DRAWABLE_TOP = 1;
                         final int DRAWABLE_RIGHT = 2;
@@ -241,6 +254,8 @@ public class PlaceholderFragment extends Fragment {
                                 edt_email.requestFocus();
                                 edt_email.setFocusable(true);
                                 edt_email.setFocusableInTouchMode(true);
+                                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                                 edt_email.setSelection(edt_email.getText().length());
                                 distri_btn_save.setEnabled(true);
                                 distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
@@ -252,6 +267,7 @@ public class PlaceholderFragment extends Fragment {
                     }
                 });
                 edt_dist_mobile.setOnTouchListener(new View.OnTouchListener() {
+                    @SuppressLint("ClickableViewAccessibility")
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
                         final int DRAWABLE_LEFT = 0;
@@ -266,6 +282,8 @@ public class PlaceholderFragment extends Fragment {
                                 edt_dist_mobile.requestFocus();
                                 edt_dist_mobile.setFocusable(true);
                                 edt_dist_mobile.setFocusableInTouchMode(true);
+                                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                                 edt_dist_mobile.setSelection(edt_dist_mobile.getText().length());
                                 distri_btn_save.setEnabled(true);
                                 distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
