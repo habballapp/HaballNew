@@ -302,6 +302,8 @@ public class RetailerLogin extends AppCompatActivity {
                         editor.putString("UserId", ID);
 
                         editor.commit();
+                        //updatePassword token
+
 
                         SharedPreferences retailerInfo = getSharedPreferences("RetailerInfo",
                                 Context.MODE_PRIVATE);

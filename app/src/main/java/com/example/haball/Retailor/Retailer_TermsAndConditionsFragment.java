@@ -75,53 +75,53 @@ public class Retailer_TermsAndConditionsFragment extends AppCompatActivity {
     }
 
     private void termsAndConditionAccepted() throws JSONException {
-        SharedPreferences sharedPreferences = getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token", "");
-        String RetailerID = sharedPreferences.getString("Retailer_Id", "");
-        Log.i("Token", Token);
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("RetailerID", Integer.parseInt(RetailerID));
-
-        String requestBody = jsonObject.toString();
-
-        BooleanRequest sr = new BooleanRequest(Request.Method.POST, URL, requestBody, new Response.Listener<Boolean>() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-            @Override
-            public void onResponse(Boolean result) {
-                if(result) {
+//        SharedPreferences sharedPreferences = getSharedPreferences("LoginToken",
+//                Context.MODE_PRIVATE);
+//        Token = sharedPreferences.getString("Login_Token", "");
+//        String RetailerID = sharedPreferences.getString("Retailer_Id", "");
+//        Log.i("Token", Token);
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("RetailerID", Integer.parseInt(RetailerID));
+//
+//        String requestBody = jsonObject.toString();
+//
+//        BooleanRequest sr = new BooleanRequest(Request.Method.POST, URL, requestBody, new Response.Listener<Boolean>() {
+//            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+//            @Override
+//            public void onResponse(Boolean result) {
+//                if(result) {
                     Intent intent = new Intent(Retailer_TermsAndConditionsFragment.this, Retailer_UpdatePassword.class);
                     startActivity(intent);
                     finish();
-                } else {
-                    Toast.makeText(Retailer_TermsAndConditionsFragment.this, "Error occurred.", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Retailer_TermsAndConditionsFragment.this, RetailerLogin.class);
-                    startActivity(intent);
-                    finish();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // printErrorMessage(error);
-                error.printStackTrace();
-            }
-        }) {
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer " + Token);
-                params.put("Content-Type", "application/json");
-
-                return params;
-            }
-        };
-        sr.setRetryPolicy(new DefaultRetryPolicy(
-                15000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(this).add(sr);
+//                } else {
+//                    Toast.makeText(Retailer_TermsAndConditionsFragment.this, "Error occurred.", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(Retailer_TermsAndConditionsFragment.this, RetailerLogin.class);
+//                    startActivity(intent);
+//                    finish();
+//                }
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                // printErrorMessage(error);
+//                error.printStackTrace();
+//            }
+//        }) {
+//
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                Map<String, String> params = new HashMap<String, String>();
+//                params.put("Authorization", "bearer " + Token);
+//                params.put("Content-Type", "application/json");
+//
+//                return params;
+//            }
+//        };
+//        sr.setRetryPolicy(new DefaultRetryPolicy(
+//                15000,
+//                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+//                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+//        Volley.newRequestQueue(this).add(sr);
     }
 
 }

@@ -131,6 +131,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#6d6e72</item>
+        <item name="android:dropDownWidth">match_parent</item>
         <item name="fontFamily">@font/open_sans</item>
     </style>
     <style name="DrawerItemText">

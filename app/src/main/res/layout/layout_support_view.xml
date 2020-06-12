@@ -166,192 +166,93 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <RelativeLayout
-                    android:id="@+id/relative_txt_issue_type"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_txt_issue_type"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="55dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginRight="30dp"
-                    android:background="@drawable/spinner_round">
+                    android:layout_weight="1"
+                    android:hint="Issue Type"
+                    android:theme="@style/TextLabel"
+                    app:boxBackgroundColor="#fff"
+                    app:boxStrokeColor="@color/box_stroke"
+                    app:boxStrokeWidth="1.75dp">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt_issue_type"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@null"
-                        android:fontFamily="@font/open_sans"
-                        android:paddingLeft="30dp"
+                        android:inputType="number"
                         android:paddingTop="5dp"
-                        android:paddingRight="30dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
                         android:paddingBottom="5dp"
-                        android:textColor="@color/textcolor"
-                        android:textSize="14sp"
-                        app:boxStrokeColor="@color/box_stroke" />
+                        android:textColor="#676a6c"
+                        android:textSize="14sp" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignTop="@id/txt_issue_type"
-                        android:layout_alignEnd="@+id/txt_issue_type"
-                        android:layout_alignRight="@+id/txt_issue_type"
-                        android:layout_alignBottom="@+id/txt_issue_type"
-                        android:src="@drawable/ic_arrow_drop_down_black_24dp"
-                        android:theme="@style/Spinner" />
-                </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/relative_txt_criticality"
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_txt_criticality"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="55dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginRight="30dp"
-                    android:background="@drawable/spinner_round">
+                    android:layout_weight="1"
+                    android:hint="Criticality"
+                    android:theme="@style/TextLabel"
+                    app:boxBackgroundColor="#fff"
+                    app:boxStrokeColor="@color/box_stroke"
+                    app:boxStrokeWidth="1.75dp">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt_criticality"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@null"
-                        android:fontFamily="@font/open_sans"
-                        android:paddingLeft="30dp"
+                        android:inputType="number"
+                        android:maxLength="9"
+                        android:paddingLeft="20dp"
                         android:paddingTop="5dp"
-                        android:paddingRight="30dp"
+                        android:paddingRight="20dp"
                         android:paddingBottom="5dp"
-                        android:textColor="@color/textcolor"
-                        android:textSize="14sp"
-                        app:boxStrokeColor="@color/box_stroke" />
+                        android:textColor="#676a6c"
+                        android:textSize="14sp" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignTop="@id/txt_criticality"
-                        android:layout_alignEnd="@+id/txt_criticality"
-                        android:layout_alignRight="@+id/txt_criticality"
-                        android:layout_alignBottom="@+id/txt_criticality"
-                        android:src="@drawable/ic_arrow_drop_down_black_24dp"
-                        android:theme="@style/Spinner" />
-                </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/relative_txt_preferred_contact_method"
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_txt_preferred_contact_method"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="55dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginRight="30dp"
-                    android:background="@drawable/spinner_round">
+                    android:layout_weight="1"
+                    android:hint="Preferred Contact Method"
+                    android:theme="@style/TextLabel"
+                    app:boxBackgroundColor="#fff"
+                    app:boxStrokeColor="@color/box_stroke"
+                    app:boxStrokeWidth="1.75dp">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt_preferred_contact_method"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@null"
-                        android:fontFamily="@font/open_sans"
-                        android:paddingLeft="30dp"
+                        android:inputType="number"
+                        android:paddingLeft="20dp"
                         android:paddingTop="5dp"
-                        android:paddingRight="30dp"
+                        android:paddingRight="20dp"
                         android:paddingBottom="5dp"
-                        android:textColor="@color/textcolor"
-                        android:textSize="14sp"
-                        app:boxStrokeColor="@color/box_stroke" />
+                        android:textColor="#676a6c"
+                        android:textSize="14sp" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignTop="@id/txt_preferred_contact_method"
-                        android:layout_alignEnd="@+id/txt_preferred_contact_method"
-                        android:layout_alignRight="@+id/txt_preferred_contact_method"
-                        android:layout_alignBottom="@+id/txt_preferred_contact_method"
-                        android:src="@drawable/ic_arrow_drop_down_black_24dp"
-                        android:theme="@style/Spinner" />
-                </RelativeLayout>
-                <!--                <com.google.android.material.textfield.TextInputLayout-->
-                <!--                    android:id="@+id/layout_txt_issue_type"-->
-                <!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="55dp"-->
-                <!--                    android:layout_marginLeft="30dp"-->
-                <!--                    android:layout_marginTop="20dp"-->
-                <!--                    android:layout_marginRight="30dp"-->
-                <!--                    android:layout_weight="1"-->
-                <!--                    android:hint="Issue Type"-->
-                <!--                    android:theme="@style/TextLabel"-->
-                <!--                    app:boxBackgroundColor="#fff"-->
-                <!--                    app:boxStrokeColor="@color/box_stroke"-->
-                <!--                    app:boxStrokeWidth="1.75dp">-->
-
-                <!--                    <com.google.android.material.textfield.TextInputEditText-->
-                <!--                        android:id="@+id/txt_issue_type"-->
-                <!--                        android:layout_width="match_parent"-->
-                <!--                        android:layout_height="match_parent"-->
-                <!--                        android:inputType="number"-->
-                <!--                        android:paddingLeft="20dp"-->
-                <!--                        android:paddingTop="5dp"-->
-                <!--                        android:paddingRight="20dp"-->
-                <!--                        android:paddingBottom="5dp"-->
-                <!--                        android:textColor="#676a6c"-->
-                <!--                        android:textSize="14sp" />-->
-
-                <!--                </com.google.android.material.textfield.TextInputLayout>-->
-
-                <!--                <com.google.android.material.textfield.TextInputLayout-->
-                <!--                    android:id="@+id/layout_txt_criticality"-->
-                <!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="55dp"-->
-                <!--                    android:layout_marginLeft="30dp"-->
-                <!--                    android:layout_marginTop="20dp"-->
-                <!--                    android:layout_marginRight="30dp"-->
-                <!--                    android:layout_weight="1"-->
-                <!--                    android:hint="Criticality"-->
-                <!--                    android:theme="@style/TextLabel"-->
-                <!--                    app:boxBackgroundColor="#fff"-->
-                <!--                    app:boxStrokeColor="@color/box_stroke"-->
-                <!--                    app:boxStrokeWidth="1.75dp">-->
-
-                <!--                    <com.google.android.material.textfield.TextInputEditText-->
-                <!--                        android:id="@+id/txt_criticality"-->
-                <!--                        android:layout_width="match_parent"-->
-                <!--                        android:layout_height="match_parent"-->
-                <!--                        android:inputType="number"-->
-                <!--                        android:maxLength="9"-->
-                <!--                        android:paddingLeft="20dp"-->
-                <!--                        android:paddingTop="5dp"-->
-                <!--                        android:paddingRight="20dp"-->
-                <!--                        android:paddingBottom="5dp"-->
-                <!--                        android:textColor="#676a6c"-->
-                <!--                        android:textSize="14sp" />-->
-
-                <!--                </com.google.android.material.textfield.TextInputLayout>-->
-
-                <!--                <com.google.android.material.textfield.TextInputLayout-->
-                <!--                    android:id="@+id/layout_txt_preferred_contact_method"-->
-                <!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="55dp"-->
-                <!--                    android:layout_marginLeft="30dp"-->
-                <!--                    android:layout_marginTop="20dp"-->
-                <!--                    android:layout_marginRight="30dp"-->
-                <!--                    android:layout_weight="1"-->
-                <!--                    android:hint="Preferred Contact Method"-->
-                <!--                    android:theme="@style/TextLabel"-->
-                <!--                    app:boxBackgroundColor="#fff"-->
-                <!--                    app:boxStrokeColor="@color/box_stroke"-->
-                <!--                    app:boxStrokeWidth="1.75dp">-->
-
-                <!--                    <com.google.android.material.textfield.TextInputEditText-->
-                <!--                        android:id="@+id/txt_preferred_contact_method"-->
-                <!--                        android:layout_width="match_parent"-->
-                <!--                        android:layout_height="match_parent"-->
-                <!--                        android:inputType="number"-->
-                <!--                        android:paddingLeft="20dp"-->
-                <!--                        android:paddingTop="5dp"-->
-                <!--                        android:paddingRight="20dp"-->
-                <!--                        android:paddingBottom="5dp"-->
-                <!--                        android:textColor="#676a6c"-->
-                <!--                        android:textSize="14sp" />-->
-
-                <!--                </com.google.android.material.textfield.TextInputLayout>-->
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_txt_comments"
@@ -405,7 +306,6 @@
                     android:layout_weight="1"
                     android:background="@drawable/button_round"
                     android:gravity="center"
-                    android:stateListAnimator="@null"
                     android:text="Delete"
                     android:textAllCaps="false"
                     android:textColor="#fff"
@@ -421,7 +321,6 @@
                     android:layout_weight="1"
                     android:background="@drawable/button_round"
                     android:gravity="center"
-                    android:stateListAnimator="@null"
                     android:text="Back"
                     android:textAllCaps="false"
                     android:textColor="#fff"

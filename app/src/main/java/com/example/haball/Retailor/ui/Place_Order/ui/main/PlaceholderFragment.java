@@ -39,6 +39,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Tabs.Dist_OrderPlace;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.example.haball.R;
 import com.example.haball.Retailor.ui.Place_Order.ui.main.Models.Company_Fragment_Model;
@@ -250,7 +251,7 @@ public class PlaceholderFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = (Objects.requireNonNull(getActivity())).getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.add(R.id.main_container_ret, new Retailer_OrderPlace_retailer_dashboarad());
+                fragmentTransaction.add(R.id.main_container_ret, new Dist_OrderPlace());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
 

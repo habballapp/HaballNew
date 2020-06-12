@@ -1,5 +1,6 @@
 package com.example.haball.Retailor.ui.Profile.ui.main;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -146,6 +147,7 @@ public class PlaceholderFragment extends Fragment {
                 new TextField().changeColor(getContext(), layout_R_Address, R_Address);
 
                 Remail.setOnTouchListener(new View.OnTouchListener() {
+                    @SuppressLint("ClickableViewAccessibility")
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
                         final int DRAWABLE_LEFT = 0;
