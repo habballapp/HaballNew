@@ -118,53 +118,53 @@
                         android:theme="@style/Spinner" />
                 </RelativeLayout>
 
-                <!--                <com.google.android.material.textfield.TextInputLayout-->
-                <!--                    android:id="@+id/layout_txt_amount"-->
-                <!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="55dp"-->
-                <!--                    android:layout_marginTop="20dp"-->
-                <!--                    android:layout_weight="1"-->
-                <!--                    android:fontFamily="@font/open_sans"-->
-                <!--                    android:hint="Amount"-->
-                <!--                    android:theme="@style/TextLabel"-->
-                <!--                    app:boxStrokeColor="@color/box_stroke">-->
-
-                <!--                    <com.google.android.material.textfield.TextInputEditText-->
-                <!--                        android:id="@+id/txt_amount"-->
-                <!--                        android:layout_width="match_parent"-->
-                <!--                        android:layout_height="match_parent"-->
-                <!--                        android:fontFamily="@font/open_sans"-->
-                <!--                        android:paddingLeft="20dp"-->
-                <!--                        android:paddingTop="5dp"-->
-                <!--                        android:paddingRight="20dp"-->
-                <!--                        android:paddingBottom="5dp"-->
-                <!--                        android:textColor="@color/textcolor"-->
-                <!--                        android:textSize="14sp" />-->
-
-                <!--                </com.google.android.material.textfield.TextInputLayout>-->
-                <RelativeLayout
-                    android:id="@+id/relative_Preffered_Contact_1"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_txt_amount"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="55dp"
                     android:layout_marginTop="20dp"
                     android:layout_weight="1"
-                    android:background="@drawable/spinner_round">
+                    android:fontFamily="@font/open_sans"
+                    android:hint="Amount"
+                    android:theme="@style/TextLabel"
+                    app:boxStrokeColor="@color/box_stroke">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt_amount"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@null"
                         android:fontFamily="@font/open_sans"
                         android:paddingLeft="20dp"
                         android:paddingTop="5dp"
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
                         android:textColor="@color/textcolor"
-                        android:textSize="14sp"
-                        app:boxStrokeColor="@color/box_stroke" />
-                </RelativeLayout>
+                        android:textSize="14sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <!--                <RelativeLayout-->
+                <!--                    android:id="@+id/relative_Preffered_Contact_1"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="50dp"-->
+                <!--                    android:layout_marginTop="20dp"-->
+                <!--                    android:layout_weight="1"-->
+                <!--                    android:background="@drawable/spinner_round">-->
+
+                <!--                    <EditText-->
+                <!--                        android:id="@+id/txt_amount"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="match_parent"-->
+                <!--                        android:background="@null"-->
+                <!--                        android:fontFamily="@font/open_sans"-->
+                <!--                        android:paddingLeft="20dp"-->
+                <!--                        android:paddingTop="5dp"-->
+                <!--                        android:paddingRight="20dp"-->
+                <!--                        android:paddingBottom="5dp"-->
+                <!--                        android:textColor="@color/textcolor"-->
+                <!--                        android:textSize="14sp"-->
+                <!--                        app:boxStrokeColor="@color/box_stroke" />-->
+                <!--                </RelativeLayout>-->
 
                 <Button
                     android:id="@+id/btn_update"

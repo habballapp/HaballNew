@@ -43,6 +43,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.support.DeleteSupport;
 import com.example.haball.Distributor.ui.support.SupportFragment;
 import com.example.haball.R;
+import com.example.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -70,6 +71,7 @@ public class Support_Ticket_View extends Fragment {
     private TextInputEditText txt_criticality;
     private TextInputEditText txt_preferred_contact_method;
     private TextInputEditText txt_comments;
+    private TextInputLayout layout_txt_business_name,layout_txt_email_address,layout_txt_mobile_number,layout_txt_comments;
     private String ID;
     private FragmentTransaction fragmentTransaction;
 
@@ -86,6 +88,16 @@ public class Support_Ticket_View extends Fragment {
         txt_preferred_contact_method = root.findViewById(R.id.txt_preferred_contact_method);
         txt_comments = root.findViewById(R.id.txt_comments);
         tv_ticket_id = root.findViewById(R.id.tv_ticket_id);
+
+        layout_txt_business_name = root.findViewById(R.id.layout_txt_business_name);
+        layout_txt_email_address = root.findViewById(R.id.layout_txt_email_address);
+        layout_txt_mobile_number = root.findViewById(R.id.layout_txt_mobile_number);
+        layout_txt_comments = root.findViewById( R.id.layout_txt_comments );
+
+        new TextField().changeColor(this.getContext(), layout_txt_business_name,  txt_business_name);
+        new TextField().changeColor(this.getContext(),  layout_txt_email_address, txt_email_address);
+        new TextField().changeColor(this.getContext(), layout_txt_mobile_number, txt_mobile_number);
+        new TextField().changeColor(this.getContext(), layout_txt_comments, txt_comments);
 
         btn_delete = root.findViewById(R.id.btn_delete);
         btn_back = root.findViewById(R.id.btn_back);

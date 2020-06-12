@@ -32,7 +32,9 @@ import com.example.haball.R;
 import com.example.haball.Retailer_Login.RetailerLogin;
 import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Retailor.ui.Make_Payment.CreatePaymentRequestFragment;
+import com.example.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,6 +54,9 @@ public class View_Payment_Fragment extends Fragment {
     private String Token;
     private TextInputEditText txt_heading, txt_paymentid, txt_created_date, txt_transaction_date, txt_bname, txt_authorization, txt_settlement, txt_amount, txt_status, txt_transaction_charges;
     private Button btn_vreciept, btn_back;
+    private TextInputLayout layout_txt_heading,layout_txt_paymentid,layout_created_date,layout_transaction_date,
+                             layout_txt_bname,layout_txt_authorization,layout_txt_settlement,layout_txt_amount,
+                             layout_txt_status,layout_txt_transaction_charges;
     private FragmentTransaction fragmentTransaction;
     private TextView btn_make_payment;
 
@@ -73,7 +78,18 @@ public class View_Payment_Fragment extends Fragment {
         if (!PAYMENT_REQUEST_URL.contains(PaymentsRequestId))
             PAYMENT_REQUEST_URL = PAYMENT_REQUEST_URL + PaymentsRequestId;
 
+        layout_txt_heading = root.findViewById(R.id.layout_txt_heading );
+        layout_txt_paymentid = root.findViewById(R.id.layout_txt_paymentid);
+        layout_created_date = root.findViewById(R.id.layout_created_date);
+        layout_transaction_date = root.findViewById(R.id.layout_transaction_date);
+        layout_txt_bname = root.findViewById(R.id. layout_txt_bname);
+        layout_txt_authorization = root.findViewById(R.id.layout_txt_authorization);
+        layout_txt_settlement = root.findViewById(R.id.layout_txt_settlement);
+        layout_txt_amount= root.findViewById(R.id.layout_txt_amount);
+        layout_txt_status= root.findViewById(R.id.layout_txt_status);
+        layout_txt_transaction_charges= root.findViewById(R.id.layout_txt_transaction_charges);
 
+        txt_transaction_charges = root.findViewById(R.id.txt_transaction_charges);
         txt_heading = root.findViewById(R.id.txt_heading);
         txt_paymentid = root.findViewById(R.id.txt_paymentid);
         txt_created_date = root.findViewById(R.id.txt_created_date);
@@ -88,6 +104,19 @@ public class View_Payment_Fragment extends Fragment {
         btn_make_payment = root.findViewById(R.id.btn_make_payment);
         btn_vreciept = root.findViewById(R.id.btn_vreciept);
         btn_back = root.findViewById(R.id.btn_back);
+
+        new TextField().changeColor(this.getContext(),layout_txt_heading,txt_heading);
+        new TextField().changeColor(this.getContext(),layout_txt_transaction_charges,txt_transaction_charges);
+        new TextField().changeColor(this.getContext(),layout_created_date,txt_created_date);
+        new TextField().changeColor(this.getContext(),layout_transaction_date,txt_transaction_date);
+        new TextField().changeColor(this.getContext(),layout_txt_bname,txt_bname);
+        new TextField().changeColor(this.getContext(),layout_txt_authorization,txt_authorization);
+        new TextField().changeColor(this.getContext(),layout_txt_settlement,txt_settlement);
+        new TextField().changeColor(this.getContext(),layout_txt_amount,txt_amount);
+        new TextField().changeColor(this.getContext(),layout_txt_status,txt_status);
+        new TextField().changeColor(this.getContext(),layout_txt_settlement,txt_settlement);
+        new TextField().changeColor(this.getContext(), layout_txt_transaction_charges,txt_transaction_charges);
+        new TextField().changeColor(this.getContext(), layout_txt_paymentid,txt_paymentid);
 
         txt_heading.setEnabled(false);
         txt_paymentid.setEnabled(false);
@@ -153,7 +182,7 @@ public class View_Payment_Fragment extends Fragment {
             public void onResponse(JSONObject result) {
                 Log.i("result", String.valueOf(result));
                 try {
-                    txt_heading.setText(String.valueOf(result.get("CompanyName")));
+                    //txt_heading.setText(String.valueOf(result.get("CompanyName")));
                     txt_paymentid.setText(String.valueOf(result.get("PrePaidNumber")));
                     txt_created_date.setText(String.valueOf(result.get("CreatedDate")));
                     txt_transaction_date.setText(String.valueOf(result.get("TransactionDate")));

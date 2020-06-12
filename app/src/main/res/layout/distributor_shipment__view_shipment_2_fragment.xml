@@ -197,6 +197,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_order_tv_shaddress"
+                        android:layout_marginTop="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:hint="Shipment Address"
@@ -227,6 +228,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:hint="Billing Address"
+                        android:layout_marginTop="20dp"
                         android:fontFamily="@font/open_sans"
                         android:textColorHint="#96bb3c"
                         android:theme="@style/TextLabel"
