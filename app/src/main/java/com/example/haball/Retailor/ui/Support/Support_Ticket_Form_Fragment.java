@@ -115,6 +115,11 @@ public class Support_Ticket_Form_Fragment extends Fragment {
         layout_MobileNo = root.findViewById(R.id.layout_MobileNo);
         layout_Comment = root.findViewById(R.id.layout_Comment);
 
+        new TextField().changeColor(getContext(), layout_BName,BName);
+        new TextField().changeColor(getContext(), layout_Email,Email);
+        new TextField().changeColor(getContext(), layout_MobileNo,MobileNo);
+        new TextField().changeColor(getContext(), layout_Comment,Comment);
+
         IssueType = root.findViewById(R.id.IssueType);
         critcicality = root.findViewById(R.id.critcicality);
         Preffered_Contact = root.findViewById(R.id.Preffered_Contact);
@@ -122,10 +127,6 @@ public class Support_Ticket_Form_Fragment extends Fragment {
         ticket_btn.setEnabled(false);
         ticket_btn.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
-        new TextField().changeColor(getContext(), layout_BName, BName);
-        new TextField().changeColor(getContext(), layout_Email, Email);
-        new TextField().changeColor(getContext(), layout_MobileNo, MobileNo);
-        new TextField().changeColor(getContext(), layout_Comment, Comment);
 
         Email.setText(email);
         MobileNo.setText(phone_number);

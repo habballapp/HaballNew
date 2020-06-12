@@ -42,6 +42,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.StatusKVP;
 import com.example.haball.R;
+import com.example.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -61,6 +62,7 @@ import java.util.Map;
 public class Retailer_Support_Ticket_View extends Fragment {
     private String Token, DistributorId;
     private Button btn_delete, btn_back;
+    private TextInputLayout layout_txt_business_name, layout_txt_email_address,layout_txt_mobile_number,layout_txt_comments;
 
     //    private String URL_SUPPORT_VIEW = "http://175.107.203.97:4014/api/contact//";
     private String URL_SUPPORT_VIEW = "http://175.107.203.97:4014/api/support/TicketById/";
@@ -85,6 +87,11 @@ public class Retailer_Support_Ticket_View extends Fragment {
 
         View root = inflater.inflate(R.layout.layout_support_view, container, false);
 
+        layout_txt_business_name= root.findViewById(R.id.layout_txt_business_name);
+        layout_txt_email_address = root.findViewById(R.id.layout_txt_email_address);
+        layout_txt_mobile_number = root.findViewById(R.id.layout_txt_mobile_number);
+        layout_txt_comments = root.findViewById(R.id.layout_txt_comments);
+
         txt_business_name = root.findViewById(R.id.txt_business_name);
         txt_email_address = root.findViewById(R.id.txt_email_address);
         txt_mobile_number = root.findViewById(R.id.txt_mobile_number);
@@ -93,6 +100,11 @@ public class Retailer_Support_Ticket_View extends Fragment {
         txt_preferred_contact_method = root.findViewById(R.id.txt_preferred_contact_method);
         txt_comments = root.findViewById(R.id.txt_comments);
         tv_ticket_id = root.findViewById(R.id.tv_ticket_id);
+
+        new TextField().changeColor(getContext(), layout_txt_business_name,txt_business_name);
+        new TextField().changeColor(getContext(), layout_txt_email_address,txt_email_address);
+        new TextField().changeColor(getContext(), layout_txt_mobile_number,txt_mobile_number);
+        new TextField().changeColor(getContext(), layout_txt_comments,txt_comments);
 
         txt_business_name.setEnabled(false);
         txt_email_address.setEnabled(false);
