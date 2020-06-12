@@ -29,7 +29,10 @@
                 android:hint="Retailer Code"
                 android:fontFamily="@font/open_sans_semibold"
                 android:textColorHint="#96bb3c"
+                app:boxStrokeWidth="0.5dp"
                 android:theme="@style/TextLabel"
+                app:boxStrokeColor="@color/box_stroke"
+                app:boxBackgroundColor="#fff"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -55,7 +58,10 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/open_sans"
                 android:textColorHint="#96bb3c"
+                app:boxStrokeWidth="0.5dp"
                 android:theme="@style/TextLabel"
+                app:boxStrokeColor="@color/box_stroke"
+                app:boxBackgroundColor="#fff"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -83,6 +89,9 @@
                 android:fontFamily="@font/open_sans"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
+                app:boxStrokeWidth="0.5dp"
+                app:boxStrokeColor="@color/box_stroke"
+                app:boxBackgroundColor="#fff"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -116,7 +125,10 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/open_sans"
                 android:textColorHint="#96bb3c"
+                app:boxStrokeWidth="0.5dp"
                 android:theme="@style/TextLabel"
+                app:boxStrokeColor="@color/box_stroke"
+                app:boxBackgroundColor="#fff"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -146,6 +158,9 @@
                 android:fontFamily="@font/open_sans"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
+                app:boxStrokeWidth="0.5dp"
+                app:boxStrokeColor="@color/box_stroke"
+                app:boxBackgroundColor="#fff"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -176,6 +191,9 @@
                 android:fontFamily="@font/open_sans"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
+                app:boxStrokeWidth="0.5dp"
+                app:boxStrokeColor="@color/box_stroke"
+                app:boxBackgroundColor="#fff"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -206,7 +224,10 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/open_sans"
                 android:textColorHint="#96bb3c"
+                app:boxStrokeWidth="0.5dp"
                 android:theme="@style/TextLabel"
+                app:boxStrokeColor="@color/box_stroke"
+                app:boxBackgroundColor="#fff"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
 
@@ -236,7 +257,10 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/open_sans"
                 android:textColorHint="#96bb3c"
+                app:boxStrokeWidth="0.5dp"
                 android:theme="@style/TextLabel"
+                app:boxStrokeColor="@color/box_stroke"
+                app:boxBackgroundColor="#fff"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
 
@@ -268,6 +292,9 @@
                 android:fontFamily="@font/open_sans"
                 android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
+                app:boxStrokeWidth="0.5dp"
+                app:boxStrokeColor="@color/box_stroke"
+                app:boxBackgroundColor="#fff"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
 
@@ -297,7 +324,10 @@
                 android:hint="Address"
                 android:fontFamily="@font/open_sans"
                 android:textColorHint="#96bb3c"
+                app:boxStrokeWidth="0.5dp"
                 android:theme="@style/TextLabel"
+                app:boxStrokeColor="@color/box_stroke"
+                app:boxBackgroundColor="#fff"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
 

@@ -575,7 +575,7 @@ public class PlaceholderFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                layout_password1.setBoxStrokeColor(getResources().getColor(R.color.color_text));
+                layout_password1.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
                 layout_password1.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
                 layout_password1.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
                 txt_newpassword.setTextColor(getResources().getColor(R.color.textcolor));
@@ -865,7 +865,7 @@ public class PlaceholderFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                layout_password3.setBoxStrokeColor(getResources().getColor(R.color.color_text));
+                layout_password3.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
                 layout_password3.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
                 layout_password3.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
                 txt_cfmpassword.setTextColor(getResources().getColor(R.color.textcolor));

@@ -9,8 +9,9 @@ public class RetailerOrderModel {
     private String OrderStatusValue;
     private String CreatedDate;
     private String Status;
+    private String InvoiceStatus;
 
-    public RetailerOrderModel(String ID, String orderNumber, String companyName, String totalPrice, String netPrice, String orderStatusValue, String createdDate, String status) {
+    public RetailerOrderModel(String ID, String orderNumber, String companyName, String totalPrice, String netPrice, String orderStatusValue, String createdDate, String status, String invoiceStatus) {
         this.ID = ID;
         OrderNumber = orderNumber;
         CompanyName = companyName;
@@ -19,6 +20,7 @@ public class RetailerOrderModel {
         OrderStatusValue = orderStatusValue;
         CreatedDate = createdDate;
         Status = status;
+        InvoiceStatus = invoiceStatus;
     }
 
     public String getID() {
@@ -84,5 +86,15 @@ public class RetailerOrderModel {
     public void setStatus(String status) {
         Status = status;
     }
+
+    public String getInvoiceStatus() {
+        return InvoiceStatus;
+    }
+
+    public void setInvoiceStatus(String invoiceStatus) {
+        InvoiceStatus = invoiceStatus;
+    }
+
+
 }
 

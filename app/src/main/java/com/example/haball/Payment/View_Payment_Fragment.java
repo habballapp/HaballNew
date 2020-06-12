@@ -36,7 +36,9 @@ import com.example.haball.Distributor.ui.payments.CreatePaymentRequestFragment;
 import com.example.haball.Distributor.ui.payments.ViewPDFRequest;
 import com.example.haball.Distributor.ui.payments.ViewVoucherRequest;
 import com.example.haball.R;
+import com.example.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,6 +58,9 @@ public class View_Payment_Fragment extends Fragment {
     private String PaymentsRequestId;
     private String PAYMENT_REQUEST_URL = "http://175.107.203.97:4013/api/prepaidrequests/";
     private String Token, DistributorId;
+    private TextInputLayout layout_txt_heading,layout_txt_paymentid,layout_created_date,layout_transaction_date,
+                            layout_txt_bname,layout_txt_authorization,layout_txt_settlement,layout_txt_amount,
+                            layout_txt_status,layout_txt_transaction_charges;
     private TextInputEditText txt_heading, txt_paymentid, txt_created_date, txt_transaction_date, txt_bname, txt_authorization, txt_settlement, txt_amount, txt_status, txt_transaction_charges;
     private Button btn_vreciept;
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
@@ -105,6 +110,32 @@ public class View_Payment_Fragment extends Fragment {
         txt_amount.setEnabled(false);
         txt_status.setEnabled(false);
         txt_transaction_charges.setEnabled(false);
+
+
+
+
+
+        layout_txt_heading = root.findViewById(R.id.layout_txt_heading);
+        layout_txt_paymentid= root.findViewById(R.id.layout_txt_paymentid);
+        layout_created_date = root.findViewById(R.id.layout_created_date);
+        layout_transaction_date = root.findViewById(R.id.layout_transaction_date);
+        layout_txt_bname = root.findViewById(R.id.layout_txt_bname);
+        layout_txt_authorization = root.findViewById(R.id.layout_txt_authorization);
+        layout_txt_settlement = root.findViewById(R.id.layout_txt_settlement);
+        layout_txt_amount = root.findViewById(R.id.layout_txt_amount);
+        layout_txt_status = root.findViewById(R.id. layout_txt_status);
+        layout_txt_transaction_charges = root.findViewById(R.id.layout_txt_transaction_charges);
+
+        new TextField().changeColor(getContext(), layout_txt_heading,  txt_heading);
+        new TextField().changeColor(getContext(), layout_txt_paymentid, txt_paymentid);
+        new TextField().changeColor(getContext(), layout_created_date, txt_created_date);
+        new TextField().changeColor(getContext(), layout_transaction_date,txt_transaction_date);
+        new TextField().changeColor(getContext(), layout_txt_bname,txt_bname);
+        new TextField().changeColor(getContext(), layout_txt_authorization,txt_authorization);
+        new TextField().changeColor(getContext(), layout_txt_settlement,txt_settlement);
+        new TextField().changeColor(getContext(), layout_txt_amount,txt_amount);
+        new TextField().changeColor(getContext(), layout_txt_status,txt_status);
+        new TextField().changeColor(getContext(), layout_txt_transaction_charges ,txt_transaction_charges );
 
         btn_make_payment.setOnClickListener(new View.OnClickListener() {
             @Override

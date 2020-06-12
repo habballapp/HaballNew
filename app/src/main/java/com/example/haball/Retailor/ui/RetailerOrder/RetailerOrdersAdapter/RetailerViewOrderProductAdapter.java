@@ -1,28 +1,28 @@
 package com.example.haball.Retailor.ui.RetailerOrder.RetailerOrdersAdapter;
 
-        import android.content.Context;
-        import android.content.SharedPreferences;
-        import android.os.Bundle;
-        import android.view.LayoutInflater;
-        import android.view.MenuInflater;
-        import android.view.MenuItem;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.ImageButton;
-        import android.widget.PopupMenu;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import androidx.annotation.NonNull;
-        import androidx.fragment.app.FragmentActivity;
-        import androidx.fragment.app.FragmentTransaction;
-        import androidx.recyclerview.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
-        import com.example.haball.R;
-        import com.example.haball.Retailor.ui.RetailerOrder.RetailerOrdersModel.RetailerViewOrderProductModel;
+import com.example.haball.R;
+import com.example.haball.Retailor.ui.RetailerOrder.RetailerOrdersModel.RetailerViewOrderProductModel;
 
-        import java.text.DecimalFormat;
-        import java.util.List;
+import java.text.DecimalFormat;
+import java.util.List;
 
 public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<RetailerViewOrderProductAdapter.ViewHolder> {
     private Context context;
@@ -48,18 +48,20 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
         String yourFormattedString1 = formatter1.format(Double.parseDouble(OrdersList.get(position).getUnitPrice()));
         holder.price_value.setText("Rs. " + yourFormattedString1);
         String yourFormattedString2;
-        if(OrdersList.get(position).getDiscount() != null)
+        if (OrdersList.get(position).getDiscount() != null)
             yourFormattedString2 = formatter1.format(Double.parseDouble(OrdersList.get(position).getDiscount()));
         else
             yourFormattedString2 = formatter1.format(Double.parseDouble(OrdersList.get(position).getUnitPrice()));
         holder.discount_value.setText("Rs. " + yourFormattedString2);
         holder.UOM_value.setText(OrdersList.get(position).getUOMTitle());
-        if (OrdersList.get(position).getTaxValue().equals("0") || OrdersList.get(position).getTaxValue().equals("") || OrdersList.get(position).getTaxValue().equals("null")){
-            holder.pack_size_value.setText("");
-        }
-        else {
-            holder.pack_size_value.setText("   |   " + "Tax Value: " + OrdersList.get(position).getTaxValue());
-
+        holder.tax_value.setText(OrdersList.get(position).getTaxValue());
+        holder.tax_value.setVisibility(View.GONE);
+        holder.tv_taxValue.setVisibility(View.GONE);
+        holder.separator_2.setVisibility(View.GONE);
+        if (!OrdersList.get(position).getTaxValue().equals("0") && !OrdersList.get(position).getTaxValue().equals("") && !OrdersList.get(position).getTaxValue().equals("null")) {
+            holder.tax_value.setVisibility(View.VISIBLE);
+            holder.tv_taxValue.setVisibility(View.VISIBLE);
+            holder.separator_2.setVisibility(View.VISIBLE);
         }
         holder.Quantity_value.setText(OrdersList.get(position).getOrderQty());
 
@@ -73,7 +75,7 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txt_products, product_code_value, price_value, discount_value, UOM_value, pack_size_value, Quantity_value, amount_value ,separator_2 ,tv_taxValue;
+        TextView txt_products, product_code_value, separator_2, tv_taxValue, price_value, discount_value, UOM_value, tax_value, Quantity_value, amount_value;
         public ImageButton menu_btn;
 
         public ViewHolder(@NonNull View itemView) {
@@ -83,11 +85,12 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
             price_value = itemView.findViewById(R.id.price_value);
             discount_value = itemView.findViewById(R.id.discount_value);
             UOM_value = itemView.findViewById(R.id.UOM_value);
-            pack_size_value = itemView.findViewById(R.id.tax_value);
+            tax_value = itemView.findViewById(R.id.tax_value);
+            tv_taxValue = itemView.findViewById(R.id.tv_taxValue);
+            separator_2 = itemView.findViewById(R.id.separator_2);
             Quantity_value = itemView.findViewById(R.id.Quantity_value);
             amount_value = itemView.findViewById(R.id.amount_value);
             separator_2 = itemView.findViewById(R.id.separator_2);
-            //tv_taxValue = itemView.findViewById(R.id.tv_taxValue);
         }
     }
 }

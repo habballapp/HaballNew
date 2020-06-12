@@ -122,7 +122,7 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView list_txt_products_, list_product_code_value, list_price_value, list_discount_value, list_UOM_value, list_pack_size_value, totalAmount_value;
+        public TextView list_txt_products_, list_product_code_value, list_price_value, list_discount_value, list_UOM_value, totalAmount_value;
         public EditText list_numberOFitems;
 
         public ViewHolder(@NonNull View itemView) {

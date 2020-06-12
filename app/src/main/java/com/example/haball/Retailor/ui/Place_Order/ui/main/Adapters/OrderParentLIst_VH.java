@@ -49,12 +49,12 @@ public class OrderParentLIst_VH extends ParentViewHolder {
             collapseView();
             minus_icon.setVisibility(View.GONE);
             imageView.setVisibility(View.VISIBLE);
-            rl_orderName_retailer.setBackgroundResource(R.drawable.underline);
+//            rl_orderName_retailer.setBackgroundResource(R.drawable.underline);
         } else {
             expandView();
             imageView.setVisibility(View.GONE);
             minus_icon.setVisibility(View.VISIBLE);
-            rl_orderName_retailer.setBackground(null);
+//            rl_orderName_retailer.setBackground(null);
         }
 
     }
