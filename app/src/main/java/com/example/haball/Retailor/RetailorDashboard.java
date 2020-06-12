@@ -19,6 +19,7 @@ import com.example.haball.Distributor.ui.terms_and_conditions.TermsAndConditions
 import com.example.haball.R;
 import com.example.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
 import com.example.haball.Retailor.ui.Make_Payment.CreatePaymentRequestFragment;
+import com.example.haball.Retailor.ui.Make_Payment.PaymentScreen3Fragment_Retailer;
 import com.example.haball.Retailor.ui.Make_Payment.Payment_Summary;
 import com.example.haball.Retailor.ui.Network.My_NetworkDashboard;
 import com.example.haball.Retailor.ui.Network.Select_Tabs.My_Network_Fragment;

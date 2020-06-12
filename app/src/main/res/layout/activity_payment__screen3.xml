@@ -53,7 +53,6 @@
                 android:text="Create Ticket"
                 android:textColor="@color/textcolor"
                 android:textSize="13sp" />
-            />
         </RelativeLayout>
     </LinearLayout>
 

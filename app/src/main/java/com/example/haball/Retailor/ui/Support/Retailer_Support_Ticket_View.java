@@ -53,6 +53,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -62,7 +63,7 @@ import java.util.Map;
 public class Retailer_Support_Ticket_View extends Fragment {
     private String Token, DistributorId;
     private Button btn_delete, btn_back;
-    private TextInputLayout layout_txt_business_name, layout_txt_email_address,layout_txt_mobile_number,layout_txt_comments;
+    private TextInputLayout layout_txt_business_name, layout_txt_email_address, layout_txt_mobile_number, layout_txt_comments;
 
     //    private String URL_SUPPORT_VIEW = "http://175.107.203.97:4014/api/contact//";
     private String URL_SUPPORT_VIEW = "http://175.107.203.97:4014/api/support/TicketById/";
@@ -70,9 +71,9 @@ public class Retailer_Support_Ticket_View extends Fragment {
     private TextInputEditText txt_business_name;
     private TextInputEditText txt_email_address;
     private TextInputEditText txt_mobile_number;
-    private TextInputEditText txt_issue_type;
-    private TextInputEditText txt_criticality;
-    private TextInputEditText txt_preferred_contact_method;
+    private EditText txt_issue_type;
+    private EditText txt_criticality;
+    private EditText txt_preferred_contact_method;
     private TextInputEditText txt_comments;
     private String ID;
     private FragmentTransaction fragmentTransaction;
@@ -80,6 +81,7 @@ public class Retailer_Support_Ticket_View extends Fragment {
     private HashMap<String, String> RetailerCriticalityPrivateKVP;
     private HashMap<String, String> RetailerContactingMethodKVP;
     private StatusKVP statusKVP;
+    private String RetailerIssueTypePrivateKVPString, RetailerCriticalityPrivateKVPString, RetailerContactingMethodKVPString;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -87,7 +89,7 @@ public class Retailer_Support_Ticket_View extends Fragment {
 
         View root = inflater.inflate(R.layout.layout_support_view, container, false);
 
-        layout_txt_business_name= root.findViewById(R.id.layout_txt_business_name);
+        layout_txt_business_name = root.findViewById(R.id.layout_txt_business_name);
         layout_txt_email_address = root.findViewById(R.id.layout_txt_email_address);
         layout_txt_mobile_number = root.findViewById(R.id.layout_txt_mobile_number);
         layout_txt_comments = root.findViewById(R.id.layout_txt_comments);
@@ -101,10 +103,10 @@ public class Retailer_Support_Ticket_View extends Fragment {
         txt_comments = root.findViewById(R.id.txt_comments);
         tv_ticket_id = root.findViewById(R.id.tv_ticket_id);
 
-        new TextField().changeColor(getContext(), layout_txt_business_name,txt_business_name);
-        new TextField().changeColor(getContext(), layout_txt_email_address,txt_email_address);
-        new TextField().changeColor(getContext(), layout_txt_mobile_number,txt_mobile_number);
-        new TextField().changeColor(getContext(), layout_txt_comments,txt_comments);
+        new TextField().changeColor(getContext(), layout_txt_business_name, txt_business_name);
+        new TextField().changeColor(getContext(), layout_txt_email_address, txt_email_address);
+        new TextField().changeColor(getContext(), layout_txt_mobile_number, txt_mobile_number);
+        new TextField().changeColor(getContext(), layout_txt_comments, txt_comments);
 
         txt_business_name.setEnabled(false);
         txt_email_address.setEnabled(false);
@@ -147,18 +149,18 @@ public class Retailer_Support_Ticket_View extends Fragment {
 //        Log.i("statuskvp", "String.valueOf(RetailerContactingMethodKVP)");
 //        Log.i("statuskvp", String.valueOf(RetailerContactingMethodKVP));
         SharedPreferences prefs = getContext().getSharedPreferences("StatusKVP", getContext().MODE_PRIVATE);
-        String RetailerIssueTypePrivateKVPString = prefs.getString("RetailerIssueTypePrivateKVP", "");
-        java.lang.reflect.Type type = new TypeToken<HashMap<String, String>>(){}.getType();
+        RetailerIssueTypePrivateKVPString = prefs.getString("RetailerIssueTypePrivateKVP", "");
+        RetailerContactingMethodKVPString = prefs.getString("RetailerContactingMethodKVP", "");
+        RetailerCriticalityPrivateKVPString = prefs.getString("RetailerCriticalityPrivateKVP", "");
+        Type type = new TypeToken<HashMap<String, String>>() {
+        }.getType();
         Gson gson = new Gson();
+//
+//        prefs.edit().putString("RetailerIssueTypePrivateKVP", gson.toJson(RetailerIssueTypePrivateKVP)).apply();
+//        prefs.edit().putString("RetailerContactingMethodKVP", gson.toJson(RetailerContactingMethodKVP)).apply();
+//        prefs.edit().putString("RetailerCriticalityPrivateKVP", gson.toJson(RetailerCriticalityPrivateKVP)).apply();
 
-        prefs.edit().putString("RetailerIssueTypePrivateKVP", gson.toJson(RetailerIssueTypePrivateKVP)).apply();
-        prefs.edit().putString("RetailerContactingMethodKVP", gson.toJson(RetailerContactingMethodKVP)).apply();
-        prefs.edit().putString("RetailerCriticalityPrivateKVP", gson.toJson(RetailerCriticalityPrivateKVP)).apply();
 
-
-        RetailerIssueTypePrivateKVP = gson.fromJson(RetailerIssueTypePrivateKVPString, type);
-        RetailerContactingMethodKVP = gson.fromJson(RetailerIssueTypePrivateKVPString, type);
-        RetailerIssueTypePrivateKVP = gson.fromJson(RetailerIssueTypePrivateKVPString, type);
         Log.i("statuskvp", "String.valueOf(RetailerIssueTypePrivateKVP)");
         Log.i("statuskvp", String.valueOf(RetailerIssueTypePrivateKVP));
 
@@ -190,6 +192,14 @@ public class Retailer_Support_Ticket_View extends Fragment {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_SUPPORT_VIEW, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                Type type = new TypeToken<HashMap<String, String>>() {
+                }.getType();
+                Gson gson = new Gson();
+                RetailerIssueTypePrivateKVP = gson.fromJson(RetailerIssueTypePrivateKVPString, type);
+                RetailerContactingMethodKVP = gson.fromJson(RetailerContactingMethodKVPString, type);
+                RetailerCriticalityPrivateKVP = gson.fromJson(RetailerCriticalityPrivateKVPString, type);
+                Log.i("statuskvp1", String.valueOf(RetailerIssueTypePrivateKVPString));
+                Log.i("statuskvp1", String.valueOf(RetailerIssueTypePrivateKVP));
 //                RetailerIssueTypePrivateKVP = statusKVP.getRetailerIssueTypePrivateKVP();
 //                RetailerCriticalityPrivateKVP = statusKVP.getRetailerCriticalityPrivateKVP();
 //                RetailerContactingMethodKVP = statusKVP.getRetailerContactingMethodKVP();
@@ -203,9 +213,12 @@ public class Retailer_Support_Ticket_View extends Fragment {
                     txt_email_address.setText(String.valueOf(response.get("Email")));
                     txt_mobile_number.setText(String.valueOf(response.get("MobileNumber")));
                     txt_comments.setText(String.valueOf(response.get("Description")));
-                    ID = String.valueOf(response.get("Id"));
+                    ID = String.valueOf(response.get("ID"));
+                    Log.i("statuskvp2", String.valueOf(RetailerIssueTypePrivateKVP));
 
                     for (Map.Entry<String, String> entry : RetailerIssueTypePrivateKVP.entrySet()) {
+                        Log.i("statuskvp3", String.valueOf(entry));
+                        Log.i("statuskvp3", String.valueOf(response.get("IssueType")));
                         if (entry.getKey().equals(String.valueOf(response.get("IssueType"))))
                             issue_type = entry.getValue();
                     }

@@ -6,13 +6,17 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -25,7 +29,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.AuthFailureError;
@@ -35,6 +41,7 @@ import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
@@ -58,16 +65,18 @@ import static android.os.Build.ID;
 
 public class PaymentScreen3Fragment_Retailer extends Fragment {
     private String Token, DistributorId, ID;
-    private TextView tv_banking_channel, payment_id ,btn_newpayment;
+    private TextView tv_banking_channel, payment_id, btn_newpayment;
     private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4014/api/prepaidrequests/GetByRetailerCode";
     private String PrePaidNumber = "", PrePaidId = "", CompanyName = "", Amount = "", CompanyId = "";
-    private Button btn_voucher,  btn_update;
+    private Button btn_voucher, btn_update;
     private Spinner spinner_companyName;
     private EditText txt_amount;
     private HashMap<String, String> companyNameAndId = new HashMap<>();
     private ArrayAdapter<String> arrayAdapterPayments;
     private List<String> CompanyNames = new ArrayList<>();
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
+    private String company_names;
+    private Typeface myFont;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -76,6 +85,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         }
 
         View root = inflater.inflate(R.layout.activity_payment__screen3, container, false);
+        myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("PrePaidNumber",
                 Context.MODE_PRIVATE);
@@ -84,7 +94,15 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         CompanyName = sharedPreferences.getString("CompanyName", "");
         CompanyId = sharedPreferences.getString("CompanyId", "");
         Amount = sharedPreferences.getString("Amount", "");
-
+        PrePaidNumber = "358534338693873";
+        PrePaidId = "873";
+        CompanyName = "One call";
+        CompanyId = "20203847";
+        Amount = "500";
+//        Log.i("payment3_PrePaidId", PrePaidId);
+//        Log.i("payment3_CompanyName", CompanyName);
+//        Log.i("payment3_CompanyId", CompanyId);
+//        Log.i("payment3_Amount", Amount);
         payment_id = root.findViewById(R.id.payment_id);
         spinner_companyName = root.findViewById(R.id.spinner_companyName);
         txt_amount = root.findViewById(R.id.txt_amount);
@@ -93,20 +111,56 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         btn_voucher = root.findViewById(R.id.btn_voucher);
 
         payment_id.setText(PrePaidNumber);
-     //   spinner_companyName.setText(CompanyName);
-       // CompanyNames.add(CompanyName);
+        //   spinner_companyName.setText(CompanyName);
+        // CompanyNames.add(CompanyName);
         fetchCompanyData();
-        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, CompanyNames);
+        CompanyNames.add("Select Company");
+        company_names = "";
+//
+//        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
+//                android.R.layout.simple_spinner_dropdown_item, CompanyNames);
+
+
+
+        arrayAdapterPayments = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, CompanyNames) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(50, 0, 50, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(50, 0, 50, 0);
+                return view;
+            }
+        };
+
         spinner_companyName.setAdapter(arrayAdapterPayments);
         spinner_companyName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
-                btn_update.setText("Update");
+                try {
+                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                    ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                } catch (NullPointerException ex) {
+                    ex.printStackTrace();
+                }
+                company_names = CompanyNames.get(i);
+//                Log.i("company name and id ", companyNameAndId.get(company_names));
+                checkFieldsForEmptyValues();
             }
 
             @Override
@@ -117,7 +171,8 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         txt_amount.setText(Amount);
         txt_amount.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { ;
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                ;
             }
 
             @Override
@@ -127,11 +182,10 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                checkFieldsForEmptyValues();
 
             }
         });
-
-
 
 
         btn_newpayment.setOnClickListener(new View.OnClickListener() {
@@ -192,6 +246,94 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        txt_amount.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    txt_amount.clearFocus();
+                    showDiscardDialog();
+                }
+                return false;
+            }
+        });
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    // handle back button's click listener
+//                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
+                    String txt_amounts = txt_amount.getText().toString();
+                    String company = (String) spinner_companyName.getItemAtPosition(spinner_companyName.getSelectedItemPosition()).toString();
+                    if (!txt_amounts.equals("") || !company.equals("Select Company")) {
+                        showDiscardDialog();
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                return false;
+            }
+        });
+
+    }
+
+    private void showDiscardDialog() {
+        Log.i("CreatePayment", "In Dialog");
+        final FragmentManager fm = getActivity().getSupportFragmentManager();
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        alertDialog.setView(view_popup);
+        alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+        WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+        layoutParams.y = 200;
+        layoutParams.x = -70;// top margin
+        alertDialog.getWindow().setAttributes(layoutParams);
+        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+        btn_discard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.i("CreatePayment", "Button Clicked");
+                alertDialog.dismiss();
+                fm.popBackStack();
+            }
+        });
+
+        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+        img_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+            }
+        });
+
+        alertDialog.show();
+    }
+
+    private void checkFieldsForEmptyValues() {
+        String txt_amounts = txt_amount.getText().toString();
+        String company = (String) spinner_companyName.getItemAtPosition(spinner_companyName.getSelectedItemPosition()).toString();
+        if (txt_amounts.equals("") || Double.parseDouble(txt_amounts) < 500
+                || company.equals("Company *")
+
+        ) {
+            btn_update.setEnabled(false);
+            btn_update.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+
+        } else {
+            btn_update.setEnabled(true);
+            btn_update.setBackground(getResources().getDrawable(R.drawable.button_background));
+        }
+    }
+
     private void viewPDF(Context context, String ID) throws JSONException {
         ViewVoucherRequest viewPDFRequest = new ViewVoucherRequest();
         viewPDFRequest.viewPDF(context, ID);
@@ -214,56 +356,44 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         }
         return true;
     }
+
     private void fetchCompanyData() {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
-
-        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-      //  ID = sharedPreferences1.getString("ID", "");
-        Log.i("ID  ", ID);
-        Log.i("Token", Token);
-//        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
-//        Log.i("DistributorId ", DistributorId);
-//
-//        URL_PAYMENT_REQUESTS_SELECT_COMPANY = URL_PAYMENT_REQUESTS_SELECT_COMPANY + DistributorId;
-//        Log.i("URL_PROOF_OF_PAYMENTS ", URL_PAYMENT_REQUESTS_SELECT_COMPANY);
 
         Log.i("Token", Token);
 
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PAYMENT_REQUESTS_SELECT_COMPANY, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
-                Log.i("result Create Payment" , String.valueOf(result));
                 try {
                     JSONObject jsonObject = null;
                     for (int i = 0; i < result.length(); i++) {
                         jsonObject = result.getJSONObject(i);
-                        CompanyNames.add(jsonObject.getString("Name"));
-                        companyNameAndId.put(jsonObject.getString("Name"), jsonObject.getString("ID"));
+                        CompanyNames.add(jsonObject.getString("CompanyName"));
+                        companyNameAndId.put(jsonObject.getString("CompanyName"), jsonObject.getString("DealerCode"));
                     }
+
+                    arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    arrayAdapterPayments.notifyDataSetChanged();
+                    spinner_companyName.setAdapter(arrayAdapterPayments);
+
+                    // txt_amount.setText(Amount);
+                    Log.i("Debugging", String.valueOf(CompanyNames));
+                    Log.i("Debugging", String.valueOf(CompanyNames.indexOf(CompanyName)));
+                    Log.i("Debugging", String.valueOf(CompanyName));
+//        int spinnerPosition = arrayAdapterPayments.getPosition(CompanyName);
+                    spinner_companyName.setSelection(CompanyNames.indexOf(CompanyName));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                arrayAdapterPayments.notifyDataSetChanged();
-                spinner_companyName.setAdapter(arrayAdapterPayments);
-
-               // txt_amount.setText(Amount);
-                Log.i("Debugging", String.valueOf(CompanyNames));
-                Log.i("Debugging", String.valueOf(CompanyNames.indexOf(CompanyName)));
-                Log.i("Debugging", String.valueOf(CompanyName));
-//        int spinnerPosition = arrayAdapterPayments.getPosition(CompanyName);
-                spinner_companyName.setSelection(CompanyNames.indexOf(CompanyName));
-
                 Log.e("RESPONSE OF COMPANY ID", result.toString());
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 printErrorMessage(error);
-
                 error.printStackTrace();
             }
         }) {
@@ -274,12 +404,25 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
                 return params;
             }
         };
-        sr.setRetryPolicy(new DefaultRetryPolicy(
-                15000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        sr.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 1000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
         Volley.newRequestQueue(getContext()).add(sr);
     }
+
     private void printErrorMessage(VolleyError error) {
         if (getContext() != null) {
             if (error instanceof NetworkError) {
