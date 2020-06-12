@@ -62,6 +62,8 @@
                 android:hint="Business Name"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
+                app:boxStrokeColor="@color/box_stroke"
+                app:boxStrokeWidth="0.5dp"
                >
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -115,9 +117,12 @@
                 android:layout_below="@+id/layout_Email"
                 android:layout_marginTop="20dp"
                 android:hint="Mobile No"
+                app:boxBackgroundColor="#fff"
+                app:boxStrokeColor="@color/box_stroke"
+                app:boxStrokeWidth="0.5dp"
                 android:fontFamily="@font/open_sans"
                 android:theme="@style/TextLabel"
-                app:boxBackgroundColor="#fff"
+
                >
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -222,8 +227,10 @@
                 android:layout_below="@+id/relative_Preffered_Contact"
                 android:layout_marginTop="20dp"
                 android:hint="Comment"
-                android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
+                app:boxStrokeColor="@color/box_stroke"
+                app:boxStrokeWidth="0.5dp"
+                android:theme="@style/TextLabel"
                >
 
                 <com.google.android.material.textfield.TextInputEditText

@@ -87,9 +87,11 @@
             android:layout_marginTop="20dp"
             android:fontFamily="@font/open_sans"
             android:hint="Amount"
+            app:boxStrokeWidth="0.5dp"
             android:theme="@style/TextLabel"
             app:boxStrokeColor="@color/box_stroke"
-            app:boxBackgroundColor="#fff">
+            app:boxBackgroundColor="#fff"
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txt_amount"

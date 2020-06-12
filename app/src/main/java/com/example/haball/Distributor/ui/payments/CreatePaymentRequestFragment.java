@@ -41,6 +41,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
+import com.example.haball.TextField;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
@@ -67,7 +69,7 @@ public class CreatePaymentRequestFragment extends Fragment {
     private Spinner spinner_company;
     private ArrayAdapter<String> arrayAdapterPayments;
     private String company_names;
-    private EditText txt_amount;
+    private TextInputEditText txt_amount;
     private String prepaid_number, prepaid_id;
     private FragmentTransaction fragmentTransaction;
     private TextInputLayout layout_txt_amount;
@@ -83,8 +85,11 @@ public class CreatePaymentRequestFragment extends Fragment {
         spinner_company = root.findViewById(R.id.spinner_company);
         txt_amount = root.findViewById(R.id.txt_amount);
 
+
         layout_txt_amount = root.findViewById(R.id.layout_txt_amount);
         layout_txt_amount.setBoxStrokeColor(Color.parseColor("#e5e5e5"));
+        new TextField().changeColor(this.getContext(),layout_txt_amount,txt_amount);
+
         CompanyNames.add("Company *");
         company_names = "";
 

@@ -343,7 +343,6 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_transaction_charges"
                     android:layout_width="match_parent"
-
                     android:layout_height="match_parent"
                     android:enabled="false"
                     android:fontFamily="@font/open_sans"

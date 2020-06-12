@@ -96,6 +96,7 @@ public class SupportTicketFormFragment extends Fragment {
         Email = root.findViewById(R.id.Email);
         MobileNo = root.findViewById(R.id.MobileNo);
         Comment = root.findViewById(R.id.Comment);
+
         layout_BName = root.findViewById( R.id.layout_BName );
         layout_Email = root.findViewById( R.id.layout_Email );
         layout_MobileNo = root.findViewById( R.id.layout_MobileNo);
