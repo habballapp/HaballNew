@@ -23,6 +23,7 @@ import com.example.haball.R;
 import com.example.haball.Distribution_Login.Distribution_Login;
 import com.example.haball.Retailer_Login.RetailerLogin;
 import com.example.haball.Retailor.Retailer_TermsAndConditionsFragment;
+import com.example.haball.Retailor.Retailer_UpdatePassword;
 import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
 import com.example.haball.Select_User.Register_Activity;
@@ -60,12 +61,15 @@ public class SplashScreen extends AppCompatActivity {
                 editor.remove("selected_products");
                 editor.commit();
                 String IsTermAndConditionAccepted = "";
+                String UpdatePassword = "";
                 SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("LoginToken",
                         Context.MODE_PRIVATE);
                 if (!sharedPreferences.getString("Login_Token", "").equals(""))
                     Token = sharedPreferences.getString("Login_Token", "");
                 if (!sharedPreferences.getString("IsTermAndConditionAccepted", "").equals(""))
                     IsTermAndConditionAccepted = sharedPreferences.getString("IsTermAndConditionAccepted", "");
+                if (!sharedPreferences.getString("UpdatePassword", "").equals(""))
+                    UpdatePassword = sharedPreferences.getString("UpdatePassword", "");
                 Log.i("Token Splash", Token);
                 Log.i("User Type", sharedPreferences.getString("User_Type", ""));
 

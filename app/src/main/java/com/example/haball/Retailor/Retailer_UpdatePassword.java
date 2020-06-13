@@ -131,14 +131,14 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
         txt_cfmpassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                checkConfirmPassword();
+                checkConfirmPassword(hasFocus);
 
             }
         });
         txt_newpassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                checkPasswords();
+                checkPasswords(hasFocus);
 
             }
         });
@@ -359,17 +359,45 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
     }
 
 
-    private void checkPasswords() {
+    private void checkPasswords(final boolean hasFocus) {
         String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
         Log.i("Password_Log", "in password check");
-        if (txt_newpassword.getText().toString().matches(reg_ex)) {
+
+        if (!hasFocus && txt_newpassword.getText().toString().trim().equals("")) {
+            layout_password1.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.edit_text_hint_color)));
+        } else {
+            layout_password1.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+
+            txt_newpassword.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    if (txt_newpassword.getText().toString().trim().equals("") && !hasFocus) {
+                        layout_password1.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.edit_text_hint_color)));
+                    } else {
+                        layout_password1.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+
+        }
+
+        if (txt_newpassword.getText().toString().matches(reg_ex) || txt_newpassword.getText().toString().equals("")) {
             password_check = true;
-            layout_password1.setPasswordVisibilityToggleEnabled(true);
+//            layout_password1.setPasswordVisibilityToggleEnabled(true);
 
         } else {
-            txt_newpassword.setError("Please enter password with minimum 6 characters & 1 Numeric or special character");
+//            txt_newpassword.setError("Please enter password with minimum 6 characters & 1 Numeric or special character");
             password_check = false;
-            layout_password1.setPasswordVisibilityToggleEnabled(false);
+//            layout_password1.setPasswordVisibilityToggleEnabled(false);
             txt_newpassword.setTextColor(getResources().getColor(R.color.error_stroke_color));
             layout_password1.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
             layout_password1.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
@@ -389,7 +417,7 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
                 layout_password1.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
                 layout_password1.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
                 txt_newpassword.setTextColor(getResources().getColor(R.color.textcolor));
-                layout_password1.setPasswordVisibilityToggleEnabled(true);
+//                layout_password1.setPasswordVisibilityToggleEnabled(true);
             }
 
             @Override
@@ -400,16 +428,42 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
 
     }
 
-    private void checkConfirmPassword() {
+    private void checkConfirmPassword(final boolean hasFocus) {
         Log.i("Password_Log", "in password check1");
+        if (!hasFocus && txt_cfmpassword.getText().toString().trim().equals("")) {
+            layout_password3.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.edit_text_hint_color)));
+        } else {
+            layout_password3.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+
+            txt_cfmpassword.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    if (txt_cfmpassword.getText().toString().trim().equals("") && !hasFocus) {
+                        layout_password3.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.edit_text_hint_color)));
+                    } else {
+                        layout_password3.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+
+        }
         if (txt_newpassword.getText().toString().equals(txt_cfmpassword.getText().toString())) {
             Log.i("Password_Log", "in password check2");
             confirm_password_check = true;
-            layout_password3.setPasswordVisibilityToggleEnabled(true);
+//            layout_password3.setPasswordVisibilityToggleEnabled(true);
         } else {
             confirm_password_check = false;
-            txt_cfmpassword.setError("Password does not match");
-            layout_password3.setPasswordVisibilityToggleEnabled(false);
+//            txt_cfmpassword.setError("Password does not match");
+//            layout_password3.setPasswordVisibilityToggleEnabled(false);
             layout_password3.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
             layout_password3.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
             layout_password3.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
@@ -429,7 +483,7 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
                 layout_password3.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
                 layout_password3.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
                 txt_cfmpassword.setTextColor(getResources().getColor(R.color.textcolor));
-                layout_password3.setPasswordVisibilityToggleEnabled(true);
+//                layout_password3.setPasswordVisibilityToggleEnabled(true);
 
             }
 

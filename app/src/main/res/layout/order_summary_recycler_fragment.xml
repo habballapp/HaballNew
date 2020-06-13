@@ -29,7 +29,7 @@
             android:textSize="@dimen/rv_box_heading_size" />
 
         <TextView
-            android:id="@+id/btn_newpayment"
+            android:id="@+id/btn_delete_item"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"

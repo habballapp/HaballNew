@@ -142,7 +142,7 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
 
                 if (temp_orderChildList_vh.list_txt_products.getText().equals(temp_orderChildlist_model.getTitle())) {
                     if (Float.parseFloat(str_quantity) <= 0) {
-                        Toast.makeText(context, "Quantity must be greater than 0", Toast.LENGTH_LONG).show();
+                        // Toast.makeText(context, "Quantity must be greater than 0", Toast.LENGTH_LONG).show();
                     } else {
                         Log.i("textChanged", String.valueOf(temp_orderChildlist_model.getTitle()));
                         Log.i("textChanged11", String.valueOf(temp_orderChildList_vh.list_txt_products.getText()));
@@ -174,19 +174,21 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
             } else {
                 int foundIndex = -1;
                 for (int i = 0; i < selectedProductsDataList.size(); i++) {
-                    if (selectedProductsDataList.get(i).equals(orderChildlist_model)) {
+//                    if (selectedProductsDataList.get(i).equals(orderChildlist_model)) {
+                    if (selectedProductsDataList.get(i).getTitle().equals(orderChildlist_model.getTitle()) && selectedProductsDataList.get(i).getProductCode().equals(orderChildlist_model.getProductCode())) {
                         foundIndex = i;
                         break;
                     }
                 }
 
                 if (foundIndex != -1)
-                    selectedProductsQuantityList.set(foundIndex, String.valueOf(holder.list_numberOFitems.getText()));
+                    selectedProductsQuantityList.set(foundIndex, String.valueOf(s));
+//                    selectedProductsQuantityList.set(foundIndex, String.valueOf(holder.list_numberOFitems.getText()));
                 Log.i("selected updated qty", String.valueOf(selectedProductsQuantityList));
             }
         } else {
             selectedProductsDataList.add(orderChildlist_model);
-            selectedProductsQuantityList.add(String.valueOf(holder.list_numberOFitems.getText()));
+            selectedProductsQuantityList.add(String.valueOf(s));
         }
 
         // for (int i = 0; i < selectedProductsDataList.size(); i++)

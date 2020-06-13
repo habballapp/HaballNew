@@ -13,25 +13,7 @@
             android:title="Delete" />
         <item
             android:id="@+id/pay_by_retailer"
-            android:enabled="true"
-            android:title="Pay By"
-            android:titleCondensed="Pay By"
-            android:visible="true">
-            <menu>
-                <item
-                    android:id="@+id/retailer_psid"
-                    android:title="PSID" />
-                <item
-                    android:id="@+id/ePay_retailer"
-                    android:title="ePay" />
-                <item
-                    android:id="@+id/retailer_meezan_account"
-                    android:title="Meezan Account" />
-                <item
-                    android:id="@+id/retailer_meezan_smart"
-                    android:title="Meezan Smart" />
-
-            </menu>
+            android:title="Pay By PSID">
         </item>
     </group>
 </menu>

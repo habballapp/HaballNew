@@ -5,11 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -171,27 +173,32 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
                     case R.id.pay_by_retailer:
 //                        setUnpaidPaymentMenu(position, view);
 //                        //handle menu3 click
-//                        final AlertDialog alertDialog2 = new AlertDialog.Builder(context).create();
-//                        LayoutInflater inflater2 = LayoutInflater.from(context);
-//                        View view_popup2 = inflater2.inflate(R.layout.payment_request_details, null);
-//                        alertDialog2.setView(view_popup2);
-//                        alertDialog2.show();
-//                        ImageButton img_close = view_popup2.findViewById(R.id.image_button_close);
-//                        TextView payment_information_txt3 = view_popup2.findViewById(R.id.payment_information_txt3);
-//                        payment_information_txt3.setText(paymentsList.get(position).getInvoiceNumber());
-//
-//                        img_close.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                alertDialog2.dismiss();
-//                            }
-//                        });
-//
-////                        Toast.makeText(context, "pay by", Toast.LENGTH_LONG).show();
-////                        String paymentId = paymentsList.get(position).getID();
-////                        deletePayment(context, paymentsList.get(position).getRetailerInvoiceId(), paymentsList.get(position).getInvoiceNumber());
-//
-//
+                        final AlertDialog alertDialog2 = new AlertDialog.Builder(context).create();
+                        LayoutInflater inflater2 = LayoutInflater.from(context);
+                        View view_popup2 = inflater2.inflate(R.layout.payment_request_details, null);
+                        alertDialog2.setView(view_popup2);
+                        alertDialog2.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                        WindowManager.LayoutParams layoutParams = alertDialog2.getWindow().getAttributes();
+                        layoutParams.y = 200;
+                        layoutParams.x = -70;// top margin
+                        alertDialog2.getWindow().setAttributes(layoutParams);
+                        alertDialog2.show();
+                        ImageButton img_close = view_popup2.findViewById(R.id.image_button_close);
+                        TextView payment_information_txt3 = view_popup2.findViewById(R.id.payment_information_txt3);
+                        payment_information_txt3.setText(paymentsList.get(position).getInvoiceNumber());
+
+                        img_close.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alertDialog2.dismiss();
+                            }
+                        });
+
+//                        Toast.makeText(context, "pay by", Toast.LENGTH_LONG).show();
+//                        String paymentId = paymentsList.get(position).getID();
+//                        deletePayment(context, paymentsList.get(position).getRetailerInvoiceId(), paymentsList.get(position).getInvoiceNumber());
+
+
                         break;
                 }
                 return false;

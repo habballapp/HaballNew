@@ -96,6 +96,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
     private List<String> scrollEvent = new ArrayList<>();
     private RelativeLayout spinner_container_main;
     private Typeface myFont;
+    private MyAsyncTask myAsyncTask;
 
     public Retailer_OrderPlace_retailer_dashboarad() {
         // Required empty public constructor
@@ -157,15 +158,23 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                 return view;
             }
         };
-
-
-        SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
+        SharedPreferences add_more_product = getContext().getSharedPreferences("add_more_product",
                 Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = selectedProducts.edit();
-        editor.putString("selected_products", "");
-        editor.putString("selected_products_qty", "");
-        editor.apply();
-
+        Gson gson = new Gson();
+        if (!add_more_product.getString("add_more_product", "").equals("fromAddMore")) {
+            SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
+                    Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = selectedProducts.edit();
+            editor.putString("selected_products", "");
+            editor.putString("selected_products_qty", "");
+            editor.apply();
+        }
+//
+//        SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
+//                Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor_grossamount = grossamount.edit();
+//        editor_grossamount.putString("grossamount", "0");
+//        editor_grossamount.apply();
 
         arrayAdapterSpinnerConso.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_conso.setAdapter(arrayAdapterSpinnerConso);
@@ -332,7 +341,8 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
             btn_checkout.setEnabled(false);
             btn_checkout.setBackgroundResource(R.drawable.button_grey_round);
         }
-        new MyAsyncTask().execute();
+        myAsyncTask = new MyAsyncTask();
+        myAsyncTask.execute();
 
 //            selectedProductsDataList = gson.fromJson(object_string, type);
         if (selectedProductsDataList != null) {
@@ -354,6 +364,13 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                         }.getType();
                         selectedProductsDataList = gson.fromJson(object_string, type);
                         selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
+//                        if (selectedProductsDataList.size() > 0) {
+//                            for (int i = 0; i < selectedProductsDataList.size(); i++) {
+//                                Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+//                                Log.i("qty", selectedProductsQuantityList.get(i));
+//                                if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
+//                                    grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
+//                            }
                         if (selectedProductsDataList.size() > 0) {
                             for (int i = 0; i < selectedProductsDataList.size(); i++) {
                                 Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
@@ -361,7 +378,6 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                                 if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
                                     grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
                             }
-
                             SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
                                     Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = grossamount.edit();
@@ -800,11 +816,22 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
         return parentObjects;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (!isVisibleToUser) {
+            if (myAsyncTask != null && myAsyncTask.getStatus() == AsyncTask.Status.RUNNING)
+                myAsyncTask.cancel(true);
+
+            if (myAsyncTask != null && myAsyncTask.getStatus() == AsyncTask.Status.RUNNING)
+                myAsyncTask.cancel(true);
+        }
+    }
 
     private class MyAsyncTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
-            while (getContext() != null) {
+            while (getContext() != null && !isCancelled()) {
 //                Log.i("productsAsync", "in loop");
 //                Log.i("productsAsync", String.valueOf(selectedProductsDataList));
                 SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
@@ -836,14 +863,6 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
         protected void onPostExecute(Void result) {
             if (getContext() != null)
                 enableCheckout();
-//            mAdapter1 = new OrdersItemsAdapter(getContext(), ProductsDataList);
-//            itemsSelect_Rv.setAdapter(mAdapter1);
-
-//            ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData());
-//            adapter.setParentClickableViewAnimationDefaultDuration();
-//            adapter.setParentAndIconExpandOnClick(true);
-//            recyclerView.setAdapter(adapter);
-
         }
     }
 

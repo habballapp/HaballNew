@@ -33,6 +33,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.NonSwipeableViewPager;
 import com.example.haball.R;
 import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Retailor.ui.Place_Order.ui.main.Adapters.Order_Summary_Adapter;
@@ -88,6 +89,11 @@ public class Retailer_Order_Summary extends Fragment {
         total_amount = view.findViewById(R.id.total_amount);
         btn_confirm = view.findViewById(R.id.btn_confirm);
 
+        SharedPreferences add_more_product = getContext().getSharedPreferences("add_more_product",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor1 = add_more_product.edit();
+        editor1.putString("add_more_product", "");
+        editor1.apply();
         btn_add_product = view.findViewById(R.id.btn_add_product);
 
         btn_draft = view.findViewById(R.id.place_item_button);
@@ -114,7 +120,51 @@ public class Retailer_Order_Summary extends Fragment {
             @SuppressLint("NewApi")
             @Override
             public void onClick(View view) {
+                NonSwipeableViewPager viewPager = getActivity().findViewById(R.id.view_pager_rpoid);
+//                SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
+//                        Context.MODE_PRIVATE);
+//                Gson gson = new Gson();
+//                object_stringqty = selectedProducts.getString("selected_products_qty", "");
+//                object_string = selectedProducts.getString("selected_products", "");
+//                Type type = new TypeToken<List<OrderChildlist_Model>>() {
+//                }.getType();
+//                Type typeString = new TypeToken<List<String>>() {
+//                }.getType();
+//                selectedProductsDataList = gson.fromJson(object_string, type);
+//                selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
+//                        if (selectedProductsDataList.size() > 0) {
+//                            for (int i = 0; i < selectedProductsDataList.size(); i++) {
+//                                Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+//                                Log.i("qty", selectedProductsQuantityList.get(i));
+//                                if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
+//                                    grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
+//                            }
+                float grossAmount = 0;
+                if (selectedProductsDataList.size() > 0) {
+                    for (int i = 0; i < selectedProductsDataList.size(); i++) {
+                        Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+                        Log.i("qty", selectedProductsQuantityList.get(i));
+                        if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
+                            grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
+                    }
+                    SharedPreferences add_more_product = getContext().getSharedPreferences("add_more_product",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor1 = add_more_product.edit();
+                    editor1.putString("add_more_product", "fromAddMore");
+                    editor1.apply();
 
+                    SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = grossamount.edit();
+                    editor.putString("grossamount", String.valueOf(grossAmount));
+                    editor.apply();
+                    Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
+                    grossAmount = 0;
+                    viewPager.setCurrentItem(0);
+                    FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.add(R.id.main_container_ret, new Retailer_OrderPlace_retailer_dashboarad());
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
 //                try {
 //                    requestSaveTemplate();
 //                } catch (JSONException e) {
@@ -127,6 +177,7 @@ public class Retailer_Order_Summary extends Fragment {
 //                editor.putString("selected_products", "");
 //                editor.putString("selected_products_qty", "");
 //                editor.apply();
+                }
             }
         });
         btn_draft.setOnClickListener(new View.OnClickListener() {
@@ -161,6 +212,19 @@ public class Retailer_Order_Summary extends Fragment {
         mAdapter1 = new Order_Summary_Adapter(getContext(), selectedProductsDataList, selectedProductsQuantityList);
         recyclerView1.setAdapter(mAdapter1);
         recyclerView1.setNestedScrollingEnabled(false);
+//
+//        SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
+//                Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = selectedProducts.edit();
+//        editor.putString("selected_products", "");
+//        editor.putString("selected_products_qty", "");
+//        editor.apply();
+//
+//        SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
+//                Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor_grossamount = grossamount.edit();
+//        editor_grossamount.putString("grossamount", "0");
+//        editor_grossamount.apply();
 
         Log.i("aaaaaa", String.valueOf(mAdapter1));
 
@@ -450,7 +514,7 @@ public class Retailer_Order_Summary extends Fragment {
                             break;
                         }
                     }
-//                    break;
+                    break;
                 }
             }
             return null;
@@ -492,13 +556,25 @@ public class Retailer_Order_Summary extends Fragment {
         SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
                 Context.MODE_PRIVATE);
 //        gross_amount.setText(grossamount.getString("grossamount", "0"));
-        float temp_grossAmount = Float.parseFloat(grossamount.getString("grossamount", "0"));
+//        float temp_grossAmount = Float.parseFloat(grossamount.getString("grossamount", "0"));
 //        gross_amount.setText(String.format("%.0f", temp_grossAmount));
         discount_amount.setText(" - ");
 
 //        float gstAmount = (Float.parseFloat(grossamount.getString("grossamount", "")) * 17) / 100;
         float gstAmount = 0;
         totalAmount = Float.parseFloat(grossamount.getString("grossamount", "0")) + gstAmount;
+//        float grossAmount = 0;
+//        if(selectedProductsDataList != null) {
+//            if (selectedProductsDataList.size() > 0) {
+//                for (int i = 0; i < selectedProductsDataList.size(); i++) {
+//                    Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+//                    Log.i("qty", selectedProductsQuantityList.get(i));
+//                    if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
+//                        grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
+//                }
+//            }
+//
+//        }
 
 //        gst_amount.setText(String.valueOf(gstAmount));
 //        total_amount.setText(String.valueOf(totalAmount));

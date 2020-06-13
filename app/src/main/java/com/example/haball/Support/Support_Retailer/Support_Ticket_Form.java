@@ -1,7 +1,10 @@
 package com.example.haball.Support.Support_Retailer;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -10,10 +13,12 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -39,6 +44,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
 import com.example.haball.Retailer_Login.RetailerLogin;
+import com.example.haball.Retailor.ui.Support.SupportFragment;
 import com.example.haball.Select_User.Register_Activity;
 import com.example.haball.TextField;
 import com.google.android.material.snackbar.Snackbar;
@@ -59,12 +65,14 @@ import java.util.Map;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class Support_Ticket_Form extends AppCompatActivity {
 
     private TextInputEditText BName, Email, MobileNo, Comment;
-    private TextInputLayout layout_BName,layout_Email,layout_MobileNo,layout_Comment;
-//    private ImageButton btn_back;
+    private TextInputLayout layout_BName, layout_Email, layout_MobileNo, layout_Comment;
+    //    private ImageButton btn_back;
     private Spinner IssueType, critcicality, Preffered_Contact;
     private String URL_SPINNER_DATA = "http://175.107.203.97:4014/api/support/PublicUsers";
     //    private String URL_SPINNER_ISSUETYPE = "http://175.107.203.97:4013/api/lookup/public/ISSUE_TYPE_PUBLIC";
@@ -88,7 +96,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
     private Typeface myFont;
 
     private String DistributorId;
-//    private TextView tv_main_heading, tv_sub_heading;
+    //    private TextView tv_main_heading, tv_sub_heading;
     private int keyDel;
 
     @Override
@@ -136,15 +144,15 @@ public class Support_Ticket_Form extends AppCompatActivity {
         login_submit.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
         new TextField().changeColor(this, layout_BName, BName);
         new TextField().changeColor(this, layout_Email, Email);
-        new TextField().changeColor(this,  layout_MobileNo , MobileNo);
+        new TextField().changeColor(this, layout_MobileNo, MobileNo);
         new TextField().changeColor(this, layout_Comment, Comment);
 
         login_btn = findViewById(R.id.login_btn);
 //        btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
 
-        issue_type.add("Issue Type *");
-        criticality.add("Criticality *");
-        preffered_contact.add("Preferred Method of Contacting *");
+        issue_type.add("Issue Type");
+        criticality.add("Criticality");
+        preffered_contact.add("Preferred Method of Contacting");
 
 //        arrayAdapterIssueType = new ArrayAdapter<>(this,
 //                android.R.layout.simple_dropdown_item_1line, issue_type);
@@ -227,7 +235,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
 
         new TextField().changeColor(this, layout_BName, BName);
         new TextField().changeColor(this, layout_Email, Email);
-        new TextField().changeColor(this,  layout_MobileNo , MobileNo);
+        new TextField().changeColor(this, layout_MobileNo, MobileNo);
         new TextField().changeColor(this, layout_Comment, Comment);
 
 //        fetchIssueType();
@@ -254,23 +262,23 @@ public class Support_Ticket_Form extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 if (i == 0) {
-                        try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
-                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                            ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
-                            ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
-                        } catch (NullPointerException e) {
-                            e.printStackTrace();
-                        }
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
                 } else {
-                        try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                            ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
-                            ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
-                        } catch (NullPointerException ex) {
-                            ex.printStackTrace();
-                        }
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
 
                 }
 //                issueType = issue_type.get(i);
@@ -296,23 +304,23 @@ public class Support_Ticket_Form extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 if (i == 0) {
-                        try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
-                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                            ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
-                            ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
-                        } catch (NullPointerException e) {
-                            e.printStackTrace();
-                        }
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
                 } else {
-                        try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                            ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
-                            ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
-                        } catch (NullPointerException ex) {
-                            ex.printStackTrace();
-                        }
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
                     Criticality = criticality_map.get(criticality.get(i));
                 }
                 checkFieldsForEmptyValues();
@@ -336,23 +344,23 @@ public class Support_Ticket_Form extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 if (i == 0) {
-                        try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
-                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                            ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
-                            ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
-                        } catch (NullPointerException e) {
-                            e.printStackTrace();
-                        }
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
                 } else {
-                        try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                            ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
-                            ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
-                        } catch (NullPointerException ex) {
-                            ex.printStackTrace();
-                        }
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
 
                 }
 //                PrefferedContacts = preffered_contact.get(i);
@@ -378,7 +386,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
             public void onClick(View view) {
                 if (TextUtils.isEmpty(BName.getText().toString()) ||
                         TextUtils.isEmpty(Email.getText().toString()) ||
-                        TextUtils.isEmpty(Comment.getText().toString()) ||
+//                        TextUtils.isEmpty(Comment.getText().toString()) ||
                         TextUtils.isEmpty(MobileNo.getText().toString())) {
 
                     Snackbar.make(view, "Please Enter All Required Fields", Snackbar.LENGTH_SHORT).show();
@@ -411,8 +419,25 @@ public class Support_Ticket_Form extends AppCompatActivity {
 
             }
         };
+        TextWatcher textWatcher1 = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkFieldsForEmptyValues();
+                checkEmail();
+            }
+        };
         BName.addTextChangedListener(textWatcher);
-        Email.addTextChangedListener(textWatcher);
+        Email.addTextChangedListener(textWatcher1);
         MobileNo.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -443,6 +468,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
             public void afterTextChanged(Editable arg0) {
                 // TODO Auto-generated method stub
                 checkFieldsForEmptyValues();
+                checkMobile();
             }
 
             @Override
@@ -455,6 +481,41 @@ public class Support_Ticket_Form extends AppCompatActivity {
     }
 
 
+    private void checkEmail() {
+        String reg_ex = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
+
+        if (!Email.getText().toString().matches(reg_ex)) {
+            layout_Email.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+            layout_Email.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            layout_Email.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            Email.setTextColor(getResources().getColor(R.color.error_stroke_color));
+            login_submit.setEnabled(false);
+            login_submit.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+
+        } else {
+            layout_Email.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
+            layout_Email.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+            layout_Email.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
+            Email.setTextColor(getResources().getColor(R.color.textcolor));
+            checkFieldsForEmptyValues();
+        }
+    }
+
+    private void checkMobile() {
+        if (String.valueOf(MobileNo.getText()).length() != 12) {
+            layout_MobileNo.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+            layout_MobileNo.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            layout_MobileNo.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            MobileNo.setTextColor(getResources().getColor(R.color.error_stroke_color));
+        } else {
+            layout_MobileNo.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
+            layout_MobileNo.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+            layout_MobileNo.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
+            MobileNo.setTextColor(getResources().getColor(R.color.textcolor));
+            checkFieldsForEmptyValues();
+        }
+    }
+
     @Override
     public void onBackPressed() {
         String txt_BName = BName.getText().toString();
@@ -465,7 +526,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
         String txt_Preffered_Contact = (String) Preffered_Contact.getItemAtPosition(Preffered_Contact.getSelectedItemPosition()).toString();
         String txt_Comment = Comment.getText().toString();
 
-        if(!txt_BName.equals("") || !txt_Email.equals("") || !txt_MobileNo.equals("") || !txt_IssueType.equals("Issue Type *") || !txt_critcicality.equals("Criticality *") || !txt_Preffered_Contact.equals("Preferred Method of Contacting *") || !txt_Comment.equals("")) {
+        if (!txt_BName.equals("") || !txt_Email.equals("") || !txt_MobileNo.equals("") || !txt_IssueType.equals("Issue Type *") || !txt_critcicality.equals("Criticality *") || !txt_Preffered_Contact.equals("Preferred Method of Contacting *") || !txt_Comment.equals("")) {
             showDiscardDialog();
         } else {
             finish();
@@ -473,14 +534,23 @@ public class Support_Ticket_Form extends AppCompatActivity {
     }
 
 
+
+
     private void showDiscardDialog() {
         Log.i("CreatePayment", "In Dialog");
-//        final FragmentManager fm = getSupportFragmentManager();
+        final FragmentManager fm = getSupportFragmentManager();
 
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         LayoutInflater inflater = LayoutInflater.from(this);
         View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+        tv_discard_txt.setText("Are you sure, you want to leave this page? Your changes will be discarded.");
         alertDialog.setView(view_popup);
+        alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+        WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+        layoutParams.y = 200;
+        layoutParams.x = -70;// top margin
+        alertDialog.getWindow().setAttributes(layoutParams);
         Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
         btn_discard.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -503,26 +573,30 @@ public class Support_Ticket_Form extends AppCompatActivity {
     }
 
     private void checkFieldsForEmptyValues() {
+        String reg_ex = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
 
         String bname = BName.getText().toString();
         String email = Email.getText().toString();
         String mobile = MobileNo.getText().toString();
-        String contact = "Preferred Method of Contacting *";
+        String contact = "Preferred Method of Contacting";
         if (Preffered_Contact.getItemAtPosition(Preffered_Contact.getSelectedItemPosition()) != null)
             contact = Preffered_Contact.getItemAtPosition(Preffered_Contact.getSelectedItemPosition()).toString();
-        String issue_type = "Issue Type *";
+        String issue_type = "Issue Type";
         if (IssueType.getItemAtPosition(IssueType.getSelectedItemPosition()) != null)
             issue_type = IssueType.getItemAtPosition(IssueType.getSelectedItemPosition()).toString();
-        String critical = "Criticality *";
+        String critical = "Criticality";
         if (critcicality.getItemAtPosition(critcicality.getSelectedItemPosition()) != null)
             critical = critcicality.getItemAtPosition(critcicality.getSelectedItemPosition()).toString();
 
         if (bname.equals("")
-                || mobile.equals("")
                 || email.equals("")
-                || issue_type.equals("Issue Type *")
-                || critical.equals("Criticality *")
-                || contact.equals("Preferred Method of Contacting *")
+                || !Email.getText().toString().matches(reg_ex)
+                || mobile.equals("")
+                || mobile.length() != 12
+//                || comment.equals("")
+                || contact.equals("Preferred Method of Contacting")
+                || issue_type.equals("Issue Type")
+                || critical.equals("Criticality")
         ) {
             login_submit.setEnabled(false);
             login_submit.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
@@ -549,10 +623,49 @@ public class Support_Ticket_Form extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject result) {
                 Log.e("RESPONSE", result.toString());
-                Toast.makeText(getApplicationContext(), "Ticket Created Successfully", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(Support_Ticket_Form.this, RetailerLogin.class);
-                startActivity(intent);
-                finish();
+//                Toast.makeText(getApplicationContext(), "Ticket Created Successfully", Toast.LENGTH_LONG).show();
+//                Intent intent = new Intent(Support_Ticket_Form.this, RetailerLogin.class);
+//                startActivity(intent);
+//                finish();
+
+
+                final Dialog fbDialogue = new Dialog(Support_Ticket_Form.this);
+                //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                fbDialogue.setContentView(R.layout.password_updatepopup);
+                TextView tv_pr1, txt_header1;
+                txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
+                tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
+                txt_header1.setText("Ticket Created");
+                try {
+                    tv_pr1.setText("Your Ticket ID " + result.get("TicketNumber") + " has been created successfully. Our customer support officer will contact you shortly.");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                fbDialogue.setCancelable(true);
+                fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+                layoutParams.y = 200;
+                layoutParams.x = -70;// top margin
+                fbDialogue.getWindow().setAttributes(layoutParams);
+                fbDialogue.show();
+
+                ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+                close_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        fbDialogue.dismiss();
+                    }
+                });
+
+                fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        Intent intent = new Intent(Support_Ticket_Form.this, RetailerLogin.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
             }
 
         }, new Response.ErrorListener() {

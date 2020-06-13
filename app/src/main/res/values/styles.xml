@@ -16,7 +16,7 @@
         <item name="boxStrokeWidth">2dp</item>
     </style>
 
-    <style name="TextLabel" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+    <style name="TextLabel" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <!-- Hint color and label color in FALSE state -->
         <item name="android:textColorHint">@color/green_color</item>
         <item name="android:textColor">@color/textcolor</item>

@@ -256,9 +256,7 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
     }
 
     private void checkOutEnabler(OrderChildList_VH_DistOrder holder, int position, OrderChildlist_Model_DistOrder orderChildlist_model, String s) {
-
         if (selectedProductsDataList != null) {
-
             if (!selectedProductsDataList.contains(orderChildlist_model)) {
                 selectedProductsDataList.add(orderChildlist_model);
                 selectedProductsQuantityList.add(String.valueOf(s));

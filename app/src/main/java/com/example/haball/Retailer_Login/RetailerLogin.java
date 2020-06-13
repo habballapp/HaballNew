@@ -33,10 +33,12 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Distributor.StatusKVP;
 import com.example.haball.Distributor.ui.terms_and_conditions.TermsAndConditionsFragment;
 import com.example.haball.R;
 import com.example.haball.Retailor.Forgot_Password_Retailer.Forgot_Pass_Retailer;
 import com.example.haball.Retailor.Retailer_TermsAndConditionsFragment;
+import com.example.haball.Retailor.Retailer_UpdatePassword;
 import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Retailor.Retailor_SignUp.SignUp;
 import com.example.haball.Select_User.Register_Activity;
@@ -164,6 +166,7 @@ public class RetailerLogin extends AppCompatActivity {
 
         View customView = inflater.inflate(R.layout.action_bar_main, null);
 
+
         bar.setCustomView(customView);
         bar.setDisplayShowCustomEnabled(true);
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
@@ -273,8 +276,10 @@ public class RetailerLogin extends AppCompatActivity {
                 try {
                     if (!result.get("access_token").toString().isEmpty()) {
                         token = result.get("access_token").toString();
+                        StatusKVP statusKVP = new StatusKVP(RetailerLogin.this, token);
                         JSONObject userAccount = new JSONObject(String.valueOf(result.get("UserAccount")));
                         String IsTermAndConditionAccepted = userAccount.get("IsTermAndConditionAccepted").toString();
+                        String UpdatePassword  = userAccount.get("UpdatePassword").toString();
                         Log.i("user account => ", userAccount.get("RetailerID").toString());
                         String RetailerId = userAccount.get("RetailerID").toString();
                         String RetailerCode = userAccount.get("RetailerCode").toString();
@@ -323,6 +328,16 @@ public class RetailerLogin extends AppCompatActivity {
                             Intent login_intent = new Intent(RetailerLogin.this, Retailer_TermsAndConditionsFragment.class);
                             startActivity(login_intent);
                         }
+                        if(UpdatePassword.equals("1")) {
+                            // Toast.makeText(RetailerLogin.this, "Login Success", Toast.LENGTH_LONG).show();
+                            Intent login_intent = new Intent(RetailerLogin.this, RetailorDashboard.class);
+                            startActivity(login_intent);
+                            finish();
+                        } else if (UpdatePassword.equals("0")) {
+                            Intent login_intent = new Intent(RetailerLogin.this, Retailer_UpdatePassword.class);
+                            startActivity(login_intent);
+                        }
+
                     }
 
                 } catch (JSONException e) {

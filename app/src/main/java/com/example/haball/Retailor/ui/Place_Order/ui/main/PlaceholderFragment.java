@@ -88,8 +88,8 @@ public class PlaceholderFragment extends Fragment {
     private RelativeLayout spinner_retailer_details;
     private PageViewModel pageViewModel;
     private TextView retailer_heading;
-    private TextInputEditText txt_name, txt_mobile_no, txt_email_address, txt_cnic_no, txt_address;
-    private TextInputLayout layout_name, layout_mobile_no, layout_email_address, layout_cnic_no, layout_txt_address;
+    private TextInputEditText txt_ntn, txt_mobile_no, txt_email_address, txt_cnic_no, txt_address;
+    private TextInputLayout layout_ntn, layout_mobile_no, layout_email_address, layout_cnic_no, layout_txt_address;
     private String object_string;
     private Typeface myFont;
 
@@ -117,6 +117,14 @@ public class PlaceholderFragment extends Fragment {
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View rootView = null;
+
+        SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = selectedProducts.edit();
+        editor.putString("selected_products", "");
+        editor.putString("selected_products_qty", "");
+        editor.apply();
+
         switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
             case 1: {
                 myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
@@ -125,24 +133,26 @@ public class PlaceholderFragment extends Fragment {
                 spinner_conso = rootView.findViewById(R.id.spinner_conso);
                 spinner_retailer_details = rootView.findViewById(R.id.spinner_retailer_details);
                 retailer_heading = rootView.findViewById(R.id.retailer_heading);
-                layout_name = rootView.findViewById(R.id.layout_name);
+//                layout_name = rootView.findViewById(R.id.layout_name);
+                layout_ntn = rootView.findViewById(R.id.layout_ntn);
                 layout_mobile_no = rootView.findViewById(R.id.layout_mobile_no);
                 layout_email_address = rootView.findViewById(R.id.layout_email_address);
                 layout_cnic_no = rootView.findViewById(R.id.layout_cnic_no);
                 layout_txt_address = rootView.findViewById(R.id.layout_txt_address);
 
-                txt_name = rootView.findViewById(R.id.txt_name);
+//                txt_name = rootView.findViewById(R.id.txt_name);
+                txt_ntn = rootView.findViewById(R.id.txt_ntn);
                 txt_mobile_no = rootView.findViewById(R.id.txt_mobile_no);
                 txt_email_address = rootView.findViewById(R.id.txt_email_address);
                 txt_cnic_no = rootView.findViewById(R.id.txt_cnic_no);
                 txt_address = rootView.findViewById(R.id.txt_address);
 
-                txt_name.setEnabled(false);
+                txt_ntn.setEnabled(false);
                 txt_mobile_no.setEnabled(false);
                 txt_email_address.setEnabled(false);
                 txt_cnic_no.setEnabled(false);
                 txt_address.setEnabled(false);
-                new TextField().changeColor(getContext(), layout_name, txt_name);
+                new TextField().changeColor(getContext(), layout_ntn, txt_ntn);
                 new TextField().changeColor(getContext(), layout_mobile_no, txt_mobile_no);
                 new TextField().changeColor(getContext(), layout_email_address, txt_email_address);
                 new TextField().changeColor(getContext(), layout_cnic_no, txt_cnic_no);
@@ -210,7 +220,7 @@ public class PlaceholderFragment extends Fragment {
 //                                e.printStackTrace();
 //                            }
                             retailer_heading.setText(Company_selected);
-                            txt_name.setText(Company_selected);
+//                            txt_name.setText(Company_selected);
 //                            try {
                             setCompanyDetails(i - 1);
 //                            } catch (JSONException e) {
@@ -251,7 +261,7 @@ public class PlaceholderFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = (Objects.requireNonNull(getActivity())).getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.add(R.id.main_container_ret, new Dist_OrderPlace());
+                fragmentTransaction.add(R.id.main_container_ret, new Retailer_OrderPlace_retailer_dashboarad());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
 
@@ -339,11 +349,13 @@ public class PlaceholderFragment extends Fragment {
 
     private void setCompanyDetails(int position) {
         Log.i("companyDetail", String.valueOf(CompanyList.get(position)));
-        txt_name.setText(CompanyList.get(position).getCompanyName());
+//        txt_name.setText(CompanyList.get(position).getCompanyName());
         txt_email_address.setText(CompanyList.get(position).getEmail());
         txt_cnic_no.setText(CompanyList.get(position).getCNIC());
         txt_mobile_no.setText(CompanyList.get(position).getMobile());
         txt_address.setText(CompanyList.get(position).getAddress());
+        txt_ntn.setText(CompanyList.get(position).getCompanyNTN());
+//        CompanyNTN
         SharedPreferences retailerInfo = getContext().getSharedPreferences("DealerInfo",
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = retailerInfo.edit();
