@@ -17,37 +17,49 @@
             android:id="@+id/ln_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="27dp"
+            android:layout_marginStart="27dp"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="27dp"
-            android:orientation="horizontal"
+            android:layout_marginEnd="27dp"
             android:background="@drawable/underline"
-            android:weightSum="5.3">
+            android:orientation="horizontal"
+            android:weightSum="4">
 
             <TextView
+                android:id="@+id/tv_support"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
+                android:layout_weight="2.5"
                 android:fontFamily="@font/open_sans"
-                android:paddingTop="5dp"
+                android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:text="Payment"
                 android:textColor="@color/textcolor"
                 android:textSize="17sp" />
-            <TextView
-                android:id="@+id/btn_make_payment"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2.3"
-                android:fontFamily="@font/open_sans"
-                android:paddingTop="5dp"
-                android:paddingBottom="10dp"
-                android:maxLines="1"
-                android:text="Create Payment"
-                android:drawableLeft="@drawable/ic_baseline_add_24"
-                android:textColor="@color/textcolor"
-                android:textSize="13.6sp" />
 
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5">
+
+                <ImageView
+                    android:id="@+id/image_plus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:src="@drawable/ic_baseline_add_24" />
+
+                <TextView
+                    android:id="@+id/btn_addpayment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@+id/image_plus"
+                    android:fontFamily="@font/open_sans"
+                    android:gravity="center_vertical"
+                    android:text="Create Ticket"
+                    android:textColor="@color/textcolor"
+                    android:textSize="13sp" />
+            </RelativeLayout>
         </LinearLayout>
 
 
@@ -93,7 +105,6 @@
                 android:layout_height="55dp"
                 android:fontFamily="@font/open_sans"
                 android:hint="Retailer Code"
-                android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                >
                 <com.google.android.material.textfield.TextInputEditText
@@ -120,7 +131,6 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/open_sans"
                 android:hint="Payment ID"
-                android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 >
 
@@ -147,7 +157,6 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/open_sans"
                 android:hint="Created Date"
-                android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 >
 
@@ -174,7 +183,6 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/open_sans"
                 android:hint="Transaction Date"
-                android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 >
 
@@ -201,7 +209,6 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/open_sans"
                 android:hint="Bank"
-                android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                >
 
@@ -228,7 +235,6 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/open_sans"
                 android:hint="Authorization ID"
-                android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 >
 
@@ -255,7 +261,6 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/open_sans"
                 android:hint="Settlement ID"
-                android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 >
 
@@ -282,7 +287,6 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/open_sans"
                 android:hint="Amount"
-                android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 >
 
@@ -309,7 +313,6 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/open_sans"
                 android:hint="Status"
-                android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 >
 
@@ -336,7 +339,6 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/open_sans"
                 android:hint="Transaction Charges"
-                android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 >
 
@@ -378,7 +380,7 @@
                 android:text="View Receipt"
                 android:textAllCaps="false"
                 android:textColor="#fff"
-                android:textSize="14sp" />
+                android:textSize="@dimen/button_text_size" />
 
             <Button
                 android:id="@+id/btn_back"
@@ -395,7 +397,7 @@
                 android:text="Back"
                 android:textAllCaps="false"
                 android:textColor="#fff"
-                android:textSize="14sp" />
+                android:textSize="@dimen/button_text_size" />
         </LinearLayout>
 
      

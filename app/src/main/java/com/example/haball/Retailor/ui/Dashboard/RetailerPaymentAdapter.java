@@ -20,13 +20,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.haball.Distributor.ui.payments.PaymentScreen3Fragment;
-import com.example.haball.Distributor.ui.payments.ViewVoucherRequest;
 import com.example.haball.R;
-import com.example.haball.Retailer_Login.RetailerLogin;
 import com.example.haball.Retailor.RetailorDashboard;
-import com.example.haball.Retailor.ui.Make_Payment.EditPaymentRequestFragment;
 import com.example.haball.Retailor.ui.Make_Payment.PaymentScreen3Fragment_Retailer;
+import com.example.haball.Retailor.ui.Make_Payment.ViewReceeiptPDFRequest;
+import com.example.haball.Retailor.ui.Make_Payment.ViewVoucherRequest;
 import com.example.haball.Retailor.ui.RetailerPayment.RetailerViewInvoice;
 
 import org.json.JSONException;
@@ -307,6 +305,10 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
         viewPDFRequest.viewPDF(context, ID);
     }
 
+    private void viewReceeiptPDF(Context context, String ID) throws JSONException {
+        ViewReceeiptPDFRequest viewReceeiptPDFRequest = new ViewReceeiptPDFRequest();
+        viewReceeiptPDFRequest.viewPDF(context, ID);
+    }
     @Override
     public int getItemCount() {
         return paymentsList.size();
