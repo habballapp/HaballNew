@@ -1,16 +1,25 @@
 package com.example.haball.Retailor.ui.Support;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.KeyListener;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -34,6 +43,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
+import com.example.haball.Retailer_Login.RetailerLogin;
 import com.example.haball.Support.Support_Ditributor.Support_Ticket_Form;
 import com.example.haball.TextField;
 import com.google.android.material.snackbar.Snackbar;
@@ -53,6 +63,8 @@ import java.util.Map;
 
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 /**
@@ -85,6 +97,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
     private ArrayAdapter arrayAdapterPreferredContact;
     private Button ticket_btn;
     private Typeface myFont;
+    private int keyDel;
 
 
     @Override
@@ -115,10 +128,10 @@ public class Support_Ticket_Form_Fragment extends Fragment {
         layout_MobileNo = root.findViewById(R.id.layout_MobileNo);
         layout_Comment = root.findViewById(R.id.layout_Comment);
 
-        new TextField().changeColor(getContext(), layout_BName,BName);
-        new TextField().changeColor(getContext(), layout_Email,Email);
-        new TextField().changeColor(getContext(), layout_MobileNo,MobileNo);
-        new TextField().changeColor(getContext(), layout_Comment,Comment);
+        new TextField().changeColor(getContext(), layout_BName, BName);
+        new TextField().changeColor(getContext(), layout_Email, Email);
+        new TextField().changeColor(getContext(), layout_MobileNo, MobileNo);
+        new TextField().changeColor(getContext(), layout_Comment, Comment);
 
         IssueType = root.findViewById(R.id.IssueType);
         critcicality = root.findViewById(R.id.critcicality);
@@ -227,22 +240,22 @@ public class Support_Ticket_Form_Fragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
                     try {
-                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                         ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
                 } else {
-                        try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                            ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
-                            ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
-                        } catch (NullPointerException ex) {
-                            ex.printStackTrace();
-                        }
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
 //                    issueType = issue_type.get(i);
                     issueType = issue_type_map.get(issue_type.get(i));
                     checkFieldsForEmptyValues();
@@ -260,22 +273,22 @@ public class Support_Ticket_Form_Fragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
                     try {
-                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                         ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
                 } else {
-                        try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                            ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
-                            ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
-                        } catch (NullPointerException ex) {
-                            ex.printStackTrace();
-                        }
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
 //                    Criticality = criticality.get(i);
                     Criticality = criticality_map.get(criticality.get(i));
                     checkFieldsForEmptyValues();
@@ -293,22 +306,22 @@ public class Support_Ticket_Form_Fragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
                     try {
-                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                         ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
                 } else {
-                        try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                            ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
-                            ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
-                        } catch (NullPointerException ex) {
-                            ex.printStackTrace();
-                        }
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
                     PrefferedContacts = preffered_contact_map.get(preffered_contact.get(i));
                     checkFieldsForEmptyValues();
                 }
@@ -359,37 +372,132 @@ public class Support_Ticket_Form_Fragment extends Fragment {
             }
         };
 
-        BName.addTextChangedListener(textWatcher);
-        Email.addTextChangedListener(textWatcher);
-        MobileNo.addTextChangedListener(textWatcher);
 
+        TextWatcher textWatcher1 = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkFieldsForEmptyValues();
+                checkEmail();
+            }
+        };
+
+        BName.addTextChangedListener(textWatcher);
+        Email.addTextChangedListener(textWatcher1);
+        MobileNo.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                MobileNo.setOnKeyListener(new View.OnKeyListener() {
+                    @Override
+                    public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                        if (keyCode == KeyEvent.KEYCODE_DEL)
+                            keyDel = 1;
+                        return false;
+                    }
+                });
+
+                if (keyDel == 0) {
+                    int len = MobileNo.getText().length();
+                    if (len == 4) {
+                        MobileNo.setText(MobileNo.getText() + "-");
+                        MobileNo.setSelection(MobileNo.getText().length());
+                    }
+                } else {
+                    keyDel = 0;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                // TODO Auto-generated method stub
+                checkFieldsForEmptyValues();
+                checkMobile();
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+                // TODO Auto-generated method stub
+            }
+        });
 
         return root;
     }
 
+    private void checkEmail() {
+        String reg_ex = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
+
+        if (!Email.getText().toString().matches(reg_ex)) {
+            layout_Email.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+            layout_Email.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            layout_Email.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            Email.setTextColor(getResources().getColor(R.color.error_stroke_color));
+            ticket_btn.setEnabled(false);
+            ticket_btn.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+        } else {
+            layout_MobileNo.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
+            layout_MobileNo.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+            layout_MobileNo.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
+            MobileNo.setTextColor(getResources().getColor(R.color.textcolor));
+            checkFieldsForEmptyValues();
+        }
+    }
+
+    private void checkMobile() {
+        if (String.valueOf(MobileNo.getText()).length() != 12) {
+            layout_MobileNo.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+            layout_MobileNo.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            layout_MobileNo.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            MobileNo.setTextColor(getResources().getColor(R.color.error_stroke_color));
+            ticket_btn.setEnabled(false);
+            ticket_btn.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+
+        } else {
+            layout_MobileNo.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
+            layout_MobileNo.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+            layout_MobileNo.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
+            MobileNo.setTextColor(getResources().getColor(R.color.textcolor));
+            checkFieldsForEmptyValues();
+        }
+    }
+
     private void checkFieldsForEmptyValues() {
+        String reg_ex = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
 
         String bname = BName.getText().toString();
         String email = Email.getText().toString();
         String mobile = MobileNo.getText().toString();
         String comment = Comment.getText().toString();
-        String contact = "Preferred Method of Contacting *";
+        String contact = "Preferred Method of Contacting";
         if (Preffered_Contact.getItemAtPosition(Preffered_Contact.getSelectedItemPosition()) != null)
             contact = Preffered_Contact.getItemAtPosition(Preffered_Contact.getSelectedItemPosition()).toString();
-        String issue_type = "Issue Type *";
+        String issue_type = "Issue Type";
         if (IssueType.getItemAtPosition(IssueType.getSelectedItemPosition()) != null)
             issue_type = IssueType.getItemAtPosition(IssueType.getSelectedItemPosition()).toString();
-        String critical = "Criticality *";
+        String critical = "Criticality";
         if (critcicality.getItemAtPosition(critcicality.getSelectedItemPosition()) != null)
             critical = critcicality.getItemAtPosition(critcicality.getSelectedItemPosition()).toString();
 
         if (bname.equals("")
                 || email.equals("")
+                || !Email.getText().toString().matches(reg_ex)
                 || mobile.equals("")
+                || mobile.length() != 12
 //                || comment.equals("")
-                || contact.equals("Preferred Method of Contacting *")
-                || issue_type.equals("Issue Type *")
-                || critical.equals("Criticality *")
+                || contact.equals("Preferred Method of Contacting")
+                || issue_type.equals("Issue Type")
+                || critical.equals("Criticality")
         ) {
             ticket_btn.setEnabled(false);
             ticket_btn.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
@@ -399,6 +507,94 @@ public class Support_Ticket_Form_Fragment extends Fragment {
             ticket_btn.setBackground(getResources().getDrawable(R.drawable.button_background));
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        View.OnKeyListener keyListener = new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    BName.clearFocus();
+                    Email.clearFocus();
+                    MobileNo.clearFocus();
+                    Comment.clearFocus();
+                    showDiscardDialog();
+                }
+                return false;
+            }
+        };
+
+        BName.setOnKeyListener(keyListener);
+        Email.setOnKeyListener(keyListener);
+        MobileNo.setOnKeyListener(keyListener);
+        Comment.setOnKeyListener(keyListener);
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    // handle back button's click listener
+//                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
+                    String txt_BName = BName.getText().toString();
+                    String txt_Email = Email.getText().toString();
+                    String txt_MobileNo = MobileNo.getText().toString();
+                    String txt_Comment = Comment.getText().toString();
+                    String issueType = (String) IssueType.getItemAtPosition(IssueType.getSelectedItemPosition()).toString();
+                    String preffered_Contact = (String) Preffered_Contact.getItemAtPosition(Preffered_Contact.getSelectedItemPosition()).toString();
+                    String critcicality_val = (String) critcicality.getItemAtPosition(critcicality.getSelectedItemPosition()).toString();
+                    if (!txt_BName.equals("") || !txt_Email.equals("") || !txt_MobileNo.equals("") || !txt_Comment.equals("") || !issueType.equals("Issue Type") || !critcicality_val.equals("Criticality") || !preffered_Contact.equals("Preferred Method of Contacting")) {
+                        showDiscardDialog();
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                return false;
+            }
+        });
+
+    }
+
+    private void showDiscardDialog() {
+        Log.i("CreatePayment", "In Dialog");
+        final FragmentManager fm = getActivity().getSupportFragmentManager();
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+        tv_discard_txt.setText("Are you sure, you want to leave this page? Your changes will be discarded.");
+        alertDialog.setView(view_popup);
+        alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+        WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+        layoutParams.y = 200;
+        layoutParams.x = -70;// top margin
+        alertDialog.getWindow().setAttributes(layoutParams);
+        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+        btn_discard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.i("CreatePayment", "Button Clicked");
+                alertDialog.dismiss();
+                fm.popBackStack();
+            }
+        });
+
+        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+        img_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+            }
+        });
+
+        alertDialog.show();
+    }
+
+
 //
 //    private void fetchIssueType() {
 //        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNER_ISSUETYPE, null, new Response.Listener<JSONArray>() {
@@ -538,12 +734,10 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                         if (jsonObject.get("type").equals("ISSUE_TYPE_PRIVATE")) {
                             issue_type.add(jsonObject.getString("value"));
                             issue_type_map.put(jsonObject.getString("value"), jsonObject.getString("key"));
-                        }
-                        else if (jsonObject.get("type").equals("CONTACTING_METHOD")){
+                        } else if (jsonObject.get("type").equals("CONTACTING_METHOD")) {
                             preffered_contact.add(jsonObject.getString("value"));
                             preffered_contact_map.put(jsonObject.getString("value"), jsonObject.getString("key"));
-                        }
-                        else if (jsonObject.get("type").equals("CRITICALITY_PRIVATE")) {
+                        } else if (jsonObject.get("type").equals("CRITICALITY_PRIVATE")) {
                             criticality.add(jsonObject.getString("value"));
                             criticality_map.put(jsonObject.getString("value"), jsonObject.getString("key"));
                         }
@@ -608,10 +802,48 @@ public class Support_Ticket_Form_Fragment extends Fragment {
             @Override
             public void onResponse(JSONObject result) {
                 Log.e("RESPONSE", result.toString());
-                Toast.makeText(getContext(), "Ticket generated successfully.", Toast.LENGTH_LONG).show();
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new SupportFragment());
-                fragmentTransaction.commit();
+//                Toast.makeText(getContext(), "Ticket generated successfully.", Toast.LENGTH_LONG).show();
+//                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new SupportFragment());
+//                fragmentTransaction.commit();
+
+
+                final Dialog fbDialogue = new Dialog(getActivity());
+                //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                fbDialogue.setContentView(R.layout.password_updatepopup);
+                TextView tv_pr1, txt_header1;
+                txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
+                tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
+                txt_header1.setText("Ticket Created");
+                try {
+                    tv_pr1.setText("Your Ticket ID " + result.get("TicketNumber") + " has been created successfully.");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                fbDialogue.setCancelable(true);
+                fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+                layoutParams.y = 200;
+                layoutParams.x = -70;// top margin
+                fbDialogue.getWindow().setAttributes(layoutParams);
+                fbDialogue.show();
+
+                ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+                close_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        fbDialogue.dismiss();
+                    }
+                });
+
+                fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new SupportFragment());
+                        fragmentTransaction.commit();
+                    }
+                });
             }
 
         }, new Response.ErrorListener() {

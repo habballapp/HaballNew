@@ -112,6 +112,7 @@
                     android:layout_height="match_parent"
                     android:fontFamily="@font/open_sans"
                     android:inputType="number"
+                    android:maxLength="12"
                     android:paddingLeft="20dp"
                     android:paddingTop="5dp"
                     android:paddingRight="20dp"

@@ -68,36 +68,36 @@
                 android:textColor="@color/textcolor"
                 android:textSize="17sp" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_name"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_below="@+id/retailer_heading"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:hint="Name"
-                android:fontFamily="@font/open_sans"
-                android:layout_marginTop="20dp"
-                android:theme="@style/TextLabel"
-                app:boxBackgroundColor="#fff"
-               >
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:id="@+id/layout_name"-->
+<!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--                android:layout_below="@+id/retailer_heading"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="55dp"-->
+<!--                android:hint="Name"-->
+<!--                android:fontFamily="@font/open_sans"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:theme="@style/TextLabel"-->
+<!--                app:boxBackgroundColor="#fff"-->
+<!--               >-->
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txt_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/open_sans"
-                    android:textColor="@color/textcolor"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    />
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/txt_name"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:fontFamily="@font/open_sans"-->
+<!--                    android:textColor="@color/textcolor"-->
+<!--                    android:paddingTop="5dp"-->
+<!--                    android:paddingBottom="5dp"-->
+<!--                    />-->
 
-            </com.google.android.material.textfield.TextInputLayout>
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_mobile_no"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_below="@+id/layout_name"
                 android:layout_width="match_parent"
+                android:layout_below="@+id/retailer_heading"
                 android:layout_height="55dp"
                 android:hint="Mobile No"
                 android:fontFamily="@font/open_sans"
@@ -163,13 +163,40 @@
                      />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_ntn"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_below="@+id/layout_cnic_no"
+                android:hint="NTN No"
+                android:fontFamily="@font/open_sans"
+                android:layout_marginTop="20dp"
+                android:theme="@style/TextLabel"
+                app:boxBackgroundColor="#fff"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_ntn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/open_sans"
+                    android:textColor="@color/textcolor"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_txt_address"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginTop="20dp"
-                android:layout_below="@+id/layout_cnic_no"
+                android:layout_below="@+id/layout_ntn"
                 android:hint="Address"
                 android:fontFamily="@font/open_sans"
                 android:theme="@style/TextLabel"

@@ -16,6 +16,7 @@ public class TextField {
 
     public void changeColor(final Context context, final TextInputLayout textInputLayout, final TextInputEditText textInputEditText) {
         textInputLayout.setDefaultHintTextColor(ColorStateList.valueOf(context.getResources().getColor(R.color.edit_text_hint_color)));
+        textInputLayout.setHintAnimationEnabled(true);
         textInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

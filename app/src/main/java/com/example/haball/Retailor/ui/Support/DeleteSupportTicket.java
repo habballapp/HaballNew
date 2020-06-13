@@ -2,10 +2,13 @@ package com.example.haball.Retailor.ui.Support;
 
         import android.app.AlertDialog;
         import android.content.Context;
+        import android.content.DialogInterface;
         import android.content.SharedPreferences;
         import android.util.Log;
+        import android.view.Gravity;
         import android.view.LayoutInflater;
         import android.view.View;
+        import android.view.WindowManager;
         import android.widget.ImageButton;
         import android.widget.Toast;
 
@@ -56,6 +59,12 @@ public class DeleteSupportTicket {
                     Log.i("support delete",String.valueOf(result));
                     Log.i("support delete id",String.valueOf(result.get("ID")));
                     final AlertDialog delete_successAlert = new AlertDialog.Builder(context).create();
+                    delete_successAlert.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                    WindowManager.LayoutParams layoutParams = delete_successAlert.getWindow().getAttributes();
+                    layoutParams.y = 200;
+                    layoutParams.x = -70;// top margin
+                    delete_successAlert.getWindow().setAttributes(layoutParams);
+
                     LayoutInflater delete_inflater = LayoutInflater.from(context);
                     View delete_success_alert = delete_inflater.inflate(R.layout.delete_success, null);
                     delete_successAlert.setView(delete_success_alert);
@@ -64,6 +73,15 @@ public class DeleteSupportTicket {
                     img_delete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            delete_successAlert.dismiss();
+                            fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container_ret, new SupportFragment()).addToBackStack(null);
+                            fragmentTransaction.commit();
+                        }
+                    });
+                    delete_successAlert.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
                             delete_successAlert.dismiss();
                             fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container_ret, new SupportFragment()).addToBackStack(null);

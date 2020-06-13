@@ -589,7 +589,6 @@ public class Dist_Order_Summary extends Fragment {
 //            adapter.setParentClickableViewAnimationDefaultDuration();
 //            adapter.setParentAndIconExpandOnClick(true);
 //            recyclerView.setAdapter(adapter);
-
         }
     }
 

@@ -74,7 +74,8 @@
                             android:fontFamily="@font/open_sans"
                             android:inputType="text|textCapSentences"
                             android:paddingTop="5dp"
-                            android:paddingRight="20dp"
+                            android:paddingRight="40dp"
+                            android:paddingEnd="40dp"
                             android:paddingBottom="5dp"
                             android:textColor="@color/textcolor"
                             android:textSize="@dimen/edit_text_box_size" />

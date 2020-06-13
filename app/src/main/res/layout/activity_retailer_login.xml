@@ -54,8 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ln_login"
-                    android:layout_marginTop="20dp"
-                    >
+                    android:layout_marginTop="20dp">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_username"
@@ -65,22 +64,19 @@
                         android:hint="Username Or Mobile No"
                         android:theme="@style/TextLabel"
                         app:boxBackgroundColor="#fff"
-                        app:boxStrokeColor="@color/box_stroke"
-                        >
+                        app:boxStrokeColor="@color/box_stroke">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_username"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/open_sans"
-                            android:textColor="@color/textcolor"
                             android:inputType="text"
                             android:paddingLeft="20dp"
                             android:paddingTop="5dp"
                             android:paddingRight="20dp"
                             android:paddingBottom="5dp"
-                            />
-
+                            android:textColor="@color/textcolor" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -94,9 +90,9 @@
                         android:theme="@style/TextLabel"
                         app:boxBackgroundColor="#fff"
                         app:boxStrokeColor="@color/box_stroke"
+
                         app:passwordToggleEnabled="true"
-                        app:passwordToggleTint="#A9A9A9"
-                        >
+                        app:passwordToggleTint="#A9A9A9">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_password"
@@ -110,14 +106,9 @@
                             android:paddingTop="5dp"
                             android:paddingEnd="60dp"
                             android:paddingRight="60dp"
-                            android:paddingBottom="5dp"
-                           />
-
+                            android:paddingBottom="5dp" />
                     </com.google.android.material.textfield.TextInputLayout>
-
-
                 </RelativeLayout>
-
 
                 <LinearLayout
                     android:id="@+id/ln_btn"
@@ -147,18 +138,14 @@
                         android:layout_height="45dp"
                         android:layout_marginTop="20dp"
                         android:background="@drawable/button_round"
+                        android:fontFamily="@font/open_sans"
                         android:gravity="center"
                         android:stateListAnimator="@null"
                         android:text="@string/Forgot_Password"
                         android:textAllCaps="false"
                         android:textColor="#fff"
-                        android:textSize="@dimen/button_text_size"
-                        android:fontFamily="@font/open_sans"
-
-                        />
-
+                        android:textSize="@dimen/button_text_size" />
                 </LinearLayout>
-
 
                 <LinearLayout
                     android:id="@+id/ln_registration"
@@ -182,23 +169,17 @@
                         android:textSize="@dimen/button_text_size" />
                 </LinearLayout>
 
-
                 <TextView
                     android:id="@+id/footer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="10dp"
-                    android:fontFamily="@font/opensans"
+                    android:fontFamily="@font/open_sans"
                     android:gravity="center"
                     android:text="© Haball | All rights reserved"
                     android:textSize="12sp" />
-
             </RelativeLayout>
-
-
         </ScrollView>
     </RelativeLayout>
-
-
 </RelativeLayout>

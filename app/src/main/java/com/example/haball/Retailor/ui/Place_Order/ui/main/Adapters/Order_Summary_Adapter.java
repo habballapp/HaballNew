@@ -88,12 +88,64 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
 //                } else {
                 checkOutEnabler(holder, finalPosition);
                 String quantity = selectedProductsDataListQty.get(finalPosition);
-                if(quantity.equals(""))
+                if (quantity.equals(""))
                     quantity = "0";
 
-                final float finaltotalamount =  Float.parseFloat(quantity) * Float.parseFloat(selectedProductsDataList.get(finalPosition).getProductUnitPrice());
+                final float finaltotalamount = Float.parseFloat(quantity) * Float.parseFloat(selectedProductsDataList.get(finalPosition).getProductUnitPrice());
                 holder.totalAmount_value.setText(String.valueOf(finaltotalamount));
 //                }
+            }
+        });
+        holder.btn_delete_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (selectedProductsDataList.size() > 1) {
+
+                    selectedProductsDataListQty.set(finalPosition, "0");
+                    holder.list_numberOFitems.setText("0");
+                    checkOutEnabler(holder, finalPosition);
+
+                    grossAmount = 0;
+
+                    if (selectedProductsDataList.size() > 0) {
+                        for (int i = 0; i < selectedProductsDataList.size(); i++) {
+                            Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+                            Log.i("qty", selectedProductsDataListQty.get(i));
+                            if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsDataListQty.get(i).equals(""))
+                                grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsDataListQty.get(i));
+                        }
+                        SharedPreferences grossamount = context.getSharedPreferences("grossamount",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor_grossamount = grossamount.edit();
+                        editor_grossamount.putString("grossamount", String.valueOf(grossAmount));
+                        editor_grossamount.apply();
+                        grossAmount = 0;
+                    }
+
+                    selectedProductsDataList.remove(finalPosition);
+                    selectedProductsDataListQty.remove(finalPosition);
+                    notifyItemRemoved(finalPosition);
+                    notifyItemRangeChanged(finalPosition, selectedProductsDataList.size());
+
+                    Gson gson = new Gson();
+                    String json = gson.toJson(selectedProductsDataList);
+                    String jsonqty = gson.toJson(selectedProductsDataListQty);
+                    Log.i("jsonqty", jsonqty);
+                    Log.i("json", json);
+
+                    SharedPreferences selectedProducts = context.getSharedPreferences("selectedProducts_retailer_own",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = selectedProducts.edit();
+                    editor.putString("selected_products", json);
+                    editor.putString("selected_products_qty", jsonqty);
+                    editor.apply();
+
+//                checkOutEnabler(holder, finalPosition, false);
+
+
+                } else {
+                    Toast.makeText(context, "You have only 1 selected product.", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -107,6 +159,7 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
 
         public TextView list_txt_products_, list_product_code_value, list_price_value, list_discount_value, list_UOM_value, totalAmount_value;
         public EditText list_numberOFitems;
+        public TextView btn_delete_item;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -118,6 +171,8 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
 //            list_pack_size_value = itemView.findViewById(R.id.list_pack_size_value);
             list_numberOFitems = itemView.findViewById(R.id.list_numberOFitems);
             totalAmount_value = itemView.findViewById(R.id.totalAmount_value);
+            btn_delete_item = itemView.findViewById(R.id.btn_delete_item);
+
         }
     }
 
@@ -140,6 +195,8 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
             editor.putString("selected_products", json);
             editor.putString("selected_products_qty", jsonqty);
             editor.apply();
+
+            grossAmount = 0;
 
             if (selectedProductsDataList.size() > 0) {
                 for (int i = 0; i < selectedProductsDataList.size(); i++) {

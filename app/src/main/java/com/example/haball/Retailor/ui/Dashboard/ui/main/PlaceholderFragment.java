@@ -249,6 +249,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         // View root = inflater.inflate( R.layout.activity_dashboard__tabs, container, false );
         View root = null;
 
+        SharedPreferences add_more_product = getContext().getSharedPreferences("add_more_product",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor1 = add_more_product.edit();
+        editor1.putString("add_more_product", "");
+        editor1.apply();
+
         switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
             case 1: {
                 tabName = "Payment";
