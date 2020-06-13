@@ -73,6 +73,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -400,6 +401,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
+                    try {
+                        fetchPaymentsData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                 } else {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
@@ -469,9 +476,9 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         filters.add("Un-Paid");
         filters.add("Payment Processing");
         filters.add("Paid");
-        filters.add("Delete");
-        filters.add("Pending");
-        filters.add("Partially Paid");
+//        filters.add("Delete");
+//        filters.add("Pending");
+//        filters.add("Partially Paid");
 //        arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
 //                android.R.layout.simple_spinner_dropdown_item, filters);
 
@@ -808,21 +815,22 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     }.getType();
                     PaymentsList = gson.fromJson(result.getJSONArray("PrePaidRequestData").toString(), type);
                     Log.i("PaymentsList", String.valueOf(PaymentsList));
-                    if(PaymentsList.size() < 4) {
-                        rv_filter.setVisibility(View.VISIBLE);
-                        TranslateAnimation animate1 = new TranslateAnimation(
-                                0,                 // fromXDelta
-                                0,                 // toXDelta
-                                -rv_filter.getHeight(),  // fromYDelta
-                                0);                // toYDelta
-                        animate1.setDuration(250);
-                        animate1.setFillAfter(true);
-                        rv_filter.clearAnimation();
-                        rv_filter.startAnimation(animate1);
+                    if (PaymentsList.size() < 4) {
+                        if (rv_filter.getVisibility() == View.GONE) {
+                            rv_filter.setVisibility(View.VISIBLE);
+                            TranslateAnimation animate1 = new TranslateAnimation(
+                                    0,                 // fromXDelta
+                                    0,                 // toXDelta
+                                    -rv_filter.getHeight(),  // fromYDelta
+                                    0);                // toYDelta
+                            animate1.setDuration(250);
+                            animate1.setFillAfter(true);
+                            rv_filter.clearAnimation();
+                            rv_filter.startAnimation(animate1);
+                        }
                     }
 
-
-                    mAdapter = new RetailerPaymentAdapter(getContext(), PaymentsList);
+                    mAdapter = new RetailerPaymentAdapter(getActivity(), getContext(), PaymentsList);
                     Log.i("mAdapter", String.valueOf(mAdapter));
                     recyclerViewPayment.setAdapter(mAdapter);
 
@@ -899,17 +907,19 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                if(PaymentsList.size() < 4) {
-                    rv_filter.setVisibility(View.VISIBLE);
-                    TranslateAnimation animate1 = new TranslateAnimation(
-                            0,                 // fromXDelta
-                            0,                 // toXDelta
-                            -rv_filter.getHeight(),  // fromYDelta
-                            0);                // toYDelta
-                    animate1.setDuration(250);
-                    animate1.setFillAfter(true);
-                    rv_filter.clearAnimation();
-                    rv_filter.startAnimation(animate1);
+                if (PaymentsList.size() < 4) {
+                    if (rv_filter.getVisibility() == View.GONE) {
+                        rv_filter.setVisibility(View.VISIBLE);
+                        TranslateAnimation animate1 = new TranslateAnimation(
+                                0,                 // fromXDelta
+                                0,                 // toXDelta
+                                -rv_filter.getHeight(),  // fromYDelta
+                                0);                // toYDelta
+                        animate1.setDuration(250);
+                        animate1.setFillAfter(true);
+                        rv_filter.clearAnimation();
+                        rv_filter.startAnimation(animate1);
+                    }
                 }
 
 
@@ -918,7 +928,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 else
                     tv_shipment_no_data1.setVisibility(View.VISIBLE);
 
-                mAdapter = new RetailerPaymentAdapter(getContext(), PaymentsList);
+                mAdapter = new RetailerPaymentAdapter(getActivity(), getContext(), PaymentsList);
                 recyclerViewPayment.setAdapter(mAdapter);
             }
         }, new Response.ErrorListener() {
@@ -982,19 +992,20 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     List<RetailerPaymentModel> PaymentsList_temp = new ArrayList<>();
                     PaymentsList_temp = gson.fromJson(result.getJSONArray("PrePaidRequestData").toString(), type);
                     PaymentsList.addAll(PaymentsList_temp);
-                    if(PaymentsList.size() < 4) {
-                        rv_filter.setVisibility(View.VISIBLE);
-                        TranslateAnimation animate1 = new TranslateAnimation(
-                                0,                 // fromXDelta
-                                0,                 // toXDelta
-                                -rv_filter.getHeight(),  // fromYDelta
-                                0);                // toYDelta
-                        animate1.setDuration(250);
-                        animate1.setFillAfter(true);
-                        rv_filter.clearAnimation();
-                        rv_filter.startAnimation(animate1);
+                    if (PaymentsList.size() < 4) {
+                        if (rv_filter.getVisibility() == View.GONE) {
+                            rv_filter.setVisibility(View.VISIBLE);
+                            TranslateAnimation animate1 = new TranslateAnimation(
+                                    0,                 // fromXDelta
+                                    0,                 // toXDelta
+                                    -rv_filter.getHeight(),  // fromYDelta
+                                    0);                // toYDelta
+                            animate1.setDuration(250);
+                            animate1.setFillAfter(true);
+                            rv_filter.clearAnimation();
+                            rv_filter.startAnimation(animate1);
+                        }
                     }
-
 
                     mAdapter.notifyDataSetChanged();
                     if (PaymentsList.size() != 0)
@@ -1106,6 +1117,23 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+                if(OrdersList.size() < 4) {
+                    if (rv_filter.getVisibility() == View.GONE) {
+
+                        rv_filter.setVisibility(View.VISIBLE);
+                        TranslateAnimation animate1 = new TranslateAnimation(
+                                0,                 // fromXDelta
+                                0,                 // toXDelta
+                                -rv_filter.getHeight(),  // fromYDelta
+                                0);                // toYDelta
+                        animate1.setDuration(250);
+                        animate1.setFillAfter(true);
+                        rv_filter.clearAnimation();
+                        rv_filter.startAnimation(animate1);
+                    }
+                }
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -1214,6 +1242,11 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
+                    }
+                    try {
+                        fetchOrderData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 } else {
                     try {
@@ -1536,7 +1569,21 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     tv_shipment_no_data.setVisibility(View.VISIBLE);
                 }
 
+                if(OrdersList.size() < 4) {
+                    if (rv_filter.getVisibility() == View.GONE) {
 
+                        rv_filter.setVisibility(View.VISIBLE);
+                        TranslateAnimation animate1 = new TranslateAnimation(
+                                0,                 // fromXDelta
+                                0,                 // toXDelta
+                                -rv_filter.getHeight(),  // fromYDelta
+                                0);                // toYDelta
+                        animate1.setDuration(250);
+                        animate1.setFillAfter(true);
+                        rv_filter.clearAnimation();
+                        rv_filter.startAnimation(animate1);
+                    }
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -1606,6 +1653,22 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     tv_shipment_no_data.setVisibility(View.VISIBLE);
                 }
 
+
+                if(OrdersList.size() < 4) {
+                    if (rv_filter.getVisibility() == View.GONE) {
+
+                        rv_filter.setVisibility(View.VISIBLE);
+                        TranslateAnimation animate1 = new TranslateAnimation(
+                                0,                 // fromXDelta
+                                0,                 // toXDelta
+                                -rv_filter.getHeight(),  // fromYDelta
+                                0);                // toYDelta
+                        animate1.setDuration(250);
+                        animate1.setFillAfter(true);
+                        rv_filter.clearAnimation();
+                        rv_filter.startAnimation(animate1);
+                    }
+                }
 
             }
         }, new Response.ErrorListener() {

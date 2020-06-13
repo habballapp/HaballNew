@@ -87,18 +87,18 @@
         <LinearLayout
             android:id="@+id/ll_fields1"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/txt_header">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_password1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_height="match_parent"
                 android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/open_sans"
-                android:theme="@style/TextLabel"
                 android:hint="New Password"
+                android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
                 app:boxStrokeColor="@color/box_stroke"
                 app:passwordToggleEnabled="true"
@@ -119,21 +119,6 @@
                     android:textColor="#676a6c" />
 
             </com.google.android.material.textfield.TextInputLayout>
-            <ImageButton
-                android:id="@+id/imageButton1"
-                android:layout_width="@dimen/iconSize"
-                android:layout_height="@dimen/iconSize"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_action_1"/>
-
-            <ImageButton
-                android:id="@+id/imageButton2"
-                android:layout_width="@dimen/iconSize"
-                android:layout_height="@dimen/iconSize"
-                android:layout_toLeftOf="@+id/imageButton1"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_action_2"/>
 
         </LinearLayout>
 

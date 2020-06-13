@@ -98,6 +98,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
     private Button ticket_btn;
     private Typeface myFont;
     private int keyDel;
+    private String first_name = "", email = "", phone_number = "";
 
 
     @Override
@@ -108,9 +109,9 @@ public class Support_Ticket_Form_Fragment extends Fragment {
 
         SharedPreferences data = getContext().getSharedPreferences("SendData",
                 Context.MODE_PRIVATE);
-        final String first_name = data.getString("first_name", "");
-        final String email = data.getString("email", "");
-        final String phone_number = data.getString("phone_number", "");
+        first_name = data.getString("first_name", "");
+        email = data.getString("email", "");
+        phone_number = data.getString("phone_number", "");
 
         myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
 
@@ -147,8 +148,11 @@ public class Support_Ticket_Form_Fragment extends Fragment {
 
 
         issue_type.add("Issue Type");
+        issueType = "Issue Type";
         criticality.add("Criticality");
+        Criticality = "Criticality";
         preffered_contact.add("Preferred Method of Contacting");
+        PrefferedContacts = "Preferred Method of Contacting";
 
 
 //        arrayAdapterIssueType = new ArrayAdapter<>(this,
@@ -239,6 +243,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
+                    issueType = "Issue Type";
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
@@ -272,6 +277,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
+                    Criticality = "Criticality";
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
@@ -305,6 +311,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
+                    PrefferedContacts = "Preferred Method of Contacting";
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
@@ -511,15 +518,36 @@ public class Support_Ticket_Form_Fragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        final String txt_BName = String.valueOf(BName.getText());
+        final String txt_Email = String.valueOf(Email.getText());
+        final String txt_MobileNo = String.valueOf(MobileNo.getText());
+        final String txt_Comment = String.valueOf(Comment.getText());
+        final FragmentManager fm = getActivity().getSupportFragmentManager();
+
+
         View.OnKeyListener keyListener = new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    Log.i("supportDebug1", "'" + txt_BName + "', '"+first_name+"'");
+                    Log.i("supportDebug1", "'" + txt_Email + "', '"+email+"'");
+                    Log.i("supportDebug1", "'" + txt_MobileNo + "', '"+phone_number+"'");
+                    Log.i("supportDebug1", "'" + txt_Comment + "'");
+                    Log.i("supportDebug1", "'" + issueType + "', '"+IssueType.getSelectedItemPosition()+"'");
+                    Log.i("supportDebug1", "'" + PrefferedContacts + "', '"+Preffered_Contact.getSelectedItemPosition()+"'");
+                    Log.i("supportDebug1", "'" + Criticality + "', '"+critcicality.getSelectedItemPosition()+"'");
+
                     BName.clearFocus();
                     Email.clearFocus();
                     MobileNo.clearFocus();
                     Comment.clearFocus();
-                    showDiscardDialog();
+                    if (!txt_BName.equals(first_name) || !txt_Email.equals(email) || !txt_MobileNo.equals(phone_number) || !txt_Comment.equals("") || !issueType.equals("Issue Type") || !Criticality.equals("Criticality") || !PrefferedContacts.equals("Preferred Method of Contacting")) {
+                        showDiscardDialog();
+                    } else {
+                        fm.popBackStack();
+
+                    }
                 }
                 return false;
             }
@@ -536,19 +564,21 @@ public class Support_Ticket_Form_Fragment extends Fragment {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    Log.i("supportDebug", "'" + txt_BName + "', '"+first_name+"'");
+                    Log.i("supportDebug", "'" + txt_Email + "', '"+email+"'");
+                    Log.i("supportDebug", "'" + txt_MobileNo + "', '"+phone_number+"'");
+                    Log.i("supportDebug", "'" + txt_Comment + "'");
+                    Log.i("supportDebug", "'" + issueType + "', '"+IssueType.getSelectedItemPosition()+"'");
+                    Log.i("supportDebug", "'" + PrefferedContacts + "', '"+Preffered_Contact.getSelectedItemPosition()+"'");
+                    Log.i("supportDebug", "'" + Criticality + "', '"+critcicality.getSelectedItemPosition()+"'");
                     // handle back button's click listener
 //                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
-                    String txt_BName = BName.getText().toString();
-                    String txt_Email = Email.getText().toString();
-                    String txt_MobileNo = MobileNo.getText().toString();
-                    String txt_Comment = Comment.getText().toString();
-                    String issueType = (String) IssueType.getItemAtPosition(IssueType.getSelectedItemPosition()).toString();
-                    String preffered_Contact = (String) Preffered_Contact.getItemAtPosition(Preffered_Contact.getSelectedItemPosition()).toString();
-                    String critcicality_val = (String) critcicality.getItemAtPosition(critcicality.getSelectedItemPosition()).toString();
-                    if (!txt_BName.equals("") || !txt_Email.equals("") || !txt_MobileNo.equals("") || !txt_Comment.equals("") || !issueType.equals("Issue Type") || !critcicality_val.equals("Criticality") || !preffered_Contact.equals("Preferred Method of Contacting")) {
+                    if (!txt_BName.equals(first_name) || !txt_Email.equals(email) || !txt_MobileNo.equals(phone_number) || !txt_Comment.equals("") || !issueType.equals("Issue Type") || !Criticality.equals("Criticality") || !PrefferedContacts.equals("Preferred Method of Contacting")) {
+//                    if (!txt_BName.equals("") || !txt_Email.equals("") || !txt_MobileNo.equals("") || !txt_Comment.equals("") || !issueType.equals("Issue Type") || !critcicality_val.equals("Criticality") || !preffered_Contact.equals("Preferred Method of Contacting")) {
                         showDiscardDialog();
                         return true;
                     } else {
+                        fm.popBackStack();
                         return false;
                     }
                 }

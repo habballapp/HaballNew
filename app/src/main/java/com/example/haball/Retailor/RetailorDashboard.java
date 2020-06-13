@@ -3,6 +3,7 @@ package com.example.haball.Retailor;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -14,6 +15,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.haball.Distributor.DistributorDashboard;
 import com.example.haball.Distributor.ui.expandablelist.CustomExpandableListModel;
 import com.example.haball.Distributor.ui.terms_and_conditions.TermsAndConditionsFragment;
 import com.example.haball.R;
@@ -29,12 +38,17 @@ import com.example.haball.Retailor.ui.Place_Order.Retailer_Place_Order;
 import com.example.haball.Retailor.ui.Profile.Profile_Tabs;
 import com.example.haball.Retailor.ui.Support.SupportFragment;
 import com.example.haball.Select_User.Register_Activity;
+import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
 import com.techatmosphere.expandablenavigation.model.HeaderModel;
 import com.techatmosphere.expandablenavigation.view.ExpandableNavigationListView;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,6 +59,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.ui.AppBarConfiguration;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class RetailorDashboard extends AppCompatActivity  {
 
@@ -63,6 +80,9 @@ public class RetailorDashboard extends AppCompatActivity  {
     private TextView tv_username, tv_user_company, footer_item_1;
 //    private TextView tv_username, tv_user_company;
     boolean doubleBackToExitPressedOnce = false;
+    private Socket iSocket;
+    private static final String URL = "http://175.107.203.97:4014";
+    private String UserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +113,7 @@ public class RetailorDashboard extends AppCompatActivity  {
         username = sharedPreferences.getString("username", "");
         companyname = sharedPreferences.getString("CompanyName", "");
         Token = sharedPreferences.getString("Login_Token", "");
+        UserId = sharedPreferences.getString("UserId", "");
 
         notification_icon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -263,7 +284,60 @@ public class RetailorDashboard extends AppCompatActivity  {
             }
 
         }
+    }
 
+    private class MyAsyncTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                Thread.sleep(2500);
+                getNotificationCount();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            new MyAsyncTask().execute();
+        }
+
+
+        private void getNotificationCount() {
+            try {
+                IO.Options opts = new IO.Options();
+//            opts.query = "userId=" + UserId;
+                iSocket = IO.socket(URL, opts);
+                iSocket.connect();
+
+                iSocket.emit("userId", UserId);
+
+                if (iSocket.connected()) {
+                    iSocket.emit("userId", UserId);
+                    iSocket.on("userId" + UserId, new Emitter.Listener() {
+                        @Override
+                        public void call(Object... args) {
+                            JSONObject data = (JSONObject) args[0];
+//                    Toast.makeText(getContext(), data.toString(), Toast.LENGTH_SHORT).show();
+//                    Log.i("notificationTest", String.valueOf(data.getJSONArray("data"));
+                            try {
+                                if (Integer.parseInt(data.getString("count")) == 0) {
+                                    notification_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_no_notifications_black_24dp));
+                                } else {
+                                    notification_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_notifications_black_24dp));
+                                }
+                                Log.i("notificationTest12", String.valueOf(data.getString("count")));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
     }
 }

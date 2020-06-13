@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -27,6 +28,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -331,6 +333,7 @@ public class PlaceholderFragment extends Fragment {
                 layout_password1 = root.findViewById(R.id.layout_password1);
                 layout_password3 = root.findViewById(R.id.layout_password3);
                 update_password = root.findViewById(R.id.update_password);
+                LinearLayout ll_fields1 = root.findViewById(R.id.ll_fields1);
                 update_password.setEnabled(false);
                 update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 

@@ -1,9 +1,12 @@
 package com.example.haball.Retailor.ui.Dashboard;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -29,10 +32,13 @@ import com.example.haball.Retailor.ui.RetailerPayment.RetailerViewInvoice;
 import org.json.JSONException;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,10 +48,13 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
     private Context context;
     private List<RetailerPaymentModel> paymentsList;
     private FragmentTransaction fragmentTransaction;
+    private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
+    private Activity activity;
 
-    public RetailerPaymentAdapter(Context context, List<RetailerPaymentModel> paymentsList) {
+    public RetailerPaymentAdapter(Activity activity, Context context, List<RetailerPaymentModel> paymentsList) {
         this.context = context;
         this.paymentsList = paymentsList;
+        this.activity = activity;
     }
 
     @NonNull
@@ -121,6 +130,24 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
+                    case R.id.edit_retailer_payment:
+                        SharedPreferences PrePaidNumberEdit = context.getSharedPreferences("PrePaidNumber",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editorEdit = PrePaidNumberEdit.edit();
+                        editorEdit.putString("PrePaidNumber", paymentsList.get(position).getInvoiceNumber());
+                        editorEdit.putString("PrePaidId", paymentsList.get(position).getRetailerInvoiceId());
+                        editorEdit.putString("CompanyName", paymentsList.get(position).getCompanyName());
+                        editorEdit.putString("Amount", paymentsList.get(position).getTotalPrice());
+                        editorEdit.putString("MenuItem", "Edit");
+                        editorEdit.apply();
+
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer()).addToBackStack("Tag");
+                        fragmentTransaction.commit();
+                        break;
+                    case R.id.delete_retailer_payment:
+                        deletePayment(context, paymentsList.get(position).getRetailerInvoiceId(), paymentsList.get(position).getInvoiceNumber());
+                        break;
                     case R.id.view_retailer_payment:
 //                        Toast.makeText(context, "Edit Clicked", Toast.LENGTH_LONG).show();
 //                        final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
@@ -156,18 +183,19 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
 //                            }
 //                        });
 //                        alertDialog.show();
-                        SharedPreferences PrePaidNumberEdit = context.getSharedPreferences("PrePaidNumber",
+                        SharedPreferences PrePaidNumberView = context.getSharedPreferences("PrePaidNumber",
                                 Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editorEdit = PrePaidNumberEdit.edit();
-                        editorEdit.putString("PrePaidNumber", paymentsList.get(position).getInvoiceNumber());
-                        editorEdit.putString("PrePaidId", paymentsList.get(position).getRetailerInvoiceId());
-                        editorEdit.putString("CompanyName", paymentsList.get(position).getCompanyName());
-                        editorEdit.putString("Amount", paymentsList.get(position).getTotalPrice());
-                        editorEdit.apply();
+                        SharedPreferences.Editor editorView = PrePaidNumberView.edit();
+                        editorView.putString("PrePaidNumber", paymentsList.get(position).getInvoiceNumber());
+                        editorView.putString("PrePaidId", paymentsList.get(position).getRetailerInvoiceId());
+                        editorView.putString("CompanyName", paymentsList.get(position).getCompanyName());
+                        editorView.putString("Amount", paymentsList.get(position).getTotalPrice());
+                        editorView.putString("MenuItem", "View");
+                        editorView.apply();
 
-                        FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer()).addToBackStack("Tag");
-                        fragmentTransaction.commit();
+                        FragmentTransaction fragmentTransactionView = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+                        fragmentTransactionView.replace(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer()).addToBackStack("Tag");
+                        fragmentTransactionView.commit();
 
                         break;
                     case R.id.pay_by_retailer:
@@ -186,7 +214,19 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
                         ImageButton img_close = view_popup2.findViewById(R.id.image_button_close);
                         TextView payment_information_txt3 = view_popup2.findViewById(R.id.payment_information_txt3);
                         payment_information_txt3.setText(paymentsList.get(position).getInvoiceNumber());
-
+                        Button btn_view_voucher = view_popup2.findViewById(R.id.btn_view_voucher);
+                        btn_view_voucher.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (checkAndRequestPermissions()) {
+                                    try {
+                                        viewPDF(context, paymentsList.get(position).getRetailerInvoiceId());
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        });
                         img_close.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -207,6 +247,23 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
         popup.show();
     }
 
+    private boolean checkAndRequestPermissions() {
+        int permissionRead = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+        int permissionWrite = ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (permissionWrite != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (permissionRead != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(activity, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), REQUEST_ID_MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
+    }
     private void deletePayment(Context context, String retailerInvoiceId, String invoiceNumber) {
 
         PaymentDeleteOrder delete = new PaymentDeleteOrder();

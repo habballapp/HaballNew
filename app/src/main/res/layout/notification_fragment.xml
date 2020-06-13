@@ -33,14 +33,30 @@
             android:textSize="@dimen/fragemnt_heading_size" />
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_notification_retailor"
+    <RelativeLayout
+        android:id="@+id/rl_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginLeft="27dp"
         android:layout_marginRight="27dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/ln_login"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_notification_retailor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/tv_notification_no_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/open_sans"
+            android:gravity="center"
+            android:text="No notification yet."
+            android:textSize="@dimen/no_data_available_size" />
+
+    </RelativeLayout>
 
 </LinearLayout>

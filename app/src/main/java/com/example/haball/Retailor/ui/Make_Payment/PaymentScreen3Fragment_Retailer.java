@@ -2,14 +2,18 @@ package com.example.haball.Retailor.ui.Make_Payment;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -46,9 +50,12 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.R;
+import com.example.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -67,16 +74,21 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
     private String Token, DistributorId, ID;
     private TextView tv_banking_channel, payment_id, btn_newpayment;
     private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4014/api/prepaidrequests/GetByRetailerCode";
-    private String PrePaidNumber = "", PrePaidId = "", CompanyName = "", Amount = "", CompanyId = "";
-    private Button btn_voucher, btn_update;
+    private String PrePaidNumber = "", PrePaidId = "", CompanyName = "", Amount = "", CompanyId = "", MenuItem = "";
+    private Button btn_voucher, btn_update, btn_back;
     private Spinner spinner_companyName;
-    private EditText txt_amount;
+    private TextInputEditText txt_amount;
+    private TextInputLayout layout_txt_amount;
     private HashMap<String, String> companyNameAndId = new HashMap<>();
     private ArrayAdapter<String> arrayAdapterPayments;
     private List<String> CompanyNames = new ArrayList<>();
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
     private String company_names;
     private Typeface myFont;
+    private String URL_PAYMENT_REQUESTS_SAVE = "http://175.107.203.97:4014/api/prepaidrequests/save";
+    private String prepaid_number;
+    private String prepaid_id;
+    private FragmentTransaction fragmentTransaction;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -87,28 +99,15 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         View root = inflater.inflate(R.layout.activity_payment__screen3, container, false);
         myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
 
-        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("PrePaidNumber",
-                Context.MODE_PRIVATE);
-        PrePaidNumber = sharedPreferences.getString("PrePaidNumber", "");
-        PrePaidId = sharedPreferences.getString("PrePaidId", "");
-        CompanyName = sharedPreferences.getString("CompanyName", "");
-        CompanyId = sharedPreferences.getString("CompanyId", "");
-        Amount = sharedPreferences.getString("Amount", "");
-        PrePaidNumber = "358534338693873";
-        PrePaidId = "873";
-        CompanyName = "One call";
-        CompanyId = "20203847";
-        Amount = "500";
-//        Log.i("payment3_PrePaidId", PrePaidId);
-//        Log.i("payment3_CompanyName", CompanyName);
-//        Log.i("payment3_CompanyId", CompanyId);
-//        Log.i("payment3_Amount", Amount);
         payment_id = root.findViewById(R.id.payment_id);
         spinner_companyName = root.findViewById(R.id.spinner_companyName);
         txt_amount = root.findViewById(R.id.txt_amount);
+        layout_txt_amount = root.findViewById(R.id.layout_txt_amount);
         btn_newpayment = root.findViewById(R.id.btn_addpayment);
         btn_update = root.findViewById(R.id.btn_update);
         btn_voucher = root.findViewById(R.id.btn_voucher);
+
+        new TextField().changeColor(getContext(), layout_txt_amount, txt_amount);
 
         payment_id.setText(PrePaidNumber);
         //   spinner_companyName.setText(CompanyName);
@@ -116,10 +115,33 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         fetchCompanyData();
         CompanyNames.add("Select Company");
         company_names = "";
+
+
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("PrePaidNumber",
+                Context.MODE_PRIVATE);
+        PrePaidNumber = sharedPreferences.getString("PrePaidNumber", "");
+        PrePaidId = sharedPreferences.getString("PrePaidId", "");
+        CompanyName = sharedPreferences.getString("CompanyName", "");
+        CompanyId = sharedPreferences.getString("CompanyId", "");
+        Amount = sharedPreferences.getString("Amount", "");
+        MenuItem = sharedPreferences.getString("MenuItem", "");
+        if (MenuItem.equals("View")) {
+            txt_amount.setEnabled(false);
+            spinner_companyName.setEnabled(false);
+            spinner_companyName.setClickable(false);
+        }
+//        PrePaidNumber = "358534338693873";
+//        PrePaidId = "873";
+//        CompanyName = "One call";
+//        CompanyId = "20203847";
+//        Amount = "500";
+//        Log.i("payment3_PrePaidId", PrePaidId);
+//        Log.i("payment3_CompanyName", CompanyName);
+//        Log.i("payment3_CompanyId", CompanyId);
+//        Log.i("payment3_Amount", Amount);
 //
 //        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
 //                android.R.layout.simple_spinner_dropdown_item, CompanyNames);
-
 
 
         arrayAdapterPayments = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, CompanyNames) {
@@ -200,6 +222,16 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (btn_update.getText().equals("Back")) {
+                    final FragmentManager fm = getActivity().getSupportFragmentManager();
+                    fm.popBackStack();
+                } else if (btn_update.getText().equals("Update")) {
+                    try {
+                        makeUpdateRequest();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
 //                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                fragmentTransaction.replace(R.id.main_container_ret, new EditPaymentRequestFragment());
 //                fragmentTransaction.commit();
@@ -233,6 +265,19 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
                 ImageButton img_close = view_popup2.findViewById(R.id.image_button_close);
                 TextView payment_information_txt3 = view_popup2.findViewById(R.id.payment_information_txt3);
                 payment_information_txt3.setText(PrePaidNumber);
+                Button btn_view_voucher = view_popup2.findViewById(R.id.btn_view_voucher);
+                btn_view_voucher.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (checkAndRequestPermissions()) {
+                            try {
+                                viewPDF(getContext(), PrePaidId);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                });
 
                 img_close.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -285,39 +330,42 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
     }
 
     private void showDiscardDialog() {
-        Log.i("CreatePayment", "In Dialog");
         final FragmentManager fm = getActivity().getSupportFragmentManager();
+        if (!MenuItem.equals("View")) {
+            final AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            View view_popup = inflater.inflate(R.layout.discard_changes, null);
+            TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+            tv_discard_txt.setText("Are you sure, you want to leave this page? Your changes will be discarded.");
+            alertDialog.setView(view_popup);
+            alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+            WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+            layoutParams.y = 200;
+            layoutParams.x = -70;// top margin
+            alertDialog.getWindow().setAttributes(layoutParams);
+            Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+            btn_discard.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Log.i("CreatePayment", "Button Clicked");
+                    alertDialog.dismiss();
+                    fm.popBackStack();
+                }
+            });
 
-        final AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        View view_popup = inflater.inflate(R.layout.discard_changes, null);
-        TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
-        tv_discard_txt.setText("Are you sure, you want to leave this page? Your changes will be discarded.");
-        alertDialog.setView(view_popup);
-        alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
-        WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
-        layoutParams.y = 200;
-        layoutParams.x = -70;// top margin
-        alertDialog.getWindow().setAttributes(layoutParams);
-        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
-        btn_discard.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.i("CreatePayment", "Button Clicked");
-                alertDialog.dismiss();
-                fm.popBackStack();
-            }
-        });
+            ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+            img_email.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
 
-        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
-        img_email.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
+                }
+            });
 
-            }
-        });
+            alertDialog.show();
+        } else {
+            fm.popBackStack();
 
-        alertDialog.show();
+        }
     }
 
     private void checkFieldsForEmptyValues() {
@@ -357,6 +405,76 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
             return false;
         }
         return true;
+    }
+
+    private void makeUpdateRequest() throws JSONException {
+        btn_update.setEnabled(false);
+        btn_update.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+
+        JSONObject map = new JSONObject();
+        map.put("ID", PrePaidId);
+        map.put("DealerCode", companyNameAndId.get(company_names));
+//        map.put("DealerCode", "201911672");
+        map.put("PaidAmount", txt_amount.getText().toString());
+
+        Log.i("JSON ", String.valueOf(map));
+
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PAYMENT_REQUESTS_SAVE, map, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject result) {
+                try {
+                    Log.i("Response PR", result.toString());
+                    prepaid_number = result.getString("PrePaidNumber");
+                    prepaid_id = result.getString("ID");
+                } catch (JSONException e) {
+                    Log.i("Response PR", e.toString());
+                    e.printStackTrace();
+                }
+
+                btn_update.setEnabled(true);
+                btn_update.setBackground(getResources().getDrawable(R.drawable.button_background));
+
+                SharedPreferences PrePaidNumber = getContext().getSharedPreferences("PrePaidNumber",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = PrePaidNumber.edit();
+                editor.putString("PrePaidNumber", prepaid_number);
+                editor.putString("PrePaidId", prepaid_id);
+                editor.putString("CompanyId", companyNameAndId.get(company_names));
+                editor.putString("CompanyName", company_names);
+                editor.putString("Amount", txt_amount.getText().toString());
+                editor.apply();
+
+                showSuccessDialog(prepaid_number);
+
+//                Toast.makeText(getContext(), "Payment Request " + prepaid_number + " has been created successfully.", Toast.LENGTH_SHORT).show();
+//                Log.e("RESPONSE prepaid_number", result.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+                error.printStackTrace();
+
+                btn_update.setEnabled(true);
+                btn_update.setBackground(getResources().getDrawable(R.drawable.button_background));
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(getContext()).add(sr);
     }
 
     private void fetchCompanyData() {
@@ -423,6 +541,51 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
             }
         });
         Volley.newRequestQueue(getContext()).add(sr);
+    }
+
+    private void showSuccessDialog(String paymentID) {
+
+        final Dialog fbDialogue = new Dialog(getActivity());
+        //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+        fbDialogue.setContentView(R.layout.password_updatepopup);
+        TextView tv_pr1, txt_header1;
+        txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
+        tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
+        tv_pr1.setText("");
+        txt_header1.setText("Payment Created");
+        String steps1 = "Payment ID ";
+        String steps2 = " has been updated successfully.";
+        String title = paymentID;
+        SpannableString ss1 = new SpannableString(title);
+        ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
+
+        tv_pr1.append(steps1);
+        tv_pr1.append(ss1);
+        tv_pr1.append(steps2);
+        fbDialogue.setCancelable(true);
+        fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+        WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+        layoutParams.y = 200;
+        layoutParams.x = -70;// top margin
+        fbDialogue.getWindow().setAttributes(layoutParams);
+        fbDialogue.show();
+
+        ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+        close_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fbDialogue.dismiss();
+            }
+        });
+
+        fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
+                fragmentTransaction.commit();
+            }
+        });
     }
 
     private void printErrorMessage(VolleyError error) {

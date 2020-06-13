@@ -25,7 +25,8 @@
     <dimen name="payment_options_retailer">10sp</dimen>
     <dimen name="payment_options_text_retailer">8sp</dimen>
     <dimen name="retailer_button_size">45dp</dimen>
-    <dimen name="iconSize">32dp</dimen>
+
+
 
 
 </resources>

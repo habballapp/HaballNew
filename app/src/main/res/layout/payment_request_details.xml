@@ -79,7 +79,7 @@
 
 
                 <Button
-                    android:id="@+id/update_password"
+                    android:id="@+id/btn_view_voucher"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_below="@+id/rl_payment_information_txt2"

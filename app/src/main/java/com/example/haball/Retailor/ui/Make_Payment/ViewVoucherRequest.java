@@ -68,8 +68,8 @@ import static com.google.android.gms.plus.PlusOneDummyView.TAG;
 import static java.util.stream.Collectors.toList;
 
 public class ViewVoucherRequest {
-    public String URL_VOUCHER_VIEW = "http://175.107.203.97:4014/api/prepaidrequests/printRecipt/";
-    public String DistributorId, Token;
+    public String URL_VOUCHER_VIEW = "http://175.107.203.97:4014/api/prepaidrequests/mprintRecipt/";
+    public String Token;
     public Context mContext;
     private static final int PERMISSION_REQUEST_CODE = 1;
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
@@ -82,58 +82,52 @@ public class ViewVoucherRequest {
         SharedPreferences sharedPreferences = context.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
-
-        SharedPreferences sharedPreferences1 = context.getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
-        Log.i("DistributorId ", DistributorId);
         Log.i("Token", Token);
         if(!URL_VOUCHER_VIEW.contains("/" + paymentId))
             URL_VOUCHER_VIEW = URL_VOUCHER_VIEW+paymentId;
         Log.i("URL_VOUCHER_VIEW ", URL_VOUCHER_VIEW);
 
+
         final Context finalcontext = context;
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_VOUCHER_VIEW, null, new Response.Listener<JSONObject>() {
+        InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.GET, URL_VOUCHER_VIEW, null, new Response.Listener<byte[]>() {
             @Override
-            public void onResponse(JSONObject result) {
+            public void onResponse(byte[] response) {
                 // TODO handle the response
                 try {
-                    Log.i("response_result", String.valueOf(result));
-                    byte[] response = String.valueOf(result.get("data")).getBytes();
-                    Log.i("response", String.valueOf(response));
-//                    if (response!=null) {
-//
-//                        String dir = Environment.getExternalStorageDirectory() + "/Download/";
-//                        String timeStamp = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(new Date());
-//                        String name = dir + "Voucher - " + timeStamp + ".pdf";
-//                        FileOutputStream fPdf = new FileOutputStream(name);
-//
-//                        fPdf.write(response);
-//                        fPdf.flush();
-//                        fPdf.close();
-//                        Log.i("Download Complete", "Download complete.");
-//                        Toast.makeText(mContext, "File saved in Downloads", Toast.LENGTH_LONG).show();
-//
-//                        File file = new File(name); // Here you declare your pdf path
-//                        if(Build.VERSION.SDK_INT>=24){
-//                            try{
-//                                Method m = StrictMode.class.getMethod("disableDeathOnFileUriExposure");
-//                                m.invoke(null);
-//                            }catch(Exception e){
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                        Intent pdfViewIntent = new Intent(Intent.ACTION_VIEW);
-//                        pdfViewIntent.setDataAndType(Uri.fromFile(file),"application/pdf");
-//                        pdfViewIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-//
-//                        Intent intent = Intent.createChooser(pdfViewIntent, "Open File");
-//                        try {
-//                            context.startActivity(intent);
-//                        } catch (ActivityNotFoundException e) {
-//                            // Instruct the user to install a PDF reader here, or something
-//                        }
-//                    }
+                    Log.i("responseByte", String.valueOf(response));
+                    Log.i("responseByte", String.valueOf(response.length));
+                    if (response!=null) {
+                        String dir = Environment.getExternalStorageDirectory() + "/Download/";
+                        String timeStamp = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(new Date());
+                        String name = dir + "Voucher - " + timeStamp + ".pdf";
+                        FileOutputStream fPdf = new FileOutputStream(name);
+
+                        fPdf.write(response);
+                        fPdf.flush();
+                        fPdf.close();
+                        Log.i("Download Complete", "Download complete.");
+                        Toast.makeText(mContext, "File saved in Downloads", Toast.LENGTH_LONG).show();
+
+                        File file = new File(name); // Here you declare your pdf path
+                        if(Build.VERSION.SDK_INT>=24){
+                            try{
+                                Method m = StrictMode.class.getMethod("disableDeathOnFileUriExposure");
+                                m.invoke(null);
+                            }catch(Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                        Intent pdfViewIntent = new Intent(Intent.ACTION_VIEW);
+                        pdfViewIntent.setDataAndType(Uri.fromFile(file),"application/pdf");
+                        pdfViewIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+                        Intent intent = Intent.createChooser(pdfViewIntent, "Open File");
+                        try {
+                            context.startActivity(intent);
+                        } catch (ActivityNotFoundException e) {
+                            // Instruct the user to install a PDF reader here, or something
+                        }
+                    }
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
                     Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
@@ -146,7 +140,7 @@ public class ViewVoucherRequest {
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
             }
-        })  {
+        }, null)  {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
@@ -157,5 +151,71 @@ public class ViewVoucherRequest {
         };
         RequestQueue mRequestQueue = Volley.newRequestQueue(context, new HurlStack());
         mRequestQueue.add(request);
+//
+//        final Context finalcontext = context;
+//        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_VOUCHER_VIEW, null, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject result) {
+//                // TODO handle the response
+//                try {
+//                    Log.i("response_result", String.valueOf(result));
+//                    byte[] response = String.valueOf(result.get("data")).getBytes();
+//                    Log.i("response", String.valueOf(response));
+////                    if (response!=null) {
+////
+////                        String dir = Environment.getExternalStorageDirectory() + "/Download/";
+////                        String timeStamp = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(new Date());
+////                        String name = dir + "Voucher - " + timeStamp + ".pdf";
+////                        FileOutputStream fPdf = new FileOutputStream(name);
+////
+////                        fPdf.write(response);
+////                        fPdf.flush();
+////                        fPdf.close();
+////                        Log.i("Download Complete", "Download complete.");
+////                        Toast.makeText(mContext, "File saved in Downloads", Toast.LENGTH_LONG).show();
+////
+////                        File file = new File(name); // Here you declare your pdf path
+////                        if(Build.VERSION.SDK_INT>=24){
+////                            try{
+////                                Method m = StrictMode.class.getMethod("disableDeathOnFileUriExposure");
+////                                m.invoke(null);
+////                            }catch(Exception e){
+////                                e.printStackTrace();
+////                            }
+////                        }
+////                        Intent pdfViewIntent = new Intent(Intent.ACTION_VIEW);
+////                        pdfViewIntent.setDataAndType(Uri.fromFile(file),"application/pdf");
+////                        pdfViewIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+////
+////                        Intent intent = Intent.createChooser(pdfViewIntent, "Open File");
+////                        try {
+////                            context.startActivity(intent);
+////                        } catch (ActivityNotFoundException e) {
+////                            // Instruct the user to install a PDF reader here, or something
+////                        }
+////                    }
+//                } catch (Exception e) {
+//                    // TODO Auto-generated catch block
+//                    Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
+//                    Toast.makeText(context, "UNABLE TO DOWNLOAD FILE", Toast.LENGTH_LONG).show();
+//                    e.printStackTrace();
+//                }
+//            }
+//        } ,new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                error.printStackTrace();
+//            }
+//        })  {
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                Map<String, String> params = new HashMap<String, String>();
+//                params.put("Authorization", "bearer " + Token);
+//                params.put("Content-Type", "application/json; charset=UTF-8");
+//                return params;
+//            }
+//        };
+//        RequestQueue mRequestQueue = Volley.newRequestQueue(context, new HurlStack());
+//        mRequestQueue.add(request);
     }
 }

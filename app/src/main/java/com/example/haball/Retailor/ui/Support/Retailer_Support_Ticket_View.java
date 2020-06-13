@@ -198,6 +198,7 @@ public class Retailer_Support_Ticket_View extends Fragment {
         alertDialog.getWindow().setAttributes(layoutParams);
         btn_discard.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                alertDialog.dismiss();
                 try {
                     deleteSupportTicket();
                 } catch (JSONException e) {
