@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
@@ -110,10 +112,6 @@ public class RetailorDashboard extends AppCompatActivity  {
         footer_item_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.main_container, new TermsAndConditionsFragment());
-//                fragmentTransaction.commit();
-
                 drawer.closeDrawer(GravityCompat.START);
 
             }
@@ -136,12 +134,13 @@ public class RetailorDashboard extends AppCompatActivity  {
 
                         if (id == 0) {
                             Log.i("Dashboard", "Dashboard Activity");
+
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container_ret, new Dashboard_Tabs());
                             fragmentTransaction.commit();
-
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 1) {
+
 
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
 //                            fragmentTransaction.replace(R.id.main_container_ret, new My_NetworkDashboard());
@@ -149,14 +148,9 @@ public class RetailorDashboard extends AppCompatActivity  {
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                             Log.i("My Network", "My Network Activity");
-
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 2) {
-//                            Log.i("Place Order", "Place Order Activity");
-//                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                            fragmentTransaction.replace(R.id.main_container_ret, new PlaceOrderFragment());
-//                            fragmentTransaction.commit();
-//                            drawer.closeDrawer(GravityCompat.START);
+//
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("tag");;
                             fragmentTransaction.commit();
@@ -180,6 +174,7 @@ public class RetailorDashboard extends AppCompatActivity  {
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container_ret, new SupportFragment()).addToBackStack("tag");;
                             fragmentTransaction.commit();
+                            //fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                             drawer.closeDrawer(GravityCompat.START);
 
                         } else if (id == 6) {
@@ -210,12 +205,14 @@ public class RetailorDashboard extends AppCompatActivity  {
                     @Override
                     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                         navigationExpandableListView.setSelected(groupPosition, childPosition);
+
                         if (groupPosition == 3 && childPosition == 0) {
                             Log.i("Payments Summary", "Child");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container_ret, new Payment_Summary()).addToBackStack("tag");;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
+
                         }  else if (groupPosition == 3 && childPosition == 1) {
                             Log.i("Payment Request", "Child");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -236,6 +233,7 @@ public class RetailorDashboard extends AppCompatActivity  {
     }
     @Override
     public void onBackPressed() {
+
         getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 //            super.onBackPressed();
         if(drawer.isDrawerOpen(Gravity.LEFT)){

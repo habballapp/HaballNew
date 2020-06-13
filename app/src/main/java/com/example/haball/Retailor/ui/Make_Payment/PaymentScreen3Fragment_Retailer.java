@@ -105,7 +105,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
 
                 ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                 ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+              ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
                 btn_update.setText("Update");
             }
 

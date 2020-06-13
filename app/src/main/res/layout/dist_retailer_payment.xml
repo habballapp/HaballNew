@@ -43,13 +43,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="text"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="5dp"
-                        android:fontFamily="@font/open_sans"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="5dp"
-                        android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                         android:theme="@style/TextLabelEditeText"  />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,13 +66,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="text"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="5dp"
-                        android:fontFamily="@font/open_sans"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="5dp"
-                        android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                         android:theme="@style/TextLabelEditeText"  />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -100,13 +88,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="text"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="5dp"
-                        android:fontFamily="@font/open_sans"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="5dp"
-                        android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                         android:theme="@style/TextLabelEditeText" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -129,13 +111,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="text"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="5dp"
-                        android:fontFamily="@font/open_sans"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="5dp"
-                        android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                       android:theme="@style/TextLabelEditeText" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -157,13 +133,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="text"
-                        android:paddingLeft="20dp"
-                        android:fontFamily="@font/open_sans"
-                        android:paddingTop="5dp"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="5dp"
-                        android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                       android:theme="@style/TextLabelEditeText" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -185,13 +155,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="text"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="5dp"
-                        android:fontFamily="@font/open_sans"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="5dp"
-                        android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                        android:theme="@style/TextLabelEditeText"  />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -213,12 +177,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="text"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="5dp"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="5dp"
-                        android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                        android:theme="@style/TextLabelEditeText" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -240,13 +199,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="text"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="5dp"
-                        android:fontFamily="@font/open_sans"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="5dp"
-                        android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                        android:theme="@style/TextLabelEditeText"  />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -269,13 +222,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="text"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="5dp"
-                        android:fontFamily="@font/open_sans"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="5dp"
-                        android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                       android:theme="@style/TextLabelEditeText"  />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -297,13 +244,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="text"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="5dp"
-                        android:fontFamily="@font/open_sans"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="5dp"
-                        android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                         android:theme="@style/TextLabelEditeText"  />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -327,13 +268,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="text"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="5dp"
-                        android:fontFamily="@font/open_sans"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="5dp"
-                        android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                        android:theme="@style/TextLabelEditeText" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 

@@ -49,12 +49,7 @@
                         <com.google.android.material.textfield.TextInputEditText
 
                             android:id="@+id/order_id"
-                            android:textColor="#676a6c"
-                            android:paddingTop="5dp"
-                            android:paddingLeft="20dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
-                            android:fontFamily="@font/open_sans_semibold"
+                            android:theme="@style/TextLabelEditeText" 
                             android:layout_width="match_parent"
                             android:enabled="false"
                             android:layout_height="match_parent"
@@ -77,12 +72,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/order_company_name"
-                            android:textColor="#676a6c"
-                            android:paddingTop="5dp"
-                            android:paddingLeft="20dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
-                            android:fontFamily="@font/open_sans"
+                            android:theme="@style/TextLabelEditeText" 
                             android:layout_width="match_parent"
                             android:enabled="false"
                             android:layout_height="match_parent"
@@ -103,12 +93,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/order_tr_mode"
-                            android:textColor="#676a6c"
-                            android:paddingTop="5dp"
-                            android:paddingLeft="20dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
-                            android:fontFamily="@font/open_sans"
+                             android:theme="@style/TextLabelEditeText" 
                             android:layout_width="match_parent"
                             android:enabled="false"
                             android:layout_height="match_parent"
@@ -129,12 +114,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/order_payment_term"
-                            android:textColor="#676a6c"
-                            android:paddingTop="5dp"
-                            android:paddingLeft="20dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
-                            android:fontFamily="@font/open_sans"
+                            android:theme="@style/TextLabelEditeText" 
                             android:layout_width="match_parent"
                             android:enabled="false"
                             android:layout_height="match_parent"
@@ -156,12 +136,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/order_tv_cdate"
-                            android:textColor="#676a6c"
-                            android:paddingTop="5dp"
-                            android:paddingLeft="20dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
-                            android:fontFamily="@font/open_sans"
+                            android:theme="@style/TextLabelEditeText" 
                             android:layout_width="match_parent"
                             android:enabled="false"
                             android:layout_height="match_parent"
@@ -182,12 +157,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/order_tv_status"
-                            android:textColor="#676a6c"
-                            android:paddingTop="5dp"
-                            android:paddingLeft="20dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
-                            android:fontFamily="@font/open_sans"
+                            android:theme="@style/TextLabelEditeText" 
                             android:layout_width="match_parent"
                             android:enabled="false"
                             android:layout_height="match_parent"
@@ -208,13 +178,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/order_tv_shaddress"
-                        android:textColor="#676a6c"
-                        android:paddingTop="10dp"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="60dp"
-                        android:paddingBottom="10dp"
-                        android:gravity="top|left"
-                        android:fontFamily="@font/open_sans"
+                         android:theme="@style/TextLabelEditeText" 
                         android:layout_width="match_parent"
                         android:enabled="false"
                         android:layout_height="match_parent"
@@ -236,13 +200,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/order_tv_billingAdd"
-                            android:textColor="#676a6c"
-                            android:paddingTop="10dp"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="60dp"
-                            android:paddingBottom="10dp"
-                            android:gravity="top|left"
-                            android:fontFamily="@font/open_sans"
+                            android:theme="@style/TextLabelEditeText" 
                             android:layout_width="match_parent"
                             android:enabled="false"
                             android:layout_height="match_parent"

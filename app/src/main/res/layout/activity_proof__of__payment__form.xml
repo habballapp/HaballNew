@@ -118,14 +118,10 @@
                             android:id="@+id/txt_bank"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingLeft="20dp"
-                            android:paddingTop="5dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
+                            android:theme="@style/TextLabelEditeText" 
                             android:maxLength="25"
                             android:inputType="text"
-                            android:textColor="#676a6c"
-                            android:textSize="14sp" />
+                        />
 
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.textfield.TextInputLayout
@@ -146,13 +142,9 @@
                             android:id="@+id/txt_branch"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingLeft="20dp"
-                            android:paddingTop="5dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
-                            android:textColor="#676a6c"
+                             android:theme="@style/TextLabelEditeText" 
                             android:inputType="number"
-                            android:textSize="14sp" />
+                     />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -174,14 +166,10 @@
                             android:id="@+id/txt_transaction"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingLeft="20dp"
-                            android:paddingTop="5dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
-                            android:textColor="#676a6c"
+                            android:theme="@style/TextLabelEditeText" 
                             android:maxLength="25"
                             android:inputType="number"
-                            android:textSize="14sp" />
+                          />
 
                     </com.google.android.material.textfield.TextInputLayout>
 

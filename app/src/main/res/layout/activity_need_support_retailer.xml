@@ -93,12 +93,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text|textCapSentences"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                    android:theme="@style/TextLabelEditeText"  />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -123,12 +118,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="textEmailAddress"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                    android:theme="@style/TextLabelEditeText"  />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -153,12 +143,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="number"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                     android:theme="@style/TextLabelEditeText"  />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -244,13 +229,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="top|left"
+                    android:layout_marginTop="15dp"
                     android:inputType="textMultiLine|textCapSentences"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="10dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                    android:theme="@style/TextLabelEditeText"  />
 
             </com.google.android.material.textfield.TextInputLayout>
 

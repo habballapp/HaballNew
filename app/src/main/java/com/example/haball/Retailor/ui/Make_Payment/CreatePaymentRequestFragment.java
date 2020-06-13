@@ -108,7 +108,7 @@ public class CreatePaymentRequestFragment extends Fragment {
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-                text.setPadding(50, 0, 50, 0);
+               text.setPadding(30, 0, 30, 0);
                 text.setTypeface(myFont);
                 return view;
             }
@@ -120,7 +120,7 @@ public class CreatePaymentRequestFragment extends Fragment {
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-                text.setPadding(50, 0, 50, 0);
+               text.setPadding(30, 0, 30, 0);
                 return view;
             }
         };
@@ -133,7 +133,7 @@ public class CreatePaymentRequestFragment extends Fragment {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException e) {
                         e.printStackTrace();
                     }
@@ -141,7 +141,7 @@ public class CreatePaymentRequestFragment extends Fragment {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -265,7 +265,7 @@ public class CreatePaymentRequestFragment extends Fragment {
     private void checkFieldsForEmptyValues() {
         String txt_amounts = txt_amount.getText().toString();
         String company = (String) spinner_company.getItemAtPosition(spinner_company.getSelectedItemPosition()).toString();
-        if (txt_amounts.equals("") || Double.parseDouble(txt_amounts) < 500
+        if (txt_amounts.equals("") || Double.parseDouble(txt_amounts) < 300
                 || company.equals("Company *")
 
         ) {
@@ -343,7 +343,7 @@ public class CreatePaymentRequestFragment extends Fragment {
             }
         };
         sr.setRetryPolicy(new DefaultRetryPolicy(
-                15000,
+                13000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
@@ -388,7 +388,7 @@ public class CreatePaymentRequestFragment extends Fragment {
         sr.setRetryPolicy(new RetryPolicy() {
             @Override
             public int getCurrentTimeout() {
-                return 50000;
+                return 30000;
             }
 
             @Override

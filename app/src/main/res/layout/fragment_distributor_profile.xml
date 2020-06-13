@@ -37,12 +37,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_dist_code"
-                    android:textColor="#676a6c"
-                    android:paddingTop="5dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="5dp"
-                    android:fontFamily="@font/open_sans_semibold"
+                    android:theme="@style/TextLabelEditeText" 
                     android:layout_width="match_parent"
                     android:enabled="false"
                     android:layout_height="match_parent"
@@ -66,12 +61,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_firstname"
-                    android:textColor="#676a6c"
-                    android:paddingTop="5dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="5dp"
-                    android:fontFamily="@font/open_sans"
+                    android:theme="@style/TextLabelEditeText" 
                     android:layout_width="match_parent"
                     android:enabled="false"
                     android:layout_height="match_parent"
@@ -96,13 +86,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_lastname"
-                android:textColor="#676a6c"
-                android:paddingTop="5dp"
-                android:paddingLeft="20dp"
-                android:paddingBottom="5dp"
-                android:paddingEnd="40dp"
-                android:paddingRight="60dp"
-                android:fontFamily="@font/open_sans"
+                 android:theme="@style/TextLabelEditeText" 
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawableRight="@drawable/ic_edit_black_24dp"
@@ -133,13 +117,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_email"
-                    android:textColor="#676a6c"
-                    android:paddingTop="5dp"
-                    android:paddingLeft="20dp"
-                    android:paddingBottom="5dp"
-                    android:paddingEnd="40dp"
-                    android:paddingRight="60dp"
-                    android:fontFamily="@font/open_sans"
+                     android:theme="@style/TextLabelEditeText" 
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableRight="@drawable/ic_edit_black_24dp"
@@ -166,14 +144,8 @@
             <com.google.android.material.textfield.TextInputEditText
 
                 android:id="@+id/tv_cnic"
-                android:textColor="#676a6c"
-                android:paddingTop="5dp"
-                android:paddingLeft="20dp"
-                android:paddingBottom="5dp"
-                android:paddingEnd="40dp"
+                android:theme="@style/TextLabelEditeText"
                 android:enabled="false"
-                android:paddingRight="60dp"
-                android:fontFamily="@font/open_sans"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
@@ -199,13 +171,7 @@
             <com.google.android.material.textfield.TextInputEditText
 
                 android:id="@+id/edt_dist_mobile"
-                android:textColor="#676a6c"
-                android:paddingTop="5dp"
-                android:paddingLeft="20dp"
-                android:paddingBottom="5dp"
-                android:paddingEnd="40dp"
-                android:paddingRight="60dp"
-                android:fontFamily="@font/open_sans"
+                android:theme="@style/TextLabelEditeText" 
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawableRight="@drawable/ic_edit_black_24dp"
@@ -233,14 +199,9 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tv_NTN"
-                android:textColor="#676a6c"
-                android:paddingTop="5dp"
-                android:paddingLeft="20dp"
-                android:paddingBottom="5dp"
-                android:paddingEnd="40dp"
-                android:paddingRight="60dp"
+                android:theme="@style/TextLabelEditeText" 
                 android:enabled="false"
-                android:fontFamily="@font/open_sans"
+            
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
@@ -266,14 +227,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tv_companyname"
-                android:textColor="#676a6c"
-                android:paddingTop="5dp"
-                android:paddingLeft="20dp"
-                android:paddingBottom="5dp"
-                android:paddingEnd="40dp"
+                android:theme="@style/TextLabelEditeText" 
                 android:enabled="false"
-                android:paddingRight="60dp"
-                android:fontFamily="@font/open_sans"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 />
@@ -301,14 +256,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tv_created_date"
-                    android:textColor="#676a6c"
-                    android:paddingTop="5dp"
-                    android:paddingLeft="20dp"
-                    android:paddingBottom="5dp"
-                    android:paddingEnd="40dp"
-                    android:paddingRight="60dp"
+                     android:theme="@style/TextLabelEditeText" 
                     android:enabled="false"
-                    android:fontFamily="@font/open_sans"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                 />
@@ -333,14 +282,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/R_Address"
-                    android:paddingTop="5dp"
-                    android:paddingLeft="20dp"
-                    android:paddingEnd="40dp"
-                    android:paddingRight="40dp"
-                    android:fontFamily="@font/open_sans"
+                     android:theme="@style/TextLabelEditeText" 
                     android:drawableRight="@drawable/ic_edit_black_24dp"
-                    android:textColor="#676a6c"
-
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                 />

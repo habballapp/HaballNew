@@ -63,13 +63,9 @@
                     android:id="@+id/tv_pop_id"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
+                    android:theme="@style/TextLabelEditeText" 
                     android:enabled="false"
-                    android:textSize="14sp" />
+             />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,13 +88,9 @@
                     android:id="@+id/tv_distributor_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
+                    android:theme="@style/TextLabelEditeText" 
                     android:enabled="false"
-                    android:textSize="14sp" />
+                 />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -120,13 +112,9 @@
                     android:id="@+id/tv_created_date"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
+                    android:theme="@style/TextLabelEditeText" 
                     android:enabled="false"
-                    android:textSize="14sp" />
+                  />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -148,13 +136,9 @@
                     android:id="@+id/tv_payment_mode"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
+                    android:theme="@style/TextLabelEditeText" 
                     android:enabled="false"
-                    android:textSize="14sp" />
+              />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -176,13 +160,9 @@
                     android:id="@+id/tv_bank"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
+                    android:theme="@style/TextLabelEditeText" 
                     android:enabled="false"
-                    android:textSize="14sp" />
+                   />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -204,13 +184,9 @@
                     android:id="@+id/tv_branch_code"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
+                   android:theme="@style/TextLabelEditeText" 
                     android:enabled="false"
-                    android:textSize="14sp" />
+               />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -232,13 +208,9 @@
                     android:id="@+id/tv_transaction_no"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
+                    android:theme="@style/TextLabelEditeText" 
                     android:enabled="false"
-                    android:textSize="14sp" />
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -261,13 +233,9 @@
                     android:id="@+id/tv_payment_id"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
+                    android:theme="@style/TextLabelEditeText" 
                     android:enabled="false"
-                    android:textSize="14sp" />
+                />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -289,13 +257,9 @@
                     android:id="@+id/tv_proof_of_payment_view_status"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
+                    android:theme="@style/TextLabelEditeText" 
                     android:enabled="false"
-                    android:textSize="14sp" />
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 

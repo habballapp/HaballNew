@@ -4,18 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    >
+    android:background="@color/colorPrimary">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:id="@+id/consolidated_payment_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:background="@drawable/underline"
             android:orientation="vertical">
@@ -23,14 +23,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="5dp"
                 android:layout_marginTop="20dp"
-                android:text="Payments"
-                android:paddingBottom="10dp"
                 android:layout_weight="1"
-                android:textSize="20sp"
-                android:textColor="#96bb3c"
                 android:background="@drawable/half_underline"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp"
+                android:text="Payments"
+                android:textColor="#96bb3c"
+                android:textSize="20sp"
 
                 />
         </LinearLayout>
@@ -50,11 +50,11 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
-                android:hint="Invoice ID"
                 android:layout_weight="1"
+                android:hint="Invoice ID"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
                 app:boxStrokeColor="@color/box_stroke"
@@ -64,13 +64,8 @@
                     android:id="@+id/consolidated_view_invoice_id"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="5dp"
                     android:enabled="false"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                    android:theme="@style/TextLabelEditeText" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,11 +74,11 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
-                android:hint="Invoice Date"
                 android:layout_weight="1"
+                android:hint="Invoice Date"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
                 app:boxStrokeColor="@color/box_stroke"
@@ -93,13 +88,8 @@
                     android:id="@+id/consolidated_view_invoice_date"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="5dp"
                     android:enabled="false"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                    android:theme="@style/TextLabelEditeText" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -108,11 +98,11 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
-                android:hint="Invoice Amount"
                 android:layout_weight="1"
+                android:hint="Invoice Amount"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
                 app:boxStrokeColor="@color/box_stroke"
@@ -122,13 +112,8 @@
                     android:id="@+id/consolidated_view_invoice_amount"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="5dp"
                     android:enabled="false"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                    android:theme="@style/TextLabelEditeText" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -137,11 +122,11 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
-                android:hint="Company"
                 android:layout_weight="1"
+                android:hint="Company"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
                 app:boxStrokeColor="@color/box_stroke"
@@ -151,13 +136,8 @@
                     android:id="@+id/consolidated_view_company"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="5dp"
                     android:enabled="false"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                    android:theme="@style/TextLabelEditeText" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -166,11 +146,11 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
-                android:hint="Status"
                 android:layout_weight="1"
+                android:hint="Status"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
                 app:boxStrokeColor="@color/box_stroke"
@@ -180,13 +160,8 @@
                     android:id="@+id/consolidated_view_status"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="5dp"
                     android:enabled="false"
-                    android:textColor="#676a6c"
-                    android:textSize="14sp" />
+                    android:theme="@style/TextLabelEditeText" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -217,17 +192,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/consolidated_payment_view_header"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="15dp"
-            android:layout_marginBottom="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"/>
+            android:layout_marginBottom="30dp" />
+
         <TextView
             android:id="@+id/footer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginBottom="10dp"
             android:layout_below="@id/rv_payment_consolidate"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
             android:text="© Haball | All rights reserved" />
     </RelativeLayout>
 </ScrollView>

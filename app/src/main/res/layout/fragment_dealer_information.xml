@@ -51,13 +51,9 @@
                             android:id="@+id/dealer_Code"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingLeft="20dp"
-                            android:paddingTop="5dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
+                             android:theme="@style/TextLabelEditeText" 
                             android:enabled="false"
-                            android:textColor="#676a6c"
-                            android:textSize="14sp" />
+                           />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,13 +76,9 @@
                             android:id="@+id/dealer_first_name"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingLeft="20dp"
-                            android:paddingTop="5dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
+                          android:theme="@style/TextLabelEditeText" 
                             android:enabled="false"
-                            android:textColor="#676a6c"
-                            android:textSize="14sp" />
+                           />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -109,13 +101,8 @@
                             android:id="@+id/dealer_last_name"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingLeft="20dp"
-                            android:paddingTop="5dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
                             android:enabled="false"
-                            android:textColor="#676a6c"
-                            android:textSize="14sp" />
+                            android:theme="@style/TextLabelEditeText" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -138,13 +125,9 @@
                             android:id="@+id/dealer_email"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingLeft="20dp"
-                            android:paddingTop="5dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
+                            android:theme="@style/TextLabelEditeText" 
                             android:enabled="false"
-                            android:textColor="#676a6c"
-                            android:textSize="14sp" />
+                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -167,13 +150,9 @@
                             android:id="@+id/dealer_mobile_no"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingLeft="20dp"
-                            android:paddingTop="5dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
+                           android:theme="@style/TextLabelEditeText" 
                             android:enabled="false"
-                            android:textColor="#676a6c"
-                            android:textSize="14sp" />
+                            />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -196,13 +175,9 @@
                             android:id="@+id/dealer_landline"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingLeft="20dp"
-                            android:paddingTop="5dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
+                            android:theme="@style/TextLabelEditeText" 
                             android:enabled="false"
-                            android:textColor="#676a6c"
-                            android:textSize="14sp" />
+                            />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -225,13 +200,9 @@
                             android:id="@+id/dealer_NTN"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingLeft="20dp"
-                            android:paddingTop="5dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
+                             android:theme="@style/TextLabelEditeText" 
                             android:enabled="false"
-                            android:textColor="#676a6c"
-                            android:textSize="14sp" />
+                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -254,13 +225,9 @@
                             android:id="@+id/dealer_company_name"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingLeft="20dp"
-                            android:paddingTop="5dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
+                             android:theme="@style/TextLabelEditeText" 
                             android:enabled="false"
-                            android:textColor="#676a6c"
-                            android:textSize="14sp" />
+                            />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -283,13 +250,9 @@
                             android:id="@+id/dealer_created_date"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingLeft="20dp"
-                            android:paddingTop="5dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
+                            android:theme="@style/TextLabelEditeText"
                             android:enabled="false"
-                            android:textColor="#676a6c"
-                            android:textSize="14sp" />
+                            />
 
                     </com.google.android.material.textfield.TextInputLayout>
 

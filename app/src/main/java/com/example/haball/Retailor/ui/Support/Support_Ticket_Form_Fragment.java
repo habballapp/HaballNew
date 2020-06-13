@@ -148,7 +148,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-                text.setPadding(50, 0, 50, 0);
+               text.setPadding(30, 0, 30, 0);
                 text.setTypeface(myFont);
                 return view;
             }
@@ -160,7 +160,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-                text.setPadding(50, 0, 50, 0);
+               text.setPadding(30, 0, 30, 0);
                 return view;
             }
         };
@@ -174,7 +174,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-                text.setPadding(50, 0, 50, 0);
+               text.setPadding(30, 0, 30, 0);
                 text.setTypeface(myFont);
                 return view;
             }
@@ -186,7 +186,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-                text.setPadding(50, 0, 50, 0);
+               text.setPadding(30, 0, 30, 0);
                 return view;
             }
         };
@@ -200,7 +200,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-                text.setPadding(50, 0, 50, 0);
+               text.setPadding(30, 0, 30, 0);
                 text.setTypeface(myFont);
                 return view;
             }
@@ -212,7 +212,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-                text.setPadding(50, 0, 50, 0);
+               text.setPadding(30, 0, 30, 0);
                 return view;
             }
         };
@@ -229,7 +229,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                     try {
                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
                         ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
@@ -238,7 +238,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                         try {
                             ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                             ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                            ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                          ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
                             ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
                         } catch (NullPointerException ex) {
                             ex.printStackTrace();
@@ -262,7 +262,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                     try {
                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
                         ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
@@ -271,7 +271,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                         try {
                             ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                             ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                            ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                          ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
                             ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
                         } catch (NullPointerException ex) {
                             ex.printStackTrace();
@@ -295,7 +295,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                     try {
                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
                         ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
@@ -304,7 +304,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                         try {
                             ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                             ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                            ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                          ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
                             ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
                         } catch (NullPointerException ex) {
                             ex.printStackTrace();

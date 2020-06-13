@@ -357,7 +357,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-                text.setPadding(50, 0, 50, 0);
+                text.setPadding(30, 0, 30, 0);
                 text.setTypeface(myFont);
                 return view;
             }
@@ -369,7 +369,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-                text.setPadding(50, 0, 50, 0);
+                text.setPadding(30, 0, 30, 0);
                 return view;
             }
         };
@@ -389,7 +389,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
 
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
@@ -398,7 +398,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
 //                            ((TextView) adapterView.getChildAt(0)).setCompoundDrawablesWithIntrinsicBounds(0 ,0,R.drawable.ic_arrow_drop_down_black_24dp ,0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
@@ -477,7 +477,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-                text.setPadding(50, 0, 50, 0);
+                text.setPadding(30, 0, 30, 0);
                 text.setTypeface(myFont);
                 return view;
             }
@@ -489,7 +489,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-                text.setPadding(50, 0, 50, 0);
+                text.setPadding(30, 0, 30, 0);
                 return view;
             }
         };
@@ -502,7 +502,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException e) {
                         e.printStackTrace();
                     }
@@ -515,7 +515,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -549,7 +549,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 //                TextView text = (TextView) view.findViewById(android.R.id.text1);
 //                text.setTextColor(getResources().getColor(R.color.text_color_selection));
 //                text.setTextSize((float) 13.6);
-//                text.setPadding(50, 0, 50, 0);
+//                text.setPadding(30, 0, 30, 0);
 //                text.setTypeface(myFont);
 //                return view;
 //            }
@@ -561,7 +561,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 //                TextView text = (TextView) view.findViewById(android.R.id.text1);
 //                text.setTextColor(getResources().getColor(R.color.text_color_selection));
 //                text.setTextSize((float) 13.6);
-//                text.setPadding(50, 0, 50, 0);
+//                text.setPadding(30, 0, 30, 0);
 //                return view;
 //            }
 //        };
@@ -651,7 +651,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                                 0,                 // toXDelta
                                 -rv_filter.getHeight(),  // fromYDelta
                                 0);                // toYDelta
-                        animate1.setDuration(250);
+                        animate1.setDuration(230);
                         animate1.setFillAfter(true);
                         rv_filter.clearAnimation();
                         rv_filter.startAnimation(animate1);
@@ -835,7 +835,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             }
         };
         sr.setRetryPolicy(new DefaultRetryPolicy(
-                15000,
+                13000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
@@ -904,7 +904,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             }
         };
         sr.setRetryPolicy(new DefaultRetryPolicy(
-                15000,
+                13000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
@@ -976,7 +976,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             }
         };
         sr.setRetryPolicy(new DefaultRetryPolicy(
-                15000,
+                13000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
@@ -1077,7 +1077,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             }
         };
         sr.setRetryPolicy(new DefaultRetryPolicy(
-                15000,
+                13000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
@@ -1134,7 +1134,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-                text.setPadding(50, 0, 50, 0);
+                text.setPadding(30, 0, 30, 0);
                 text.setTypeface(myFont);
                 return view;
             }
@@ -1146,7 +1146,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-                text.setPadding(50, 0, 50, 0);
+                text.setPadding(30, 0, 30, 0);
                 return view;
             }
         };
@@ -1164,7 +1164,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -1172,7 +1172,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -1265,7 +1265,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-                text.setPadding(50, 0, 50, 0);
+                text.setPadding(30, 0, 30, 0);
                 text.setTypeface(myFont);
                 return view;
             }
@@ -1277,7 +1277,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-                text.setPadding(50, 0, 50, 0);
+                text.setPadding(30, 0, 30, 0);
                 return view;
             }
         };
@@ -1289,7 +1289,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException e) {
                         e.printStackTrace();
                     }
@@ -1302,7 +1302,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -1411,7 +1411,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                                 0,                 // toXDelta
                                 -rv_filter.getHeight(),  // fromYDelta
                                 0);                // toYDelta
-                        animate1.setDuration(250);
+                        animate1.setDuration(230);
                         animate1.setFillAfter(true);
                         rv_filter.clearAnimation();
                         rv_filter.startAnimation(animate1);
@@ -1508,7 +1508,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             }
         };
         sr.setRetryPolicy(new DefaultRetryPolicy(
-                15000,
+                13000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
@@ -1578,7 +1578,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             }
         };
         sr.setRetryPolicy(new DefaultRetryPolicy(
-                15000,
+                13000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);

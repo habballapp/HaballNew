@@ -155,7 +155,7 @@ public class Registration_page2 extends AppCompatActivity {
                     try {
                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -163,7 +163,7 @@ public class Registration_page2 extends AppCompatActivity {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -187,7 +187,7 @@ public class Registration_page2 extends AppCompatActivity {
                     try {
                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -195,7 +195,7 @@ public class Registration_page2 extends AppCompatActivity {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -218,7 +218,7 @@ public class Registration_page2 extends AppCompatActivity {
                     try {
                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -226,7 +226,7 @@ public class Registration_page2 extends AppCompatActivity {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -248,7 +248,7 @@ public class Registration_page2 extends AppCompatActivity {
                     try {
                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -256,7 +256,7 @@ public class Registration_page2 extends AppCompatActivity {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -278,7 +278,7 @@ public class Registration_page2 extends AppCompatActivity {
                     try {
                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -286,7 +286,7 @@ public class Registration_page2 extends AppCompatActivity {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -309,7 +309,7 @@ public class Registration_page2 extends AppCompatActivity {
                     try {
                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -317,7 +317,7 @@ public class Registration_page2 extends AppCompatActivity {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50,0 ,50 ,0);
+                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
