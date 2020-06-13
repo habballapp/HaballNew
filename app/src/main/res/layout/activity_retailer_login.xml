@@ -72,10 +72,7 @@
                             android:layout_height="match_parent"
                             android:fontFamily="@font/open_sans"
                             android:inputType="text"
-                            android:paddingLeft="20dp"
-                            android:paddingTop="5dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
+                            android:theme="@style/TextLabelEditeText"
                             android:textColor="@color/textcolor" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -103,10 +100,7 @@
                             android:layout_alignBottom="@+id/layout_password"
                             android:fontFamily="@font/open_sans"
                             android:inputType="textPassword"
-                            android:paddingTop="5dp"
-                            android:paddingEnd="60dp"
-                            android:paddingRight="60dp"
-                            android:paddingBottom="5dp" />
+                            android:theme="@style/TextLabelEditeText" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </RelativeLayout>
 
