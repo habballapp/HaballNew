@@ -86,6 +86,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Search by Item"
                     android:textColorHint="#676a6c"
+
                     android:theme="@style/TextLabelSearchBox">
 
                     <com.google.android.material.textfield.TextInputEditText

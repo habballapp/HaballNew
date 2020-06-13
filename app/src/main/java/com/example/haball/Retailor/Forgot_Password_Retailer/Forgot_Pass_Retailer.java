@@ -2,7 +2,10 @@ package com.example.haball.Retailor.Forgot_Password_Retailer;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -11,8 +14,11 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -31,7 +37,13 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.ProcessingError;
 import com.example.haball.R;
+import com.example.haball.Registration.BooleanRequest;
+import com.example.haball.Retailor.ui.Support.SupportFragment;
+import com.example.haball.TextField;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,19 +56,22 @@ import java.util.Map;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class Forgot_Pass_Retailer extends AppCompatActivity {
-//    private ImageButton btn_back;
-    private EditText txt_email;
+    //    private ImageButton btn_back;
+    private TextInputEditText txt_email;
     private TextView heading;
-    private Button btn_lgn,btn_reset;
-    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4014/api/retailer/CheckEmail";
+    private Button btn_lgn, btn_reset;
+    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4014/api/users/forgot";
     ProgressDialog progressDialog;
+    private TextInputLayout layout_email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate( savedInstanceState );
-        setContentView( R.layout.actvity_forgot_pass_retailer );
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.actvity_forgot_pass_retailer);
 //        getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
         Drawable background_drawable = getResources().getDrawable(R.drawable.background_logo);
         background_drawable.setAlpha(80);
@@ -69,8 +84,11 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
 //        bar.setBackgroundDrawable( new ColorDrawable( Color.parseColor( "#FFFFFF" ) ) );
 //
 //        LayoutInflater inflater = LayoutInflater.from( this );
-        txt_email = findViewById( R.id.txt_email );
-//        progressDialog = new ProgressDialog( this );
+        txt_email = findViewById(R.id.txt_email);
+        layout_email = findViewById(R.id.layout_email);
+        progressDialog = new ProgressDialog(this);
+        new TextField().changeColor(Forgot_Pass_Retailer.this, layout_email, txt_email);
+        txt_email.clearFocus();
 //
 //        @SuppressLint("InflateParams") View customView = inflater.inflate( R.layout.action_bar_main_without_back, null );
 //
@@ -81,32 +99,32 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
 //        heading = (TextView)findViewById( R.id.heading );
 //        heading.setText( "Welcome To Retailer Portal" );
 //        btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
-        btn_reset =  (Button)findViewById( R.id.btn_reset_ret);
-       Log.i( "Btn-Reset","Button");
-        btn_reset.setEnabled( false );
-        btn_reset.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
+        btn_reset = (Button) findViewById(R.id.btn_reset_ret);
+        Log.i("Btn-Reset", "Button");
+        btn_reset.setEnabled(false);
+        btn_reset.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
-        btn_reset.setOnClickListener( new View.OnClickListener() {
+        btn_reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!txt_email.getText().toString().equals("")) {
 
-                    Toast.makeText(getApplication(), "Clicked", Toast.LENGTH_LONG).show();
-                    final AlertDialog alertDialog1 = new AlertDialog.Builder( Forgot_Pass_Retailer.this).create();
-                    LayoutInflater inflater = LayoutInflater.from(Forgot_Pass_Retailer.this);
-                    @SuppressLint("InflateParams") View view_popup = inflater.inflate(R.layout.email_sent, null);
-                    alertDialog1.setView(view_popup);
+//                    Toast.makeText(getApplication(), "Clicked", Toast.LENGTH_LONG).show();
+                    final AlertDialog alertDialog1 = new AlertDialog.Builder(Forgot_Pass_Retailer.this).create();
+//                    LayoutInflater inflater = LayoutInflater.from(Forgot_Pass_Retailer.this);
+//                    @SuppressLint("InflateParams") View view_popup = inflater.inflate(R.layout.email_sent, null);
+//                    alertDialog1.setView(view_popup);
+//
+//                    ImageButton img_email = view_popup.findViewById(R.id.image_email);
+                    forgotPasswordRequest();
 
-                    ImageButton img_email = view_popup.findViewById(R.id.image_email);
-                    forgotPasswordRequest(alertDialog1,img_email);
 
-
-                } else {
-                    Toast.makeText(getApplication(), "Please enter Email Address!", Toast.LENGTH_LONG).show();
+//                } else {
+//                    Toast.makeText(getApplication(), "Please enter Email Address!", Toast.LENGTH_LONG).show();
                 }
 
             }
-        } );
+        });
 
 //        btn_back.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -115,13 +133,17 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
 //            }
 //        });
 
-        btn_lgn = findViewById( R.id.btn_lgn );
-        btn_lgn.setOnClickListener( new View.OnClickListener() {
+        btn_lgn = findViewById(R.id.btn_lgn);
+        btn_lgn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                if (!String.valueOf(txt_email.getText()).equals(""))
+                    showDiscardDialog();
+                else {
+                    finish();
+                }
             }
-        } );
+        });
 
         TextWatcher textWatcher = new TextWatcher() {
             @Override
@@ -137,11 +159,12 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 checkFieldsForEmptyValues();
+                checkEmail();
 
             }
         };
 
-        txt_email.addTextChangedListener( textWatcher);
+        txt_email.addTextChangedListener(textWatcher);
 
 
     }
@@ -151,45 +174,117 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
         String email_ = txt_email.getText().toString();
 
 
-        if (email_.equals( "" )){
-            btn_reset.setEnabled( false );
-            btn_reset.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );
+        if (email_.equals("")) {
+            btn_reset.setEnabled(false);
+            btn_reset.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
         } else {
 
-            btn_reset.setEnabled( true );
-            btn_reset.setBackground( getResources().getDrawable( R.drawable.button_background ) );
+            btn_reset.setEnabled(true);
+            btn_reset.setBackground(getResources().getDrawable(R.drawable.button_background));
+        }
+    }
+
+    private void checkEmail() {
+        String reg_ex = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
+
+        if (!txt_email.getText().toString().matches(reg_ex)) {
+            layout_email.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+            layout_email.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            layout_email.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            txt_email.setTextColor(getResources().getColor(R.color.error_stroke_color));
+            btn_reset.setEnabled(false);
+            btn_reset.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+        } else {
+            layout_email.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
+            layout_email.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+            layout_email.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
+            txt_email.setTextColor(getResources().getColor(R.color.textcolor));
+            checkFieldsForEmptyValues();
         }
     }
 
 
-    private void forgotPasswordRequest(final AlertDialog alertDialog1, final ImageButton img_email) {
-
+    private void forgotPasswordRequest() {
 
         progressDialog.setTitle("Resetting Password");
         progressDialog.setMessage("Loading, Please Wait..");
         progressDialog.show();
-        StringRequest sr = new StringRequest( Request.Method.POST, URL_FORGOT_PASSWORD, new Response.Listener<String>() {
+        StringRequest sr = new StringRequest(Request.Method.POST, URL_FORGOT_PASSWORD, new Response.Listener<String>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(String result) {
-                Log.e("RESPONSE", result);
                 progressDialog.dismiss();
-                img_email.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog1.dismiss();
-                    }
-                });
-                alertDialog1.show();
+//                Log.i("forgotpass", "'" + result + "'");
+//                Log.i("forgotpass", "'" + result.equals("true") + "'");
+                if (result.equals("\"true\"")) {
+//                Log.e("RESPONSE", result);
+//                img_email.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        alertDialog1.dismiss();
+//                    }
+//                });
+//                alertDialog1.show();
+
+                    final Dialog fbDialogue = new Dialog(Forgot_Pass_Retailer.this);
+                    //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                    fbDialogue.setContentView(R.layout.password_updatepopup);
+                    TextView tv_pr1, txt_header1;
+                    txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
+                    tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
+                    txt_header1.setText("Email Sent");
+                    tv_pr1.setText("Password reset instructions have been sent to the email address provided.");
+                    fbDialogue.setCancelable(true);
+                    fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                    WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+                    layoutParams.y = 200;
+                    layoutParams.x = -70;// top margin
+                    fbDialogue.getWindow().setAttributes(layoutParams);
+                    fbDialogue.show();
+
+                    ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+                    close_button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            fbDialogue.dismiss();
+                        }
+                    });
+
+                    fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                        }
+                    });
+                } else {
+                    Toast toast = Toast.makeText(Forgot_Pass_Retailer.this, "User does not exist.", Toast.LENGTH_LONG);
+//                    toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, 0);
+
+                    toast.setGravity(Gravity.TOP | Gravity.START | Gravity.END, -100, 200);
+//                    WindowManager.LayoutParams layoutParams = toast.getWindow().getAttributes();
+//                    layoutParams.y = 200;
+//                    layoutParams.x = -70;// top margin
+//                    fbDialogue.getWindow().setAttributes(layoutParams);
+
+                    toast.show();
+
+                    layout_email.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+                    layout_email.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+                    layout_email.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+                    txt_email.setTextColor(getResources().getColor(R.color.error_stroke_color));
+                    btn_reset.setEnabled(false);
+                    btn_reset.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+
+                }
             }
         }, new Response.ErrorListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
+                new ProcessingError().showError(Forgot_Pass_Retailer.this);
                 printErrorMessage(error);
                 error.printStackTrace();
+                progressDialog.dismiss();
             }
         }) {
 
@@ -206,8 +301,9 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
             public byte[] getBody() {
                 try {
                     JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("EmailAddress", txt_email.getText().toString());
-                    return jsonObject.toString().getBytes( StandardCharsets.UTF_8);
+                    jsonObject.put("Email", String.valueOf(txt_email.getText()));
+                    jsonObject.put("RedirectUrl", "http://175.107.203.97:4014/#/updatePassword");
+                    return jsonObject.toString().getBytes(StandardCharsets.UTF_8);
                 } catch (Exception e) {
                     return null;
                 }
@@ -229,9 +325,46 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
 
             }
         });
+//
         Volley.newRequestQueue(this).add(sr);
 
 
+    }
+
+    private void showDiscardDialog() {
+        Log.i("CreatePayment", "In Dialog");
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
+        TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+        tv_discard.setText("Alert");
+        tv_discard_txt.setText("Are you sure, you want to exit this page?.");
+        alertDialog.setView(view_popup);
+        alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+        WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+        layoutParams.y = 200;
+        layoutParams.x = -70;// top margin
+        alertDialog.getWindow().setAttributes(layoutParams);
+        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+        btn_discard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.i("CreatePayment", "Button Clicked");
+                alertDialog.dismiss();
+                finish();
+            }
+        });
+
+        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+        img_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+            }
+        });
+
+        alertDialog.show();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -264,7 +397,7 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
                 //                    if(data.has("message"))
                 //                        message = data.getString("message");
                 //                    else if(data. has("Error"))
-                Toast.makeText( Forgot_Pass_Retailer.this, message.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(Forgot_Pass_Retailer.this, message.toString(), Toast.LENGTH_LONG).show();
             } catch (JSONException e) {
                 e.printStackTrace();
             }

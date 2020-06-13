@@ -446,10 +446,10 @@ public class Support_Ticket_Form_Fragment extends Fragment {
             ticket_btn.setEnabled(false);
             ticket_btn.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
         } else {
-            layout_MobileNo.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
-            layout_MobileNo.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
-            layout_MobileNo.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
-            MobileNo.setTextColor(getResources().getColor(R.color.textcolor));
+            layout_Email.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
+            layout_Email.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+            layout_Email.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
+            Email.setTextColor(getResources().getColor(R.color.textcolor));
             checkFieldsForEmptyValues();
         }
     }

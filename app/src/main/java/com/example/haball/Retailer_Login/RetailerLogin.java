@@ -62,7 +62,7 @@ import androidx.appcompat.widget.Toolbar;
 public class RetailerLogin extends AppCompatActivity {
 
     private Button btn_login, btn_signup, btn_support, btn_password, btn_reset;
-//    private Button btn_signup;
+    //    private Button btn_signup;
     public ImageButton btn_back;
     private TextInputEditText et_username, et_password, txt_email;
     private TextInputLayout layout_username, layout_password;
@@ -94,8 +94,8 @@ public class RetailerLogin extends AppCompatActivity {
         layout_username = findViewById(R.id.layout_username);
         layout_password = findViewById(R.id.layout_password);
 
-        layout_username.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
-        layout_password.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
+//        layout_username.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
+//        layout_password.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
 
         progressDialog = new ProgressDialog(this);
 
@@ -109,13 +109,14 @@ public class RetailerLogin extends AppCompatActivity {
 
         et_password.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { ;
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                ;
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 layout_password.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
-             //   layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+                //   layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
                 et_password.setTextColor(getResources().getColor(R.color.textcolor));
                 layout_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
 
@@ -135,7 +136,8 @@ public class RetailerLogin extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                layout_username.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
+                et_username.setTextColor(getResources().getColor(R.color.textcolor));
             }
 
             @Override
@@ -279,7 +281,7 @@ public class RetailerLogin extends AppCompatActivity {
                         StatusKVP statusKVP = new StatusKVP(RetailerLogin.this, token);
                         JSONObject userAccount = new JSONObject(String.valueOf(result.get("UserAccount")));
                         String IsTermAndConditionAccepted = userAccount.get("IsTermAndConditionAccepted").toString();
-                        String UpdatePassword  = userAccount.get("UpdatePassword").toString();
+                        String UpdatePassword = userAccount.get("UpdatePassword").toString();
                         Log.i("user account => ", userAccount.get("RetailerID").toString());
                         String RetailerId = userAccount.get("RetailerID").toString();
                         String RetailerCode = userAccount.get("RetailerCode").toString();
@@ -319,7 +321,12 @@ public class RetailerLogin extends AppCompatActivity {
                         editorCompany.putString("email", EmailAddress);
                         editorCompany.putString("phone_number", Mobile);
                         editorCompany.apply();
-                        if(IsTermAndConditionAccepted.equals("1")) {
+                        if (IsTermAndConditionAccepted.equals("1")) {
+                            // Toast.makeText(RetailerLogin.this, "Login Success", Toast.LENGTH_LONG).show();
+                            Intent login_intent = new Intent(RetailerLogin.this, RetailorDashboard.class);
+                            startActivity(login_intent);
+                            finish();
+                        } else if (IsTermAndConditionAccepted.equals("1") && UpdatePassword.equals("1")) {
                             // Toast.makeText(RetailerLogin.this, "Login Success", Toast.LENGTH_LONG).show();
                             Intent login_intent = new Intent(RetailerLogin.this, RetailorDashboard.class);
                             startActivity(login_intent);
@@ -327,15 +334,11 @@ public class RetailerLogin extends AppCompatActivity {
                         } else if (IsTermAndConditionAccepted.equals("0")) {
                             Intent login_intent = new Intent(RetailerLogin.this, Retailer_TermsAndConditionsFragment.class);
                             startActivity(login_intent);
-                        }
-                        if(UpdatePassword.equals("1")) {
-                            // Toast.makeText(RetailerLogin.this, "Login Success", Toast.LENGTH_LONG).show();
-                            Intent login_intent = new Intent(RetailerLogin.this, RetailorDashboard.class);
-                            startActivity(login_intent);
                             finish();
                         } else if (UpdatePassword.equals("0")) {
                             Intent login_intent = new Intent(RetailerLogin.this, Retailer_UpdatePassword.class);
                             startActivity(login_intent);
+                            finish();
                         }
 
                     }
@@ -343,6 +346,10 @@ public class RetailerLogin extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                     try {
+                        layout_username.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+                        layout_username.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+                        et_username.setTextColor(getResources().getColor(R.color.error_stroke_color));
+
                         layout_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
                         layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
                         layout_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));

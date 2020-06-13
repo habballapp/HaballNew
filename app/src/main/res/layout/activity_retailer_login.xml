@@ -63,8 +63,7 @@
                         android:layout_height="55dp"
                         android:hint="Username Or Mobile No"
                         android:theme="@style/TextLabel"
-                        app:boxBackgroundColor="#fff"
-                        app:boxStrokeColor="@color/box_stroke">
+                        app:boxBackgroundColor="#fff">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_username"
@@ -89,8 +88,6 @@
                         android:hint="Password"
                         android:theme="@style/TextLabel"
                         app:boxBackgroundColor="#fff"
-                        app:boxStrokeColor="@color/box_stroke"
-
                         app:passwordToggleEnabled="true"
                         app:passwordToggleTint="#A9A9A9">
 
