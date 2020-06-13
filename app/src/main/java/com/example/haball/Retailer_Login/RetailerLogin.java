@@ -301,6 +301,7 @@ public class RetailerLogin extends AppCompatActivity {
                         editor.putString("username", username);
                         editor.putString("CompanyName", CompanyName);
                         editor.putString("IsTermAndConditionAccepted", IsTermAndConditionAccepted);
+                        editor.putString("UpdatePassword", UpdatePassword);
                         editor.putString("UserId", ID);
 
                         editor.commit();
@@ -321,22 +322,18 @@ public class RetailerLogin extends AppCompatActivity {
                         editorCompany.putString("email", EmailAddress);
                         editorCompany.putString("phone_number", Mobile);
                         editorCompany.apply();
-                        if (IsTermAndConditionAccepted.equals("1")) {
-                            // Toast.makeText(RetailerLogin.this, "Login Success", Toast.LENGTH_LONG).show();
-                            Intent login_intent = new Intent(RetailerLogin.this, RetailorDashboard.class);
-                            startActivity(login_intent);
-                            finish();
-                        } else if (IsTermAndConditionAccepted.equals("1") && UpdatePassword.equals("1")) {
-                            // Toast.makeText(RetailerLogin.this, "Login Success", Toast.LENGTH_LONG).show();
-                            Intent login_intent = new Intent(RetailerLogin.this, RetailorDashboard.class);
+                        Log.i("UpdatePassword", UpdatePassword);
+                        if (UpdatePassword.equals("0")) {
+                            Intent login_intent = new Intent(RetailerLogin.this, Retailer_UpdatePassword.class);
                             startActivity(login_intent);
                             finish();
                         } else if (IsTermAndConditionAccepted.equals("0")) {
                             Intent login_intent = new Intent(RetailerLogin.this, Retailer_TermsAndConditionsFragment.class);
                             startActivity(login_intent);
                             finish();
-                        } else if (UpdatePassword.equals("0")) {
-                            Intent login_intent = new Intent(RetailerLogin.this, Retailer_UpdatePassword.class);
+                        } else if (IsTermAndConditionAccepted.equals("1") && UpdatePassword.equals("1")) {
+                            // Toast.makeText(RetailerLogin.this, "Login Success", Toast.LENGTH_LONG).show();
+                            Intent login_intent = new Intent(RetailerLogin.this, RetailorDashboard.class);
                             startActivity(login_intent);
                             finish();
                         }

@@ -185,6 +185,17 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        String txt_Email = txt_email.getText().toString();
+
+        if (!txt_Email.equals("")) {
+            showDiscardDialog();
+        } else {
+            finish();
+        }
+    }
+
     private void checkEmail() {
         String reg_ex = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
 

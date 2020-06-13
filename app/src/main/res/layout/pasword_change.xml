@@ -13,22 +13,21 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="27dp">
 
-       <LinearLayout
-           android:id="@+id/txt_header1"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-          >
-           <TextView
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:fontFamily="@font/open_sans"
-               android:text="Enter Old Password"
-               android:textColor="@color/textcolor"
-               android:textSize="16sp"
-               />
+        <LinearLayout
+            android:id="@+id/txt_header1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans"
+                android:text="Enter Old Password"
+                android:textColor="@color/textcolor"
+                android:textSize="16sp" />
 
 
-       </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_fields"
@@ -44,8 +43,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:hint="Old Password"
                 android:fontFamily="@font/open_sans"
+                android:hint="Old Password"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
                 app:boxStrokeColor="@color/box_stroke"
@@ -59,12 +58,11 @@
                     android:fontFamily="@font/open_sans"
                     android:inputType="textPassword"
                     android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
                     android:paddingEnd="60dp"
                     android:paddingRight="60dp"
-                    android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
-                     />
+                    android:textColor="#676a6c" />
 
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -72,8 +70,8 @@
         <LinearLayout
             android:id="@+id/txt_header"
             android:layout_width="match_parent"
-            android:layout_below="@+id/ll_fields"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_fields">
 
             <TextView
                 android:layout_width="match_parent"
@@ -82,25 +80,25 @@
                 android:fontFamily="@font/open_sans"
                 android:text="Enter New Password"
                 android:textColor="@color/textcolor"
-                android:textSize="16sp"
-                />
+                android:textSize="16sp" />
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ll_fields1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
+            android:layout_marginTop="20dp"
             android:layout_below="@+id/txt_header">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_password1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginTop="20dp"
-                android:hint="New Password"
-                android:theme="@style/TextLabel"
                 android:fontFamily="@font/open_sans"
+                android:theme="@style/TextLabel"
+                android:hint="New Password"
                 app:boxBackgroundColor="#fff"
                 app:boxStrokeColor="@color/box_stroke"
                 app:passwordToggleEnabled="true"
@@ -110,6 +108,7 @@
                     android:id="@+id/txt_newpassword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:drawableRight="@drawable/ic_edit_black_24dp"
                     android:fontFamily="@font/open_sans"
                     android:inputType="textPassword"
                     android:paddingLeft="20dp"
@@ -117,30 +116,44 @@
                     android:paddingEnd="60dp"
                     android:paddingRight="60dp"
                     android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
-                    android:drawableRight="@drawable/ic_edit_black_24dp" />
+                    android:textColor="#676a6c" />
 
             </com.google.android.material.textfield.TextInputLayout>
+            <ImageButton
+                android:id="@+id/imageButton1"
+                android:layout_width="@dimen/iconSize"
+                android:layout_height="@dimen/iconSize"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_action_1"/>
+
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="@dimen/iconSize"
+                android:layout_height="@dimen/iconSize"
+                android:layout_toLeftOf="@+id/imageButton1"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_action_2"/>
 
         </LinearLayout>
 
-<!--        <LinearLayout-->
-<!--            android:id="@+id/info_red_eye"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="55dp"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:layout_marginLeft="260dp"-->
-<!--            android:layout_below="@+id/txt_header"-->
+        <!--        <LinearLayout-->
+        <!--            android:id="@+id/info_red_eye"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="55dp"-->
+        <!--            android:layout_marginTop="20dp"-->
+        <!--            android:layout_marginLeft="260dp"-->
+        <!--            android:layout_below="@+id/txt_header"-->
 
-<!--           >-->
-<!--          <TextView-->
-<!--              android:paddingTop="5dp"-->
-<!--              android:layout_width="match_parent"-->
-<!--              android:layout_height="match_parent"-->
-<!--              android:keepScreenOn="true"-->
-<!--              android:drawableStart="@drawable/ic_info_black_24dp"-->
-<!--              android:drawableLeft="@drawable/ic_info_black_24dp" />-->
-<!--        </LinearLayout>-->
+        <!--           >-->
+        <!--          <TextView-->
+        <!--              android:paddingTop="5dp"-->
+        <!--              android:layout_width="match_parent"-->
+        <!--              android:layout_height="match_parent"-->
+        <!--              android:keepScreenOn="true"-->
+        <!--              android:drawableStart="@drawable/ic_info_black_24dp"-->
+        <!--              android:drawableLeft="@drawable/ic_info_black_24dp" />-->
+        <!--        </LinearLayout>-->
 
         <LinearLayout
             android:id="@+id/ll_fields3"
@@ -154,8 +167,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="20dp"
-                android:hint="Confirm Password"
                 android:fontFamily="@font/open_sans"
+                android:hint="Confirm Password"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
                 app:boxStrokeColor="@color/box_stroke"
@@ -174,8 +187,7 @@
                     android:paddingEnd="60dp"
                     android:paddingRight="60dp"
                     android:paddingBottom="5dp"
-                    android:textColor="#676a6c"
-                     />
+                    android:textColor="#676a6c" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -185,8 +197,8 @@
             android:id="@+id/ll_fields4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_below="@+id/ll_fields3"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <TextView
@@ -194,21 +206,20 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@font/open_sans_semibold"
                 android:text="* On changing the password, you would be logged out of the account"
-                android:textSize="13sp"
-                />
+                android:textSize="13sp" />
 
 
         </LinearLayout>
-
 
 
         <RelativeLayout
             android:id="@+id/ln_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_below="@id/ll_fields4"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
+
             <Button
                 android:id="@+id/update_password"
                 android:layout_width="match_parent"

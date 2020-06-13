@@ -160,12 +160,12 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!String.valueOf(txt_newpassword.getText()).equals("") || !String.valueOf(txt_cfmpassword.getText()).equals(""))
-                    showDiscardDialog(RetailorDashboard.class);
-                else {
-                    Intent intent = new Intent(Retailer_UpdatePassword.this, RetailorDashboard.class);
-                    startActivity(intent);
-                }
+//                if (!String.valueOf(txt_newpassword.getText()).equals("") || !String.valueOf(txt_cfmpassword.getText()).equals(""))
+                    showDiscardDialog(RetailorDashboard.class, "RetailorDashboard");
+//                else {
+//                    Intent intent = new Intent(Retailer_UpdatePassword.this, RetailorDashboard.class);
+//                    startActivity(intent);
+//                }
             }
         });
 
@@ -173,24 +173,31 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
     }
 
 
-    private void showDiscardDialog(final Class targetClass) {
+    private void showDiscardDialog(final Class targetClass, String className) {
         final FragmentManager fm = getSupportFragmentManager();
 
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         LayoutInflater inflater = LayoutInflater.from(this);
         final View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
         alertDialog.setCancelable(true);
         TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
         TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
         tv_discard.setText("Alert");
-        String steps = "It is recommended to change the default generated password.";
-        String title = "Are you sure, you want to skip?";
+        if(className.equals("RetailorDashboard")) {
+            String steps = "It is recommended to change the default generated password.";
+            String title = "Are you sure, you want to skip?";
+            SpannableString ss1 = new SpannableString(title);
+            ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
+            tv_discard_txt.append(steps);
+            tv_discard_txt.append(" ");
+            tv_discard_txt.append(ss1);
+            btn_discard.setText("Skip");
+        } else {
+            tv_discard_txt.setText("Are you sure, you want to exit this page?");
+            btn_discard.setText("Exit");
+        }
 
-        SpannableString ss1 = new SpannableString(title);
-        ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
-        tv_discard_txt.append(steps);
-        tv_discard_txt.append(" ");
-        tv_discard_txt.append(ss1);
 
         alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
         WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
@@ -198,8 +205,6 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
         layoutParams.x = -70;// top margin
         alertDialog.getWindow().setAttributes(layoutParams);
         alertDialog.setView(view_popup);
-        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
-        btn_discard.setText("Skip");
         btn_discard.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.i("CreatePayment", "Button Clicked");
@@ -231,7 +236,7 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (!String.valueOf(txt_newpassword.getText()).equals("") || !String.valueOf(txt_cfmpassword.getText()).equals(""))
-            showDiscardDialog(RetailerLogin.class);
+            showDiscardDialog(RetailerLogin.class, "RetailerLogin");
         else {
             Intent intent = new Intent(Retailer_UpdatePassword.this, RetailerLogin.class);
             startActivity(intent);
