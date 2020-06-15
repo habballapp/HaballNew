@@ -63,6 +63,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import pl.droidsonroids.gif.GifImageView;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -101,6 +103,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
     private int year1, year2, month1, month2, date1, date2;
     private List<String> scrollEvent = new ArrayList<>();
     private Typeface myFont;
+    private GifImageView loader;
 
     public SupportFragment() {
         // Required empty public constructor
@@ -133,6 +136,9 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         recyclerView.setLayoutManager(layoutManager);
         tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
         tv_shipment_no_data.setVisibility(View.VISIBLE);
+        loader =  root.findViewById(R.id.loader);
+        tv_shipment_no_data.setVisibility(View.GONE);
+        loader.setVisibility(View.VISIBLE);
 
         try {
             fetchSupport();
@@ -536,6 +542,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 }.getType();
                 try {
                     SupportList = gson.fromJson(String.valueOf(response.get(0)), type);
+                    loader.setVisibility(View.GONE);
 
                     if (SupportList.size() != 0) {
                         tv_shipment_no_data.setVisibility(View.GONE);
@@ -564,6 +571,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                         animate1.setFillAfter(true);
                         spinner_container_main.clearAnimation();
                         spinner_container_main.startAnimation(animate1);
+
                     }
                 }
             }
@@ -571,6 +579,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
             @Override
             public void onErrorResponse(VolleyError error) {
                 printErrorMessage(error);
+                loader.setVisibility(View.GONE);
             }
         }) {
             @Override

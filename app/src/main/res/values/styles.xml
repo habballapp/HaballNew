@@ -25,8 +25,6 @@
         <item name="colorControlActivated">@color/box_stroke</item>
         <item name="colorError">#ff0000</item>
         <item name="colorPrimary">@color/box_stroke</item>
-        <item name="android:layout_marginLeft">15dp</item>
-        <item name="android:layout_marginRight">-15dp</item>
         <item name="boxStrokeWidth">1.75dp</item>
         <item name="android:textSize">13.6sp</item>
         <item name="boxStrokeColor">@color/box_stroke</item>
@@ -60,7 +58,12 @@
         <item name="colorPrimary">#ffff0000</item>
         <item name="boxStrokeWidth">2.5dp</item>
     </style>
-
+        <style name="TextLabelEditeText">
+            <item name="android:paddingStart">20dp</item>
+            <item name="android:paddingEnd">20dp</item>
+            <item name="fontFamily">@font/open_sans</item>
+            <item name="android:textColor">@color/textcolor</item>
+        </style>
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">#96BA3C</item>
 

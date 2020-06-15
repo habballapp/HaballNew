@@ -95,7 +95,6 @@
                             android:layout_alignEnd="@+id/layout_password"
                             android:layout_alignRight="@+id/layout_password"
                             android:layout_alignBottom="@+id/layout_password"
-                            android:fontFamily="@font/open_sans"
                             android:inputType="textPassword"
                             android:theme="@style/TextLabelEditeText" />
                     </com.google.android.material.textfield.TextInputLayout>
