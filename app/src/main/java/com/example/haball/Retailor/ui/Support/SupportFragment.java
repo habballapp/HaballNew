@@ -101,6 +101,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
     private int year1, year2, month1, month2, date1, date2;
     private List<String> scrollEvent = new ArrayList<>();
     private Typeface myFont;
+    
 
     public SupportFragment() {
         // Required empty public constructor

@@ -68,6 +68,8 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import pl.droidsonroids.gif.GifImageView;
+
 public class Support_Ticket_Form extends AppCompatActivity {
 
     private TextInputEditText BName, Email, MobileNo, Comment;
@@ -92,6 +94,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
     private ArrayAdapter<String> arrayAdapterIssueType, arrayAdapterCriticality, arrayAdapterPreferredContact;
 
     private Button login_submit, login_btn;
+    private GifImageView loader;
 
     private Typeface myFont;
 
@@ -107,12 +110,14 @@ public class Support_Ticket_Form extends AppCompatActivity {
         background_drawable.setAlpha(80);
         RelativeLayout rl_main_background = findViewById(R.id.rl_main_background);
         rl_main_background.setBackground(background_drawable);
+        loader = findViewById(R.id.loader);
 
         //        getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
 
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.setDisplayShowHomeEnabled(false);
 //        actionBar.setDisplayShowTitleEnabled(false);
+        loader.setVisibility(View.VISIBLE);
 
         LayoutInflater inflater = LayoutInflater.from(this);
 //        View customView = inflater.inflate(R.layout.action_bar_main_without_back, null);

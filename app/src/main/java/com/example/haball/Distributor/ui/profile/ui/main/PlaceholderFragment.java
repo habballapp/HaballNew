@@ -100,6 +100,7 @@ public class PlaceholderFragment extends Fragment {
         return fragment;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(
@@ -140,6 +141,7 @@ public class PlaceholderFragment extends Fragment {
                 edt_lastname.setFocusable(false);
                 edt_email.setFocusable(false);
                 edt_dist_mobile.setFocusable(false);
+
 
                 new TextField().changeColor(this.getContext(),layout_edt_dist_code,edt_dist_code);
                 new TextField().changeColor(this.getContext(),layout_edt_firstname,edt_firstname);
@@ -358,6 +360,7 @@ public class PlaceholderFragment extends Fragment {
                 layout_password1 = root.findViewById(R.id.layout_password1);
                 layout_password =  root.findViewById(R.id.layout_password );
                 update_password = root.findViewById(R.id.update_password);
+                ////txt_newpassword.setCompoundDrawablesRelative(0,);
 
                 new TextField().changeColor(this.getContext(),layout_password,txt_password);
                 new TextField().changeColor(this.getContext(),layout_password1,txt_newpassword);
