@@ -41,6 +41,7 @@ import com.example.haball.Select_User.Register_Activity;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
+import com.google.gson.Gson;
 import com.techatmosphere.expandablenavigation.model.HeaderModel;
 import com.techatmosphere.expandablenavigation.view.ExpandableNavigationListView;
 
@@ -352,35 +353,48 @@ public class RetailorDashboard extends AppCompatActivity {
 
                         return false;
                     }
-                })
-                .addOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-                    @Override
-                    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                        navigationExpandableListView.setSelected(groupPosition, childPosition);
-                        if (groupPosition == 3 && childPosition == 0) {
-                            Log.i("Payments Summary", "Child");
-                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new Payment_Summary()).addToBackStack("tag");
-                            ;
-                            fragmentTransaction.commit();
-                            drawer.closeDrawer(GravityCompat.START);
-                        } else if (groupPosition == 3 && childPosition == 1) {
-                            Log.i("Payment Request", "Child");
-                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment()).addToBackStack(null);
-                            ;
-                            fragmentTransaction.commit();
-                        } else if (groupPosition == 2 && childPosition == 0) {
-                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new PlaceOrderFragment()).addToBackStack("tag");
-                            ;
-                            fragmentTransaction.commit();
-                            drawer.closeDrawer(GravityCompat.START);
-                        }
-                        drawer.closeDrawer(GravityCompat.START);
-                        return false;
-                    }
                 });
+//        navigationExpandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+//            @Override
+//            public void onGroupExpand(int groupPosition) {
+//                navigationExpandableListView.setGroupIndicator(getResources().getDrawable(R.drawable.group_indicator));
+//            }
+//        });
+//        navigationExpandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+//            @Override
+//            public void onGroupCollapse(int groupPosition) {
+//                navigationExpandableListView.setGroupIndicator(null);
+//            }
+//        });
+
+//                .addOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+//                    @Override
+//                    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+//                        navigationExpandableListView.setSelected(groupPosition, childPosition);
+//                        if (groupPosition == 3 && childPosition == 0) {
+//                            Log.i("Payments Summary", "Child");
+//                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//                            fragmentTransaction.replace(R.id.main_container_ret, new Payment_Summary()).addToBackStack("tag");
+//                            ;
+//                            fragmentTransaction.commit();
+//                            drawer.closeDrawer(GravityCompat.START);
+//                        } else if (groupPosition == 3 && childPosition == 1) {
+//                            Log.i("Payment Request", "Child");
+//                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//                            fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment()).addToBackStack(null);
+//                            ;
+//                            fragmentTransaction.commit();
+//                        } else if (groupPosition == 2 && childPosition == 0) {
+//                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//                            fragmentTransaction.replace(R.id.main_container_ret, new PlaceOrderFragment()).addToBackStack("tag");
+//                            ;
+//                            fragmentTransaction.commit();
+//                            drawer.closeDrawer(GravityCompat.START);
+//                        }
+//                        drawer.closeDrawer(GravityCompat.START);
+//                        return false;
+//                    }
+//                });
 
 
     }
