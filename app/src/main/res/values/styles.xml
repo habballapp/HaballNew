@@ -63,6 +63,7 @@
             <item name="android:paddingRight">20dp</item>
             <item name="fontFamily">@font/open_sans</item>
             <item name="android:textColor">@color/textcolor</item>
+            <item name="android:textSize">@dimen/edit_text_box_size</item>
         </style>
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">#96BA3C</item>
