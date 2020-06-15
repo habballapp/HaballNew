@@ -55,10 +55,9 @@
                     android:id="@+id/txt_password"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/open_sans"
                     android:inputType="textPassword"
                     android:theme="@style/TextLabelEditeText"
-                    android:textColor="#676a6c" />
+                   />
 
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -105,10 +104,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableRight="@drawable/ic_edit_black_24dp"
-                    android:fontFamily="@font/open_sans"
                     android:inputType="textPassword"
                     android:theme="@style/TextLabelEditeText"
-                    android:textColor="#676a6c" />
+                  />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -157,10 +155,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableRight="@drawable/ic_remove_red_eye_black_24dp"
-                    android:fontFamily="@font/open_sans"
                     android:inputType="textPassword"
                     android:theme="@style/TextLabelEditeText"
-                    android:textColor="#676a6c" />
+                />
 
             </com.google.android.material.textfield.TextInputLayout>
 

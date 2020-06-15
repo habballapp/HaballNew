@@ -98,12 +98,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="number"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="5dp"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="5dp"
-                        android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                     android:theme="@style/TextLabelEditeText" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -128,12 +123,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="number"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="5dp"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="5dp"
-                        android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                       android:theme="@style/TextLabelEditeText"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -157,12 +147,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="number"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="5dp"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="5dp"
-                        android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                       android:theme="@style/TextLabelEditeText" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -357,7 +342,7 @@
                     android:id="@+id/layout_txt_comments"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="90dp"
+                    android:layout_height="100dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="30dp"
@@ -372,14 +357,9 @@
                         android:id="@+id/txt_comments"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="top|left"
+                        android:paddingBottom="50dp"
                         android:inputType="textMultiLine|textCapSentences"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="5dp"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="5dp"
-                        android:textColor="#676a6c"
-                        android:textSize="14sp" />
+                       android:theme="@style/TextLabelEditeText" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 

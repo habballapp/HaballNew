@@ -79,12 +79,7 @@
                             android:layout_height="match_parent"
                             android:fontFamily="@font/open_sans"
                             android:inputType="text|textCapSentences"
-                            android:paddingTop="5dp"
-                            android:paddingRight="40dp"
-                            android:paddingEnd="40dp"
-                            android:paddingBottom="5dp"
-                            android:textColor="@color/textcolor"
-                            android:textSize="@dimen/edit_text_box_size" />
+                          android:theme="@style/TextLabelEditeText" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -107,12 +102,7 @@
                             android:layout_height="match_parent"
                             android:fontFamily="@font/open_sans"
                             android:inputType="textEmailAddress"
-                            android:paddingLeft="20dp"
-                            android:paddingTop="5dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
-                            android:textColor="@color/textcolor"
-                            android:textSize="@dimen/edit_text_box_size" />
+                           android:theme="@style/TextLabelEditeText" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -136,12 +126,7 @@
                             android:fontFamily="@font/open_sans"
                             android:inputType="number"
                             android:maxLength="12"
-                            android:paddingLeft="20dp"
-                            android:paddingTop="5dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
-                            android:textColor="@color/textcolor"
-                            android:textSize="@dimen/edit_text_box_size" />
+                            android:theme="@style/TextLabelEditeText"/>
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -245,12 +230,7 @@
                             android:fontFamily="@font/open_sans"
                             android:gravity="top|left"
                             android:inputType="textMultiLine|textCapSentences"
-                            android:paddingLeft="20dp"
-                            android:paddingTop="10dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
-                            android:textColor="#676a6c"
-                            android:textSize="@dimen/edit_text_box_size" />
+                           android:theme="@style/TextLabelEditeText" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 

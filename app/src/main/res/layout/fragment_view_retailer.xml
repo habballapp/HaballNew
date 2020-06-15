@@ -252,9 +252,9 @@
                             android:id="@+id/mg_tr_address"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:gravity="top|left"
+                            android:paddingBottom="50dp"
                             android:inputType="textMultiLine"
-                            android:paddingTop="15dp"
+                        
                              android:theme="@style/TextLabelEditeText"  />
 
                     </com.google.android.material.textfield.TextInputLayout>
