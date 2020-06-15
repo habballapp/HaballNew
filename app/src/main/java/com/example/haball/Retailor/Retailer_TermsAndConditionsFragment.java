@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -36,6 +38,7 @@ public class Retailer_TermsAndConditionsFragment extends AppCompatActivity {
     private Button agree_button, disagree_button;
     private String URL = "http://175.107.203.97:4014/api/users/termsandcondition";
     private String Token;
+    boolean doubleBackToExitPressedOnce = false;
 
     public static Retailer_TermsAndConditionsFragment newInstance() {
         return new Retailer_TermsAndConditionsFragment();
@@ -71,6 +74,14 @@ public class Retailer_TermsAndConditionsFragment extends AppCompatActivity {
                 finish();
             }
         });
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Retailer_TermsAndConditionsFragment.this, RetailerLogin.class);
+        startActivity(intent);
+        finish();
 
     }
 

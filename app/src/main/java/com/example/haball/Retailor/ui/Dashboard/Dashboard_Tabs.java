@@ -12,6 +12,8 @@ import android.widget.TableLayout;
 
 import com.example.haball.R;
 import com.example.haball.Retailor.ui.Dashboard.ui.main.SectionsPagerAdapter;
+import com.example.haball.Retailor.ui.Dashboard.ui.main.SectionsPagerAdapter_Without_Orders;
+import com.example.haball.Retailor.ui.Dashboard.ui.main.SectionsPagerAdapter_Without_Payments;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
@@ -35,33 +37,38 @@ public class Dashboard_Tabs extends Fragment {
         editorOrderTabsFromDraft.putString("TabNo", "0");
         editorOrderTabsFromDraft.apply();
 
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getActivity(), getChildFragmentManager());
-        final ViewPager viewPager = root.findViewById(R.id.view_pager_ret5);
-        viewPager.setAdapter(sectionsPagerAdapter);
-        viewPager.setCurrentItem(value);
-        final TabLayout tabs = root.findViewById(R.id.tabs_ret5);
+
+        SharedPreferences dashboardRights = getContext().getSharedPreferences("Retailer_UserRights",
+                Context.MODE_PRIVATE);
+        boolean Order_View = Boolean.parseBoolean(dashboardRights.getString("Order_View", "false"));
+        boolean Payment_View = Boolean.parseBoolean(dashboardRights.getString("Payment_View", "false"));
+
+        if(!Order_View && Payment_View) {
+            SectionsPagerAdapter_Without_Orders sectionsPagerAdapter = new SectionsPagerAdapter_Without_Orders(getActivity(), getChildFragmentManager());
+            final ViewPager viewPager = root.findViewById(R.id.view_pager_ret5);
+            viewPager.setOffscreenPageLimit(3);
+            viewPager.setAdapter(sectionsPagerAdapter);
+            TabLayout tabs = root.findViewById(R.id.tabs_ret5);
+            tabs.setupWithViewPager(viewPager);
+        } else if(!Payment_View && Order_View) {
+            SectionsPagerAdapter_Without_Payments sectionsPagerAdapter = new SectionsPagerAdapter_Without_Payments(getActivity(), getChildFragmentManager());
+            final ViewPager viewPager = root.findViewById(R.id.view_pager_ret5);
+            viewPager.setOffscreenPageLimit(3);
+            viewPager.setAdapter(sectionsPagerAdapter);
+            TabLayout tabs = root.findViewById(R.id.tabs_ret5);
+            tabs.setupWithViewPager(viewPager);
+        } else if (Order_View && Payment_View) {
+            SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getActivity(), getChildFragmentManager());
+            final ViewPager viewPager = root.findViewById(R.id.view_pager_ret5);
+            viewPager.setAdapter(sectionsPagerAdapter);
+            viewPager.setCurrentItem(value);
+            final TabLayout tabs = root.findViewById(R.id.tabs_ret5);
 //        tabs.setPadding(0,0,0,0);
-        tabs.setupWithViewPager(viewPager);
+            tabs.setupWithViewPager(viewPager);
+        } else {
 
-//        for (int i = 0; i < tabs.getTabCount(); i++) {
-//            View tabView = LayoutInflater.from(getContext())
-//                    .inflate(LayoutInflater.from(getContext()), R.layout.fragment_dashboard__tabs, null, false);
+        }
 
-//            tabs.setLayoutParams(new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-//            tabs.setPadding(0, 0, 0, 0);
-//            tabs.getTabAt(i).setCustomView(tabViewBinding.getRoot());
-//        }
-
-
-//        LinearLayout tabStrip = ((LinearLayout)tabs.getChildAt(0));
-//        for(int i = 0; i < tabStrip.getChildCount(); i++) {
-//            tabStrip.getChildAt(i).setOnTouchListener(new View.OnTouchListener() {
-//                @Override
-//                public boolean onTouch(View v, MotionEvent event) {
-//                    return true;
-//                }
-//            });
-//        }
         return root;
 
     }}

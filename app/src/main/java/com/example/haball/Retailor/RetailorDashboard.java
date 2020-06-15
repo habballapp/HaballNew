@@ -98,9 +98,7 @@ public class RetailorDashboard extends AppCompatActivity {
         notification_icon = (ImageView) toolbar.findViewById(R.id.notification_icon_retailer);
         tv_username = toolbar.findViewById(R.id.tv_username);
         tv_user_company = toolbar.findViewById(R.id.tv_user_company);
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tabs());
-        fragmentTransaction.commit();
+
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -124,45 +122,51 @@ public class RetailorDashboard extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        NavList.add("Dashboard");
 
+        boolean UserAlert = false;
+        boolean Distributor_Preferences = false;
+        boolean Retailer_Profile = false;
+        boolean Order_Add_Update = false;
+        boolean Order_Export = false;
+        boolean Order_View = false;
+        boolean Kyc_add_update = false;
+        boolean User_Change_Password = false;
+        boolean Payment_Add_Update = false;
+        boolean Payment_View = false;
 
-        boolean UserAlert = true;
-        boolean Distributor_Preferences = true;
-        boolean Retailer_Profile = true;
-        boolean Order_Add_Update = true;
-        boolean Order_Export = true;
-        boolean Order_View = true;
-        boolean Kyc_add_update = true;
-        boolean User_Change_Password = true;
-        boolean Payment_Add_Update = true;
-        boolean Payment_View = true;
+//
+//        UserAlert = false;
+//        Distributor_Preferences = false;
+//        Retailer_Profile = false;
+//        Order_Add_Update = false;
+//        Order_Export = false;
+//        Order_View = false;
+//        Kyc_add_update = false;
+//        User_Change_Password = false;
+//        Payment_Add_Update = false;
+//        Payment_View = false;
+//
 
         for (int i = 0; i < userRights.length(); i++) {
             try {
                 JSONObject userRightsData = new JSONObject(String.valueOf(userRights.get(i)));
                 if (userRightsData.get("Title").equals("Distributor Preferences")) {
                     Distributor_Preferences = true;
-                    NavList.add("Dashboard");
                 }
                 if (userRightsData.get("Title").equals("UserAlert")) {
                     UserAlert = true;
                 }
                 if (userRightsData.get("Title").equals("Kyc add/update")) {
                     Kyc_add_update = true;
-                    NavList.add("My Network");
                 }
                 if (userRightsData.get("Title").equals("Order Add/Update")) {
                     Order_Add_Update = true;
-                    NavList.add("Place Order");
                 }
                 if (userRightsData.get("Title").equals("Payment Add/Update")) {
                     Payment_Add_Update = true;
-                    NavList.add("Make Payment");
                 }
                 if (userRightsData.get("Title").equals("Retailer Profile")) {
                     Retailer_Profile = true;
-                    NavList.add("Profile");
                 }
                 if (userRightsData.get("Title").equals("User Change Password")) {
                     User_Change_Password = true;
@@ -181,6 +185,43 @@ public class RetailorDashboard extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+
+        SharedPreferences retailerInfo = getSharedPreferences("Retailer_UserRights",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor retailerInfo_editor = retailerInfo.edit();
+        retailerInfo_editor.putString("UserAlert", String.valueOf(UserAlert));
+        retailerInfo_editor.putString("Distributor_Preferences", String.valueOf(Distributor_Preferences));
+        retailerInfo_editor.putString("Retailer_Profile", String.valueOf(Retailer_Profile));
+        retailerInfo_editor.putString("Order_Add_Update", String.valueOf(Order_Add_Update));
+        retailerInfo_editor.putString("Order_Export", String.valueOf(Order_Export));
+        retailerInfo_editor.putString("Order_View", String.valueOf(Order_View));
+        retailerInfo_editor.putString("Kyc_add_update", String.valueOf(Kyc_add_update));
+        retailerInfo_editor.putString("User_Change_Password", String.valueOf(User_Change_Password));
+        retailerInfo_editor.putString("Payment_Add_Update", String.valueOf(Payment_Add_Update));
+        retailerInfo_editor.putString("Payment_View", String.valueOf(Payment_View));
+        retailerInfo_editor.apply();
+
+        if (!UserAlert)
+            notification_icon.setVisibility(View.GONE);
+
+        if (Payment_View || Order_View) {
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tabs());
+            fragmentTransaction.commit();
+            NavList.add("Dashboard");
+        } else {
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.add(R.id.main_container_ret, new SupportFragment());
+            fragmentTransaction.commit();
+        }
+        if (Kyc_add_update)
+            NavList.add("My Network");
+        if (Order_Add_Update)
+            NavList.add("Place Order");
+        if (Payment_Add_Update)
+            NavList.add("Make Payment");
+        if (Retailer_Profile)
+            NavList.add("Profile");
         NavList.add("Support");
         NavList.add("Logout");
 
@@ -210,7 +251,8 @@ public class RetailorDashboard extends AppCompatActivity {
             }
         });
         navigationExpandableListView.init(this);
-        navigationExpandableListView.addHeaderModel(new HeaderModel("Dashboard"));
+        if (Payment_View || Order_View)
+            navigationExpandableListView.addHeaderModel(new HeaderModel("Dashboard"));
         if (Kyc_add_update)
             navigationExpandableListView.addHeaderModel(new HeaderModel("My Network"));
         if (Order_Add_Update)
@@ -227,25 +269,29 @@ public class RetailorDashboard extends AppCompatActivity {
                     @Override
                     public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                         navigationExpandableListView.setSelected(groupPosition);
-                        Log.i("navListView", String.valueOf(navigationExpandableListView.getSelectedItem()));
-                        Log.i("navListView", String.valueOf(navigationExpandableListView.getSelectedId()));
-                        Log.i("navListView", String.valueOf(navigationExpandableListView.getSelectedItemId()));
-                        Log.i("navListView", String.valueOf(navigationExpandableListView.getSelectedItemPosition()));
-                        Log.i("navListView", String.valueOf(navigationExpandableListView.getSelectedView()));
-                        Log.i("navListView", String.valueOf(groupPosition));
+//                        Log.i("navListView", String.valueOf(navigationExpandableListView.getSelectedItem()));
+//                        Log.i("navListView", String.valueOf(navigationExpandableListView.getSelectedId()));
+//                        Log.i("navListView", String.valueOf(navigationExpandableListView.getSelectedItemId()));
+//                        Log.i("navListView", String.valueOf(navigationExpandableListView.getSelectedItemPosition()));
+//                        Log.i("navListView", String.valueOf(navigationExpandableListView.getSelectedView()));
+//                        Log.i("navListView", String.valueOf(groupPosition));
                         Log.i("navListView", String.valueOf(id));
-                        Log.i("navListView", String.valueOf(parent));
+//                        Log.i("navListView", String.valueOf(parent));
+                        Log.i("navListView", String.valueOf(NavList.indexOf("Dashboard")));
+                        Log.i("navListView", String.valueOf(NavList.indexOf("My Network")));
+                        Log.i("navListView", String.valueOf(NavList.indexOf("Place Order")));
+                        Log.i("navListView", String.valueOf(NavList.indexOf("Make Payment")));
 
-//                        if (NavList.contains("Dashboard") && NavList.indexOf("Dashboard") == id) {
-                        if(id == 0) {
+                        if (NavList.contains("Dashboard") && NavList.indexOf("Dashboard") == id) {
+//                        if (id == 0) {
                             Log.i("Dashboard", "Dashboard Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container_ret, new Dashboard_Tabs());
                             fragmentTransaction.commit();
 
                             drawer.closeDrawer(GravityCompat.START);
-//                        } else if (NavList.contains("My Network") && NavList.indexOf("My Network") == id) {
-                        } else if(id == 1) {
+                        } else if (NavList.contains("My Network") && NavList.indexOf("My Network") == id) {
+//                        } else if (id == 1) {
 
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
 //                            fragmentTransaction.replace(R.id.main_container_ret, new My_NetworkDashboard());
@@ -256,8 +302,8 @@ public class RetailorDashboard extends AppCompatActivity {
                             Log.i("My Network", "My Network Activity");
 
                             drawer.closeDrawer(GravityCompat.START);
-//                        } else if (NavList.contains("Place Order") && NavList.indexOf("Place Order") == id) {
-                        } else if(id == 2) {
+                        } else if (NavList.contains("Place Order") && NavList.indexOf("Place Order") == id) {
+//                        } else if (id == 2) {
 //                            Log.i("Place Order", "Place Order Activity");
 //                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
 //                            fragmentTransaction.replace(R.id.main_container_ret, new PlaceOrderFragment());
@@ -268,8 +314,8 @@ public class RetailorDashboard extends AppCompatActivity {
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
 
-//                        } else if (NavList.contains("Make Payment") && NavList.indexOf("Make Payment") == id) {
-                        } else if(id == 4) {
+                        } else if (NavList.contains("Make Payment") && NavList.indexOf("Make Payment") == id) {
+//                        } else if (id == 3) {
                             Log.i("Make Payment", "Make Payment Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment()).addToBackStack("tag1");
@@ -277,22 +323,25 @@ public class RetailorDashboard extends AppCompatActivity {
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
 
-                        } else if (id == 4) {
+                        } else if (NavList.contains("Profile") && NavList.indexOf("Profile") == id) {
+//                        } else if (id == 4) {
                             Log.i("Profile", "Profile Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container_ret, new Profile_Tabs()).addToBackStack("tag");
                             ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        } else if (id == 5) {
+                        } else if (NavList.contains("Support") && NavList.indexOf("Support") == id) {
+//                        } else if (id == 5) {
                             Log.i("Support", "Support Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container_ret, new SupportFragment()).addToBackStack("tag");
                             ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
+                        } else if (NavList.contains("Logout") && NavList.indexOf("Logout") == id) {
 
-                        } else if (id == 6) {
+//                        } else if (id == 6) {
                             Log.i("Logout", "Logout Activity");
                             SharedPreferences login_token = getSharedPreferences("LoginToken",
                                     Context.MODE_PRIVATE);

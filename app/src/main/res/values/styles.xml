@@ -59,8 +59,8 @@
         <item name="boxStrokeWidth">2.5dp</item>
     </style>
         <style name="TextLabelEditeText">
-            <item name="android:paddingStart">20dp</item>
-            <item name="android:paddingEnd">20dp</item>
+            <item name="android:paddingLeft">20dp</item>
+            <item name="android:paddingRight">20dp</item>
             <item name="fontFamily">@font/open_sans</item>
             <item name="android:textColor">@color/textcolor</item>
         </style>

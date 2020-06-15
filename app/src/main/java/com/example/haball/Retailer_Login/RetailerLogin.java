@@ -60,6 +60,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 
 public class RetailerLogin extends AppCompatActivity {
 
@@ -392,6 +393,14 @@ public class RetailerLogin extends AppCompatActivity {
         Volley.newRequestQueue(this).add(sr);
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(sr);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(RetailerLogin.this, Register_Activity.class);
+        startActivity(intent);
+        finish();
+
     }
 
     private void printErrorMessage(VolleyError error) {

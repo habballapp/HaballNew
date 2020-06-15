@@ -55,15 +55,19 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
         holder.discount_value.setText("Rs. " + yourFormattedString2);
         holder.UOM_value.setText(OrdersList.get(position).getUOMTitle());
         holder.tax_value.setText(OrdersList.get(position).getTaxValue());
-        holder.tax_value.setVisibility(View.GONE);
-        holder.tv_taxValue.setVisibility(View.GONE);
-        holder.separator_2.setVisibility(View.GONE);
+//        holder.tax_value.setVisibility(View.GONE);
+//        holder.tv_taxValue.setVisibility(View.GONE);
+//        holder.separator_2.setVisibility(View.GONE);
         if (!OrdersList.get(position).getTaxValue().equals("0") && !OrdersList.get(position).getTaxValue().equals("") && !OrdersList.get(position).getTaxValue().equals("null")) {
-            holder.tax_value.setVisibility(View.VISIBLE);
-            holder.tv_taxValue.setVisibility(View.VISIBLE);
-            holder.separator_2.setVisibility(View.VISIBLE);
+            holder.tv_taxValue.setText(OrdersList.get(position).getTaxValue());
+            holder.Quantity_value.setText(OrdersList.get(position).getOrderQty());
+        } else {
+            holder.tv_taxValue.setText("Quantity: ");
+            holder.tax_value.setText(OrdersList.get(position).getOrderQty());
+            holder.Quantity_value.setVisibility(View.GONE);
+            holder.separator_3.setVisibility(View.GONE);
+            holder.Quantity.setVisibility(View.GONE);
         }
-        holder.Quantity_value.setText(OrdersList.get(position).getOrderQty());
 
         String yourFormattedString3 = formatter1.format(Double.parseDouble(OrdersList.get(position).getTotalPrice()));
         holder.amount_value.setText("Rs. " + yourFormattedString3);
@@ -75,7 +79,7 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txt_products, product_code_value, separator_2, tv_taxValue, price_value, discount_value, UOM_value, tax_value, Quantity_value, amount_value;
+        TextView txt_products, product_code_value, separator_2, tv_taxValue, price_value, discount_value, UOM_value, tax_value, Quantity_value, amount_value, Quantity, separator_3;
         public ImageButton menu_btn;
 
         public ViewHolder(@NonNull View itemView) {
@@ -91,6 +95,8 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
             Quantity_value = itemView.findViewById(R.id.Quantity_value);
             amount_value = itemView.findViewById(R.id.amount_value);
             separator_2 = itemView.findViewById(R.id.separator_2);
+            Quantity = itemView.findViewById(R.id.Quantity);
+            separator_3 = itemView.findViewById(R.id.separator_3);
         }
     }
 }

@@ -72,7 +72,10 @@ public class PlaceholderFragment extends Fragment {
     private String Token;
     private HashMap<String, String> RetailerOrderStatusKVP = new HashMap<>();
     private StatusKVP StatusKVPClass;
-//    private String DistributorId;
+    private TextView discount_amount;
+    private TextView total_amount;
+
+    //    private String DistributorId;
    // private TextInputLayout layout_txt_created_date, layout_transaction_date, layout_txt_bank, layout_txt_authorization_id, layout_txt_settlement_id, layout_txt_status, layout_txt_amount, layout_txt_transaction_charges, layout_txt_total_amount;
 
     public static PlaceholderFragment newInstance(int index) {
@@ -149,6 +152,8 @@ public class PlaceholderFragment extends Fragment {
             case 2: {
                 rootView = inflater.inflate(R.layout.fragment_retailer_orders_details_tab, container, false);
                 rv_fragment_retailer_order_details = rootView.findViewById(R.id.rv_fragment_retailer_order_details);
+                discount_amount = rootView.findViewById(R.id.discount_amount);
+                total_amount = rootView.findViewById(R.id.total_amount);
                 rv_fragment_retailer_order_details.setHasFixedSize(true);
                 layoutManager = new LinearLayoutManager(rootView.getContext());
                 rv_fragment_retailer_order_details.setLayoutManager(layoutManager);
@@ -290,10 +295,15 @@ public class PlaceholderFragment extends Fragment {
                 Type type = new TypeToken<List<RetailerViewOrderProductModel>>() {
                 }.getType();
                 try {
+                    double totalPrice = 0;
                     invo_productList = gson.fromJson(response.get("OrderDetails").toString(), type);
+                    for(int i = 0; i < invo_productList.size(); i++) {
+                        totalPrice += Double.parseDouble(invo_productList.get(i).getTotalPrice());
+                    }
                     Log.i("OrderDetails", String.valueOf(response.get("OrderDetails")));
                     RetailerViewOrderProductAdapter productAdapter = new RetailerViewOrderProductAdapter(getContext(), invo_productList);
                     rv_fragment_retailer_order_details.setAdapter(productAdapter);
+                    total_amount.setText(String.valueOf(totalPrice));
                     if (invo_productList.size() != 0) {
                         tv_shipment_no_data.setVisibility(View.GONE);
                     } else {

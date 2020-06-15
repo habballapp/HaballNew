@@ -57,11 +57,7 @@
                     android:layout_height="match_parent"
                     android:fontFamily="@font/open_sans"
                     android:inputType="textPassword"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingEnd="60dp"
-                    android:paddingRight="60dp"
-                    android:paddingBottom="5dp"
+                    android:theme="@style/TextLabelEditeText"
                     android:textColor="#676a6c" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -111,11 +107,7 @@
                     android:drawableRight="@drawable/ic_edit_black_24dp"
                     android:fontFamily="@font/open_sans"
                     android:inputType="textPassword"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingEnd="60dp"
-                    android:paddingRight="60dp"
-                    android:paddingBottom="5dp"
+                    android:theme="@style/TextLabelEditeText"
                     android:textColor="#676a6c" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -167,11 +159,7 @@
                     android:drawableRight="@drawable/ic_remove_red_eye_black_24dp"
                     android:fontFamily="@font/open_sans"
                     android:inputType="textPassword"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingEnd="60dp"
-                    android:paddingRight="60dp"
-                    android:paddingBottom="5dp"
+                    android:theme="@style/TextLabelEditeText"
                     android:textColor="#676a6c" />
 
             </com.google.android.material.textfield.TextInputLayout>

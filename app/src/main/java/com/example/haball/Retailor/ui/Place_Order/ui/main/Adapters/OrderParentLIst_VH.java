@@ -2,6 +2,7 @@ package com.example.haball.Retailor.ui.Place_Order.ui.main.Adapters;
 
 
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -19,8 +20,9 @@ public class OrderParentLIst_VH extends ParentViewHolder {
     public ImageView minus_icon;
     public RecyclerView subchlid_RV;
     public RelativeLayout rl_parentList;
+    private RelativeLayout filter_layout;
 
-    public OrderParentLIst_VH(View itemView) {
+    public OrderParentLIst_VH(View itemView, RelativeLayout filter_layout) {
         super(itemView);
         _textview = (TextView) itemView.findViewById(R.id.orderName_retailer);
         imageView = itemView.findViewById(R.id.plus_icon);
@@ -30,6 +32,7 @@ public class OrderParentLIst_VH extends ParentViewHolder {
         rl_orderName_retailer = itemView.findViewById(R.id.rl_orderName_retailer);
         rl_parentList = itemView.findViewById(R.id.rl_parentList);
         minus_icon.setVisibility(View.GONE);
+        this.filter_layout = filter_layout;
         View.OnClickListener plusMinusOnClick = new View.OnClickListener() {
             @Override
             public void onClick(View itemView) {
@@ -49,6 +52,20 @@ public class OrderParentLIst_VH extends ParentViewHolder {
             collapseView();
             minus_icon.setVisibility(View.GONE);
             imageView.setVisibility(View.VISIBLE);
+
+            if (filter_layout.getVisibility() == View.GONE) {
+
+                filter_layout.setVisibility(View.VISIBLE);
+                TranslateAnimation animate1 = new TranslateAnimation(
+                        0,                 // fromXDelta
+                        0,                 // toXDelta
+                        -filter_layout.getHeight(),  // fromYDelta
+                        0);                // toYDelta
+                animate1.setDuration(250);
+                animate1.setFillAfter(true);
+                filter_layout.clearAnimation();
+                filter_layout.startAnimation(animate1);
+            }
 //            rl_orderName_retailer.setBackgroundResource(R.drawable.underline);
         } else {
             expandView();

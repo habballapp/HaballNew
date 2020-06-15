@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,12 +39,14 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
     private List<OrderParentLIst_VH> OrderParentList = new ArrayList<>();
     private int parentPosition = -1;
     private List<OrderParentlist_Model> parentItemList;
+    private RelativeLayout filter_layout;
 
-    public ParentListAdapter(Context context, List<OrderParentlist_Model> parentItemList) {
+    public ParentListAdapter(Context context, List<OrderParentlist_Model> parentItemList, RelativeLayout filter_layout) {
         super(parentItemList);
         inflater = LayoutInflater.from(context);
         this.context = context;
         this.parentItemList = parentItemList;
+        this.filter_layout = filter_layout;
 
         SharedPreferences selectedProducts = context.getSharedPreferences("selectedProducts_retailer_own",
                 Context.MODE_PRIVATE);
@@ -66,7 +69,7 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
     @Override
     public OrderParentLIst_VH onCreateParentViewHolder(ViewGroup viewGroup, int viewType) {
         View view = inflater.inflate(R.layout.parentlist_retailer_order, viewGroup, false);
-        return new OrderParentLIst_VH(view);
+        return new OrderParentLIst_VH(view, filter_layout);
 
     }
 

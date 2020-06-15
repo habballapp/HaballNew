@@ -142,7 +142,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-               text.setPadding(30, 0, 30, 0);
+                text.setPadding(30, 0, 30, 0);
                 text.setTypeface(myFont);
                 return view;
             }
@@ -154,7 +154,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-               text.setPadding(30, 0, 30, 0);
+                text.setPadding(30, 0, 30, 0);
                 return view;
             }
         };
@@ -185,12 +185,22 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                 ((TextView) parent.getChildAt(position)).setTextColor(getResources().getColor(R.color.textcolor));
                 ((TextView) parent.getChildAt(position)).setTextSize((float) 13.6);
                 ((TextView) parent.getChildAt(position)).setPadding(50, 0, 50, 0);
-//                try {
-//                    Log.i("Categoriesselected", Categories.get(Category_selected) + " - " + Category_selected);
-//                    getFilteredProductCategory(Categories.get(Category_selected));
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
+                if(position != 0) {
+                    try {
+                        Log.i("Categoriesselected", Categories.get(Category_selected) + " - " + Category_selected);
+                        getFilteredProductCategory(Categories.get(Category_selected));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Log.i("titles123", "in else");
+                    try {
+                        getProductCategory();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
             }
 
             @Override
@@ -215,11 +225,11 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
 //                titles = new ArrayList<>();
                 if (!String.valueOf(s).equals("")) {
                     Log.i("titles123", "in if");
-//                    try {
-//                        getFilteredProductsFromCategory(String.valueOf(s));
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
+                    try {
+                        getFilteredProduct(String.valueOf(s));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     Log.i("titles123", "in else");
                     try {
@@ -245,10 +255,10 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                 y = dy;
                 if (dy <= -5) {
                     scrollEvent.add("ScrollDown");
-//                            Log.i("scrolling", "Scroll Down");
+                    Log.i("scrolling", "Scroll Down");
                 } else if (dy > 5) {
                     scrollEvent.add("ScrollUp");
-//                            Log.i("scrolling", "Scroll Up");
+                    Log.i("scrolling", "Scroll Up");
                 }
                 String scroll = getScrollEvent();
 
@@ -572,7 +582,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                     productList = gsonChild.fromJson(String.valueOf(resultMain.get("Products")), typeChild);
                     Log.i("productList", String.valueOf(productList));
 
-                    ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData());
+                    ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData(), spinner_container_main);
                     //adapter.setParentClickableViewAnimationDefaultDuration();
                     //adapter.setParentAndIconExpandOnClick(false);
                     recyclerView.setAdapter(adapter);
@@ -652,6 +662,8 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                     e.printStackTrace();
                 }
                 titles = new ArrayList<>();
+                Categories = new HashMap<>();
+                totalCategoryTitle = new ArrayList<>();
                 Log.i("result", String.valueOf(result));
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<OrderParentlist_Model>>() {
@@ -705,7 +717,143 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                     productList = gsonChild.fromJson(String.valueOf(resultMain.get("Products")), typeChild);
                     Log.i("productList", String.valueOf(productList));
 
-                    ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData());
+                    ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData(), spinner_container_main);
+                    //adapter.setParentClickableViewAnimationDefaultDuration();
+                    //adapter.setParentAndIconExpandOnClick(false);
+                    recyclerView.setAdapter(adapter);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+
+                error.printStackTrace();
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                return params;
+            }
+        };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(getContext()).add(sr);
+
+        new MyAsyncTask().execute();
+    }
+
+
+    private void getFilteredProduct(final String name) throws JSONException {
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+        Log.i("Token", Token);
+
+//        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+//                Context.MODE_PRIVATE);
+//        Retailer_Id = sharedPreferences1.getString("Retailer_Id", "");
+//        Log.i("Retailer_Id ", DistributorId);
+
+        SharedPreferences sharedPreferences2 = this.getActivity().getSharedPreferences("DealerInfo",
+                Context.MODE_PRIVATE);
+        CompanyId = sharedPreferences2.getString("DealerCode", "");
+        Log.i("DealerCode", CompanyId);
+
+
+//        JSONObject map = new JSONObject();
+//        map.put("DistributorId", Integer.parseInt(DistributorId));
+//        Log.i("Map", String.valueOf(map));
+        if (!URL_PRODUCT_CATEGORY.contains("/" + CompanyId))
+            URL_PRODUCT_CATEGORY = URL_PRODUCT_CATEGORY + CompanyId;
+
+//        Log.i("Map", String.valueOf(map));
+
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_PRODUCT_CATEGORY, null, new Response.Listener<JSONObject>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onResponse(JSONObject resultMain) {
+                JSONArray resultFilter = null;
+                JSONArray result = null;
+                JSONArray resultProduct = null;
+                try {
+                    resultFilter = resultMain.getJSONArray("MainCategory");
+                    result = resultMain.getJSONArray("SubCategory");
+                    resultProduct = resultMain.getJSONArray("Products");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                titles = new ArrayList<>();
+                Categories = new HashMap<>();
+                totalCategoryTitle = new ArrayList<>();
+                Log.i("result", String.valueOf(result));
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<OrderParentlist_Model>>() {
+                }.getType();
+                try {
+                    for (int j = 0; j < ((JSONArray) result).length(); j++) {
+                        OrderParentlist_Model tempModel = gson.fromJson(((JSONArray) result).get(j).toString(), OrderParentlist_Model.class);
+                        int countOfProduct = 0;
+                        for (int k = 0; k < ((JSONArray) resultProduct).length(); k++) {
+                            OrderChildlist_Model tempModelProduct = gson.fromJson(((JSONArray) resultProduct).get(k).toString(), OrderChildlist_Model.class);
+                            if (tempModel.getCategoryId().equals(tempModelProduct.getProductCategoryId()))
+                                if (tempModelProduct.getTitle().toLowerCase().contains(name.toLowerCase()))
+                                    countOfProduct++;
+                        }
+
+                        if (countOfProduct > 0)
+                            titles.add(tempModel);
+                    }
+
+                    for (int j = 0; j < ((JSONArray) resultFilter).length(); j++) {
+                        OrderParentlist_Model tempModel = gson.fromJson(((JSONArray) resultFilter).get(j).toString(), OrderParentlist_Model.class);
+                        int countOfProduct = 0;
+                        for (int k = 0; k < titles.size(); k++) {
+                            OrderParentlist_Model tempModelProduct = titles.get(k);
+//                            Log.i("tempModelProduct", tempModel.getCategoryId() + " - " + tempModelProduct.getParentId());
+                            if (tempModel.getCategoryId().equals(tempModelProduct.getParentId())) {
+
+//                                Log.i("tempModelProduct", "found: " + tempModel.getCategoryId() + " - " + tempModelProduct.getParentId());
+                                countOfProduct++;
+                            }
+                        }
+
+                        if (countOfProduct > 0) {
+                            Categories.put(tempModel.getTitle(), tempModel.getCategoryId());
+                            totalCategoryTitle.add(tempModel.getTitle());
+                        }
+                    }
+                    Log.i("totalCategoryTitle", String.valueOf(totalCategoryTitle));
+                    arrayAdapterSpinnerConso.notifyDataSetChanged();
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                temp_titles = titles;
+
+                Log.i("titles", String.valueOf(titles));
+
+                try {
+                    Gson gsonChild = new Gson();
+                    Type typeChild = new TypeToken<List<OrderChildlist_Model>>() {
+                    }.getType();
+                    List<OrderChildlist_Model> tempproductList = gsonChild.fromJson(String.valueOf(resultMain.get("Products")), typeChild);
+                    for(int i = 0; i < tempproductList.size(); i++) {
+                        if(tempproductList.get(i).getTitle().toLowerCase().contains(name.toLowerCase()))
+                            productList.add(tempproductList.get(i));
+                    }
+                    Log.i("productList", String.valueOf(productList));
+
+                    ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData(), spinner_container_main);
                     //adapter.setParentClickableViewAnimationDefaultDuration();
                     //adapter.setParentAndIconExpandOnClick(false);
                     recyclerView.setAdapter(adapter);
