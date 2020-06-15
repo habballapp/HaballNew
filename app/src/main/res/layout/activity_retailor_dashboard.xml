@@ -37,7 +37,6 @@
                 android:layout_gravity="left"
                 android:dividerHeight="1dp"
                 android:theme="@style/DrawerItemText"
-                android:groupIndicator="@drawable/group_indicator"
                 android:scrollbars="vertical">
             </com.techatmosphere.expandablenavigation.view.ExpandableNavigationListView>
 

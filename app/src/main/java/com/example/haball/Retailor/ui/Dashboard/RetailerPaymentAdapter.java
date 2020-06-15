@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -91,10 +92,13 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
                                 case R.id.view_invoice:
-//                                     Toast.makeText(context, "View payments", Toast.LENGTH_LONG).show();
-//                                FragmentTransaction fragmentTransaction= ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
-//                                fragmentTransaction.add(R.id.main_container,new Distributor_Invoice_DashBoard());
-//                                fragmentTransaction.commit();
+                                    SharedPreferences OrderId = ((FragmentActivity)context).getSharedPreferences("PaymentId",
+                                            Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = OrderId.edit();
+                                    editor.putString("PaymentId", paymentsList.get(position).getID());
+                                    editor.putString("InvoiceStatus", String.valueOf(paymentsList.get(position).getStatus()));
+                                    Log.i("InvoiceStatus_Adapter", String.valueOf(paymentsList.get(position).getStatus()));
+                                    editor.commit();
                                     fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
                                     fragmentTransaction.replace(R.id.main_container_ret, new RetailerViewInvoice()).addToBackStack("tag");
                                     fragmentTransaction.commit();

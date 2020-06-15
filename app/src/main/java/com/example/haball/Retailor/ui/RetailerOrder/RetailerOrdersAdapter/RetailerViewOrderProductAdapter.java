@@ -59,7 +59,7 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
 //        holder.tv_taxValue.setVisibility(View.GONE);
 //        holder.separator_2.setVisibility(View.GONE);
         if (!OrdersList.get(position).getTaxValue().equals("0") && !OrdersList.get(position).getTaxValue().equals("") && !OrdersList.get(position).getTaxValue().equals("null")) {
-            holder.tv_taxValue.setText(OrdersList.get(position).getTaxValue());
+            holder.tax_value.setText(OrdersList.get(position).getTaxValue());
             holder.Quantity_value.setText(OrdersList.get(position).getOrderQty());
         } else {
             holder.tv_taxValue.setText("Quantity: ");

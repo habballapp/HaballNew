@@ -143,6 +143,7 @@
         <item name="fontFamily">@font/open_sans</item>
     </style>
     <style name="DrawerItemText">
+        <item name="android:state_selected">true</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">#4A4D51</item>
         <item name="fontFamily">@font/open_sans</item>

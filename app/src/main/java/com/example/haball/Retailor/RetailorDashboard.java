@@ -269,18 +269,6 @@ public class RetailorDashboard extends AppCompatActivity {
                     @Override
                     public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                         navigationExpandableListView.setSelected(groupPosition);
-//                        Log.i("navListView", String.valueOf(navigationExpandableListView.getSelectedItem()));
-//                        Log.i("navListView", String.valueOf(navigationExpandableListView.getSelectedId()));
-//                        Log.i("navListView", String.valueOf(navigationExpandableListView.getSelectedItemId()));
-//                        Log.i("navListView", String.valueOf(navigationExpandableListView.getSelectedItemPosition()));
-//                        Log.i("navListView", String.valueOf(navigationExpandableListView.getSelectedView()));
-//                        Log.i("navListView", String.valueOf(groupPosition));
-                        Log.i("navListView", String.valueOf(id));
-//                        Log.i("navListView", String.valueOf(parent));
-                        Log.i("navListView", String.valueOf(NavList.indexOf("Dashboard")));
-                        Log.i("navListView", String.valueOf(NavList.indexOf("My Network")));
-                        Log.i("navListView", String.valueOf(NavList.indexOf("Place Order")));
-                        Log.i("navListView", String.valueOf(NavList.indexOf("Make Payment")));
 
                         if (NavList.contains("Dashboard") && NavList.indexOf("Dashboard") == id) {
 //                        if (id == 0) {
