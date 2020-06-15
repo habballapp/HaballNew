@@ -87,7 +87,7 @@ public class View_Payment_Fragment extends Fragment {
         if (!PAYMENT_REQUEST_URL.contains(PaymentsRequestId))
             PAYMENT_REQUEST_URL = PAYMENT_REQUEST_URL + PaymentsRequestId;
 
-        btn_make_payment = root.findViewById(R.id.btn_make_payment);
+        btn_make_payment = root.findViewById(R.id.btn_addpayment);
         txt_heading = root.findViewById(R.id.txt_heading);
         txt_paymentid = root.findViewById(R.id.txt_paymentid);
         txt_created_date = root.findViewById(R.id.txt_created_date);

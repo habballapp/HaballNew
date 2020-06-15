@@ -97,7 +97,7 @@ public class SplashScreen extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         }
-                    } else if (IsTermAndConditionAccepted.equals("0")) {
+                    } else if (IsTermAndConditionAccepted.equals("0") || UpdatePassword.equals("0")) {
                         if (sharedPreferences.getString("User_Type", "").equals("Distributor")) {
                             Intent intent = new Intent(SplashScreen.this, Distribution_Login.class);
                             startActivity(intent);

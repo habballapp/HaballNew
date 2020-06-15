@@ -390,7 +390,7 @@ public class DistributorDashboard extends AppCompatActivity {
     }
 
 
-    private class MyAsyncTask extends AsyncTask<Void, Void, Void> {
+    public class MyAsyncTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
             try {

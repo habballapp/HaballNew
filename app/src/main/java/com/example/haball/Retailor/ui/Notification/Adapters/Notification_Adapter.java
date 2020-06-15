@@ -15,20 +15,26 @@ import android.widget.Toast;
 import com.example.haball.Distributor.ui.Fragment_Notification.Dismiss_Notification;
 import com.example.haball.Distributor.ui.Fragment_Notification.NotificationAdapter;
 import com.example.haball.R;
+import com.example.haball.Retailor.ui.Notification.Retailer_Notification_Model;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adapter.ViewHolder> {
 
     private Context context;
     private  String subject,notification_txt;
+    private List<Retailer_Notification_Model> NotificationList = new ArrayList<>();
 
-    public Notification_Adapter(Context context, String subject, String notification_txt) {
+    public Notification_Adapter(Context context, List<Retailer_Notification_Model> notificationList) {
         this.context = context;
-        this.subject = subject;
-        this.notification_txt = notification_txt;
+//        this.subject = subject;
+//        this.notification_txt = notification_txt;
+        NotificationList = notificationList;
     }
 
     public Notification_Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,8 +45,8 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
     @Override
     public void onBindViewHolder(@NonNull Notification_Adapter.ViewHolder holder, int position) {
 
-        holder.subject.setText(subject);
-        holder.notification_message.setText(notification_txt);
+        holder.subject.setText(NotificationList.get(position).getSubject());
+        holder.notification_message.setText(NotificationList.get(position).getAlertMessage());
         holder.rl_payments_notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +79,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
 
     @Override
     public int getItemCount() {
-        return 2;
+        return NotificationList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

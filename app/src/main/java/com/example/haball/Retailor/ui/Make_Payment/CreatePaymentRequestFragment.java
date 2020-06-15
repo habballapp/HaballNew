@@ -1,12 +1,16 @@
 package com.example.haball.Retailor.ui.Make_Payment;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -39,6 +43,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.payments.PaymentScreen3Fragment;
 import com.example.haball.R;
+import com.example.haball.Retailor.ui.Support.SupportFragment;
 import com.example.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -166,6 +171,9 @@ public class CreatePaymentRequestFragment extends Fragment {
             public void onClick(View view) {
 
                 if (!company_names.equals("") && !String.valueOf(txt_amount.getText()).equals("")) {
+                    btn_create.setEnabled(false);
+                    btn_create.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+
                     try {
                         makeSaveRequest();
                     } catch (JSONException e) {
@@ -201,13 +209,20 @@ public class CreatePaymentRequestFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        final String txt_amounts = txt_amount.getText().toString();
+        final String company = (String) spinner_company.getItemAtPosition(spinner_company.getSelectedItemPosition()).toString();
+        final FragmentManager fm = getActivity().getSupportFragmentManager();
 
         txt_amount.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
                     txt_amount.clearFocus();
-                    showDiscardDialog();
+                    if (!txt_amounts.equals("") || !company.equals("Select Company")) {
+                        showDiscardDialog();
+                    } else {
+                        fm.popBackStack();
+                    }
                 }
                 return false;
             }
@@ -221,13 +236,11 @@ public class CreatePaymentRequestFragment extends Fragment {
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     // handle back button's click listener
 //                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
-                    String txt_amounts = txt_amount.getText().toString();
-                    String company = (String) spinner_company.getItemAtPosition(spinner_company.getSelectedItemPosition()).toString();
-                    if (!txt_amounts.equals("") || !company.equals("Company *")) {
+                    if (!txt_amounts.equals("") || !company.equals("Select Company")) {
                         showDiscardDialog();
                         return true;
                     } else {
-                        return false;
+                        fm.popBackStack();
                     }
                 }
                 return false;
@@ -319,6 +332,8 @@ public class CreatePaymentRequestFragment extends Fragment {
                     e.printStackTrace();
                 }
 
+                btn_create.setEnabled(true);
+                btn_create.setBackground(getResources().getDrawable(R.drawable.button_background));
 
                 SharedPreferences PrePaidNumber = getContext().getSharedPreferences("PrePaidNumber",
                         Context.MODE_PRIVATE);
@@ -330,19 +345,19 @@ public class CreatePaymentRequestFragment extends Fragment {
                 editor.putString("Amount", txt_amount.getText().toString());
                 editor.apply();
 
+                showSuccessDialog(prepaid_number);
 
-                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
-                fragmentTransaction.commit();
-
-                Toast.makeText(getContext(), "Payment Request " + prepaid_number + " has been created successfully.", Toast.LENGTH_SHORT).show();
-                Log.e("RESPONSE prepaid_number", result.toString());
+//                Toast.makeText(getContext(), "Payment Request " + prepaid_number + " has been created successfully.", Toast.LENGTH_SHORT).show();
+//                Log.e("RESPONSE prepaid_number", result.toString());
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 printErrorMessage(error);
                 error.printStackTrace();
+
+                btn_create.setEnabled(true);
+                btn_create.setBackground(getResources().getDrawable(R.drawable.button_background));
             }
         }) {
             @Override
@@ -357,6 +372,51 @@ public class CreatePaymentRequestFragment extends Fragment {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
+    }
+
+    private void showSuccessDialog(String paymentID) {
+
+        final Dialog fbDialogue = new Dialog(getActivity());
+        //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+        fbDialogue.setContentView(R.layout.password_updatepopup);
+        TextView tv_pr1, txt_header1;
+        txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
+        tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
+        tv_pr1.setText("");
+        txt_header1.setText("Payment Created");
+        String steps1 = "Payment ID ";
+        String steps2 = " has been created successfully.";
+        String title = paymentID;
+        SpannableString ss1 = new SpannableString(title);
+        ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
+
+        tv_pr1.append(steps1);
+        tv_pr1.append(ss1);
+        tv_pr1.append(steps2);
+        fbDialogue.setCancelable(true);
+        fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+        WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+        layoutParams.y = 200;
+        layoutParams.x = -70;// top margin
+        fbDialogue.getWindow().setAttributes(layoutParams);
+        fbDialogue.show();
+
+        ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+        close_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fbDialogue.dismiss();
+            }
+        });
+
+        fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
+                fragmentTransaction.commit();
+            }
+        });
     }
 
     private void fetchCompanyData() {

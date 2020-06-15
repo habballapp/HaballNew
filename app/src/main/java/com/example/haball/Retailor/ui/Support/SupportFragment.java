@@ -102,7 +102,6 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
     private List<String> scrollEvent = new ArrayList<>();
     private Typeface myFont;
 
-
     public SupportFragment() {
         // Required empty public constructor
     }
@@ -175,7 +174,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-               text.setPadding(30, 0, 30, 0);
+                text.setPadding(50, 0, 50, 0);
                 text.setTypeface(myFont);
                 return view;
             }
@@ -187,7 +186,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-               text.setPadding(30, 0, 30, 0);
+                text.setPadding(50, 0, 50, 0);
                 return view;
             }
         };
@@ -204,15 +203,20 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
+                    }
+                    try {
+                        fetchSupport();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 } else {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -246,7 +250,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                                 text.setTextSize((float) 13.6);
-                               text.setPadding(30, 0, 30, 0);
+                                text.setPadding(50, 0, 50, 0);
                                 text.setTypeface(myFont);
                                 return view;
                             }
@@ -258,7 +262,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                                 text.setTextSize((float) 13.6);
-                               text.setPadding(30, 0, 30, 0);
+                                text.setPadding(50, 0, 50, 0);
                                 return view;
                             }
                         };
@@ -305,7 +309,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                                 text.setTextSize((float) 13.6);
-                               text.setPadding(30, 0, 30, 0);
+                                text.setPadding(50, 0, 50, 0);
                                 text.setTypeface(myFont);
                                 return view;
                             }
@@ -317,7 +321,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                                 text.setTextSize((float) 13.6);
-                               text.setPadding(30, 0, 30, 0);
+                                text.setPadding(50, 0, 50, 0);
                                 return view;
                             }
                         };
@@ -345,41 +349,47 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (Filter_selected.equals("Status") || Filter_selected.equals("IssueType")) {
-                    if (i == 0) {
+                if (i == 0) {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        fetchSupport();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+                    if (Filter_selected.equals("Status"))
+                        Filter_selected_value = String.valueOf(i - 1);
+                    else if (Filter_selected.equals("IssueType"))
+                        Filter_selected_value = String.valueOf(i);
+
+                    if (!Filter_selected_value.equals("")) {
                         try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                            ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
-                        } catch (NullPointerException e) {
+                            fetchFilteredSupport();
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     } else {
                         try {
-                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                            ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
-                        } catch (NullPointerException ex) {
-                            ex.printStackTrace();
+                            fetchSupport();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                        Filter_selected_value = String.valueOf(i - 1);
-                        if (!Filter_selected_value.equals("")) {
-                            try {
-                                fetchFilteredSupport();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                } else {
-                    Filter_selected_value = filters.get(i);
-                    Log.i("Filter_selected_value", Filter_selected_value);
-                    try {
-                        fetchFilteredSupport();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
                 }
+
 
             }
 
@@ -448,7 +458,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                                 0,                 // toXDelta
                                 -spinner_container_main.getHeight(),  // fromYDelta
                                 0);                // toYDelta
-                        animate1.setDuration(230);
+                        animate1.setDuration(250);
                         animate1.setFillAfter(true);
                         spinner_container_main.clearAnimation();
                         spinner_container_main.startAnimation(animate1);
@@ -540,6 +550,22 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
 
                 mAdapter = new SupportDashboardRetailerAdapter(getContext(), SupportList);
                 recyclerView.setAdapter(mAdapter);
+
+                if (SupportList.size() < 4) {
+                    if (spinner_container_main.getVisibility() == View.GONE) {
+
+                        spinner_container_main.setVisibility(View.VISIBLE);
+                        TranslateAnimation animate1 = new TranslateAnimation(
+                                0,                 // fromXDelta
+                                0,                 // toXDelta
+                                -spinner_container_main.getHeight(),  // fromYDelta
+                                0);                // toYDelta
+                        animate1.setDuration(250);
+                        animate1.setFillAfter(true);
+                        spinner_container_main.clearAnimation();
+                        spinner_container_main.startAnimation(animate1);
+                    }
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -557,7 +583,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
             }
         };
         request.setRetryPolicy(new DefaultRetryPolicy(
-                13000,
+                15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(request);
@@ -605,7 +631,21 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 mAdapter = new SupportDashboardRetailerAdapter(getContext(), SupportList);
                 recyclerView.setAdapter(mAdapter);
 
+                if (SupportList.size() < 4) {
+                    if (spinner_container_main.getVisibility() == View.GONE) {
 
+                        spinner_container_main.setVisibility(View.VISIBLE);
+                        TranslateAnimation animate1 = new TranslateAnimation(
+                                0,                 // fromXDelta
+                                0,                 // toXDelta
+                                -spinner_container_main.getHeight(),  // fromYDelta
+                                0);                // toYDelta
+                        animate1.setDuration(250);
+                        animate1.setFillAfter(true);
+                        spinner_container_main.clearAnimation();
+                        spinner_container_main.startAnimation(animate1);
+                    }
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -622,7 +662,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 return params;
             }
         };
-        request.setRetryPolicy(new DefaultRetryPolicy(13000,
+        request.setRetryPolicy(new DefaultRetryPolicy(15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(request);

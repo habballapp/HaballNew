@@ -26,6 +26,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -33,6 +34,7 @@ import android.text.TextWatcher;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,6 +92,7 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
     private int keyDel;
     private TextView txt_change1;
     private TextView tv_pr1, txt_header1;
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -157,7 +160,12 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDiscardDialog();
+//                if (!String.valueOf(txt_newpassword.getText()).equals("") || !String.valueOf(txt_cfmpassword.getText()).equals(""))
+                    showDiscardDialog(RetailorDashboard.class, "RetailorDashboard");
+//                else {
+//                    Intent intent = new Intent(Retailer_UpdatePassword.this, RetailorDashboard.class);
+//                    startActivity(intent);
+//                }
             }
         });
 
@@ -165,22 +173,31 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
     }
 
 
-    private void showDiscardDialog() {
+    private void showDiscardDialog(final Class targetClass, String className) {
         final FragmentManager fm = getSupportFragmentManager();
 
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         LayoutInflater inflater = LayoutInflater.from(this);
         final View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
         alertDialog.setCancelable(true);
-       TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
-        String steps = "It is recommended to change the default generated password.";
-        String title="Are you sure, you want to skip?";
+        TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
+        TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+        tv_discard.setText("Alert");
+        if(className.equals("RetailorDashboard")) {
+            String steps = "It is recommended to change the default generated password.";
+            String title = "Are you sure, you want to skip?";
+            SpannableString ss1 = new SpannableString(title);
+            ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
+            tv_discard_txt.append(steps);
+            tv_discard_txt.append(" ");
+            tv_discard_txt.append(ss1);
+            btn_discard.setText("Skip");
+        } else {
+            tv_discard_txt.setText("Are you sure, you want to exit this page?");
+            btn_discard.setText("Exit");
+        }
 
-        SpannableString ss1=  new SpannableString(title);
-        ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
-        tv_discard_txt.append(steps);
-        tv_discard_txt.append(" ");
-        tv_discard_txt.append(ss1);
 
         alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
         WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
@@ -188,12 +205,11 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
         layoutParams.x = -70;// top margin
         alertDialog.getWindow().setAttributes(layoutParams);
         alertDialog.setView(view_popup);
-        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
         btn_discard.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.i("CreatePayment", "Button Clicked");
                 alertDialog.dismiss();
-                Intent intent = new Intent(Retailer_UpdatePassword.this, RetailorDashboard.class);
+                Intent intent = new Intent(Retailer_UpdatePassword.this, targetClass);
                 startActivity(intent);
             }
         });
@@ -215,6 +231,16 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
 
 
         alertDialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!String.valueOf(txt_newpassword.getText()).equals("") || !String.valueOf(txt_cfmpassword.getText()).equals(""))
+            showDiscardDialog(RetailerLogin.class, "RetailerLogin");
+        else {
+            Intent intent = new Intent(Retailer_UpdatePassword.this, RetailerLogin.class);
+            startActivity(intent);
+        }
     }
 
     private final TextWatcher watcher = new TextWatcher() {
@@ -372,6 +398,7 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 }
+
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -439,6 +466,7 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 }
+
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -531,6 +559,7 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
             }
         }
     }
+
     private void nullifySharedPreference() {
         SharedPreferences login_token = getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);

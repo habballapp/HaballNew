@@ -276,7 +276,7 @@ public class DashBoardFragment extends Fragment {
                     }.getType();
                     PaymentsList = gson.fromJson(result.getJSONArray("PrePaidRequestData").toString(), type);
 
-                    mAdapter = new RetailerPaymentAdapter(getContext(), PaymentsList);
+                    mAdapter = new RetailerPaymentAdapter(getActivity(), getContext(), PaymentsList);
                     recyclerView.setAdapter(mAdapter);
 
                 } catch (JSONException e) {
@@ -340,7 +340,7 @@ public class DashBoardFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                mAdapter = new RetailerPaymentAdapter(getContext(), PaymentsList);
+                mAdapter = new RetailerPaymentAdapter(getActivity(), getContext(), PaymentsList);
                 recyclerView.setAdapter(mAdapter);
             }
         }, new Response.ErrorListener() {

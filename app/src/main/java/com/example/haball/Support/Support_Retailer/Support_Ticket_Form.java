@@ -382,7 +382,19 @@ public class Support_Ticket_Form extends AppCompatActivity {
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                String txt_BName = BName.getText().toString();
+                String txt_Email = Email.getText().toString();
+                String txt_MobileNo = MobileNo.getText().toString();
+                String txt_IssueType = (String) IssueType.getItemAtPosition(IssueType.getSelectedItemPosition()).toString();
+                String txt_critcicality = (String) critcicality.getItemAtPosition(critcicality.getSelectedItemPosition()).toString();
+                String txt_Preffered_Contact = (String) Preffered_Contact.getItemAtPosition(Preffered_Contact.getSelectedItemPosition()).toString();
+                String txt_Comment = Comment.getText().toString();
+
+                if (!txt_BName.equals("") || !txt_Email.equals("") || !txt_MobileNo.equals("") || !txt_IssueType.equals("Issue Type") || !txt_critcicality.equals("Criticality") || !txt_Preffered_Contact.equals("Preferred Method of Contacting") || !txt_Comment.equals("")) {
+                    showDiscardDialog();
+                } else {
+                    finish();
+                }
             }
         });
 
@@ -531,14 +543,12 @@ public class Support_Ticket_Form extends AppCompatActivity {
         String txt_Preffered_Contact = (String) Preffered_Contact.getItemAtPosition(Preffered_Contact.getSelectedItemPosition()).toString();
         String txt_Comment = Comment.getText().toString();
 
-        if (!txt_BName.equals("") || !txt_Email.equals("") || !txt_MobileNo.equals("") || !txt_IssueType.equals("Issue Type *") || !txt_critcicality.equals("Criticality *") || !txt_Preffered_Contact.equals("Preferred Method of Contacting *") || !txt_Comment.equals("")) {
+        if (!txt_BName.equals("") || !txt_Email.equals("") || !txt_MobileNo.equals("") || !txt_IssueType.equals("Issue Type") || !txt_critcicality.equals("Criticality") || !txt_Preffered_Contact.equals("Preferred Method of Contacting") || !txt_Comment.equals("")) {
             showDiscardDialog();
         } else {
             finish();
         }
     }
-
-
 
 
     private void showDiscardDialog() {
@@ -576,6 +586,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
 
         alertDialog.show();
     }
+
 
     private void checkFieldsForEmptyValues() {
         String reg_ex = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";

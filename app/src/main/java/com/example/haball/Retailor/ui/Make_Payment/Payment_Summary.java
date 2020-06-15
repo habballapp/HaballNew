@@ -119,7 +119,7 @@ public class Payment_Summary extends Fragment {
                     }.getType();
                     PaymentsList = gson.fromJson(result.getJSONArray("PrePaidRequestData").toString(), type);
 
-                    mAdapter = new RetailerPaymentAdapter(getContext(), PaymentsList);
+                    mAdapter = new RetailerPaymentAdapter(getActivity(), getContext(), PaymentsList);
                     recyclerView.setAdapter(mAdapter);
 
                 } catch (JSONException e) {

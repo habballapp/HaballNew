@@ -251,7 +251,7 @@ public class PlaceholderFragment extends Fragment {
 
     private void Holderorders(final View root, ViewPager pager) {
         try {
-            fetchCompany(pager);
+            fetchCompany();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -284,7 +284,7 @@ public class PlaceholderFragment extends Fragment {
 
     }
 
-    private void fetchCompany(final ViewPager pager) throws JSONException {
+    private void fetchCompany() throws JSONException {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");

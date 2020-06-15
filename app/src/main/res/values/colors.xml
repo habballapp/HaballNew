@@ -20,7 +20,6 @@
     <color name="box_stroke">#C7C8CA</color>
     <color name="edit_text_hint_color">#C7C8CA</color>
     <color name="tab_ripple_color">#F0F0F0</color>
-    <color name="mtrl_textinput_default_box_stroke_color" tools:override="false">#C7C8CA</color>
-    <color name="mtrl_textinput_default_text_color_hint" tools:override="false">#C7C8CA</color>
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="false">@color/box_stroke</color>
 
 </resources>

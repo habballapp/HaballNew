@@ -14,20 +14,17 @@
         android:layout_marginStart="27dp"
         android:layout_marginEnd="27dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/ll_tv_support"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="@drawable/underline"
-            android:orientation="horizontal"
-            android:weightSum="4">
+            android:background="@drawable/underline">
 
             <TextView
                 android:id="@+id/tv_support"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2.5"
                 android:fontFamily="@font/open_sans"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
@@ -36,31 +33,31 @@
                 android:textSize="17sp" />
 
             <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.5">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_alignParentEnd="true">
 
                 <ImageView
                     android:id="@+id/image_plus"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="17dp"
                     android:src="@drawable/ic_baseline_add_24" />
 
                 <TextView
                     android:id="@+id/btn_add_ticket_retailer"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/open_sans"
-                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/image_plus"
+                    android:fontFamily="@font/open_sans"
                     android:text="Create Ticket"
                     android:textColor="@color/textcolor"
                     android:textSize="13sp" />
-                />
             </RelativeLayout>
-        </LinearLayout>
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
