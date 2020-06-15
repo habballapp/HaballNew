@@ -182,25 +182,46 @@ public class View_Payment_Fragment extends Fragment {
             public void onResponse(JSONObject result) {
                 Log.i("resultInvoice", String.valueOf(result));
                 try {
-                    //txt_heading.setText(String.valueOf(result.get("CompanyName")));
-                    if (!String.valueOf(result.get("PrePaidNumber")).equals("null"))
+                    if (!String.valueOf(result.get("DealerCode")).equals("null")) {
+                        txt_heading.setText(String.valueOf(result.get("DealerCode")));
+                        txt_heading.setTextColor(getContext().getResources().getColor(R.color.textcolor));
+                    }
+                    if (!String.valueOf(result.get("PrePaidNumber")).equals("null")) {
                         txt_paymentid.setText(String.valueOf(result.get("PrePaidNumber")));
-                    if (!String.valueOf(result.get("CreatedDate")).equals("null"))
-                    txt_created_date.setText(String.valueOf(result.get("CreatedDate")));
-                    if (!String.valueOf(result.get("TransactionDate")).equals("null"))
-                    txt_transaction_date.setText(String.valueOf(result.get("TransactionDate")));
-                    if (!String.valueOf(result.get("BankName")).equals("null"))
-                    txt_bname.setText(String.valueOf(result.get("BankName")));
-                    if (!String.valueOf(result.get("AuthID")).equals("null"))
-                    txt_authorization.setText(String.valueOf(result.get("AuthID")));
-                    if (!String.valueOf(result.get("SettlementID")).equals("null"))
-                    txt_settlement.setText(String.valueOf(result.get("SettlementID")));
-                    if (!String.valueOf(result.get("PaidAmount")).equals("null"))
-                    txt_amount.setText(String.valueOf(result.get("PaidAmount")));
-                    if (!String.valueOf(result.get("Status")).equals("null"))
-                    txt_status.setText(String.valueOf(result.get("Status")));
-                    if (!String.valueOf(result.get("TransactionCharges")).equals("null"))
-                    txt_transaction_charges.setText(String.valueOf(result.get("TransactionCharges")));
+                        txt_paymentid.setTextColor(getContext().getResources().getColor(R.color.textcolor));
+                    }
+                    if (!String.valueOf(result.get("CreatedDate")).equals("null")) {
+                        txt_created_date.setText(String.valueOf(result.get("CreatedDate")).split("T")[0]);
+                        txt_created_date.setTextColor(getContext().getResources().getColor(R.color.textcolor));
+                    }
+                    if (!String.valueOf(result.get("TransactionDate")).equals("null")) {
+                        txt_transaction_date.setText(String.valueOf(result.get("TransactionDate")).split("T")[0]);
+                        txt_transaction_date.setTextColor(getContext().getResources().getColor(R.color.textcolor));
+                    }
+                    if (!String.valueOf(result.get("BankName")).equals("null")) {
+                        txt_bname.setText(String.valueOf(result.get("BankName")));
+                        txt_bname.setTextColor(getContext().getResources().getColor(R.color.textcolor));
+                    }
+                    if (!String.valueOf(result.get("AuthID")).equals("null")) {
+                        txt_authorization.setText(String.valueOf(result.get("AuthID")));
+                        txt_authorization.setTextColor(getContext().getResources().getColor(R.color.textcolor));
+                    }
+                    if (!String.valueOf(result.get("SettlementID")).equals("null")) {
+                        txt_settlement.setText(String.valueOf(result.get("SettlementID")));
+                        txt_settlement.setTextColor(getContext().getResources().getColor(R.color.textcolor));
+                    }
+                    if (!String.valueOf(result.get("PaidAmount")).equals("null")) {
+                        txt_amount.setText(String.valueOf(result.get("PaidAmount")));
+                        txt_amount.setTextColor(getContext().getResources().getColor(R.color.textcolor));
+                    }
+                    if (!String.valueOf(result.get("Status")).equals("null")) {
+                        txt_status.setText(String.valueOf(result.get("Status")));
+                        txt_status.setTextColor(getContext().getResources().getColor(R.color.textcolor));
+                    }
+                    if (!String.valueOf(result.get("TransactionCharges")).equals("null")) {
+                        txt_transaction_charges.setText(String.valueOf(result.get("TransactionCharges")));
+                        txt_transaction_charges.setTextColor(getContext().getResources().getColor(R.color.textcolor));
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

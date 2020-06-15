@@ -47,6 +47,7 @@ import com.example.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
@@ -76,7 +77,7 @@ public class RetailerLogin extends AppCompatActivity {
     private java.net.URL url;
     private String token;
     private String success_text = "";
-    ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -298,8 +299,11 @@ public class RetailerLogin extends AppCompatActivity {
                         token = result.get("access_token").toString();
                         StatusKVP statusKVP = new StatusKVP(RetailerLogin.this, token);
                         JSONObject userAccount = new JSONObject(String.valueOf(result.get("UserAccount")));
+//                        userRight = new JSONArray(String.valueOf(userAccount.getJSONArray("UserRights")));
+//                        Log.i("userRight", String.valueOf(userRight));
                         String IsTermAndConditionAccepted = userAccount.get("IsTermAndConditionAccepted").toString();
                         String UpdatePassword = userAccount.get("UpdatePassword").toString();
+                        String userRights = userAccount.get("UserRights").toString();
                         Log.i("user account => ", userAccount.get("RetailerID").toString());
                         String RetailerId = userAccount.get("RetailerID").toString();
                         String RetailerCode = userAccount.get("RetailerCode").toString();
@@ -321,6 +325,7 @@ public class RetailerLogin extends AppCompatActivity {
                         editor.putString("IsTermAndConditionAccepted", IsTermAndConditionAccepted);
                         editor.putString("UpdatePassword", UpdatePassword);
                         editor.putString("UserId", ID);
+                        editor.putString("UserRights", userRights);
 
                         editor.commit();
                         //updatePassword token
@@ -341,12 +346,12 @@ public class RetailerLogin extends AppCompatActivity {
                         editorCompany.putString("phone_number", Mobile);
                         editorCompany.apply();
                         Log.i("UpdatePassword", UpdatePassword);
-                        if (UpdatePassword.equals("0")) {
-                            Intent login_intent = new Intent(RetailerLogin.this, Retailer_UpdatePassword.class);
+                        if (IsTermAndConditionAccepted.equals("0")) {
+                            Intent login_intent = new Intent(RetailerLogin.this, Retailer_TermsAndConditionsFragment.class);
                             startActivity(login_intent);
                             finish();
-                        } else if (IsTermAndConditionAccepted.equals("0")) {
-                            Intent login_intent = new Intent(RetailerLogin.this, Retailer_TermsAndConditionsFragment.class);
+                        } else if (IsTermAndConditionAccepted.equals("1") && UpdatePassword.equals("0")) {
+                            Intent login_intent = new Intent(RetailerLogin.this, Retailer_UpdatePassword.class);
                             startActivity(login_intent);
                             finish();
                         } else if (IsTermAndConditionAccepted.equals("1") && UpdatePassword.equals("1")) {

@@ -84,7 +84,7 @@ public class PlaceholderFragment extends Fragment {
     private String RetailerId, ID, username, CompanyName;
     private Button btn_changepwd, btn_save_password, update_password;
     private TextInputEditText Rfirstname, Remail, Rcode, Rcnic, Rmobile, R_created_date, R_Address, txt_password, txt_newpassword, txt_cfmpassword;
-    private TextInputLayout layout_Remail, layout_Rmobile, layout_R_Address;
+    private TextInputLayout layout_Remail, layout_Rmobile, layout_R_Address, layout_R_created_date, layout_Rfirstname, layout_Rcode, layout_Rcnic;
     private Dialog change_password_dail;
     private Boolean password_check = false, confirm_password_check = false;
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -134,6 +134,11 @@ public class PlaceholderFragment extends Fragment {
                 Rcnic = root.findViewById(R.id.Rcnic);
                 R_created_date = root.findViewById(R.id.R_created_date);
 
+                layout_Rfirstname = root.findViewById(R.id.layout_Rfirstname);
+                layout_Rcode = root.findViewById(R.id.layout_Rcode);
+                layout_Rcnic = root.findViewById(R.id.layout_Rcnic);
+                layout_R_created_date = root.findViewById(R.id.layout_R_created_date);
+
                 layout_Remail = root.findViewById(R.id.layout_email_retailer);
                 layout_Rmobile = root.findViewById(R.id.layout_Rmobile);
                 layout_R_Address = root.findViewById(R.id.layout_R_Address);
@@ -149,6 +154,12 @@ public class PlaceholderFragment extends Fragment {
                 Remail.setFocusable(false);
                 Rmobile.setFocusable(false);
                 R_Address.setFocusable(false);
+
+                new TextField().changeColor(getContext(), layout_Rcode, Rcode);
+                new TextField().changeColor(getContext(), layout_Rfirstname, Rfirstname);
+                new TextField().changeColor(getContext(), layout_Rcnic, Rcnic);
+                new TextField().changeColor(getContext(), layout_R_created_date, R_created_date);
+
                 new TextField().changeColor(getContext(), layout_Remail, Remail);
                 new TextField().changeColor(getContext(), layout_Rmobile, Rmobile);
                 new TextField().changeColor(getContext(), layout_R_Address, R_Address);

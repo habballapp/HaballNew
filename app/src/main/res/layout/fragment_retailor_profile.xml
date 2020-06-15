@@ -24,12 +24,11 @@
             android:weightSum="8">
 
             <com.google.android.material.textfield.TextInputLayout
-
+                android:id="@+id/layout_Rcode"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:hint="Retailer Code"
                 android:fontFamily="@font/open_sans_semibold"
-                android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 app:boxStrokeColor="@color/box_stroke"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -50,13 +49,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-
+                android:id="@+id/layout_Rfirstname"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="20dp"
                 android:hint="Full Name*"
                 android:fontFamily="@font/open_sans"
-                android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 app:boxStrokeColor="@color/box_stroke"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -105,13 +103,12 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-
+                android:id="@+id/layout_Rcnic"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="20dp"
                 android:hint="CNIC No"
                 android:fontFamily="@font/open_sans"
-                android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 app:boxStrokeColor="@color/box_stroke"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -137,7 +134,6 @@
                 android:layout_marginTop="20dp"
                 android:hint="Mobile No"
                 android:fontFamily="@font/open_sans"
-                android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 app:boxStrokeColor="@color/box_stroke"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -159,13 +155,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-
+                android:id="@+id/layout_R_created_date"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="20dp"
                 android:hint="Created Date"
                 android:fontFamily="@font/open_sans"
-                android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 app:boxStrokeColor="@color/box_stroke"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -191,7 +186,6 @@
                 android:layout_marginTop="20dp"
                 android:hint="Address"
                 android:fontFamily="@font/open_sans"
-                android:textColorHint="#96bb3c"
                 android:theme="@style/TextLabel"
                 app:boxStrokeColor="@color/box_stroke"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">

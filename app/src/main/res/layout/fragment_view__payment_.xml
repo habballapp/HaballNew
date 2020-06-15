@@ -13,22 +13,19 @@
         android:layout_height="match_parent">
 
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/ln_login"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="27dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="27dp"
             android:background="@drawable/underline"
-            android:orientation="horizontal"
-            android:weightSum="4">
+            android:layout_marginEnd="27dp">
 
             <TextView
                 android:id="@+id/tv_support"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2.5"
                 android:fontFamily="@font/open_sans"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
@@ -37,31 +34,31 @@
                 android:textSize="17sp" />
 
             <RelativeLayout
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1.5">
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_alignParentRight="true">
 
                 <ImageView
                     android:id="@+id/image_plus"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="15dp"
                     android:src="@drawable/ic_baseline_add_24" />
 
                 <TextView
                     android:id="@+id/btn_addpayment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/image_plus"
+                    android:paddingTop="2dp"
                     android:fontFamily="@font/open_sans"
-                    android:gravity="center_vertical"
-                    android:text="Create Ticket"
+                    android:text="Create Payment"
                     android:textColor="@color/textcolor"
                     android:textSize="13sp" />
             </RelativeLayout>
-        </LinearLayout>
-
+        </RelativeLayout>
 
 
 
@@ -138,7 +135,6 @@
                     android:id="@+id/txt_paymentid"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/open_sans_semibold"
                     android:enabled="false"
                     android:paddingLeft="20dp"
                     android:paddingTop="5dp"
@@ -243,7 +239,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:enabled="false"
-                    android:fontFamily="@font/open_sans_semibold"
                     android:paddingLeft="20dp"
                     android:paddingTop="5dp"
                     android:paddingRight="20dp"
@@ -375,6 +370,7 @@
                 android:layout_marginRight="27dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_background"
+                android:fontFamily="@font/open_sans"
                 android:gravity="center"
                 android:stateListAnimator="@null"
                 android:text="View Receipt"
@@ -390,6 +386,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="27dp"
                 android:layout_marginBottom="20dp"
+                android:fontFamily="@font/open_sans"
                 android:layout_weight="1"
                 android:background="@drawable/button_background"
                 android:gravity="center"
