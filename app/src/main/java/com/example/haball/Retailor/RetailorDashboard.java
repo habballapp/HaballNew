@@ -124,16 +124,16 @@ public class RetailorDashboard extends AppCompatActivity {
         }
 
 
-        boolean UserAlert = false;
-        boolean Distributor_Preferences = false;
-        boolean Retailer_Profile = false;
-        boolean Order_Add_Update = false;
-        boolean Order_Export = false;
-        boolean Order_View = false;
-        boolean Kyc_add_update = false;
-        boolean User_Change_Password = false;
-        boolean Payment_Add_Update = false;
-        boolean Payment_View = false;
+        boolean UserAlert = true;
+        boolean Distributor_Preferences = true;
+        boolean Retailer_Profile =true;
+        boolean Order_Add_Update = true;
+        boolean Order_Export = true;
+        boolean Order_View = true;
+        boolean Kyc_add_update = true;
+        boolean User_Change_Password = true;
+        boolean Payment_Add_Update = true;
+        boolean Payment_View = true;
 
 //
         UserAlert = true;

@@ -104,9 +104,9 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
                                     fragmentTransaction.commit();
 
                                     break;
-                                case R.id.view_pdf:
-                                    // Toast.makeText(context, "View PDF", Toast.LENGTH_LONG).show();
-                                    break;
+//                                case R.id.view_pdf:
+//                                    // Toast.makeText(context, "View PDF", Toast.LENGTH_LONG).show();
+//                                    break;
                             }
                             return false;
                         }
