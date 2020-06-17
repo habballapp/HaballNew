@@ -136,56 +136,56 @@ public class RetailorDashboard extends AppCompatActivity {
         boolean Payment_View = false;
 
 //
-//        UserAlert = false;
-//        Distributor_Preferences = false;
-//        Retailer_Profile = false;
-//        Order_Add_Update = false;
-//        Order_Export = false;
-//        Order_View = false;
-//        Kyc_add_update = false;
-//        User_Change_Password = false;
-//        Payment_Add_Update = false;
-//        Payment_View = false;
+        UserAlert = true;
+        Distributor_Preferences = true;
+        Retailer_Profile = true;
+        Order_Add_Update = true;
+        Order_Export = true;
+        Order_View = true;
+        Kyc_add_update = true;
+        User_Change_Password = true;
+        Payment_Add_Update = true;
+        Payment_View = true;
 //
-
-        for (int i = 0; i < userRights.length(); i++) {
-            try {
-                JSONObject userRightsData = new JSONObject(String.valueOf(userRights.get(i)));
-                if (userRightsData.get("Title").equals("Distributor Preferences")) {
-                    Distributor_Preferences = true;
-                }
-                if (userRightsData.get("Title").equals("UserAlert")) {
-                    UserAlert = true;
-                }
-                if (userRightsData.get("Title").equals("Kyc add/update")) {
-                    Kyc_add_update = true;
-                }
-                if (userRightsData.get("Title").equals("Order Add/Update")) {
-                    Order_Add_Update = true;
-                }
-                if (userRightsData.get("Title").equals("Payment Add/Update")) {
-                    Payment_Add_Update = true;
-                }
-                if (userRightsData.get("Title").equals("Retailer Profile")) {
-                    Retailer_Profile = true;
-                }
-                if (userRightsData.get("Title").equals("User Change Password")) {
-                    User_Change_Password = true;
-                }
-                if (userRightsData.get("Title").equals("Payment View")) {
-                    Payment_View = true;
-                }
-                if (userRightsData.get("Title").equals("Order Export")) {
-                    Order_Export = true;
-                }
-                if (userRightsData.get("Title").equals("Order View")) {
-                    Order_View = true;
-                }
-//                Log.i("userRightsData", String.valueOf(userRights.get(i)));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+//
+//        for (int i = 0; i < userRights.length(); i++) {
+//            try {
+//                JSONObject userRightsData = new JSONObject(String.valueOf(userRights.get(i)));
+//                if (userRightsData.get("Title").equals("Distributor Preferences")) {
+//                    Distributor_Preferences = true;
+//                }
+//                if (userRightsData.get("Title").equals("UserAlert")) {
+//                    UserAlert = true;
+//                }
+//                if (userRightsData.get("Title").equals("Kyc add/update")) {
+//                    Kyc_add_update = true;
+//                }
+//                if (userRightsData.get("Title").equals("Order Add/Update")) {
+//                    Order_Add_Update = true;
+//                }
+//                if (userRightsData.get("Title").equals("Payment Add/Update")) {
+//                    Payment_Add_Update = true;
+//                }
+//                if (userRightsData.get("Title").equals("Retailer Profile")) {
+//                    Retailer_Profile = true;
+//                }
+//                if (userRightsData.get("Title").equals("User Change Password")) {
+//                    User_Change_Password = true;
+//                }
+//                if (userRightsData.get("Title").equals("Payment View")) {
+//                    Payment_View = true;
+//                }
+//                if (userRightsData.get("Title").equals("Order Export")) {
+//                    Order_Export = true;
+//                }
+//                if (userRightsData.get("Title").equals("Order View")) {
+//                    Order_View = true;
+//                }
+////                Log.i("userRightsData", String.valueOf(userRights.get(i)));
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
         SharedPreferences retailerInfo = getSharedPreferences("Retailer_UserRights",
                 Context.MODE_PRIVATE);
