@@ -535,12 +535,19 @@ public class Support_Ticket_Form extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
         String txt_BName = BName.getText().toString();
         String txt_Email = Email.getText().toString();
         String txt_MobileNo = MobileNo.getText().toString();
-        String txt_IssueType = (String) IssueType.getItemAtPosition(IssueType.getSelectedItemPosition()).toString();
-        String txt_critcicality = (String) critcicality.getItemAtPosition(critcicality.getSelectedItemPosition()).toString();
-        String txt_Preffered_Contact = (String) Preffered_Contact.getItemAtPosition(Preffered_Contact.getSelectedItemPosition()).toString();
+        String txt_Preffered_Contact = "Preferred Method of Contacting";
+        if (Preffered_Contact.getItemAtPosition(Preffered_Contact.getSelectedItemPosition()) != null)
+            txt_Preffered_Contact = Preffered_Contact.getItemAtPosition(Preffered_Contact.getSelectedItemPosition()).toString();
+        String txt_IssueType = "Issue Type";
+        if (IssueType.getItemAtPosition(IssueType.getSelectedItemPosition()) != null)
+            txt_IssueType = IssueType.getItemAtPosition(IssueType.getSelectedItemPosition()).toString();
+        String txt_critcicality = "Criticality";
+        if (critcicality.getItemAtPosition(critcicality.getSelectedItemPosition()) != null)
+            txt_critcicality = critcicality.getItemAtPosition(critcicality.getSelectedItemPosition()).toString();
         String txt_Comment = Comment.getText().toString();
 
         if (!txt_BName.equals("") || !txt_Email.equals("") || !txt_MobileNo.equals("") || !txt_IssueType.equals("Issue Type") || !txt_critcicality.equals("Criticality") || !txt_Preffered_Contact.equals("Preferred Method of Contacting") || !txt_Comment.equals("")) {
@@ -862,6 +869,8 @@ public class Support_Ticket_Form extends AppCompatActivity {
                     for (int i = 0; i < temp_preffered_contact.length(); i++) {
                         jsonObject = temp_preffered_contact.getJSONObject(i);
                         preffered_contact.add(jsonObject.getString("value"));
+                        loader.setVisibility(View.GONE);
+
                         preffered_contact_map.put(jsonObject.getString("value"), jsonObject.getString("key"));
                     }
 

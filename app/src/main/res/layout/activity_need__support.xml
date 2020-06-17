@@ -284,8 +284,8 @@
     </RelativeLayout>
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/loader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_centerInParent="true"
         android:src="@drawable/loader_new"
         android:visibility="visible"

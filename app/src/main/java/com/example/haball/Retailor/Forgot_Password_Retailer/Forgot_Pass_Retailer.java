@@ -358,6 +358,7 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
         layoutParams.x = -70;// top margin
         alertDialog.getWindow().setAttributes(layoutParams);
         Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+        btn_discard.setText("Exist");
         btn_discard.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.i("CreatePayment", "Button Clicked");
