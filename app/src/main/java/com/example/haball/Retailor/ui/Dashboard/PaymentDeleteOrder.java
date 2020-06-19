@@ -1,9 +1,19 @@
 package com.example.haball.Retailor.ui.Dashboard;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.FragmentActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -13,6 +23,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.R;
+import com.example.haball.Retailor.RetailorDashboard;
 
 import org.json.JSONObject;
 
@@ -56,9 +68,44 @@ class PaymentDeleteOrder {
             public void onResponse(JSONObject response) {
                 // TODO handle the response
                 Log.i("paymentLog_Response", String.valueOf( response ) );
+                final Dialog fbDialogue = new Dialog(context);
+                //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                fbDialogue.setContentView(R.layout.password_updatepopup);
+                TextView tv_pr1, txt_header1;
+                txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
+                tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
+                tv_pr1.setText("Your Payment ID " + invoiceNumber + " has been deleted successfully.");
+                txt_header1.setText("Payment Deleted");
+                fbDialogue.setCancelable(true);
+                fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+                layoutParams.y = 200;
+                layoutParams.x = -70;// top margin
+                fbDialogue.getWindow().setAttributes(layoutParams);
+                fbDialogue.show();
 
-                Toast.makeText(context, "Payment # " + invoiceNumber + " deleted.", Toast.LENGTH_LONG).show();
+                ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+                close_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        fbDialogue.dismiss();
+                    }
+                });
 
+                fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        SharedPreferences tabsFromDraft = context.getSharedPreferences("OrderTabsFromDraft",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                        editorOrderTabsFromDraft.putString("TabNo", "0");
+                        editorOrderTabsFromDraft.apply();
+
+                        Intent login_intent = new Intent(((FragmentActivity) context), RetailorDashboard.class);
+                        ((FragmentActivity) context).startActivity(login_intent);
+                        ((FragmentActivity) context).finish();
+                    }
+                });
 //                fragmentTransaction = ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
 //                fragmentTransaction.replace(R.id.main_container, new HomeFragment());
 //                fragmentTransaction.commit();
@@ -81,10 +128,5 @@ class PaymentDeleteOrder {
         };
         RequestQueue mRequestQueue = Volley.newRequestQueue(context, new HurlStack());
         mRequestQueue.add(request);
-
-
-
-
-
     }
 }

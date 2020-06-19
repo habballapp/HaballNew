@@ -119,7 +119,7 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
         if (orderChildlist_model.getDiscountAmount() != null)
             yourFormattedString2 = formatter1.format(Double.parseDouble(orderChildlist_model.getDiscountAmount()));
         else
-            yourFormattedString2 = formatter1.format(Double.parseDouble(orderChildlist_model.getProductUnitPrice()));
+            yourFormattedString2 = formatter1.format(0);
         orderChildList_vh.list_discount_value.setText("Rs. " + yourFormattedString2);
 //        if (orderChildlist_model.getPackSize() != null)
 //            orderChildList_vh.list_pack_size_value.setText(orderChildlist_model.getPackSize());

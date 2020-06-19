@@ -3,7 +3,7 @@ package com.example.haball.Retailor.Forgot_Password_Retailer;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
+//import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -37,6 +37,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Loader;
 import com.example.haball.ProcessingError;
 import com.example.haball.R;
 import com.example.haball.Registration.BooleanRequest;
@@ -65,8 +66,9 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
     private TextView heading;
     private Button btn_lgn, btn_reset;
     private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4014/api/users/forgot";
-    ProgressDialog progressDialog;
+//    ProgressDialog progressDialog;
     private TextInputLayout layout_email;
+    private Loader loader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +79,7 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
         background_drawable.setAlpha(80);
         RelativeLayout rl_main_background = findViewById(R.id.rl_main_background);
         rl_main_background.setBackground(background_drawable);
-
+        loader = new Loader(Forgot_Pass_Retailer.this);
 
 //        ActionBar bar = getSupportActionBar();
 //        assert bar != null;
@@ -86,9 +88,10 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
 //        LayoutInflater inflater = LayoutInflater.from( this );
         txt_email = findViewById(R.id.txt_email);
         layout_email = findViewById(R.id.layout_email);
-        progressDialog = new ProgressDialog(this);
+//        progressDialog = new ProgressDialog(this);
         new TextField().changeColor(Forgot_Pass_Retailer.this, layout_email, txt_email);
         txt_email.clearFocus();
+
 //
 //        @SuppressLint("InflateParams") View customView = inflater.inflate( R.layout.action_bar_main_without_back, null );
 //
@@ -110,7 +113,7 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
                 if (!txt_email.getText().toString().equals("")) {
 
 //                    Toast.makeText(getApplication(), "Clicked", Toast.LENGTH_LONG).show();
-                    final AlertDialog alertDialog1 = new AlertDialog.Builder(Forgot_Pass_Retailer.this).create();
+//                    final AlertDialog alertDialog1 = new AlertDialog.Builder(Forgot_Pass_Retailer.this).create();
 //                    LayoutInflater inflater = LayoutInflater.from(Forgot_Pass_Retailer.this);
 //                    @SuppressLint("InflateParams") View view_popup = inflater.inflate(R.layout.email_sent, null);
 //                    alertDialog1.setView(view_popup);
@@ -217,15 +220,17 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
 
 
     private void forgotPasswordRequest() {
-
-        progressDialog.setTitle("Resetting Password");
-        progressDialog.setMessage("Loading, Please Wait..");
-        progressDialog.show();
+        loader.showLoader();
+//
+//        progressDialog.setTitle("Resetting Password");
+//        progressDialog.setMessage("Loading, Please Wait..");
+//        progressDialog.show();
         StringRequest sr = new StringRequest(Request.Method.POST, URL_FORGOT_PASSWORD, new Response.Listener<String>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(String result) {
-                progressDialog.dismiss();
+                loader.hideLoader();
+//                progressDialog.dismiss();
 //                Log.i("forgotpass", "'" + result + "'");
 //                Log.i("forgotpass", "'" + result.equals("true") + "'");
                 if (result.equals("\"true\"")) {
@@ -265,6 +270,7 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
                     fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
                         @Override
                         public void onDismiss(DialogInterface dialog) {
+                            finish();
                         }
                     });
                 } else {
@@ -292,10 +298,11 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
                 new ProcessingError().showError(Forgot_Pass_Retailer.this);
                 printErrorMessage(error);
                 error.printStackTrace();
-                progressDialog.dismiss();
+//                progressDialog.dismiss();
             }
         }) {
 
@@ -358,7 +365,7 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
         layoutParams.x = -70;// top margin
         alertDialog.getWindow().setAttributes(layoutParams);
         Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
-        btn_discard.setText("Exist");
+        btn_discard.setText("Exit");
         btn_discard.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.i("CreatePayment", "Button Clicked");

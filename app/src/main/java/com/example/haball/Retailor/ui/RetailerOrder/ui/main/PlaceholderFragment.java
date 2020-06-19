@@ -1,20 +1,32 @@
 package com.example.haball.Retailor.ui.RetailerOrder.ui.main;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,14 +39,18 @@ import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.StatusKVP;
 import com.example.haball.R;
 import com.example.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
+import com.example.haball.Retailor.ui.Make_Payment.CreatePaymentRequestFragment;
+import com.example.haball.Retailor.ui.Make_Payment.ViewInvoiceVoucher;
 import com.example.haball.Retailor.ui.RetailerOrder.RetailerOrdersAdapter.RetailerViewOrderProductAdapter;
 import com.example.haball.Retailor.ui.RetailerOrder.RetailerOrdersModel.RetailerViewOrderProductModel;
 import com.example.haball.TextField;
@@ -44,6 +60,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -79,6 +96,19 @@ public class PlaceholderFragment extends Fragment {
     private TextView total_amount, disclaimer_tv;
     private Button button_back;
     private FragmentTransaction fragmentTransaction;
+
+    private TextView tv_banking_channel, payment_id, btn_newpayment;
+    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4014/api/prepaidrequests/GetByRetailerCode";
+    private String PrePaidNumber = "", PrePaidId = "", CompanyName = "", Amount = "", CompanyId = "", MenuItem = "";
+    private Button btn_voucher, btn_update, btn_back;
+    private Spinner spinner_companyName;
+    private HashMap<String, String> companyNameAndId = new HashMap<>();
+    private ArrayAdapter<String> arrayAdapterPayments;
+    private List<String> CompanyNames = new ArrayList<>();
+    private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
+    private String company_names;
+    private Typeface myFont;
+    private RelativeLayout ln_login;
 
     //    private String DistributorId;
     // private TextInputLayout layout_txt_created_date, layout_transaction_date, layout_txt_bank, layout_txt_authorization_id, layout_txt_settlement_id, layout_txt_status, layout_txt_amount, layout_txt_transaction_charges, layout_txt_total_amount;
@@ -205,81 +235,308 @@ public class PlaceholderFragment extends Fragment {
             }
             case 3: {
 
-                rootView = inflater.inflate(R.layout.fragment_retailer_payment_tab, container, false);
-                layout_txt_companName = rootView.findViewById(R.id.layout_txt_companName);
-                layout_txt_paymentID = rootView.findViewById(R.id.layout_txt_paymentID);
-                layout_txt_created_date = rootView.findViewById(R.id.layout_txt_created_date);
-                layout_transaction_date = rootView.findViewById(R.id.layout_transaction_date);
-                layout_txt_bank = rootView.findViewById(R.id.layout_txt_bank);
-                layout_txt_status = rootView.findViewById(R.id.layout_txt_status);
-                layout_txt_authorization_id = rootView.findViewById(R.id.layout_txt_authorization_id);
-                layout_txt_settlement_id = rootView.findViewById(R.id.layout_txt_settlement_id);
-                layout_txt_amount = rootView.findViewById(R.id.layout_txt_amount);
-                layout_txt_transaction_charges = rootView.findViewById(R.id.layout_txt_transaction_charges);
-                layout_txt_total_amount = rootView.findViewById(R.id.layout_txt_total_amount);
-                button_back = rootView.findViewById(R.id.button_back);
+                SharedPreferences sharedPreferences1 = getContext().getSharedPreferences("OrderId",
+                        Context.MODE_PRIVATE);
+                InvoiceStatus = sharedPreferences1.getString("InvoiceStatus", "");
+                Log.i("InvoiceStatus", InvoiceStatus);
 
-                txt_companyName = rootView.findViewById(R.id.txt_companyName);
-                txt_paymentID = rootView.findViewById(R.id.txt_paymentID);
-                txt_created_date = rootView.findViewById(R.id.txt_created_date);
-                txt_confirm = rootView.findViewById(R.id.txt_confirm);
-                txt_bank = rootView.findViewById(R.id.txt_bank);
-                txt_authorization_id = rootView.findViewById(R.id.txt_authorization_id);
-                txt_settlement_id = rootView.findViewById(R.id.txt_settlement_id);
-                txt_status = rootView.findViewById(R.id.txt_status);
-                txt_amount = rootView.findViewById(R.id.txt_amount);
-                txt_transaction_charges = rootView.findViewById(R.id.txt_transaction_charges);
-                txt_total_amount = rootView.findViewById(R.id.txt_total_amount);
+//        SectionsPagerAdapter sectionsPagerAdapter = null;
+                if (InvoiceStatus.equals("Paid")) {
+
+                    rootView = inflater.inflate(R.layout.fragment_retailer_payment_tab, container, false);
+                    layout_txt_companName = rootView.findViewById(R.id.layout_txt_companName);
+                    layout_txt_paymentID = rootView.findViewById(R.id.layout_txt_paymentID);
+                    layout_txt_created_date = rootView.findViewById(R.id.layout_txt_created_date);
+                    layout_transaction_date = rootView.findViewById(R.id.layout_transaction_date);
+                    layout_txt_bank = rootView.findViewById(R.id.layout_txt_bank);
+                    layout_txt_status = rootView.findViewById(R.id.layout_txt_status);
+                    layout_txt_authorization_id = rootView.findViewById(R.id.layout_txt_authorization_id);
+                    layout_txt_settlement_id = rootView.findViewById(R.id.layout_txt_settlement_id);
+                    layout_txt_amount = rootView.findViewById(R.id.layout_txt_amount);
+                    layout_txt_transaction_charges = rootView.findViewById(R.id.layout_txt_transaction_charges);
+                    layout_txt_total_amount = rootView.findViewById(R.id.layout_txt_total_amount);
+                    button_back = rootView.findViewById(R.id.button_back);
+
+                    txt_companyName = rootView.findViewById(R.id.txt_companyName);
+                    txt_paymentID = rootView.findViewById(R.id.txt_paymentID);
+                    txt_created_date = rootView.findViewById(R.id.txt_created_date);
+                    txt_confirm = rootView.findViewById(R.id.txt_confirm);
+                    txt_bank = rootView.findViewById(R.id.txt_bank);
+                    txt_authorization_id = rootView.findViewById(R.id.txt_authorization_id);
+                    txt_settlement_id = rootView.findViewById(R.id.txt_settlement_id);
+                    txt_status = rootView.findViewById(R.id.txt_status);
+                    txt_amount = rootView.findViewById(R.id.txt_amount);
+                    txt_transaction_charges = rootView.findViewById(R.id.txt_transaction_charges);
+                    txt_total_amount = rootView.findViewById(R.id.txt_total_amount);
 
 
-                new TextField().changeColor(getContext(), layout_txt_companName, txt_companyName);
-                new TextField().changeColor(getContext(), layout_txt_paymentID, txt_paymentID);
-                new TextField().changeColor(getContext(), layout_txt_created_date, txt_created_date);
-                new TextField().changeColor(getContext(), layout_transaction_date, txt_confirm);
-                new TextField().changeColor(getContext(), layout_txt_bank, txt_bank);
-                new TextField().changeColor(getContext(), layout_txt_authorization_id, txt_authorization_id);
-                new TextField().changeColor(getContext(), layout_txt_settlement_id, txt_settlement_id);
-                new TextField().changeColor(getContext(), layout_txt_status, txt_status);
-                new TextField().changeColor(getContext(), layout_txt_amount, txt_amount);
-                new TextField().changeColor(getContext(), layout_txt_transaction_charges, txt_transaction_charges);
-                new TextField().changeColor(getContext(), layout_txt_total_amount, txt_total_amount);
+                    new TextField().changeColor(getContext(), layout_txt_companName, txt_companyName);
+                    new TextField().changeColor(getContext(), layout_txt_paymentID, txt_paymentID);
+                    new TextField().changeColor(getContext(), layout_txt_created_date, txt_created_date);
+                    new TextField().changeColor(getContext(), layout_transaction_date, txt_confirm);
+                    new TextField().changeColor(getContext(), layout_txt_bank, txt_bank);
+                    new TextField().changeColor(getContext(), layout_txt_authorization_id, txt_authorization_id);
+                    new TextField().changeColor(getContext(), layout_txt_settlement_id, txt_settlement_id);
+                    new TextField().changeColor(getContext(), layout_txt_status, txt_status);
+                    new TextField().changeColor(getContext(), layout_txt_amount, txt_amount);
+                    new TextField().changeColor(getContext(), layout_txt_transaction_charges, txt_transaction_charges);
+                    new TextField().changeColor(getContext(), layout_txt_total_amount, txt_total_amount);
 
-//                layout_txt_created_date.setVisibility(View.GONE);
-//                layout_transaction_date.setVisibility(View.GONE);
-//                layout_txt_bank.setVisibility(View.GONE);
-//                layout_txt_authorization_id.setVisibility(View.GONE);
-//                layout_txt_settlement_id.setVisibility(View.GONE);
-//                layout_txt_status.setVisibility(View.GONE);
-//                layout_txt_amount.setVisibility(View.GONE);
-//                layout_txt_transaction_charges.setVisibility(View.GONE);
-//                layout_txt_total_amount.setVisibility(View.GONE);
+                    layout_txt_created_date.setVisibility(View.GONE);
+                    layout_transaction_date.setVisibility(View.GONE);
+                    layout_txt_bank.setVisibility(View.GONE);
+                    layout_txt_authorization_id.setVisibility(View.GONE);
+                    layout_txt_settlement_id.setVisibility(View.GONE);
+                    layout_txt_status.setVisibility(View.GONE);
+                    layout_txt_amount.setVisibility(View.GONE);
+                    layout_txt_transaction_charges.setVisibility(View.GONE);
+                    layout_txt_total_amount.setVisibility(View.GONE);
 
-                txt_companyName.setEnabled(false);
-                txt_paymentID.setEnabled(false);
-                txt_created_date.setEnabled(false);
-                txt_confirm.setEnabled(false);
-                txt_bank.setEnabled(false);
-                txt_authorization_id.setEnabled(false);
-                txt_settlement_id.setEnabled(false);
-                txt_status.setEnabled(false);
-                txt_amount.setEnabled(false);
-                txt_transaction_charges.setEnabled(false);
-                txt_total_amount.setEnabled(false);
+                    txt_companyName.setEnabled(false);
+                    txt_paymentID.setEnabled(false);
+                    txt_created_date.setEnabled(false);
+                    txt_confirm.setEnabled(false);
+                    txt_bank.setEnabled(false);
+                    txt_authorization_id.setEnabled(false);
+                    txt_settlement_id.setEnabled(false);
+                    txt_status.setEnabled(false);
+                    txt_amount.setEnabled(false);
+                    txt_transaction_charges.setEnabled(false);
+                    txt_total_amount.setEnabled(false);
 
-                button_back.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tabs());
-                        fragmentTransaction.commit();
-                    }
-                });
+                    button_back.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tabs());
+                            fragmentTransaction.commit();
+                        }
+                    });
 
-                getPaymentData();
+                    getPaidInvoiceData();
+                } else if (InvoiceStatus.equals("Un-Paid")) {
+//                    rootView = inflater.inflate(R.layout.activity_payment__screen3, container, false);
+
+
+                    rootView = inflater.inflate(R.layout.activity_payment__screen3, container, false);
+                    myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
+
+                    payment_id = rootView.findViewById(R.id.payment_id);
+                    spinner_companyName = rootView.findViewById(R.id.spinner_companyName);
+                    txt_amount = rootView.findViewById(R.id.txt_amount);
+                    layout_txt_amount = rootView.findViewById(R.id.layout_txt_amount);
+                    btn_newpayment = rootView.findViewById(R.id.btn_addpayment);
+                    btn_update = rootView.findViewById(R.id.btn_update);
+                    btn_voucher = rootView.findViewById(R.id.btn_voucher);
+                    ln_login = rootView.findViewById(R.id.ln_login);
+
+                    ln_login.setVisibility(View.GONE);
+
+                    new TextField().changeColor(getContext(), layout_txt_amount, txt_amount);
+
+                    fetchCompanyData();
+                    CompanyNames.add("Select Company");
+                    company_names = "";
+
+                    txt_amount.setEnabled(false);
+                    spinner_companyName.setEnabled(false);
+                    spinner_companyName.setClickable(false);
+
+                    arrayAdapterPayments = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, CompanyNames) {
+                        @Override
+                        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                            // TODO Auto-generated method stub
+                            View view = super.getView(position, convertView, parent);
+                            TextView text = (TextView) view.findViewById(android.R.id.text1);
+                            text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                            text.setTextSize((float) 13.6);
+                            text.setPadding(50, 0, 50, 0);
+                            text.setTypeface(myFont);
+                            return view;
+                        }
+
+                        @Override
+                        public View getView(int position, View convertView, ViewGroup parent) {
+                            // TODO Auto-generated method stub
+                            View view = super.getView(position, convertView, parent);
+                            TextView text = (TextView) view.findViewById(android.R.id.text1);
+                            text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                            text.setTextSize((float) 13.6);
+                            text.setPadding(50, 0, 50, 0);
+                            return view;
+                        }
+                    };
+
+                    spinner_companyName.setAdapter(arrayAdapterPayments);
+
+
+                    btn_newpayment.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment());
+                            fragmentTransaction.commit();
+                        }
+                    });
+
+                    btn_update.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            final FragmentManager fm = getActivity().getSupportFragmentManager();
+                            fm.popBackStack();
+//                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.replace(R.id.main_container_ret, new EditPaymentRequestFragment());
+//                fragmentTransaction.commit();
+
+                        }
+                    });
+
+                    btn_voucher.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+//                            if (checkAndRequestPermissions()) {
+//                                try {
+//                                    viewPDF(getContext(), PrePaidId);
+//                                } catch (JSONException e) {
+//                                    e.printStackTrace();
+//                                }
+//                            }
+                        }
+                    });
+
+                    tv_banking_channel = rootView.findViewById(R.id.tv_banking_channel);
+                    tv_banking_channel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            final AlertDialog alertDialog2 = new AlertDialog.Builder(getContext()).create();
+                            LayoutInflater inflater2 = LayoutInflater.from(getContext());
+                            View view_popup2 = inflater2.inflate(R.layout.payment_request_details, null);
+                            alertDialog2.setView(view_popup2);
+                            alertDialog2.show();
+                            ImageButton img_close = view_popup2.findViewById(R.id.image_button_close);
+                            TextView payment_information_txt3 = view_popup2.findViewById(R.id.payment_information_txt3);
+                            payment_information_txt3.setText(PrePaidNumber);
+                            Button btn_view_voucher = view_popup2.findViewById(R.id.btn_view_voucher);
+                            btn_view_voucher.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+//                                    if (checkAndRequestPermissions()) {
+//                                        try {
+//                                            viewPDF(getContext(), PrePaidId);
+//                                        } catch (JSONException e) {
+//                                            e.printStackTrace();
+//                                        }
+//                                    }
+                                }
+                            });
+
+                            img_close.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    alertDialog2.dismiss();
+                                }
+                            });
+                        }
+                    });
+
+                }
                 break;
             }
         }
         return rootView;
+    }
+
+
+    private void fetchCompanyData() {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+
+        Log.i("Token", Token);
+
+        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PAYMENT_REQUESTS_SELECT_COMPANY, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray result) {
+                try {
+                    getUnPaidInvoiceData();
+
+                    JSONObject jsonObject = null;
+                    for (int i = 0; i < result.length(); i++) {
+                        jsonObject = result.getJSONObject(i);
+                        CompanyNames.add(jsonObject.getString("CompanyName"));
+                        companyNameAndId.put(jsonObject.getString("CompanyName"), jsonObject.getString("DealerCode"));
+                    }
+
+                    arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    arrayAdapterPayments.notifyDataSetChanged();
+                    spinner_companyName.setAdapter(arrayAdapterPayments);
+
+                    // txt_amount.setText(Amount);
+                    Log.i("Debugging", String.valueOf(CompanyNames));
+                    Log.i("Debugging", String.valueOf(CompanyNames.indexOf(CompanyName)));
+                    Log.i("Debugging", String.valueOf(CompanyName));
+//        int spinnerPosition = arrayAdapterPayments.getPosition(CompanyName);
+//                    spinner_companyName.setSelection(CompanyNames.indexOf(CompanyName));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Log.e("RESPONSE OF COMPANY ID", result.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        sr.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 1000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
+        Volley.newRequestQueue(getContext()).add(sr);
+    }
+
+    private void viewPDF(Context context, String ID) throws JSONException {
+        ViewInvoiceVoucher viewPDFRequest = new ViewInvoiceVoucher();
+        viewPDFRequest.viewPDF(context, ID);
+    }
+
+    private boolean checkAndRequestPermissions() {
+        int permissionRead = ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+        int permissionWrite = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (permissionWrite != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (permissionRead != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(getActivity(), listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), REQUEST_ID_MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
     }
 
     private void getOrderData() {
@@ -401,7 +658,64 @@ public class PlaceholderFragment extends Fragment {
 
     }
 
-    private void getPaymentData() {
+    private void getUnPaidInvoiceData() {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+        if (!URL_Order_Data.contains("/" + orderID)) {
+            URL_Order_Data = URL_Order_Data + orderID;
+            Log.i("URL_Payment_Data", URL_Order_Data);
+        }
+//        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+//                Context.MODE_PRIVATE);
+//        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+//        Log.i("DistributorId invoice", DistributorId);
+        Log.i("Token invoice12", Token);
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Order_Data, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject result) {
+                Log.i("Order Data_UnPaid", String.valueOf(result));
+                try {
+                    JSONObject response = result.getJSONObject("OrderPaymentDetails");
+                    CompanyName = String.valueOf(response.get("CompanyName"));
+                    spinner_companyName.setSelection(CompanyNames.indexOf(CompanyName));
+                    PrePaidNumber = String.valueOf(response.get("InvoiceNumber"));
+                    Amount = String.valueOf(response.get("InvoiceTotalAmount"));
+                    txt_amount.setText(Amount);
+                    payment_id.setText(PrePaidNumber);
+//                    PrePaidId = paymentId;
+                    if (!String.valueOf(response.get("InvoiceTotalAmount")).equals("") && !String.valueOf(response.get("InvoiceTotalAmount")).equals("null"))
+                        txt_amount.setTextColor(getResources().getColor(R.color.textcolor));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        printErrorMessage(error);
+
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(getContext()).add(stringRequest);
+
+    }
+
+    private void getPaidInvoiceData() {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");

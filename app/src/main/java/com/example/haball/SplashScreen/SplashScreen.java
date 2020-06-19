@@ -54,6 +54,11 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run() {
 
+//                Intent intent1 = new Intent(SplashScreen.this, Retailer_UpdatePassword.class);
+//                startActivity(intent1);
+//                finish();
+
+
                 SharedPreferences selectedProducts = getSharedPreferences("selectedProducts_retailer",
                         Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = selectedProducts.edit();

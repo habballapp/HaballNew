@@ -93,6 +93,7 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
     private TextView txt_change1;
     private TextView tv_pr1, txt_header1;
     boolean doubleBackToExitPressedOnce = false;
+    private String URL_Skip_Password = "http://175.107.203.97:4014/api/users/update";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -161,7 +162,7 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                if (!String.valueOf(txt_newpassword.getText()).equals("") || !String.valueOf(txt_cfmpassword.getText()).equals(""))
-                    showDiscardDialog(RetailorDashboard.class, "RetailorDashboard");
+                showDiscardDialog(RetailorDashboard.class, "RetailorDashboard");
 //                else {
 //                    Intent intent = new Intent(Retailer_UpdatePassword.this, RetailorDashboard.class);
 //                    startActivity(intent);
@@ -184,7 +185,7 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
         TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
         TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
         tv_discard.setText("Alert");
-        if(className.equals("RetailorDashboard")) {
+        if (className.equals("RetailorDashboard")) {
             String steps = "It is recommended to change the default generated password.";
             String title = "Are you sure, you want to skip?";
             SpannableString ss1 = new SpannableString(title);
@@ -209,9 +210,15 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i("CreatePayment", "Button Clicked");
                 alertDialog.dismiss();
-                Intent intent = new Intent(Retailer_UpdatePassword.this, targetClass);
-                startActivity(intent);
+                try {
+                    skipUpdatePassword(targetClass);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+//                Intent intent = new Intent(Retailer_UpdatePassword.this, targetClass);
+//                startActivity(intent);
             }
+
         });
 
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -233,10 +240,141 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
         alertDialog.show();
     }
 
+
+    private void showDiscardToGoBackDialog(final Class targetClass, String className) {
+        final FragmentManager fm = getSupportFragmentManager();
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = LayoutInflater.from(this);
+        final View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+        alertDialog.setCancelable(true);
+        TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
+        TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+        tv_discard.setText("Alert");
+
+        tv_discard_txt.setText("Are you sure, you want to exit this page?");
+        btn_discard.setText("Exit");
+
+
+        alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+        WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+        layoutParams.y = 200;
+        layoutParams.x = -70;// top margin
+        alertDialog.getWindow().setAttributes(layoutParams);
+        alertDialog.setView(view_popup);
+        btn_discard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.i("CreatePayment", "Button Clicked");
+                alertDialog.dismiss();
+                Intent intent = new Intent(Retailer_UpdatePassword.this, RetailerLogin.class);
+                startActivity(intent);
+                finish();
+
+//                Intent intent = new Intent(Retailer_UpdatePassword.this, targetClass);
+//                startActivity(intent);
+            }
+
+        });
+
+        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+                img_email.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+
+                    }
+                });
+
+            }
+        });
+
+
+        alertDialog.show();
+    }
+
+    private void skipUpdatePassword(final Class targetClass) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("skip", true);
+        Log.i("Password_Log", String.valueOf(jsonObject));
+
+        String requestBody = jsonObject.toString();
+
+        BooleanRequest sr = new BooleanRequest(Request.Method.POST, URL_Skip_Password, requestBody, new Response.Listener<Boolean>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onResponse(Boolean result) {
+                if (result) {
+                    Intent intent = new Intent(Retailer_UpdatePassword.this, targetClass);
+                    startActivity(intent);
+
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+                error.printStackTrace();
+                final Dialog fbDialogue = new Dialog(Retailer_UpdatePassword.this);
+                //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                fbDialogue.setContentView(R.layout.password_updatepopup);
+
+                tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
+//                            tv_pr1.setText("User Profile ID " + ID + " password has been changed successfully.");
+                txt_header1.setText("Processing Error");
+                txt_header1.setTextColor(getResources().getColor(R.color.error_stroke_color));
+                txt_header1.setBackground(ContextCompat.getDrawable(Retailer_UpdatePassword.this, R.drawable.border_set_error));
+                tv_pr1.setText("An error occurred while processing your request. Please try again later. If the problem persists, contact support.");
+                fbDialogue.setCancelable(true);
+                fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+                layoutParams.y = 200;
+                layoutParams.x = -70;// top margin
+                fbDialogue.getWindow().setAttributes(layoutParams);
+                fbDialogue.show();
+
+                ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+                close_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        fbDialogue.dismiss();
+                    }
+                });
+
+                fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        Intent intent = new Intent(Retailer_UpdatePassword.this, RetailerLogin.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                params.put("Content-Type", "application/json");
+
+                return params;
+            }
+        };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(this).add(sr);
+    }
+
     @Override
     public void onBackPressed() {
         if (!String.valueOf(txt_newpassword.getText()).equals("") || !String.valueOf(txt_cfmpassword.getText()).equals(""))
-            showDiscardDialog(RetailerLogin.class, "RetailerLogin");
+            showDiscardToGoBackDialog(RetailerLogin.class, "RetailerLogin");
         else {
             Intent intent = new Intent(Retailer_UpdatePassword.this, RetailerLogin.class);
             startActivity(intent);
@@ -244,6 +382,8 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
     }
 
     private final TextWatcher watcher = new TextWatcher() {
+        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
+
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -256,8 +396,11 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable s) {
+            checkPasswords(true);
+            checkConfirmPassword(true);
             if (TextUtils.isEmpty(txt_cfmpassword.getText())
                     || TextUtils.isEmpty(txt_newpassword.getText())
+                    || !String.valueOf(txt_newpassword.getText()).matches(reg_ex)
                     || (!password_check && !confirm_password_check)) {
                 update_password.setEnabled(false);
                 update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
@@ -445,6 +588,11 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
                 layout_password1.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
                 txt_newpassword.setTextColor(getResources().getColor(R.color.textcolor));
 //                layout_password1.setPasswordVisibilityToggleEnabled(true);
+                layout_password3.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
+                layout_password3.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+                layout_password3.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
+                txt_cfmpassword.setTextColor(getResources().getColor(R.color.textcolor));
+
             }
 
             @Override
@@ -513,6 +661,10 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
                 txt_cfmpassword.setTextColor(getResources().getColor(R.color.textcolor));
 //                layout_password3.setPasswordVisibilityToggleEnabled(true);
 
+                layout_password1.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
+                layout_password1.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+                layout_password1.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
+                txt_newpassword.setTextColor(getResources().getColor(R.color.textcolor));
             }
 
             @Override

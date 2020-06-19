@@ -47,6 +47,7 @@ import com.bignerdranch.expandablerecyclerview.model.SimpleParent;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.example.haball.NonSwipeableViewPager;
 import com.example.haball.R;
+import com.example.haball.Retailor.ui.Place_Order.Retailer_Place_Order;
 import com.example.haball.Retailor.ui.Place_Order.ui.main.Adapters.ParentListAdapter;
 import com.example.haball.Retailor.ui.Place_Order.ui.main.Models.OrderChildlist_Model;
 import com.example.haball.Retailor.ui.Place_Order.ui.main.Models.OrderParentlist_Model;
@@ -97,6 +98,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
     private RelativeLayout spinner_container_main;
     private Typeface myFont;
     private MyAsyncTask myAsyncTask;
+    private FragmentTransaction fragmentTransaction;
 
     public Retailer_OrderPlace_retailer_dashboarad() {
         // Required empty public constructor
@@ -115,6 +117,9 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
         btn_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("tag");
+                fragmentTransaction.commit();
 
             }
         });
@@ -582,6 +587,22 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                     productList = gsonChild.fromJson(String.valueOf(resultMain.get("Products")), typeChild);
                     Log.i("productList", String.valueOf(productList));
 
+                    if(productList.size() < 3) {
+                        if (spinner_container_main.getVisibility() == View.GONE) {
+
+                            spinner_container_main.setVisibility(View.VISIBLE);
+                            TranslateAnimation animate1 = new TranslateAnimation(
+                                    0,                 // fromXDelta
+                                    0,                 // toXDelta
+                                    -spinner_container_main.getHeight(),  // fromYDelta
+                                    0);                // toYDelta
+                            animate1.setDuration(250);
+                            animate1.setFillAfter(true);
+                            spinner_container_main.clearAnimation();
+                            spinner_container_main.startAnimation(animate1);
+                        }
+                    }
+
                     ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData(), spinner_container_main);
                     //adapter.setParentClickableViewAnimationDefaultDuration();
                     //adapter.setParentAndIconExpandOnClick(false);
@@ -716,6 +737,23 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                     }.getType();
                     productList = gsonChild.fromJson(String.valueOf(resultMain.get("Products")), typeChild);
                     Log.i("productList", String.valueOf(productList));
+
+                    if(productList.size() < 3) {
+                        if (spinner_container_main.getVisibility() == View.GONE) {
+
+                            spinner_container_main.setVisibility(View.VISIBLE);
+                            TranslateAnimation animate1 = new TranslateAnimation(
+                                    0,                 // fromXDelta
+                                    0,                 // toXDelta
+                                    -spinner_container_main.getHeight(),  // fromYDelta
+                                    0);                // toYDelta
+                            animate1.setDuration(250);
+                            animate1.setFillAfter(true);
+                            spinner_container_main.clearAnimation();
+                            spinner_container_main.startAnimation(animate1);
+                        }
+                    }
+
 
                     ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData(), spinner_container_main);
                     //adapter.setParentClickableViewAnimationDefaultDuration();

@@ -42,6 +42,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Loader;
 import com.example.haball.R;
 import com.example.haball.Retailer_Login.RetailerLogin;
 import com.example.haball.Retailor.ui.Support.SupportFragment;
@@ -94,9 +95,10 @@ public class Support_Ticket_Form extends AppCompatActivity {
     private ArrayAdapter<String> arrayAdapterIssueType, arrayAdapterCriticality, arrayAdapterPreferredContact;
 
     private Button login_submit, login_btn;
-    private GifImageView loader;
+//    private RelativeLayout loader;
 
     private Typeface myFont;
+    private Loader loader;
 
     private String DistributorId;
     //    private TextView tv_main_heading, tv_sub_heading;
@@ -106,20 +108,22 @@ public class Support_Ticket_Form extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_need__support);
-        Drawable background_drawable = getResources().getDrawable(R.drawable.background_logo);
-        background_drawable.setAlpha(80);
-        RelativeLayout rl_main_background = findViewById(R.id.rl_main_background);
-        rl_main_background.setBackground(background_drawable);
-        loader = findViewById(R.id.loader);
+//        Drawable background_drawable = getResources().getDrawable(R.drawable.background_logo);
+//        background_drawable.setAlpha(80);
+//        RelativeLayout rl_main_background = findViewById(R.id.rl_main_background);
+//        rl_main_background.setBackground(background_drawable);
+//        loader = findViewById(R.id.loader);
 
         //        getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
 
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.setDisplayShowHomeEnabled(false);
 //        actionBar.setDisplayShowTitleEnabled(false);
-        loader.setVisibility(View.VISIBLE);
+//        loader.setVisibility(View.VISIBLE);
+//        loader = new Loader(Support_Ticket_Form.this);
+//        loader.showLoader();
 
-        LayoutInflater inflater = LayoutInflater.from(this);
+//        LayoutInflater inflater = LayoutInflater.from(this);
 //        View customView = inflater.inflate(R.layout.action_bar_main_without_back, null);
 
 //        actionBar.setCustomView(customView);
@@ -139,6 +143,15 @@ public class Support_Ticket_Form extends AppCompatActivity {
         layout_Email = findViewById(R.id.layout_Email);
         layout_MobileNo = findViewById(R.id.layout_MobileNo);
         layout_Comment = findViewById(R.id.layout_Comment);
+//        BName.setSelected(false);
+//        BName.setFocusable(false);
+//        Email.setSelected(false);
+//        Email.setFocusable(false);
+//        MobileNo.setSelected(false);
+//        MobileNo.setFocusable(false);
+//        Comment.setSelected(false);
+//        Comment.setFocusable(false);
+
 
 //        tv_main_heading = findViewById(R.id.tv_main_heading);
 //        tv_main_heading.setText(String.valueOf(tv_main_heading.getText()).replace("Distributor", "Retailer"));
@@ -169,7 +182,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-               text.setPadding(30, 0, 30, 0);
+                text.setPadding(30, 0, 30, 0);
                 text.setTypeface(myFont);
                 return view;
             }
@@ -181,7 +194,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-               text.setPadding(30, 0, 30, 0);
+                text.setPadding(30, 0, 30, 0);
                 return view;
             }
         };
@@ -195,7 +208,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-               text.setPadding(30, 0, 30, 0);
+                text.setPadding(30, 0, 30, 0);
                 text.setTypeface(myFont);
                 return view;
             }
@@ -207,7 +220,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-               text.setPadding(30, 0, 30, 0);
+                text.setPadding(30, 0, 30, 0);
                 return view;
             }
         };
@@ -221,7 +234,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-               text.setPadding(30, 0, 30, 0);
+                text.setPadding(30, 0, 30, 0);
                 text.setTypeface(myFont);
                 return view;
             }
@@ -233,15 +246,10 @@ public class Support_Ticket_Form extends AppCompatActivity {
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-               text.setPadding(30, 0, 30, 0);
+                text.setPadding(30, 0, 30, 0);
                 return view;
             }
         };
-
-        new TextField().changeColor(this, layout_BName, BName);
-        new TextField().changeColor(this, layout_Email, Email);
-        new TextField().changeColor(this, layout_MobileNo, MobileNo);
-        new TextField().changeColor(this, layout_Comment, Comment);
 
 //        fetchIssueType();
 //        fetchCriticality();
@@ -863,13 +871,14 @@ public class Support_Ticket_Form extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject result) {
                 JSONObject jsonObject = null;
+//                loader.setVisibility(View.GONE);
+//                loader.hideLoader();
                 try {
                     JSONArray temp_preffered_contact = result.getJSONArray("CONTACTING_METHOD");
                     jsonObject = null;
                     for (int i = 0; i < temp_preffered_contact.length(); i++) {
                         jsonObject = temp_preffered_contact.getJSONObject(i);
                         preffered_contact.add(jsonObject.getString("value"));
-                        loader.setVisibility(View.GONE);
 
                         preffered_contact_map.put(jsonObject.getString("value"), jsonObject.getString("key"));
                     }

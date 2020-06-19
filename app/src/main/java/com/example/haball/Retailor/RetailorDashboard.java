@@ -1,5 +1,6 @@
 package com.example.haball.Retailor;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,9 +9,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -87,11 +92,23 @@ public class RetailorDashboard extends AppCompatActivity {
     private String UserId;
     private JSONArray userRights;
     private List<String> NavList = new ArrayList<>();
+    private int notification = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retailor_dashboard);
+
+        IO.Options opts = new IO.Options();
+//            opts.query = "userId=" + UserId;
+        try {
+            iSocket = IO.socket(URL, opts);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        iSocket.connect();
+
+        new MyAsyncTask().execute();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -126,7 +143,7 @@ public class RetailorDashboard extends AppCompatActivity {
 
         boolean UserAlert = true;
         boolean Distributor_Preferences = true;
-        boolean Retailer_Profile =true;
+        boolean Retailer_Profile = true;
         boolean Order_Add_Update = true;
         boolean Order_Export = true;
         boolean Order_View = true;
@@ -269,7 +286,7 @@ public class RetailorDashboard extends AppCompatActivity {
                 .addOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
                     @Override
                     public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                        navigationExpandableListView.setSelected(groupPosition);
+//                        navigationExpandableListView.setSelected(groupPosition);
 
                         if (NavList.contains("Dashboard") && NavList.indexOf("Dashboard") == id) {
 //                        if (id == 0) {
@@ -330,25 +347,58 @@ public class RetailorDashboard extends AppCompatActivity {
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (NavList.contains("Logout") && NavList.indexOf("Logout") == id) {
 
+                            final AlertDialog alertDialog = new AlertDialog.Builder(RetailorDashboard.this).create();
+                            LayoutInflater inflater = LayoutInflater.from(RetailorDashboard.this);
+                            View view_popup = inflater.inflate(R.layout.discard_changes, null);
+                            TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
+                            tv_discard.setText("Logout");
+                            TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+                            tv_discard_txt.setText("Are you sure, you want to logout?");
+                            alertDialog.setView(view_popup);
+                            alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                            WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+                            layoutParams.y = 200;
+                            layoutParams.x = -70;// top margin
+                            alertDialog.getWindow().setAttributes(layoutParams);
+                            Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+                            btn_discard.setText("Logout");
+                            btn_discard.setOnClickListener(new View.OnClickListener() {
+                                public void onClick(View v) {
+                                    alertDialog.dismiss();
+
 //                        } else if (id == 6) {
-                            Log.i("Logout", "Logout Activity");
-                            SharedPreferences login_token = getSharedPreferences("LoginToken",
-                                    Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = login_token.edit();
-                            editor.remove("Login_Token");
-                            editor.remove("User_Type");
-                            editor.remove("Retailer_Id");
-                            editor.remove("username");
-                            editor.remove("CompanyName");
-                            editor.remove("UserId");
-                            editor.commit();
+                                    Log.i("Logout", "Logout Activity");
+                                    SharedPreferences login_token = getSharedPreferences("LoginToken",
+                                            Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = login_token.edit();
+                                    editor.remove("Login_Token");
+                                    editor.remove("User_Type");
+                                    editor.remove("Retailer_Id");
+                                    editor.remove("username");
+                                    editor.remove("CompanyName");
+                                    editor.remove("UserId");
+                                    editor.commit();
 //                            Intent dashboard = new Intent(RetailorDashboard.this, RetailerLogin.class);
 //                            startActivity(dashboard);
-                            Intent intent = new Intent(RetailorDashboard.this, Register_Activity.class);
-                            startActivity(intent);
+                                    Intent intent = new Intent(RetailorDashboard.this, Register_Activity.class);
+                                    startActivity(intent);
+                                    finish();
+
+                                }
+                            });
+
+                            ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+                            img_email.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    alertDialog.dismiss();
+
+                                }
+                            });
+
+                            alertDialog.show();
 //                            finish();
                             drawer.closeDrawer(GravityCompat.START);
-                            finish();
                         }
 
                         return false;
@@ -448,38 +498,40 @@ public class RetailorDashboard extends AppCompatActivity {
 
 
         private void getNotificationCount() {
-            try {
-                IO.Options opts = new IO.Options();
-//            opts.query = "userId=" + UserId;
-                iSocket = IO.socket(URL, opts);
-                iSocket.connect();
+//            iSocket.emit("userId", UserId);
 
+            if (iSocket.connected()) {
                 iSocket.emit("userId", UserId);
-
-                if (iSocket.connected()) {
-                    iSocket.emit("userId", UserId);
-                    iSocket.on("userId" + UserId, new Emitter.Listener() {
-                        @Override
-                        public void call(Object... args) {
-                            JSONObject data = (JSONObject) args[0];
-//                    Toast.makeText(getContext(), data.toString(), Toast.LENGTH_SHORT).show();
-//                    Log.i("notificationTest", String.valueOf(data.getJSONArray("data"));
-                            try {
-                                if (Integer.parseInt(data.getString("count")) == 0) {
-                                    notification_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_no_notifications_black_24dp));
-                                } else {
-                                    notification_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_notifications_black_24dp));
+                iSocket.on("userId" + UserId, new Emitter.Listener() {
+                    @Override
+                    public void call(final Object... args) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                JSONObject data = (JSONObject) args[0];
+//                                Log.i("notificationTest", "String.valueOf(args)");
+//                                Log.i("notificationTest", String.valueOf(data));
+                                try {
+//                                    Log.i("notificationTest", String.valueOf(data.get("UnSeenCount")));
+//                                    Toast.makeText(RetailorDashboard.this, String.valueOf(data.get("UnSeenCount")), Toast.LENGTH_SHORT).show();
+                                    notification = Integer.parseInt(String.valueOf(data.get("UnSeenCount")));
+                                    if (Integer.parseInt(String.valueOf(data.get("UnSeenCount"))) != 0) {
+                                        notification_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_notifications_black_24dp));
+                                    } else {
+                                        notification_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_no_notifications_black_24dp));
+                                    }
+                                } catch (
+                                        JSONException e) {
+                                    e.printStackTrace();
                                 }
-                                Log.i("notificationTest12", String.valueOf(data.getString("count")));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
                             }
-                        }
-                    });
-                }
-            } catch (URISyntaxException e) {
-                throw new RuntimeException(e);
+                        });
+                    }
+                });
+
             }
+
+
         }
 
     }

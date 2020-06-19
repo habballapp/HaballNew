@@ -41,11 +41,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
+import com.example.haball.Loader;
 import com.example.haball.R;
 import com.example.haball.Retailor.ui.Dashboard.RetailerOrderAdapter;
 import com.example.haball.Retailor.ui.Dashboard.RetailerOrderModel;
 import com.example.haball.Retailor.ui.Dashboard.RetailerPaymentAdapter;
 import com.example.haball.Retailor.ui.Dashboard.RetailerPaymentModel;
+import com.example.haball.Support.Support_Retailer.Support_Ticket_Form;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -220,6 +222,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
     private Button create_payment;
     private Typeface myFont;
+    private Loader loader;
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -258,6 +261,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
         switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
             case 1: {
+                loader = new Loader(getContext());
                 tabName = "Payment";
                 root = inflater.inflate(R.layout.fragment_dashboard_retailor, container, false);
                 try {
@@ -269,6 +273,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
             }
             case 2: {
+                loader = new Loader(getContext());
                 tabName = "Order";
                 root = inflater.inflate(R.layout.fragment_orders, container, false);
                 try {
@@ -313,6 +318,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private void paymentFragmentTask(View root) throws JSONException {
         myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
         tv_shipment_no_data1 = root.findViewById(R.id.tv_shipment_no_data);
+        tv_shipment_no_data1.setVisibility(View.GONE);
         search_bar = root.findViewById(R.id.search_bar);
         recyclerViewPayment = root.findViewById(R.id.rv_fragment_payments);
         recyclerViewPayment.setHasFixedSize(true);
@@ -792,6 +798,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     }
 
     private void fetchPaymentsData() throws JSONException {
+        loader.showLoader();
+
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -805,6 +813,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONObject result) {
+                loader.hideLoader();
                 try {
                     totalEntries = Double.parseDouble(String.valueOf(result.get("RecordCount")));
                     totalPages = Math.ceil(totalEntries / 10);
@@ -835,6 +844,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     recyclerViewPayment.setAdapter(mAdapter);
 
                 } catch (JSONException e) {
+                    loader.hideLoader();
                     e.printStackTrace();
                 }
                 if (PaymentsList.size() != 0)
@@ -847,6 +857,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
                 // printErrorMessage(error);
                 error.printStackTrace();
             }
@@ -869,6 +880,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     }
 
     private void fetchFilteredRetailerPayments() throws JSONException {
+        loader.showLoader();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -897,6 +909,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
+                loader.hideLoader();
                 Log.i("retailerPayment", result.toString());
 
                 Gson gson = new Gson();
@@ -905,6 +918,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 try {
                     PaymentsList = gson.fromJson(result.getJSONArray("PrePaidRequestData").toString(), type);
                 } catch (JSONException e) {
+                    loader.hideLoader();
                     e.printStackTrace();
                 }
                 if (PaymentsList.size() < 4) {
@@ -934,6 +948,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
                 //printErrorMessage(error);
                 error.printStackTrace();
             }
@@ -955,6 +970,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     }
 
     private void performPaginationPayment() throws JSONException {
+        loader.showLoader();
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
@@ -979,6 +995,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
+                loader.hideLoader();
                 try {
                     Gson gson = new Gson();
                     Type type = new TypeToken<List<RetailerPaymentModel>>() {
@@ -1013,6 +1030,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     else
                         tv_shipment_no_data1.setVisibility(View.VISIBLE);
                 } catch (JSONException e) {
+                    loader.hideLoader();
                     e.printStackTrace();
                 }
 
@@ -1020,6 +1038,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
                 printErrorMessage(error);
 
                 error.printStackTrace();
@@ -1042,6 +1061,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     }
 
     private void printErrorMessage(VolleyError error) {
+        loader.hideLoader();
         if (getContext() != null) {
             if (error instanceof NetworkError) {
                 Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
@@ -1071,8 +1091,10 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     }
                     Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
                 } catch (UnsupportedEncodingException e) {
+                    loader.hideLoader();
                     e.printStackTrace();
                 } catch (JSONException e) {
+                    loader.hideLoader();
                     e.printStackTrace();
                 }
             }
@@ -1081,6 +1103,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     }
 
     private void performPaginationOrder() throws JSONException {
+
+        loader.showLoader();
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
@@ -1103,6 +1127,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
+                loader.hideLoader();
 //                btn_load_more.setVisibility(View.GONE);
                 try {
                     Gson gson = new Gson();
@@ -1115,6 +1140,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     OrdersList.addAll(OrdersList_temp);
                     OrdersAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
+                    loader.hideLoader();
                     e.printStackTrace();
                 }
 
@@ -1138,6 +1164,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
                 printErrorMessage(error);
 
                 error.printStackTrace();
@@ -1166,6 +1193,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         recyclerView = (RecyclerView) root.findViewById(R.id.rv_fragment_orders);
         spinner_container_main = root.findViewById(R.id.spinner_container_main);
         tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
+        tv_shipment_no_data.setVisibility(View.GONE);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(root.getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -1536,6 +1564,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
     private void fetchOrderData() throws JSONException {
 
+        loader.showLoader();
+
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -1548,6 +1578,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
+                loader.hideLoader();
                 //                    JSONArray jsonArray = new JSONArray(result);
 
                 Gson gson = new Gson();
@@ -1558,6 +1589,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     totalPagesOrder = Math.ceil(totalEntriesOrder / 10);
                     OrdersList = gson.fromJson(result.get(0).toString(), type);
                 } catch (JSONException e) {
+                    loader.hideLoader();
                     e.printStackTrace();
                 }
                 Log.i("OrdersList", String.valueOf(OrdersList));
@@ -1588,6 +1620,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
                 printErrorMessage(error);
 
                 error.printStackTrace();
@@ -1611,6 +1644,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
     private void fetchFilteredOrderData() throws JSONException {
 
+        loader.showLoader();
+
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -1632,6 +1667,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
+                loader.hideLoader();
                 //                    JSONArray jsonArray = new JSONArray(result);
 
                 Gson gson = new Gson();
@@ -1642,6 +1678,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     totalPagesOrder = Math.ceil(totalEntriesOrder / 10);
                     OrdersList = gson.fromJson(result.get(0).toString(), type);
                 } catch (JSONException e) {
+                    loader.hideLoader();
                     e.printStackTrace();
                 }
                 Log.i("OrdersList", String.valueOf(OrdersList));
@@ -1674,6 +1711,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
                 printErrorMessage(error);
 
                 error.printStackTrace();
@@ -1736,4 +1774,6 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             }
         }
     }
+
+
 }

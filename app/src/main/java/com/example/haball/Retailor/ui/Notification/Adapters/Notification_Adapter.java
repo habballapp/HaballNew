@@ -1,6 +1,8 @@
 package com.example.haball.Retailor.ui.Notification.Adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -12,23 +14,34 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.Fragment_Notification.Dismiss_Notification;
 import com.example.haball.Distributor.ui.Fragment_Notification.NotificationAdapter;
 import com.example.haball.R;
+import com.example.haball.Registration.BooleanRequest;
 import com.example.haball.Retailor.ui.Notification.Retailer_Notification_Model;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adapter.ViewHolder> {
 
     private Context context;
     private  String subject,notification_txt;
     private List<Retailer_Notification_Model> NotificationList = new ArrayList<>();
+    private String dismiss_alert = "http://175.107.203.97:4014/api/useralert/DismissAlert/";
 
     public Notification_Adapter(Context context, List<Retailer_Notification_Model> notificationList) {
         this.context = context;
@@ -43,7 +56,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Notification_Adapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull Notification_Adapter.ViewHolder holder, final int position) {
 
         holder.subject.setText(NotificationList.get(position).getSubject());
         holder.notification_message.setText(NotificationList.get(position).getAlertMessage());
@@ -66,7 +79,44 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
                         switch (item.getItemId()) {
                             case R.id.dismiss:
                                 Log.i("DISMISS CASE", "HERE");
-                                Toast.makeText(context, "Notification Dismissed", Toast.LENGTH_LONG).show();
+
+                                if (dismiss_alert.contains("/" + NotificationList.get(position).getID()))
+                                    dismiss_alert = dismiss_alert + NotificationList.get(position).getID();
+
+                                SharedPreferences sharedPreferences = context.getSharedPreferences("LoginToken",
+                                        Context.MODE_PRIVATE);
+                                final String Token = sharedPreferences.getString("Login_Token", "");
+
+
+                                BooleanRequest sr = new BooleanRequest(Request.Method.POST, dismiss_alert, null, new Response.Listener<Boolean>() {
+                                    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                                    @Override
+                                    public void onResponse(Boolean result) {
+                                    }
+                                }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        error.printStackTrace();
+
+                                    }
+                                }) {
+
+                                    @Override
+                                    public Map<String, String> getHeaders() throws AuthFailureError {
+                                        Map<String, String> params = new HashMap<String, String>();
+                                        params.put("Authorization", "bearer " + Token);
+                                        params.put("Content-Type", "application/json");
+
+                                        return params;
+                                    }
+                                };
+                                sr.setRetryPolicy(new DefaultRetryPolicy(
+                                        15000,
+                                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                                Volley.newRequestQueue(context).add(sr);
+
+//                                Toast.makeText(context, "Notification Dismissed", Toast.LENGTH_LONG).show();
                                 break;
                         }
                         return false;

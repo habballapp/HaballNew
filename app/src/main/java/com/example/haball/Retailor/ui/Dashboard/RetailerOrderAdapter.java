@@ -1,23 +1,34 @@
 package com.example.haball.Retailor.ui.Dashboard;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.haball.R;
+import com.example.haball.Retailor.ui.Make_Payment.PaymentScreen3Fragment_Retailer;
 import com.example.haball.Retailor.ui.RetailerOrder.RetailerViewOrder;
 
 import org.json.JSONException;
@@ -75,12 +86,16 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
                         setMenuDraft(popup, position);
                     else if (OrderList.get(position).getOrderStatusValue().equals("Cancelled"))
                         setMenuCancelled(popup, position);
+                    else if (OrderList.get(position).getOrderStatusValue().equals("Rejected"))
+                        setMenuCancelled(popup, position);
                     else
                         setMenuAll(popup, position);
                 } else if (OrderList.get(position).getStatus() != null) {
                     if (OrderList.get(position).getStatus().equals("Draft"))
                         setMenuDraft(popup, position);
                     else if (OrderList.get(position).getStatus().equals("Cancelled"))
+                        setMenuCancelled(popup, position);
+                    else if (OrderList.get(position).getStatus().equals("Rejected"))
                         setMenuCancelled(popup, position);
                     else
                         setMenuAll(popup, position);
@@ -129,7 +144,9 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
                 switch (item.getItemId()) {
                     case R.id.orders_view:
                         String ID = OrderList.get(position).getID();
-                        FragmentTransaction fragmentTransaction= ((FragmentActivity) mContxt).getSupportFragmentManager().beginTransaction();
+
+
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) mContxt).getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.add(R.id.main_container_ret, new RetailerViewOrder()).addToBackStack("tag");
                         fragmentTransaction.commit();
                         SharedPreferences OrderId = ((FragmentActivity) mContxt).getSharedPreferences("OrderId",
@@ -137,8 +154,8 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
                         SharedPreferences.Editor editor = OrderId.edit();
                         editor.putString("OrderId", OrderList.get(position).getID());
                         editor.putString("Status", OrderList.get(position).getOrderStatusValue());
+                        editor.putString("InvoiceStatus", "null");
                         editor.commit();
-
                         // Toast.makeText(mContxt, "View Order ID - " + ID, Toast.LENGTH_LONG).show();
                         break;
                 }
@@ -146,6 +163,51 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
             }
         });
         popup.show();
+
+    }
+
+    private void showConfirmCancelOrderDialog(final int position) {
+
+        Log.i("CreatePayment", "In Dialog");
+//            final FragmentManager fm = mContxt.getSupportFragmentManager();
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(mContxt).create();
+        LayoutInflater inflater = LayoutInflater.from(mContxt);
+        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
+        tv_discard.setText("Cancel Order");
+        TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+        tv_discard_txt.setText("Are you sure, you want to cancel this order?");
+        alertDialog.setView(view_popup);
+        alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+        WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+        layoutParams.y = 200;
+        layoutParams.x = -70;// top margin
+        alertDialog.getWindow().setAttributes(layoutParams);
+        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+        btn_discard.setText("Cancel Order");
+        btn_discard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                String orderID = OrderList.get(position).getID();
+                try {
+                    cancelOrder(mContxt, OrderList.get(position).getID(), OrderList.get(position).getOrderNumber());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+        img_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+            }
+        });
+
+        alertDialog.show();
 
     }
 
@@ -158,10 +220,10 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
                 switch (item.getItemId()) {
                     case R.id.orders_view:
                         String ID = OrderList.get(position).getID();
-                        FragmentTransaction fragmentTransaction= ((FragmentActivity)mContxt).getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.add(R.id.main_container_ret,new RetailerViewOrder()).addToBackStack("tag");
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) mContxt).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container_ret, new RetailerViewOrder()).addToBackStack("tag");
                         fragmentTransaction.commit();
-                        SharedPreferences OrderId = ((FragmentActivity)mContxt).getSharedPreferences("OrderId",
+                        SharedPreferences OrderId = ((FragmentActivity) mContxt).getSharedPreferences("OrderId",
                                 Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = OrderId.edit();
                         editor.putString("OrderId", OrderList.get(position).getID());
@@ -171,12 +233,7 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
                         editor.commit();
                         break;
                     case R.id.orders_cancel:
-                        String orderID = OrderList.get(position).getID();
-                        try {
-                            cancelOrder(mContxt, OrderList.get(position).getID(), OrderList.get(position).getOrderNumber());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        showConfirmCancelOrderDialog(position);
 //                                Toast.makeText(mContxt, "View Order ID - " + ID, Toast.LENGTH_LONG).show();
                         break;
                 }

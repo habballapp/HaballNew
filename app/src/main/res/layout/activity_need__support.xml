@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTintMode="src_over"
     android:background="#FBFBFB">
 
 
     <include
-        android:id="@+id/include_app_bar"
         layout="@layout/action_bar_main_without_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -18,7 +18,7 @@
         android:id="@+id/rl_main_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/include_app_bar">
+        android:layout_marginTop="44dp">
 
 
         <ScrollView
@@ -62,7 +62,6 @@
                     android:layout_marginTop="20dp">
 
 
-
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_BName"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -79,7 +78,7 @@
                             android:layout_height="match_parent"
                             android:fontFamily="@font/open_sans"
                             android:inputType="text|textCapSentences"
-                          android:theme="@style/TextLabelEditeText" />
+                            android:theme="@style/TextLabelEditeText" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -102,7 +101,7 @@
                             android:layout_height="match_parent"
                             android:fontFamily="@font/open_sans"
                             android:inputType="textEmailAddress"
-                           android:theme="@style/TextLabelEditeText" />
+                            android:theme="@style/TextLabelEditeText" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -126,7 +125,7 @@
                             android:fontFamily="@font/open_sans"
                             android:inputType="number"
                             android:maxLength="12"
-                            android:theme="@style/TextLabelEditeText"/>
+                            android:theme="@style/TextLabelEditeText" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -230,7 +229,7 @@
                             android:fontFamily="@font/open_sans"
                             android:gravity="top|left"
                             android:inputType="textMultiLine|textCapSentences"
-                           android:theme="@style/TextLabelEditeText" />
+                            android:theme="@style/TextLabelEditeText" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -257,8 +256,8 @@
                         android:layout_marginTop="20dp"
                         android:background="@drawable/button_round"
                         android:fontFamily="@font/open_sans"
-                        android:text="Back"
                         android:stateListAnimator="@null"
+                        android:text="Back"
                         android:textAllCaps="false"
                         android:textColor="#fff"
                         android:textSize="@dimen/button_text_size" />
@@ -282,13 +281,20 @@
 
         </ScrollView>
     </RelativeLayout>
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/loader"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_centerInParent="true"
-        android:src="@drawable/loader_new"
-        android:visibility="visible"
-        />
+
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/loader"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="#88000000"-->
+<!--        >-->
+
+<!--        <pl.droidsonroids.gif.GifImageView-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:src="@drawable/loader_new"-->
+<!--            android:visibility="visible" />-->
+<!--    </RelativeLayout>-->
 
 </RelativeLayout>

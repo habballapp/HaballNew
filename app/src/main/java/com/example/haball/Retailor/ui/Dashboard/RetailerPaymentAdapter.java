@@ -86,16 +86,16 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
                 if (paymentsList.get(position).getIsEditable().equals("0")) {
                     final PopupMenu popup = new PopupMenu(context, view);
                     MenuInflater inflater = popup.getMenuInflater();
-                    inflater.inflate(R.menu.payment_invoice_menu, popup.getMenu());
+                    inflater.inflate(R.menu.orders_fragment_menu, popup.getMenu());
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
-                                case R.id.view_invoice:
-                                    SharedPreferences OrderId = ((FragmentActivity)context).getSharedPreferences("PaymentId",
+                                case R.id.orders_view:
+                                    SharedPreferences OrderId = ((FragmentActivity) context).getSharedPreferences("PaymentId",
                                             Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor = OrderId.edit();
-                                    editor.putString("PaymentId", paymentsList.get(position).getID());
+                                    editor.putString("PaymentId", paymentsList.get(position).getRetailerInvoiceId());
                                     editor.putString("InvoiceStatus", String.valueOf(paymentsList.get(position).getStatus()));
                                     Log.i("InvoiceStatus_Adapter", String.valueOf(paymentsList.get(position).getStatus()));
                                     editor.commit();
@@ -266,15 +266,47 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
         }
         return true;
     }
-    private void deletePayment(Context context, String retailerInvoiceId, String invoiceNumber) {
 
-        PaymentDeleteOrder delete = new PaymentDeleteOrder();
-        delete.deleteOrder(context, retailerInvoiceId, invoiceNumber);
-        Intent login_intent = new Intent(context, RetailorDashboard.class);
-        context.startActivity(login_intent);
-        ((FragmentActivity) context).finish();
+    private void deletePayment(final Context context, final String retailerInvoiceId, final String invoiceNumber) {
 
+        final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
+        tv_discard.setText("Delete Payment");
+        TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+        tv_discard_txt.setText("Are you sure, you want to delete this payment?");
+        alertDialog.setView(view_popup);
+        alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+        WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+        layoutParams.y = 200;
+        layoutParams.x = -70;// top margin
+        alertDialog.getWindow().setAttributes(layoutParams);
+        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+        btn_discard.setText("Delete");
+        btn_discard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                alertDialog.dismiss();
 
+                PaymentDeleteOrder delete = new PaymentDeleteOrder();
+                delete.deleteOrder(context, retailerInvoiceId, invoiceNumber);
+//                Intent login_intent = new Intent(context, RetailorDashboard.class);
+//                context.startActivity(login_intent);
+//                ((FragmentActivity) context).finish();
+
+            }
+        });
+
+        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+        img_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+            }
+        });
+
+        alertDialog.show();
     }
 
 
@@ -313,6 +345,7 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
         ViewReceeiptPDFRequest viewReceeiptPDFRequest = new ViewReceeiptPDFRequest();
         viewReceeiptPDFRequest.viewPDF(context, ID);
     }
+
     @Override
     public int getItemCount() {
         return paymentsList.size();
