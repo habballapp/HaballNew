@@ -38,6 +38,7 @@ package com.example.haball.Retailor.ui.Make_Payment;
         import com.android.volley.toolbox.StringRequest;
         import com.android.volley.toolbox.Volley;
         import com.example.haball.Distributor.ui.payments.InputStreamVolleyRequest;
+        import com.example.haball.Loader;
 
         import org.json.JSONArray;
         import org.json.JSONException;
@@ -73,11 +74,14 @@ public class ViewInvoiceVoucher {
     public Context mContext;
     private static final int PERMISSION_REQUEST_CODE = 1;
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
+    private Loader loader;
 
     public ViewInvoiceVoucher(){}
 
 
     public void viewPDF(final Context context, String paymentId) throws JSONException {
+        loader = new Loader(context);
+        loader.showLoader();
         mContext = context;
         SharedPreferences sharedPreferences = context.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
@@ -92,6 +96,7 @@ public class ViewInvoiceVoucher {
         InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.GET, URL_VOUCHER_VIEW, null, new Response.Listener<byte[]>() {
             @Override
             public void onResponse(byte[] response) {
+                loader.hideLoader();
                 // TODO handle the response
                 try {
                     Log.i("responseByte", String.valueOf(response));
@@ -114,6 +119,7 @@ public class ViewInvoiceVoucher {
                                 Method m = StrictMode.class.getMethod("disableDeathOnFileUriExposure");
                                 m.invoke(null);
                             }catch(Exception e){
+                                loader.hideLoader();
                                 e.printStackTrace();
                             }
                         }
@@ -125,11 +131,13 @@ public class ViewInvoiceVoucher {
                         try {
                             context.startActivity(intent);
                         } catch (ActivityNotFoundException e) {
+                            loader.hideLoader();
                             // Instruct the user to install a PDF reader here, or something
                         }
                     }
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
+                    loader.hideLoader();
                     Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
                     Toast.makeText(context, "UNABLE TO DOWNLOAD FILE", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
@@ -138,6 +146,7 @@ public class ViewInvoiceVoucher {
         } ,new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
                 error.printStackTrace();
             }
         }, null)  {

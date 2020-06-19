@@ -54,6 +54,7 @@ import com.example.haball.R;
 import com.example.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
 import com.example.haball.Retailor.ui.Make_Payment.CreatePaymentRequestFragment;
 import com.example.haball.Retailor.ui.Make_Payment.PaymentScreen3Fragment_Retailer;
+import com.example.haball.Retailor.ui.Make_Payment.ViewInvoiceReceipt;
 import com.example.haball.Retailor.ui.Make_Payment.ViewInvoiceVoucher;
 import com.example.haball.Retailor.ui.Make_Payment.ViewReceeiptPDFRequest;
 import com.example.haball.Retailor.ui.Make_Payment.ViewVoucherRequest;
@@ -100,7 +101,7 @@ public class PlaceholderFragment extends Fragment {
     private StatusKVP StatusKVPClass;
     private TextView discount_amount;
     private TextView total_amount, disclaimer_tv;
-    private Button button_back;
+    private Button button_back,button_view_receipt;
     private FragmentTransaction fragmentTransaction;
 
     private TextView tv_banking_channel, payment_id, btn_newpayment;
@@ -115,7 +116,6 @@ public class PlaceholderFragment extends Fragment {
     private String company_names;
     private Typeface myFont;
     private RelativeLayout ln_login;
-
     //    private String DistributorId;
     // private TextInputLayout layout_txt_created_date, layout_transaction_date, layout_txt_bank, layout_txt_authorization_id, layout_txt_settlement_id, layout_txt_status, layout_txt_amount, layout_txt_transaction_charges, layout_txt_total_amount;
 
@@ -188,6 +188,7 @@ public class PlaceholderFragment extends Fragment {
                 txt_status_order.setEnabled(false);
                 txt_comments.setEnabled(false);
 
+
                 button_back.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -196,6 +197,7 @@ public class PlaceholderFragment extends Fragment {
                         fragmentTransaction.commit();
                     }
                 });
+
 
                 getOrderData();
                 break;
@@ -257,6 +259,7 @@ public class PlaceholderFragment extends Fragment {
                     layout_txt_transaction_charges = rootView.findViewById(R.id.layout_txt_transaction_charges);
                     layout_txt_total_amount = rootView.findViewById(R.id.layout_txt_total_amount);
                     button_back = rootView.findViewById(R.id.button_back);
+                    button_view_receipt = rootView.findViewById(R.id.button_view_receipt);
 
                     txt_companyName = rootView.findViewById(R.id.txt_companyName);
                     txt_paymentID = rootView.findViewById(R.id.txt_paymentID);
@@ -311,6 +314,19 @@ public class PlaceholderFragment extends Fragment {
                             fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tabs());
                             fragmentTransaction.commit();
+                        }
+                    });
+
+                    button_view_receipt.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (checkAndRequestPermissions()) {
+                                try {
+                                    viewReceiptPDF(getContext(), paymentId);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
                         }
                     });
 
@@ -522,6 +538,11 @@ public class PlaceholderFragment extends Fragment {
         viewPDFRequest.viewPDF(context, ID);
     }
 
+    private void viewReceiptPDF(Context context, String ID) throws JSONException {
+        ViewInvoiceReceipt viewPDFRequest = new ViewInvoiceReceipt();
+        viewPDFRequest.viewPDF(context, ID);
+    }
+
     private boolean checkAndRequestPermissions() {
         int permissionRead = ContextCompat.checkSelfPermission(getContext(),
                 Manifest.permission.READ_EXTERNAL_STORAGE);
@@ -669,10 +690,10 @@ public class PlaceholderFragment extends Fragment {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
-        if (!URL_Payment_Data.contains("/" + paymentId)) {
-            URL_Payment_Data = URL_Payment_Data + paymentId;
-            Log.i("URL_Payment_Data", URL_Payment_Data);
-        }
+//        if (!URL_Payment_Data.contains("/" + paymentId)) {
+//            URL_Payment_Data = URL_Payment_Data + paymentId;
+//            Log.i("URL_Payment_Data", URL_Payment_Data);
+//        }
 //        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
 //                Context.MODE_PRIVATE);
 //        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
@@ -687,8 +708,8 @@ public class PlaceholderFragment extends Fragment {
                     txt_companyName.setText(String.valueOf(response.get("CompanyName")));
                     txt_paymentID.setText(String.valueOf(response.get("PrePaidNumber")));
                     setTextAndShowDate(layout_txt_created_date, txt_created_date, String.valueOf(response.get("InvoiceCreatedDate")).split("T")[0]);
-                    setTextAndShow(layout_txt_amount, txt_amount, String.valueOf(response.get("InvoiceTotalAmount")));
-                    setTextAndShow(layout_txt_status, txt_status, String.valueOf(response.getString("InvoiceStatus")));
+                    setTextAndShow(layout_txt_amount, txt_amount, String.valueOf(response.get("Amount")));
+                    setTextAndShow(layout_txt_status, txt_status, String.valueOf(response.getString("Status")));
                     setTextAndShow(layout_transaction_date, txt_confirm, String.valueOf(response.getString("TransactionDate")).split("T")[0]);
                     setTextAndShow(layout_txt_bank, txt_bank, String.valueOf(response.getString("BankName")));
                     setTextAndShow(layout_txt_authorization_id, txt_authorization_id, String.valueOf(response.getString("AuthID")));
@@ -696,6 +717,7 @@ public class PlaceholderFragment extends Fragment {
                     setTextAndShow(layout_txt_total_amount, txt_total_amount, String.valueOf(response.getString("TotalAmount")));
                     setTextAndShow(layout_txt_transaction_charges, txt_transaction_charges, String.valueOf(response.getString("TransactionCharges")));
 
+                    PrePaidId = paymentId;
                     if (!String.valueOf(response.get("CompanyName")).equals("") && !String.valueOf(response.get("CompanyName")).equals("null"))
                         txt_companyName.setTextColor(getResources().getColor(R.color.textcolor));
                     if (!String.valueOf(response.get("PrePaidNumber")).equals("") && !String.valueOf(response.get("PrePaidNumber")).equals("null"))
@@ -710,14 +732,15 @@ public class PlaceholderFragment extends Fragment {
                         txt_authorization_id.setTextColor(getResources().getColor(R.color.textcolor));
                     if (!String.valueOf(response.get("SettlementID")).equals("") && !String.valueOf(response.get("SettlementID")).equals("null"))
                         txt_settlement_id.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("InvoiceStatus")).equals("") && !String.valueOf(response.get("InvoiceStatus")).equals("null"))
+                    if (!String.valueOf(response.get("Status")).equals("") && !String.valueOf(response.get("Status")).equals("null"))
                         txt_status.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("InvoiceTotalAmount")).equals("") && !String.valueOf(response.get("InvoiceTotalAmount")).equals("null"))
+                    if (!String.valueOf(response.get("Amount")).equals("") && !String.valueOf(response.get("Amount")).equals("null"))
                         txt_amount.setTextColor(getResources().getColor(R.color.textcolor));
                     if (!String.valueOf(response.get("TransactionCharges")).equals("") && !String.valueOf(response.get("TransactionCharges")).equals("null"))
                         txt_transaction_charges.setTextColor(getResources().getColor(R.color.textcolor));
                     if (!String.valueOf(response.get("TotalAmount")).equals("") && !String.valueOf(response.get("TotalAmount")).equals("null"))
                         txt_total_amount.setTextColor(getResources().getColor(R.color.textcolor));
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();

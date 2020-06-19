@@ -31,14 +31,14 @@ public class Loader {
 //        fbDialogue.show();
 
 
-        fbDialogue = new Dialog(mContext, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+        fbDialogue = new Dialog(mContext, R.style.theme_loader);
 
         fbDialogue.setContentView(R.layout.loader);
         Window window = fbDialogue.getWindow();
 
-        window.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        //window.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
-        window.setBackgroundDrawableResource(R.color.dialog_back);
+      window.setBackgroundDrawableResource(R.color.dialog_back);
         fbDialogue.show();
 
         new CountDownTimer(20000, 1000) {
