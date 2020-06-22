@@ -3,6 +3,7 @@ package com.example.haball.Retailor.ui.RetailerPayment.ui.main;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
@@ -29,6 +30,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
@@ -50,7 +52,10 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.StatusKVP;
+import com.example.haball.Loader;
+import com.example.haball.ProcessingError;
 import com.example.haball.R;
+import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
 import com.example.haball.Retailor.ui.Make_Payment.CreatePaymentRequestFragment;
 import com.example.haball.Retailor.ui.Make_Payment.PaymentScreen3Fragment_Retailer;
@@ -73,6 +78,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -83,7 +89,7 @@ public class PlaceholderFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     private String paymentId, InvoiceStatus;
-    private String URL_Payment_Data = "http://175.107.203.97:4014/api/invoices/";
+    private String URL_Payment_Data = "https://retailer.haball.pk/api/invoices/";
     private PageViewModel pageViewModel;
     private TextInputLayout layout_txt_orderID, layout_txt_order_company, layout_txt_created_date_order, layout_txt_status_order, layout_txt_comments,
             layout_txt_companName, layout_txt_paymentID, layout_txt_created_date, layout_transaction_date,
@@ -101,11 +107,11 @@ public class PlaceholderFragment extends Fragment {
     private StatusKVP StatusKVPClass;
     private TextView discount_amount;
     private TextView total_amount, disclaimer_tv;
-    private Button button_back,button_view_receipt;
+    private Button button_back, button_view_receipt;
     private FragmentTransaction fragmentTransaction;
 
     private TextView tv_banking_channel, payment_id, btn_newpayment;
-    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4014/api/prepaidrequests/GetByRetailerCode";
+    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "https://retailer.haball.pk/api/prepaidrequests/GetByRetailerCode";
     private String PrePaidNumber = "", PrePaidId = "", CompanyName = "", Amount = "", CompanyId = "", MenuItem = "";
     private Button btn_voucher, btn_update, btn_back;
     private Spinner spinner_companyName;
@@ -116,6 +122,8 @@ public class PlaceholderFragment extends Fragment {
     private String company_names;
     private Typeface myFont;
     private RelativeLayout ln_login;
+    private TextView discount, Rs_discount;
+    private Loader loader;
     //    private String DistributorId;
     // private TextInputLayout layout_txt_created_date, layout_transaction_date, layout_txt_bank, layout_txt_authorization_id, layout_txt_settlement_id, layout_txt_status, layout_txt_amount, layout_txt_transaction_charges, layout_txt_total_amount;
 
@@ -205,13 +213,16 @@ public class PlaceholderFragment extends Fragment {
             case 3: {
                 rootView = inflater.inflate(R.layout.fragment_retailer_orders_details_tab, container, false);
                 rv_fragment_retailer_order_details = rootView.findViewById(R.id.rv_fragment_retailer_order_details);
-                discount_amount = rootView.findViewById(R.id.discount_amount);
                 total_amount = rootView.findViewById(R.id.total_amount);
                 rv_fragment_retailer_order_details.setHasFixedSize(true);
                 layoutManager = new LinearLayoutManager(rootView.getContext());
                 rv_fragment_retailer_order_details.setLayoutManager(layoutManager);
                 disclaimer_tv = rootView.findViewById(R.id.disclaimer_tv);
                 button_back = rootView.findViewById(R.id.button_back);
+                Rs_discount = rootView.findViewById(R.id.Rs_discount);
+                discount = rootView.findViewById(R.id.discount);
+                discount_amount = rootView.findViewById(R.id.discount_amount);
+
 
                 SharedPreferences sharedPreferences1 = getContext().getSharedPreferences("PaymentId",
                         Context.MODE_PRIVATE);
@@ -237,6 +248,7 @@ public class PlaceholderFragment extends Fragment {
                 break;
             }
             case 1: {
+                loader = new Loader(getContext());
 
                 SharedPreferences sharedPreferences1 = getContext().getSharedPreferences("PaymentId",
                         Context.MODE_PRIVATE);
@@ -399,8 +411,18 @@ public class PlaceholderFragment extends Fragment {
                     btn_update.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            final FragmentManager fm = getActivity().getSupportFragmentManager();
-                            fm.popBackStack();
+//                            final FragmentManager fm = getActivity().getSupportFragmentManager();
+//                            fm.popBackStack();
+                            SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                                    Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                            editorOrderTabsFromDraft.putString("TabNo", "0");
+                            editorOrderTabsFromDraft.apply();
+
+                            Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                            ((FragmentActivity) getContext()).startActivity(login_intent);
+                            ((FragmentActivity) getContext()).finish();
+
 //                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                fragmentTransaction.replace(R.id.main_container_ret, new EditPaymentRequestFragment());
 //                fragmentTransaction.commit();
@@ -644,15 +666,37 @@ public class PlaceholderFragment extends Fragment {
                 Type type = new TypeToken<List<RetailerViewOrderProductModel>>() {
                 }.getType();
                 try {
+                    JSONObject OrderPaymentDetails = response.getJSONObject("Invoice");
                     double totalPrice = 0;
+                    double totalDiscount = 0;
                     invo_productList = gson.fromJson(response.get("OrderDetails").toString(), type);
                     for (int i = 0; i < invo_productList.size(); i++) {
-                        totalPrice += Double.parseDouble(invo_productList.get(i).getTotalPrice());
+                        if (!String.valueOf(invo_productList.get(i).getTotalPrice()).equals("null"))
+                            totalPrice += Double.parseDouble(invo_productList.get(i).getTotalPrice());
+                    }
+                    for (int i = 0; i < invo_productList.size(); i++) {
+                        if (!String.valueOf(invo_productList.get(i).getDiscount()).equals("null"))
+                            totalDiscount += Double.parseDouble(invo_productList.get(i).getDiscount());
                     }
                     Log.i("OrderDetails", String.valueOf(response.get("OrderDetails")));
                     RetailerViewOrderProductAdapter productAdapter = new RetailerViewOrderProductAdapter(getContext(), invo_productList);
                     rv_fragment_retailer_order_details.setAdapter(productAdapter);
-                    total_amount.setText(String.valueOf(totalPrice));
+                    DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
+                    String TotalAmount = "";
+                    if (totalPrice != 0)
+                        TotalAmount = formatter1.format(totalPrice);
+                    total_amount.setText(TotalAmount);
+                    if (!OrderPaymentDetails.getString("OrderTotalDiscount").equals("null") && !OrderPaymentDetails.getString("OrderTotalDiscount").equals("0")) {
+                        String OrderTotalDiscount = formatter1.format(Double.parseDouble(OrderPaymentDetails.getString("OrderTotalDiscount")));
+                        discount_amount.setText(OrderTotalDiscount);
+                    } else if (totalDiscount == 0) {
+                        discount.setVisibility(View.GONE);
+                        Rs_discount.setVisibility(View.GONE);
+                        discount_amount.setVisibility(View.GONE);
+                    } else {
+                        String OrderTotalDiscount = formatter1.format(totalDiscount);
+                        discount_amount.setText(OrderTotalDiscount);
+                    }
                     if (invo_productList.size() != 0) {
                         tv_shipment_no_data.setVisibility(View.GONE);
                     } else {
@@ -687,6 +731,7 @@ public class PlaceholderFragment extends Fragment {
     }
 
     private void getPaidInvoiceData() {
+        loader.showLoader();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -702,44 +747,63 @@ public class PlaceholderFragment extends Fragment {
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Payment_Data, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
+                loader.hideLoader();
                 Log.i("Order Data response2", String.valueOf(result));
                 try {
                     JSONObject response = result.getJSONObject("Invoice");
                     txt_companyName.setText(String.valueOf(response.get("CompanyName")));
-                    txt_paymentID.setText(String.valueOf(response.get("PrePaidNumber")));
-                    setTextAndShowDate(layout_txt_created_date, txt_created_date, String.valueOf(response.get("InvoiceCreatedDate")).split("T")[0]);
-                    setTextAndShow(layout_txt_amount, txt_amount, String.valueOf(response.get("Amount")));
-                    setTextAndShow(layout_txt_status, txt_status, String.valueOf(response.getString("Status")));
-                    setTextAndShow(layout_transaction_date, txt_confirm, String.valueOf(response.getString("TransactionDate")).split("T")[0]);
-                    setTextAndShow(layout_txt_bank, txt_bank, String.valueOf(response.getString("BankName")));
-                    setTextAndShow(layout_txt_authorization_id, txt_authorization_id, String.valueOf(response.getString("AuthID")));
-                    setTextAndShow(layout_txt_settlement_id, txt_settlement_id, String.valueOf(response.getString("SettlementID")));
-                    setTextAndShow(layout_txt_total_amount, txt_total_amount, String.valueOf(response.getString("TotalAmount")));
-                    setTextAndShow(layout_txt_transaction_charges, txt_transaction_charges, String.valueOf(response.getString("TransactionCharges")));
-
-                    PrePaidId = paymentId;
                     if (!String.valueOf(response.get("CompanyName")).equals("") && !String.valueOf(response.get("CompanyName")).equals("null"))
                         txt_companyName.setTextColor(getResources().getColor(R.color.textcolor));
                     if (!String.valueOf(response.get("PrePaidNumber")).equals("") && !String.valueOf(response.get("PrePaidNumber")).equals("null"))
                         txt_paymentID.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("InvoiceCreatedDate")).split("T")[0].equals("") && !String.valueOf(response.get("InvoiceCreatedDate")).split("T")[0].equals("null"))
-                        txt_created_date.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("TransactionDate")).equals("") && !String.valueOf(response.get("TransactionDate")).equals("null"))
-                        txt_confirm.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("BankName")).equals("") && !String.valueOf(response.get("BankName")).equals("null"))
-                        txt_bank.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("AuthID")).equals("") && !String.valueOf(response.get("AuthID")).equals("null"))
-                        txt_authorization_id.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("SettlementID")).equals("") && !String.valueOf(response.get("SettlementID")).equals("null"))
-                        txt_settlement_id.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("Status")).equals("") && !String.valueOf(response.get("Status")).equals("null"))
-                        txt_status.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("Amount")).equals("") && !String.valueOf(response.get("Amount")).equals("null"))
-                        txt_amount.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("TransactionCharges")).equals("") && !String.valueOf(response.get("TransactionCharges")).equals("null"))
-                        txt_transaction_charges.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("TotalAmount")).equals("") && !String.valueOf(response.get("TotalAmount")).equals("null"))
-                        txt_total_amount.setTextColor(getResources().getColor(R.color.textcolor));
+                    txt_paymentID.setText(String.valueOf(response.get("PrePaidNumber")));
+                    if (response.has("InvoiceCreatedDate")) {
+                        setTextAndShowDate(layout_txt_created_date, txt_created_date, String.valueOf(response.get("InvoiceCreatedDate")).split("T")[0]);
+                        if (!String.valueOf(response.get("InvoiceCreatedDate")).split("T")[0].equals("") && !String.valueOf(response.get("InvoiceCreatedDate")).split("T")[0].equals("null"))
+                            txt_created_date.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+                    if (response.has("Amount")) {
+                        setTextAndShow(layout_txt_amount, txt_amount, String.valueOf(response.get("Amount")));
+                        if (!String.valueOf(response.get("Amount")).equals("") && !String.valueOf(response.get("Amount")).equals("null"))
+                            txt_amount.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+                    if (response.has("Status")) {
+                        setTextAndShow(layout_txt_status, txt_status, String.valueOf(response.getString("Status")));
+                        if (!String.valueOf(response.get("Status")).equals("") && !String.valueOf(response.get("Status")).equals("null"))
+                            txt_status.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+                    if (response.has("TransactionDate")) {
+                        setTextAndShow(layout_transaction_date, txt_confirm, String.valueOf(response.getString("TransactionDate")).split("T")[0]);
+                        if (!String.valueOf(response.get("TransactionDate")).equals("") && !String.valueOf(response.get("TransactionDate")).equals("null"))
+                            txt_confirm.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+                    if (response.has("BankName")) {
+                        setTextAndShow(layout_txt_bank, txt_bank, String.valueOf(response.getString("BankName")));
+                        if (!String.valueOf(response.get("BankName")).equals("") && !String.valueOf(response.get("BankName")).equals("null"))
+                            txt_bank.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+                    if (response.has("AuthID")) {
+                        setTextAndShow(layout_txt_authorization_id, txt_authorization_id, String.valueOf(response.getString("AuthID")));
+                        if (!String.valueOf(response.get("AuthID")).equals("") && !String.valueOf(response.get("AuthID")).equals("null"))
+                            txt_authorization_id.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+                    if (response.has("SettlementID")) {
+                        setTextAndShow(layout_txt_settlement_id, txt_settlement_id, String.valueOf(response.getString("SettlementID")));
+                        if (!String.valueOf(response.get("SettlementID")).equals("") && !String.valueOf(response.get("SettlementID")).equals("null"))
+                            txt_settlement_id.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+                    if (response.has("TotalAmount")) {
+                        setTextAndShow(layout_txt_total_amount, txt_total_amount, String.valueOf(response.getString("TotalAmount")));
+                        if (!String.valueOf(response.get("TotalAmount")).equals("") && !String.valueOf(response.get("TotalAmount")).equals("null"))
+                            txt_total_amount.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+                    if (response.has("TransactionCharges")) {
+                        setTextAndShow(layout_txt_transaction_charges, txt_transaction_charges, String.valueOf(response.getString("TransactionCharges")));
+                        if (!String.valueOf(response.get("TransactionCharges")).equals("") && !String.valueOf(response.get("TransactionCharges")).equals("null"))
+                            txt_transaction_charges.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+
+                    PrePaidId = paymentId;
 
 
                 } catch (JSONException e) {
@@ -751,6 +815,8 @@ public class PlaceholderFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        loader.hideLoader();
+                        new ProcessingError().showError(getContext());
                         printErrorMessage(error);
 
                     }
@@ -771,6 +837,7 @@ public class PlaceholderFragment extends Fragment {
     }
 
     private void getUnPaidInvoiceData() {
+        loader.showLoader();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -786,6 +853,7 @@ public class PlaceholderFragment extends Fragment {
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Payment_Data, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
+                loader.hideLoader();
                 Log.i("Order Data_UnPaid", String.valueOf(result));
                 try {
                     JSONObject response = result.getJSONObject("Invoice");
@@ -808,6 +876,8 @@ public class PlaceholderFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        loader.hideLoader();
+                        new ProcessingError().showError(getContext());
                         printErrorMessage(error);
 
                     }

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 //import com.bignerdranch.expandablerecyclerview.ExpandableRecyclerAdapter;
 //import com.bignerdranch.expandablerecyclerview.model.SimpleParent;
+import com.example.haball.Distributor.ui.orders.OrdersTabsNew.Adapters.OrderParentList_VH_DistOrder;
 import com.example.haball.Distributor.ui.orders.OrdersTabsNew.ExpandableRecyclerAdapter;
 import com.example.haball.Distributor.ui.orders.OrdersTabsNew.ParentViewHolder;
 import com.example.haball.R;
@@ -40,6 +41,7 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
     private int parentPosition = -1;
     private List<OrderParentlist_Model> parentItemList;
     private RelativeLayout filter_layout;
+    private OrderParentLIst_VH orderParentLIst_VH_main;
 
     public ParentListAdapter(Context context, List<OrderParentlist_Model> parentItemList, RelativeLayout filter_layout) {
         super(parentItemList);
@@ -69,6 +71,8 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
     @Override
     public OrderParentLIst_VH onCreateParentViewHolder(ViewGroup viewGroup, int viewType) {
         View view = inflater.inflate(R.layout.parentlist_retailer_order, viewGroup, false);
+        OrderParentLIst_VH orderParentLIst_VH = new OrderParentLIst_VH(view, filter_layout);
+        OrderParentList.add(orderParentLIst_VH);
         return new OrderParentLIst_VH(view, filter_layout);
 
     }
@@ -88,6 +92,7 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
         Log.i("obj", String.valueOf(o));
         final OrderParentlist_Model orderParentlist_model = (OrderParentlist_Model) o;
         orderParentLIst_vh._textview.setText(orderParentlist_model.getTitle());
+        orderParentLIst_VH_main = orderParentLIst_vh;
 
     }
 
@@ -116,6 +121,7 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
             orderChildList_vh.list_price_value.setText("Rs. " + yourFormattedString1);
         }
         String yourFormattedString2;
+        Log.i("getDiscountAmount()", "'" + String.valueOf(orderChildlist_model.getDiscountAmount()) + "'");
         if (orderChildlist_model.getDiscountAmount() != null)
             yourFormattedString2 = formatter1.format(Double.parseDouble(orderChildlist_model.getDiscountAmount()));
         else

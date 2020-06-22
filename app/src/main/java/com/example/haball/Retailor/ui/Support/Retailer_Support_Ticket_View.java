@@ -43,6 +43,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.StatusKVP;
+import com.example.haball.Loader;
+import com.example.haball.ProcessingError;
 import com.example.haball.R;
 import com.example.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
@@ -67,8 +69,8 @@ public class Retailer_Support_Ticket_View extends Fragment {
     private Button btn_delete, btn_back;
     private TextInputLayout layout_txt_business_name, layout_txt_email_address, layout_txt_mobile_number, layout_txt_comments;
 
-    //    private String URL_SUPPORT_VIEW = "http://175.107.203.97:4014/api/contact//";
-    private String URL_SUPPORT_VIEW = "http://175.107.203.97:4014/api/support/TicketById/";
+    //    private String URL_SUPPORT_VIEW = "https://retailer.haball.pk/api/contact//";
+    private String URL_SUPPORT_VIEW = "https://retailer.haball.pk/api/support/TicketById/";
     private TextView tv_ticket_id;
     private TextInputEditText txt_business_name;
     private TextInputEditText txt_email_address;
@@ -84,12 +86,15 @@ public class Retailer_Support_Ticket_View extends Fragment {
     private HashMap<String, String> RetailerContactingMethodKVP;
     private StatusKVP statusKVP;
     private String RetailerIssueTypePrivateKVPString, RetailerCriticalityPrivateKVPString, RetailerContactingMethodKVPString;
+    private Loader loader;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.layout_support_view, container, false);
+
+        loader = new Loader(getContext());
 
         layout_txt_business_name = root.findViewById(R.id.layout_txt_business_name);
         layout_txt_email_address = root.findViewById(R.id.layout_txt_email_address);
@@ -221,6 +226,7 @@ public class Retailer_Support_Ticket_View extends Fragment {
     }
 
     private void fetchSupportData() {
+        loader.showLoader();
         SharedPreferences sharedPreferences3 = getContext().getSharedPreferences("SupportId",
                 Context.MODE_PRIVATE);
         ID = sharedPreferences3.getString("SupportId", "");
@@ -233,6 +239,7 @@ public class Retailer_Support_Ticket_View extends Fragment {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_SUPPORT_VIEW, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                loader.hideLoader();
                 Type type = new TypeToken<HashMap<String, String>>() {
                 }.getType();
                 Gson gson = new Gson();
@@ -250,10 +257,23 @@ public class Retailer_Support_Ticket_View extends Fragment {
                 Log.i("ticket_viewdata", String.valueOf(response));
                 String issue_type = "", criticality = "", preffered_contact = "";
                 try {
-                    txt_business_name.setText(String.valueOf(response.get("ContactName")));
-                    txt_email_address.setText(String.valueOf(response.get("Email")));
-                    txt_mobile_number.setText(String.valueOf(response.get("MobileNumber")));
-                    txt_comments.setText(String.valueOf(response.get("Description")));
+                    if(!String.valueOf(response.get("ContactName")).equals("") && !String.valueOf(response.get("ContactName")).equals("null")) {
+                        txt_business_name.setText(String.valueOf(response.get("ContactName")));
+                        txt_business_name.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+                    if(!String.valueOf(response.get("Email")).equals("") && !String.valueOf(response.get("Email")).equals("null")) {
+                        txt_email_address.setText(String.valueOf(response.get("Email")));
+                        txt_email_address.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+                    if(!String.valueOf(response.get("MobileNumber")).equals("") && !String.valueOf(response.get("MobileNumber")).equals("null")) {
+                        txt_mobile_number.setText(String.valueOf(response.get("MobileNumber")));
+                        txt_mobile_number.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+                    if(!String.valueOf(response.get("Description")).equals("") && !String.valueOf(response.get("Description")).equals("null")) {
+                        txt_comments.setText(String.valueOf(response.get("Description")));
+                        txt_comments.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+
                     ID = String.valueOf(response.get("ID"));
                     Log.i("statuskvp2", String.valueOf(RetailerIssueTypePrivateKVP));
 
@@ -283,6 +303,8 @@ public class Retailer_Support_Ticket_View extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
+                new ProcessingError().showError(getContext());
                 printErrorMessage(error);
 
                 error.printStackTrace();

@@ -65,7 +65,7 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
     private TextInputEditText txt_email;
     private TextView heading;
     private Button btn_lgn, btn_reset;
-    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4014/api/users/forgot";
+    private String URL_FORGOT_PASSWORD = "https://retailer.haball.pk/api/users/forgot";
 //    ProgressDialog progressDialog;
     private TextInputLayout layout_email;
     private Loader loader;
@@ -320,7 +320,7 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject();
                     jsonObject.put("Email", String.valueOf(txt_email.getText()));
-                    jsonObject.put("RedirectUrl", "http://175.107.203.97:4014/#/updatePassword");
+                    jsonObject.put("RedirectUrl", "https://retailer.haball.pk/#/updatePassword");
                     return jsonObject.toString().getBytes(StandardCharsets.UTF_8);
                 } catch (Exception e) {
                     return null;
@@ -357,7 +357,7 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
         TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
         TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
         tv_discard.setText("Alert");
-        tv_discard_txt.setText("Are you sure, you want to exit this page?.");
+        tv_discard_txt.setText("Are you sure, you want to exit this page?");
         alertDialog.setView(view_popup);
         alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
         WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();

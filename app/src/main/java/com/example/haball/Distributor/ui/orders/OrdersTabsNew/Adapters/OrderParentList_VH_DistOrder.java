@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-//import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder;
 import com.example.haball.Distributor.ui.orders.OrdersTabsNew.ParentViewHolder;
 import com.example.haball.R;
 
@@ -24,10 +23,10 @@ public class OrderParentList_VH_DistOrder extends ParentViewHolder {
         _textview = (TextView) itemView.findViewById(R.id.orderName_retailer);
         rl_orderName_retailer = itemView.findViewById(R.id.rl_orderName_retailer);
         imageView = itemView.findViewById(R.id.plus_icon);
-        minus_icon = itemView.findViewById(R.id.minus_icon);
+//        minus_icon = itemView.findViewById(R.id.minus_icon);
         subchlid_RV = itemView.findViewById(R.id.subchlid_RV);
         layout_expandable = itemView.findViewById(R.id.layout_expandable);
-        minus_icon.setVisibility(View.GONE);
+//        minus_icon.setVisibility(View.GONE);
         View.OnClickListener plusMinusOnClick = new View.OnClickListener() {
             @Override
             public void onClick(View itemView) {
@@ -45,12 +44,12 @@ public class OrderParentList_VH_DistOrder extends ParentViewHolder {
     private void togglePlusMinusIcon() {
         if (isExpanded()) {
             collapseView();
-            minus_icon.setVisibility(View.GONE);
-            imageView.setVisibility(View.VISIBLE);
+//            minus_icon.setVisibility(View.GONE);
+//            imageView.setVisibility(View.VISIBLE);
         } else {
             expandView();
-            imageView.setVisibility(View.GONE);
-            minus_icon.setVisibility(View.VISIBLE);
+//            imageView.setVisibility(View.GONE);
+//            minus_icon.setVisibility(View.VISIBLE);
         }
 
     }

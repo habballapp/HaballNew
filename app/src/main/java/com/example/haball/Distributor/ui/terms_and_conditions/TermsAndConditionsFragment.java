@@ -53,7 +53,7 @@ public class TermsAndConditionsFragment extends AppCompatActivity {
 
     private TermsAndConditionsViewModel mViewModel;
     private Button agree_button, disagree_button;
-    private String URL = "http://175.107.203.97:4014/api/users/termsandcondition";
+    private String URL = "https://retailer.haball.pk/api/users/termsandcondition";
     private String Token;
 
     public static TermsAndConditionsFragment newInstance() {

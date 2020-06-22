@@ -30,7 +30,7 @@ package com.example.haball.Retailor.ui.Dashboard;
         import java.util.Map;
 
 public class EditOrderDraft {
-    public String URL_EDIT_ORDER_DRAFT = "http://175.107.203.97:4014/api/Orders/";
+    public String URL_EDIT_ORDER_DRAFT = "https://retailer.haball.pk/api/Orders/";
     public String Token;
     public Context mContext;
 

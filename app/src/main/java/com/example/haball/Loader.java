@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -18,8 +19,17 @@ import org.json.JSONException;
 public class Loader {
     private Dialog fbDialogue;
     private Context mContext;
+
     public Loader(Context context) {
         mContext = context;
+        fbDialogue = new Dialog(mContext, R.style.theme_loader);
+
+        fbDialogue.setContentView(R.layout.loader);
+        Window window = fbDialogue.getWindow();
+
+        //window.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        window.setBackgroundDrawableResource(R.color.dialog_back);
     }
 
     public void showLoader() {
@@ -29,16 +39,12 @@ public class Loader {
 //        fbDialogue.setContentView(R.layout.loader);
 //        fbDialogue.setCancelable(false);
 //        fbDialogue.show();
+        Log.i("mContext", String.valueOf(mContext));
 
 
-        fbDialogue = new Dialog(mContext, R.style.theme_loader);
 
-        fbDialogue.setContentView(R.layout.loader);
-        Window window = fbDialogue.getWindow();
-
-        //window.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-
-      window.setBackgroundDrawableResource(R.color.dialog_back);
+//        if(fbDialogue.isShowing())
+//            fbDialogue.dismiss();
         fbDialogue.show();
 
         new CountDownTimer(20000, 1000) {
@@ -47,6 +53,7 @@ public class Loader {
             }
 
             public void onFinish() {
+                Log.i("mContext_hide", String.valueOf(mContext));
                 fbDialogue.dismiss();
 
             }
@@ -54,6 +61,11 @@ public class Loader {
     }
 
     public void hideLoader() {
+        Log.i("mContext_hide", String.valueOf(mContext));
         fbDialogue.dismiss();
+    }
+
+    public boolean isShowing() {
+        return fbDialogue.isShowing();
     }
 }

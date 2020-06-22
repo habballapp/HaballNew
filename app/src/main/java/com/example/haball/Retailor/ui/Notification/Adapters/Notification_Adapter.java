@@ -41,7 +41,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
     private Context context;
     private  String subject,notification_txt;
     private List<Retailer_Notification_Model> NotificationList = new ArrayList<>();
-    private String dismiss_alert = "http://175.107.203.97:4014/api/useralert/DismissAlert/";
+    private String dismiss_alert = "https://retailer.haball.pk/api/useralert/DismissAlert/";
 
     public Notification_Adapter(Context context, List<Retailer_Notification_Model> notificationList) {
         this.context = context;

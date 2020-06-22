@@ -10,6 +10,7 @@ package com.example.haball.Retailor.ui.Support;
         import android.view.View;
         import android.view.WindowManager;
         import android.widget.ImageButton;
+        import android.widget.TextView;
         import android.widget.Toast;
 
         import androidx.fragment.app.FragmentActivity;
@@ -22,6 +23,8 @@ package com.example.haball.Retailor.ui.Support;
         import com.android.volley.VolleyError;
         import com.android.volley.toolbox.JsonObjectRequest;
         import com.android.volley.toolbox.Volley;
+        import com.example.haball.Loader;
+        import com.example.haball.ProcessingError;
         import com.example.haball.R;
 
         import org.json.JSONException;
@@ -34,15 +37,18 @@ package com.example.haball.Retailor.ui.Support;
 
 public class DeleteSupportTicket {
     //    public String URL_SUPPORT_STATUS_CHANGE = "http://175.107.203.97:4013/api/contact/StatusChange";
-    public String URL_SUPPORT_STATUS_CHANGE = "http://175.107.203.97:4014/api/support/Delete";
+    public String URL_SUPPORT_STATUS_CHANGE = "https://retailer.haball.pk/api/support/Delete";
     public String DistributorId, Token;
     public Context mContext;
     private String response = "";
     private FragmentTransaction fragmentTransaction;
+    private Loader loader;
 
     public DeleteSupportTicket(){}
 
     public String DeleteSupportTicket(final Context context, String supportId) throws JSONException {
+        loader = new Loader(context);
+        loader.showLoader();
         mContext = context;
         SharedPreferences sharedPreferences = context.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
@@ -55,6 +61,7 @@ public class DeleteSupportTicket {
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_SUPPORT_STATUS_CHANGE, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
+                loader.hideLoader();
                 try {
                     Log.i("support delete",String.valueOf(result));
                     Log.i("support delete id",String.valueOf(result.get("ID")));
@@ -66,10 +73,15 @@ public class DeleteSupportTicket {
                     delete_successAlert.getWindow().setAttributes(layoutParams);
 
                     LayoutInflater delete_inflater = LayoutInflater.from(context);
-                    View delete_success_alert = delete_inflater.inflate(R.layout.delete_success, null);
+                    View delete_success_alert = delete_inflater.inflate(R.layout.password_updatepopup, null);
                     delete_successAlert.setView(delete_success_alert);
+                    TextView tv_pr1, txt_header1;
+                    txt_header1 = delete_success_alert.findViewById(R.id.txt_header1);
+                    tv_pr1 = delete_success_alert.findViewById(R.id.txt_details);
+                    txt_header1.setText("Ticket Deleted");
+                    tv_pr1.setText("Your Support Ticket has been deleted successfully.");
 
-                    ImageButton img_delete = (ImageButton) delete_success_alert.findViewById(R.id.btn_close_success);
+                    ImageButton img_delete = (ImageButton) delete_success_alert.findViewById(R.id.image_button);
                     img_delete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -96,6 +108,8 @@ public class DeleteSupportTicket {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
+                new ProcessingError().showError(context);
                 printErrorMessage(error);
                 error.printStackTrace();
             }

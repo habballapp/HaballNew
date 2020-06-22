@@ -3,6 +3,7 @@ package com.example.haball.Retailor.ui.RetailerOrder.ui.main;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
@@ -26,6 +27,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
@@ -47,7 +49,10 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.StatusKVP;
+import com.example.haball.Loader;
+import com.example.haball.ProcessingError;
 import com.example.haball.R;
+import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
 import com.example.haball.Retailor.ui.Make_Payment.CreatePaymentRequestFragment;
 import com.example.haball.Retailor.ui.Make_Payment.ViewInvoiceVoucher;
@@ -66,6 +71,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -76,13 +82,14 @@ public class PlaceholderFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     private String orderID, InvoiceStatus;
-    private String URL_Order_Data = "http://175.107.203.97:4014/api/Orders/";
+    private String URL_Order_Data = "https://retailer.haball.pk/api/Orders/";
     private PageViewModel pageViewModel;
     private TextInputLayout layout_txt_orderID, layout_txt_order_company, layout_txt_created_date_order, layout_txt_status_order, layout_txt_comments,
             layout_txt_companName, layout_txt_paymentID, layout_txt_created_date, layout_transaction_date,
             layout_txt_bank, layout_txt_authorization_id, layout_txt_settlement_id, layout_txt_status,
             layout_txt_amount, layout_txt_transaction_charges, layout_txt_total_amount;
     private TextInputEditText txt_orderID, txt_company_order, txt_created_date_order, txt_status_order, txt_comments;
+    private TextView discount, Rs_discount;
     private TextInputEditText txt_companyName, txt_paymentID, txt_created_date, txt_confirm, txt_bank, txt_authorization_id, txt_settlement_id, txt_status, txt_amount, txt_transaction_charges, txt_total_amount;
     private RecyclerView rv_fragment_retailer_order_details;
     private TextView tv_shipment_no_data;
@@ -98,7 +105,7 @@ public class PlaceholderFragment extends Fragment {
     private FragmentTransaction fragmentTransaction;
 
     private TextView tv_banking_channel, payment_id, btn_newpayment;
-    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4014/api/prepaidrequests/GetByRetailerCode";
+    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "https://retailer.haball.pk/api/prepaidrequests/GetByRetailerCode";
     private String PrePaidNumber = "", PrePaidId = "", CompanyName = "", Amount = "", CompanyId = "", MenuItem = "";
     private Button btn_voucher, btn_update, btn_back;
     private Spinner spinner_companyName;
@@ -108,6 +115,7 @@ public class PlaceholderFragment extends Fragment {
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
     private String company_names;
     private Typeface myFont;
+    private Loader loader;
     private RelativeLayout ln_login;
 
     //    private String DistributorId;
@@ -161,6 +169,7 @@ public class PlaceholderFragment extends Fragment {
         View rootView = null;
         switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
             case 1: {
+                loader = new Loader(getContext());
                 rootView = inflater.inflate(R.layout.fragment_retailer_orders_tab, container, false);
 
                 layout_txt_orderID = rootView.findViewById(R.id.layout_txt_orderID);
@@ -202,13 +211,16 @@ public class PlaceholderFragment extends Fragment {
             case 2: {
                 rootView = inflater.inflate(R.layout.fragment_retailer_orders_details_tab, container, false);
                 rv_fragment_retailer_order_details = rootView.findViewById(R.id.rv_fragment_retailer_order_details);
-                discount_amount = rootView.findViewById(R.id.discount_amount);
                 total_amount = rootView.findViewById(R.id.total_amount);
                 rv_fragment_retailer_order_details.setHasFixedSize(true);
                 layoutManager = new LinearLayoutManager(rootView.getContext());
                 rv_fragment_retailer_order_details.setLayoutManager(layoutManager);
                 disclaimer_tv = rootView.findViewById(R.id.disclaimer_tv);
                 button_back = rootView.findViewById(R.id.button_back);
+                discount = rootView.findViewById(R.id.discount);
+                Rs_discount = rootView.findViewById(R.id.Rs_discount);
+                discount_amount = rootView.findViewById(R.id.discount_amount);
+
 
                 SharedPreferences sharedPreferences1 = getContext().getSharedPreferences("OrderId",
                         Context.MODE_PRIVATE);
@@ -216,7 +228,7 @@ public class PlaceholderFragment extends Fragment {
                 Log.i("InvoiceStatus", InvoiceStatus);
 
 //        SectionsPagerAdapter sectionsPagerAdapter = null;
-                if (!InvoiceStatus.equals("null")) {
+                if (!InvoiceStatus.equals("null") && !InvoiceStatus.equals("Pending")) {
                     disclaimer_tv.setVisibility(View.GONE);
                 }
 
@@ -382,8 +394,18 @@ public class PlaceholderFragment extends Fragment {
                     btn_update.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            final FragmentManager fm = getActivity().getSupportFragmentManager();
-                            fm.popBackStack();
+//                            final FragmentManager fm = getActivity().getSupportFragmentManager();
+//                            fm.popBackStack();
+                            SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                                    Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                            editorOrderTabsFromDraft.putString("TabNo", "0");
+                            editorOrderTabsFromDraft.apply();
+
+                            Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                            ((FragmentActivity) getContext()).startActivity(login_intent);
+                            ((FragmentActivity) getContext()).finish();
+
 //                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                fragmentTransaction.replace(R.id.main_container_ret, new EditPaymentRequestFragment());
 //                fragmentTransaction.commit();
@@ -540,6 +562,7 @@ public class PlaceholderFragment extends Fragment {
     }
 
     private void getOrderData() {
+        loader.showLoader();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -552,6 +575,7 @@ public class PlaceholderFragment extends Fragment {
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Order_Data, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
+                loader.hideLoader();
                 Log.i("Order Data response", String.valueOf(result));
                 try {
                     JSONObject response = result.getJSONObject("OrderPaymentDetails");
@@ -582,6 +606,8 @@ public class PlaceholderFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        loader.hideLoader();
+                        new ProcessingError().showError(getContext());
                         printErrorMessage(error);
 
                     }
@@ -616,15 +642,38 @@ public class PlaceholderFragment extends Fragment {
                 Type type = new TypeToken<List<RetailerViewOrderProductModel>>() {
                 }.getType();
                 try {
+                    JSONObject OrderPaymentDetails = response.getJSONObject("OrderPaymentDetails");
                     double totalPrice = 0;
+                    double totalDiscount = 0;
                     invo_productList = gson.fromJson(response.get("OrderDetails").toString(), type);
                     for (int i = 0; i < invo_productList.size(); i++) {
-                        totalPrice += Double.parseDouble(invo_productList.get(i).getTotalPrice());
+                        if (!String.valueOf(invo_productList.get(i).getTotalPrice()).equals("null"))
+                            totalPrice += Double.parseDouble(invo_productList.get(i).getTotalPrice());
+                    }
+                    for (int i = 0; i < invo_productList.size(); i++) {
+                        if (!String.valueOf(invo_productList.get(i).getDiscount()).equals("null"))
+                            totalDiscount += Double.parseDouble(invo_productList.get(i).getDiscount());
                     }
                     Log.i("OrderDetails", String.valueOf(response.get("OrderDetails")));
                     RetailerViewOrderProductAdapter productAdapter = new RetailerViewOrderProductAdapter(getContext(), invo_productList);
                     rv_fragment_retailer_order_details.setAdapter(productAdapter);
-                    total_amount.setText(String.valueOf(totalPrice));
+                    DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
+                    String TotalAmount = "";
+                    if (totalPrice != 0)
+                        TotalAmount = formatter1.format(totalPrice);
+                    total_amount.setText(TotalAmount);
+                    if (!OrderPaymentDetails.getString("OrderTotalDiscount").equals("null") && !OrderPaymentDetails.getString("OrderTotalDiscount").equals("0")) {
+                        String OrderTotalDiscount = formatter1.format(Double.parseDouble(OrderPaymentDetails.getString("OrderTotalDiscount")));
+                        discount_amount.setText(OrderTotalDiscount);
+                    } else if (totalDiscount == 0) {
+                        discount.setVisibility(View.GONE);
+                        Rs_discount.setVisibility(View.GONE);
+                        discount_amount.setVisibility(View.GONE);
+                    } else {
+                        String OrderTotalDiscount = formatter1.format(totalDiscount);
+                        discount_amount.setText(OrderTotalDiscount);
+                    }
+
                     if (invo_productList.size() != 0) {
                         tv_shipment_no_data.setVisibility(View.GONE);
                     } else {

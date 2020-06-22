@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.annotation.UiThread;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -44,7 +45,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bignerdranch.expandablerecyclerview.model.SimpleParent;
+import com.example.haball.Distributor.ui.orders.OrdersTabsNew.ExpandableRecyclerAdapter;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
+import com.example.haball.MyDividerItemDecoration;
 import com.example.haball.NonSwipeableViewPager;
 import com.example.haball.R;
 import com.example.haball.Retailor.ui.Place_Order.Retailer_Place_Order;
@@ -76,8 +79,8 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
     private List<OrderParentlist_Model> titles = new ArrayList<>();
     private List<OrderChildlist_Model> productList = new ArrayList<>();
     private List<SimpleParent> parentObjects = new ArrayList<>();
-    private String URL_PRODUCT_CATEGORY = "http://175.107.203.97:4014/api/products/GetProductByDealerCode/";
-    private String URL_PRODUCT = "http://175.107.203.97:4014/api/products/GetProductByDealerCode/";
+    private String URL_PRODUCT_CATEGORY = "https://retailer.haball.pk/api/products/GetProductByDealerCode/";
+    private String URL_PRODUCT = "https://retailer.haball.pk/api/products/GetProductByDealerCode/";
     private String Token, Retailer_Id, CompanyId;
     private String object_string, object_stringqty;
     private List<OrderChildlist_Model> selectedProductsDataList = new ArrayList<>();
@@ -99,6 +102,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
     private Typeface myFont;
     private MyAsyncTask myAsyncTask;
     private FragmentTransaction fragmentTransaction;
+    private int lastExpandedPosition = -1;
 
     public Retailer_OrderPlace_retailer_dashboarad() {
         // Required empty public constructor
@@ -190,7 +194,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                 ((TextView) parent.getChildAt(position)).setTextColor(getResources().getColor(R.color.textcolor));
                 ((TextView) parent.getChildAt(position)).setTextSize((float) 13.6);
                 ((TextView) parent.getChildAt(position)).setPadding(50, 0, 50, 0);
-                if(position != 0) {
+                if (position != 0) {
                     try {
                         Log.i("Categoriesselected", Categories.get(Category_selected) + " - " + Category_selected);
                         getFilteredProductCategory(Categories.get(Category_selected));
@@ -587,7 +591,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                     productList = gsonChild.fromJson(String.valueOf(resultMain.get("Products")), typeChild);
                     Log.i("productList", String.valueOf(productList));
 
-                    if(productList.size() < 3) {
+                    if (productList.size() < 3) {
                         if (spinner_container_main.getVisibility() == View.GONE) {
 
                             spinner_container_main.setVisibility(View.VISIBLE);
@@ -603,9 +607,27 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                         }
                     }
 
-                    ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData(), spinner_container_main);
+                    final ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData(), spinner_container_main);
+                    adapter.setExpandCollapseListener(new ExpandableRecyclerAdapter.ExpandCollapseListener() {
+                        @UiThread
+                        @Override
+                        public void onParentExpanded(int parentPosition) {
+
+                            if (lastExpandedPosition != -1
+                                    && parentPosition != lastExpandedPosition) {
+                                adapter.collapseParent(lastExpandedPosition);
+                            }
+                            lastExpandedPosition = parentPosition;
+                        }
+
+                        @UiThread
+                        @Override
+                        public void onParentCollapsed(int parentPosition) {
+                        }
+                    });
                     //adapter.setParentClickableViewAnimationDefaultDuration();
-                    //adapter.setParentAndIconExpandOnClick(false);
+//                    adapter.setParentAndIconExpandOnClick(false);
+//                    recyclerView.addItemDecoration(new MyDividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL, 30));
                     recyclerView.setAdapter(adapter);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -738,7 +760,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                     productList = gsonChild.fromJson(String.valueOf(resultMain.get("Products")), typeChild);
                     Log.i("productList", String.valueOf(productList));
 
-                    if(productList.size() < 3) {
+                    if (productList.size() < 3) {
                         if (spinner_container_main.getVisibility() == View.GONE) {
 
                             spinner_container_main.setVisibility(View.VISIBLE);
@@ -755,9 +777,27 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                     }
 
 
-                    ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData(), spinner_container_main);
+                    final ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData(), spinner_container_main);
+                    adapter.setExpandCollapseListener(new ExpandableRecyclerAdapter.ExpandCollapseListener() {
+                        @UiThread
+                        @Override
+                        public void onParentExpanded(int parentPosition) {
+
+                            if (lastExpandedPosition != -1
+                                    && parentPosition != lastExpandedPosition) {
+                                adapter.collapseParent(lastExpandedPosition);
+                            }
+                            lastExpandedPosition = parentPosition;
+                        }
+
+                        @UiThread
+                        @Override
+                        public void onParentCollapsed(int parentPosition) {
+                        }
+                    });
                     //adapter.setParentClickableViewAnimationDefaultDuration();
                     //adapter.setParentAndIconExpandOnClick(false);
+//                    recyclerView.addItemDecoration(new MyDividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL, 16));
                     recyclerView.setAdapter(adapter);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -885,15 +925,32 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                     Type typeChild = new TypeToken<List<OrderChildlist_Model>>() {
                     }.getType();
                     List<OrderChildlist_Model> tempproductList = gsonChild.fromJson(String.valueOf(resultMain.get("Products")), typeChild);
-                    for(int i = 0; i < tempproductList.size(); i++) {
-                        if(tempproductList.get(i).getTitle().toLowerCase().contains(name.toLowerCase()))
+                    for (int i = 0; i < tempproductList.size(); i++) {
+                        if (tempproductList.get(i).getTitle().toLowerCase().contains(name.toLowerCase()))
                             productList.add(tempproductList.get(i));
                     }
                     Log.i("productList", String.valueOf(productList));
 
-                    ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData(), spinner_container_main);
+                    final ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData(), spinner_container_main);
+                    adapter.setExpandCollapseListener(new ExpandableRecyclerAdapter.ExpandCollapseListener() {
+                        @UiThread
+                        @Override
+                        public void onParentExpanded(int parentPosition) {
+                            if (lastExpandedPosition != -1
+                                    && parentPosition != lastExpandedPosition) {
+                                adapter.collapseParent(lastExpandedPosition);
+                            }
+                            lastExpandedPosition = parentPosition;
+                        }
+
+                        @UiThread
+                        @Override
+                        public void onParentCollapsed(int parentPosition) {
+                        }
+                    });
                     //adapter.setParentClickableViewAnimationDefaultDuration();
                     //adapter.setParentAndIconExpandOnClick(false);
+//                    recyclerView.addItemDecoration(new MyDividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL, 16));
                     recyclerView.setAdapter(adapter);
                 } catch (JSONException e) {
                     e.printStackTrace();

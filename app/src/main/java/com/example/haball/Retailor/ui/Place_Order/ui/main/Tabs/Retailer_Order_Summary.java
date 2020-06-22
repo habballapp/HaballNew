@@ -1,24 +1,36 @@
 package com.example.haball.Retailor.ui.Place_Order.ui.main.Tabs;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +48,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.haball.NonSwipeableViewPager;
 import com.example.haball.R;
 import com.example.haball.Retailor.RetailorDashboard;
+import com.example.haball.Retailor.ui.Make_Payment.PaymentScreen3Fragment_Retailer;
 import com.example.haball.Retailor.ui.Place_Order.ui.main.Adapters.Order_Summary_Adapter;
 import com.example.haball.Retailor.ui.Place_Order.ui.main.Models.OrderChildlist_Model;
 import com.google.gson.Gson;
@@ -66,13 +79,13 @@ public class Retailer_Order_Summary extends Fragment {
     private List<OrderChildlist_Model> selectedProductsDataList = new ArrayList<>();
     private List<String> selectedProductsQuantityList = new ArrayList<>();
     private String object_string, object_stringqty, Token, DistributorId, CompanyId;
-    private String URL_CONFIRM_ORDERS = "http://175.107.203.97:4014/api/Orders/saveOrder";
+    private String URL_CONFIRM_ORDERS = "https://retailer.haball.pk/api/Orders/saveOrder";
     //    private String URL_SAVE_TEMPLATE = "http://175.107.203.97:4013/api/ordertemplate/save";
-    private String URL_SAVE_DRAFT = "http://175.107.203.97:4014/api/Orders/draft";
-//    private Button btn_confirm, btn_template, btn_draft, btn_add_product;
+    private String URL_SAVE_DRAFT = "https://retailer.haball.pk/api/Orders/draft";
+    //    private Button btn_confirm, btn_template, btn_draft, btn_add_product;
     private Button btn_confirm, btn_draft, btn_add_product;
     private TextView gross_amount, discount_amount, total_amount;
-//    private TextView gst_amount;
+    //    private TextView gst_amount;
     private float totalAmount;
     private ViewPager viewpager;
     private List<OrderChildlist_Model> temp_list = new ArrayList<>();
@@ -232,7 +245,7 @@ public class Retailer_Order_Summary extends Fragment {
 
     }
 
-//
+    //
 //    private void requestSaveTemplate() throws JSONException {
 //        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
 //                Context.MODE_PRIVATE);
@@ -332,8 +345,26 @@ public class Retailer_Order_Summary extends Fragment {
 //
 //        Volley.newRequestQueue(getContext()).add(sr);
 //    }
+    private void disableAllButtons() {
+        btn_draft.setEnabled(false);
+        btn_draft.setBackgroundResource(R.drawable.button_grey_round);
+        btn_confirm.setEnabled(false);
+        btn_confirm.setBackgroundResource(R.drawable.button_grey_round);
+        btn_add_product.setEnabled(false);
+        btn_add_product.setBackgroundResource(R.drawable.button_grey_round);
+    }
+
+    private void enableAllButtons() {
+        btn_draft.setEnabled(true);
+        btn_draft.setBackgroundResource(R.drawable.button_round);
+        btn_confirm.setEnabled(true);
+        btn_confirm.setBackgroundResource(R.drawable.button_round);
+        btn_add_product.setEnabled(true);
+        btn_add_product.setBackgroundResource(R.drawable.button_round);
+    }
 
     private void requestSaveDraft() throws JSONException {
+        disableAllButtons();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -373,6 +404,7 @@ public class Retailer_Order_Summary extends Fragment {
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_SAVE_DRAFT, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(final JSONObject result) {
+                enableAllButtons();
                 Log.i("RESPONSE ORDER .. ", result.toString());
                 try {
                     SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
@@ -386,11 +418,54 @@ public class Retailer_Order_Summary extends Fragment {
                     selectedProducts_distributor_editor.clear();
                     selectedProducts_distributor_editor.apply();
 
-                    Toast.makeText(getContext(), "Order Request ID " + result.get("OrderNumber") + " has been saved as draft successfully.", Toast.LENGTH_LONG).show();
-                    Intent login_intent = new Intent(getActivity(), RetailorDashboard.class);
-                    startActivity(login_intent);
-                    getActivity().finish();
+//                    Toast.makeText(getContext(), "Order Request ID " + result.get("OrderNumber") + " has been saved as draft successfully.", Toast.LENGTH_LONG).show();
+//                    Intent login_intent = new Intent(getActivity(), RetailorDashboard.class);
+//                    startActivity(login_intent);
+//                    getActivity().finish();
 
+                    final Dialog fbDialogue = new Dialog(getActivity());
+                    //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                    fbDialogue.setContentView(R.layout.password_updatepopup);
+                    TextView tv_pr1, txt_header1;
+                    txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
+                    tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
+                    txt_header1.setText("Order Saved");
+                    tv_pr1.setText("Your Order ID " + result.getString("OrderNumber") + " has been saved successfully.");
+                    fbDialogue.setCancelable(true);
+                    fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                    WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+                    layoutParams.y = 200;
+                    layoutParams.x = -70;// top margin
+                    fbDialogue.getWindow().setAttributes(layoutParams);
+                    fbDialogue.show();
+
+                    ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+                    close_button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            fbDialogue.dismiss();
+                        }
+                    });
+
+                    fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+//                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                        fragmentTransaction.replace(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
+//                        fragmentTransaction.commit();
+
+                            SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                                    Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                            editorOrderTabsFromDraft.putString("TabNo", "0");
+                            editorOrderTabsFromDraft.apply();
+
+                            Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                            ((FragmentActivity) getContext()).startActivity(login_intent);
+                            ((FragmentActivity) getContext()).finish();
+
+                        }
+                    });
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -399,6 +474,7 @@ public class Retailer_Order_Summary extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                enableAllButtons();
                 printErrorMessage(error);
                 error.printStackTrace();
                 refreshRetailerInfo();
@@ -417,6 +493,7 @@ public class Retailer_Order_Summary extends Fragment {
     }
 
     private void requestConfirmOrder() throws JSONException {
+        disableAllButtons();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -449,17 +526,67 @@ public class Retailer_Order_Summary extends Fragment {
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_CONFIRM_ORDERS, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(final JSONObject result) {
-                Log.i("RESPONSE ORDER .. ", result.toString());
+                enableAllButtons();
+
+                final Dialog fbDialogue = new Dialog(getActivity());
+                //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                fbDialogue.setContentView(R.layout.password_updatepopup);
+                TextView tv_pr1, txt_header1;
+                txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
+                tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
+                txt_header1.setText("Order Created");
                 try {
-                    Toast.makeText(getContext(), "Order Request ID " + result.get("OrderNumber") + " has been submitted successfully and sent for approval.", Toast.LENGTH_LONG).show();
+                    tv_pr1.setText("Your Order ID " + result.getString("OrderNumber") + " has been created successfully.");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                fbDialogue.setCancelable(true);
+                fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+                layoutParams.y = 200;
+                layoutParams.x = -70;// top margin
+                fbDialogue.getWindow().setAttributes(layoutParams);
+                fbDialogue.show();
+
+                ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+                close_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        fbDialogue.dismiss();
+                    }
+                });
+
+                fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+//                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                        fragmentTransaction.replace(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
+//                        fragmentTransaction.commit();
+
+                        SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                        editorOrderTabsFromDraft.putString("TabNo", "0");
+                        editorOrderTabsFromDraft.apply();
+
+                        Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                        ((FragmentActivity) getContext()).startActivity(login_intent);
+                        ((FragmentActivity) getContext()).finish();
+
+                    }
+                });
+//                Log.i("RESPONSE ORDER .. ", result.toString());
+//                try {
+//                    Toast.makeText(getContext(), "Order Request ID " + result.get("OrderNumber") + " has been submitted successfully and sent for approval.", Toast.LENGTH_LONG).show();
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
                 refreshRetailerInfo();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                enableAllButtons();
                 printErrorMessage(error);
                 error.printStackTrace();
                 refreshRetailerInfo();
@@ -475,6 +602,71 @@ public class Retailer_Order_Summary extends Fragment {
         };
 
         Volley.newRequestQueue(getContext()).add(sr);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    showDiscardDialog();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+    }
+
+    private void showDiscardDialog() {
+        Log.i("CreatePayment", "In Dialog");
+        final FragmentManager fm = getActivity().getSupportFragmentManager();
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+        tv_discard_txt.setText("Are you sure, you want to leave this page? Your changes will be discarded.");
+        alertDialog.setView(view_popup);
+        alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+        WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+        layoutParams.y = 200;
+        layoutParams.x = -70;// top margin
+        alertDialog.getWindow().setAttributes(layoutParams);
+        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+        btn_discard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.i("CreatePayment", "Button Clicked");
+                alertDialog.dismiss();
+                SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                editorOrderTabsFromDraft.putString("TabNo", "0");
+                editorOrderTabsFromDraft.apply();
+
+                Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                ((FragmentActivity) getContext()).startActivity(login_intent);
+                ((FragmentActivity) getContext()).finish();
+
+//                fm.popBackStack();
+            }
+        });
+
+        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+        img_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+            }
+        });
+
+        alertDialog.show();
     }
 
     private void refreshRetailerInfo() {

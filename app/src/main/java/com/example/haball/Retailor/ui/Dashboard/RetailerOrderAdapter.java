@@ -33,6 +33,7 @@ import com.example.haball.Retailor.ui.RetailerOrder.RetailerViewOrder;
 
 import org.json.JSONException;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdapter.ViewHolder> {
@@ -68,6 +69,9 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
 //        holder.order_no_value.setText(order_no_value);
 //        holder.tv_status.setText(status);
 //        holder.tv_amount.setText(amount);
+        DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
+        String yourFormattedString1 = formatter1.format(Double.parseDouble(OrderList.get(position).getTotalPrice()));
+        holder.tv_amount.setText(yourFormattedString1);
 
         holder.tv_heading.setText(OrderList.get(position).getCompanyName());
         holder.order_no_value.setText(OrderList.get(position).getOrderNumber());
@@ -75,7 +79,6 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
             holder.tv_status.setText(OrderList.get(position).getOrderStatusValue());
         else if (OrderList.get(position).getStatus() != null)
             holder.tv_status.setText(OrderList.get(position).getStatus());
-        holder.tv_amount.setText(OrderList.get(position).getTotalPrice());
 
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -249,9 +252,49 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
         cancelOrder.cancelOrder(context, ID, OrderNumber);
     }
 
-    private void deleteOrderDraft(Context context, String ID, String OrderNumber) throws JSONException {
-        DeleteOrderDraft deleteDraft = new DeleteOrderDraft();
-        deleteDraft.deleteDraft(context, ID, OrderNumber);
+    private void deleteOrderDraft(final Context context, final String ID, final String OrderNumber) throws JSONException {
+
+        Log.i("CreatePayment", "In Dialog");
+//            final FragmentManager fm = mContxt.getSupportFragmentManager();
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(mContxt).create();
+        LayoutInflater inflater = LayoutInflater.from(mContxt);
+        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
+        tv_discard.setText("Delete Order");
+        TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+        tv_discard_txt.setText("Are you sure, you want to delete this order?");
+        alertDialog.setView(view_popup);
+        alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+        WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+        layoutParams.y = 200;
+        layoutParams.x = -70;// top margin
+        alertDialog.getWindow().setAttributes(layoutParams);
+        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+        btn_discard.setText("Delete");
+        btn_discard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                DeleteOrderDraft deleteDraft = new DeleteOrderDraft();
+                try {
+                    deleteDraft.deleteDraft(context, ID, OrderNumber);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+        img_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+            }
+        });
+
+        alertDialog.show();
+
     }
 
     private void editOrderDraft(Context context, String ID, String OrderNumber) throws JSONException {

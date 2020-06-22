@@ -62,7 +62,7 @@ public class Payment_Summary extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private String URL = "http://175.107.203.97:4014/api/prepaidrequests/Search";
+    private String URL = "https://retailer.haball.pk/api/prepaidrequests/Search";
     private String Token;
     private List<RetailerPaymentModel> PaymentsList = new ArrayList<>();
 

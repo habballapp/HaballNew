@@ -1,5 +1,6 @@
 package com.example.haball.Retailor.ui.Support;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.KeyListener;
@@ -17,9 +19,11 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -42,8 +46,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Loader;
+import com.example.haball.ProcessingError;
 import com.example.haball.R;
 import com.example.haball.Retailer_Login.RetailerLogin;
+import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Support.Support_Ditributor.Support_Ticket_Form;
 import com.example.haball.TextField;
 import com.google.android.material.snackbar.Snackbar;
@@ -77,11 +84,11 @@ public class Support_Ticket_Form_Fragment extends Fragment {
     private String DistributorId;
     private ImageButton btn_back;
     private Spinner IssueType, critcicality, Preffered_Contact;
-    private String URL_SPINNER_DATA = " http://175.107.203.97:4014/api/lookup/null";
-    //    private String URL_SPINNER_ISSUETYPE = "http://175.107.203.97:4014/api/lookup/public/ISSUE_TYPE_PRIVATE";
-//    private String URL_SPINNER_CRITICALITY = "http://175.107.203.97:4014/api/lookup/public/CRITICALITY_PRIVATE";
-//    private String URL_SPINNER_PREFFEREDCONTACT = "http://175.107.203.97:4014/api/lookup/public/CONTRACTING_METHOD";
-    private String URL_TICkET = "http://175.107.203.97:4014/api/support/PrivateSave";
+    private String URL_SPINNER_DATA = " https://retailer.haball.pk/api/lookup/null";
+    //    private String URL_SPINNER_ISSUETYPE = "https://retailer.haball.pk/api/lookup/public/ISSUE_TYPE_PRIVATE";
+//    private String URL_SPINNER_CRITICALITY = "https://retailer.haball.pk/api/lookup/public/CRITICALITY_PRIVATE";
+//    private String URL_SPINNER_PREFFEREDCONTACT = "https://retailer.haball.pk/api/lookup/public/CONTRACTING_METHOD";
+    private String URL_TICkET = "https://retailer.haball.pk/api/support/PrivateSave";
 
     private List<String> issue_type = new ArrayList<>();
     private List<String> criticality = new ArrayList<>();
@@ -99,6 +106,8 @@ public class Support_Ticket_Form_Fragment extends Fragment {
     private Typeface myFont;
     private int keyDel;
     private String first_name = "", email = "", phone_number = "";
+    private Boolean changed = false;
+    private Loader loader;
 
 
     @Override
@@ -113,6 +122,8 @@ public class Support_Ticket_Form_Fragment extends Fragment {
         email = data.getString("email", "");
         phone_number = data.getString("phone_number", "");
 
+        loader = new Loader(getContext());
+
         myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
 
         Log.i("name", first_name);
@@ -123,6 +134,72 @@ public class Support_Ticket_Form_Fragment extends Fragment {
         Email = root.findViewById(R.id.Email);
         MobileNo = root.findViewById(R.id.MobileNo);
         Comment = root.findViewById(R.id.Comment);
+        BName.setEnabled(false);
+
+        Email.setFocusable(false);
+        MobileNo.setFocusable(false);
+
+
+        Email.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (Email.getRight() - Email.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        // your action here
+                        Email.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                        Email.setFocusable(true);
+                        Email.setFocusableInTouchMode(true);
+                        Email.requestFocus();
+
+                        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                        Email.setSelection(Email.getText().length());
+//                                btn_save_password.setEnabled(true);
+//                                btn_save_password.setBackground(getResources().getDrawable(R.drawable.button_background));
+                        changed = true;
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+
+        MobileNo.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (MobileNo.getRight() - MobileNo.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        // your action here
+                        MobileNo.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                        MobileNo.setFocusable(true);
+                        MobileNo.setFocusableInTouchMode(true);
+                        MobileNo.requestFocus();
+
+                        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                        MobileNo.setSelection(MobileNo.getText().length());
+//                                btn_save_password.setEnabled(true);
+//                                btn_save_password.setBackground(getResources().getDrawable(R.drawable.button_background));
+                        changed = true;
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
 
         layout_BName = root.findViewById(R.id.layout_BName);
         layout_Email = root.findViewById(R.id.layout_Email);
@@ -145,7 +222,9 @@ public class Support_Ticket_Form_Fragment extends Fragment {
         Email.setText(email);
         MobileNo.setText(phone_number);
         BName.setText(first_name);
-
+        BName.setTextColor(getResources().getColor(R.color.textcolor));
+        MobileNo.setTextColor(getResources().getColor(R.color.textcolor));
+        Email.setTextColor(getResources().getColor(R.color.textcolor));
 
         issue_type.add("Issue Type");
         issueType = "Issue Type";
@@ -545,7 +624,16 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                     if (!txt_BName.equals(first_name) || !txt_Email.equals(email) || !txt_MobileNo.equals(phone_number) || !txt_Comment.equals("") || !issueType.equals("Issue Type") || !Criticality.equals("Criticality") || !PrefferedContacts.equals("Preferred Method of Contacting")) {
                         showDiscardDialog();
                     } else {
-                        fm.popBackStack();
+//                        fm.popBackStack();
+                        SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                        editorOrderTabsFromDraft.putString("TabNo", "0");
+                        editorOrderTabsFromDraft.apply();
+
+                        Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                        ((FragmentActivity) getContext()).startActivity(login_intent);
+                        ((FragmentActivity) getContext()).finish();
 
                     }
                 }
@@ -578,7 +666,17 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                         showDiscardDialog();
                         return true;
                     } else {
-                        fm.popBackStack();
+//                        fm.popBackStack();
+                        SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                        editorOrderTabsFromDraft.putString("TabNo", "0");
+                        editorOrderTabsFromDraft.apply();
+
+                        Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                        ((FragmentActivity) getContext()).startActivity(login_intent);
+                        ((FragmentActivity) getContext()).finish();
+
                         return false;
                     }
                 }
@@ -608,7 +706,17 @@ public class Support_Ticket_Form_Fragment extends Fragment {
             public void onClick(View v) {
                 Log.i("CreatePayment", "Button Clicked");
                 alertDialog.dismiss();
-                fm.popBackStack();
+//                fm.popBackStack();
+                SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                editorOrderTabsFromDraft.putString("TabNo", "0");
+                editorOrderTabsFromDraft.apply();
+
+                Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                ((FragmentActivity) getContext()).startActivity(login_intent);
+                ((FragmentActivity) getContext()).finish();
+
             }
         });
 
@@ -815,6 +923,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
     }
 
     private void makeTicketAddRequest() throws JSONException {
+        loader.showLoader();
         JSONObject map = new JSONObject();
         map.put("ContactName", BName.getText().toString());
         map.put("Email", Email.getText().toString());
@@ -831,6 +940,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_TICkET, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
+                loader.hideLoader();
                 Log.e("RESPONSE", result.toString());
 //                Toast.makeText(getContext(), "Ticket generated successfully.", Toast.LENGTH_LONG).show();
 //                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -879,6 +989,8 @@ public class Support_Ticket_Form_Fragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
+                new ProcessingError().showError(getContext());
                 printErrorMessage(error);
             }
 

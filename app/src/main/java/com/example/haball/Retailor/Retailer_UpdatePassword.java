@@ -59,6 +59,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Loader;
 import com.example.haball.R;
 import com.example.haball.Registration.BooleanRequest;
 import com.example.haball.Retailer_Login.RetailerLogin;
@@ -83,7 +84,7 @@ import java.util.Map;
 public class Retailer_UpdatePassword extends AppCompatActivity {
 
     private Button update_password, btn_back;
-    private String URL = "http://175.107.203.97:4014/api/users/UpdatePassword";
+    private String URL = "https://retailer.haball.pk/api/users/UpdatePassword";
     private String Token;
     private String UserName, Name;
     private TextInputLayout layout_password3, layout_password1;
@@ -93,12 +94,14 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
     private TextView txt_change1;
     private TextView tv_pr1, txt_header1;
     boolean doubleBackToExitPressedOnce = false;
-    private String URL_Skip_Password = "http://175.107.203.97:4014/api/users/update";
+    private String URL_Skip_Password = "https://retailer.haball.pk/api/users/update";
+    private Loader loader;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_update_password);
+        loader = new Loader(Retailer_UpdatePassword.this);
         Drawable background_drawable = getResources().getDrawable(R.drawable.background_logo);
         background_drawable.setAlpha(80);
         RelativeLayout rl_main_background = findViewById(R.id.rl_main_background);
@@ -196,7 +199,7 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
             btn_discard.setText("Skip");
         } else {
             tv_discard_txt.setText("Are you sure, you want to exit this page?");
-            btn_discard.setText("Exit");
+            btn_discard.setText("Yes");
         }
 
 
@@ -254,7 +257,7 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
         tv_discard.setText("Alert");
 
         tv_discard_txt.setText("Are you sure, you want to exit this page?");
-        btn_discard.setText("Exit");
+        btn_discard.setText("Yes");
 
 
         alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
@@ -297,6 +300,7 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
     }
 
     private void skipUpdatePassword(final Class targetClass) throws JSONException {
+        loader.showLoader();
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("skip", true);
         Log.i("Password_Log", String.valueOf(jsonObject));
@@ -307,6 +311,7 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(Boolean result) {
+                loader.hideLoader();
                 if (result) {
                     Intent intent = new Intent(Retailer_UpdatePassword.this, targetClass);
                     startActivity(intent);
@@ -316,6 +321,7 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
                 printErrorMessage(error);
                 error.printStackTrace();
                 final Dialog fbDialogue = new Dialog(Retailer_UpdatePassword.this);
@@ -414,6 +420,8 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
 
     private void updatePassword() throws JSONException {
         if (password_check && confirm_password_check) {
+            loader.showLoader();
+
             Log.i("Token", Token);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("Username", UserName);
@@ -427,6 +435,7 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
                 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                 @Override
                 public void onResponse(Boolean result) {
+                    loader.hideLoader();
                     if (result) {
                         final Dialog fbDialogue = new Dialog(Retailer_UpdatePassword.this);
                         //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
@@ -465,6 +474,7 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    loader.hideLoader();
                     printErrorMessage(error);
                     error.printStackTrace();
                     final Dialog fbDialogue = new Dialog(Retailer_UpdatePassword.this);

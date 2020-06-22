@@ -23,6 +23,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Loader;
+import com.example.haball.ProcessingError;
 import com.example.haball.R;
 import com.example.haball.Registration.BooleanRequest;
 import com.example.haball.Retailer_Login.RetailerLogin;
@@ -36,9 +38,10 @@ import java.util.Map;
 public class Retailer_TermsAndConditionsFragment extends AppCompatActivity {
 
     private Button agree_button, disagree_button;
-    private String URL = "http://175.107.203.97:4014/api/users/termsandcondition";
+    private String URL = "https://retailer.haball.pk/api/users/termsandcondition";
     private String Token;
     boolean doubleBackToExitPressedOnce = false;
+    private Loader loader;
 
     public static Retailer_TermsAndConditionsFragment newInstance() {
         return new Retailer_TermsAndConditionsFragment();
@@ -54,6 +57,8 @@ public class Retailer_TermsAndConditionsFragment extends AppCompatActivity {
         rl_main_background.setBackground(background_drawable);
         agree_button = findViewById(R.id.agree_button);
         disagree_button = findViewById(R.id.disagree_button);
+
+        loader = new Loader(Retailer_TermsAndConditionsFragment.this);
 
         agree_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +91,7 @@ public class Retailer_TermsAndConditionsFragment extends AppCompatActivity {
     }
 
     private void termsAndConditionAccepted() throws JSONException {
+        loader.showLoader();
         SharedPreferences sharedPreferences = getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -100,6 +106,7 @@ public class Retailer_TermsAndConditionsFragment extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(Boolean result) {
+                loader.hideLoader();
                 if(result) {
                     Intent intent = new Intent(Retailer_TermsAndConditionsFragment.this, Retailer_UpdatePassword.class);
                     startActivity(intent);
@@ -114,6 +121,8 @@ public class Retailer_TermsAndConditionsFragment extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
+                new ProcessingError().showError(Retailer_TermsAndConditionsFragment.this);
                 // printErrorMessage(error);
                 error.printStackTrace();
             }

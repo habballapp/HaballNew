@@ -282,13 +282,13 @@
             <!--                android:text="© Haball | All rights reserved" />-->
         </RelativeLayout>
     </RelativeLayout>
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/loader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:src="@drawable/loader_new"
-        android:visibility="visible"
-        />
+<!--    <pl.droidsonroids.gif.GifImageView-->
+<!--        android:id="@+id/loader"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:src="@drawable/loader_new"-->
+<!--        android:visibility="visible"-->
+<!--        />-->
 
 </RelativeLayout>

@@ -385,11 +385,12 @@
                     android:layout_weight="1"
                     android:background="@drawable/button_round"
                     android:gravity="center"
+                    android:fontFamily="@font/open_sans"
                     android:stateListAnimator="@null"
                     android:text="Delete"
                     android:textAllCaps="false"
                     android:textColor="#fff"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/button_text_size"  />
 
                 <Button
                     android:id="@+id/btn_back"
@@ -400,12 +401,13 @@
                     android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/button_round"
+                    android:fontFamily="@font/open_sans"
                     android:gravity="center"
                     android:stateListAnimator="@null"
                     android:text="Back"
                     android:textAllCaps="false"
                     android:textColor="#fff"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/button_text_size"  />
             </LinearLayout>
 
             <!--            <TextView-->

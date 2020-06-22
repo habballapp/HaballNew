@@ -55,32 +55,57 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
         DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
         String yourFormattedString1 = formatter1.format(Double.parseDouble(OrdersList.get(position).getUnitPrice()));
         holder.price_value.setText("Rs. " + yourFormattedString1);
-        String yourFormattedString2;
-        if (InvoiceStatus.equals("null")) {
-            holder.discount.setVisibility(View.GONE);
-            holder.discount_value.setVisibility(View.GONE);
-            holder.separator_1.setVisibility(View.GONE);
-        }
-        if (OrdersList.get(position).getDiscount() != null)
-            yourFormattedString2 = formatter1.format(Double.parseDouble(OrdersList.get(position).getDiscount()));
-        else
-            yourFormattedString2 = formatter1.format(Double.parseDouble(OrdersList.get(position).getUnitPrice()));
-        holder.discount_value.setText("Rs. " + yourFormattedString2);
         holder.UOM_value.setText(OrdersList.get(position).getUOMTitle());
-        holder.tax_value.setText(OrdersList.get(position).getTaxValue());
+        String yourFormattedString2;
+        if (OrdersList.get(position).getDiscount().equals("0") || OrdersList.get(position).getDiscount().equals("null")) {
+//            holder.discount.setText("Tax Value: ");
+//            String yourFormattedString4 = formatter1.format(Double.parseDouble(OrdersList.get(position).getTaxValue()));
+//            holder.discount_value.setText("Rs. " + yourFormattedString4);
+//            holder.tv_taxValue.setText("Quantity: ");
+//            holder.tax_value.setText(OrdersList.get(position).getOrderQty());
+//            holder.Quantity_value.setVisibility(View.GONE);
+//            holder.separator_3.setVisibility(View.GONE);
+//            holder.Quantity.setVisibility(View.GONE);
+
+            if (!OrdersList.get(position).getTaxValue().equals("0") && !OrdersList.get(position).getTaxValue().equals("") && !OrdersList.get(position).getTaxValue().equals("null")) {
+                holder.discount.setText("Tax Value: ");
+                String yourFormattedString4 = formatter1.format(Double.parseDouble(OrdersList.get(position).getTaxValue()));
+                holder.discount_value.setText("Rs. " + yourFormattedString4);
+                holder.tv_taxValue.setText("Quantity: ");
+                holder.tax_value.setText(OrdersList.get(position).getOrderQty());
+                holder.Quantity_value.setVisibility(View.GONE);
+                holder.separator_3.setVisibility(View.GONE);
+                holder.Quantity.setVisibility(View.GONE);
+            } else {
+                holder.discount.setVisibility(View.GONE);
+                holder.discount_value.setVisibility(View.GONE);
+                holder.separator_2.setVisibility(View.GONE);
+                holder.tax_value.setVisibility(View.GONE);
+                holder.tv_taxValue.setVisibility(View.GONE);
+                holder.Quantity_value.setText(OrdersList.get(position).getOrderQty());
+            }
+
+
+        } else {
+            yourFormattedString2 = formatter1.format(Double.parseDouble(OrdersList.get(position).getDiscount()));
+            holder.discount_value.setText("Rs. " + yourFormattedString2);
+            holder.tax_value.setText(OrdersList.get(position).getTaxValue());
+            if (!OrdersList.get(position).getTaxValue().equals("0") && !OrdersList.get(position).getTaxValue().equals("") && !OrdersList.get(position).getTaxValue().equals("null")) {
+                String yourFormattedString4 = formatter1.format(Double.parseDouble(OrdersList.get(position).getTaxValue()));
+                holder.tax_value.setText("Rs. " + yourFormattedString4);
+//            holder.tax_value.setText(OrdersList.get(position).getTaxValue());
+                holder.Quantity_value.setText(OrdersList.get(position).getOrderQty());
+            } else {
+                holder.tv_taxValue.setText("Quantity: ");
+                holder.tax_value.setText(OrdersList.get(position).getOrderQty());
+                holder.Quantity_value.setVisibility(View.GONE);
+                holder.separator_3.setVisibility(View.GONE);
+                holder.Quantity.setVisibility(View.GONE);
+            }
+        }
 //        holder.tax_value.setVisibility(View.GONE);
 //        holder.tv_taxValue.setVisibility(View.GONE);
 //        holder.separator_2.setVisibility(View.GONE);
-        if (!OrdersList.get(position).getTaxValue().equals("0") && !OrdersList.get(position).getTaxValue().equals("") && !OrdersList.get(position).getTaxValue().equals("null")) {
-            holder.tax_value.setText(OrdersList.get(position).getTaxValue());
-            holder.Quantity_value.setText(OrdersList.get(position).getOrderQty());
-        } else {
-            holder.tv_taxValue.setText("Quantity: ");
-            holder.tax_value.setText(OrdersList.get(position).getOrderQty());
-            holder.Quantity_value.setVisibility(View.GONE);
-            holder.separator_3.setVisibility(View.GONE);
-            holder.Quantity.setVisibility(View.GONE);
-        }
 
         String yourFormattedString3 = formatter1.format(Double.parseDouble(OrdersList.get(position).getTotalPrice()));
         holder.amount_value.setText("Rs. " + yourFormattedString3);

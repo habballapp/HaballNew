@@ -60,6 +60,7 @@ package com.example.haball.Retailor;
         import com.android.volley.VolleyError;
         import com.android.volley.toolbox.JsonObjectRequest;
         import com.android.volley.toolbox.Volley;
+        import com.example.haball.Loader;
         import com.example.haball.R;
         import com.example.haball.Registration.BooleanRequest;
         import com.example.haball.Retailer_Login.RetailerLogin;
@@ -84,8 +85,8 @@ package com.example.haball.Retailor;
 public class Retailer_New_Password extends AppCompatActivity {
 
     private Button update_password, btn_back;
-    private String URL = "http://175.107.203.97:4014/api/users/UpdatePasswordByLink";
-    private String URL_TokenValidate = "http://175.107.203.97:4014/api/users/ValidateToken";
+    private String URL = "https://retailer.haball.pk/api/users/UpdatePasswordByLink";
+    private String URL_TokenValidate = "https://retailer.haball.pk/api/users/ValidateToken";
     private String Token;
     private String UserName, Name;
     private TextInputLayout layout_password3, layout_password1;
@@ -95,12 +96,13 @@ public class Retailer_New_Password extends AppCompatActivity {
     private TextView txt_change1;
     private TextView tv_pr1, txt_header1;
     boolean doubleBackToExitPressedOnce = false;
+    private Loader loader;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_new_password);
-
+        loader = new Loader(Retailer_New_Password.this);
 
         Uri uri = getIntent().getData();
         if(uri != null) {
@@ -129,7 +131,7 @@ public class Retailer_New_Password extends AppCompatActivity {
 //                Context.MODE_PRIVATE);
 //        Name = sharedPreferences1.getString("first_name", "");
 
-        txt_change1.setText("Welcome " + Name + " to Haball's App. It is recommended to change the default password.");
+//        txt_change1.setText("Welcome " + Name + " to Haball's App. It is recommended to change the default password.");
 
         update_password.setEnabled(false);
         update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
@@ -176,7 +178,7 @@ public class Retailer_New_Password extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                if (!String.valueOf(txt_newpassword.getText()).equals("") || !String.valueOf(txt_cfmpassword.getText()).equals(""))
-                showDiscardDialog(RetailorDashboard.class, "RetailorDashboard");
+                showDiscardDialog();
 //                else {
 //                    Intent intent = new Intent(Retailer_New_Password.this, RetailorDashboard.class);
 //                    startActivity(intent);
@@ -188,6 +190,7 @@ public class Retailer_New_Password extends AppCompatActivity {
     }
 
     private void validateToken() throws JSONException {
+        loader.showLoader();
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("access_token", Token);
         Log.i("Password_Log", String.valueOf(jsonObject));
@@ -198,10 +201,12 @@ public class Retailer_New_Password extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(Boolean result) {
+                loader.hideLoader();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
                 printErrorMessage(error);
                 error.printStackTrace();
                 final Dialog fbDialogue = new Dialog(Retailer_New_Password.this);
@@ -259,7 +264,7 @@ public class Retailer_New_Password extends AppCompatActivity {
     }
 
 
-    private void showDiscardDialog(final Class targetClass, String className) {
+    private void showDiscardDialog() {
         final FragmentManager fm = getSupportFragmentManager();
 
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
@@ -270,19 +275,8 @@ public class Retailer_New_Password extends AppCompatActivity {
         TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
         TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
         tv_discard.setText("Alert");
-        if(className.equals("RetailorDashboard")) {
-            String steps = "It is recommended to change the default generated password.";
-            String title = "Are you sure, you want to skip?";
-            SpannableString ss1 = new SpannableString(title);
-            ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
-            tv_discard_txt.append(steps);
-            tv_discard_txt.append(" ");
-            tv_discard_txt.append(ss1);
-            btn_discard.setText("Skip");
-        } else {
-            tv_discard_txt.setText("Are you sure, you want to exit this page?");
-            btn_discard.setText("Exit");
-        }
+        tv_discard_txt.setText("Are you sure, you want to exit this page?");
+        btn_discard.setText("Yes");
 
 
         alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
@@ -295,7 +289,7 @@ public class Retailer_New_Password extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i("CreatePayment", "Button Clicked");
                 alertDialog.dismiss();
-                Intent intent = new Intent(Retailer_New_Password.this, targetClass);
+                Intent intent = new Intent(Retailer_New_Password.this, RetailerLogin.class);
                 startActivity(intent);
             }
         });
@@ -322,7 +316,7 @@ public class Retailer_New_Password extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (!String.valueOf(txt_newpassword.getText()).equals("") || !String.valueOf(txt_cfmpassword.getText()).equals(""))
-            showDiscardDialog(RetailerLogin.class, "RetailerLogin");
+            showDiscardDialog();
         else {
             Intent intent = new Intent(Retailer_New_Password.this, RetailerLogin.class);
             startActivity(intent);
@@ -362,6 +356,7 @@ public class Retailer_New_Password extends AppCompatActivity {
 
     private void updatePassword() throws JSONException {
         if (password_check && confirm_password_check) {
+            loader.showLoader();
             Log.i("Token", Token);
             JSONObject jsonObject = new JSONObject();
 //            jsonObject.put("Username", "1283798123981isaodio");
@@ -375,6 +370,7 @@ public class Retailer_New_Password extends AppCompatActivity {
                 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                 @Override
                 public void onResponse(Boolean result) {
+                    loader.hideLoader();
                     if (result) {
                         final Dialog fbDialogue = new Dialog(Retailer_New_Password.this);
                         //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
@@ -415,6 +411,7 @@ public class Retailer_New_Password extends AppCompatActivity {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    loader.hideLoader();
                     printErrorMessage(error);
                     error.printStackTrace();
                     final Dialog fbDialogue = new Dialog(Retailer_New_Password.this);

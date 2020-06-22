@@ -43,6 +43,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Loader;
+import com.example.haball.ProcessingError;
 import com.example.haball.R;
 import com.example.haball.Retailer_Login.RetailerLogin;
 import com.example.haball.Retailor.ui.Support.SupportFragment;
@@ -77,11 +78,11 @@ public class Support_Ticket_Form extends AppCompatActivity {
     private TextInputLayout layout_BName, layout_Email, layout_MobileNo, layout_Comment;
     //    private ImageButton btn_back;
     private Spinner IssueType, critcicality, Preffered_Contact;
-    private String URL_SPINNER_DATA = "http://175.107.203.97:4014/api/support/PublicUsers";
+    private String URL_SPINNER_DATA = "https://retailer.haball.pk/api/support/PublicUsers";
     //    private String URL_SPINNER_ISSUETYPE = "http://175.107.203.97:4013/api/lookup/public/ISSUE_TYPE_PUBLIC";
 //    private String URL_SPINNER_CRITICALITY = "http://175.107.203.97:4013/api/lookup/public/CRITICALITY_PUBLIC";
 //    private String URL_SPINNER_PREFFEREDCONTACT = "http://175.107.203.97:4013/api/lookup/public/CONTRACTING_METHOD";
-    private String URL_TICkET = "http://175.107.203.97:4014/api/support/PublicSave";
+    private String URL_TICkET = "https://retailer.haball.pk/api/support/PublicSave";
 
     private List<String> issue_type = new ArrayList<>();
     private List<String> criticality = new ArrayList<>();
@@ -108,19 +109,19 @@ public class Support_Ticket_Form extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_need__support);
-//        Drawable background_drawable = getResources().getDrawable(R.drawable.background_logo);
-//        background_drawable.setAlpha(80);
-//        RelativeLayout rl_main_background = findViewById(R.id.rl_main_background);
-//        rl_main_background.setBackground(background_drawable);
+        Drawable background_drawable = getResources().getDrawable(R.drawable.background_logo);
+        background_drawable.setAlpha(80);
+        RelativeLayout rl_main_background = findViewById(R.id.rl_main_background);
+        rl_main_background.setBackground(background_drawable);
 //        loader = findViewById(R.id.loader);
 
-        //        getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
+//                getWindow().setBackgroundDrawableResource(R.drawable.background_logo);
 
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.setDisplayShowHomeEnabled(false);
 //        actionBar.setDisplayShowTitleEnabled(false);
 //        loader.setVisibility(View.VISIBLE);
-//        loader = new Loader(Support_Ticket_Form.this);
+        loader = new Loader(Support_Ticket_Form.this);
 //        loader.showLoader();
 
 //        LayoutInflater inflater = LayoutInflater.from(this);
@@ -582,6 +583,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
         layoutParams.x = -70;// top margin
         alertDialog.getWindow().setAttributes(layoutParams);
         Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+        btn_discard.setText("Yes");
         btn_discard.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.i("CreatePayment", "Button Clicked");
@@ -639,6 +641,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
     }
 
     private void makeTicketAddRequest() throws JSONException {
+        loader.showLoader();
         JSONObject map = new JSONObject();
         map.put("ContactName", BName.getText().toString());
         map.put("Email", Email.getText().toString());
@@ -653,6 +656,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_TICkET, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
+                loader.hideLoader();
                 Log.e("RESPONSE", result.toString());
 //                Toast.makeText(getApplicationContext(), "Ticket Created Successfully", Toast.LENGTH_LONG).show();
 //                Intent intent = new Intent(Support_Ticket_Form.this, RetailerLogin.class);
@@ -702,6 +706,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
                 printErrorMessage(error);
             }
 
@@ -867,9 +872,11 @@ public class Support_Ticket_Form extends AppCompatActivity {
 //    }
 
     private void fetchSpinnerData() {
+        loader.showLoader();
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_SPINNER_DATA, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
+                loader.hideLoader();
                 JSONObject jsonObject = null;
 //                loader.setVisibility(View.GONE);
 //                loader.hideLoader();
@@ -919,6 +926,8 @@ public class Support_Ticket_Form extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
+                new ProcessingError().showError(Support_Ticket_Form.this);
                 printErrorMessage(error);
             }
         }) {

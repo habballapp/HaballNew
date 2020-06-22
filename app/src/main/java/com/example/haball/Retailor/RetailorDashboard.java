@@ -88,7 +88,7 @@ public class RetailorDashboard extends AppCompatActivity {
     //    private TextView tv_username, tv_user_company;
     boolean doubleBackToExitPressedOnce = false;
     private Socket iSocket;
-    private static final String URL = "http://175.107.203.97:4014";
+    private static final String URL = "https://retailer.haball.pk";
     private String UserId;
     private JSONArray userRights;
     private List<String> NavList = new ArrayList<>();
@@ -141,68 +141,68 @@ public class RetailorDashboard extends AppCompatActivity {
         }
 
 
-        boolean UserAlert = true;
-        boolean Distributor_Preferences = true;
-        boolean Retailer_Profile = true;
-        boolean Order_Add_Update = true;
-        boolean Order_Export = true;
-        boolean Order_View = true;
-        boolean Kyc_add_update = true;
-        boolean User_Change_Password = true;
-        boolean Payment_Add_Update = true;
-        boolean Payment_View = true;
+        boolean UserAlert = false;
+        boolean Distributor_Preferences = false;
+        boolean Retailer_Profile = false;
+        boolean Order_Add_Update = false;
+        boolean Order_Export = false;
+        boolean Order_View = false;
+        boolean Kyc_add_update = false;
+        boolean User_Change_Password = false;
+        boolean Payment_Add_Update = false;
+        boolean Payment_View = false;
 
 //
-        UserAlert = true;
-        Distributor_Preferences = true;
-        Retailer_Profile = true;
-        Order_Add_Update = true;
-        Order_Export = true;
-        Order_View = true;
-        Kyc_add_update = true;
-        User_Change_Password = true;
-        Payment_Add_Update = true;
-        Payment_View = true;
+//        UserAlert = true;
+//        Distributor_Preferences = true;
+//        Retailer_Profile = true;
+//        Order_Add_Update = true;
+//        Order_Export = true;
+//        Order_View = true;
+//        Kyc_add_update = true;
+//        User_Change_Password = true;
+//        Payment_Add_Update = true;
+//        Payment_View = true;
 //
-//
-//        for (int i = 0; i < userRights.length(); i++) {
-//            try {
-//                JSONObject userRightsData = new JSONObject(String.valueOf(userRights.get(i)));
-//                if (userRightsData.get("Title").equals("Distributor Preferences")) {
-//                    Distributor_Preferences = true;
-//                }
-//                if (userRightsData.get("Title").equals("UserAlert")) {
-//                    UserAlert = true;
-//                }
-//                if (userRightsData.get("Title").equals("Kyc add/update")) {
-//                    Kyc_add_update = true;
-//                }
-//                if (userRightsData.get("Title").equals("Order Add/Update")) {
-//                    Order_Add_Update = true;
-//                }
-//                if (userRightsData.get("Title").equals("Payment Add/Update")) {
-//                    Payment_Add_Update = true;
-//                }
-//                if (userRightsData.get("Title").equals("Retailer Profile")) {
-//                    Retailer_Profile = true;
-//                }
-//                if (userRightsData.get("Title").equals("User Change Password")) {
-//                    User_Change_Password = true;
-//                }
-//                if (userRightsData.get("Title").equals("Payment View")) {
-//                    Payment_View = true;
-//                }
-//                if (userRightsData.get("Title").equals("Order Export")) {
-//                    Order_Export = true;
-//                }
-//                if (userRightsData.get("Title").equals("Order View")) {
-//                    Order_View = true;
-//                }
-////                Log.i("userRightsData", String.valueOf(userRights.get(i)));
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//        }
+
+        for (int i = 0; i < userRights.length(); i++) {
+            try {
+                JSONObject userRightsData = new JSONObject(String.valueOf(userRights.get(i)));
+                if (userRightsData.get("Title").equals("Distributor Preferences")) {
+                    Distributor_Preferences = true;
+                }
+                if (userRightsData.get("Title").equals("UserAlert")) {
+                    UserAlert = true;
+                }
+                if (userRightsData.get("Title").equals("Kyc add/update")) {
+                    Kyc_add_update = true;
+                }
+                if (userRightsData.get("Title").equals("Order Add/Update")) {
+                    Order_Add_Update = true;
+                }
+                if (userRightsData.get("Title").equals("Payment Add/Update")) {
+                    Payment_Add_Update = true;
+                }
+                if (userRightsData.get("Title").equals("Retailer Profile")) {
+                    Retailer_Profile = true;
+                }
+                if (userRightsData.get("Title").equals("User Change Password")) {
+                    User_Change_Password = true;
+                }
+                if (userRightsData.get("Title").equals("Payment View")) {
+                    Payment_View = true;
+                }
+                if (userRightsData.get("Title").equals("Order Export")) {
+                    Order_Export = true;
+                }
+                if (userRightsData.get("Title").equals("Order View")) {
+                    Order_View = true;
+                }
+//                Log.i("userRightsData", String.valueOf(userRights.get(i)));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
 
         SharedPreferences retailerInfo = getSharedPreferences("Retailer_UserRights",
                 Context.MODE_PRIVATE);
@@ -456,11 +456,63 @@ public class RetailorDashboard extends AppCompatActivity {
         if (drawer.isDrawerOpen(Gravity.LEFT)) {
             drawer.closeDrawer(Gravity.LEFT);
         } else {
-            FragmentManager fm = getSupportFragmentManager();
-            if (fm.getBackStackEntryCount() == 0) {
+//            FragmentManager fm = getSupportFragmentManager();
+//            if (fm.getBackStackEntryCount() == 0) {
                 if (doubleBackToExitPressedOnce) {
-                    super.onBackPressed();
-                    finishAffinity();
+//                    super.onBackPressed();
+//                    finishAffinity();
+
+                    final AlertDialog alertDialog = new AlertDialog.Builder(RetailorDashboard.this).create();
+                    LayoutInflater inflater = LayoutInflater.from(RetailorDashboard.this);
+                    View view_popup = inflater.inflate(R.layout.discard_changes, null);
+                    TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
+                    tv_discard.setText("Logout");
+                    TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+                    tv_discard_txt.setText("Are you sure, you want to logout?");
+                    alertDialog.setView(view_popup);
+                    alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                    WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+                    layoutParams.y = 200;
+                    layoutParams.x = -70;// top margin
+                    alertDialog.getWindow().setAttributes(layoutParams);
+                    Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+                    btn_discard.setText("Logout");
+                    btn_discard.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            alertDialog.dismiss();
+
+//                        } else if (id == 6) {
+                            Log.i("Logout", "Logout Activity");
+                            SharedPreferences login_token = getSharedPreferences("LoginToken",
+                                    Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = login_token.edit();
+                            editor.remove("Login_Token");
+                            editor.remove("User_Type");
+                            editor.remove("Retailer_Id");
+                            editor.remove("username");
+                            editor.remove("CompanyName");
+                            editor.remove("UserId");
+                            editor.commit();
+//                            Intent dashboard = new Intent(RetailorDashboard.this, RetailerLogin.class);
+//                            startActivity(dashboard);
+                            Intent intent = new Intent(RetailorDashboard.this, Register_Activity.class);
+                            startActivity(intent);
+                            finish();
+
+                        }
+                    });
+
+                    ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+                    img_email.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.dismiss();
+
+                        }
+                    });
+
+                    alertDialog.show();
+
                     return;
                 }
                 this.doubleBackToExitPressedOnce = true;
@@ -471,11 +523,10 @@ public class RetailorDashboard extends AppCompatActivity {
                         doubleBackToExitPressedOnce = false;
                     }
                 }, 1500);
-            } else {
-//            super.onBackPressed();
-                fm.popBackStack();
-            }
-
+//            } else {
+////            super.onBackPressed();
+//                fm.popBackStack();
+//            }
         }
     }
 

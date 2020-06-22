@@ -36,7 +36,7 @@ public class RetailerViewOrder extends Fragment {
         Log.i("InvoiceStatus", InvoiceStatus);
 
 //        SectionsPagerAdapter sectionsPagerAdapter = null;
-        if (InvoiceStatus.equals("null")) {
+        if (InvoiceStatus.equals("null") || InvoiceStatus.equals("Pending")) {
             SectionsPagerAdapter_WithoutPayments sectionsPagerAdapter = new SectionsPagerAdapter_WithoutPayments(getActivity(), getChildFragmentManager());
             final ViewPager viewPager = root.findViewById(R.id.view_pager_ret_view_order);
             viewPager.setOffscreenPageLimit(3);

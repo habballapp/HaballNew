@@ -53,7 +53,7 @@ public class PlaceholderFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private String Token, DistributorId;
     //network Api
-    private String MYNETWORK_URL = " http://175.107.203.97:4014/api/kyc/Search";
+    private String MYNETWORK_URL = " https://retailer.haball.pk/api/kyc/Search";
     private int pageNumbernetwork = 0;
     private double totalPagesnetwork = 0;
     private double totalEntriesnetwork = 0;

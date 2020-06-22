@@ -75,8 +75,8 @@ public class PlaceholderFragment extends Fragment {
     private RecyclerView.Adapter mAdapter1;
     private RecyclerView.LayoutManager layoutManager, layoutManager1;
     private String Token, Retailer_Id;
-    private String URL_Retailer = "http://175.107.203.97:4014/api/kyc/ConnectedKycList/"; // To be done
-    private String URL_Retailer_Details = "http://175.107.203.97:4014/api/retailer/"; // To be done
+    private String URL_Retailer = "https://retailer.haball.pk/api/kyc/ConnectedKycList/"; // To be done
+    private String URL_Retailer_Details = "https://retailer.haball.pk/api/retailer/"; // To be done
     private List<Company_Fragment_Model> CompanyList;
     private Button btn_next;
     private static final String ARG_SECTION_NUMBER = "section_number";

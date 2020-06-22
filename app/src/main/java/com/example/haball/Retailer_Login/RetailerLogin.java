@@ -35,6 +35,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.StatusKVP;
 import com.example.haball.Distributor.ui.terms_and_conditions.TermsAndConditionsFragment;
+import com.example.haball.Loader;
+import com.example.haball.ProcessingError;
 import com.example.haball.R;
 import com.example.haball.Retailor.Forgot_Password_Retailer.Forgot_Pass_Retailer;
 import com.example.haball.Retailor.Retailer_TermsAndConditionsFragment;
@@ -71,14 +73,15 @@ public class RetailerLogin extends AppCompatActivity {
     private TextInputLayout layout_username, layout_password;
     private Toolbar tb;
     private RequestQueue queue;
-    private String URL = "http://175.107.203.97:4014/Token";
-    //    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4014/api/Users/forgot";
-    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4013/api/users/forgot";
+    private String URL = "https://retailer.haball.pk/Token";
+    //    private String URL_FORGOT_PASSWORD = "https://retailer.haball.pk/api/Users/forgot";
+//    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4013/api/users/forgot";
     private HttpURLConnection urlConnection = null;
     private java.net.URL url;
     private String token;
     private String success_text = "";
-    private ProgressDialog progressDialog;
+//    private ProgressDialog progressDialog;
+    private Loader loader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +103,7 @@ public class RetailerLogin extends AppCompatActivity {
 //        layout_username.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
 //        layout_password.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
 
-        progressDialog = new ProgressDialog(this);
+        loader = new Loader(RetailerLogin.this);
 
         et_username = findViewById(R.id.txt_username);
         et_password = findViewById(R.id.txt_password);
@@ -285,6 +288,7 @@ public class RetailerLogin extends AppCompatActivity {
 
 
     private void loginRequest() throws JSONException {
+        loader.showLoader();
 
         JSONObject map = new JSONObject();
         map.put("Username", et_username.getText().toString());
@@ -295,6 +299,7 @@ public class RetailerLogin extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONObject result) {
+                loader.hideLoader();
                 try {
                     if (!result.get("access_token").toString().isEmpty()) {
                         token = result.get("access_token").toString();
@@ -385,6 +390,8 @@ public class RetailerLogin extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
+                new ProcessingError().showError(RetailerLogin.this);
                 printErrorMessage(error);
                 error.printStackTrace();
                 //Toast.makeText(RetailerLogin.this,error.toString(),Toast.LENGTH_LONG).show();

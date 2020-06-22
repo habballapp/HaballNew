@@ -23,6 +23,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Loader;
+import com.example.haball.ProcessingError;
 import com.example.haball.R;
 import com.example.haball.Retailor.RetailorDashboard;
 
@@ -33,10 +35,11 @@ import java.util.Map;
 
 class PaymentDeleteOrder {
 
-    public String URL_DELETE_PAYMENT = "http://175.107.203.97:4014/api/prepaidrequests/Delete/";
+    public String URL_DELETE_PAYMENT = "https://retailer.haball.pk/api/prepaidrequests/Delete/";
     public Context context;
     public String invoiceNumber;
     public String RetailerId,Token;
+    private Loader loader;
 
 
 
@@ -45,6 +48,8 @@ class PaymentDeleteOrder {
 
 
     public void deleteOrder(final Context context, String invoiceId, final String invoiceNumber) {
+        loader = new Loader(context);
+        loader.showLoader();
         Log.i("paymentLog", "in delete order" );
         Log.i("paymentLog_Error", String.valueOf( invoiceId ) );
 
@@ -67,6 +72,7 @@ class PaymentDeleteOrder {
             @Override
             public void onResponse(JSONObject response) {
                 // TODO handle the response
+                loader.hideLoader();
                 Log.i("paymentLog_Response", String.valueOf( response ) );
                 final Dialog fbDialogue = new Dialog(context);
                 //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
@@ -115,6 +121,8 @@ class PaymentDeleteOrder {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.i("paymentLog_Error", String.valueOf( error ) );
+                loader.hideLoader();
+                new ProcessingError().showError(context);
                 error.printStackTrace();
             }
         }) {

@@ -269,7 +269,7 @@
                     android:hint="Total Amount"
                     android:fontFamily="@font/open_sans"
                     android:theme="@style/TextLabel"
-                    app:boxBackgroundColor="#F8F8F8"
+                    app:boxBackgroundColor="#EBEBEB"
                    >
 
                     <com.google.android.material.textfield.TextInputEditText

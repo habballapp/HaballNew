@@ -60,8 +60,8 @@ public class EditPaymentRequestFragment extends Fragment {
     private String Token;
     private Button btn_create;
 
-    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4014/api/prepaidrequests/GetByRetailerCode";
-    private String URL_PAYMENT_REQUESTS_SAVE = "http://175.107.203.97:4014/api/prepaidrequests/save";
+    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "https://retailer.haball.pk/api/prepaidrequests/GetByRetailerCode";
+    private String URL_PAYMENT_REQUESTS_SAVE = "https://retailer.haball.pk/api/prepaidrequests/save";
 
     private List<String> CompanyNames = new ArrayList<>();
     private HashMap<String, String> companyNameAndId = new HashMap<>();

@@ -33,6 +33,8 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Loader;
+import com.example.haball.ProcessingError;
 import com.example.haball.R;
 import com.example.haball.Registration.BooleanRequest;
 import com.example.haball.Retailer_Login.RetailerLogin;
@@ -48,12 +50,13 @@ import java.util.Iterator;
 public class SignUp extends AppCompatActivity implements View.OnFocusChangeListener {
 
     private ImageButton btn_back;
-    private String URL = "http://175.107.203.97:4014/api/retailer/Register";
+    private String URL = "https://retailer.haball.pk/api/retailer/Register";
     private EditText txt_username, txt_password, txt_confirmpass, txt_fullname, txt_email, txt_cnic, txt_mobile_number, txt_business_name, txt_address;
     private Button btn_register_signup, btn_register_close;
     private Boolean password_check = false, confirm_password_check = false;
     private int keyDel;
     private TextInputLayout layout_txt_password, layout_txt_confirmpass;
+    private Loader loader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,8 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
 
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
+
+        loader = new Loader(SignUp.this);
 
         final LayoutInflater inflater = LayoutInflater.from(this);
 
@@ -234,6 +239,7 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
     };
 
     private void makeRegisterRequest() throws JSONException {
+        loader.showLoader();
         JSONObject map = new JSONObject();
         if (password_check && confirm_password_check) {
             map.put("ID", 0);
@@ -256,6 +262,7 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
             JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject result) {
+                    loader.hideLoader();
                     Log.e("RESPONSE", result.toString());
                     try {
                         if (!result.get("RetailerCode").toString().isEmpty()) {
@@ -274,6 +281,8 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    loader.hideLoader();
+                    new ProcessingError().showError(SignUp.this);
                     printErrorMessage(error);
                     error.printStackTrace();
                     //  Toast.makeText(SignUp.this,error.toString(),Toast.LENGTH_LONG).show();

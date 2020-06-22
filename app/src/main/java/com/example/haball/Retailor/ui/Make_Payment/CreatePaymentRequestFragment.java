@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -42,7 +43,10 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.payments.PaymentScreen3Fragment;
+import com.example.haball.Loader;
+import com.example.haball.ProcessingError;
 import com.example.haball.R;
+import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Retailor.ui.Support.SupportFragment;
 import com.example.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
@@ -62,6 +66,7 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -69,9 +74,9 @@ public class CreatePaymentRequestFragment extends Fragment {
     private String Token, DistributorId, ID;
     private Button btn_create;
 
-    //    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4014/api/kyc/KYCDistributorList";
-    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4014/api/prepaidrequests/GetByRetailerCode";
-    private String URL_PAYMENT_REQUESTS_SAVE = "http://175.107.203.97:4014/api/prepaidrequests/save";
+    //    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "https://retailer.haball.pk/api/kyc/KYCDistributorList";
+    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "https://retailer.haball.pk/api/prepaidrequests/GetByRetailerCode";
+    private String URL_PAYMENT_REQUESTS_SAVE = "https://retailer.haball.pk/api/prepaidrequests/save";
 
     private List<String> CompanyNames = new ArrayList<>();
     private HashMap<String, String> companyNameAndId = new HashMap<>();
@@ -85,6 +90,7 @@ public class CreatePaymentRequestFragment extends Fragment {
     private TextInputLayout layout_txt_amount;
     private String prepaid_number;
     private Typeface myFont;
+    private Loader loader;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -100,6 +106,7 @@ public class CreatePaymentRequestFragment extends Fragment {
         layout_txt_amount = root.findViewById(R.id.layout_txt_amount);
         CompanyNames.add("Select Company");
         company_names = "";
+        loader = new Loader(getContext());
 
         new TextField().changeColor(getContext(), layout_txt_amount, txt_amount);
 
@@ -221,7 +228,15 @@ public class CreatePaymentRequestFragment extends Fragment {
                     if (!txt_amounts.equals("") || !company.equals("Select Company")) {
                         showDiscardDialog();
                     } else {
-                        fm.popBackStack();
+                        SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                        editorOrderTabsFromDraft.putString("TabNo", "0");
+                        editorOrderTabsFromDraft.apply();
+
+                        Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                        ((FragmentActivity) getContext()).startActivity(login_intent);
+                        ((FragmentActivity) getContext()).finish();
                     }
                 }
                 return false;
@@ -240,7 +255,15 @@ public class CreatePaymentRequestFragment extends Fragment {
                         showDiscardDialog();
                         return true;
                     } else {
-                        fm.popBackStack();
+                        SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                        editorOrderTabsFromDraft.putString("TabNo", "0");
+                        editorOrderTabsFromDraft.apply();
+
+                        Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                        ((FragmentActivity) getContext()).startActivity(login_intent);
+                        ((FragmentActivity) getContext()).finish();
                     }
                 }
                 return false;
@@ -269,7 +292,17 @@ public class CreatePaymentRequestFragment extends Fragment {
             public void onClick(View v) {
                 Log.i("CreatePayment", "Button Clicked");
                 alertDialog.dismiss();
-                fm.popBackStack();
+                SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                editorOrderTabsFromDraft.putString("TabNo", "0");
+                editorOrderTabsFromDraft.apply();
+
+                Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                ((FragmentActivity) getContext()).startActivity(login_intent);
+                ((FragmentActivity) getContext()).finish();
+
+//                fm.popBackStack();
             }
         });
 
@@ -302,6 +335,7 @@ public class CreatePaymentRequestFragment extends Fragment {
     }
 
     private void makeSaveRequest() throws JSONException {
+        loader.showLoader();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -323,6 +357,7 @@ public class CreatePaymentRequestFragment extends Fragment {
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PAYMENT_REQUESTS_SAVE, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
+                loader.hideLoader();
                 try {
                     Log.i("Response PR", result.toString());
                     prepaid_number = result.getString("PrePaidNumber");
@@ -353,6 +388,8 @@ public class CreatePaymentRequestFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
+                new ProcessingError().showError(getContext());
                 printErrorMessage(error);
                 error.printStackTrace();
 
@@ -420,6 +457,7 @@ public class CreatePaymentRequestFragment extends Fragment {
     }
 
     private void fetchCompanyData() {
+        loader.showLoader();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -429,6 +467,7 @@ public class CreatePaymentRequestFragment extends Fragment {
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PAYMENT_REQUESTS_SELECT_COMPANY, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
+                loader.hideLoader();
                 try {
                     JSONObject jsonObject = null;
                     for (int i = 0; i < result.length(); i++) {
@@ -444,6 +483,8 @@ public class CreatePaymentRequestFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
+                new ProcessingError().showError(getContext());
                 printErrorMessage(error);
                 error.printStackTrace();
             }

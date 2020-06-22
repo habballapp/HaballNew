@@ -9,12 +9,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -45,9 +48,14 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Loader;
+import com.example.haball.ProcessingError;
 import com.example.haball.R;
 import com.example.haball.Registration.BooleanRequest;
 import com.example.haball.Retailer_Login.RetailerLogin;
+import com.example.haball.Retailor.RetailorDashboard;
+import com.example.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
+import com.example.haball.Retailor.ui.Make_Payment.PaymentScreen3Fragment_Retailer;
 import com.example.haball.Retailor.ui.Profile.Profile_Tabs;
 import com.example.haball.Select_User.Register_Activity;
 import com.example.haball.SplashScreen.SplashScreen;
@@ -77,10 +85,10 @@ import androidx.lifecycle.ViewModelProviders;
  */
 public class PlaceholderFragment extends Fragment {
 
-    private String ChangePass_URL = " http://175.107.203.97:4014/api/users/ChangePassword";
-    private String PROFILE_EDIT_URL = "http://175.107.203.97:4014/api/retailer/Save";
+    private String ChangePass_URL = " https://retailer.haball.pk/api/users/ChangePassword";
+    private String PROFILE_EDIT_URL = "https://retailer.haball.pk/api/retailer/Save";
     private String Token;
-    private String PROFILE_URL = "http://175.107.203.97:4014/api/retailer/";
+    private String PROFILE_URL = "https://retailer.haball.pk/api/retailer/";
     private String RetailerId, ID, username, CompanyName;
     private Button btn_changepwd, btn_save_password, update_password;
     private TextInputEditText Rfirstname, Remail, Rcode, Rcnic, Rmobile, R_created_date, R_Address, txt_password, txt_newpassword, txt_cfmpassword;
@@ -98,6 +106,7 @@ public class PlaceholderFragment extends Fragment {
 
     private PageViewModel pageViewModel;
     private int keyDel;
+    private Loader loader;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -128,6 +137,7 @@ public class PlaceholderFragment extends Fragment {
             case 1: {
 
                 root = inflater.inflate(R.layout.fragment_retailor_profile, container, false);
+                loader = new Loader(getContext());
                 currentTab = "Profile";
                 Rfirstname = root.findViewById(R.id.Rfirstname);
                 Rcode = root.findViewById(R.id.Rcode);
@@ -632,7 +642,9 @@ public class PlaceholderFragment extends Fragment {
                         showDiscardDialog();
                         return true;
                     } else {
-                        return false;
+                        Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                        ((FragmentActivity) getContext()).startActivity(login_intent);
+                        ((FragmentActivity) getContext()).finish();
                     }
                 }
                 return false;
@@ -673,7 +685,9 @@ public class PlaceholderFragment extends Fragment {
                         showDiscardDialog();
                         return true;
                     } else {
-                        return false;
+                        Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                        ((FragmentActivity) getContext()).startActivity(login_intent);
+                        ((FragmentActivity) getContext()).finish();
                     }
                 }
                 return false;
@@ -702,7 +716,17 @@ public class PlaceholderFragment extends Fragment {
             public void onClick(View v) {
                 Log.i("CreatePayment", "Button Clicked");
                 alertDialog.dismiss();
-                fm.popBackStack();
+//                fm.popBackStack();
+                SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                editorOrderTabsFromDraft.putString("TabNo", "0");
+                editorOrderTabsFromDraft.apply();
+
+                Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                ((FragmentActivity) getContext()).startActivity(login_intent);
+                ((FragmentActivity) getContext()).finish();
+
             }
         });
 
@@ -745,6 +769,7 @@ public class PlaceholderFragment extends Fragment {
         checkPasswords();
         checkConfirmPassword();
         if (old_password_check && password_check && confirm_password_check) {
+            loader.showLoader();
 
             SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                     Context.MODE_PRIVATE);
@@ -769,6 +794,7 @@ public class PlaceholderFragment extends Fragment {
                 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                 @Override
                 public void onResponse(Boolean result) {
+                    loader.hideLoader();
                     Log.i("response", String.valueOf(result));
                     if (result) {
 //                            Toast.makeText(getActivity(), result.get("message").toString(), Toast.LENGTH_SHORT).show();
@@ -779,7 +805,7 @@ public class PlaceholderFragment extends Fragment {
 
                         tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
 //                            tv_pr1.setText("User Profile ID " + ID + " password has been changed successfully.");
-                        tv_pr1.setText("Your password has been updated. You would be logged out of your account");
+                        tv_pr1.setText("Your password has been updated. You can login with the new credentials.");
                         fbDialogue.setCancelable(true);
                         fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
                         WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
@@ -821,6 +847,7 @@ public class PlaceholderFragment extends Fragment {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    loader.hideLoader();
                     printErrorMessage(error);
                     error.printStackTrace();
 
@@ -1072,6 +1099,7 @@ public class PlaceholderFragment extends Fragment {
     }
 
     private void saveProfileData() throws JSONException {
+        loader.showLoader();
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
@@ -1096,20 +1124,46 @@ public class PlaceholderFragment extends Fragment {
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, PROFILE_EDIT_URL, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
-                try {
-                    Toast.makeText(getContext(), "Profile Information Successfully updated for " + result.getString("RetailerCode"), Toast.LENGTH_LONG).show();
-                    fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.main_container_ret, new Profile_Tabs()).addToBackStack("tag");
-                    ;
-                    fragmentTransaction.commit();
+                loader.hideLoader();
+                final Dialog fbDialogue = new Dialog(getActivity());
+                //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                fbDialogue.setContentView(R.layout.password_updatepopup);
+                TextView tv_pr1, txt_header1;
+                txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
+                tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
+                tv_pr1.setText("Your profile has been updated successfully.");
+                txt_header1.setText("Profile Updated");
+                fbDialogue.setCancelable(true);
+                fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+                layoutParams.y = 200;
+                layoutParams.x = -70;// top margin
+                fbDialogue.getWindow().setAttributes(layoutParams);
+                fbDialogue.show();
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+                close_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        fbDialogue.dismiss();
+                    }
+                });
+
+                fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        //                    Toast.makeText(getContext(), "Profile Information Successfully updated for " + result.getString("RetailerCode"), Toast.LENGTH_LONG).show();
+                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.main_container_ret, new Profile_Tabs()).addToBackStack("tag");
+                        fragmentTransaction.commit();
+                    }
+                });
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
+                new ProcessingError().showError(getContext());
                 printErrorMessage(error);
                 error.printStackTrace();
             }
@@ -1166,6 +1220,7 @@ public class PlaceholderFragment extends Fragment {
     }
 
     private void profileData() {
+        loader.showLoader();
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
@@ -1180,6 +1235,7 @@ public class PlaceholderFragment extends Fragment {
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, PROFILE_URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
+                loader.hideLoader();
                 try {
                     Log.i("aaaaa", String.valueOf(result));
                     CompanyName = result.getString("CompanyName");
@@ -1209,6 +1265,8 @@ public class PlaceholderFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
+                new ProcessingError().showError(getContext());
                 //printErrorMessage(error);
                 error.printStackTrace();
             }

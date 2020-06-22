@@ -24,6 +24,8 @@ package com.example.haball.Retailor.ui.Dashboard;
         import com.android.volley.toolbox.HurlStack;
         import com.android.volley.toolbox.JsonObjectRequest;
         import com.android.volley.toolbox.Volley;
+        import com.example.haball.Loader;
+        import com.example.haball.ProcessingError;
         import com.example.haball.R;
         import com.example.haball.Retailor.RetailorDashboard;
         import com.example.haball.Retailor.ui.Make_Payment.PaymentScreen3Fragment_Retailer;
@@ -38,15 +40,19 @@ package com.example.haball.Retailor.ui.Dashboard;
         import androidx.fragment.app.FragmentTransaction;
 
 public class CancelOrder {
-    public String URL_CANCEL_ORDER = "http://175.107.203.97:4014/api/orders/cancelorder";
+    public String URL_CANCEL_ORDER = "https://retailer.haball.pk/api/orders/cancelorder";
     public String Token;
     public Context mContext;
     private FragmentTransaction fragmentTransaction;
+    private Loader loader;
 
     public CancelOrder() {
     }
 
     public void cancelOrder(final Context context, final String orderId, final String orderNumber) throws JSONException {
+        loader = new Loader(context);
+        loader.showLoader();
+
         mContext = context;
         SharedPreferences sharedPreferences = context.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
@@ -62,6 +68,7 @@ public class CancelOrder {
             @Override
             public void onResponse(JSONObject response) {
                 // TODO handle the response
+                loader.hideLoader();
 
                 final Dialog fbDialogue = new Dialog(mContext);
                 //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
@@ -105,6 +112,8 @@ public class CancelOrder {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
+                new ProcessingError().showError(context);
                 error.printStackTrace();
             }
         }) {

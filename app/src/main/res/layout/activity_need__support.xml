@@ -4,15 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTintMode="src_over"
-    android:background="#FBFBFB">
-
+    android:background="#FBFBFB"
+    android:backgroundTintMode="src_over">
 
     <include
         layout="@layout/action_bar_main_without_back"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="match_parent" />
 
     <RelativeLayout
         android:id="@+id/rl_main_background"

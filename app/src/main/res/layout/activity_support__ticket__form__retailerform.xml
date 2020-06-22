@@ -80,6 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="textEmailAddress"
+                    android:drawableRight="@drawable/ic_edit_black_24dp"
                    android:theme="@style/TextLabelEditeText"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -101,7 +102,7 @@
                     android:id="@+id/MobileNo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                
+                    android:drawableRight="@drawable/ic_edit_black_24dp"
                     android:inputType="number"
                     android:maxLength="12"
                    android:theme="@style/TextLabelEditeText" />
@@ -226,6 +227,7 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/button_round"
             android:fontFamily="@font/open_sans"
+            android:stateListAnimator="@null"
             android:text="Submit"
             android:textAllCaps="false"
             android:textColor="#fff"

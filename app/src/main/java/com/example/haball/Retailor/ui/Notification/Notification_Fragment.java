@@ -64,8 +64,8 @@ public class Notification_Fragment extends Fragment {
     private RecyclerView.Adapter NotificationAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private Socket iSocket;
-    private static final String URL = "http://175.107.203.97:4014";
-    private String URL_Mark_Seen = "http://175.107.203.97:4014/api/useralert/MarkSeen";
+    private static final String URL = "https://retailer.haball.pk";
+    private String URL_Mark_Seen = "https://retailer.haball.pk/api/useralert/MarkSeen";
     private String UserId, Token;
     private List<Retailer_Notification_Model> NotificationList = new ArrayList<>();
     private TextView tv_notification_no_data;

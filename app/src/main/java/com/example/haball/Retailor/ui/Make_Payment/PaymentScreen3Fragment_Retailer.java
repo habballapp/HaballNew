@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
@@ -35,6 +36,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -52,7 +54,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.Loader;
+import com.example.haball.ProcessingError;
 import com.example.haball.R;
+import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -73,7 +78,7 @@ import static android.os.Build.ID;
 public class PaymentScreen3Fragment_Retailer extends Fragment {
     private String Token, DistributorId, ID;
     private TextView tv_banking_channel, payment_id, btn_newpayment;
-    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4014/api/prepaidrequests/GetByRetailerCode";
+    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "https://retailer.haball.pk/api/prepaidrequests/GetByRetailerCode";
     private String PrePaidNumber = "", PrePaidId = "", CompanyName = "", Amount = "", CompanyId = "", MenuItem = "";
     private Button btn_voucher, btn_update, btn_back;
     private Spinner spinner_companyName;
@@ -85,10 +90,11 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
     private String company_names;
     private Typeface myFont;
-    private String URL_PAYMENT_REQUESTS_SAVE = "http://175.107.203.97:4014/api/prepaidrequests/save";
+    private String URL_PAYMENT_REQUESTS_SAVE = "https://retailer.haball.pk/api/prepaidrequests/save";
     private String prepaid_number;
     private String prepaid_id;
     private FragmentTransaction fragmentTransaction;
+    private Loader loader;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -108,6 +114,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         btn_voucher = root.findViewById(R.id.btn_voucher);
 
         new TextField().changeColor(getContext(), layout_txt_amount, txt_amount);
+        loader = new Loader(getContext());
 
         payment_id.setText(PrePaidNumber);
         //   spinner_companyName.setText(CompanyName);
@@ -223,8 +230,18 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
             @Override
             public void onClick(View view) {
                 if (btn_update.getText().equals("Back")) {
-                    final FragmentManager fm = getActivity().getSupportFragmentManager();
-                    fm.popBackStack();
+//                    final FragmentManager fm = getActivity().getSupportFragmentManager();
+//                    fm.popBackStack();
+                    SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                    editorOrderTabsFromDraft.putString("TabNo", "0");
+                    editorOrderTabsFromDraft.apply();
+
+                    Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                    ((FragmentActivity) getContext()).startActivity(login_intent);
+                    ((FragmentActivity) getContext()).finish();
+
                 } else if (btn_update.getText().equals("Update")) {
                     try {
                         makeUpdateRequest();
@@ -348,7 +365,17 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
                 public void onClick(View v) {
                     Log.i("CreatePayment", "Button Clicked");
                     alertDialog.dismiss();
-                    fm.popBackStack();
+//                    fm.popBackStack();
+                    SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                    editorOrderTabsFromDraft.putString("TabNo", "0");
+                    editorOrderTabsFromDraft.apply();
+
+                    Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                    ((FragmentActivity) getContext()).startActivity(login_intent);
+                    ((FragmentActivity) getContext()).finish();
+
                 }
             });
 
@@ -363,7 +390,17 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
 
             alertDialog.show();
         } else {
-            fm.popBackStack();
+            SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                    Context.MODE_PRIVATE);
+            SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+            editorOrderTabsFromDraft.putString("TabNo", "0");
+            editorOrderTabsFromDraft.apply();
+
+            Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+            ((FragmentActivity) getContext()).startActivity(login_intent);
+            ((FragmentActivity) getContext()).finish();
+
+//            fm.popBackStack();
 
         }
     }
@@ -408,6 +445,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
     }
 
     private void makeUpdateRequest() throws JSONException {
+        loader.showLoader();
         btn_update.setEnabled(false);
         btn_update.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
@@ -426,6 +464,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PAYMENT_REQUESTS_SAVE, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
+                loader.hideLoader();
                 try {
                     Log.i("Response PR", result.toString());
                     prepaid_number = result.getString("PrePaidNumber");
@@ -456,6 +495,8 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
+                new ProcessingError().showError(getContext());
                 printErrorMessage(error);
                 error.printStackTrace();
 
@@ -478,6 +519,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
     }
 
     private void fetchCompanyData() {
+        loader.showLoader();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -487,6 +529,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PAYMENT_REQUESTS_SELECT_COMPANY, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
+                loader.hideLoader();
                 try {
                     JSONObject jsonObject = null;
                     for (int i = 0; i < result.length(); i++) {
@@ -513,6 +556,8 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
+                new ProcessingError().showError(getContext());
                 printErrorMessage(error);
                 error.printStackTrace();
             }
@@ -552,7 +597,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
         tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
         tv_pr1.setText("");
-        txt_header1.setText("Payment Created");
+        txt_header1.setText("Payment Updated");
         String steps1 = "Payment ID ";
         String steps2 = " has been updated successfully.";
         String title = paymentID;

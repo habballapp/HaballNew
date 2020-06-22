@@ -16,6 +16,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
+import com.example.haball.Loader;
+import com.example.haball.ProcessingError;
 import com.example.haball.R;
 import com.example.haball.Retailor.ui.Network.Adapters.Fragment_My_Network_Adapter;
 import com.example.haball.Retailor.ui.Network.Models.Netwok_Model;
@@ -50,13 +52,14 @@ public class My_Network_Fragment extends Fragment {
     Netwok_Model paymentsViewModel;
     private RecyclerView.Adapter networkAdapter,sentadapter,recieveAdapter;
     private String Token, DistributorId;
-    private String MYNETWORK_URL = " http://175.107.203.97:4014/api/kyc/Search";
+    private String MYNETWORK_URL = " https://retailer.haball.pk/api/kyc/Search";
     private int pageNumbernetwork = 0;
     private double totalPagesnetwork = 0;
     private double totalEntriesnetwork = 0;
     private List<Netwok_Model> MyNetworkList = new ArrayList<>();
     private List<Network_Sent_Model> MySentList = new ArrayList<>();
     private List<Network_Recieve_Model> MyReceiveList = new ArrayList<>();
+    private Loader loader;
 
 
     @Override
@@ -72,6 +75,8 @@ public class My_Network_Fragment extends Fragment {
         //inflater = LayoutInflater.from(getContext());
 //        recyclerView = (RecyclerView) root.findViewById(R.id.rv_my_network);
 //        recyclerView.setHasFixedSize(true);
+
+        loader = new Loader(getContext());
 
         rv_network = (RecyclerView) root.findViewById(R.id.rv_my_network);
 //
@@ -92,6 +97,7 @@ public class My_Network_Fragment extends Fragment {
     }
 
     private void myNetworkData() {
+        loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -102,10 +108,6 @@ public class My_Network_Fragment extends Fragment {
         JSONObject map = new JSONObject();
         try {
             map.put("TotalRecords", 10);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
             map.put("PageNumber", pageNumbernetwork);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -117,6 +119,7 @@ public class My_Network_Fragment extends Fragment {
         MyJsonArrayRequest sr = new MyJsonArrayRequest( Request.Method.POST, MYNETWORK_URL, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
+                loader.hideLoader();
                 //                    JSONArray jsonArray = new JSONArray(result);
                 Log.i("results_network" , String.valueOf(result));
                 Gson gson = new Gson();
@@ -144,6 +147,8 @@ public class My_Network_Fragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 //printErrorMessage(error);
+                loader.hideLoader();
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }

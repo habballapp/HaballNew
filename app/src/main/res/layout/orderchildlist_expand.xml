@@ -61,7 +61,7 @@
         android:layout_toRightOf="@+id/product_code"
         android:text=""
         android:textColor="@color/rv_box_color"
-        android:fontFamily="@font/open_sans"
+        android:fontFamily="@font/open_sans_semibold"
         android:textSize="@dimen/rv_box_text_size" />
 
     <TextView
@@ -95,33 +95,13 @@
         android:text="   |   "
         android:textColor="@color/rv_box_color"
         android:textSize="@dimen/rv_box_text_size" />
-    <TextView
-        android:id="@+id/discount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/product_code"
-        android:layout_toRightOf="@id/separator_1"
-        android:text="Discount: "
-        android:textColor="@color/rv_box_color"
-        android:fontFamily="@font/open_sans"
-        android:textSize="@dimen/rv_box_text_size" />
-
-    <TextView
-        android:id="@+id/list_discount_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/product_code"
-        android:layout_toRightOf="@id/discount"
-        android:text=""
-        android:textColor="@color/rv_box_color"
-        android:fontFamily="@font/open_sans_semibold"
-        android:textSize="@dimen/rv_box_text_size" />
 
     <TextView
         android:id="@+id/UOM"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/price"
+        android:layout_below="@+id/product_code"
+        android:layout_toRightOf="@id/separator_1"
         android:text="UOM: "
         android:textColor="@color/rv_box_color"
         android:fontFamily="@font/open_sans"
@@ -131,17 +111,38 @@
         android:id="@+id/list_UOM_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/price"
+        android:layout_below="@+id/product_code"
         android:textStyle="bold"
         android:layout_toRightOf="@id/UOM"
         android:textColor="@color/rv_box_color"
         android:fontFamily="@font/open_sans_semibold"
         android:textSize="@dimen/rv_box_text_size" />
+    <TextView
+        android:id="@+id/discount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/price"
+        android:text="Discount: "
+        android:textColor="@color/rv_box_color"
+        android:fontFamily="@font/open_sans"
+        android:textSize="@dimen/rv_box_text_size" />
+
+    <TextView
+        android:id="@+id/list_discount_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/price"
+        android:layout_toRightOf="@id/discount"
+        android:text=""
+        android:textColor="@color/rv_box_color"
+        android:fontFamily="@font/open_sans_semibold"
+        android:textSize="@dimen/rv_box_text_size" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/edit_text_squared"
-        android:layout_below="@id/UOM"
+        android:layout_below="@id/discount"
         android:layout_marginTop="10dp">
     <EditText
         android:id="@+id/list_numberOFitems"

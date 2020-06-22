@@ -308,7 +308,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Accepts URIs that begin with "http://www.example.com/gizmos” -->
                 <data android:scheme="http"
-                    android:host="175.107.203.97" />
+                    android:host="retailer.haball.pk" />
                 <!-- note that the leading "/" is required for pathPrefix-->
             </intent-filter>
             <intent-filter>
@@ -317,7 +317,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Accepts URIs that begin with "http://www.example.com/gizmos” -->
                 <data android:scheme="https"
-                    android:host="175.107.203.97" />
+                    android:host="retailer.haball.pk" />
                 <!-- note that the leading "/" is required for pathPrefix-->
             </intent-filter>
 

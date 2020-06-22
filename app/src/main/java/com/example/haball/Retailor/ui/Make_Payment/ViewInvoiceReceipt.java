@@ -39,6 +39,7 @@ package com.example.haball.Retailor.ui.Make_Payment;
         import com.android.volley.toolbox.Volley;
         import com.example.haball.Distributor.ui.payments.InputStreamVolleyRequest;
         import com.example.haball.Loader;
+        import com.example.haball.ProcessingError;
 
         import org.json.JSONArray;
         import org.json.JSONException;
@@ -69,7 +70,7 @@ package com.example.haball.Retailor.ui.Make_Payment;
         import static java.util.stream.Collectors.toList;
 
 public class ViewInvoiceReceipt {
-    public String URL_VOUCHER_VIEW = "http://175.107.203.97:4014/api/invoices/mreceipt/";
+    public String URL_VOUCHER_VIEW = "https://retailer.haball.pk/api/invoices/mreceipt/";
     public String Token;
     public Context mContext;
     private static final int PERMISSION_REQUEST_CODE = 1;
@@ -145,6 +146,7 @@ public class ViewInvoiceReceipt {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
+                new ProcessingError().showError(context);
                 error.printStackTrace();
             }
         }, null)  {

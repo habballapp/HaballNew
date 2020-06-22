@@ -37,6 +37,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.support.MyJsonArrayRequest;
+import com.example.haball.Loader;
 import com.example.haball.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -77,7 +78,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
     private ArrayList<String> array = new ArrayList<>();
     private TextView btn_add_ticket_retailer;
     private String Token, DistributorId;
-    private String URL_SUPPORT = "http://175.107.203.97:4014/api/support/Search";
+    private String URL_SUPPORT = "https://retailer.haball.pk/api/support/Search";
     private SupportDashboardRetailerModel supportViewModel;
     private List<SupportDashboardRetailerModel> SupportList = new ArrayList<>();
     //spinner1
@@ -103,7 +104,8 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
     private int year1, year2, month1, month2, date1, date2;
     private List<String> scrollEvent = new ArrayList<>();
     private Typeface myFont;
-    private GifImageView loader;
+//    private GifImageView loader;
+    private Loader loader;
 
     public SupportFragment() {
         // Required empty public constructor
@@ -136,9 +138,10 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         recyclerView.setLayoutManager(layoutManager);
         tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
         tv_shipment_no_data.setVisibility(View.VISIBLE);
-        loader =  root.findViewById(R.id.loader);
+//        loader =  root.findViewById(R.id.loader);
         tv_shipment_no_data.setVisibility(View.GONE);
-        loader.setVisibility(View.VISIBLE);
+//        loader.setVisibility(View.VISIBLE);
+        loader = new Loader(getContext());
 
         try {
             fetchSupport();
@@ -519,6 +522,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
 
 
     private void fetchSupport() throws JSONException {
+        loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -531,6 +535,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         MyJsonArrayRequest request = new MyJsonArrayRequest(Request.Method.POST, URL_SUPPORT, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                loader.hideLoader();
                 try {
                     Log.i("onResponse => SUPPORT ", "" + response.get(0).toString());
                 } catch (JSONException e) {
@@ -542,7 +547,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 }.getType();
                 try {
                     SupportList = gson.fromJson(String.valueOf(response.get(0)), type);
-                    loader.setVisibility(View.GONE);
+//                    loader.setVisibility(View.GONE);
 
                     if (SupportList.size() != 0) {
                         tv_shipment_no_data.setVisibility(View.GONE);
@@ -579,7 +584,8 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
             @Override
             public void onErrorResponse(VolleyError error) {
                 printErrorMessage(error);
-                loader.setVisibility(View.GONE);
+//                loader.setVisibility(View.GONE);
+                loader.hideLoader();
             }
         }) {
             @Override
@@ -609,15 +615,18 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         map.put("TotalRecords", 10);
         map.put("PageNumber", 0);
         if (Filter_selected.equals("date")) {
+            loader.showLoader();
             map.put(Filter_selected1, fromDate);
             map.put(Filter_selected2, toDate);
         } else {
+            loader.showLoader();
             map.put(Filter_selected, Filter_selected_value);
         }
         Log.i("map_SSSS", String.valueOf(map));
         MyJsonArrayRequest request = new MyJsonArrayRequest(Request.Method.POST, URL_SUPPORT, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                loader.hideLoader();
                 Log.i("response_support ", String.valueOf(response));
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<SupportDashboardRetailerModel>>() {
@@ -659,6 +668,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
                 printErrorMessage(error);
             }
         }) {
