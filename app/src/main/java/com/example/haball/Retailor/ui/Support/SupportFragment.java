@@ -3,12 +3,15 @@ package com.example.haball.Retailor.ui.Support;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +42,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.support.MyJsonArrayRequest;
 import com.example.haball.Loader;
 import com.example.haball.R;
+import com.example.haball.Retailor.RetailorDashboard;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -60,6 +64,7 @@ import java.util.TimeZone;
 
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -235,6 +240,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                     if (Filter_selected.equals("Ticket ID")) {
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "TicketNumber";
+                        conso_edittext.setInputType(InputType.TYPE_CLASS_NUMBER);
                         conso_edittext.setVisibility(View.VISIBLE);
                         search_rl.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Issue Type")) {
@@ -410,24 +416,59 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
 
         conso_edittext.addTextChangedListener(new TextWatcher() {
 
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(final Editable s) {
                 Log.i("text1", "check");
                 Log.i("text", String.valueOf(s));
-                Filter_selected_value = String.valueOf(s);
-                if (!Filter_selected_value.equals("")) {
+//                Filter_selected_value = String.valueOf(s);
+//                if (!Filter_selected_value.equals("")) {
+//
+//                    try {
+//                        fetchFilteredSupport();
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                } else {
+//                    try {
+//                        fetchSupport();
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
 
-                    try {
-                        fetchFilteredSupport();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        fetchSupport();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
+                final String Filter_selected_value_main = String.valueOf(s);
+
+                new java.util.Timer().schedule(
+                        new java.util.TimerTask() {
+                            @Override
+                            public void run() {
+                                // your code here
+                                getActivity().runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        //your code
+
+                                        Filter_selected_value = String.valueOf(s);
+                                        if (Filter_selected_value_main.equals(Filter_selected_value)) {
+                                            if (!Filter_selected_value.equals("")) {
+                                                try {
+                                                    fetchFilteredSupport();
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            } else {
+                                                try {
+                                                    loader.showLoader();
+                                                    fetchSupport();
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        },
+                        2500
+                );
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -503,6 +544,35 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH));
         dialog.show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    // handle back button's click listener
+//                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
+
+                    SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                    editorOrderTabsFromDraft.putString("TabNo", "0");
+                    editorOrderTabsFromDraft.apply();
+
+                    Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                    ((FragmentActivity) getContext()).startActivity(login_intent);
+                    ((FragmentActivity) getContext()).finish();
+                }
+                return false;
+            }
+        });
+
     }
 
     @Override

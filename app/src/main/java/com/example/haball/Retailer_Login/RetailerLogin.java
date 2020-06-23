@@ -327,6 +327,7 @@ public class RetailerLogin extends AppCompatActivity {
                         editor.putString("User_Type", "Retailer");
                         editor.putString("Retailer_Id", RetailerId);
                         editor.putString("username", username);
+                        editor.putString("Name", FirstName);
                         editor.putString("CompanyName", CompanyName);
                         editor.putString("IsTermAndConditionAccepted", IsTermAndConditionAccepted);
                         editor.putString("UpdatePassword", UpdatePassword);

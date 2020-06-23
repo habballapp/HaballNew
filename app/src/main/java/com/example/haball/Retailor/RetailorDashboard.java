@@ -62,6 +62,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -129,7 +130,7 @@ public class RetailorDashboard extends AppCompatActivity {
         drawer.setDrawerListener(toggle);
         SharedPreferences sharedPreferences = this.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        username = sharedPreferences.getString("username", "");
+        username = sharedPreferences.getString("Name", "");
         companyname = sharedPreferences.getString("CompanyName", "");
         Token = sharedPreferences.getString("Login_Token", "");
         UserId = sharedPreferences.getString("UserId", "");
@@ -263,6 +264,12 @@ public class RetailorDashboard extends AppCompatActivity {
 //                fragmentTransaction = getSupportFragmentManager().beginTransaction();
 //                fragmentTransaction.replace(R.id.main_container, new TermsAndConditionsFragment());
 //                fragmentTransaction.commit();
+//                Intent login_intent = new Intent(RetailorDashboard.this, Retailer_Terms_And_Conditions.class);
+//                startActivity(login_intent);
+//                finish();
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Terms_And_Conditions()).addToBackStack("tag");
+                fragmentTransaction.commit();
 
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -286,7 +293,16 @@ public class RetailorDashboard extends AppCompatActivity {
                 .addOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
                     @Override
                     public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-//                        navigationExpandableListView.setSelected(groupPosition);
+                        navigationExpandableListView.setSelected(groupPosition);
+                        Log.i("groupPosition", String.valueOf(groupPosition));
+
+
+                        SharedPreferences retailerInfo = getSharedPreferences("Menu_Retailer",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor retailerInfo_editor = retailerInfo.edit();
+                        retailerInfo_editor.putString("groupPosition", String.valueOf(groupPosition));
+                        retailerInfo_editor.apply();
+
 
                         if (NavList.contains("Dashboard") && NavList.indexOf("Dashboard") == id) {
 //                        if (id == 0) {
@@ -302,7 +318,6 @@ public class RetailorDashboard extends AppCompatActivity {
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
 //                            fragmentTransaction.replace(R.id.main_container_ret, new My_NetworkDashboard());
                             fragmentTransaction.replace(R.id.main_container_ret, new My_Network_Fragment()).addToBackStack("tag");
-                            ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                             Log.i("My Network", "My Network Activity");
@@ -325,7 +340,6 @@ public class RetailorDashboard extends AppCompatActivity {
                             Log.i("Make Payment", "Make Payment Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment()).addToBackStack("tag1");
-                            ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
 
@@ -334,7 +348,6 @@ public class RetailorDashboard extends AppCompatActivity {
                             Log.i("Profile", "Profile Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container_ret, new Profile_Tabs()).addToBackStack("tag");
-                            ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (NavList.contains("Support") && NavList.indexOf("Support") == id) {
@@ -342,7 +355,6 @@ public class RetailorDashboard extends AppCompatActivity {
                             Log.i("Support", "Support Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container_ret, new SupportFragment()).addToBackStack("tag");
-                            ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (NavList.contains("Logout") && NavList.indexOf("Logout") == id) {
@@ -446,6 +458,7 @@ public class RetailorDashboard extends AppCompatActivity {
 //                    }
 //                });
 
+        navigationExpandableListView.setSelected(0);
 
     }
 
@@ -458,71 +471,71 @@ public class RetailorDashboard extends AppCompatActivity {
         } else {
 //            FragmentManager fm = getSupportFragmentManager();
 //            if (fm.getBackStackEntryCount() == 0) {
-                if (doubleBackToExitPressedOnce) {
+            if (doubleBackToExitPressedOnce) {
 //                    super.onBackPressed();
 //                    finishAffinity();
 
-                    final AlertDialog alertDialog = new AlertDialog.Builder(RetailorDashboard.this).create();
-                    LayoutInflater inflater = LayoutInflater.from(RetailorDashboard.this);
-                    View view_popup = inflater.inflate(R.layout.discard_changes, null);
-                    TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
-                    tv_discard.setText("Logout");
-                    TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
-                    tv_discard_txt.setText("Are you sure, you want to logout?");
-                    alertDialog.setView(view_popup);
-                    alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
-                    WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
-                    layoutParams.y = 200;
-                    layoutParams.x = -70;// top margin
-                    alertDialog.getWindow().setAttributes(layoutParams);
-                    Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
-                    btn_discard.setText("Logout");
-                    btn_discard.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            alertDialog.dismiss();
+                final AlertDialog alertDialog = new AlertDialog.Builder(RetailorDashboard.this).create();
+                LayoutInflater inflater = LayoutInflater.from(RetailorDashboard.this);
+                View view_popup = inflater.inflate(R.layout.discard_changes, null);
+                TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
+                tv_discard.setText("Logout");
+                TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+                tv_discard_txt.setText("Are you sure, you want to logout?");
+                alertDialog.setView(view_popup);
+                alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+                layoutParams.y = 200;
+                layoutParams.x = -70;// top margin
+                alertDialog.getWindow().setAttributes(layoutParams);
+                Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+                btn_discard.setText("Logout");
+                btn_discard.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
 
 //                        } else if (id == 6) {
-                            Log.i("Logout", "Logout Activity");
-                            SharedPreferences login_token = getSharedPreferences("LoginToken",
-                                    Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = login_token.edit();
-                            editor.remove("Login_Token");
-                            editor.remove("User_Type");
-                            editor.remove("Retailer_Id");
-                            editor.remove("username");
-                            editor.remove("CompanyName");
-                            editor.remove("UserId");
-                            editor.commit();
+                        Log.i("Logout", "Logout Activity");
+                        SharedPreferences login_token = getSharedPreferences("LoginToken",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = login_token.edit();
+                        editor.remove("Login_Token");
+                        editor.remove("User_Type");
+                        editor.remove("Retailer_Id");
+                        editor.remove("username");
+                        editor.remove("CompanyName");
+                        editor.remove("UserId");
+                        editor.commit();
 //                            Intent dashboard = new Intent(RetailorDashboard.this, RetailerLogin.class);
 //                            startActivity(dashboard);
-                            Intent intent = new Intent(RetailorDashboard.this, Register_Activity.class);
-                            startActivity(intent);
-                            finish();
+                        Intent intent = new Intent(RetailorDashboard.this, Register_Activity.class);
+                        startActivity(intent);
+                        finish();
 
-                        }
-                    });
-
-                    ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
-                    img_email.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            alertDialog.dismiss();
-
-                        }
-                    });
-
-                    alertDialog.show();
-
-                    return;
-                }
-                this.doubleBackToExitPressedOnce = true;
-                Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        doubleBackToExitPressedOnce = false;
                     }
-                }, 1500);
+                });
+
+                ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+                img_email.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+
+                    }
+                });
+
+                alertDialog.show();
+
+                return;
+            }
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 1500);
 //            } else {
 ////            super.onBackPressed();
 //                fm.popBackStack();
@@ -586,4 +599,32 @@ public class RetailorDashboard extends AppCompatActivity {
         }
 
     }
+
+//
+//    private class MyAsyncTaskForMenu extends AsyncTask<Void, Void, Void> {
+//        @Override
+//        protected Void doInBackground(Void... params) {
+//            getSelectedMenuItem();
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Void result) {
+//            new MyAsyncTaskForMenu().execute();
+//        }
+//
+//
+//        private void getSelectedMenuItem() {
+//            SharedPreferences sharedPreferences = getSharedPreferences("Menu_Retailer",
+//                    Context.MODE_PRIVATE);
+//            int tempGroupPosition = Integer.parseInt(sharedPreferences.getString("groupPosition", "-1"));
+//            if(tempGroupPosition != myGroupPosition) {
+//                myGroupPosition = tempGroupPosition;
+//                navigationExpandableListView.setSelected(myGroupPosition);
+//
+//            }
+//
+//        }
+//
+//    }
 }

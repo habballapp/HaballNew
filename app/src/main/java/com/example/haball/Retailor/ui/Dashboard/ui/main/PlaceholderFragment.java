@@ -8,6 +8,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.UnderlineSpan;
@@ -430,11 +431,13 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     if (Filter_selected.equals("Payment ID")) {
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "InvoiceNumber";
+                        conso_edittext.setInputType(InputType.TYPE_CLASS_NUMBER);
                         conso_edittext.setVisibility(View.VISIBLE);
                         search_rl.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Company")) {
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "CompanyName";
+                        conso_edittext.setInputType(InputType.TYPE_CLASS_TEXT);
                         conso_edittext.setVisibility(View.VISIBLE);
                         search_rl.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Paid Date")) {
@@ -590,23 +593,42 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
         conso_edittext.addTextChangedListener(new TextWatcher() {
 
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(final Editable s) {
 //                Log.i("text1", "check");
 //                Log.i("text", String.valueOf(s));
-                Filter_selected_value = String.valueOf(s);
-                if (!Filter_selected_value.equals("")) {
-                    try {
-                        fetchFilteredRetailerPayments();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        fetchPaymentsData();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
+                final String Filter_selected_value_main = String.valueOf(s);
+
+                new java.util.Timer().schedule(
+                        new java.util.TimerTask() {
+                            @Override
+                            public void run() {
+                                // your code here
+                                getActivity().runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        //your code
+
+                                        Filter_selected_value = String.valueOf(s);
+                                        if (Filter_selected_value_main.equals(Filter_selected_value)) {
+                                            if (!Filter_selected_value.equals("")) {
+                                                try {
+                                                    fetchFilteredRetailerPayments();
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            } else {
+                                                try {
+                                                    fetchPaymentsData();
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        },
+                        2500
+                );
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -1134,7 +1156,10 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
+//                if(loader == null)
+//                    loader = new Loader(getContext());
                 loader.hideLoader();
+
 //                btn_load_more.setVisibility(View.GONE);
                 try {
                     Gson gson = new Gson();
@@ -1194,6 +1219,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     }
 
     private void orderFragmentTask(View root) throws JSONException {
+
+        loader = new Loader(getContext());
         myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
         search_rl = root.findViewById(R.id.search_rl);
         search_bar = root.findViewById(R.id.search_bar);
@@ -1279,6 +1306,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         ex.printStackTrace();
                     }
                     try {
+                        loader.showLoader();
                         fetchOrderData();
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -1300,11 +1328,13 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     if (Filter_selected.equals("Order ID")) {
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "OrderNumber";
+                        conso_edittext.setInputType(InputType.TYPE_CLASS_NUMBER);
                         conso_edittext.setVisibility(View.VISIBLE);
                         search_rl.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Company")) {
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "CompanyName";
+                        conso_edittext.setInputType(InputType.TYPE_CLASS_TEXT);
                         conso_edittext.setVisibility(View.VISIBLE);
                         search_rl.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Transaction Date")) {
@@ -1409,6 +1439,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         e.printStackTrace();
                     }
                     try {
+                        loader.showLoader();
                         fetchOrderData();
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -1446,23 +1477,44 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
         conso_edittext.addTextChangedListener(new TextWatcher() {
 
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(final Editable s) {
 //                Log.i("text1", "check");
 //                Log.i("text", String.valueOf(s));
-                Filter_selected_value = String.valueOf(s);
-                if (!Filter_selected_value.equals("")) {
-                    try {
-                        fetchFilteredOrderData();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        fetchOrderData();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
+
+                final String Filter_selected_value_main = String.valueOf(s);
+
+                new java.util.Timer().schedule(
+                        new java.util.TimerTask() {
+                            @Override
+                            public void run() {
+                                // your code here
+                                getActivity().runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        //your code
+
+                                        Filter_selected_value = String.valueOf(s);
+                                        if (Filter_selected_value_main.equals(Filter_selected_value)) {
+                                            if (!Filter_selected_value.equals("")) {
+                                                try {
+                                                    fetchFilteredOrderData();
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            } else {
+                                                try {
+                                                    loader.showLoader();
+                                                    fetchOrderData();
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        },
+                        2500
+                );
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -1576,16 +1628,15 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
-        DistributorId = sharedPreferences.getString("Distributor_Id", "");
 
         JSONObject map = new JSONObject();
         map.put("TotalRecords", 10);
-        map.put("PageNumber", pageNumberOrder);
+        map.put("PageNumber", 0);
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
-//                loader.hideLoader();
+                loader.hideLoader();
                 //                    JSONArray jsonArray = new JSONArray(result);
 
                 Gson gson = new Gson();
@@ -1627,7 +1678,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-//                loader.hideLoader();
+                loader.hideLoader();
                 printErrorMessage(error);
 
                 error.printStackTrace();
@@ -1673,6 +1724,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             loader.showLoader();
             map.put(Filter_selected, Filter_selected_value);
         }
+
+        Log.i("OrderFilter", String.valueOf(map));
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS, map, new Response.Listener<JSONArray>() {
             @Override

@@ -348,6 +348,7 @@ public class PlaceholderFragment extends Fragment {
             case 2: {
                 root = inflater.inflate(R.layout.pasword_change, container, false);
                 currentTab = "Password";
+                loader = new Loader(getContext());
                 layout_password = root.findViewById(R.id.layout_password);
                 txt_password = root.findViewById(R.id.txt_password);
                 txt_newpassword = root.findViewById(R.id.txt_newpassword);
@@ -358,6 +359,7 @@ public class PlaceholderFragment extends Fragment {
                 LinearLayout ll_fields1 = root.findViewById(R.id.ll_fields1);
                 update_password.setEnabled(false);
                 update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+
 
                 checkFieldsForEmptyValuesUpdatePass();
 
@@ -743,7 +745,8 @@ public class PlaceholderFragment extends Fragment {
     }
 
     private void checkFieldsForEmptyValuesUpdatePass() {
-        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
+        String reg_ex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{6,}$";
+//        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
 
 
         String password = txt_password.getText().toString();
@@ -753,7 +756,8 @@ public class PlaceholderFragment extends Fragment {
                 || newPass.equals("")
                 || confrm_pass.equals("")
                 || !password.matches(reg_ex)
-                || !newPass.matches(reg_ex)
+                || !password.matches(reg_ex)
+                || !confrm_pass.matches(reg_ex)
         ) {
             update_password.setEnabled(false);
             update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
@@ -848,7 +852,7 @@ public class PlaceholderFragment extends Fragment {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     loader.hideLoader();
-                    printErrorMessage(error);
+//                    printErrorMessage(error);
                     error.printStackTrace();
 
                     layout_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
@@ -859,35 +863,35 @@ public class PlaceholderFragment extends Fragment {
                     update_password.setEnabled(false);
                     update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
-                    final Dialog fbDialogue = new Dialog(getActivity());
-                    //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
-                    fbDialogue.setContentView(R.layout.password_updatepopup);
-                    txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
-                    tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
-                    txt_header1.setText("Error");
-                    txt_header1.setTextColor(getResources().getColor(R.color.error_stroke_color));
-                    txt_header1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.border_set_error));
-                    tv_pr1.setText("Password mismatch.");
-                    fbDialogue.setCancelable(true);
-// Setting dialogview
-//            Window window = fbDialogue.getWindow();
-//            window.setGravity(Gravity.TOP);
-
-                    fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
-                    WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
-                    layoutParams.y = 200;
-                    layoutParams.x = -70;// top margin
-                    fbDialogue.getWindow().setAttributes(layoutParams);
-
-
-                    fbDialogue.show();
-                    ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
-                    close_button.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            fbDialogue.dismiss();
-                        }
-                    });
+//                    final Dialog fbDialogue = new Dialog(getActivity());
+//                    //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+//                    fbDialogue.setContentView(R.layout.password_updatepopup);
+//                    txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
+//                    tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
+//                    txt_header1.setText("Error");
+//                    txt_header1.setTextColor(getResources().getColor(R.color.error_stroke_color));
+//                    txt_header1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.border_set_error));
+//                    tv_pr1.setText("Password mismatch.");
+//                    fbDialogue.setCancelable(true);
+//// Setting dialogview
+////            Window window = fbDialogue.getWindow();
+////            window.setGravity(Gravity.TOP);
+//
+//                    fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+//                    WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+//                    layoutParams.y = 200;
+//                    layoutParams.x = -70;// top margin
+//                    fbDialogue.getWindow().setAttributes(layoutParams);
+//
+//
+//                    fbDialogue.show();
+//                    ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+//                    close_button.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            fbDialogue.dismiss();
+//                        }
+//                    });
 //                    Toast.makeText(getActivity(), String.valueOf(error),Toast.LENGTH_LONG).show();
                 }
 
@@ -933,41 +937,42 @@ public class PlaceholderFragment extends Fragment {
 //            layout_password3.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
             txt_cfmpassword.setTextColor(getResources().getColor(R.color.error_stroke_color));
 
-            final Dialog fbDialogue = new Dialog(getActivity());
-            //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
-            fbDialogue.setContentView(R.layout.password_updatepopup);
-            txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
-            tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
-            txt_header1.setText("Error");
-            txt_header1.setTextColor(getResources().getColor(R.color.error_stroke_color));
-            txt_header1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.border_set_error));
-            tv_pr1.setText("Password do not Match");
-            fbDialogue.setCancelable(true);
+//            final Dialog fbDialogue = new Dialog(getActivity());
+//            //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+//            fbDialogue.setContentView(R.layout.password_updatepopup);
+//            txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
+//            tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
+//            txt_header1.setText("Error");
+//            txt_header1.setTextColor(getResources().getColor(R.color.error_stroke_color));
+//            txt_header1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.border_set_error));
+//            tv_pr1.setText("Password do not Match");
+//            fbDialogue.setCancelable(true);
 // Setting dialogview
 //            Window window = fbDialogue.getWindow();
 //            window.setGravity(Gravity.TOP);
 
-            fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
-            WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
-            layoutParams.y = 200;
-            layoutParams.x = -70;// top margin
-            fbDialogue.getWindow().setAttributes(layoutParams);
-
-
-            fbDialogue.show();
-            ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
-            close_button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    fbDialogue.dismiss();
-                }
-            });
+//            fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+//            WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+//            layoutParams.y = 200;
+//            layoutParams.x = -70;// top margin
+//            fbDialogue.getWindow().setAttributes(layoutParams);
+//
+//
+//            fbDialogue.show();
+//            ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+//            close_button.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    fbDialogue.dismiss();
+//                }
+//            });
         }
 
     }
 
     private void checkOldPasswords() {
-        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
+        String reg_ex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{6,}$";
+//        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
         if (txt_password.getText().toString().matches(reg_ex)) {
             old_password_check = true;
             layout_password.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
@@ -987,32 +992,33 @@ public class PlaceholderFragment extends Fragment {
             update_password.setEnabled(false);
             update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
         }
-        txt_password.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                layout_password.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
-                layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
-                layout_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
-                txt_password.setTextColor(getResources().getColor(R.color.textcolor));
-//                layout_password1.setPasswordVisibilityToggleEnabled(true);
-                checkFieldsForEmptyValuesUpdatePass();
-                checkOldPasswords();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+//        txt_password.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                layout_password.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
+//                layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+//                layout_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
+//                txt_password.setTextColor(getResources().getColor(R.color.textcolor));
+////                layout_password1.setPasswordVisibilityToggleEnabled(true);
+//                checkFieldsForEmptyValuesUpdatePass();
+//                checkOldPasswords();
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
     }
 
     private void checkPasswords() {
-        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
+        String reg_ex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{6,}$";
+//        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
         if (txt_newpassword.getText().toString().matches(reg_ex)) {
             password_check = true;
             layout_password1.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));

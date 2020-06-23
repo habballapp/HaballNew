@@ -2,6 +2,7 @@ package com.example.haball.Retailor.ui.RetailerOrder.ui.main;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +11,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,9 +54,12 @@ import com.example.haball.Distributor.StatusKVP;
 import com.example.haball.Loader;
 import com.example.haball.ProcessingError;
 import com.example.haball.R;
+import com.example.haball.Retailer_Login.RetailerLogin;
+import com.example.haball.Retailor.Forgot_Password_Retailer.Forgot_Pass_Retailer;
 import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
 import com.example.haball.Retailor.ui.Make_Payment.CreatePaymentRequestFragment;
+import com.example.haball.Retailor.ui.Make_Payment.ViewInvoiceReceipt;
 import com.example.haball.Retailor.ui.Make_Payment.ViewInvoiceVoucher;
 import com.example.haball.Retailor.ui.RetailerOrder.RetailerOrdersAdapter.RetailerViewOrderProductAdapter;
 import com.example.haball.Retailor.ui.RetailerOrder.RetailerOrdersModel.RetailerViewOrderProductModel;
@@ -81,7 +86,7 @@ import java.util.Map;
 public class PlaceholderFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private String orderID, InvoiceStatus;
+    private String orderID, InvoiceStatus, invoiceID;
     private String URL_Order_Data = "https://retailer.haball.pk/api/Orders/";
     private PageViewModel pageViewModel;
     private TextInputLayout layout_txt_orderID, layout_txt_order_company, layout_txt_created_date_order, layout_txt_status_order, layout_txt_comments,
@@ -101,7 +106,7 @@ public class PlaceholderFragment extends Fragment {
     private StatusKVP StatusKVPClass;
     private TextView discount_amount;
     private TextView total_amount, disclaimer_tv;
-    private Button button_back;
+    private Button button_back, button_view_receipt;
     private FragmentTransaction fragmentTransaction;
 
     private TextView tv_banking_channel, payment_id, btn_newpayment;
@@ -199,9 +204,13 @@ public class PlaceholderFragment extends Fragment {
                 button_back.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tabs());
-                        fragmentTransaction.commit();
+//                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                        fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tab());
+//                        fragmentTransaction.commit();
+
+                        Intent login_intent = new Intent(getContext(), RetailorDashboard.class);
+                        startActivity(login_intent);
+                        getActivity().finish();
                     }
                 });
 
@@ -236,9 +245,12 @@ public class PlaceholderFragment extends Fragment {
                 button_back.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tabs());
-                        fragmentTransaction.commit();
+//                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                        fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tab());
+//                        fragmentTransaction.commit();
+                        Intent login_intent = new Intent(getContext(), RetailorDashboard.class);
+                        startActivity(login_intent);
+                        getActivity().finish();
                     }
                 });
 
@@ -268,6 +280,7 @@ public class PlaceholderFragment extends Fragment {
                     layout_txt_transaction_charges = rootView.findViewById(R.id.layout_txt_transaction_charges);
                     layout_txt_total_amount = rootView.findViewById(R.id.layout_txt_total_amount);
                     button_back = rootView.findViewById(R.id.button_back);
+                    button_view_receipt = rootView.findViewById(R.id.button_view_receipt);
 
                     txt_companyName = rootView.findViewById(R.id.txt_companyName);
                     txt_paymentID = rootView.findViewById(R.id.txt_paymentID);
@@ -316,12 +329,29 @@ public class PlaceholderFragment extends Fragment {
                     txt_transaction_charges.setEnabled(false);
                     txt_total_amount.setEnabled(false);
 
+                    button_view_receipt.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (checkAndRequestPermissions()) {
+                                try {
+                                    viewReceiptPDF(getContext(), invoiceID);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                        }
+                    });
+
                     button_back.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tabs());
-                            fragmentTransaction.commit();
+//                            fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                            fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tab());
+//                            fragmentTransaction.commit();
+                            Intent login_intent = new Intent(getContext(), RetailorDashboard.class);
+                            startActivity(login_intent);
+                            getActivity().finish();
                         }
                     });
 
@@ -345,6 +375,20 @@ public class PlaceholderFragment extends Fragment {
                     ln_login.setVisibility(View.GONE);
 
                     new TextField().changeColor(getContext(), layout_txt_amount, txt_amount);
+
+                    payment_id.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            ClipboardManager cm = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                            cm.setText(payment_id.getText());
+//                            Toast.makeText(getContext(), "Payment ID: " + String.valueOf(payment_id.getText()) + " - Copied to clipboard", Toast.LENGTH_SHORT).show();
+                            Toast toast = Toast.makeText(getContext(), "Payment ID: " + String.valueOf(payment_id.getText()) + " - Copied to clipboard", Toast.LENGTH_LONG);
+//                    toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, 0);
+                            toast.setGravity(Gravity.TOP, 0, 200);
+                            toast.show();
+                            return false;
+                        }
+                    });
 
                     fetchCompanyData();
                     CompanyNames.add("Select Company");
@@ -416,13 +460,13 @@ public class PlaceholderFragment extends Fragment {
                     btn_voucher.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-//                            if (checkAndRequestPermissions()) {
-//                                try {
-//                                    viewPDF(getContext(), PrePaidId);
-//                                } catch (JSONException e) {
-//                                    e.printStackTrace();
-//                                }
-//                            }
+                            if (checkAndRequestPermissions()) {
+                                try {
+                                    viewPDF(getContext(), invoiceID);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
                         }
                     });
 
@@ -443,13 +487,13 @@ public class PlaceholderFragment extends Fragment {
                             btn_view_voucher.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-//                                    if (checkAndRequestPermissions()) {
-//                                        try {
-//                                            viewPDF(getContext(), PrePaidId);
-//                                        } catch (JSONException e) {
-//                                            e.printStackTrace();
-//                                        }
-//                                    }
+                                    if (checkAndRequestPermissions()) {
+                                        try {
+                                            viewPDF(getContext(), invoiceID);
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
                                 }
                             });
 
@@ -467,6 +511,11 @@ public class PlaceholderFragment extends Fragment {
             }
         }
         return rootView;
+    }
+
+    private void viewReceiptPDF(Context context, String ID) throws JSONException {
+        ViewInvoiceReceipt viewPDFRequest = new ViewInvoiceReceipt();
+        viewPDFRequest.viewPDF(context, ID);
     }
 
 
@@ -726,13 +775,14 @@ public class PlaceholderFragment extends Fragment {
                 Log.i("Order Data_UnPaid", String.valueOf(result));
                 try {
                     JSONObject response = result.getJSONObject("OrderPaymentDetails");
+                    invoiceID = response.getString("InvoiceID");
                     CompanyName = String.valueOf(response.get("CompanyName"));
                     spinner_companyName.setSelection(CompanyNames.indexOf(CompanyName));
                     PrePaidNumber = String.valueOf(response.get("InvoiceNumber"));
                     Amount = String.valueOf(response.get("InvoiceTotalAmount"));
                     txt_amount.setText(Amount);
                     payment_id.setText(PrePaidNumber);
-//                    PrePaidId = paymentId;
+//                    PrePaidId = String.valueOf(response.get("InvoiceTotalAmount"));
                     if (!String.valueOf(response.get("InvoiceTotalAmount")).equals("") && !String.valueOf(response.get("InvoiceTotalAmount")).equals("null"))
                         txt_amount.setTextColor(getResources().getColor(R.color.textcolor));
 
@@ -780,6 +830,7 @@ public class PlaceholderFragment extends Fragment {
                 Log.i("Order Data response2", String.valueOf(result));
                 try {
                     JSONObject response = result.getJSONObject("OrderPaymentDetails");
+                    invoiceID = response.getString("InvoiceID");
                     txt_companyName.setText(String.valueOf(response.get("CompanyName")));
                     txt_paymentID.setText(String.valueOf(response.get("InvoiceNumber")));
                     setTextAndShowDate(layout_txt_created_date, txt_created_date, String.valueOf(response.get("InvoiceCreatedDate")).split("T")[0]);

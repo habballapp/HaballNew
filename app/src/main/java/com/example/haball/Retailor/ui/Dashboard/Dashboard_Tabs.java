@@ -37,6 +37,12 @@ public class Dashboard_Tabs extends Fragment {
         editorOrderTabsFromDraft.putString("TabNo", "0");
         editorOrderTabsFromDraft.apply();
 
+        SharedPreferences retailerInfo = getContext().getSharedPreferences("Menu_Retailer",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor retailerInfo_editor = retailerInfo.edit();
+        retailerInfo_editor.putString("groupPosition", String.valueOf(0));
+        retailerInfo_editor.apply();
+
 
         SharedPreferences dashboardRights = getContext().getSharedPreferences("Retailer_UserRights",
                 Context.MODE_PRIVATE);

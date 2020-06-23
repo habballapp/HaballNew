@@ -1,86 +1,86 @@
 package com.example.haball.Retailor;
 
-        import androidx.annotation.RequiresApi;
-        import androidx.appcompat.app.ActionBar;
-        import androidx.appcompat.app.AppCompatActivity;
-        import androidx.core.content.ContextCompat;
-        import androidx.fragment.app.FragmentActivity;
-        import androidx.fragment.app.FragmentManager;
-        import androidx.lifecycle.ViewModelProviders;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProviders;
 
-        import android.app.AlertDialog;
-        import android.app.Dialog;
-        import android.content.Context;
-        import android.content.DialogInterface;
-        import android.content.Intent;
-        import android.content.SharedPreferences;
-        import android.content.res.ColorStateList;
-        import android.graphics.Color;
-        import android.graphics.Typeface;
-        import android.graphics.drawable.ColorDrawable;
-        import android.graphics.drawable.Drawable;
-        import android.net.Uri;
-        import android.os.Build;
-        import android.os.Bundle;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
 
-        import androidx.annotation.NonNull;
-        import androidx.annotation.Nullable;
-        import androidx.fragment.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
-        import android.os.Handler;
-        import android.text.Editable;
-        import android.text.SpannableString;
-        import android.text.TextUtils;
-        import android.text.TextWatcher;
-        import android.text.style.StyleSpan;
-        import android.util.Log;
-        import android.view.Gravity;
-        import android.view.KeyEvent;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.view.WindowManager;
-        import android.widget.Button;
-        import android.widget.EditText;
-        import android.widget.ImageButton;
-        import android.widget.RelativeLayout;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.SpannableString;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.text.style.StyleSpan;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import com.android.volley.AuthFailureError;
-        import com.android.volley.DefaultRetryPolicy;
-        import com.android.volley.NetworkError;
-        import com.android.volley.NoConnectionError;
-        import com.android.volley.ParseError;
-        import com.android.volley.Request;
-        import com.android.volley.RequestQueue;
-        import com.android.volley.Response;
-        import com.android.volley.ServerError;
-        import com.android.volley.TimeoutError;
-        import com.android.volley.VolleyError;
-        import com.android.volley.toolbox.JsonObjectRequest;
-        import com.android.volley.toolbox.Volley;
-        import com.example.haball.Loader;
-        import com.example.haball.R;
-        import com.example.haball.Registration.BooleanRequest;
-        import com.example.haball.Retailer_Login.RetailerLogin;
-        import com.example.haball.Retailor.ui.Dashboard.DashBoardFragment;
-        import com.example.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
-        import com.example.haball.TextField;
-        import com.google.android.material.textfield.TextInputEditText;
-        import com.google.android.material.textfield.TextInputLayout;
-        import com.google.gson.Gson;
-        import com.google.gson.reflect.TypeToken;
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.haball.Loader;
+import com.example.haball.R;
+import com.example.haball.Registration.BooleanRequest;
+import com.example.haball.Retailer_Login.RetailerLogin;
+import com.example.haball.Retailor.ui.Dashboard.DashBoardFragment;
+import com.example.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
+import com.example.haball.TextField;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-        import org.json.JSONException;
-        import org.json.JSONObject;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-        import java.io.UnsupportedEncodingException;
-        import java.lang.reflect.Type;
-        import java.util.HashMap;
-        import java.util.Iterator;
-        import java.util.List;
-        import java.util.Map;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class Retailer_New_Password extends AppCompatActivity {
 
@@ -105,7 +105,7 @@ public class Retailer_New_Password extends AppCompatActivity {
         loader = new Loader(Retailer_New_Password.this);
 
         Uri uri = getIntent().getData();
-        if(uri != null) {
+        if (uri != null) {
             Token = String.valueOf(uri).split("\\?(?!\\?)")[1];
         }
 
@@ -324,7 +324,8 @@ public class Retailer_New_Password extends AppCompatActivity {
     }
 
     private final TextWatcher watcher = new TextWatcher() {
-        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
+//        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
+        String reg_ex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{6,}$";
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -343,6 +344,7 @@ public class Retailer_New_Password extends AppCompatActivity {
             if (TextUtils.isEmpty(txt_cfmpassword.getText())
                     || TextUtils.isEmpty(txt_newpassword.getText())
                     || !String.valueOf(txt_newpassword.getText()).matches(reg_ex)
+                    || !String.valueOf(txt_cfmpassword.getText()).matches(reg_ex)
                     || (!password_check && !confirm_password_check)) {
                 update_password.setEnabled(false);
                 update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
@@ -477,7 +479,8 @@ public class Retailer_New_Password extends AppCompatActivity {
 
 
     private void checkPasswords(final boolean hasFocus) {
-        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
+//        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
+        String reg_ex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{6,}$";
         Log.i("Password_Log", "in password check");
 
         if (!hasFocus && txt_newpassword.getText().toString().trim().equals("")) {

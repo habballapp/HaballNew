@@ -388,7 +388,8 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
     }
 
     private final TextWatcher watcher = new TextWatcher() {
-        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
+//        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
+        String reg_ex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{6,}$";
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -407,6 +408,7 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
             if (TextUtils.isEmpty(txt_cfmpassword.getText())
                     || TextUtils.isEmpty(txt_newpassword.getText())
                     || !String.valueOf(txt_newpassword.getText()).matches(reg_ex)
+                    || !String.valueOf(txt_cfmpassword.getText()).matches(reg_ex)
                     || (!password_check && !confirm_password_check)) {
                 update_password.setEnabled(false);
                 update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
@@ -539,7 +541,8 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
 
 
     private void checkPasswords(final boolean hasFocus) {
-        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
+//        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
+        String reg_ex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{6,}$";
         Log.i("Password_Log", "in password check");
 
         if (!hasFocus && txt_newpassword.getText().toString().trim().equals("")) {

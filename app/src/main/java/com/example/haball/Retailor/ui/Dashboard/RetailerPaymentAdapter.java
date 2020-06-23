@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -21,9 +22,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.haball.Distributor.ui.payments.ViewPDFRequest;
 import com.example.haball.R;
 import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Retailor.ui.Make_Payment.PaymentScreen3Fragment_Retailer;
+import com.example.haball.Retailor.ui.Make_Payment.ViewInvoiceVoucher;
 import com.example.haball.Retailor.ui.Make_Payment.ViewReceeiptPDFRequest;
 import com.example.haball.Retailor.ui.Make_Payment.ViewVoucherRequest;
 import com.example.haball.Retailor.ui.RetailerPayment.RetailerViewInvoice;
@@ -84,34 +87,108 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
             @Override
             public void onClick(View view) {
                 if (paymentsList.get(position).getIsEditable().equals("0")) {
-                    final PopupMenu popup = new PopupMenu(context, view);
-                    MenuInflater inflater = popup.getMenuInflater();
-                    inflater.inflate(R.menu.orders_fragment_menu, popup.getMenu());
-                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            switch (item.getItemId()) {
-                                case R.id.orders_view:
-                                    SharedPreferences OrderId = ((FragmentActivity) context).getSharedPreferences("PaymentId",
-                                            Context.MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = OrderId.edit();
-                                    editor.putString("PaymentId", paymentsList.get(position).getRetailerInvoiceId());
-                                    editor.putString("InvoiceStatus", String.valueOf(paymentsList.get(position).getStatus()));
-                                    Log.i("InvoiceStatus_Adapter", String.valueOf(paymentsList.get(position).getStatus()));
-                                    editor.commit();
-                                    fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                                    fragmentTransaction.replace(R.id.main_container_ret, new RetailerViewInvoice()).addToBackStack("tag");
-                                    fragmentTransaction.commit();
+                    if (paymentsList.get(position).getStatus().equals("Un-Paid")) {
+                        Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
+                        final PopupMenu popup = new PopupMenu(wrapper, view);
+                        MenuInflater inflater = popup.getMenuInflater();
+                        inflater.inflate(R.menu.retailer_payment_invoice_action_buttons, popup.getMenu());
+                        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                switch (item.getItemId()) {
+                                    case R.id.view_retailer_payment:
+                                        SharedPreferences OrderId = ((FragmentActivity) context).getSharedPreferences("PaymentId",
+                                                Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = OrderId.edit();
+                                        editor.putString("PaymentId", paymentsList.get(position).getRetailerInvoiceId());
+                                        editor.putString("InvoiceStatus", String.valueOf(paymentsList.get(position).getStatus()));
+                                        Log.i("InvoiceStatus_Adapter", String.valueOf(paymentsList.get(position).getStatus()));
+                                        editor.commit();
+                                        fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+                                        fragmentTransaction.replace(R.id.main_container_ret, new RetailerViewInvoice()).addToBackStack("tag");
+                                        fragmentTransaction.commit();
 
-                                    break;
+                                        break;
+                                    case R.id.pay_by_retailer:
+
+//                        setUnpaidPaymentMenu(position, view);
+//                        //handle menu3 click
+                                        final AlertDialog alertDialog2 = new AlertDialog.Builder(context).create();
+                                        LayoutInflater inflater2 = LayoutInflater.from(context);
+                                        View view_popup2 = inflater2.inflate(R.layout.payment_request_details, null);
+                                        alertDialog2.setView(view_popup2);
+                                        alertDialog2.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                                        WindowManager.LayoutParams layoutParams = alertDialog2.getWindow().getAttributes();
+                                        layoutParams.y = 200;
+                                        layoutParams.x = -70;// top margin
+                                        alertDialog2.getWindow().setAttributes(layoutParams);
+                                        alertDialog2.show();
+                                        ImageButton img_close = view_popup2.findViewById(R.id.image_button_close);
+                                        TextView payment_information_txt3 = view_popup2.findViewById(R.id.payment_information_txt3);
+                                        payment_information_txt3.setText(paymentsList.get(position).getInvoiceNumber());
+                                        Button btn_view_voucher = view_popup2.findViewById(R.id.btn_view_voucher);
+                                        btn_view_voucher.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                if (checkAndRequestPermissions()) {
+                                                    try {
+                                                        viewInvoicePDF(context, paymentsList.get(position).getRetailerInvoiceId());
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            }
+                                        });
+                                        img_close.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                alertDialog2.dismiss();
+                                            }
+                                        });
+
+//                        Toast.makeText(context, "pay by", Toast.LENGTH_LONG).show();
+//                        String paymentId = paymentsList.get(position).getID();
+//                        deletePayment(context, paymentsList.get(position).getRetailerInvoiceId(), paymentsList.get(position).getInvoiceNumber());
+
+
+                                        break;
+                                }
+                                return false;
+                            }
+                        });
+                        popup.show();
+
+                    } else if (paymentsList.get(position).getStatus().equals("Paid")) {
+                        Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
+                        final PopupMenu popup = new PopupMenu(wrapper, view);
+                        MenuInflater inflater = popup.getMenuInflater();
+                        inflater.inflate(R.menu.orders_fragment_menu, popup.getMenu());
+                        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                switch (item.getItemId()) {
+                                    case R.id.orders_view:
+                                        SharedPreferences OrderId = ((FragmentActivity) context).getSharedPreferences("PaymentId",
+                                                Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = OrderId.edit();
+                                        editor.putString("PaymentId", paymentsList.get(position).getRetailerInvoiceId());
+                                        editor.putString("InvoiceStatus", String.valueOf(paymentsList.get(position).getStatus()));
+                                        Log.i("InvoiceStatus_Adapter", String.valueOf(paymentsList.get(position).getStatus()));
+                                        editor.commit();
+                                        fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+                                        fragmentTransaction.replace(R.id.main_container_ret, new RetailerViewInvoice()).addToBackStack("tag");
+                                        fragmentTransaction.commit();
+
+                                        break;
 //                                case R.id.view_pdf:
 //                                    // Toast.makeText(context, "View PDF", Toast.LENGTH_LONG).show();
 //                                    break;
+                                }
+                                return false;
                             }
-                            return false;
-                        }
-                    });
-                    popup.show();
+                        });
+                        popup.show();
+                    }
                 } else if (paymentsList.get(position).getIsEditable().equals("1")) {
                     if (paymentsList.get(position).getStatus().equals("Un-Paid")) {
                         setUnpaidPaymentMenu(position, view);
@@ -124,7 +201,8 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
     }
 
     private void setUnpaidPaymentMenu(final int position, final View view) {
-        final PopupMenu popup = new PopupMenu(context, view);
+        Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
+        final PopupMenu popup = new PopupMenu(wrapper, view);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.retailer_payment_action_buttons, popup.getMenu());
 
@@ -311,7 +389,8 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
 
 
     private void setPaidPaymentMenu(final int position, View view) {
-        final PopupMenu popup = new PopupMenu(context, view);
+        Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
+        final PopupMenu popup = new PopupMenu(wrapper, view);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.retailer_dashboard_view_menu, popup.getMenu());
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -338,6 +417,11 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
 
     private void viewPDF(Context context, String ID) throws JSONException {
         ViewVoucherRequest viewPDFRequest = new ViewVoucherRequest();
+        viewPDFRequest.viewPDF(context, ID);
+    }
+
+    private void viewInvoicePDF(Context context, String ID) throws JSONException {
+        ViewInvoiceVoucher viewPDFRequest = new ViewInvoiceVoucher();
         viewPDFRequest.viewPDF(context, ID);
     }
 

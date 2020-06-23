@@ -124,8 +124,8 @@
             android:gravity="center"
             android:text="Next"
             android:textAllCaps="false"
-            android:textColor="#fff"
-            android:textSize="14sp" />
+            android:textSize="@dimen/button_text_size" />
+        android:textColor="#fff"
     </LinearLayout>
     <!--    <TextView-->
     <!--        android:layout_width="match_parent"-->

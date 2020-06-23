@@ -58,7 +58,7 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
         holder.UOM_value.setText(OrdersList.get(position).getUOMTitle());
         String yourFormattedString2;
         if (OrdersList.get(position).getDiscount().equals("0") || OrdersList.get(position).getDiscount().equals("null")) {
-//            holder.discount.setText("Tax Value: ");
+//            holder.discount.setText("Tax: ");
 //            String yourFormattedString4 = formatter1.format(Double.parseDouble(OrdersList.get(position).getTaxValue()));
 //            holder.discount_value.setText("Rs. " + yourFormattedString4);
 //            holder.tv_taxValue.setText("Quantity: ");
@@ -68,7 +68,7 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
 //            holder.Quantity.setVisibility(View.GONE);
 
             if (!OrdersList.get(position).getTaxValue().equals("0") && !OrdersList.get(position).getTaxValue().equals("") && !OrdersList.get(position).getTaxValue().equals("null")) {
-                holder.discount.setText("Tax Value: ");
+                holder.discount.setText("Tax: ");
                 String yourFormattedString4 = formatter1.format(Double.parseDouble(OrdersList.get(position).getTaxValue()));
                 holder.discount_value.setText("Rs. " + yourFormattedString4);
                 holder.tv_taxValue.setText("Quantity: ");

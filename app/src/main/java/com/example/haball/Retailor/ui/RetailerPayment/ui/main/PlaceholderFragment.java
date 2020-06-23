@@ -2,6 +2,7 @@ package com.example.haball.Retailor.ui.RetailerPayment.ui.main;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +13,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -200,9 +202,12 @@ public class PlaceholderFragment extends Fragment {
                 button_back.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tabs());
-                        fragmentTransaction.commit();
+//                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                        fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tab());
+//                        fragmentTransaction.commit();
+                        Intent login_intent = new Intent(getContext(), RetailorDashboard.class);
+                        startActivity(login_intent);
+                        getActivity().finish();
                     }
                 });
 
@@ -230,17 +235,21 @@ public class PlaceholderFragment extends Fragment {
                 Log.i("InvoiceStatus", InvoiceStatus);
 
 //        SectionsPagerAdapter sectionsPagerAdapter = null;
-                if (!InvoiceStatus.equals("null")) {
+                if (!InvoiceStatus.equals("null") && !InvoiceStatus.equals("Pending")) {
                     disclaimer_tv.setVisibility(View.GONE);
                 }
+
 
 
                 button_back.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tabs());
-                        fragmentTransaction.commit();
+//                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                        fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tab());
+//                        fragmentTransaction.commit();
+                        Intent login_intent = new Intent(getContext(), RetailorDashboard.class);
+                        startActivity(login_intent);
+                        getActivity().finish();
                     }
                 });
 
@@ -323,9 +332,12 @@ public class PlaceholderFragment extends Fragment {
                     button_back.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tabs());
-                            fragmentTransaction.commit();
+//                            fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                            fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tab());
+//                            fragmentTransaction.commit();
+                            Intent login_intent = new Intent(getContext(), RetailorDashboard.class);
+                            startActivity(login_intent);
+                            getActivity().finish();
                         }
                     });
 
@@ -360,6 +372,21 @@ public class PlaceholderFragment extends Fragment {
                     ln_login = rootView.findViewById(R.id.ln_login);
 
                     ln_login.setVisibility(View.GONE);
+
+                    payment_id.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            ClipboardManager cm = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                            cm.setText(payment_id.getText());
+//                            Toast.makeText(getContext(), "Payment ID: " + String.valueOf(payment_id.getText()) + " - Copied to clipboard", Toast.LENGTH_SHORT).show();
+                            Toast toast = Toast.makeText(getContext(), "Payment ID: " + String.valueOf(payment_id.getText()) + " - Copied to clipboard", Toast.LENGTH_LONG);
+//                    toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, 0);
+                            toast.setGravity(Gravity.TOP, 0, 200);
+                            toast.show();
+                            return false;
+                        }
+                    });
+
 
                     new TextField().changeColor(getContext(), layout_txt_amount, txt_amount);
 

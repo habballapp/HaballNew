@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 //import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -41,7 +42,9 @@ import com.example.haball.Loader;
 import com.example.haball.ProcessingError;
 import com.example.haball.R;
 import com.example.haball.Registration.BooleanRequest;
+import com.example.haball.Retailer_Login.RetailerLogin;
 import com.example.haball.Retailor.ui.Support.SupportFragment;
+import com.example.haball.Select_User.Register_Activity;
 import com.example.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -270,6 +273,9 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
                     fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
                         @Override
                         public void onDismiss(DialogInterface dialog) {
+                            Intent intent = new Intent(Forgot_Pass_Retailer.this, RetailerLogin.class);
+                            startActivity(intent);
+
                             finish();
                         }
                     });
@@ -277,7 +283,8 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
                     Toast toast = Toast.makeText(Forgot_Pass_Retailer.this, "User does not exist.", Toast.LENGTH_LONG);
 //                    toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, 0);
 
-                    toast.setGravity(Gravity.TOP | Gravity.START | Gravity.END, -100, 200);
+//                    toast.setGravity(Gravity.TOP | Gravity.START | Gravity.END, -100, 200);
+                    toast.setGravity(Gravity.TOP, 0, 200);
 //                    WindowManager.LayoutParams layoutParams = toast.getWindow().getAttributes();
 //                    layoutParams.y = 200;
 //                    layoutParams.x = -70;// top margin

@@ -2,9 +2,11 @@ package com.example.haball.Retailor.ui.Network.Select_Tabs;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import com.example.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.example.haball.Loader;
 import com.example.haball.ProcessingError;
 import com.example.haball.R;
+import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Retailor.ui.Network.Adapters.Fragment_My_Network_Adapter;
 import com.example.haball.Retailor.ui.Network.Models.Netwok_Model;
 import com.example.haball.Retailor.ui.Network.Models.Network_Recieve_Model;
@@ -37,20 +40,22 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
-        * A simple {@link Fragment} subclass.
-        */
+ * A simple {@link Fragment} subclass.
+ */
 public class My_Network_Fragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private RecyclerView rv_network,rv_sent,rv_receive;
+    private RecyclerView rv_network, rv_sent, rv_receive;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     Netwok_Model paymentsViewModel;
-    private RecyclerView.Adapter networkAdapter,sentadapter,recieveAdapter;
+    private RecyclerView.Adapter networkAdapter, sentadapter, recieveAdapter;
     private String Token, DistributorId;
     private String MYNETWORK_URL = " https://retailer.haball.pk/api/kyc/Search";
     private int pageNumbernetwork = 0;
@@ -91,8 +96,8 @@ public class My_Network_Fragment extends Fragment {
 
         myNetworkData();
         // specify an adapter (see also next example)
-       // mAdapter = new Fragment_My_Network_Adapter(this, "Connected", "123456789","Mz-2,Horizon Vista,Plot-10,Block-4,Clifton");
-      //  recyclerView.setAdapter(mAdapter);
+        // mAdapter = new Fragment_My_Network_Adapter(this, "Connected", "123456789","Mz-2,Horizon Vista,Plot-10,Block-4,Clifton");
+        //  recyclerView.setAdapter(mAdapter);
         return root;
     }
 
@@ -102,7 +107,7 @@ public class My_Network_Fragment extends Fragment {
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
         DistributorId = sharedPreferences.getString("Distributor_Id", "");
-        Log.i("netword_token" ,Token);
+        Log.i("netword_token", Token);
         Log.i("DistributorId ", DistributorId);
 
         JSONObject map = new JSONObject();
@@ -116,12 +121,12 @@ public class My_Network_Fragment extends Fragment {
         //   networkAdapter = new Fragment_My_Network_Adapter(getContext(), "Connected", "123456789","Mz-2,Horizon Vista,Plot-10,Block-4,Clifton");
         // rv_network.setAdapter(networkAdapter);
 
-        MyJsonArrayRequest sr = new MyJsonArrayRequest( Request.Method.POST, MYNETWORK_URL, map, new Response.Listener<JSONArray>() {
+        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, MYNETWORK_URL, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
                 loader.hideLoader();
                 //                    JSONArray jsonArray = new JSONArray(result);
-                Log.i("results_network" , String.valueOf(result));
+                Log.i("results_network", String.valueOf(result));
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<Netwok_Model>>() {
                 }.getType();
@@ -169,5 +174,36 @@ public class My_Network_Fragment extends Fragment {
 
 
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    // handle back button's click listener
+//                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
+
+                    SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                    editorOrderTabsFromDraft.putString("TabNo", "0");
+                    editorOrderTabsFromDraft.apply();
+
+                    Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                    ((FragmentActivity) getContext()).startActivity(login_intent);
+                    ((FragmentActivity) getContext()).finish();
+                }
+                return false;
+            }
+        });
+
+    }
+
 
 }

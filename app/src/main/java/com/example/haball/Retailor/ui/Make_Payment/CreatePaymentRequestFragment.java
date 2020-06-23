@@ -122,7 +122,7 @@ public class CreatePaymentRequestFragment extends Fragment {
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-               text.setPadding(30, 0, 30, 0);
+                text.setPadding(30, 0, 30, 0);
                 text.setTypeface(myFont);
                 return view;
             }
@@ -134,7 +134,7 @@ public class CreatePaymentRequestFragment extends Fragment {
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-               text.setPadding(30, 0, 30, 0);
+                text.setPadding(30, 0, 30, 0);
                 return view;
             }
         };
