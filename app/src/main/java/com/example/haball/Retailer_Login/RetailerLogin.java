@@ -33,6 +33,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.CustomToast;
 import com.example.haball.Distributor.StatusKVP;
 import com.example.haball.Distributor.ui.terms_and_conditions.TermsAndConditionsFragment;
 import com.example.haball.Loader;
@@ -80,7 +81,7 @@ public class RetailerLogin extends AppCompatActivity {
     private java.net.URL url;
     private String token;
     private String success_text = "";
-//    private ProgressDialog progressDialog;
+    //    private ProgressDialog progressDialog;
     private Loader loader;
 
     @Override
@@ -371,20 +372,21 @@ public class RetailerLogin extends AppCompatActivity {
                     }
 
                 } catch (JSONException e) {
+                    new CustomToast().showToast(RetailerLogin.this, "Invalid Credentials");
                     e.printStackTrace();
-                    try {
-                        layout_username.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
-                        layout_username.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
-                        et_username.setTextColor(getResources().getColor(R.color.error_stroke_color));
+//                    try {
+                    layout_username.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+                    layout_username.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+                    et_username.setTextColor(getResources().getColor(R.color.error_stroke_color));
 
-                        layout_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
-                        layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
-                        layout_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
-                        et_password.setTextColor(getResources().getColor(R.color.error_stroke_color));
-                        Toast.makeText(RetailerLogin.this, result.get("ErrorMessage").toString(), Toast.LENGTH_LONG).show();
-                    } catch (JSONException ex) {
-                        ex.printStackTrace();
-                    }
+                    layout_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+                    layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+                    layout_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+                    et_password.setTextColor(getResources().getColor(R.color.error_stroke_color));
+//                        Toast.makeText(RetailerLogin.this, result.get("ErrorMessage").toString(), Toast.LENGTH_LONG).show();
+//                    } catch (JSONException ex) {
+//                        ex.printStackTrace();
+//                    }
 
                 }
             }

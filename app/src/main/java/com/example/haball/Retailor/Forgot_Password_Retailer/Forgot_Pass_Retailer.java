@@ -38,6 +38,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.CustomToast;
 import com.example.haball.Loader;
 import com.example.haball.ProcessingError;
 import com.example.haball.R;
@@ -280,18 +281,7 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
                         }
                     });
                 } else {
-                    Toast toast = Toast.makeText(Forgot_Pass_Retailer.this, "User does not exist.", Toast.LENGTH_LONG);
-//                    toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, 0);
-
-//                    toast.setGravity(Gravity.TOP | Gravity.START | Gravity.END, -100, 200);
-                    toast.setGravity(Gravity.TOP, 0, 200);
-//                    WindowManager.LayoutParams layoutParams = toast.getWindow().getAttributes();
-//                    layoutParams.y = 200;
-//                    layoutParams.x = -70;// top margin
-//                    fbDialogue.getWindow().setAttributes(layoutParams);
-
-                    toast.show();
-
+                    new CustomToast().showToast(Forgot_Pass_Retailer.this, "User does not exist");
                     layout_email.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
                     layout_email.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
                     layout_email.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));

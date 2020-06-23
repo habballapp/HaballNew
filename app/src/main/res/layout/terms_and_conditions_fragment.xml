@@ -23,7 +23,7 @@
             <RelativeLayout
                 android:id="@+id/rl_1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="27dp"
                 android:layout_marginEnd="27dp">
 
@@ -43,46 +43,33 @@
                         android:paddingTop="5dp"
                         android:paddingRight="20dp"
                         android:paddingBottom="5dp"
-                        android:text="@string/terms_amp_conditions"
+                        android:text="@string/termsAndConditionsHeading1"
                         android:textColor="#96bb3c"
                         android:textSize="25sp" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/txt_change2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/ln_login"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/open_sans"
-                    android:text="@string/termsAndConditionsHeading1"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/paragraph_size" />
+<!--                <TextView-->
+<!--                    android:id="@+id/txt_change2"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@id/ln_login"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:fontFamily="@font/open_sans"-->
+<!--                    android:text="@string/termsAndConditionsHeading1"-->
+<!--                    android:textAlignment="center"-->
+<!--                    android:textSize="@dimen/paragraph_size" />-->
 
-                <TextView
+                <WebView
                     android:id="@+id/txt_change3"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/txt_change2"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/open_sans"
-                    android:text="@string/termsAndConditionsText"
-                    android:textSize="@dimen/paragraph_size" />
-                <TextView
-                    android:id="@+id/txt_change4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/txt_change3"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/open_sans"
-                    android:text="@string/termsAndConditionsText1"
-                    android:textSize="@dimen/paragraph_size" />
-
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/ln_login"
+                    android:layout_marginTop="20dp" />
                 <RelativeLayout
                     android:id="@+id/ln_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/txt_change4"
+                    android:layout_below="@id/txt_change3"
                     android:layout_marginTop="20dp"
                     android:orientation="vertical"
                     android:weightSum="2">

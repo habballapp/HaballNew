@@ -47,15 +47,14 @@
                     android:id="@+id/rl_payment_information_txt2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
                     android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/underline"
-                    >
+                    android:paddingBottom="5dp">
 
                     <TextView
                         android:id="@+id/payment_information_txt2"
@@ -112,11 +111,11 @@
                     android:layout_marginEnd="40dp"
                     android:layout_marginRight="40dp"
                     android:background="@drawable/border_set"
-                    android:padding="10dp"
                     android:fontFamily="@font/open_sans_semibold"
+                    android:padding="10dp"
                     android:text="Internet &amp; Mobile Banking"
                     android:textColor="#96bb3c"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/txt_details"
@@ -197,6 +196,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/rl_1"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"
 
                 >
 
@@ -207,11 +207,11 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/border_set"
-                    android:padding="10dp"
                     android:fontFamily="@font/open_sans_semibold"
+                    android:padding="10dp"
                     android:text="Over the Counter"
                     android:textColor="#96bb3c"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/txt_counter"
@@ -287,87 +287,87 @@
 
             </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/rl_3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/rl_2"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="30dp">
+            <!--            <RelativeLayout-->
+            <!--                android:id="@+id/rl_3"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_below="@id/rl_2"-->
+            <!--                android:layout_marginTop="10dp"-->
+            <!--                android:layout_marginBottom="30dp">-->
 
-                <TextView
-                    android:id="@+id/txt_header3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:background="@drawable/border_set"
-                    android:padding="10dp"
-                    android:fontFamily="@font/open_sans_semibold"
-                    android:text="ATM"
-                    android:textColor="#96bb3c"
-                    android:textSize="12sp" />
+            <!--                <TextView-->
+            <!--                    android:id="@+id/txt_header3"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_marginStart="20dp"-->
+            <!--                    android:layout_marginEnd="20dp"-->
+            <!--                    android:background="@drawable/border_set"-->
+            <!--                    android:padding="10dp"-->
+            <!--                    android:fontFamily="@font/open_sans_semibold"-->
+            <!--                    android:text="ATM"-->
+            <!--                    android:textColor="#96bb3c"-->
+            <!--                    android:textSize="12sp" />-->
 
-                <TextView
-                    android:id="@+id/txt_atm"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/txt_header3"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:fontFamily="@font/open_sans_semibold"
-                    android:text="@string/Txt_Header3"
-                    android:textAlignment="gravity"
-                    android:textSize="@dimen/payment_options_text_retailer" />
+            <!--                <TextView-->
+            <!--                    android:id="@+id/txt_atm"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_below="@id/txt_header3"-->
+            <!--                    android:layout_marginStart="20dp"-->
+            <!--                    android:layout_marginTop="10dp"-->
+            <!--                    android:layout_marginEnd="20dp"-->
+            <!--                    android:fontFamily="@font/open_sans_semibold"-->
+            <!--                    android:text="@string/Txt_Header3"-->
+            <!--                    android:textAlignment="gravity"-->
+            <!--                    android:textSize="@dimen/payment_options_text_retailer" />-->
 
-                <TextView
-                    android:id="@+id/txt_atm1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/txt_atm"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:fontFamily="@font/open_sans"
-                    android:text="@string/Txt_Pr11"
-                    android:textSize="@dimen/payment_options_text_retailer" />
+            <!--                <TextView-->
+            <!--                    android:id="@+id/txt_atm1"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_below="@id/txt_atm"-->
+            <!--                    android:layout_marginStart="20dp"-->
+            <!--                    android:layout_marginTop="10dp"-->
+            <!--                    android:layout_marginEnd="20dp"-->
+            <!--                    android:fontFamily="@font/open_sans"-->
+            <!--                    android:text="@string/Txt_Pr11"-->
+            <!--                    android:textSize="@dimen/payment_options_text_retailer" />-->
 
-                <TextView
-                    android:id="@+id/txt_atm2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/txt_atm1"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:fontFamily="@font/open_sans"
-                    android:text="@string/Txt_Pr12"
-                    android:textSize="@dimen/payment_options_text_retailer" />
+            <!--                <TextView-->
+            <!--                    android:id="@+id/txt_atm2"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_below="@id/txt_atm1"-->
+            <!--                    android:layout_marginStart="20dp"-->
+            <!--                    android:layout_marginEnd="20dp"-->
+            <!--                    android:fontFamily="@font/open_sans"-->
+            <!--                    android:text="@string/Txt_Pr12"-->
+            <!--                    android:textSize="@dimen/payment_options_text_retailer" />-->
 
 
-                <TextView
-                    android:id="@+id/txt_atm3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/txt_atm2"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:fontFamily="@font/open_sans"
-                    android:text="@string/Txt_Pr13"
-                    android:textSize="@dimen/payment_options_text_retailer" />
+            <!--                <TextView-->
+            <!--                    android:id="@+id/txt_atm3"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_below="@id/txt_atm2"-->
+            <!--                    android:layout_marginStart="20dp"-->
+            <!--                    android:layout_marginEnd="20dp"-->
+            <!--                    android:fontFamily="@font/open_sans"-->
+            <!--                    android:text="@string/Txt_Pr13"-->
+            <!--                    android:textSize="@dimen/payment_options_text_retailer" />-->
 
-                <TextView
-                    android:id="@+id/txt_atm4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/txt_atm3"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:fontFamily="@font/open_sans"
-                    android:text="@string/Txt_Pr14"
-                    android:textSize="@dimen/payment_options_text_retailer" />
+            <!--                <TextView-->
+            <!--                    android:id="@+id/txt_atm4"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_below="@id/txt_atm3"-->
+            <!--                    android:layout_marginStart="20dp"-->
+            <!--                    android:layout_marginEnd="20dp"-->
+            <!--                    android:fontFamily="@font/open_sans"-->
+            <!--                    android:text="@string/Txt_Pr14"-->
+            <!--                    android:textSize="@dimen/payment_options_text_retailer" />-->
 
-            </RelativeLayout>
+            <!--            </RelativeLayout>-->
 
 
         </RelativeLayout>

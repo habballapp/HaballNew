@@ -23,7 +23,6 @@
                 android:id="@+id/net_company_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ABC"
                 android:textSize="@dimen/rv_box_heading_size"
                 android:fontFamily="@font/open_sans_semibold"
                 android:textColor="@color/rv_box_color"/>
@@ -48,7 +47,18 @@
                 android:layout_toRightOf="@+id/my_network_fragment_status"
                 android:text="Connected"
                 android:layout_marginTop="15dp"
-                android:fontFamily="@font/open_sans_semibold"
+                android:fontFamily="@font/open_sans"
+                android:textColor="@color/rv_box_color"
+                android:textSize="@dimen/rv_box_text_size"
+                />
+            <TextView
+                android:id="@+id/my_network_fragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/my_network_fragment_status"
+                android:layout_marginBottom="5dp"
+                android:text="Mobile No: "
+                android:fontFamily="@font/open_sans"
                 android:textColor="@color/rv_box_color"
                 android:textSize="@dimen/rv_box_text_size"
                 />
@@ -56,9 +66,9 @@
                 android:id="@+id/my_network_fragment_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/my_network_fragment"
                 android:layout_below="@+id/my_network_fragment_status"
                 android:layout_marginBottom="5dp"
-                android:text="+92"
                 android:fontFamily="@font/open_sans"
                 android:textColor="@color/rv_box_color"
                 android:textSize="@dimen/rv_box_text_size"
@@ -70,23 +80,31 @@
                 android:layout_below="@+id/my_network_fragment_status"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/my_network_fragment_no"
-                android:text="123456789"
                 android:fontFamily="@font/open_sans"
                 android:textColor="@color/rv_box_color"
                 android:textSize="@dimen/rv_box_text_size"
                 />
 
             <TextView
-                android:id="@+id/my_network_fragment_cnic_value"
+                android:id="@+id/my_network_fragment_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/my_network_fragment_no"
-                android:text="Mz-2,Horizon Vista,Plot-10,Block-4,Clifton"
+                android:text="Address: "
                 android:fontFamily="@font/open_sans"
                 android:textColor="@color/rv_box_color"
                 android:textSize="@dimen/rv_box_text_size"
                 />
-          />
+            <TextView
+                android:id="@+id/my_network_fragment_cnic_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/my_network_fragment_no"
+                android:layout_toRightOf="@+id/my_network_fragment_address"
+                android:fontFamily="@font/open_sans"
+                android:textColor="@color/rv_box_color"
+                android:textSize="@dimen/rv_box_text_size"
+                />
         </RelativeLayout>
 <!--        <ImageButton-->
 <!--            android:id="@+id/pop_menu_btn"-->

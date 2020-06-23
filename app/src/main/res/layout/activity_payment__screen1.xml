@@ -36,6 +36,29 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ln_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ln_txt"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="20sp"
+        android:layout_marginRight="27dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_create"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/button_round"
+            android:gravity="center"
+            android:text="Next"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="@dimen/button_text_size" />
+    </LinearLayout>
+
+
+    <LinearLayout
         android:id="@+id/ln_txt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -99,33 +122,10 @@
                 android:layout_height="match_parent"
                 android:inputType="number"
                 android:maxLength="9"
-                android:theme="@style/TextLabelEditeText" 
+                android:theme="@style/TextLabelEditeText"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/ln_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ln_txt"
-        android:layout_marginLeft="27dp"
-        android:layout_marginTop="20sp"
-        android:layout_marginRight="27dp"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/btn_create"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@drawable/button_round"
-            android:gravity="center"
-            android:text="Next"
-            android:textAllCaps="false"
-            android:textSize="@dimen/button_text_size" />
-        android:textColor="#fff"
     </LinearLayout>
     <!--    <TextView-->
     <!--        android:layout_width="match_parent"-->

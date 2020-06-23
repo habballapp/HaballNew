@@ -50,6 +50,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.CustomToast;
 import com.example.haball.Distributor.StatusKVP;
 import com.example.haball.Loader;
 import com.example.haball.ProcessingError;
@@ -381,11 +382,8 @@ public class PlaceholderFragment extends Fragment {
                         public boolean onLongClick(View v) {
                             ClipboardManager cm = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
                             cm.setText(payment_id.getText());
-//                            Toast.makeText(getContext(), "Payment ID: " + String.valueOf(payment_id.getText()) + " - Copied to clipboard", Toast.LENGTH_SHORT).show();
-                            Toast toast = Toast.makeText(getContext(), "Payment ID: " + String.valueOf(payment_id.getText()) + " - Copied to clipboard", Toast.LENGTH_LONG);
-//                    toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, 0);
-                            toast.setGravity(Gravity.TOP, 0, 200);
-                            toast.show();
+//                            new CustomToast().showToast(getActivity(), "Payment ID: " + String.valueOf(payment_id.getText()) + " - Copied to clipboard");
+                            new CustomToast().showToast(getActivity(), "PSID has been copied to clipboard");
                             return false;
                         }
                     });

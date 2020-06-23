@@ -48,11 +48,13 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.CustomToast;
 import com.example.haball.Loader;
 import com.example.haball.ProcessingError;
 import com.example.haball.R;
 import com.example.haball.Registration.BooleanRequest;
 import com.example.haball.Retailer_Login.RetailerLogin;
+import com.example.haball.Retailor.Retailer_New_Password;
 import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
 import com.example.haball.Retailor.ui.Make_Payment.PaymentScreen3Fragment_Retailer;
@@ -107,6 +109,7 @@ public class PlaceholderFragment extends Fragment {
     private PageViewModel pageViewModel;
     private int keyDel;
     private Loader loader;
+    private Button btn_back;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -157,6 +160,21 @@ public class PlaceholderFragment extends Fragment {
                 Rmobile = root.findViewById(R.id.Rmobile);
                 R_Address = root.findViewById(R.id.R_Address);
                 btn_save_password = root.findViewById(R.id.btn_save_password);
+                btn_back = root.findViewById(R.id.btn_back);
+
+                btn_back.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (changed) {
+                            showDiscardDialog();
+                        } else {
+                            Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                            ((FragmentActivity) getContext()).startActivity(login_intent);
+                            ((FragmentActivity) getContext()).finish();
+                        }
+
+                    }
+                });
 
                 btn_save_password.setEnabled(false);
                 btn_save_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
@@ -359,6 +377,24 @@ public class PlaceholderFragment extends Fragment {
                 LinearLayout ll_fields1 = root.findViewById(R.id.ll_fields1);
                 update_password.setEnabled(false);
                 update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+
+                btn_back = root.findViewById(R.id.btn_back);
+
+                btn_back.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String txtpassword = txt_password.getText().toString();
+                        String txtnewpassword = txt_newpassword.getText().toString();
+                        String txtcfmpassword = txt_cfmpassword.getText().toString();
+                        if (!txtpassword.equals("") || !txtnewpassword.equals("") || !txtcfmpassword.equals("")) {
+                            showDiscardDialog();
+                        } else {
+                            Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                            ((FragmentActivity) getContext()).startActivity(login_intent);
+                            ((FragmentActivity) getContext()).finish();
+                        }
+                    }
+                });
 
 
                 checkFieldsForEmptyValuesUpdatePass();
@@ -923,7 +959,8 @@ public class PlaceholderFragment extends Fragment {
             });
             Volley.newRequestQueue(getActivity()).add(sr);
         } else {
-            Toast.makeText(getActivity(), "Password do not Match", Toast.LENGTH_LONG).show();
+//            Toast.makeText(getActivity(), "Password do not Match", Toast.LENGTH_LONG).show();
+            new CustomToast().showToast(getActivity(), "Password mismatch");
             layout_password1.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
             layout_password1.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
             layout_password1.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));

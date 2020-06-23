@@ -68,6 +68,7 @@ public class SplashScreen extends AppCompatActivity {
             public void run() {
 
 //                Intent intent1 = new Intent(SplashScreen.this, Retailer_UpdatePassword.class);
+//                Intent intent1 = new Intent(SplashScreen.this, Retailer_TermsAndConditionsFragment.class);
 //                startActivity(intent1);
 //                finish();
 

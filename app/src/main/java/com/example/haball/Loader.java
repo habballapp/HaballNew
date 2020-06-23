@@ -47,7 +47,7 @@ public class Loader {
 //            fbDialogue.dismiss();
         fbDialogue.show();
 
-        new CountDownTimer(20000, 1000) {
+        new CountDownTimer(10000, 1000) {
 
             public void onTick(long millisUntilFinished) {
             }

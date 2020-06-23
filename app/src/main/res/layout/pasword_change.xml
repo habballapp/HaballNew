@@ -170,9 +170,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="#ff0000"
                 android:fontFamily="@font/open_sans_semibold"
                 android:text="* On changing the password, you would be logged out of the account"
+                android:textColor="#ff0000"
                 android:textSize="13sp" />
 
 
@@ -195,10 +195,24 @@
                 android:enabled="false"
                 android:fontFamily="@font/open_sans"
                 android:text="Set Password"
-
                 android:textAllCaps="false"
                 android:textColor="#fff"
-                android:textSize="14sp" />
+                android:textSize="@dimen/button_text_size" />
+
+            <Button
+                android:id="@+id/btn_back"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_below="@+id/update_password"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_background"
+                android:fontFamily="@font/open_sans"
+                android:text="Back"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="@dimen/button_text_size" />
+
+
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

@@ -60,10 +60,12 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.CustomToast;
 import com.example.haball.Loader;
 import com.example.haball.R;
 import com.example.haball.Registration.BooleanRequest;
 import com.example.haball.Retailer_Login.RetailerLogin;
+import com.example.haball.Retailor.Forgot_Password_Retailer.Forgot_Pass_Retailer;
 import com.example.haball.Retailor.ui.Dashboard.DashBoardFragment;
 import com.example.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
 import com.example.haball.TextField;
@@ -177,12 +179,12 @@ public class Retailer_New_Password extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (!String.valueOf(txt_newpassword.getText()).equals("") || !String.valueOf(txt_cfmpassword.getText()).equals(""))
-                showDiscardDialog();
-//                else {
-//                    Intent intent = new Intent(Retailer_New_Password.this, RetailorDashboard.class);
-//                    startActivity(intent);
-//                }
+                if (!String.valueOf(txt_newpassword.getText()).equals("") || !String.valueOf(txt_cfmpassword.getText()).equals(""))
+                    showDiscardDialog();
+                else {
+                    Intent intent = new Intent(Retailer_New_Password.this, RetailerLogin.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -324,7 +326,7 @@ public class Retailer_New_Password extends AppCompatActivity {
     }
 
     private final TextWatcher watcher = new TextWatcher() {
-//        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
+        //        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
         String reg_ex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{6,}$";
 
         @Override
@@ -407,7 +409,6 @@ public class Retailer_New_Password extends AppCompatActivity {
                                 finish();
                             }
                         });
-
                     }
                 }
             }, new Response.ErrorListener() {
@@ -473,7 +474,8 @@ public class Retailer_New_Password extends AppCompatActivity {
             layout_password1.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
             layout_password1.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
             txt_newpassword.setTextColor(getResources().getColor(R.color.error_stroke_color));
-            Toast.makeText(Retailer_New_Password.this, "Password does not match", Toast.LENGTH_LONG).show();
+//            Toast.makeText(Retailer_New_Password.this, "Password does not match", Toast.LENGTH_LONG).show();
+            new CustomToast().showToast(Retailer_New_Password.this, "Password mismatch");
         }
     }
 

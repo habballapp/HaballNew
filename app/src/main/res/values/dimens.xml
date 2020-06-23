@@ -24,7 +24,7 @@
     <dimen name="heading_size_distributor">24sp</dimen>
     <dimen name="order_child_list_retailer">11sp</dimen>
     <dimen name="payment_options_retailer">10sp</dimen>
-    <dimen name="payment_options_text_retailer">8sp</dimen>
+    <dimen name="payment_options_text_retailer">10sp</dimen>
     <dimen name="retailer_button_size">45dp</dimen>
     <dimen name="iconSize" >18dp</dimen>
 

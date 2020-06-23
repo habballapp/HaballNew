@@ -35,6 +35,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.Fragment_Notification.NotificationAdapter;
+import com.example.haball.Loader;
 import com.example.haball.R;
 import com.example.haball.Registration.BooleanRequest;
 import com.example.haball.Retailer_Login.RetailerLogin;
@@ -72,6 +73,7 @@ public class Notification_Fragment extends Fragment {
     private String UserId, Token;
     private List<Retailer_Notification_Model> NotificationList = new ArrayList<>();
     private TextView tv_notification_no_data;
+    private Loader loader;
     private FragmentTransaction fragmentTransaction;
 
     public Notification_Fragment() {
@@ -91,7 +93,7 @@ public class Notification_Fragment extends Fragment {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-
+        loader = new Loader(getContext());
         View root = inflater.inflate(R.layout.notification_fragment, container, false);
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
@@ -103,6 +105,7 @@ public class Notification_Fragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(root.getContext());
         recyclerView.setLayoutManager(layoutManager);
+        tv_notification_no_data.setVisibility(View.GONE);
 //        NotificationAdapter = new Notification_Adapter(getContext(), "Payment", "Payment ID 345697977970 has been approved successfully");
 //        recyclerView.setAdapter(NotificationAdapter);
 
@@ -152,6 +155,7 @@ public class Notification_Fragment extends Fragment {
     }
 
     private List<Retailer_Notification_Model> getNotifications() {
+        loader.showLoader();
         List<Retailer_Notification_Model> temp_NotificationList = new ArrayList<>();
 
 //        if (iSocket.connected()) {
@@ -172,6 +176,7 @@ public class Notification_Fragment extends Fragment {
                                 Type type = new TypeToken<List<Retailer_Notification_Model>>() {
                                 }.getType();
                                 try {
+                                    loader.hideLoader();
                                     NotificationList = gson.fromJson(String.valueOf(data.getJSONArray("data")), type);
 
                                     if (NotificationList.size() != 0) {
@@ -182,6 +187,7 @@ public class Notification_Fragment extends Fragment {
                                 } catch (
                                         JSONException e) {
                                     e.printStackTrace();
+                                    loader.hideLoader();
                                 }
                                 Log.i("notificationTest12", String.valueOf(NotificationList));
                                 NotificationAdapter = new Notification_Adapter(getContext(), NotificationList);

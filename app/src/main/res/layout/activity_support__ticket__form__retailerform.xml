@@ -224,7 +224,6 @@
             android:layout_height="45dp"
             android:layout_below="@id/rl_fields"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
             android:background="@drawable/button_round"
             android:fontFamily="@font/open_sans"
             android:stateListAnimator="@null"
@@ -232,6 +231,21 @@
             android:textAllCaps="false"
             android:textColor="#fff"
             android:textSize="@dimen/button_text_size" />
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@+id/ticket_btn"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_background"
+            android:fontFamily="@font/open_sans"
+            android:text="Back"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="@dimen/button_text_size" />
+
 
         <!--        <TextView-->
         <!--            android:id="@+id/footer"-->

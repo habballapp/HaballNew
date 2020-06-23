@@ -189,8 +189,19 @@
                 android:text="Update"
                 android:textAllCaps="false"
                 android:textColor="#fff"
-                android:textSize="14sp" />
+                android:textSize="@dimen/button_text_size" />
 
+            <Button
+                android:id="@+id/btn_back"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_background"
+                android:fontFamily="@font/open_sans"
+                android:text="Back"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="@dimen/button_text_size" />
 
         </LinearLayout>
 

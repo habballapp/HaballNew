@@ -42,10 +42,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.CustomToast;
 import com.example.haball.Distributor.ui.payments.PaymentScreen3Fragment;
 import com.example.haball.Loader;
 import com.example.haball.ProcessingError;
 import com.example.haball.R;
+import com.example.haball.Retailor.Forgot_Password_Retailer.Forgot_Pass_Retailer;
 import com.example.haball.Retailor.RetailorDashboard;
 import com.example.haball.Retailor.ui.Support.SupportFragment;
 import com.example.haball.TextField;
@@ -321,7 +323,8 @@ public class CreatePaymentRequestFragment extends Fragment {
     private void checkFieldsForEmptyValues() {
         String txt_amounts = txt_amount.getText().toString();
         String company = (String) spinner_company.getItemAtPosition(spinner_company.getSelectedItemPosition()).toString();
-        if (txt_amounts.equals("") || Double.parseDouble(txt_amounts) < 500
+        if (txt_amounts.equals("")
+//                || Double.parseDouble(txt_amounts) < 500
                 || company.equals("Select Company")
 
         ) {
@@ -335,80 +338,85 @@ public class CreatePaymentRequestFragment extends Fragment {
     }
 
     private void makeSaveRequest() throws JSONException {
-        loader.showLoader();
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token", "");
+        String txt_amounts = txt_amount.getText().toString();
+        if(Double.parseDouble(txt_amounts) >= 500) {
+            loader.showLoader();
+            SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                    Context.MODE_PRIVATE);
+            Token = sharedPreferences.getString("Login_Token", "");
 
-        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        ID = sharedPreferences1.getString("ID", "");
-        Log.i("ID  ", ID);
-        Log.i("Token", Token);
+            SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                    Context.MODE_PRIVATE);
+            ID = sharedPreferences1.getString("ID", "");
+            Log.i("ID  ", ID);
+            Log.i("Token", Token);
 
-        JSONObject map = new JSONObject();
-        map.put("ID", 0);
-        map.put("DealerCode", companyNameAndId.get(company_names));
+            JSONObject map = new JSONObject();
+            map.put("ID", 0);
+            map.put("DealerCode", companyNameAndId.get(company_names));
 //        map.put("DealerCode", "201911672");
-        map.put("PaidAmount", txt_amount.getText().toString());
+            map.put("PaidAmount", txt_amount.getText().toString());
 
-        Log.i("JSON ", String.valueOf(map));
+            Log.i("JSON ", String.valueOf(map));
 
-        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PAYMENT_REQUESTS_SAVE, map, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject result) {
-                loader.hideLoader();
-                try {
-                    Log.i("Response PR", result.toString());
-                    prepaid_number = result.getString("PrePaidNumber");
-                    prepaid_id = result.getString("ID");
-                } catch (JSONException e) {
-                    Log.i("Response PR", e.toString());
-                    e.printStackTrace();
-                }
+            JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PAYMENT_REQUESTS_SAVE, map, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject result) {
+                    loader.hideLoader();
+                    try {
+                        Log.i("Response PR", result.toString());
+                        prepaid_number = result.getString("PrePaidNumber");
+                        prepaid_id = result.getString("ID");
+                    } catch (JSONException e) {
+                        Log.i("Response PR", e.toString());
+                        e.printStackTrace();
+                    }
 
-                btn_create.setEnabled(true);
-                btn_create.setBackground(getResources().getDrawable(R.drawable.button_background));
+                    btn_create.setEnabled(true);
+                    btn_create.setBackground(getResources().getDrawable(R.drawable.button_background));
 
-                SharedPreferences PrePaidNumber = getContext().getSharedPreferences("PrePaidNumber",
-                        Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = PrePaidNumber.edit();
-                editor.putString("PrePaidNumber", prepaid_number);
-                editor.putString("PrePaidId", prepaid_id);
-                editor.putString("CompanyId", companyNameAndId.get(company_names));
-                editor.putString("CompanyName", company_names);
-                editor.putString("Amount", txt_amount.getText().toString());
-                editor.apply();
+                    SharedPreferences PrePaidNumber = getContext().getSharedPreferences("PrePaidNumber",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = PrePaidNumber.edit();
+                    editor.putString("PrePaidNumber", prepaid_number);
+                    editor.putString("PrePaidId", prepaid_id);
+                    editor.putString("CompanyId", companyNameAndId.get(company_names));
+                    editor.putString("CompanyName", company_names);
+                    editor.putString("Amount", txt_amount.getText().toString());
+                    editor.apply();
 
-                showSuccessDialog(prepaid_number);
+                    showSuccessDialog(prepaid_number);
 
 //                Toast.makeText(getContext(), "Payment Request " + prepaid_number + " has been created successfully.", Toast.LENGTH_SHORT).show();
 //                Log.e("RESPONSE prepaid_number", result.toString());
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                loader.hideLoader();
-                new ProcessingError().showError(getContext());
-                printErrorMessage(error);
-                error.printStackTrace();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    loader.hideLoader();
+                    new ProcessingError().showError(getContext());
+                    printErrorMessage(error);
+                    error.printStackTrace();
 
-                btn_create.setEnabled(true);
-                btn_create.setBackground(getResources().getDrawable(R.drawable.button_background));
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer " + Token);
-                return params;
-            }
-        };
-        sr.setRetryPolicy(new DefaultRetryPolicy(
-                15000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext()).add(sr);
+                    btn_create.setEnabled(true);
+                    btn_create.setBackground(getResources().getDrawable(R.drawable.button_background));
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("Authorization", "bearer " + Token);
+                    return params;
+                }
+            };
+            sr.setRetryPolicy(new DefaultRetryPolicy(
+                    15000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            Volley.newRequestQueue(getContext()).add(sr);
+        } else {
+            new CustomToast().showToast(getActivity(), "Amount cannot be less than PKR 500.");
+        }
     }
 
     private void showSuccessDialog(String paymentID) {

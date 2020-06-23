@@ -59,6 +59,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.CustomToast;
 import com.example.haball.Loader;
 import com.example.haball.R;
 import com.example.haball.Registration.BooleanRequest;
@@ -535,7 +536,8 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
             layout_password1.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
             layout_password1.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
             txt_newpassword.setTextColor(getResources().getColor(R.color.error_stroke_color));
-            Toast.makeText(Retailer_UpdatePassword.this, "Password does not match", Toast.LENGTH_LONG).show();
+//            Toast.makeText(Retailer_UpdatePassword.this, "Password does not match", Toast.LENGTH_LONG).show();
+            new CustomToast().showToast(Retailer_UpdatePassword.this, "Password mismatch");
         }
     }
 

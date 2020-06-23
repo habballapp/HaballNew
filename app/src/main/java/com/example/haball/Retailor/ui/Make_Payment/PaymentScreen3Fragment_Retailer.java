@@ -3,6 +3,7 @@ package com.example.haball.Retailor.ui.Make_Payment;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -54,6 +55,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.haball.CustomToast;
 import com.example.haball.Loader;
 import com.example.haball.ProcessingError;
 import com.example.haball.R;
@@ -116,7 +118,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         new TextField().changeColor(getContext(), layout_txt_amount, txt_amount);
         loader = new Loader(getContext());
 
-        payment_id.setText(PrePaidNumber);
+
         //   spinner_companyName.setText(CompanyName);
         // CompanyNames.add(CompanyName);
         fetchCompanyData();
@@ -137,6 +139,20 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
             spinner_companyName.setEnabled(false);
             spinner_companyName.setClickable(false);
         }
+
+        payment_id.setText(PrePaidNumber);
+
+        payment_id.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ClipboardManager cm = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                cm.setText(payment_id.getText());
+//                new CustomToast().showToast(getActivity(), "Payment ID: " + String.valueOf(payment_id.getText()) + " - Copied to clipboard");
+                new CustomToast().showToast(getActivity(), "PSID has been copied to clipboard");
+                return false;
+            }
+        });
+
 //        PrePaidNumber = "358534338693873";
 //        PrePaidId = "873";
 //        CompanyName = "One call";
@@ -198,6 +214,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
             }
         });
         txt_amount.setText(Amount);
+        txt_amount.setTextColor(getResources().getColor(R.color.textcolor));
         txt_amount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

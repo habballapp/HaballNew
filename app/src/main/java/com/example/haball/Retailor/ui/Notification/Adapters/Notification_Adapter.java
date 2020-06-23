@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.example.haball.Distributor.ui.Fragment_Notification.Dismiss_Notification;
 import com.example.haball.Distributor.ui.Fragment_Notification.NotificationAdapter;
+import com.example.haball.Loader;
 import com.example.haball.R;
 import com.example.haball.Registration.BooleanRequest;
 import com.example.haball.Retailor.ui.Notification.Retailer_Notification_Model;
@@ -70,7 +72,8 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                final PopupMenu popup = new PopupMenu(context, view);
+                Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
+                final PopupMenu popup = new PopupMenu(wrapper, view);
                 MenuInflater inflater = popup.getMenuInflater();
                 inflater.inflate(R.menu.notification_menu, popup.getMenu());
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -79,23 +82,28 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
                         switch (item.getItemId()) {
                             case R.id.dismiss:
                                 Log.i("DISMISS CASE", "HERE");
-
-                                if (dismiss_alert.contains("/" + NotificationList.get(position).getID()))
+                                Log.i("NotificationID", NotificationList.get(position).getID());
+                                if (!dismiss_alert.contains("/" + NotificationList.get(position).getID()))
                                     dismiss_alert = dismiss_alert + NotificationList.get(position).getID();
 
                                 SharedPreferences sharedPreferences = context.getSharedPreferences("LoginToken",
                                         Context.MODE_PRIVATE);
                                 final String Token = sharedPreferences.getString("Login_Token", "");
 
-
+                                final Loader loader = new Loader(context);
+                                loader.showLoader();
                                 BooleanRequest sr = new BooleanRequest(Request.Method.POST, dismiss_alert, null, new Response.Listener<Boolean>() {
                                     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                                     @Override
                                     public void onResponse(Boolean result) {
+                                        loader.hideLoader();
+                                        notifyItemRemoved(position);
+                                        notifyItemRangeChanged(position, NotificationList.size());
                                     }
                                 }, new Response.ErrorListener() {
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
+                                        loader.hideLoader();
                                         error.printStackTrace();
 
                                     }
