@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="27dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/underline"
-        android:layout_marginEnd="27dp">
+        android:layout_marginEnd="27dp"
+        android:background="@drawable/underline">
 
         <TextView
             android:id="@+id/tv_support"
@@ -30,9 +30,9 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:layout_alignParentRight="true">
+            android:paddingBottom="10dp">
 
             <ImageView
                 android:id="@+id/image_plus"
@@ -46,8 +46,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/image_plus"
-                android:paddingTop="2dp"
                 android:fontFamily="@font/open_sans"
+                android:paddingTop="2dp"
                 android:text="Create Payment"
                 android:textColor="@color/textcolor"
                 android:textSize="13sp" />
@@ -135,7 +135,7 @@
                         android:fontFamily="@font/open_sans"
                         android:inputType="number"
                         android:maxLength="9"
-                       android:theme="@style/TextLabelEditeText" />
+                        android:theme="@style/TextLabelEditeText" />
 
                 </com.google.android.material.textfield.TextInputLayout>
                 <!--                <RelativeLayout-->
@@ -258,19 +258,63 @@
                     android:background="@drawable/spinner_round"
                     android:padding="20dp">
 
-                    <TextView
-                        android:id="@+id/tv_banking_channel"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:drawableLeft="@drawable/ic_account_balance_black_24dp"
-                        android:fontFamily="@font/open_sans"
-                        android:gravity="left"
-                        android:text="\t\t\tBanking Channel"
-                        android:textColor="@color/textcolor"
-                        android:textSize="15sp" />
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_account_balance_black_24dp" />
+
+                        <TextView
+                            android:id="@+id/tv_banking_channel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/open_sans"
+                            android:gravity="left"
+                            android:text="\t\t\tBanking Channel"
+                            android:textColor="@color/textcolor"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+
                 </RelativeLayout>
 
+<!--                <RelativeLayout-->
+<!--                    android:id="@+id/rl_jazz_cash"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="68dp"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:layout_marginBottom="10dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@drawable/spinner_round"-->
+<!--                    android:padding="20dp">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="50dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:src="@drawable/jazz_cash" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_jazz_cash"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:fontFamily="@font/open_sans"-->
+<!--                            android:gravity="left"-->
+<!--                            android:text="\t\t\tJazz Cash"-->
+<!--                            android:textColor="@color/textcolor"-->
+<!--                            android:textSize="15sp" />-->
+
+<!--                    </LinearLayout>-->
+
+<!--                </RelativeLayout>-->
             </LinearLayout>
             <!--            <TextView-->
             <!--                android:layout_width="match_parent"-->

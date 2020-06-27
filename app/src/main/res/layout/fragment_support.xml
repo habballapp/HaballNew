@@ -35,10 +35,10 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:layout_alignParentEnd="true">
+                android:paddingBottom="10dp">
 
                 <ImageView
                     android:id="@+id/image_plus"
@@ -53,11 +53,18 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/image_plus"
                     android:fontFamily="@font/open_sans"
+                    android:paddingTop="2dp"
                     android:text="Create Ticket"
                     android:textColor="@color/textcolor"
                     android:textSize="13sp" />
             </RelativeLayout>
         </RelativeLayout>
+
+        <!--        <ScrollView-->
+        <!--            android:id="@+id/scrollview_support"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:layout_below="@+id/ll_tv_support">-->
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -281,14 +288,16 @@
             <!--                android:gravity="center"-->
             <!--                android:text="© Haball | All rights reserved" />-->
         </RelativeLayout>
+        <!--        </ScrollView>-->
     </RelativeLayout>
-<!--    <pl.droidsonroids.gif.GifImageView-->
-<!--        android:id="@+id/loader"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_centerInParent="true"-->
-<!--        android:src="@drawable/loader_new"-->
-<!--        android:visibility="visible"-->
-<!--        />-->
+
+    <!--    <pl.droidsonroids.gif.GifImageView-->
+    <!--        android:id="@+id/loader"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_centerInParent="true"-->
+    <!--        android:src="@drawable/loader_new"-->
+    <!--        android:visibility="visible"-->
+    <!--        />-->
 
 </RelativeLayout>

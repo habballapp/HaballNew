@@ -135,7 +135,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="0.25"
-                            android:text="22-12-2020" />
+                            android:text="dd/mm/yyyy" />
 
                         <ImageButton
                             android:id="@+id/first_date_btn"
@@ -178,7 +178,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="0.25"
-                            android:text="22-12-2020" />
+                            android:text="dd/mm/yyyy" />
 
                         <ImageButton
                             android:id="@+id/second_date_btn"

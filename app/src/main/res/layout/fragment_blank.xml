@@ -1,57 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#fff"
-    tools:context=".Notfication.Notification">
+    android:layout_height="match_parent">
 
-
-    <RelativeLayout
-        android:id="@+id/notification_view"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/sv_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="40dp"
-        android:background="@drawable/underline"
-        android:orientation="vertical">
+        android:hint="Search!"
+        android:singleLine="true"
+        android:inputType="textNoSuggestions"
+        android:layout_gravity="start"
+        android:layout_marginRight="18dp"
+        android:ems="10" >
+    </androidx.appcompat.widget.SearchView>
 
-        <TextView
-            android:id="@+id/heading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/half_underline"
-            android:paddingTop="5dp"
-            android:paddingBottom="10dp"
-            android:text="Notification Details"
-            android:textColor="#96bb3c"
-            android:textSize="18sp" />
-
-        <RelativeLayout
-            android:id="@+id/line_"
-            android:layout_width="match_parent"
-            android:layout_height="1.5dp"
-            android:layout_below="@+id/heading"
-            android:layout_marginTop="-2dp"
-            android:layout_toRightOf="@+id/heading"
-            android:background="@drawable/line" />
-    </RelativeLayout>
-    <RelativeLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_recycler_view"
+        android:layout_below="@+id/sv_search"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="40dp"
-        android:layout_below="@+id/notification_view">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_notification_retailor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp" />
-    </RelativeLayout>
-
-
+        android:layout_height="match_parent" >
+    </androidx.recyclerview.widget.RecyclerView>
 </RelativeLayout>

@@ -24,7 +24,7 @@
             app:tabSelectedTextColor="#96bb3c"
             app:tabTextAppearance="@style/CustomTextAppearanceTab" />
 
-        <com.example.haball.NonSwipeableViewPager
+        <com.haball.NonSwipeableViewPager
             android:id="@+id/view_pager_rpoid"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
