@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.SpannableString;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -95,7 +97,7 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
     private List<String> consolidate_felter = new ArrayList<>();
     private List<String> filters = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapterFeltter;
-    private Button btn_load_more;
+  //  private Button btn_load_more;
     private String Company_selected, DistributorId;
     private String Filter_selected, Filter_selected_value;
 
@@ -126,7 +128,7 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
     private RelativeLayout spinner_container_main;
     private static int y;
     private List<String> scrollEvent = new ArrayList<>();
-
+    private Typeface myFont;
     private Context mcontext;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -136,13 +138,13 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
         View root = inflater.inflate(R.layout.activity_payment_ledger, container, false);
         mcontext = getContext();
         company_names.add("Company ");
-
-        btn_load_more = root.findViewById(R.id.btn_load_more);
+        myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
+     //   btn_load_more = root.findViewById(R.id.btn_load_more);
 
         SpannableString content = new SpannableString("Load More");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-        btn_load_more.setText(content);
-        btn_load_more.setVisibility(View.GONE);
+       // btn_load_more.setText(content);
+      //  btn_load_more.setVisibility(View.GONE);
         tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
         search_bar = root.findViewById(R.id.search_bar);
         spinner_container_main = root.findViewById(R.id.spinner_container_main);
@@ -164,8 +166,31 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
         amount_filter_rl.setVisibility(View.GONE);
 
         spinner_criteria = root.findViewById(R.id.spinner_criteria);
-        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, company_names);
+        arrayAdapterPayments = new ArrayAdapter<String>(root.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, company_names)
+        { @Override
+        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+            // TODO Auto-generated method stub
+            View view = super.getView(position, convertView, parent);
+            TextView text = (TextView) view.findViewById(android.R.id.text1);
+            text.setTextColor(getResources().getColor(R.color.text_color_selection));
+            text.setTextSize((float) 13.6);
+            text.setPadding(50, 0, 50, 0);
+            text.setTypeface(myFont);
+            return view;
+        }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(50, 0, 50, 0);
+                return view;
+            }
+        };
         spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
@@ -280,8 +305,30 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
         filters.add("Invoice");
         filters.add("Prepaid ");
         filters.add("Shipment");
-        arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_dropdown_item_1line, filters);
+        arrayAdapterFeltter = new ArrayAdapter<String>(root.getContext(),
+                android.R.layout.simple_dropdown_item_1line, filters){@Override
+        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+            // TODO Auto-generated method stub
+            View view = super.getView(position, convertView, parent);
+            TextView text = (TextView) view.findViewById(android.R.id.text1);
+            text.setTextColor(getResources().getColor(R.color.text_color_selection));
+            text.setTextSize((float) 13.6);
+            text.setPadding(30, 0, 30, 0);
+            text.setTypeface(myFont);
+            return view;
+        }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                return view;
+            }
+        };
         Log.i("aaaa1111", String.valueOf(consolidate_felter));
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -388,17 +435,17 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
             }
         });
 
-        btn_load_more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pageNumber++;
-                try {
-                    performPagination(companies.get(Company_selected));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+//        btn_load_more.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                pageNumber++;
+//                try {
+//                    performPagination(companies.get(Company_selected));
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
 
         recyclerView = root.findViewById(R.id.rv_payment_ledger);
         recyclerView.setHasFixedSize(true);
@@ -492,7 +539,7 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
                 if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
                     if (totalPages != 0 && pageNumber < totalPages) {
 //                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
-                        btn_load_more.setVisibility(View.VISIBLE);
+                       // btn_load_more.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -696,7 +743,7 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
                         e.printStackTrace();
                     }
                 }
-                btn_load_more.setVisibility(View.GONE);
+             //   btn_load_more.setVisibility(View.GONE);
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<PaymentLedgerModel>>() {
                 }.getType();

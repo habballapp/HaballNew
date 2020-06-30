@@ -2,6 +2,7 @@ package com.haball.Distributor.ui.orders.OrdersTabsNew.ui.main;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
@@ -72,8 +74,8 @@ public class PlaceholderFragment extends Fragment {
     private LayoutInflater myinflater;
     private Button btn_checkout;
     private HashMap<String, String> companies = new HashMap<>();
-    private TextInputLayout layout_name,layout_mobile_no,layout_email_address,layout_cnic_no,layout_txt_address;
-    private TextInputEditText txt_name,txt_mobile_no,txt_email_address,txt_cnic_no,txt_address;
+    private TextInputLayout layout_name, layout_mobile_no, layout_email_address, layout_cnic_no, layout_txt_address;
+    private TextInputEditText txt_name, txt_mobile_no, txt_email_address, txt_cnic_no, txt_address;
     private List<String> company_names = new ArrayList<>();
     private String Company_selected;
     private ArrayAdapter<String> arrayAdapterPayments, arrayAdapterPaymentsFilter;
@@ -85,6 +87,7 @@ public class PlaceholderFragment extends Fragment {
     private String URL_Company = "http://175.107.203.97:4013/api/company/ReadActiveCompanyOrders/"; // To be done
     private List<Distributor_Fragment_Model_DistOrder> CompanyList;
     private String object_string;
+    private Typeface myFont;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -131,12 +134,12 @@ public class PlaceholderFragment extends Fragment {
 //                break;
                 rootView = inflater.inflate(R.layout.fragment_place_order_company, container, false);
                 company_names.add("Company ");
-
+                myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
                 layout_name = rootView.findViewById(R.id.layout_name);
-                layout_mobile_no = rootView.findViewById( R.id.layout_mobile_no );
-                layout_email_address= rootView.findViewById( R.id.layout_email_address );
-                layout_cnic_no= rootView.findViewById( R.id.layout_cnic_no );
-                layout_txt_address = rootView.findViewById( R.id.layout_txt_address );
+                layout_mobile_no = rootView.findViewById(R.id.layout_mobile_no);
+                layout_email_address = rootView.findViewById(R.id.layout_email_address);
+                layout_cnic_no = rootView.findViewById(R.id.layout_cnic_no);
+                layout_txt_address = rootView.findViewById(R.id.layout_txt_address);
                 spinner_conso = rootView.findViewById(R.id.spinner_conso);
                 spinner_retailer_details = rootView.findViewById(R.id.spinner_retailer_details);
                 retailer_heading = rootView.findViewById(R.id.retailer_heading);
@@ -152,14 +155,37 @@ public class PlaceholderFragment extends Fragment {
                 txt_cnic_no.setEnabled(false);
                 txt_address.setEnabled(false);
 
-                new TextField().changeColor(this.getContext(), layout_name,  txt_name );
+                new TextField().changeColor(this.getContext(), layout_name, txt_name);
                 new TextField().changeColor(this.getContext(), layout_mobile_no, txt_mobile_no);
                 new TextField().changeColor(this.getContext(), layout_email_address, txt_email_address);
                 new TextField().changeColor(this.getContext(), layout_cnic_no, txt_cnic_no);
-                new TextField().changeColor(this.getContext(),  layout_txt_address,txt_address);
+                new TextField().changeColor(this.getContext(), layout_txt_address, txt_address);
 
-                arrayAdapterPayments = new ArrayAdapter<>(rootView.getContext(),
-                        android.R.layout.simple_spinner_dropdown_item, company_names);
+                arrayAdapterPayments = new ArrayAdapter<String>(rootView.getContext(),
+                        android.R.layout.simple_spinner_dropdown_item, company_names) {
+                    @Override
+                    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                        // TODO Auto-generated method stub
+                        View view = super.getView(position, convertView, parent);
+                        TextView text = (TextView) view.findViewById(android.R.id.text1);
+                        text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                        text.setTextSize((float) 13.6);
+                        text.setPadding(30, 0, 30, 0);
+                        text.setTypeface(myFont);
+                        return view;
+                    }
+
+                    @Override
+                    public View getView(int position, View convertView, ViewGroup parent) {
+                        // TODO Auto-generated method stub
+                        View view = super.getView(position, convertView, parent);
+                        TextView text = (TextView) view.findViewById(android.R.id.text1);
+                        text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                        text.setTextSize((float) 13.6);
+                        text.setPadding(30, 0, 30, 0);
+                        return view;
+                    }
+                };
                 spinner_retailer_details.setVisibility(View.GONE);
 
                 spinner_conso.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -169,7 +195,7 @@ public class PlaceholderFragment extends Fragment {
                             try {
                                 ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                                 ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                              ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
+                                ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                             } catch (NullPointerException ex) {
                                 ex.printStackTrace();
                             }
@@ -177,7 +203,7 @@ public class PlaceholderFragment extends Fragment {
                             try {
                                 ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                                 ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                              ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);        
+                                ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                             } catch (NullPointerException ex) {
                                 ex.printStackTrace();
                             }

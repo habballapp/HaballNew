@@ -122,7 +122,7 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
         tv_shipment_no_data.setVisibility(View.GONE);
         spinner_container_main = root.findViewById(R.id.spinner_container_main);
         search_bar = root.findViewById(R.id.search_bar);
-        btn_load_more = root.findViewById(R.id.btn_load);
+       // btn_load_more = root.findViewById(R.id.btn_load);
         rv_filter = root.findViewById(R.id.spinner_container_main);
 
 //        SpannableString content = new SpannableString("Load More");

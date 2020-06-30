@@ -2,6 +2,7 @@ package com.haball.Distributor.ui.support;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -50,6 +51,7 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -58,7 +60,7 @@ public class SupportTicketFormFragment extends Fragment {
 
     private TextInputEditText BName, Email, MobileNo, Comment;
     private ImageButton btn_back;
-    private TextInputLayout layout_BName,layout_Email,layout_MobileNo,layout_Comment;
+    private TextInputLayout layout_BName, layout_Email, layout_MobileNo, layout_Comment;
     private Spinner IssueType, critcicality, Preffered_Contact;
     private String URL_SPINNER_ISSUETYPE = "http://175.107.203.97:4013/api/lookup/ISSUE_TYPE_PRIVATE";
     private String URL_SPINNER_CRITICALITY = "http://175.107.203.97:4013/api/lookup/CRITICALITY_PRIVATE";
@@ -76,12 +78,13 @@ public class SupportTicketFormFragment extends Fragment {
     private Button ticket_btn;
 
     private String DistributorId;
+    private Typeface myFont;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.activity_support__ticket__form, container, false);
-
+        myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
 
         SharedPreferences data = getContext().getSharedPreferences("SendData",
                 Context.MODE_PRIVATE);
@@ -97,15 +100,15 @@ public class SupportTicketFormFragment extends Fragment {
         MobileNo = root.findViewById(R.id.MobileNo);
         Comment = root.findViewById(R.id.Comment);
 
-        layout_BName = root.findViewById( R.id.layout_BName );
-        layout_Email = root.findViewById( R.id.layout_Email );
-        layout_MobileNo = root.findViewById( R.id.layout_MobileNo);
-        layout_Comment = root.findViewById( R.id.layout_Comment);
+        layout_BName = root.findViewById(R.id.layout_BName);
+        layout_Email = root.findViewById(R.id.layout_Email);
+        layout_MobileNo = root.findViewById(R.id.layout_MobileNo);
+        layout_Comment = root.findViewById(R.id.layout_Comment);
 
-        new TextField().changeColor(this.getContext(),layout_BName,BName);
-        new TextField().changeColor(this.getContext(), layout_Email,Email);
-        new TextField().changeColor(this.getContext(), layout_MobileNo,MobileNo);
-        new TextField().changeColor(this.getContext(),layout_Comment,Comment);
+        new TextField().changeColor(this.getContext(), layout_BName, BName);
+        new TextField().changeColor(this.getContext(), layout_Email, Email);
+        new TextField().changeColor(this.getContext(), layout_MobileNo, MobileNo);
+        new TextField().changeColor(this.getContext(), layout_Comment, Comment);
 
         IssueType = root.findViewById(R.id.IssueType);
         critcicality = root.findViewById(R.id.critcicality);
@@ -120,12 +123,83 @@ public class SupportTicketFormFragment extends Fragment {
         criticality.add("Criticality *");
         preffered_contact.add("Preferred Method of Contacting *");
 
-        arrayAdapterIssueType = new ArrayAdapter<>(getContext(),
-                android.R.layout.simple_dropdown_item_1line, issue_type);
-        arrayAdapterCriticality = new ArrayAdapter<>(getContext(),
-                android.R.layout.simple_dropdown_item_1line, criticality);
-        arrayAdapterPreferredContact = new ArrayAdapter<>(getContext(),
-                android.R.layout.simple_dropdown_item_1line, preffered_contact);
+        arrayAdapterIssueType = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_dropdown_item_1line, issue_type) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                return view;
+            }
+        };
+
+        arrayAdapterCriticality = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_dropdown_item_1line, criticality) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                return view;
+            }
+        };
+
+        arrayAdapterPreferredContact = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_dropdown_item_1line, preffered_contact) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                return view;
+            }
+        };
 
         fetchIssueType();
         fetchCriticality();
@@ -136,9 +210,9 @@ public class SupportTicketFormFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
                     try {
-                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -146,7 +220,7 @@ public class SupportTicketFormFragment extends Fragment {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -167,9 +241,9 @@ public class SupportTicketFormFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
                     try {
-                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -177,7 +251,7 @@ public class SupportTicketFormFragment extends Fragment {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -198,9 +272,9 @@ public class SupportTicketFormFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
                     try {
-                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -208,7 +282,7 @@ public class SupportTicketFormFragment extends Fragment {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }

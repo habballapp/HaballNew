@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -30,6 +31,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -116,6 +118,7 @@ public class ProofOfPaymentForm extends Fragment {
     private String selectedFileType, imageName;
     private TextView FileName;
     private EditText txt_bank, txt_branch, txt_transaction;
+    private Typeface myFont;
 
     public static String encodeTobase64(Bitmap image) {
         Bitmap immagex = image;
@@ -204,7 +207,7 @@ public class ProofOfPaymentForm extends Fragment {
 
         spinner_payment_id = root.findViewById(R.id.spinner_id);
         spinner_mode_of_payments = root.findViewById(R.id.payment_mode);
-
+        myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
         btn_finish = root.findViewById(R.id.btn_finish);
         txt_bank = root.findViewById(R.id.txt_bank);
         txt_branch = root.findViewById(R.id.txt_branch);
@@ -235,11 +238,57 @@ public class ProofOfPaymentForm extends Fragment {
             }
         });
 
-        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, payment_ids);
-        arrayAdapterPaymentModes = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, payment_modes);
+        arrayAdapterPayments = new ArrayAdapter<String>(root.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, payment_ids){
 
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                return view;
+            }
+        };
+        arrayAdapterPaymentModes = new ArrayAdapter<String>(root.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, payment_modes){
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                return view;
+            }
+        };
         spinner_payment_id.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

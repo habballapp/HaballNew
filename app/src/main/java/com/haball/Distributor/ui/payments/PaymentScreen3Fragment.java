@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -44,7 +46,7 @@ public class PaymentScreen3Fragment extends Fragment {
     private ArrayAdapter<String> arrayAdapterPayments;
     private List<String> CompanyNames = new ArrayList<>();
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
-
+    private Typeface myFont;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         if (checkAndRequestPermissions()) {
@@ -67,11 +69,36 @@ public class PaymentScreen3Fragment extends Fragment {
         btn_addpayment= root.findViewById(R.id.btn_addpayment);
         btn_update = root.findViewById(R.id.btn_update);
         btn_voucher = root.findViewById(R.id.btn_voucher);
+        myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
 
         payment_id.setText(PrePaidNumber);
         CompanyNames.add(CompanyName);
-        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, CompanyNames);
+        arrayAdapterPayments = new ArrayAdapter<String>(root.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, CompanyNames){
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                return view;
+            }
+        };
         spinner_companyName.setAdapter(arrayAdapterPayments);
         txt_amount.setText(Amount);
         txt_amount.setEnabled(false);

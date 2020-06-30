@@ -3,10 +3,12 @@ package com.haball.Distributor.ui.retailer.Payment;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -66,6 +68,7 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private String Token, DistributorId;
+    private Typeface myFont;
     ;
     private String URL = "http://175.107.203.97:4013/api/retailerprepaidrequest/search";
     private List<Dist_Retailer_Dashboard_Model> PaymentsList = new ArrayList<>();
@@ -121,6 +124,7 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
         View rootView = inflater.inflate(R.layout.fragment_retailer_payment_dashboard, container, false);
         rv_paymentDashBoard = (RecyclerView) rootView.findViewById(R.id.rv_dist_payment_retailer);
         search_bar = rootView.findViewById(R.id.search_bar);
+        myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
 //        consolidate = rootView.findViewById(R.id.consolidate);
         tv_shipment_no_data = rootView.findViewById(R.id.tv_shipment_no_data);
         spinner_container_main = rootView.findViewById(R.id.spinner_container_main);
@@ -150,8 +154,30 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
         consolidate_felter.add("Amount");
         consolidate_felter.add("Status");
 
-        arrayAdapterPayments = new ArrayAdapter<>(rootView.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, consolidate_felter);
+        arrayAdapterPayments = new ArrayAdapter<String>(rootView.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, consolidate_felter){@Override
+        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+            // TODO Auto-generated method stub
+            View view = super.getView(position, convertView, parent);
+            TextView text = (TextView) view.findViewById(android.R.id.text1);
+            text.setTextColor(getResources().getColor(R.color.text_color_selection));
+            text.setTextSize((float) 13.6);
+            text.setPadding(30, 0, 30, 0);
+            text.setTypeface(myFont);
+            return view;
+        }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                return view;
+            }
+        };
 
         spinner_consolidate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -239,8 +265,32 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
         filters.add("Partially Paid");
         filters.add("Paid");
         filters.add("Payment Processing");
-        arrayAdapterFeltter = new ArrayAdapter<>(rootView.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, filters);
+        arrayAdapterFeltter = new ArrayAdapter<String>(rootView.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, filters){
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                return view;
+            }
+        };
+
         Log.i("aaaa1111", String.valueOf(consolidate_felter));
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

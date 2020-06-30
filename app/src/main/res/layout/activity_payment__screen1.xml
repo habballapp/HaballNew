@@ -6,43 +6,36 @@
     android:layout_height="match_parent"
     android:background="#fff"
     tools:context=".Payment.Payment_Amount">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="27dp"
+            android:layout_marginEnd="27dp">
 
-    <LinearLayout
-        android:id="@+id/ln_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="27dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="27dp"
-        android:background="@drawable/underline"
-        android:orientation="vertical"
-        android:weightSum="2">
+            <RelativeLayout
+                android:id="@+id/ln_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/underline">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginEnd="100dp"
-            android:layout_marginRight="100dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/open_sans_semibold"
-            android:paddingTop="5dp"
-            android:paddingBottom="10dp"
-            android:text="Payment"
-            android:textSize="@dimen/fragemnt_heading_size"
-            />
-
-    </LinearLayout>
-
+                <TextView
+                    android:id="@+id/tv_support"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="Payment"
+                    android:textColor="@color/textcolor"
+                    android:textSize="17sp" />
+            </RelativeLayout>
     <LinearLayout
         android:id="@+id/ln_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ln_txt"
-        android:layout_marginLeft="27dp"
         android:layout_marginTop="20sp"
-        android:layout_marginRight="27dp"
         android:orientation="vertical">
 
         <Button
@@ -63,9 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ln_login"
-        android:layout_marginLeft="27dp"
         android:layout_marginTop="20dp"
-        android:layout_marginRight="27dp"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -124,16 +115,7 @@
                 android:maxLength="9"
                 android:theme="@style/TextLabelEditeText"
                 />
-
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
-    <!--    <TextView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_alignParentBottom="true"-->
-    <!--        android:layout_marginBottom="10dp"-->
-    <!--        android:text="© Haball | All rights reserved"-->
-    <!--        android:gravity="center"-->
-    <!--        />-->
-
+</RelativeLayout>
 </RelativeLayout>

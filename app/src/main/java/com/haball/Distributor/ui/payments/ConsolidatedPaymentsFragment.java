@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.SpannableString;
@@ -27,6 +28,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -91,7 +93,7 @@ public class ConsolidatedPaymentsFragment extends Fragment {
     private String URL_CONSOLIDATE_PAYMENTS_COUNT = "http://175.107.203.97:4013/api/consolidatedinvoices/searchCount";
     private FragmentTransaction fragmentTransaction;
     private String Filter_selected, Filter_selected_value;
-    private Button btn_load_more;
+   // private Button btn_load_more;
 
     private int pageNumber = 0;
     private double totalEntries = 0;
@@ -100,6 +102,7 @@ public class ConsolidatedPaymentsFragment extends Fragment {
     private static int y;
     private List<String> scrollEvent = new ArrayList<>();
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
+    private Typeface myFont;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -108,14 +111,15 @@ public class ConsolidatedPaymentsFragment extends Fragment {
 
         recyclerView = root.findViewById(R.id.rv_consolidate);
 
-        btn_load_more = root.findViewById(R.id.btn_load_more);
+      //  btn_load_more = root.findViewById(R.id.btn_load_more);
 
         SpannableString content = new SpannableString("Load More");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-        btn_load_more.setText(content);
-        btn_load_more.setVisibility(View.GONE);
+//        btn_load_more.setText(content);
+//        btn_load_more.setVisibility(View.GONE);
 
         recyclerView.setHasFixedSize(true);
+        myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
         spinner_container_main = root.findViewById(R.id.spinner_container_main);
         spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
@@ -133,21 +137,44 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         consolidate_felter.add("Status");
         consolidate_felter.add("Created By");
 
-        btn_load_more.setOnClickListener(new View.OnClickListener() {
+//        btn_load_more.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                pageNumber++;
+//                try {
+//                    performPagination();
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+
+
+        arrayAdapterPayments = new ArrayAdapter<String>(root.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, consolidate_felter){
             @Override
-            public void onClick(View view) {
-                pageNumber++;
-                try {
-                    performPagination();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                text.setTypeface(myFont);
+                return view;
             }
-        });
 
-
-        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, consolidate_felter);
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                return view;
+            }
+        };
 
         spinner_consolidate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -230,8 +257,31 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         filters.add("Partially Paid");
         filters.add("Paid");
         filters.add("Payment Processing");
-        arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, filters);
+        arrayAdapterFeltter = new ArrayAdapter<String>(root.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, filters){
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                return view;
+            }
+        };
         Log.i("aaaa1111", String.valueOf(consolidate_felter));
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -410,7 +460,7 @@ public class ConsolidatedPaymentsFragment extends Fragment {
                 if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
                     if (totalPages != 0 && pageNumber < totalPages) {
 //                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
-                        btn_load_more.setVisibility(View.VISIBLE);
+                       //btn_load_more.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -482,7 +532,7 @@ public class ConsolidatedPaymentsFragment extends Fragment {
             @Override
             public void onResponse(JSONArray result) {
 
-                btn_load_more.setVisibility(View.GONE);
+           //     btn_load_more.setVisibility(View.GONE);
 
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<ConsolidatePaymentsModel>>() {

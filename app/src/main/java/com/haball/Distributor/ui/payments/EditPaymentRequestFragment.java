@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -27,6 +28,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -81,6 +83,8 @@ public class EditPaymentRequestFragment extends Fragment {
     private String PrePaidNumber = "", PrePaidId = "", CompanyName = "", Amount = "";
     private TextView tv_banking_channel, payment_id;
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
+    private Typeface myFont;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -101,6 +105,7 @@ public class EditPaymentRequestFragment extends Fragment {
         btn_create = root.findViewById(R.id.btn_update);
         spinner_company = root.findViewById(R.id.spinner_companyName);
         txt_amount = root.findViewById(R.id.txt_amount);
+        myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
 
         payment_id.setText(PrePaidNumber);
         layout_txt_amount = root.findViewById(R.id.layout_txt_amount);
@@ -156,8 +161,32 @@ public class EditPaymentRequestFragment extends Fragment {
             }
         });
 
-        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, CompanyNames);
+        arrayAdapterPayments = new ArrayAdapter<String>(root.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, CompanyNames){
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                return view;
+            }
+        };
 
         spinner_company.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

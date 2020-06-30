@@ -2,6 +2,7 @@ package com.haball.Distributor.ui.payments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -78,6 +80,7 @@ public class PaymentRequestDashboard extends Fragment {
     private String URL_PAYMENT_REQUESTS = "http://175.107.203.97:4013/api/prepaidrequests/search";
     private FragmentTransaction fragmentTransaction;
     private String Filter_selected, Filter_selected_value;
+    private Typeface myFont;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -85,7 +88,7 @@ public class PaymentRequestDashboard extends Fragment {
         View root = inflater.inflate(R.layout.activity_distributor_payment_request__criteria_selection, container, false);
 
         create_payment = root.findViewById(R.id.create_payment);
-
+        myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
         recyclerView = root.findViewById(R.id.rv_payment_request);
         recyclerView.setHasFixedSize(true);
         spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
@@ -101,8 +104,31 @@ public class PaymentRequestDashboard extends Fragment {
         consolidate_felter.add("Amount");
         consolidate_felter.add("Status");
 
-        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, consolidate_felter);
+        arrayAdapterPayments = new ArrayAdapter<String>(root.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, consolidate_felter) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                return view;
+            }
+        };
 
         spinner_consolidate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -110,11 +136,11 @@ public class PaymentRequestDashboard extends Fragment {
                 spinner2.setVisibility(View.GONE);
                 conso_edittext.setVisibility(View.GONE);
                 if (i == 0) {
-                        try {
-                               ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                        } catch (NullPointerException e) {
-                            e.printStackTrace();
-                        }
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
@@ -166,18 +192,42 @@ public class PaymentRequestDashboard extends Fragment {
         filters.add("Processing Payment");
         filters.add("Unpaid ");
         filters.add("Paid");
-        arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, filters);
+        arrayAdapterFeltter = new ArrayAdapter<String>(root.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, filters){
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                return view;
+            }
+        };
         Log.i("aaaa1111", String.valueOf(consolidate_felter));
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                        try {
-                               ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                        } catch (NullPointerException e) {
-                            e.printStackTrace();
-                        }
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));

@@ -3,6 +3,7 @@ package com.haball.Distributor.ui.shipments;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -105,6 +107,7 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
     private RelativeLayout spinner_container_main;
     private static int y;
     private List<String> scrollEvent = new ArrayList<>();
+    private Typeface myFont;
 
     private String fromDate, toDate, fromAmount, toAmount;
 
@@ -115,6 +118,7 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
         sendViewModel =
                 ViewModelProviders.of(this).get(ShipmentsViewModel.class);
         recyclerView = (RecyclerView) root.findViewById(R.id.rv_shipment);
+        myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
         recyclerView.setHasFixedSize(true);
 
         search_bar = root.findViewById(R.id.search_bar);
@@ -155,8 +159,32 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
         consolidate_felter.add("Quantity");
         consolidate_felter.add("Status");
 
-        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_dropdown_item_1line, consolidate_felter);
+        arrayAdapterPayments = new ArrayAdapter<String>(root.getContext(),
+                android.R.layout.simple_dropdown_item_1line, consolidate_felter){
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                return view;
+            }
+        };
+
 
         spinner_consolidate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -267,8 +295,32 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
         filters.add("Returned");
         filters.add("Revised");
 
-        arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_dropdown_item_1line, filters);
+        arrayAdapterFeltter = new ArrayAdapter<String>(root.getContext(),
+                android.R.layout.simple_dropdown_item_1line, filters){
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                return view;
+            }
+        };
+
         Log.i("aaaa1111", String.valueOf(consolidate_felter));
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -73,12 +75,13 @@ public class CreatePaymentRequestFragment extends Fragment {
     private String prepaid_number, prepaid_id;
     private FragmentTransaction fragmentTransaction;
     private TextInputLayout layout_txt_amount;
+    private Typeface myFont;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.activity_payment__screen1, container, false);
-
+        myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
         btn_create = root.findViewById(R.id.btn_create);
         btn_create.setEnabled(false);
         btn_create.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
@@ -93,8 +96,30 @@ public class CreatePaymentRequestFragment extends Fragment {
         CompanyNames.add("Company *");
         company_names = "";
 
-        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, CompanyNames);
+        arrayAdapterPayments = new ArrayAdapter<String>(root.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, CompanyNames){@Override
+        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+            // TODO Auto-generated method stub
+            View view = super.getView(position, convertView, parent);
+            TextView text = (TextView) view.findViewById(android.R.id.text1);
+            text.setTextColor(getResources().getColor(R.color.text_color_selection));
+            text.setTextSize((float) 13.6);
+            text.setPadding(30, 0, 30, 0);
+            text.setTypeface(myFont);
+            return view;
+        }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                return view;
+            }
+        };
 
         spinner_company.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

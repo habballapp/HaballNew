@@ -280,19 +280,19 @@
         </ScrollView>
     </RelativeLayout>
 
-<!--    <RelativeLayout-->
-<!--        android:id="@+id/loader"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:background="#88000000"-->
-<!--        >-->
+    <!--    <RelativeLayout-->
+    <!--        android:id="@+id/loader"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:background="#88000000"-->
+    <!--        >-->
 
-<!--        <pl.droidsonroids.gif.GifImageView-->
-<!--            android:layout_width="50dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_centerInParent="true"-->
-<!--            android:src="@drawable/loader_new"-->
-<!--            android:visibility="visible" />-->
-<!--    </RelativeLayout>-->
+    <!--        <pl.droidsonroids.gif.GifImageView-->
+    <!--            android:layout_width="50dp"-->
+    <!--            android:layout_height="50dp"-->
+    <!--            android:layout_centerInParent="true"-->
+    <!--            android:src="@drawable/loader_new"-->
+    <!--            android:visibility="visible" />-->
+    <!--    </RelativeLayout>-->
 
 </RelativeLayout>

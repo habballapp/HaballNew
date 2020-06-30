@@ -7,29 +7,32 @@
     android:background="#fff"
     tools:context=".Payment.D_PaymentRequest">
 
-    <LinearLayout
-        android:id="@+id/tv_proof_paymentrequest"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/underline"
-        android:orientation="vertical"
-        android:weightSum="2">
+        android:layout_height="match_parent"
+        android:layout_marginStart="27dp"
+        android:layout_marginEnd="27dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/tv_proof_paymentrequest"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="@drawable/half_underline"
-            android:paddingTop="5dp"
-            android:paddingBottom="10dp"
-            android:text="Payment Request"
-            android:textColor="#96bb3c"
-            android:textSize="18sp" />
+            android:background="@drawable/underline"
+            android:orientation="vertical"
+            android:weightSum="2">
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:fontFamily="@font/open_sans_semibold"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp"
+                android:text="Payment Request"
+                android:textSize="@dimen/fragemnt_heading_size" />
+
+        </LinearLayout>
 
 
     <Button
@@ -37,9 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_below="@+id/tv_proof_paymentrequest"
-        android:layout_marginLeft="30dp"
         android:layout_marginTop="15dp"
-        android:layout_marginRight="30dp"
         android:background="@drawable/button_round"
         android:gravity="center"
         android:stateListAnimator="@null"
@@ -53,9 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/create_payment"
-        android:layout_marginLeft="30dp"
         android:layout_marginTop="15dp"
-        android:layout_marginRight="30dp"
         android:background="@drawable/edit_text_squared">
 
         <Spinner
@@ -73,9 +72,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/spinner_container"
-        android:layout_marginLeft="30dp"
         android:layout_marginTop="15dp"
-        android:layout_marginRight="30dp"
         android:background="@drawable/edit_text_squared">
 
         <Spinner
@@ -118,16 +115,18 @@
             android:id="@+id/rv_payment_request"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp" />
+             />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:text="© Haball | All rights reserved" />
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:gravity="center"-->
+<!--        android:text="© Haball | All rights reserved" />-->
+
+
+</RelativeLayout>
 
 
 </RelativeLayout>

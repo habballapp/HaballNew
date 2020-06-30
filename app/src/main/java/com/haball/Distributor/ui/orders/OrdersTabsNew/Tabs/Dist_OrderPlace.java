@@ -2,6 +2,7 @@ package com.haball.Distributor.ui.orders.OrdersTabsNew.Tabs;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -58,6 +59,7 @@ import java.util.Map;
 
 import androidx.annotation.RequiresApi;
 import androidx.annotation.UiThread;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -96,6 +98,7 @@ public class Dist_OrderPlace extends Fragment {
     private List<String> scrollEvent = new ArrayList<>();
     private FragmentTransaction fragmentTransaction;
     private int lastExpandedPosition = -1;
+    private Typeface myFont;
 
     public Dist_OrderPlace() {
         // Required empty public constructor
@@ -115,9 +118,33 @@ public class Dist_OrderPlace extends Fragment {
 //        subchlid_RV = view.findViewById(R.id.subchlid_RV);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         spinner_conso = view.findViewById(R.id.spinner_conso);
+        myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
         et_test = view.findViewById(R.id.et_test);
-        arrayAdapterSpinnerConso = new ArrayAdapter<>(view.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, totalCategoryTitle);
+        arrayAdapterSpinnerConso = new ArrayAdapter<String>(view.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, totalCategoryTitle) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                return view;
+            }
+        };
 
         SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_distributor",
                 Context.MODE_PRIVATE);

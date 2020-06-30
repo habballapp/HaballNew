@@ -19,95 +19,93 @@
             android:fillViewport="true"
             >
             <RelativeLayout
-                android:id="@+id/rl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
-
-                <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="27dp"
+            android:layout_marginEnd="27dp">
+                <RelativeLayout
                     android:id="@+id/proof_of_payment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:weightSum="2"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/underline"
-                    android:orientation="vertical">
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/underline">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:text="Proof Of Payment"
+                        android:fontFamily="@font/open_sans"
+                        android:paddingTop="10dp"
                         android:paddingBottom="10dp"
-                        android:layout_weight="1"
-                        android:paddingTop="5dp"
-                        android:layout_marginLeft="0dp"
-                        android:layout_marginRight="100dp"
-                        android:textSize="20sp"
-                        android:textColor="#96bb3c"
-                        android:background="@drawable/half_underline"
-
-                        />
-
-                </LinearLayout>
+                        android:text="Proof Of Payment"
+                        android:textColor="@color/textcolor"
+                        android:textSize="17sp" />
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/rl_proof_payment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/proof_of_payment"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
                     >
                     <RelativeLayout
                         android:id="@+id/payment_id"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_below="@+id/relative_criticality"
-                        android:background="@drawable/edit_round"
-                        android:padding="10dp">
+                        android:layout_height="50dp"
+                        android:background="@drawable/spinner_round">
 
                         <Spinner
                             android:id="@+id/spinner_id"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingLeft="2dp"
-                            android:paddingRight="2dp"
-                            android:dropDownWidth="match_parent"/>
+                            android:background="@null"
+                            android:dropDownWidth="match_parent"
+                            android:popupBackground="@drawable/spinner_round" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignTop="@id/spinner_id"
+                            android:layout_alignEnd="@+id/spinner_id"
+                            android:layout_alignRight="@+id/spinner_id"
+                            android:layout_alignBottom="@+id/spinner_id"
+                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                            android:theme="@style/Spinner" />
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/rl_mode"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="20dp"
                         android:layout_below="@+id/payment_id"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@drawable/edit_round"
-                        android:padding="10dp">
+                        android:background="@drawable/spinner_round">
 
                         <Spinner
                             android:id="@+id/payment_mode"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingLeft="2dp"
-                            android:paddingRight="2dp"
+                            android:background="@null"
                             android:dropDownWidth="match_parent"
-                            />
+                            android:popupBackground="@drawable/spinner_round" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignTop="@id/payment_mode"
+                            android:layout_alignEnd="@+id/payment_mode"
+                            android:layout_alignRight="@+id/payment_mode"
+                            android:layout_alignBottom="@+id/payment_mode"
+                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                            android:theme="@style/Spinner" />
                     </RelativeLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_txt_bank"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="20dp"
                         android:hint="Bank *"
                         android:theme="@style/TextLabel"
                         android:layout_below="@id/rl_mode"
@@ -128,10 +126,8 @@
                         android:id="@+id/layout_txt_branch"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="20dp"
                         android:hint="Branch Code *"
                         android:theme="@style/TextLabel"
                         android:layout_below="@id/layout_txt_bank"
@@ -152,10 +148,8 @@
                         android:id="@+id/layout_txt_transaction"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="20dp"
                         android:hint="Transaction No *"
                         android:theme="@style/TextLabel"
                         android:layout_below="@id/layout_txt_branch"
@@ -179,8 +173,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/layout_txt_transaction"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
                         android:layout_marginTop="15dp"
                         android:text="Uploaded Documents"
                         android:textSize="12sp"
@@ -192,8 +184,6 @@
                         android:layout_height="100dp"
                         android:layout_below="@id/txt_view"
                         android:layout_marginTop="5dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
                         android:padding="5dp"
                         android:background="@drawable/edit_round">
                         <androidx.recyclerview.widget.RecyclerView
@@ -215,11 +205,9 @@
                     <Button
                         android:id="@+id/btn_upload"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="45dp"
                         android:background="@drawable/button_round"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="20dp"
                         android:text="Upload Documents"
                         android:stateListAnimator="@null"
                         android:textSize="14sp"
@@ -231,10 +219,8 @@
                     <Button
                         android:id="@+id/btn_finish"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="45dp"
                         android:background="@drawable/button_round"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
                         android:layout_marginTop="20dp"
                         android:text="Save"
                         android:textSize="14sp"
@@ -246,18 +232,15 @@
                         android:layout_below="@+id/btn_upload"
                         />
                 </RelativeLayout>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/rl_btns"
-                    android:layout_marginBottom="10dp"
-                    android:text="© Haball | All rights reserved"
-                    android:gravity="center"/>
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@+id/rl_btns"-->
+<!--                    android:layout_marginBottom="10dp"-->
+<!--                    android:text="© Haball | All rights reserved"-->
+<!--                    android:gravity="center"/>-->
             </RelativeLayout>
 
         </ScrollView>
-
     </RelativeLayout>
-
-
 </RelativeLayout>

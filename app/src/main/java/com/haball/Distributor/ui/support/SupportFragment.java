@@ -3,6 +3,7 @@ package com.haball.Distributor.ui.support;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -56,6 +57,7 @@ import java.util.TimeZone;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
@@ -115,6 +117,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
     private RelativeLayout spinner_container_main;
     private static int y;
     private List<String> scrollEvent = new ArrayList<>();
+    private Typeface myFont;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -123,6 +126,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 ViewModelProviders.of(this).get(SupportViewModel.class);
         View root = inflater.inflate(R.layout.activity_support_dashboard, container, false);
         btn_add_ticket = root.findViewById(R.id.btn_add_ticket);
+        myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
         btn_add_ticket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,7 +150,6 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
         search_bar = root.findViewById(R.id.search_bar);
 
         // DATE FILTERS ......
@@ -161,7 +164,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
         spinner_container_main = root.findViewById(R.id.spinner_container_main);
         tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
-        tv_shipment_no_data.setVisibility(View.GONE);
+        tv_shipment_no_data.setVisibility(View.VISIBLE);
         spinner_container1 = root.findViewById(R.id.spinner_container1);
         spinner_container1.setVisibility(View.GONE);
         date_filter_rl.setVisibility(View.GONE);
@@ -172,8 +175,32 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         consolidate_felter.add("Created Date");
         consolidate_felter.add("Status");
 
-        arrayAdapterPaymentsFilter = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_dropdown_item_1line, consolidate_felter);
+        arrayAdapterPaymentsFilter = new ArrayAdapter<String>(root.getContext(),
+                android.R.layout.simple_dropdown_item_1line, consolidate_felter){
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                return view;
+            }
+        };
 
         spinner_consolidate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -222,8 +249,31 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                         filters.add("My Profile");
                         filters.add("Reports");
 
-                        arrayAdapterFeltter = new ArrayAdapter<>(getContext(),
-                                android.R.layout.simple_dropdown_item_1line, filters);
+                        arrayAdapterFeltter = new ArrayAdapter<String>(getContext(),
+                                android.R.layout.simple_dropdown_item_1line, filters){
+                            @Override
+                        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                            // TODO Auto-generated method stub
+                            View view = super.getView(position, convertView, parent);
+                            TextView text = (TextView) view.findViewById(android.R.id.text1);
+                            text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                            text.setTextSize((float) 13.6);
+                            text.setPadding(30, 0, 30, 0);
+                            text.setTypeface(myFont);
+                            return view;
+                        }
+
+                            @Override
+                            public View getView(int position, View convertView, ViewGroup parent) {
+                                // TODO Auto-generated method stub
+                                View view = super.getView(position, convertView, parent);
+                                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                                text.setTextSize((float) 13.6);
+                                text.setPadding(30, 0, 30, 0);
+                                return view;
+                            }
+                        };
 
                         arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         arrayAdapterFeltter.notifyDataSetChanged();
@@ -250,15 +300,39 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                     } else if (Filter_selected.equals("Status")) {
 
                         Filter_selected = "Status";
-                        tv_shipment_no_data.setVisibility(View.GONE);
+                        tv_shipment_no_data.setVisibility(View.VISIBLE);
                         spinner_container1.setVisibility(View.VISIBLE);
 
                         filters.add("Status");
                         filters.add("Pending");
                         filters.add("Resolved");
 
-                        arrayAdapterFeltter = new ArrayAdapter<>(getContext(),
-                                android.R.layout.simple_dropdown_item_1line, filters);
+                        arrayAdapterFeltter = new ArrayAdapter<String>(getContext(),
+                                android.R.layout.simple_dropdown_item_1line, filters){
+                            @Override
+                            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                                // TODO Auto-generated method stub
+                                View view = super.getView(position, convertView, parent);
+                                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                                text.setTextSize((float) 13.6);
+                                text.setPadding(30, 0, 30, 0);
+                                text.setTypeface(myFont);
+                                return view;
+                            }
+
+                            @Override
+                            public View getView(int position, View convertView, ViewGroup parent) {
+                                // TODO Auto-generated method stub
+                                View view = super.getView(position, convertView, parent);
+                                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                                text.setTextSize((float) 13.6);
+                                text.setPadding(30, 0, 30, 0);
+                                return view;
+                            }
+                        };
+
 
                         arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         arrayAdapterFeltter.notifyDataSetChanged();
@@ -456,16 +530,16 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 Type type = new TypeToken<List<SupportDashboardModel>>() {
                 }.getType();
                 SupportList = gson.fromJson(String.valueOf(response), type);
-
-                mAdapter = new SupportDashboardAdapter(getContext(), SupportList, recyclerView, mAdapter);
-                recyclerView.setAdapter(mAdapter);
-                if (response.length() != 0) {
+                if (SupportList.size() != 0) {
                     tv_shipment_no_data.setVisibility(View.GONE);
 
                 } else {
 
                     tv_shipment_no_data.setVisibility(View.VISIBLE);
                 }
+                mAdapter = new SupportDashboardAdapter(getContext(), SupportList, recyclerView, mAdapter);
+                recyclerView.setAdapter(mAdapter);
+
 
 
             }
@@ -509,9 +583,16 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 Type type = new TypeToken<List<SupportDashboardModel>>() {
                 }.getType();
                 SupportList = gson.fromJson(String.valueOf(response), type);
+                if (SupportList.size() != 0) {
+                    tv_shipment_no_data.setVisibility(View.GONE);
 
+                } else {
+
+                    tv_shipment_no_data.setVisibility(View.VISIBLE);
+                }
                 mAdapter = new SupportDashboardAdapter(getContext(), SupportList, recyclerView, mAdapter);
                 recyclerView.setAdapter(mAdapter);
+
 
             }
         }, new Response.ErrorListener() {
