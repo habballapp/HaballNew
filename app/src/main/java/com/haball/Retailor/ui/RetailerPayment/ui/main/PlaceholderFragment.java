@@ -358,7 +358,8 @@ public class PlaceholderFragment extends Fragment {
                     });
 
                     getPaidInvoiceData();
-                } else if (InvoiceStatus.equals("Un-Paid")) {
+//                } else if (InvoiceStatus.equals("Un-Paid")) {
+                } else if (InvoiceStatus.equals("Un-Paid") || InvoiceStatus.equals("Payment Processing") || InvoiceStatus.equals("Cancelled")) {
 //                    rootView = inflater.inflate(R.layout.activity_payment__screen3, container, false);
 
 
@@ -376,25 +377,25 @@ public class PlaceholderFragment extends Fragment {
 
                     ln_login.setVisibility(View.GONE);
 
-//
-//                    rl_jazz_cash = rootView.findViewById(R.id.rl_jazz_cash);
-//                    rl_jazz_cash.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            SharedPreferences JazzCash = ((FragmentActivity) getContext()).getSharedPreferences("PaymentId",
-//                                    Context.MODE_PRIVATE);
-//                            SharedPreferences.Editor editor_JazzCash = JazzCash.edit();
-//                            editor_JazzCash.putString("PrePaidNumber", PrePaidNumber);
-//                            editor_JazzCash.putString("PrePaidId", PrePaidId);
-//                            editor_JazzCash.putString("CompanyName", CompanyName);
-//                            editor_JazzCash.putString("Amount", Amount);
-//                            editor_JazzCash.apply();
-//                            fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
-//                            fragmentTransaction.replace(R.id.main_container_ret, new PaymentJazzCashApi()).addToBackStack("null");
-//                            fragmentTransaction.commit();
-//
-//                        }
-//                    });
+
+                    rl_jazz_cash = rootView.findViewById(R.id.rl_jazz_cash);
+                    rl_jazz_cash.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            SharedPreferences JazzCash = ((FragmentActivity) getContext()).getSharedPreferences("PaymentId",
+                                    Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor_JazzCash = JazzCash.edit();
+                            editor_JazzCash.putString("PrePaidNumber", PrePaidNumber);
+                            editor_JazzCash.putString("PrePaidId", PrePaidId);
+                            editor_JazzCash.putString("CompanyName", CompanyName);
+                            editor_JazzCash.putString("Amount", Amount);
+                            editor_JazzCash.apply();
+                            fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container_ret, new PaymentJazzCashApi()).addToBackStack("null");
+                            fragmentTransaction.commit();
+
+                        }
+                    });
 
                     payment_id.setOnLongClickListener(new View.OnLongClickListener() {
                         @Override

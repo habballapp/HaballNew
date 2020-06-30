@@ -126,26 +126,26 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         CompanyId = sharedPreferences.getString("CompanyId", "");
         Amount = sharedPreferences.getString("Amount", "");
         MenuItem = sharedPreferences.getString("MenuItem", "");
-//
-//        rl_jazz_cash = root.findViewById(R.id.rl_jazz_cash);
-//        rl_jazz_cash.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                SharedPreferences JazzCash = ((FragmentActivity) getContext()).getSharedPreferences("PaymentId",
-//                        Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor_JazzCash = JazzCash.edit();
-//                editor_JazzCash.putString("PrePaidNumber", PrePaidNumber);
-//                editor_JazzCash.putString("PrePaidId", PrePaidId);
-//                editor_JazzCash.putString("CompanyName", CompanyName);
-//                editor_JazzCash.putString("Amount", Amount);
-//                editor_JazzCash.apply();
-//                fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.main_container_ret, new PaymentJazzCashApi()).addToBackStack("null");
-//                fragmentTransaction.commit();
-//
-//            }
-//        });
-//
+
+        rl_jazz_cash = root.findViewById(R.id.rl_jazz_cash);
+        rl_jazz_cash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences JazzCash = ((FragmentActivity) getContext()).getSharedPreferences("PaymentId",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor_JazzCash = JazzCash.edit();
+                editor_JazzCash.putString("PrePaidNumber", PrePaidNumber);
+                editor_JazzCash.putString("PrePaidId", PrePaidId);
+                editor_JazzCash.putString("CompanyName", CompanyName);
+                editor_JazzCash.putString("Amount", Amount);
+                editor_JazzCash.apply();
+                fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container_ret, new PaymentJazzCashApi()).addToBackStack("null");
+                fragmentTransaction.commit();
+
+            }
+        });
+
         new TextField().changeColor(getContext(), layout_txt_amount, txt_amount);
         loader = new Loader(getContext());
 
@@ -364,7 +364,9 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
                     txt_amount.clearFocus();
-                    showDiscardDialog();
+                    if (btn_update.getText().equals("Update")) {
+                        showDiscardDialog();
+                    }
                 }
                 return false;
             }
@@ -380,7 +382,12 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
 //                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
                     String txt_amounts = txt_amount.getText().toString();
                     String company = (String) spinner_companyName.getItemAtPosition(spinner_companyName.getSelectedItemPosition()).toString();
-                    if (!txt_amounts.equals("") || !company.equals("Select Company") || company.equals(CompanyName)) {
+//                    if ((!txt_amounts.equals("")
+//                            && !txt_amounts.equals(Amount))
+//                            || (!company.equals("Select Company") && !company.equals(CompanyName))
+//
+//                    ) {
+                    if (btn_update.getText().equals("Update")) {
                         showDiscardDialog();
                         return true;
                     } else {
@@ -504,79 +511,83 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
     }
 
     private void makeUpdateRequest() throws JSONException {
-        String txt_amounts = txt_amount.getText().toString();
-        if (Double.parseDouble(txt_amounts) >= 500) {
-            loader.showLoader();
-            btn_update.setEnabled(false);
-            btn_update.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+        String txt_amounts = String.valueOf(txt_amount.getText());
+        if (!txt_amounts.equals("")) {
+            if (Double.parseDouble(txt_amounts) >= 500) {
+                loader.showLoader();
+                btn_update.setEnabled(false);
+                btn_update.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
-            SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
-                    Context.MODE_PRIVATE);
-            Token = sharedPreferences.getString("Login_Token", "");
+                SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                        Context.MODE_PRIVATE);
+                Token = sharedPreferences.getString("Login_Token", "");
 
-            JSONObject map = new JSONObject();
-            map.put("ID", PrePaidId);
-            map.put("DealerCode", companyNameAndId.get(company_names));
+                JSONObject map = new JSONObject();
+                map.put("ID", PrePaidId);
+                map.put("DealerCode", companyNameAndId.get(company_names));
 //        map.put("DealerCode", "201911672");
-            map.put("PaidAmount", txt_amount.getText().toString());
+                map.put("PaidAmount", txt_amount.getText().toString());
 
-            Log.i("JSON ", String.valueOf(map));
+                Log.i("JSON ", String.valueOf(map));
 
-            JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PAYMENT_REQUESTS_SAVE, map, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject result) {
-                    loader.hideLoader();
-                    try {
-                        Log.i("Response PR", result.toString());
-                        prepaid_number = result.getString("PrePaidNumber");
-                        prepaid_id = result.getString("ID");
-                    } catch (JSONException e) {
-                        Log.i("Response PR", e.toString());
-                        e.printStackTrace();
-                    }
+                JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PAYMENT_REQUESTS_SAVE, map, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject result) {
+                        loader.hideLoader();
+                        try {
+                            Log.i("Response PR", result.toString());
+                            prepaid_number = result.getString("PrePaidNumber");
+                            prepaid_id = result.getString("ID");
+                        } catch (JSONException e) {
+                            Log.i("Response PR", e.toString());
+                            e.printStackTrace();
+                        }
 
-                    btn_update.setEnabled(true);
-                    btn_update.setBackground(getResources().getDrawable(R.drawable.button_background));
+                        btn_update.setEnabled(true);
+                        btn_update.setBackground(getResources().getDrawable(R.drawable.button_background));
 
-                    SharedPreferences PrePaidNumber = getContext().getSharedPreferences("PrePaidNumber",
-                            Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = PrePaidNumber.edit();
-                    editor.putString("PrePaidNumber", prepaid_number);
-                    editor.putString("PrePaidId", prepaid_id);
-                    editor.putString("CompanyId", companyNameAndId.get(company_names));
-                    editor.putString("CompanyName", company_names);
-                    editor.putString("Amount", txt_amount.getText().toString());
-                    editor.apply();
+                        SharedPreferences PrePaidNumber = getContext().getSharedPreferences("PrePaidNumber",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = PrePaidNumber.edit();
+                        editor.putString("PrePaidNumber", prepaid_number);
+                        editor.putString("PrePaidId", prepaid_id);
+                        editor.putString("CompanyId", companyNameAndId.get(company_names));
+                        editor.putString("CompanyName", company_names);
+                        editor.putString("Amount", txt_amount.getText().toString());
+                        editor.apply();
 
-                    showSuccessDialog(prepaid_number);
+                        showSuccessDialog(prepaid_number);
 
 //                Toast.makeText(getContext(), "Payment Request " + prepaid_number + " has been created successfully.", Toast.LENGTH_SHORT).show();
 //                Log.e("RESPONSE prepaid_number", result.toString());
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    loader.hideLoader();
-                    new ProcessingError().showError(getContext());
-                    new HaballError().printErrorMessage(getContext(), error);
-                    error.printStackTrace();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loader.hideLoader();
+                        new ProcessingError().showError(getContext());
+                        new HaballError().printErrorMessage(getContext(), error);
+                        error.printStackTrace();
 
-                    btn_update.setEnabled(true);
-                    btn_update.setBackground(getResources().getDrawable(R.drawable.button_background));
-                }
-            }) {
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("Authorization", "bearer " + Token);
-                    return params;
-                }
-            };
-            sr.setRetryPolicy(new DefaultRetryPolicy(
-                    15000,
-                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            Volley.newRequestQueue(getContext()).add(sr);
+                        btn_update.setEnabled(true);
+                        btn_update.setBackground(getResources().getDrawable(R.drawable.button_background));
+                    }
+                }) {
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("Authorization", "bearer " + Token);
+                        return params;
+                    }
+                };
+                sr.setRetryPolicy(new DefaultRetryPolicy(
+                        15000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                Volley.newRequestQueue(getContext()).add(sr);
+            } else {
+                new CustomToast().showToast(getActivity(), "Amount cannot be less than PKR 500.");
+            }
         } else {
             new CustomToast().showToast(getActivity(), "Amount cannot be less than PKR 500.");
         }

@@ -29,8 +29,8 @@ public class HaballError {
     public void printErrorMessage(Context context, VolleyError error) {
         error.printStackTrace();
         if (context != null)
-            printAdvancedErrorInfo(context, error);
-//            Toast.makeText(context, String.valueOf(error), Toast.LENGTH_LONG).show();
+//            printAdvancedErrorInfo(context, error);
+            Toast.makeText(context, String.valueOf(error), Toast.LENGTH_LONG).show();
 //         if (context != null) {
 //             if (error instanceof NetworkError) {
 //                 Toast.makeText(context, "Network Error !", Toast.LENGTH_LONG).show();

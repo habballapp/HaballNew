@@ -218,7 +218,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     if (event.getRawX() >= (MobileNo.getRight() - MobileNo.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         // your action here
-                        MobileNo.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                        MobileNo.setInputType(InputType.TYPE_CLASS_NUMBER);
                         MobileNo.setFocusable(true);
                         MobileNo.setFocusableInTouchMode(true);
                         MobileNo.requestFocus();
@@ -488,6 +488,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
+                keyDel = 0;
                 checkFieldsForEmptyValues();
 
             }
@@ -507,6 +508,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
+                keyDel = 0;
                 checkFieldsForEmptyValues();
                 checkEmail();
             }
@@ -596,6 +598,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
     private void checkFieldsForEmptyValues() {
         String reg_ex = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
 
+        keyDel = 0;
         String bname = BName.getText().toString();
         String email = Email.getText().toString();
         String mobile = MobileNo.getText().toString();
@@ -696,6 +699,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                     Log.i("supportDebug", "'" + Criticality + "', '" + critcicality.getSelectedItemPosition() + "'");
                     // handle back button's click listener
 //                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
+//                    if (!txt_BName.equals(first_name) || !txt_Email.equals(email) || !txt_MobileNo.equals(phone_number) || !txt_Comment.equals("") || !issueType.equals("Issue Type") || !Criticality.equals("Criticality") || !PrefferedContacts.equals("Preferred Method of Contacting")) {
                     if (!txt_BName.equals(first_name) || !txt_Email.equals(email) || !txt_MobileNo.equals(phone_number) || !txt_Comment.equals("") || !issueType.equals("Issue Type") || !Criticality.equals("Criticality") || !PrefferedContacts.equals("Preferred Method of Contacting")) {
 //                    if (!txt_BName.equals("") || !txt_Email.equals("") || !txt_MobileNo.equals("") || !txt_Comment.equals("") || !issueType.equals("Issue Type") || !critcicality_val.equals("Criticality") || !preffered_Contact.equals("Preferred Method of Contacting")) {
                         showDiscardDialog();

@@ -158,8 +158,8 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
                                 Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = OrderId.edit();
                         editor.putString("OrderId", OrderList.get(position).getID());
-                        editor.putString("Status", OrderList.get(position).getOrderStatusValue());
-                        editor.putString("InvoiceStatus", "null");
+                        editor.putString("Status", OrderList.get(position).getStatus());
+                        editor.putString("InvoiceStatus", String.valueOf(OrderList.get(position).getInvoiceStatus()));
                         editor.commit();
                         // Toast.makeText(mContxt, "View Order ID - " + ID, Toast.LENGTH_LONG).show();
                         break;
@@ -232,7 +232,7 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
                                 Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = OrderId.edit();
                         editor.putString("OrderId", OrderList.get(position).getID());
-                        editor.putString("Status", OrderList.get(position).getOrderStatusValue());
+                        editor.putString("Status", OrderList.get(position).getStatus());
                         editor.putString("InvoiceStatus", String.valueOf(OrderList.get(position).getInvoiceStatus()));
                         Log.i("InvoiceStatus_Adapter", String.valueOf(OrderList.get(position).getInvoiceStatus()));
                         editor.commit();

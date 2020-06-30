@@ -146,6 +146,7 @@ public class CreatePaymentRequestFragment extends Fragment {
         spinner_company.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
@@ -165,8 +166,9 @@ public class CreatePaymentRequestFragment extends Fragment {
                     }
                     company_names = CompanyNames.get(i);
                     Log.i("company name and id ", companyNameAndId.get(company_names));
-                    checkFieldsForEmptyValues();
                 }
+                checkFieldsForEmptyValues();
+
             }
 
             @Override

@@ -59,7 +59,9 @@ import org.w3c.dom.Text;
 
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
@@ -85,6 +87,7 @@ public class RetailerLogin extends AppCompatActivity {
     private String success_text = "";
     //    private ProgressDialog progressDialog;
     private Loader loader;
+    private String URL_Profile = "https://retailer.haball.pk/api/retailer/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -305,7 +308,7 @@ public class RetailerLogin extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONObject result) {
-                loader.hideLoader();
+//                loader.hideLoader();
                 try {
                     if (!result.get("access_token").toString().isEmpty()) {
                         token = result.get("access_token").toString();
@@ -313,18 +316,18 @@ public class RetailerLogin extends AppCompatActivity {
                         JSONObject userAccount = new JSONObject(String.valueOf(result.get("UserAccount")));
 //                        userRight = new JSONArray(String.valueOf(userAccount.getJSONArray("UserRights")));
 //                        Log.i("userRight", String.valueOf(userRight));
-                        String IsTermAndConditionAccepted = userAccount.get("IsTermAndConditionAccepted").toString();
-                        String UpdatePassword = userAccount.get("UpdatePassword").toString();
+                        final String IsTermAndConditionAccepted = userAccount.get("IsTermAndConditionAccepted").toString();
+                        final String UpdatePassword = userAccount.get("UpdatePassword").toString();
                         String userRights = userAccount.get("UserRights").toString();
                         Log.i("user account => ", userAccount.get("RetailerID").toString());
-                        String RetailerId = userAccount.get("RetailerID").toString();
-                        String RetailerCode = userAccount.get("RetailerCode").toString();
+                        final String RetailerId = userAccount.get("RetailerID").toString();
+                        final String RetailerCode = userAccount.get("RetailerCode").toString();
                         String username = userAccount.get("Username").toString();
                         String CompanyName = userAccount.get("CompanyName").toString();
                         String ID = userAccount.get("UserId").toString();
-                        String FirstName = userAccount.get("Name").toString();
-                        String EmailAddress = userAccount.get("RetailerEmail").toString();
-                        String Mobile = userAccount.get("RetailerMobile").toString();
+                        final String FirstName = userAccount.get("Name").toString();
+                        final String EmailAddress = userAccount.get("RetailerEmail").toString();
+                        final String Mobile = userAccount.get("RetailerMobile").toString();
 
                         SharedPreferences login_token = getSharedPreferences("LoginToken",
                                 Context.MODE_PRIVATE);
@@ -343,39 +346,71 @@ public class RetailerLogin extends AppCompatActivity {
                         editor.commit();
                         //updatePassword token
 
+                        URL_Profile = URL_Profile + RetailerId;
 
-                        SharedPreferences retailerInfo = getSharedPreferences("RetailerInfo",
-                                Context.MODE_PRIVATE);
-                        SharedPreferences.Editor retailerInfo_editor = retailerInfo.edit();
-                        retailerInfo_editor.putString("RetailerCode", RetailerCode);
-                        retailerInfo_editor.putString("RetailerID", RetailerId);
-                        retailerInfo_editor.apply();
+                        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_Profile, null, new Response.Listener<JSONObject>() {
+                            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                            @Override
+                            public void onResponse(JSONObject result1) {
+                                loader.hideLoader();
+                                try {
+                                    SharedPreferences retailerInfo = getSharedPreferences("RetailerInfo",
+                                            Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor retailerInfo_editor = retailerInfo.edit();
+                                    retailerInfo_editor.putString("RetailerCode", RetailerCode);
+                                    retailerInfo_editor.putString("RetailerID", RetailerId);
+                                    retailerInfo_editor.apply();
 
-                        SharedPreferences companyId = getSharedPreferences("SendData",
-                                Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editorCompany = companyId.edit();
-                        editorCompany.putString("first_name", FirstName);
-                        editorCompany.putString("email", EmailAddress);
-                        editorCompany.putString("phone_number", Mobile);
-                        editorCompany.apply();
-                        Log.i("UpdatePassword", UpdatePassword);
-                        if (IsTermAndConditionAccepted.equals("0")) {
-                            Intent login_intent = new Intent(RetailerLogin.this, Retailer_TermsAndConditionsFragment.class);
-                            startActivity(login_intent);
-                            finish();
-                        } else if (IsTermAndConditionAccepted.equals("1") && UpdatePassword.equals("0")) {
-                            Intent login_intent = new Intent(RetailerLogin.this, Retailer_UpdatePassword.class);
-                            startActivity(login_intent);
-                            finish();
-                        } else if (IsTermAndConditionAccepted.equals("1") && UpdatePassword.equals("1")) {
-                            // Toast.makeText(RetailerLogin.this, "Login Success", Toast.LENGTH_LONG).show();
-                            Intent login_intent = new Intent(RetailerLogin.this, RetailorDashboard.class);
-                            startActivity(login_intent);
-                            finish();
-                        }
+                                    SharedPreferences companyId = getSharedPreferences("SendData",
+                                            Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editorCompany = companyId.edit();
+                                    editorCompany.putString("first_name", FirstName);
+                                    editorCompany.putString("email", EmailAddress);
+                                    editorCompany.putString("phone_number", Mobile);
+                                    editorCompany.putString("cnic", String.valueOf(result1.getString("CNIC")));
+                                    editorCompany.apply();
+                                    Log.i("UpdatePassword", UpdatePassword);
+                                    if (IsTermAndConditionAccepted.equals("0")) {
+                                        Intent login_intent = new Intent(RetailerLogin.this, Retailer_TermsAndConditionsFragment.class);
+                                        startActivity(login_intent);
+                                        finish();
+                                    } else if (IsTermAndConditionAccepted.equals("1") && UpdatePassword.equals("0")) {
+                                        Intent login_intent = new Intent(RetailerLogin.this, Retailer_UpdatePassword.class);
+                                        startActivity(login_intent);
+                                        finish();
+                                    } else if (IsTermAndConditionAccepted.equals("1") && UpdatePassword.equals("1")) {
+                                        // Toast.makeText(RetailerLogin.this, "Login Success", Toast.LENGTH_LONG).show();
+                                        Intent login_intent = new Intent(RetailerLogin.this, RetailorDashboard.class);
+                                        startActivity(login_intent);
+                                        finish();
+                                    }
 
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                loader.hideLoader();
+                                error.printStackTrace();
+                                new HaballError().printErrorMessage(RetailerLogin.this, error);
+                                new ProcessingError().showError(RetailerLogin.this);
+                                //Toast.makeText(RetailerLogin.this,error.toString(),Toast.LENGTH_LONG).show();
+                            }
+                        }){
+                            @Override
+                            public Map<String, String> getHeaders() throws AuthFailureError {
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("Authorization", "bearer " + token);
+                                return params;
+                            }
+                        };
+                        Volley.newRequestQueue(RetailerLogin.this).add(sr);
+                        RequestQueue requestQueue = Volley.newRequestQueue(RetailerLogin.this);
+                        requestQueue.add(sr);
                     }
-
                 } catch (JSONException e) {
                     new CustomToast().showToast(RetailerLogin.this, "Invalid Credentials");
                     e.printStackTrace();
@@ -398,14 +433,17 @@ public class RetailerLogin extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                loader.hideLoader();
+//                loader.hideLoader();
                 error.printStackTrace();
                 new HaballError().printErrorMessage(RetailerLogin.this, error);
                 new ProcessingError().showError(RetailerLogin.this);
                 //Toast.makeText(RetailerLogin.this,error.toString(),Toast.LENGTH_LONG).show();
             }
         });
-        Volley.newRequestQueue(this).add(sr);
+        Volley.newRequestQueue(this).
+
+                add(sr);
+
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(sr);
     }
