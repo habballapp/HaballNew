@@ -101,17 +101,12 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
     public void onBindChildViewHolder(@NonNull OrderChildList_VH orderChildList_vh, int pos, int i, @NonNull OrderChildlist_Model o) {
 //    public void onBindChildViewHolder(OrderChildList_VH orderChildList_vh, int pos, int i, OrderChildlist_Model o) {
 
-        Log.i("debugOrder_o", String.valueOf(o));
+//        Log.i("debugOrder_o", String.valueOf(o));
         OrderChildlist_Model orderChildlist_model = (OrderChildlist_Model) o;
         final OrderChildList_VH temp_orderChildList_vh = orderChildList_vh;
         final int temp_i = i;
         final OrderChildlist_Model temp_orderChildlist_model = orderChildlist_model;
 
-
-        orderChildList_vh.list_numberOFitems.setText("");
-        if (selectedProductsDataList != null && selectedProductsQuantityList != null) {
-            setQuantity(orderChildList_vh, orderChildlist_model);
-        }
 
         orderChildList_vh.list_txt_products.setText(orderChildlist_model.getTitle());
         orderChildList_vh.list_product_code_value.setText(orderChildlist_model.getProductCode());
@@ -160,26 +155,46 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
             }
         };
         orderChildList_vh.list_numberOFitems.addTextChangedListener(textWatcher);
+
+
+        orderChildList_vh.list_numberOFitems.setText("");
+        if (selectedProductsDataList != null && selectedProductsQuantityList != null) {
+            if (selectedProductsDataList.size() > 0 && selectedProductsQuantityList.size() > 0) {
+                Log.i("debugOrderQty1_found0", String.valueOf(i));
+                Log.i("debugOrderQty1_found1", String.valueOf(orderChildlist_model.getProductCode()));
+                Log.i("debugOrderQty1_found2", String.valueOf(orderChildList_vh.list_product_code_value.getText()));
+                Log.i("debugOrderQty1_found3", String.valueOf(orderChildlist_model.getTitle()));
+                Log.i("debugOrderQty1_found4", String.valueOf(orderChildList_vh.list_txt_products.getText()));
+                setQuantity(orderChildList_vh, orderChildlist_model, i);
+            }
+        }
+
 //        orderChildList_vh.list_numberOFitems.removeTextChangedListener(textWatcher);    }
     }
 
-    private void setQuantity(OrderChildList_VH orderChildList_vh, OrderChildlist_Model orderChildlist_model) {
+    private void setQuantity(OrderChildList_VH orderChildList_vh, OrderChildlist_Model orderChildlist_model, int pos) {
         if (selectedProductsQuantityList != null && selectedProductsDataList != null) {
             for (int j = 0; j < selectedProductsDataList.size(); j++) {
-                if (selectedProductsDataList.get(j).getTitle().equals(String.valueOf(orderChildList_vh.list_txt_products.getText())) && selectedProductsDataList.get(j).getProductCode().equals(orderChildList_vh.list_product_code_value.getText())) {
+                if (orderChildList_vh.list_txt_products.getText().equals(String.valueOf(selectedProductsDataList.get(j).getTitle())) && orderChildList_vh.list_product_code_value.getText().equals(selectedProductsDataList.get(j).getProductCode())) {
                     Log.i("debugOrderQty_found0", String.valueOf(j));
-                    Log.i("debugOrderQty_found1", String.valueOf(orderChildList_vh.list_txt_products.getText()));
-                    Log.i("debugOrderQty_found2", String.valueOf(selectedProductsDataList.get(j).getTitle()));
-                    Log.i("debugOrderQty_found3", String.valueOf(orderChildList_vh.list_product_code_value.getText()));
-                    Log.i("debugOrderQty_found4", String.valueOf(selectedProductsDataList.get(j).getProductCode()));
-                    Log.i("debugOrderQty_found5", String.valueOf(orderChildList_vh));
+                    Log.i("debugOrderQty_found1", String.valueOf(pos));
+                    Log.i("debugOrderQty_found2", String.valueOf(orderChildList_vh.list_txt_products.getText()));
+                    Log.i("debugOrderQty_found3", String.valueOf(selectedProductsDataList.get(j).getTitle()));
+                    Log.i("debugOrderQty_found4", String.valueOf(orderChildlist_model.getTitle()));
+                    Log.i("debugOrderQty_found5", String.valueOf(orderChildList_vh.list_product_code_value.getText()));
+                    Log.i("debugOrderQty_found6", String.valueOf(selectedProductsDataList.get(j).getProductCode()));
+                    Log.i("debugOrderQty_found7", String.valueOf(orderChildlist_model.getProductCode()));
+                    Log.i("debugOrderQty_found8", String.valueOf(orderChildList_vh));
                     orderChildList_vh.list_numberOFitems.setText(selectedProductsQuantityList.get(j));
                     Log.i("debugOrderQty_found0", String.valueOf(j));
-                    Log.i("debugOrderQty_found1", String.valueOf(orderChildList_vh.list_txt_products.getText()));
-                    Log.i("debugOrderQty_found2", String.valueOf(selectedProductsDataList.get(j).getTitle()));
-                    Log.i("debugOrderQty_found3", String.valueOf(orderChildList_vh.list_product_code_value.getText()));
-                    Log.i("debugOrderQty_found4", String.valueOf(selectedProductsDataList.get(j).getProductCode()));
-                    Log.i("debugOrderQty_found5", String.valueOf(orderChildList_vh));
+                    Log.i("debugOrderQty_found1", String.valueOf(pos));
+                    Log.i("debugOrderQty_found2", String.valueOf(orderChildList_vh.list_txt_products.getText()));
+                    Log.i("debugOrderQty_found3", String.valueOf(selectedProductsDataList.get(j).getTitle()));
+                    Log.i("debugOrderQty_found4", String.valueOf(orderChildlist_model.getTitle()));
+                    Log.i("debugOrderQty_found5", String.valueOf(orderChildList_vh.list_product_code_value.getText()));
+                    Log.i("debugOrderQty_found6", String.valueOf(selectedProductsDataList.get(j).getProductCode()));
+                    Log.i("debugOrderQty_found7", String.valueOf(orderChildlist_model.getProductCode()));
+                    Log.i("debugOrderQty_found8", String.valueOf(orderChildList_vh));
                 }
             }
         }

@@ -357,7 +357,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
     }
 
     private boolean enableCheckout() {
-        Log.i("checkout", "in checkout");
+//        Log.i("checkout", "in checkout");
         SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
                 Context.MODE_PRIVATE);
         Gson gson = new Gson();
@@ -375,8 +375,8 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
         if (selectedProductsDataList != null) {
             if (selectedProductsDataList.size() > 0) {
                 for (int i = 0; i < selectedProductsDataList.size(); i++) {
-                    Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
-                    Log.i("qty", selectedProductsQuantityList.get(i));
+//                    Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+//                    Log.i("qty", selectedProductsQuantityList.get(i));
                     if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
                         if (Float.parseFloat(selectedProductsQuantityList.get(i)) > 0) {
                             totalQty = totalQty + Float.parseFloat(selectedProductsQuantityList.get(i));
@@ -384,8 +384,8 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                 }
             }
         }
-        Log.i("totalQty", "here");
-        Log.i("totalQty", String.valueOf(totalQty));
+//        Log.i("totalQty", "here");
+//        Log.i("totalQty", String.valueOf(totalQty));
         if (totalQty > 0) {
             btn_checkout.setEnabled(true);
             btn_checkout.setBackgroundResource(R.drawable.button_round);
@@ -425,8 +425,8 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
 //                            }
                         if (selectedProductsDataList.size() > 0) {
                             for (int i = 0; i < selectedProductsDataList.size(); i++) {
-                                Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
-                                Log.i("qty", selectedProductsQuantityList.get(i));
+//                                Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+//                                Log.i("qty", selectedProductsQuantityList.get(i));
                                 if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
                                     grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
                             }
