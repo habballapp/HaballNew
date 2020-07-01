@@ -92,12 +92,13 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
     private PaymentsViewModel paymentsViewModel;
     private Spinner spinner_consolidate;
     private TextView tv_shipment_no_data;
+    private TextView tv_select_company;
     private Spinner spinner2;
     private EditText conso_edittext;
     private List<String> consolidate_felter = new ArrayList<>();
     private List<String> filters = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapterFeltter;
-  //  private Button btn_load_more;
+    //  private Button btn_load_more;
     private String Company_selected, DistributorId;
     private String Filter_selected, Filter_selected_value;
 
@@ -139,13 +140,14 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
         mcontext = getContext();
         company_names.add("Company ");
         myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
-     //   btn_load_more = root.findViewById(R.id.btn_load_more);
+        //   btn_load_more = root.findViewById(R.id.btn_load_more);
 
         SpannableString content = new SpannableString("Load More");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-       // btn_load_more.setText(content);
-      //  btn_load_more.setVisibility(View.GONE);
+        // btn_load_more.setText(content);
+        //  btn_load_more.setVisibility(View.GONE);
         tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
+        tv_select_company = root.findViewById(R.id.tv_select_company);
         search_bar = root.findViewById(R.id.search_bar);
         spinner_container_main = root.findViewById(R.id.spinner_container_main);
         // DATE FILTERS ......
@@ -167,18 +169,18 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
 
         spinner_criteria = root.findViewById(R.id.spinner_criteria);
         arrayAdapterPayments = new ArrayAdapter<String>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, company_names)
-        { @Override
-        public View getDropDownView(int position, View convertView, ViewGroup parent) {
-            // TODO Auto-generated method stub
-            View view = super.getView(position, convertView, parent);
-            TextView text = (TextView) view.findViewById(android.R.id.text1);
-            text.setTextColor(getResources().getColor(R.color.text_color_selection));
-            text.setTextSize((float) 13.6);
-            text.setPadding(50, 0, 50, 0);
-            text.setTypeface(myFont);
-            return view;
-        }
+                android.R.layout.simple_spinner_dropdown_item, company_names) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -187,7 +189,7 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-                text.setPadding(50, 0, 50, 0);
+                text.setPadding(30, 0, 30, 0);
                 return view;
             }
         };
@@ -196,6 +198,7 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
         tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
         tv_shipment_no_data.setVisibility(View.GONE);
+
 
         spinner_container1.setVisibility(View.GONE);
         conso_edittext.setVisibility(View.GONE);
@@ -224,16 +227,17 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
 
                 if (i == 0) {
                     try {
-                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                    } catch (NullPointerException ex) {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);} catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
                 } else {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
-                     } catch (NullPointerException ex) {
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
+                    } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
 
@@ -306,17 +310,18 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
         filters.add("Prepaid ");
         filters.add("Shipment");
         arrayAdapterFeltter = new ArrayAdapter<String>(root.getContext(),
-                android.R.layout.simple_dropdown_item_1line, filters){@Override
-        public View getDropDownView(int position, View convertView, ViewGroup parent) {
-            // TODO Auto-generated method stub
-            View view = super.getView(position, convertView, parent);
-            TextView text = (TextView) view.findViewById(android.R.id.text1);
-            text.setTextColor(getResources().getColor(R.color.text_color_selection));
-            text.setTextSize((float) 13.6);
-            text.setPadding(30, 0, 30, 0);
-            text.setTypeface(myFont);
-            return view;
-        }
+                android.R.layout.simple_dropdown_item_1line, filters) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -335,15 +340,17 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
                     try {
-                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
                 } else {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -407,15 +414,17 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
                 amount_filter_rl.setVisibility(View.GONE);
                 if (i == 0) {
                     try {
-                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                    } catch (NullPointerException ex) {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);  } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
                     spinner_consolidate.setVisibility(View.GONE);
                 } else {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                    } catch (NullPointerException ex) {
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0); } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
 
@@ -539,7 +548,7 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
                 if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
                     if (totalPages != 0 && pageNumber < totalPages) {
 //                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
-                       // btn_load_more.setVisibility(View.VISIBLE);
+                        // btn_load_more.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -677,8 +686,10 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
                         e.printStackTrace();
                     }
                 }
+                tv_select_company.setVisibility(View.GONE);
                 if (response.length() != 0) {
                     tv_shipment_no_data.setVisibility(View.GONE);
+
                 } else {
                     //  Toast.makeText(getContext(), "Response", Toast.LENGTH_LONG);
                     tv_shipment_no_data.setVisibility(View.VISIBLE);
@@ -743,11 +754,12 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
                         e.printStackTrace();
                     }
                 }
-             //   btn_load_more.setVisibility(View.GONE);
+                //   btn_load_more.setVisibility(View.GONE);
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<PaymentLedgerModel>>() {
                 }.getType();
                 paymentLedgerList = gson.fromJson(String.valueOf(response), type);
+
                 ((PaymentLedgerAdapter) recyclerView.getAdapter()).addListItem(paymentLedgerList);
             }
         }, new Response.ErrorListener() {

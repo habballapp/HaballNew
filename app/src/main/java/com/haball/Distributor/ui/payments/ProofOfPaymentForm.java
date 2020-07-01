@@ -25,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -239,7 +240,7 @@ public class ProofOfPaymentForm extends Fragment {
         });
 
         arrayAdapterPayments = new ArrayAdapter<String>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, payment_ids){
+                android.R.layout.simple_spinner_dropdown_item, payment_ids) {
 
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
@@ -265,7 +266,7 @@ public class ProofOfPaymentForm extends Fragment {
             }
         };
         arrayAdapterPaymentModes = new ArrayAdapter<String>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, payment_modes){
+                android.R.layout.simple_spinner_dropdown_item, payment_modes) {
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 // TODO Auto-generated method stub
@@ -294,7 +295,7 @@ public class ProofOfPaymentForm extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
                     try {
-                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -324,7 +325,7 @@ public class ProofOfPaymentForm extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
                     try {
-                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -487,14 +488,36 @@ public class ProofOfPaymentForm extends Fragment {
         Spinner spinner_upload_types;
         final Button btn_choose, btn_attach;
         TextView filename;
-
         btn_choose = view_popup.findViewById(R.id.btn_choose);
         spinner_upload_types = view_popup.findViewById(R.id.spinner_upload_types);
         filename = view_popup.findViewById(R.id.filename);
         btn_attach = view_popup.findViewById(R.id.btn_attach);
         FileName = filename;
-        ArrayAdapter arrayAdapterFileTypes = new ArrayAdapter<>(view_popup.getContext(),
-                android.R.layout.simple_dropdown_item_1line, ImageFileTypes);
+        ArrayAdapter arrayAdapterFileTypes = new ArrayAdapter<String>(view_popup.getContext(),
+                android.R.layout.simple_dropdown_item_1line, ImageFileTypes) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                return view;
+            }
+        };
         arrayAdapterFileTypes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         arrayAdapterFileTypes.notifyDataSetChanged();
         spinner_upload_types.setAdapter(arrayAdapterFileTypes);
@@ -503,7 +526,9 @@ public class ProofOfPaymentForm extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
                     try {
-                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -511,6 +536,8 @@ public class ProofOfPaymentForm extends Fragment {
                 } else {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -538,7 +565,6 @@ public class ProofOfPaymentForm extends Fragment {
 
             }
         });
-
         btn_attach.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

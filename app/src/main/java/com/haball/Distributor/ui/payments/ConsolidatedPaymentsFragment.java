@@ -181,8 +181,9 @@ public class ConsolidatedPaymentsFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
                     try {
-                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                    } catch (NullPointerException e) {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);} catch (NullPointerException e) {
                         e.printStackTrace();
                     }
                 } else {

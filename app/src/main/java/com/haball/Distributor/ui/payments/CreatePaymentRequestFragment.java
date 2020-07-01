@@ -93,7 +93,7 @@ public class CreatePaymentRequestFragment extends Fragment {
         layout_txt_amount.setBoxStrokeColor(Color.parseColor("#e5e5e5"));
         new TextField().changeColor(this.getContext(),layout_txt_amount,txt_amount);
 
-        CompanyNames.add("Company *");
+        CompanyNames.add("Select Company");
         company_names = "";
 
         arrayAdapterPayments = new ArrayAdapter<String>(root.getContext(),
@@ -212,7 +212,7 @@ public class CreatePaymentRequestFragment extends Fragment {
 //                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
                     String txt_amounts = txt_amount.getText().toString();
                     String company = (String) spinner_company.getItemAtPosition(spinner_company.getSelectedItemPosition()).toString();
-                    if (!txt_amounts.equals("") || !company.equals("Company *")) {
+                    if (!txt_amounts.equals("") || !company.equals("Select Company")) {
                         showDiscardDialog();
                         return true;
                     } else {
@@ -260,7 +260,7 @@ public class CreatePaymentRequestFragment extends Fragment {
         String txt_amounts = txt_amount.getText().toString();
         String company = (String) spinner_company.getItemAtPosition(spinner_company.getSelectedItemPosition()).toString();
         if (txt_amounts.equals("") || Double.parseDouble(txt_amounts) < 500
-                || company.equals("Company *")
+                || company.equals("Select Company")
 
         ) {
             btn_create.setEnabled(false);

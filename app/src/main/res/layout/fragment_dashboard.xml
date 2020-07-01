@@ -4,13 +4,42 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".Distributor.ui.home.HomeFragment">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="27dp"
         android:layout_marginRight="27dp"
         >
+    <RelativeLayout
+        android:id="@+id/spinner_containerMain"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_text_squared">
+
+        <Spinner
+            android:id="@+id/spinner_criteria"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:dropDownWidth="match_parent"
+            android:popupBackground="@drawable/spinner_round" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@id/spinner_criteria"
+            android:layout_alignEnd="@+id/spinner_criteria"
+            android:layout_alignRight="@+id/spinner_criteria"
+            android:src="@drawable/ic_arrow_drop_down_black_24dp"
+            android:theme="@style/Spinner" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_overView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/spinner_containerMain"
+        android:visibility="gone">
 
         <RelativeLayout
             android:id="@+id/rl_unpaid_amount"
@@ -152,5 +181,5 @@
 <!--        android:text="© Haball | All rights reserved"-->
 <!--        android:gravity="center"-->
 <!--        />-->
-
+    </RelativeLayout>
 </RelativeLayout>

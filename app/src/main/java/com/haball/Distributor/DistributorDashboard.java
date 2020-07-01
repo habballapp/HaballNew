@@ -165,16 +165,17 @@ public class DistributorDashboard extends AppCompatActivity {
         navigationExpandableListView
                 .init(this)
                 .addHeaderModel(new HeaderModel("Dashboard"))
+                .addHeaderModel(new HeaderModel("My Network"))
                 .addHeaderModel(
-                        new HeaderModel("Orders")
-                                .addChildModel(new ChildModel("\tPlace Order")))
+                        new HeaderModel("Place Order")
+                               )
                 .addHeaderModel(
                         new HeaderModel("Payment")
 //                                  .addChildModel(new ChildModel("\tPayments Summary"))
-                                .addChildModel(new ChildModel("\tConsolidate Payments"))
+                              //  .addChildModel(new ChildModel("\tConsolidate Payments"))
                                 .addChildModel(new ChildModel("\tMake Payment"))
                                 .addChildModel(new ChildModel("\tPayment Ledger"))
-                                .addChildModel(new ChildModel("\tProof of Payments"))
+                               // .addChildModel(new ChildModel("\tProof of Payments"))
 
                 )
                 .addHeaderModel(new HeaderModel("Shipment"))
@@ -198,12 +199,16 @@ public class DistributorDashboard extends AppCompatActivity {
                             fragmentTransaction.replace(R.id.main_container, new HomeFragment());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        } else if (id == 1) {
-                            Log.i("Orders", "Orders Activity");
                         } else if (id == 2) {
+                            Log.i("Place Order", "Orders Activity");
+                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container, new Order_PlaceOrder()).addToBackStack("tag");
+                            fragmentTransaction.commit();
+                            drawer.closeDrawer(GravityCompat.START);
+                        } else if (id == 3) {
                             Log.i("Payments", "Payments Activity");//DONE
                             navigationView.setItemTextColor(ColorStateList.valueOf(Color.RED));
-                        } else if (id == 3) {
+                        } else if (id == 4) {
                             Log.i("Shipment", "Shipment Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new Shipments_Fragments()).addToBackStack("tag");
@@ -219,25 +224,25 @@ public class DistributorDashboard extends AppCompatActivity {
 //        jsonObject.put("AmountMin", null);
 //        jsonObject.put("AmountMax", null);
                             drawer.closeDrawer(GravityCompat.START);
-                        } else if (id == 4) {
+                        } else if (id == 5) {
                             Log.i("Retailer", "Retailer Activity");
 
 
-                        } else if (id == 5) {
+                        } else if (id == 6) {
                             Log.i("Profile", "Profile Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new Distributor_Profile()).addToBackStack("tag");
                             ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        } else if (id == 6) {
+                        } else if (id == 7) {
                             Log.i("Suppport", "Support Activity"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new SupportFragment()).addToBackStack("tag");
                             ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        } else if (id == 7) {
+                        } else if (id == 8) {
                             Log.i("Logout", "Logout Activity");
                             if (Token != null) {
                                 SharedPreferences login_token = getSharedPreferences("LoginToken",
@@ -271,54 +276,57 @@ public class DistributorDashboard extends AppCompatActivity {
                         navigationExpandableListView.setSelected(groupPosition, childPosition);
 
 //
-                        if (groupPosition == 2 && childPosition == 0) {
-                            Log.i("Consolidate Payments", "Child");//DONE
-                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, new ConsolidatedPaymentsFragment()).addToBackStack("tag");
-                            ;
-                            fragmentTransaction.commit();
-                            drawer.closeDrawer(GravityCompat.START);
-                        } else if (groupPosition == 2 && childPosition == 1) {
+//                        if (groupPosition == 2 && childPosition == 0) {
+//                            Log.i("Consolidate Payments", "Child");//DONE
+//                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//                            fragmentTransaction.replace(R.id.main_container, new ConsolidatedPaymentsFragment()).addToBackStack("tag");
+//                            ;
+//                            fragmentTransaction.commit();
+//                            drawer.closeDrawer(GravityCompat.START);
+//                        }
+                       if (groupPosition == 3 && childPosition == 0) {
                             Log.i("Make Payment", "Child");//DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new CreatePaymentRequestFragment()).addToBackStack(null);
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        } else if (groupPosition == 2 && childPosition == 2) {
+                        } else if (groupPosition == 3 && childPosition == 1) {
                             Log.i("Payment Ledger", "Child"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new Payments_Fragment()).addToBackStack("tag");
                             ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        } else if (groupPosition == 2 && childPosition == 3) {
-                            Log.i("Proof of Payments", "Child"); //DONE
-                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, new ProofOfPaymentsDashboardFragment()).addToBackStack("tag");
-                            ;
-                            fragmentTransaction.commit();
-                            drawer.closeDrawer(GravityCompat.START);
-                        } else if (groupPosition == 1 && childPosition == 0) {
+                        }
+//                        else if (groupPosition == 2 && childPosition == 3) {
+//                            Log.i("Proof of Payments", "Child"); //DONE
+//                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//                            fragmentTransaction.replace(R.id.main_container, new ProofOfPaymentsDashboardFragment()).addToBackStack("tag");
+//                            ;
+//                            fragmentTransaction.commit();
+//                            drawer.closeDrawer(GravityCompat.START);
+//                        }
+                        else if (groupPosition == 2 && childPosition == 0) {
                             Log.i("Place order", "Child"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new Order_PlaceOrder()).addToBackStack("tag");
                             ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        } else if (groupPosition == 4 && childPosition == 0) {
+                        } else if (groupPosition == 5 && childPosition == 0) {
 //                            Toast.makeText(DistributorDashboard.this, "retialer Managment", Toast.LENGTH_SHORT).show();
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new RetailerFragment()).addToBackStack("tag");
                             ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        } else if (groupPosition == 4 && childPosition == 1) {
+                        } else if (groupPosition == 5 && childPosition == 1) {
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new RetailerOrderDashboard()).addToBackStack("tag");
                             ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        } else if (groupPosition == 4 && childPosition == 2) {
+                        } else if (groupPosition == 5 && childPosition == 2) {
 //                            Toast.makeText(DistributorDashboard.this, "Retailer Payment", Toast.LENGTH_SHORT).show();
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new RetailerPaymentDashboard()).addToBackStack("tag");
@@ -412,9 +420,9 @@ public class DistributorDashboard extends AppCompatActivity {
     public void onBackPressed() {
         getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 //            super.onBackPressed();
-        if(drawer.isDrawerOpen(Gravity.LEFT)){
+        if (drawer.isDrawerOpen(Gravity.LEFT)) {
             drawer.closeDrawer(Gravity.LEFT);
-        }else{
+        } else {
             FragmentManager fm = getSupportFragmentManager();
             if (fm.getBackStackEntryCount() == 0) {
                 if (doubleBackToExitPressedOnce) {

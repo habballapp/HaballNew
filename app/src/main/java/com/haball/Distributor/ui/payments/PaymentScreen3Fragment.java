@@ -101,9 +101,7 @@ public class PaymentScreen3Fragment extends Fragment {
         };
         spinner_companyName.setAdapter(arrayAdapterPayments);
         txt_amount.setText(Amount);
-        txt_amount.setEnabled(false);
-        spinner_companyName.setEnabled(false);
-        spinner_companyName.setClickable(false);
+        txt_amount.setTextColor(getResources().getColor(R.color.textcolor));
         btn_update.setText("Back");
 
         btn_addpayment.setOnClickListener(new View.OnClickListener() {
