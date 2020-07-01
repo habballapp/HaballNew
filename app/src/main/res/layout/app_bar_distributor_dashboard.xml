@@ -49,6 +49,7 @@
                     android:textColor="#6D6E72"
                     android:text="Jawwad Associates"
                     android:textSize="7sp"
+                    android:paddingTop="5dp"
                     android:fontFamily="@font/open_sans"
                     android:layout_marginRight="10dp"
                     android:layout_below="@+id/tv_username"
