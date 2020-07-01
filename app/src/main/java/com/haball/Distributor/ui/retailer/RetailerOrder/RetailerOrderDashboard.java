@@ -3,10 +3,12 @@ package com.haball.Distributor.ui.retailer.RetailerOrder;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -116,6 +118,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
     private List<String> scrollEvent = new ArrayList<>();
     private RelativeLayout spinner_container_main;
     private HashMap<String, String> OrderStatusKVP;
+    private Typeface myFont;
 
     public RetailerOrderDashboard() {
     }
@@ -135,6 +138,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         recyclerView = root.findViewById(R.id.rv_retailer_order_dashboard);
         btn_place_order = root.findViewById(R.id.btn_place_order);
         search_bar = root.findViewById(R.id.search_bar);
+        myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
 //        consolidate = root.findViewById(R.id.consolidate);
         spinner_container_main = root.findViewById(R.id.spinner_container_main);
         search_bar = root.findViewById(R.id.search_bar);
@@ -176,8 +180,30 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
 //        consolidate_felter.add("Submitter");
         consolidate_felter.add("Status");
 
-        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, consolidate_felter);
+        arrayAdapterPayments = new ArrayAdapter<String>(root.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, consolidate_felter){@Override
+        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+            // TODO Auto-generated method stub
+            View view = super.getView(position, convertView, parent);
+            TextView text = (TextView) view.findViewById(android.R.id.text1);
+            text.setTextColor(getResources().getColor(R.color.text_color_selection));
+            text.setTextSize((float) 13.6);
+            text.setPadding(30, 0, 30, 0);
+            text.setTypeface(myFont);
+            return view;
+        }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                return view;
+            }
+        };
 
         spinner_consolidate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -192,7 +218,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -201,7 +227,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -274,8 +300,31 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
 //        filters.add("Rejected");
 //        filters.add("Draft");
 //        filters.add("Cancelled");
-        arrayAdapterFeltter = new ArrayAdapter<>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, filters);
+        arrayAdapterFeltter = new ArrayAdapter<String>(root.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, filters)
+        {@Override
+        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+            // TODO Auto-generated method stub
+            View view = super.getView(position, convertView, parent);
+            TextView text = (TextView) view.findViewById(android.R.id.text1);
+            text.setTextColor(getResources().getColor(R.color.text_color_selection));
+            text.setTextSize((float) 13.6);
+            text.setPadding(30, 0, 30, 0);
+            text.setTypeface(myFont);
+            return view;
+        }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                return view;
+            }
+        };
         spinner2.setAdapter(arrayAdapterFeltter);
         Log.i("aaaa1111", String.valueOf(consolidate_felter));
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -285,7 +334,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -293,7 +342,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }

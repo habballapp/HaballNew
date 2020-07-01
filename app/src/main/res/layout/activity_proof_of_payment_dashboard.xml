@@ -56,6 +56,8 @@
                         android:stateListAnimator="@null"
                         android:text="Create Proof of Payment"
                         android:textAllCaps="false"
+                        android:fontFamily="@font/open_sans"
+                        android:textSize="@dimen/button_text_size"
                         android:textColor="@android:color/white" />
 
                     <RelativeLayout

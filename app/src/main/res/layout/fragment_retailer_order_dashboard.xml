@@ -38,13 +38,14 @@
             <Button
                 android:id="@+id/btn_place_order"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="45dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/button_background"
                 android:text="Place Order"
                 android:textAllCaps="false"
                 android:textColor="#fff"
-                android:textSize="14sp" />
+                android:fontFamily="@font/open_sans"
+                android:textSize="@dimen/button_text_size" />
 
             <RelativeLayout
                 android:id="@+id/spinner_container_main_inner"

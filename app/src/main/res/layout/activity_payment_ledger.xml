@@ -357,13 +357,22 @@
                     android:id="@+id/rv_payment_ledger"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
-
+                <TextView
+                    android:id="@+id/tv_select_company"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/open_sans"
+                    android:gravity="center"
+                    android:visibility="visible"
+                    android:text="Please Select Company"
+                    android:textSize="@dimen/no_data_available_size" />
                 <TextView
                     android:id="@+id/tv_shipment_no_data"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/open_sans"
                     android:gravity="center"
+                    android:visibility="gone"
                     android:text="No Data Available"
                     android:textSize="@dimen/no_data_available_size" />
 

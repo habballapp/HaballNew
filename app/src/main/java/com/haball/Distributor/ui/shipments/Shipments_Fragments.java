@@ -160,7 +160,7 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
         consolidate_felter.add("Status");
 
         arrayAdapterPayments = new ArrayAdapter<String>(root.getContext(),
-                android.R.layout.simple_dropdown_item_1line, consolidate_felter){
+                android.R.layout.simple_dropdown_item_1line, consolidate_felter) {
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 // TODO Auto-generated method stub
@@ -195,9 +195,9 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
                 amount_filter_rl.setVisibility(View.GONE);
                 if (i == 0) {
                     try {
-                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -205,7 +205,7 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -296,7 +296,7 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
         filters.add("Revised");
 
         arrayAdapterFeltter = new ArrayAdapter<String>(root.getContext(),
-                android.R.layout.simple_dropdown_item_1line, filters){
+                android.R.layout.simple_dropdown_item_1line, filters) {
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 // TODO Auto-generated method stub
@@ -327,9 +327,9 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
                     try {
-                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -337,7 +337,7 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }

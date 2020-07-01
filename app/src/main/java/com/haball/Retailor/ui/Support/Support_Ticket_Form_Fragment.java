@@ -361,7 +361,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                         ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
@@ -370,7 +370,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                         ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
@@ -395,7 +395,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                         ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
@@ -404,7 +404,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                         ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
@@ -429,7 +429,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                         ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
@@ -438,7 +438,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                         ((TextView) adapterView.getChildAt(0)).setTypeface(myFont);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
