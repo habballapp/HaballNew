@@ -167,15 +167,19 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
         if (selectedProductsQuantityList != null && selectedProductsDataList != null) {
             for (int j = 0; j < selectedProductsDataList.size(); j++) {
                 if (selectedProductsDataList.get(j).getTitle().equals(String.valueOf(orderChildList_vh.list_txt_products.getText())) && selectedProductsDataList.get(j).getProductCode().equals(orderChildList_vh.list_product_code_value.getText())) {
+                    Log.i("debugOrderQty_found0", String.valueOf(j));
                     Log.i("debugOrderQty_found1", String.valueOf(orderChildList_vh.list_txt_products.getText()));
                     Log.i("debugOrderQty_found2", String.valueOf(selectedProductsDataList.get(j).getTitle()));
                     Log.i("debugOrderQty_found3", String.valueOf(orderChildList_vh.list_product_code_value.getText()));
                     Log.i("debugOrderQty_found4", String.valueOf(selectedProductsDataList.get(j).getProductCode()));
+                    Log.i("debugOrderQty_found5", String.valueOf(orderChildList_vh));
                     orderChildList_vh.list_numberOFitems.setText(selectedProductsQuantityList.get(j));
+                    Log.i("debugOrderQty_found0", String.valueOf(j));
                     Log.i("debugOrderQty_found1", String.valueOf(orderChildList_vh.list_txt_products.getText()));
                     Log.i("debugOrderQty_found2", String.valueOf(selectedProductsDataList.get(j).getTitle()));
                     Log.i("debugOrderQty_found3", String.valueOf(orderChildList_vh.list_product_code_value.getText()));
                     Log.i("debugOrderQty_found4", String.valueOf(selectedProductsDataList.get(j).getProductCode()));
+                    Log.i("debugOrderQty_found5", String.valueOf(orderChildList_vh));
                 }
             }
         }
