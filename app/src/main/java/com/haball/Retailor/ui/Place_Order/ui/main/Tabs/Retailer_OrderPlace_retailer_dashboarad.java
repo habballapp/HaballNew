@@ -1,5 +1,6 @@
 package com.haball.Retailor.ui.Place_Order.ui.main.Tabs;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +16,7 @@ import androidx.annotation.UiThread;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,14 +24,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -108,6 +113,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
     private MyAsyncTask myAsyncTask;
     private FragmentTransaction fragmentTransaction;
     private int lastExpandedPosition = -1;
+    private String editTextValue = "";
 
     public Retailer_OrderPlace_retailer_dashboarad() {
         // Required empty public constructor
@@ -126,10 +132,13 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
         btn_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("tag");
-                fragmentTransaction.commit();
-
+                if (selectedProductsDataList == null || selectedProductsDataList.size() == 0) {
+                    fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("tag");
+                    fragmentTransaction.commit();
+                } else {
+                    showDiscardDialog();
+                }
             }
         });
         recyclerView = view.findViewById(R.id.rv_order_list);
@@ -195,11 +204,16 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
         spinner_conso.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("DebugFilter", "in spinner: " + position);
+                Log.i("DebugFilter", "in spinner: E, " + editTextValue);
                 Category_selected = totalCategoryTitle.get(position);
+
 //                ((TextView) parent.getChildAt(position)).setTextColor(getResources().getColor(R.color.textcolor));
 //                ((TextView) parent.getChildAt(position)).setTextSize((float) 13.6);
 //                ((TextView) parent.getChildAt(position)).setPadding(50, 0, 50, 0);
                 if (position != 0) {
+                    et_test.setText("");
+                    et_test.clearFocus();
                     try {
                         Log.i("Categoriesselected", Categories.get(Category_selected) + " - " + Category_selected);
                         getFilteredProductCategory(Categories.get(Category_selected));
@@ -208,10 +222,12 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                     }
                 } else {
                     Log.i("titles123", "in else");
-                    try {
-                        getProductCategory();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    if (editTextValue.equals("")) {
+                        try {
+                            getProductCategory();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -235,8 +251,13 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
+                Log.i("DebugFilter", "in edit text: " + s);
+                Log.i("DebugFilter", "in edit text: C, " + Category_selected);
+                editTextValue = String.valueOf(s);
+
 //                titles = new ArrayList<>();
                 if (!String.valueOf(s).equals("")) {
+                    spinner_conso.setSelection(0);
                     Log.i("titles123", "in if");
                     try {
                         getFilteredProduct(String.valueOf(s));
@@ -245,10 +266,12 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                     }
                 } else {
                     Log.i("titles123", "in else");
-                    try {
-                        getProductCategory();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    if (Category_selected != null && Category_selected.equals("All Category")) {
+                        try {
+                            getProductCategory();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -324,6 +347,53 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
         }
         return view;
 
+    }
+
+
+    private void showDiscardDialog() {
+        Log.i("CreatePayment", "In Dialog");
+        final FragmentManager fm = getActivity().getSupportFragmentManager();
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+        tv_discard_txt.setText("Are you sure, you want to leave this page? Your changes will be discarded.");
+        alertDialog.setView(view_popup);
+        alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+        WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+        layoutParams.y = 200;
+        layoutParams.x = -70;// top margin
+        alertDialog.getWindow().setAttributes(layoutParams);
+        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+        btn_discard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.i("CreatePayment", "Button Clicked");
+                alertDialog.dismiss();
+                SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                editorOrderTabsFromDraft.putString("TabNo", "0");
+                editorOrderTabsFromDraft.apply();
+
+                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("tag");
+                fragmentTransaction.commit();
+
+//                fm.popBackStack();
+            }
+        });
+
+        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+        img_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+            }
+        });
+
+        alertDialog.show();
     }
 
 
@@ -435,7 +505,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                             SharedPreferences.Editor editor = grossamount.edit();
                             editor.putString("grossamount", String.valueOf(grossAmount));
                             editor.apply();
-                            Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
                             grossAmount = 0;
                             viewPager.setCurrentItem(1);
                             FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
@@ -653,6 +723,8 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                             if (lastExpandedPosition != -1
                                     && parentPosition != lastExpandedPosition) {
                                 adapter.collapseParent(lastExpandedPosition);
+//                                adapter.OrderParentList.get(lastExpandedPosition).togglePlusMinusIcon();
+//                                adapter.OrderParentList.get(parentPosition).togglePlusMinusIcon();
                             }
                             lastExpandedPosition = parentPosition;
                         }
@@ -660,6 +732,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                         @UiThread
                         @Override
                         public void onParentCollapsed(int parentPosition) {
+//                            adapter.OrderParentList.get(parentPosition).togglePlusMinusIcon();
                         }
                     });
                     //adapter.setParentClickableViewAnimationDefaultDuration();
@@ -848,17 +921,41 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                         @UiThread
                         @Override
                         public void onParentExpanded(int parentPosition) {
-
+//                            adapter.collapseAllParents();
                             if (lastExpandedPosition != -1
                                     && parentPosition != lastExpandedPosition) {
                                 adapter.collapseParent(lastExpandedPosition);
+////                                adapter.OrderParentList.get(lastExpandedPosition).collapseView();
+//                                Log.i("DebugExpandCollapse", String.valueOf(adapter.OrderParentList.get(lastExpandedPosition)._textview.getText()));
+//                                Log.i("DebugExpandCollapse", String.valueOf(adapter.OrderParentList.get(lastExpandedPosition).isExpanded()));
+//                                Log.i("DebugExpandCollapse", String.valueOf(adapter.OrderParentList.get(parentPosition)._textview.getText()));
+//                                Log.i("DebugExpandCollapse", String.valueOf(adapter.OrderParentList.get(parentPosition).isExpanded()));
+////                                adapter.collapseParent(lastExpandedPosition);
+//                                adapter.OrderParentList.get(lastExpandedPosition).mycollapseView();
+//                                Log.i("DebugExpandCollapse", String.valueOf(adapter.OrderParentList.get(lastExpandedPosition)._textview.getText()));
+//                                Log.i("DebugExpandCollapse", String.valueOf(adapter.OrderParentList.get(lastExpandedPosition).isExpanded()));
+//                                Log.i("DebugExpandCollapse", String.valueOf(adapter.OrderParentList.get(parentPosition)._textview.getText()));
+//                                Log.i("DebugExpandCollapse", String.valueOf(adapter.OrderParentList.get(parentPosition).isExpanded()));
+////                            adapter.expandParent(parentPosition);
                             }
                             lastExpandedPosition = parentPosition;
+//                            Log.i("DebugExpandCollapse", String.valueOf(adapter.OrderParentList.get(lastExpandedPosition)._textview.getText()));
+//                            Log.i("DebugExpandCollapse", String.valueOf(adapter.OrderParentList.get(lastExpandedPosition).isExpanded()));
+//                            Log.i("DebugExpandCollapse", String.valueOf(adapter.OrderParentList.get(parentPosition)._textview.getText()));
+//                            Log.i("DebugExpandCollapse", String.valueOf(adapter.OrderParentList.get(parentPosition).isExpanded()));
+//                            adapter.expandParent(parentPosition);
+//                            adapter.OrderParentList.get(parentPosition).myexpandView();
+//                            Log.i("DebugExpandCollapse", String.valueOf(adapter.OrderParentList.get(lastExpandedPosition)._textview.getText()));
+//                            Log.i("DebugExpandCollapse", String.valueOf(adapter.OrderParentList.get(lastExpandedPosition).isExpanded()));
+//                            Log.i("DebugExpandCollapse", String.valueOf(adapter.OrderParentList.get(parentPosition)._textview.getText()));
+//                            Log.i("DebugExpandCollapse", String.valueOf(adapter.OrderParentList.get(parentPosition).isExpanded()));
                         }
 
                         @UiThread
                         @Override
                         public void onParentCollapsed(int parentPosition) {
+//                            adapter.OrderParentList.get(parentPosition).mycollapseView();
+//                            adapter.collapseParent(parentPosition);
                         }
                     });
                     //adapter.setParentClickableViewAnimationDefaultDuration();
@@ -936,8 +1033,8 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                     e.printStackTrace();
                 }
                 titles = new ArrayList<>();
-                Categories = new HashMap<>();
-                totalCategoryTitle = new ArrayList<>();
+//                Categories = new HashMap<>();
+//                totalCategoryTitle = new ArrayList<>();
                 productList = new ArrayList<>();
                 Log.i("result", String.valueOf(result));
                 Gson gson = new Gson();
@@ -958,26 +1055,26 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                             titles.add(tempModel);
                     }
 
-                    for (int j = 0; j < ((JSONArray) resultFilter).length(); j++) {
-                        OrderParentlist_Model tempModel = gson.fromJson(((JSONArray) resultFilter).get(j).toString(), OrderParentlist_Model.class);
-                        int countOfProduct = 0;
-                        for (int k = 0; k < titles.size(); k++) {
-                            OrderParentlist_Model tempModelProduct = titles.get(k);
-//                            Log.i("tempModelProduct", tempModel.getCategoryId() + " - " + tempModelProduct.getParentId());
-                            if (tempModel.getCategoryId().equals(tempModelProduct.getParentId())) {
-
-//                                Log.i("tempModelProduct", "found: " + tempModel.getCategoryId() + " - " + tempModelProduct.getParentId());
-                                countOfProduct++;
-                            }
-                        }
-
-                        if (countOfProduct > 0) {
-                            Categories.put(tempModel.getTitle(), tempModel.getCategoryId());
-                            totalCategoryTitle.add(tempModel.getTitle());
-                        }
-                    }
-                    Log.i("totalCategoryTitle", String.valueOf(totalCategoryTitle));
-                    arrayAdapterSpinnerConso.notifyDataSetChanged();
+//                    for (int j = 0; j < ((JSONArray) resultFilter).length(); j++) {
+//                        OrderParentlist_Model tempModel = gson.fromJson(((JSONArray) resultFilter).get(j).toString(), OrderParentlist_Model.class);
+//                        int countOfProduct = 0;
+//                        for (int k = 0; k < titles.size(); k++) {
+//                            OrderParentlist_Model tempModelProduct = titles.get(k);
+////                            Log.i("tempModelProduct", tempModel.getCategoryId() + " - " + tempModelProduct.getParentId());
+//                            if (tempModel.getCategoryId().equals(tempModelProduct.getParentId())) {
+//
+////                                Log.i("tempModelProduct", "found: " + tempModel.getCategoryId() + " - " + tempModelProduct.getParentId());
+//                                countOfProduct++;
+//                            }
+//                        }
+//
+//                        if (countOfProduct > 0) {
+//                            Categories.put(tempModel.getTitle(), tempModel.getCategoryId());
+//                            totalCategoryTitle.add(tempModel.getTitle());
+//                        }
+//                    }
+//                    Log.i("totalCategoryTitle", String.valueOf(totalCategoryTitle));
+//                    arrayAdapterSpinnerConso.notifyDataSetChanged();
 
 
                 } catch (JSONException e) {
@@ -1008,9 +1105,11 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                         @UiThread
                         @Override
                         public void onParentExpanded(int parentPosition) {
+
                             if (lastExpandedPosition != -1
                                     && parentPosition != lastExpandedPosition) {
                                 adapter.collapseParent(lastExpandedPosition);
+//                            adapter.OrderParentList.get(lastExpandedPosition).togglePlusMinusIcon();
                             }
                             lastExpandedPosition = parentPosition;
                         }

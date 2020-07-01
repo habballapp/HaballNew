@@ -155,7 +155,7 @@
         android:padding="10dp"
         android:textColor="@color/textcolor"
         android:textSize="@dimen/rv_box_text_size"
-        android:text="0"
+        android:text=""
         android:gravity="center"/>
     </RelativeLayout>
 </RelativeLayout>

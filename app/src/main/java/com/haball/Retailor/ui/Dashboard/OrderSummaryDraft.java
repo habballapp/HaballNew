@@ -181,7 +181,7 @@ public class OrderSummaryDraft extends Fragment {
         layoutManager1 = new LinearLayoutManager(getContext());
         recyclerView1.setLayoutManager(layoutManager1);
 
-        mAdapter1 = new Order_Summary_Adapter(getContext(), selectedProductsDataList, selectedProductsQuantityList);
+        mAdapter1 = new Order_Summary_Adapter(getActivity(), getContext(), selectedProductsDataList, selectedProductsQuantityList);
         recyclerView1.setAdapter(mAdapter1);
         recyclerView1.setNestedScrollingEnabled(false);
 

@@ -46,6 +46,7 @@ import com.haball.Distributor.ui.shipments.Shipments_Fragments;
 import com.haball.Distributor.ui.support.SupportFragment;
 import com.haball.Distributor.ui.terms_and_conditions.TermsAndConditionsFragment;
 import com.haball.R;
+import com.haball.Retailor.ui.Network.Select_Tabs.My_Network_Fragment;
 import com.haball.Select_User.Register_Activity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
@@ -197,6 +198,13 @@ public class DistributorDashboard extends AppCompatActivity {
                             Log.i("Dashboard", "Dashboard Activity"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new HomeFragment());
+                            fragmentTransaction.commit();
+                            drawer.closeDrawer(GravityCompat.START);
+                        } else if (id == 1) {
+                            Log.i("My Network", "My Network Activity");
+                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//                            fragmentTransaction.replace(R.id.main_container_ret, new My_NetworkDashboard());
+                            fragmentTransaction.replace(R.id.main_container_ret, new My_Network_Fragment()).addToBackStack("tag");
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 2) {

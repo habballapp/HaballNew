@@ -185,6 +185,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/totalAmount_Rs"
+        android:fontFamily="@font/open_sans_semibold"
         android:layout_below="@+id/price"
         android:textColor="@color/rv_box_color"
         android:layout_weight="1"

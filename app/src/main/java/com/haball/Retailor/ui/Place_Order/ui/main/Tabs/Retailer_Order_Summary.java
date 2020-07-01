@@ -1,6 +1,7 @@
 package com.haball.Retailor.ui.Place_Order.ui.main.Tabs;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -29,6 +30,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -103,11 +105,20 @@ public class Retailer_Order_Summary extends Fragment {
         total_amount = view.findViewById(R.id.total_amount);
         btn_confirm = view.findViewById(R.id.btn_confirm);
 
+        InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+
         SharedPreferences add_more_product = getContext().getSharedPreferences("add_more_product",
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor1 = add_more_product.edit();
         editor1.putString("add_more_product", "");
         editor1.apply();
+        SharedPreferences selectedDraft = getContext().getSharedPreferences("FromDraft",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editorDraft = selectedDraft.edit();
+        editorDraft.putString("fromDraft", "");
+        editorDraft.apply();
+
         btn_add_product = view.findViewById(R.id.btn_add_product);
 
         btn_draft = view.findViewById(R.id.place_item_button);
@@ -156,8 +167,8 @@ public class Retailer_Order_Summary extends Fragment {
                 float grossAmount = 0;
                 if (selectedProductsDataList.size() > 0) {
                     for (int i = 0; i < selectedProductsDataList.size(); i++) {
-                        Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
-                        Log.i("qty", selectedProductsQuantityList.get(i));
+//                        Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+//                        Log.i("qty", selectedProductsQuantityList.get(i));
                         if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
                             grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
                     }
@@ -172,7 +183,7 @@ public class Retailer_Order_Summary extends Fragment {
                     SharedPreferences.Editor editor = grossamount.edit();
                     editor.putString("grossamount", String.valueOf(grossAmount));
                     editor.apply();
-                    Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
                     grossAmount = 0;
                     viewPager.setCurrentItem(0);
                     FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
@@ -223,7 +234,7 @@ public class Retailer_Order_Summary extends Fragment {
         layoutManager1 = new LinearLayoutManager(getContext());
         recyclerView1.setLayoutManager(layoutManager1);
 
-        mAdapter1 = new Order_Summary_Adapter(getContext(), selectedProductsDataList, selectedProductsQuantityList);
+        mAdapter1 = new Order_Summary_Adapter(getActivity(), getContext(), selectedProductsDataList, selectedProductsQuantityList);
         recyclerView1.setAdapter(mAdapter1);
         recyclerView1.setNestedScrollingEnabled(false);
 //
@@ -240,7 +251,7 @@ public class Retailer_Order_Summary extends Fragment {
 //        editor_grossamount.putString("grossamount", "0");
 //        editor_grossamount.apply();
 
-        Log.i("aaaaaa", String.valueOf(mAdapter1));
+//        Log.i("aaaaaa", String.valueOf(mAdapter1));
 
         return view;
 
@@ -388,7 +399,7 @@ public class Retailer_Order_Summary extends Fragment {
                 jsonArray.put(obj);
             }
         }
-        Log.i("Array", String.valueOf(jsonArray));
+//        Log.i("Array", String.valueOf(jsonArray));
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("ID", 0);
@@ -401,7 +412,7 @@ public class Retailer_Order_Summary extends Fragment {
 //        jsonObject.put("TotalGST", gst_amount);
 //        jsonObject.put("TotalDiscountAmount", 0);
 
-        Log.i("jsonObject", String.valueOf(jsonObject));
+//        Log.i("jsonObject", String.valueOf(jsonObject));
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_SAVE_DRAFT, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(final JSONObject result) {
@@ -511,7 +522,7 @@ public class Retailer_Order_Summary extends Fragment {
             if (!selectedProductsQuantityList.get(i).equals("0") && !selectedProductsQuantityList.get(i).equals(""))
                 jsonArray.put(obj);
         }
-        Log.i("Array", String.valueOf(jsonArray));
+//        Log.i("Array", String.valueOf(jsonArray));
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("ID", 0);
@@ -523,7 +534,7 @@ public class Retailer_Order_Summary extends Fragment {
 //        jsonObject.put("Discount", 0);
 //        jsonObject.put("TotalPrice", totalAmount);
 
-        Log.i("jsonObject", String.valueOf(jsonObject));
+//        Log.i("jsonObject", String.valueOf(jsonObject));
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_CONFIRM_ORDERS, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(final JSONObject result) {
@@ -687,7 +698,7 @@ public class Retailer_Order_Summary extends Fragment {
         @Override
         protected Void doInBackground(Void... params) {
             while (getContext() != null) {
-                Log.i("async", "in async");
+//                Log.i("async", "in async");
                 SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
                         Context.MODE_PRIVATE);
                 object_string = selectedProducts.getString("selected_products", "");
@@ -696,7 +707,7 @@ public class Retailer_Order_Summary extends Fragment {
                 }.getType();
                 temp_list = gson.fromJson(object_string, type);
                 object_stringqty = selectedProducts.getString("selected_products_qty", "");
-                Log.i("qty_async", object_stringqty);
+//                Log.i("qty_async", object_stringqty);
                 Type typestr = new TypeToken<List<String>>() {
                 }.getType();
                 temp_listqty = gson.fromJson(object_stringqty, typestr);
@@ -716,7 +727,7 @@ public class Retailer_Order_Summary extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             if (getContext() != null) {
-                Log.i("async", "in async else");
+//                Log.i("async", "in async else");
                 qtyChanged();
                 new MyAsyncTask().execute();
             }
@@ -756,6 +767,19 @@ public class Retailer_Order_Summary extends Fragment {
 //        float gstAmount = (Float.parseFloat(grossamount.getString("grossamount", "")) * 17) / 100;
         float gstAmount = 0;
         totalAmount = Float.parseFloat(grossamount.getString("grossamount", "0")) + gstAmount;
+        if(totalAmount <= 0) {
+            btn_draft.setEnabled(false);
+            btn_draft.setBackgroundResource(R.drawable.button_grey_round);
+            btn_confirm.setEnabled(false);
+            btn_confirm.setBackgroundResource(R.drawable.button_grey_round);
+
+        } else {
+            btn_draft.setEnabled(true);
+            btn_draft.setBackgroundResource(R.drawable.button_round);
+            btn_confirm.setEnabled(true);
+            btn_confirm.setBackgroundResource(R.drawable.button_round);
+
+        }
 //        float grossAmount = 0;
 //        if(selectedProductsDataList != null) {
 //            if (selectedProductsDataList.size() > 0) {
