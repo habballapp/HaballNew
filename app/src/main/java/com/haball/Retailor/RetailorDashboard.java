@@ -273,7 +273,7 @@ public class RetailorDashboard extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container_ret, new Notification_Fragment());
+                fragmentTransaction.add(R.id.main_container_ret, new Notification_Fragment());
                 fragmentTransaction.commit();
             }
         });
@@ -287,13 +287,13 @@ public class RetailorDashboard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.main_container, new TermsAndConditionsFragment());
+//                fragmentTransaction.add(R.id.main_container, new TermsAndConditionsFragment());
 //                fragmentTransaction.commit();
 //                Intent login_intent = new Intent(RetailorDashboard.this, Retailer_Terms_And_Conditions.class);
 //                startActivity(login_intent);
 //                finish();
                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Terms_And_Conditions()).addToBackStack("tag");
+                fragmentTransaction.add(R.id.main_container_ret, new Retailer_Terms_And_Conditions()).addToBackStack("tag");
                 fragmentTransaction.commit();
 
                 drawer.closeDrawer(GravityCompat.START);
@@ -333,7 +333,7 @@ public class RetailorDashboard extends AppCompatActivity {
 //                        if (id == 0) {
                             Log.i("Dashboard", "Dashboard Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new Dashboard_Tabs());
+                            fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tabs());
                             fragmentTransaction.commit();
 
                             drawer.closeDrawer(GravityCompat.START);
@@ -341,8 +341,8 @@ public class RetailorDashboard extends AppCompatActivity {
 //                        } else if (id == 1) {
 
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                            fragmentTransaction.replace(R.id.main_container_ret, new My_NetworkDashboard());
-                            fragmentTransaction.replace(R.id.main_container_ret, new My_Network_Fragment()).addToBackStack("tag");
+//                            fragmentTransaction.add(R.id.main_container_ret, new My_NetworkDashboard());
+                            fragmentTransaction.add(R.id.main_container_ret, new My_Network_Fragment()).addToBackStack("tag");
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                             Log.i("My Network", "My Network Activity");
@@ -364,11 +364,11 @@ public class RetailorDashboard extends AppCompatActivity {
 //                        } else if (id == 2) {
 //                            Log.i("Place Order", "Place Order Activity");
 //                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                            fragmentTransaction.replace(R.id.main_container_ret, new PlaceOrderFragment());
+//                            fragmentTransaction.add(R.id.main_container_ret, new PlaceOrderFragment());
 //                            fragmentTransaction.commit();
 //                            drawer.closeDrawer(GravityCompat.START);
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("tag");
+                            fragmentTransaction.add(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("tag");
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
 
@@ -376,7 +376,7 @@ public class RetailorDashboard extends AppCompatActivity {
 //                        } else if (id == 3) {
                             Log.i("Make Payment", "Make Payment Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment()).addToBackStack("tag1");
+                            fragmentTransaction.add(R.id.main_container_ret, new CreatePaymentRequestFragment()).addToBackStack("tag1");
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
 
@@ -384,14 +384,14 @@ public class RetailorDashboard extends AppCompatActivity {
 //                        } else if (id == 4) {
                             Log.i("Profile", "Profile Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new Profile_Tabs()).addToBackStack("tag");
+                            fragmentTransaction.add(R.id.main_container_ret, new Profile_Tabs()).addToBackStack("tag");
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (NavList.contains("Support") && NavList.indexOf("Support") == id) {
 //                        } else if (id == 5) {
                             Log.i("Support", "Support Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new SupportFragment()).addToBackStack("tag");
+                            fragmentTransaction.add(R.id.main_container_ret, new SupportFragment()).addToBackStack("tag");
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (NavList.contains("Logout") && NavList.indexOf("Logout") == id) {
