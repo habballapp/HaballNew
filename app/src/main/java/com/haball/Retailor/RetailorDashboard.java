@@ -349,6 +349,18 @@ public class RetailorDashboard extends AppCompatActivity {
 
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (NavList.contains("Place Order") && NavList.indexOf("Place Order") == id) {
+                            SharedPreferences selectedProducts = getSharedPreferences("selectedProducts_retailer_own",
+                                    Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = selectedProducts.edit();
+                            editor.putString("selected_products", "");
+                            editor.putString("selected_products_qty", "");
+                            editor.apply();
+                            SharedPreferences selectedDraft = getSharedPreferences("FromDraft",
+                                    Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editorDraft = selectedDraft.edit();
+                            editorDraft.putString("fromDraft", "");
+                            editorDraft.apply();
+
 //                        } else if (id == 2) {
 //                            Log.i("Place Order", "Place Order Activity");
 //                            fragmentTransaction = getSupportFragmentManager().beginTransaction();

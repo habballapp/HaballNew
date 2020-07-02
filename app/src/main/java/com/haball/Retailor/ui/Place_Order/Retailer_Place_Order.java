@@ -65,8 +65,14 @@ public class Retailer_Place_Order extends Fragment {
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
 
+        } else {
+            SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
+                    Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = selectedProducts.edit();
+            editor.putString("selected_products", "");
+            editor.putString("selected_products_qty", "");
+            editor.apply();
         }
-
 
         return root;
     }

@@ -113,11 +113,11 @@ public class Retailer_Order_Summary extends Fragment {
         SharedPreferences.Editor editor1 = add_more_product.edit();
         editor1.putString("add_more_product", "");
         editor1.apply();
-        SharedPreferences selectedDraft = getContext().getSharedPreferences("FromDraft",
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor editorDraft = selectedDraft.edit();
-        editorDraft.putString("fromDraft", "");
-        editorDraft.apply();
+//        SharedPreferences selectedDraft = getContext().getSharedPreferences("FromDraft",
+//                Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editorDraft = selectedDraft.edit();
+//        editorDraft.putString("fromDraft", "");
+//        editorDraft.apply();
 
         btn_add_product = view.findViewById(R.id.btn_add_product);
 
@@ -165,6 +165,22 @@ public class Retailer_Order_Summary extends Fragment {
 //                                    grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
 //                            }
                 float grossAmount = 0;
+                if (selectedProductsDataList == null) {
+                    Log.i("debugOrder_ListIsNull", "selected product list is null");
+                    SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
+                            Context.MODE_PRIVATE);
+                    Gson gson = new Gson();
+                    object_string = selectedProducts.getString("selected_products", "");
+                    object_stringqty = selectedProducts.getString("selected_products_qty", "");
+                    Log.i("object_string", object_string);
+                    Log.i("object_stringqty", object_stringqty);
+                    Type type = new TypeToken<List<OrderChildlist_Model>>() {
+                    }.getType();
+                    Type typeQty = new TypeToken<List<String>>() {
+                    }.getType();
+                    selectedProductsDataList = gson.fromJson(object_string, type);
+                    selectedProductsQuantityList = gson.fromJson(object_stringqty, typeQty);
+                }
                 if (selectedProductsDataList.size() > 0) {
                     for (int i = 0; i < selectedProductsDataList.size(); i++) {
 //                        Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
@@ -767,7 +783,7 @@ public class Retailer_Order_Summary extends Fragment {
 //        float gstAmount = (Float.parseFloat(grossamount.getString("grossamount", "")) * 17) / 100;
         float gstAmount = 0;
         totalAmount = Float.parseFloat(grossamount.getString("grossamount", "0")) + gstAmount;
-        if(totalAmount <= 0) {
+        if (totalAmount <= 0) {
             btn_draft.setEnabled(false);
             btn_draft.setBackgroundResource(R.drawable.button_grey_round);
             btn_confirm.setEnabled(false);

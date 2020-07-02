@@ -123,12 +123,26 @@ public class PlaceholderFragment extends Fragment {
             Bundle savedInstanceState) {
         View rootView = null;
 
-        SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = selectedProducts.edit();
-        editor.putString("selected_products", "");
-        editor.putString("selected_products_qty", "");
-        editor.apply();
+//        SharedPreferences selectedProductsSP = getContext().getSharedPreferences("FromDraft",
+//                Context.MODE_PRIVATE);
+//        Log.i("debugOrder_fromDraft", "'" + selectedProductsSP.getString("fromDraft", "") + "'");
+//        if (!selectedProductsSP.getString("fromDraft", "").equals("draft")) {
+//            Log.i("debugOrder_emptyProd", "empty the products list");
+//
+//
+//            SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
+//                    Context.MODE_PRIVATE);
+//            SharedPreferences.Editor editor = selectedProducts.edit();
+//            editor.putString("selected_products", "");
+//            editor.putString("selected_products_qty", "");
+//            editor.apply();
+//        } else {
+//            SharedPreferences selectedDraft = getContext().getSharedPreferences("FromDraft",
+//                    Context.MODE_PRIVATE);
+//            SharedPreferences.Editor editorDraft = selectedDraft.edit();
+//            editorDraft.putString("fromDraft", "");
+//            editorDraft.apply();
+//        }
 
         switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
             case 1: {
@@ -167,7 +181,6 @@ public class PlaceholderFragment extends Fragment {
 //                        android.R.layout.simple_spinner_dropdown_item, company_names);
 
 
-
                 arrayAdapterPayments = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, company_names) {
                     @Override
                     public View getDropDownView(int position, View convertView, ViewGroup parent) {
@@ -176,7 +189,7 @@ public class PlaceholderFragment extends Fragment {
                         TextView text = (TextView) view.findViewById(android.R.id.text1);
                         text.setTextColor(getResources().getColor(R.color.text_color_selection));
                         text.setTextSize((float) 13.6);
-                       text.setPadding(30, 0, 30, 0);
+                        text.setPadding(30, 0, 30, 0);
                         text.setTypeface(myFont);
                         return view;
                     }
@@ -188,7 +201,7 @@ public class PlaceholderFragment extends Fragment {
                         TextView text = (TextView) view.findViewById(android.R.id.text1);
                         text.setTextColor(getResources().getColor(R.color.text_color_selection));
                         text.setTextSize((float) 13.6);
-                       text.setPadding(30, 0, 30, 0);
+                        text.setPadding(30, 0, 30, 0);
                         return view;
                     }
                 };
@@ -201,9 +214,9 @@ public class PlaceholderFragment extends Fragment {
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         if (i == 0) {
                             try {
-                                   ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                                ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                                 ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                              ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
+                                ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                             } catch (NullPointerException ex) {
                                 ex.printStackTrace();
                             }
@@ -211,7 +224,7 @@ public class PlaceholderFragment extends Fragment {
                             try {
                                 ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                                 ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                              ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
+                                ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                             } catch (NullPointerException ex) {
                                 ex.printStackTrace();
                             }

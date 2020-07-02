@@ -83,7 +83,7 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
     @Override
     public void onBindParentViewHolder(@NonNull final OrderParentLIst_VH orderParentLIst_vh, int position, @NonNull OrderParentlist_Model o) {
 //    public void onBindParentViewHolder(final OrderParentLIst_VH orderParentLIst_vh, final int position, OrderParentlist_Model o) {
-        Log.i("debugOrder_obj", String.valueOf(o));
+//        Log.i("debugOrder_obj", String.valueOf(o));
         final OrderParentlist_Model orderParentlist_model = (OrderParentlist_Model) o;
         orderParentLIst_vh._textview.setText(orderParentlist_model.getTitle());
         orderParentLIst_VH_main = orderParentLIst_vh;

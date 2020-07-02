@@ -183,8 +183,8 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
 //        };
         SharedPreferences add_more_product = getContext().getSharedPreferences("add_more_product",
                 Context.MODE_PRIVATE);
-        Gson gson = new Gson();
         if (!add_more_product.getString("add_more_product", "").equals("fromAddMore")) {
+            Log.i("debugOrder_AddMore", "not from add more product");
             SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
                     Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = selectedProducts.edit();

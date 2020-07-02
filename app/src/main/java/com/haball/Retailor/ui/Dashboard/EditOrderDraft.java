@@ -80,7 +80,7 @@ public class EditOrderDraft {
                     RetailerDraftProductsList = gson.fromJson(arr.toString(), type);
                     for(int i = 0; i < RetailerDraftProductsList.size(); i++) {
                         Log.i("jsonOrderDetail", String.valueOf(RetailerDraftProductsList.get(i).getProductName()));
-                        selectedProductsDataList.add(new OrderChildlist_Model(RetailerDraftProductsList.get(i).getProductId(), RetailerDraftProductsList.get(i).getProductCode(), RetailerDraftProductsList.get(i).getProductName(), RetailerDraftProductsList.get(i).getUnitPrice(), "", RetailerDraftProductsList.get(i).getUOMTitle(), RetailerDraftProductsList.get(i).getDiscount(), ""));
+                        selectedProductsDataList.add(new OrderChildlist_Model(RetailerDraftProductsList.get(i).getProductId(), RetailerDraftProductsList.get(i).getProductCode(), RetailerDraftProductsList.get(i).getProductName(), RetailerDraftProductsList.get(i).getUnitPrice(), "0", RetailerDraftProductsList.get(i).getUOMTitle(), RetailerDraftProductsList.get(i).getDiscount(), "1"));
                         selectedProductsQuantityList.add(RetailerDraftProductsList.get(i).getOrderQty());
                     }
 
@@ -117,7 +117,6 @@ public class EditOrderDraft {
                     SharedPreferences.Editor editorDraft = selectedDraft.edit();
                     editorDraft.putString("fromDraft", "draft");
                     editorDraft.apply();
-
 
                     fragmentTransaction = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("null");
