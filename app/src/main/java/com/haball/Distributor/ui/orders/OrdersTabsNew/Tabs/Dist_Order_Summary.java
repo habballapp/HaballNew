@@ -67,7 +67,7 @@ public class Dist_Order_Summary extends Fragment {
     private String URL_SAVE_TEMPLATE = "http://175.107.203.97:4013/api/ordertemplate/save";
     private String URL_SAVE_DRAFT = "http://175.107.203.97:4013/api/Orders/savedraft";
     private Button btn_confirm, btn_template, btn_draft;
-    private TextView gross_amount, discount_amount, gst_amount, total_amount;
+    private TextView discount_amount, total_amount;
     private float totalAmount;
     private ViewPager viewpager;
     private List<OrderChildlist_Model_DistOrder> temp_list = new ArrayList<>();
@@ -77,10 +77,10 @@ public class Dist_Order_Summary extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.distri_main_orderplace_summary, container, false);
-        gross_amount = view.findViewById(R.id.gross_amount);
+        final View view = inflater.inflate(R.layout.fragment_dist_order__summary, container, false);
+       // gross_amount = view.findViewById(R.id.gross_amount);
         discount_amount = view.findViewById(R.id.discount_amount);
-        gst_amount = view.findViewById(R.id.gst_amount);
+       // gst_amount = view.findViewById(R.id.gst_amount);
         total_amount = view.findViewById(R.id.total_amount);
         btn_template = view.findViewById(R.id.btn_template);
         btn_draft = view.findViewById(R.id.btn_draft);
@@ -104,25 +104,25 @@ public class Dist_Order_Summary extends Fragment {
                 editor.apply();
             }
         });
-        btn_template.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("NewApi")
-            @Override
-            public void onClick(View view) {
-
-                try {
-                    requestSaveTemplate();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_distributor",
-                        Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = selectedProducts.edit();
-                editor.putString("selected_products", "");
-                editor.putString("selected_products_qty", "");
-                editor.apply();
-            }
-        });
+//        btn_template.setOnClickListener(new View.OnClickListener() {
+//            @SuppressLint("NewApi")
+//            @Override
+//            public void onClick(View view) {
+//
+//                try {
+//                    requestSaveTemplate();
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_distributor",
+//                        Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = selectedProducts.edit();
+//                editor.putString("selected_products", "");
+//                editor.putString("selected_products_qty", "");
+//                editor.apply();
+//            }
+//        });
         btn_draft.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NewApi")
             @Override
@@ -223,7 +223,7 @@ public class Dist_Order_Summary extends Fragment {
         jsonObject.put("NetPrice", totalAmount);
         jsonObject.put("Discount", 0);
         jsonObject.put("TotalPrice", totalAmount);
-        jsonObject.put("TotalGST", gst_amount);
+      //  jsonObject.put("TotalGST", gst_amount);
         jsonObject.put("TotalDiscountAmount", 0);
         jsonObject.put("BillingAddressId", 638);
         jsonObject.put("BillingAddress1", "66565");
@@ -456,7 +456,7 @@ public class Dist_Order_Summary extends Fragment {
         jsonObject.put("NetPrice", totalAmount);
         jsonObject.put("Discount", totalAmount);
         jsonObject.put("TotalPrice", totalAmount);
-        jsonObject.put("TotalGST", gst_amount);
+       // jsonObject.put("TotalGST", gst_amount);
         jsonObject.put("TotalDiscountAmount", 0);
         jsonObject.put("ShippingAddressId", 637);
         jsonObject.put("ShippingAddress1", "fsdfsf");
@@ -611,7 +611,7 @@ public class Dist_Order_Summary extends Fragment {
                 Context.MODE_PRIVATE);
 //        gross_amount.setText(grossamount.getString("grossamount", "0"));
         float temp_grossAmount = Float.parseFloat(grossamount.getString("grossamount", "0"));
-        gross_amount.setText(String.format("%.0f", temp_grossAmount));
+       // gross_amount.setText(String.format("%.0f", temp_grossAmount));
         discount_amount.setText(" - ");
 
 //        float gstAmount = (Float.parseFloat(grossamount.getString("grossamount", "")) * 17) / 100;
