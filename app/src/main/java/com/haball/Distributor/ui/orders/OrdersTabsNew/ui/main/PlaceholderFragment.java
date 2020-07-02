@@ -235,7 +235,7 @@ public class PlaceholderFragment extends Fragment {
             }
 
             case 2: {
-                rootView = inflater.inflate(R.layout.distri_main_orderplace_summary, container, false);
+                rootView = inflater.inflate(R.layout.fragment_dist_order__summary, container, false);
                 break;
             }
 
