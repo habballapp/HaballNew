@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,6 +39,7 @@ public class Retailer_Place_Order extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        Log.i("Place_Order", "Opened new place order");
         View root = inflater.inflate(R.layout.activity_retailer_place_order, container, false);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getActivity(), getChildFragmentManager());
         final ViewPager viewPager = root.findViewById(R.id.view_pager_rpoid);
@@ -56,6 +58,13 @@ public class Retailer_Place_Order extends Fragment {
             });
         }
 
+        SharedPreferences orderCheckout = getContext().getSharedPreferences("orderCheckout",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor orderCheckout_editor = orderCheckout.edit();
+        orderCheckout_editor.putString("orderCheckout", "");
+        orderCheckout_editor.apply();
+
+
         SharedPreferences selectedProductsSP = getContext().getSharedPreferences("FromDraft",
                 Context.MODE_PRIVATE);
         if (selectedProductsSP.getString("fromDraft", "").equals("draft")) {
@@ -64,6 +73,12 @@ public class Retailer_Place_Order extends Fragment {
             fragmentTransaction.add(R.id.main_container_ret, new Retailer_Order_Summary());
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
+
+            SharedPreferences orderCheckout1 = getContext().getSharedPreferences("FromDraft",
+                    Context.MODE_PRIVATE);
+            SharedPreferences.Editor orderCheckout_editor1 = orderCheckout1.edit();
+            orderCheckout_editor1.putString("fromDraft", "");
+            orderCheckout_editor1.apply();
 
         } else {
             SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",

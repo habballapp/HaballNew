@@ -386,6 +386,7 @@ public class CreatePaymentRequestFragment extends Fragment {
                     editor.putString("CompanyId", companyNameAndId.get(company_names));
                     editor.putString("CompanyName", company_names);
                     editor.putString("Amount", txt_amount.getText().toString());
+                    editor.putString("MenuItem", "Edit");
                     editor.apply();
 
                     showSuccessDialog(prepaid_number);

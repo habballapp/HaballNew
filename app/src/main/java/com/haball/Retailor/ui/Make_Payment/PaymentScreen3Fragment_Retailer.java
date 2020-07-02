@@ -219,15 +219,15 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         spinner_companyName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    try {
-                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
-                    } catch (NullPointerException ex) {
-                        ex.printStackTrace();
-                    }
-                    company_names = CompanyNames.get(i);
-                    checkFieldsForEmptyValues();
+                try {
+                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                    ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                    ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
+                } catch (NullPointerException ex) {
+                    ex.printStackTrace();
+                }
+                company_names = CompanyNames.get(i);
+                checkFieldsForEmptyValues();
 //                Log.i("company name and id ", companyNameAndId.get(company_names));
 //                if (company_names.equals("Select Company") || company_names.equals(CompanyName))
 //                    btn_update.setText("Back");
@@ -254,7 +254,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(txt_amount.hasFocus()) {
+                if (txt_amount.hasFocus()) {
 //                if (!String.valueOf(txt_amount.getText()).equals("") && !String.valueOf(txt_amount.getText()).equals(Amount))
 //                    btn_update.setText("Update");
 //                else
@@ -269,9 +269,13 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         btn_newpayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment());
-                fragmentTransaction.commit();
+                if (btn_update.getText().equals("Back")) {
+                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment());
+                    fragmentTransaction.commit();
+                } else {
+                    showDiscardDialogForCreatePayment();
+                }
             }
         });
 
@@ -409,6 +413,42 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
             }
         });
 
+    }
+
+    private void showDiscardDialogForCreatePayment() {
+        final FragmentManager fm = getActivity().getSupportFragmentManager();
+        final AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+        tv_discard_txt.setText("Are you sure, you want to leave this page? Your changes will be discarded.");
+        alertDialog.setView(view_popup);
+        alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+        WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+        layoutParams.y = 200;
+        layoutParams.x = -70;// top margin
+        alertDialog.getWindow().setAttributes(layoutParams);
+        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+        btn_discard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.i("CreatePayment", "Button Clicked");
+                alertDialog.dismiss();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment());
+                fragmentTransaction.commit();
+            }
+        });
+
+        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+        img_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+            }
+        });
+
+        alertDialog.show();
     }
 
     private void showDiscardDialog() {

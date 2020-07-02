@@ -72,6 +72,8 @@ public class EditOrderDraft {
 
                 try {
                     JSONArray arr = response.getJSONArray("OrderDetails");
+                    JSONObject obj = response.getJSONObject("OrderPaymentDetails");
+                    String CompanyName = obj.getString("CompanyName");
 
                     Log.i("jsonOrderDetail1", String.valueOf(arr));
                     Gson gson = new Gson();
@@ -108,6 +110,7 @@ public class EditOrderDraft {
                     SharedPreferences selectedProducts = context.getSharedPreferences("selectedProducts_retailer_own",
                             Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = selectedProducts.edit();
+                    editor.putString("CompanyName", CompanyName);
                     editor.putString("selected_products", json);
                     editor.putString("selected_products_qty", jsonqty);
                     editor.apply();

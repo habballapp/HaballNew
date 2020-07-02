@@ -56,7 +56,46 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
         this.activity = activity;
         this.selectedProductsDataList = selectedProductsDataList;
         this.selectedProductsDataListQty = selectedProductsDataListQty;
-        Log.i("selectedProducts", String.valueOf(selectedProductsDataList));
+        for (int iter = 0; iter < this.selectedProductsDataList.size(); iter++) {
+            if(this.selectedProductsDataListQty.get(iter).equals("0") || this.selectedProductsDataListQty.get(iter).equals("")) {
+                this.selectedProductsDataListQty.set(iter, "0");
+
+                grossAmount = 0;
+
+
+                for (int i = 0; i < this.selectedProductsDataList.size(); i++) {
+//                                Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+//                                Log.i("qty", selectedProductsDataListQty.get(i));
+                    if (!this.selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !this.selectedProductsDataListQty.get(i).equals(""))
+                        grossAmount += Float.parseFloat(this.selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(this.selectedProductsDataListQty.get(i));
+                }
+                SharedPreferences grossamount = context.getSharedPreferences("grossamount",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor_grossamount = grossamount.edit();
+                editor_grossamount.putString("grossamount", String.valueOf(grossAmount));
+                editor_grossamount.apply();
+                grossAmount = 0;
+
+                this.selectedProductsDataList.remove(iter);
+                this.selectedProductsDataListQty.remove(iter);
+                notifyItemRemoved(iter);
+                notifyItemRangeChanged(iter, this.selectedProductsDataList.size());
+
+                Gson gson = new Gson();
+                String json = gson.toJson(this.selectedProductsDataList);
+                String jsonqty = gson.toJson(this.selectedProductsDataListQty);
+                Log.i("jsonqty", jsonqty);
+                Log.i("json", json);
+
+                SharedPreferences selectedProducts = context.getSharedPreferences("selectedProducts_retailer_own",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = selectedProducts.edit();
+                editor.putString("selected_products", json);
+                editor.putString("selected_products_qty", jsonqty);
+                editor.apply();
+            }
+        }
+        Log.i("selectedProducts", String.valueOf(this.selectedProductsDataList));
     }
 
     public Order_Summary_Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -119,7 +158,7 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(holder.list_numberOFitems.hasFocus()) {
+                if (holder.list_numberOFitems.hasFocus()) {
 //                after = String.valueOf(s);
 ////                if (String.valueOf(s).equals("0")) {
 ////                    Log.i("position to be removed", String.valueOf(finalPosition));
@@ -156,8 +195,46 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
 ////                Log.i("textChanged12", "check");
 ////                Log.i("textChanged11", String.valueOf(s));
                     String str_quantity = String.valueOf(s);
-                    if (String.valueOf(s).equals(""))
+                    if (String.valueOf(s).equals("") || String.valueOf(s).equals("0")) {
                         str_quantity = "0";
+                    }
+
+                    if (String.valueOf(s).equals("0")) {
+                        final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+                        LayoutInflater inflater = LayoutInflater.from(context);
+                        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+                        TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
+                        TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+                        tv_discard_txt.setText("Are you sure, you want to delete this product?");
+                        tv_discard.setText("Delete Product");
+
+                        alertDialog.setView(view_popup);
+                        alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                        WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+                        layoutParams.y = 200;
+                        layoutParams.x = -70;// top margin
+                        alertDialog.getWindow().setAttributes(layoutParams);
+                        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+                        btn_discard.setText("Delete");
+                        btn_discard.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+                                Log.i("CreatePayment", "Button Clicked");
+                                holder.list_numberOFitems.clearFocus();
+                                alertDialog.dismiss();
+                                deleteProduct(holder, finalPosition);
+                            }
+                        });
+
+                        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+                        img_email.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alertDialog.dismiss();
+                            }
+                        });
+
+                        alertDialog.show();
+                    }
 
                     if (holder.list_txt_products_.getText().equals(selectedProductsDataList.get(position).getTitle())) {
 //                    if (Float.parseFloat(str_quantity) <= 0) {
@@ -195,97 +272,8 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
                     public void onClick(View v) {
                         Log.i("CreatePayment", "Button Clicked");
                         alertDialog.dismiss();
+                        deleteProduct(holder, finalPosition);
 
-                        if (selectedProductsDataList.size() > 1) {
-
-                            selectedProductsDataListQty.set(finalPosition, "0");
-                            holder.list_numberOFitems.setText("0");
-                            checkOutEnabler(holder, finalPosition, "0");
-
-                            grossAmount = 0;
-
-
-                            for (int i = 0; i < selectedProductsDataList.size(); i++) {
-//                                Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
-//                                Log.i("qty", selectedProductsDataListQty.get(i));
-                                if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsDataListQty.get(i).equals(""))
-                                    grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsDataListQty.get(i));
-                            }
-                            SharedPreferences grossamount = context.getSharedPreferences("grossamount",
-                                    Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor_grossamount = grossamount.edit();
-                            editor_grossamount.putString("grossamount", String.valueOf(grossAmount));
-                            editor_grossamount.apply();
-                            grossAmount = 0;
-                        }
-
-                        selectedProductsDataList.remove(finalPosition);
-                        selectedProductsDataListQty.remove(finalPosition);
-                        notifyItemRemoved(finalPosition);
-                        notifyItemRangeChanged(finalPosition, selectedProductsDataList.size());
-
-                        Gson gson = new Gson();
-                        String json = gson.toJson(selectedProductsDataList);
-                        String jsonqty = gson.toJson(selectedProductsDataListQty);
-                        Log.i("jsonqty", jsonqty);
-                        Log.i("json", json);
-
-                        SharedPreferences selectedProducts = context.getSharedPreferences("selectedProducts_retailer_own",
-                                Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = selectedProducts.edit();
-                        editor.putString("selected_products", json);
-                        editor.putString("selected_products_qty", jsonqty);
-                        editor.apply();
-
-                        final Dialog fbDialogue = new Dialog(context);
-                        //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
-                        fbDialogue.setContentView(R.layout.password_updatepopup);
-                        TextView tv_pr1, txt_header1;
-                        txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
-                        tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
-                        tv_pr1.setText("Your product has been deleted successfully.");
-                        txt_header1.setText("Product Deleted");
-                        fbDialogue.setCancelable(true);
-                        fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
-                        WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
-                        layoutParams.y = 200;
-                        layoutParams.x = -70;// top margin
-                        fbDialogue.getWindow().setAttributes(layoutParams);
-                        fbDialogue.show();
-
-                        ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
-                        close_button.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                fbDialogue.dismiss();
-                            }
-                        });
-                        fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                            @Override
-                            public void onDismiss(DialogInterface dialog) {
-                                if (selectedProductsDataList.size() <= 0) {
-                                    SharedPreferences add_more_product = context.getSharedPreferences("add_more_product",
-                                            Context.MODE_PRIVATE);
-                                    SharedPreferences.Editor editor1 = add_more_product.edit();
-                                    editor1.putString("add_more_product", "fromAddMore");
-                                    editor1.apply();
-
-                                    SharedPreferences grossamount = context.getSharedPreferences("grossamount",
-                                            Context.MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = grossamount.edit();
-                                    editor.putString("grossamount", String.valueOf(grossAmount));
-                                    editor.apply();
-//                    Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
-                                    grossAmount = 0;
-                                    NonSwipeableViewPager viewPager = activity.findViewById(R.id.view_pager_rpoid);
-                                    viewPager.setCurrentItem(0);
-                                    FragmentTransaction fragmentTransaction = (activity).getSupportFragmentManager().beginTransaction();
-                                    fragmentTransaction.add(R.id.main_container_ret, new Retailer_OrderPlace_retailer_dashboarad());
-                                    fragmentTransaction.addToBackStack(null);
-                                    fragmentTransaction.commit();
-                                }
-                            }
-                        });
 //                checkOutEnabler(holder, finalPosition, false);
 
 
@@ -306,6 +294,99 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
                 });
 
                 alertDialog.show();
+            }
+        });
+    }
+
+    private void deleteProduct(@NonNull final Order_Summary_Adapter.ViewHolder holder, final int finalPosition) {
+        if (selectedProductsDataList.size() > 1) {
+
+            selectedProductsDataListQty.set(finalPosition, "0");
+            holder.list_numberOFitems.setText("0");
+            checkOutEnabler(holder, finalPosition, "0");
+
+            grossAmount = 0;
+
+
+            for (int i = 0; i < selectedProductsDataList.size(); i++) {
+//                                Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+//                                Log.i("qty", selectedProductsDataListQty.get(i));
+                if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsDataListQty.get(i).equals(""))
+                    grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsDataListQty.get(i));
+            }
+            SharedPreferences grossamount = context.getSharedPreferences("grossamount",
+                    Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor_grossamount = grossamount.edit();
+            editor_grossamount.putString("grossamount", String.valueOf(grossAmount));
+            editor_grossamount.apply();
+            grossAmount = 0;
+        }
+
+        selectedProductsDataList.remove(finalPosition);
+        selectedProductsDataListQty.remove(finalPosition);
+        notifyItemRemoved(finalPosition);
+        notifyItemRangeChanged(finalPosition, selectedProductsDataList.size());
+
+        Gson gson = new Gson();
+        String json = gson.toJson(selectedProductsDataList);
+        String jsonqty = gson.toJson(selectedProductsDataListQty);
+        Log.i("jsonqty", jsonqty);
+        Log.i("json", json);
+
+        SharedPreferences selectedProducts = context.getSharedPreferences("selectedProducts_retailer_own",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = selectedProducts.edit();
+        editor.putString("selected_products", json);
+        editor.putString("selected_products_qty", jsonqty);
+        editor.apply();
+
+        final Dialog fbDialogue = new Dialog(context);
+        //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+        fbDialogue.setContentView(R.layout.password_updatepopup);
+        TextView tv_pr1, txt_header1;
+        txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
+        tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
+        tv_pr1.setText("Your product has been deleted successfully.");
+        txt_header1.setText("Product Deleted");
+        fbDialogue.setCancelable(true);
+        fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+        WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+        layoutParams.y = 200;
+        layoutParams.x = -70;// top margin
+        fbDialogue.getWindow().setAttributes(layoutParams);
+        fbDialogue.show();
+
+        ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+        close_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fbDialogue.dismiss();
+            }
+        });
+        fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                if (selectedProductsDataList.size() <= 0) {
+                    SharedPreferences add_more_product = context.getSharedPreferences("add_more_product",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor1 = add_more_product.edit();
+                    editor1.putString("add_more_product", "fromAddMore");
+                    editor1.apply();
+
+                    SharedPreferences grossamount = context.getSharedPreferences("grossamount",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = grossamount.edit();
+                    editor.putString("grossamount", String.valueOf(grossAmount));
+                    editor.apply();
+//                    Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
+                    grossAmount = 0;
+                    NonSwipeableViewPager viewPager = activity.findViewById(R.id.view_pager_rpoid);
+                    viewPager.setCurrentItem(0);
+                    FragmentTransaction fragmentTransaction = (activity).getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.add(R.id.main_container_ret, new Retailer_OrderPlace_retailer_dashboarad());
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
             }
         });
     }

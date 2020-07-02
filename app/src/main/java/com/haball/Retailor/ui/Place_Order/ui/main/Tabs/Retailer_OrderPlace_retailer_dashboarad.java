@@ -129,15 +129,21 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
         myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
         btn_checkout = view.findViewById(R.id.btn_checkout);
         btn_close = view.findViewById(R.id.close_button);
+
         btn_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (selectedProductsDataList == null || selectedProductsDataList.size() == 0) {
+                SharedPreferences orderCheckout = getContext().getSharedPreferences("orderCheckout",
+                        Context.MODE_PRIVATE);
+                Gson gson = new Gson();
+                String orderCheckedOut = orderCheckout.getString("orderCheckout", "");
+
+                if (orderCheckedOut.equals("orderCheckout")) {
+                    showDiscardDialog();
+                } else {
                     fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("tag");
                     fragmentTransaction.commit();
-                } else {
-                    showDiscardDialog();
                 }
             }
         });
@@ -376,6 +382,12 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                 editorOrderTabsFromDraft.putString("TabNo", "0");
                 editorOrderTabsFromDraft.apply();
 
+                SharedPreferences orderCheckout = getContext().getSharedPreferences("orderCheckout",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor orderCheckout_editor = orderCheckout.edit();
+                orderCheckout_editor.putString("orderCheckout", "");
+                orderCheckout_editor.apply();
+
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("tag");
                 fragmentTransaction.commit();
@@ -481,6 +493,11 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                 btn_checkout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        SharedPreferences orderCheckout = getContext().getSharedPreferences("orderCheckout",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor orderCheckout_editor = orderCheckout.edit();
+                        orderCheckout_editor.putString("orderCheckout", "orderCheckout");
+                        orderCheckout_editor.apply();
                         NonSwipeableViewPager viewPager = getActivity().findViewById(R.id.view_pager_rpoid);
                         SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
                                 Context.MODE_PRIVATE);

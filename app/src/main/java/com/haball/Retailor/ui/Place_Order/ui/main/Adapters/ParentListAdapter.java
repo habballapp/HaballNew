@@ -132,7 +132,7 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(orderChildList_vh.list_numberOFitems.hasFocus()) {
+                if (orderChildList_vh.list_numberOFitems.hasFocus()) {
                     String str_quantity = String.valueOf(s);
                     Log.i("textChanged12", "check");
                     Log.i("textChanged11", "'" + String.valueOf(s) + "'");
@@ -219,7 +219,11 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
             Log.i("debugOrder_seldata_ind", String.valueOf(foundIndex));
 
             if (foundIndex != -1) {
-                selectedProductsQuantityList.set(foundIndex, String.valueOf(s));
+//                if (String.valueOf(s).equals("") || String.valueOf(s).equals("0")) {
+//
+//                } else {
+                    selectedProductsQuantityList.set(foundIndex, String.valueOf(s));
+//                }
             } else {
                 Log.i("debugOrder_seldata_cont", String.valueOf(orderChildlist_model));
                 if (!String.valueOf(holder.list_numberOFitems.getText()).equals("0") && !String.valueOf(holder.list_numberOFitems.getText()).equals("")) {

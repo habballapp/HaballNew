@@ -347,5 +347,7 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
     <string name="txt_pop_update_pass">It is recommended to change the default generated password. Are you sure, you want to skip? </string>
     <string name="txt_popup_tick_create">Your Ticket ID 651321 has been created successfully, Our customer support officer will contact you shortly. </string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
-
+    <string name="retailer_production_server">https://retailer.haball.pk</string>
+    <string name="retailer_qa_server">http://http://175.107.203.97:4014</string>
+    <string name="retailer_server">https://retailer.haball.pk</string>
 </resources>

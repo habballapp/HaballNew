@@ -97,6 +97,7 @@ public class PlaceholderFragment extends Fragment {
     private TextInputLayout layout_ntn, layout_mobile_no, layout_email_address, layout_cnic_no, layout_txt_address;
     private String object_string;
     private Typeface myFont;
+    private String DealerCode = "";
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -229,6 +230,7 @@ public class PlaceholderFragment extends Fragment {
                                 ex.printStackTrace();
                             }
                             Company_selected = company_names.get(i);
+
                             spinner_retailer_details.setVisibility(View.VISIBLE);
 //                            try {
 //                                Toast.makeText(getContext(), "Retailer Code: " + companies.get(Company_selected) + "\nCompany Name: " + Company_selected, Toast.LENGTH_LONG).show();
@@ -328,11 +330,31 @@ public class PlaceholderFragment extends Fragment {
                 CompanyList = gson.fromJson(object_string, type);
                 Log.i("CompanyList", String.valueOf(CompanyList));
                 try {
+                    String CompanyNameDraft = "";
+                    SharedPreferences selectedProductsSP = getContext().getSharedPreferences("FromDraft",
+                            Context.MODE_PRIVATE);
+                    if (selectedProductsSP.getString("fromDraft", "").equals("draft")) {
+                        SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
+                                Context.MODE_PRIVATE);
+                        CompanyNameDraft = selectedProducts.getString("CompanyName", "");
+                        SharedPreferences.Editor editor = selectedProducts.edit();
+                        editor.putString("CompanyName", "");
+                        editor.apply();
+                    }
+
                     JSONObject jsonObject = null;
                     for (int i = 0; i < result.length(); i++) {
                         jsonObject = result.getJSONObject(i);
                         company_names.add(jsonObject.getString("CompanyName"));
                         companies.put(jsonObject.getString("CompanyName"), jsonObject.getString("DealerCode"));
+
+                        if(CompanyNameDraft.equals(jsonObject.getString("CompanyName"))) {
+                            SharedPreferences retailerInfo = getContext().getSharedPreferences("DealerInfo",
+                                    Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = retailerInfo.edit();
+                            editor.putString("DealerCode", jsonObject.getString("DealerCode"));
+                            editor.apply();
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

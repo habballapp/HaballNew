@@ -163,7 +163,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
 //            }
 //        });
 
-        tv_shipment_no_data.setVisibility(View.VISIBLE);
+//        tv_shipment_no_data.setVisibility(View.VISIBLE);
 //        loader =  root.findViewById(R.id.loader);
         tv_shipment_no_data.setVisibility(View.GONE);
 //        loader.setVisibility(View.VISIBLE);
@@ -686,6 +686,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
             @Override
             public void onResponse(JSONArray response) {
                 loader.hideLoader();
+                byDefaultStatus = false;
                 try {
                     Log.i("onResponse => SUPPORT ", "" + response.get(0).toString());
                 } catch (JSONException e) {
@@ -703,12 +704,10 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                     totalEntries = Double.parseDouble(String.valueOf(recordCountObj.getString("RecordCount")));
                     totalPages = Math.ceil(totalEntries / 10);
                     Log.i("recordCountObj_123", String.valueOf(response));
-
+                    Log.i("SupportSize_1", String.valueOf(SupportList.size()));
                     if (SupportList.size() != 0) {
                         tv_shipment_no_data.setVisibility(View.GONE);
-
                     } else {
-
                         tv_shipment_no_data.setVisibility(View.VISIBLE);
                     }
                 } catch (JSONException e) {
@@ -717,23 +716,23 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
 
                 mAdapter = new SupportDashboardRetailerAdapter(getContext(), SupportList);
                 recyclerView.setAdapter(mAdapter);
-
-                if (SupportList.size() < 5) {
-                    if (spinner_container_main.getVisibility() == View.GONE) {
-
-                        spinner_container_main.setVisibility(View.VISIBLE);
-                        TranslateAnimation animate1 = new TranslateAnimation(
-                                0,                 // fromXDelta
-                                0,                 // toXDelta
-                                -spinner_container_main.getHeight(),  // fromYDelta
-                                0);                // toYDelta
-                        animate1.setDuration(250);
-                        animate1.setFillAfter(true);
-                        spinner_container_main.clearAnimation();
-                        spinner_container_main.startAnimation(animate1);
-
-                    }
-                }
+//
+//                if (SupportList.size() < 5) {
+//                    if (spinner_container_main.getVisibility() == View.GONE) {
+//
+//                        spinner_container_main.setVisibility(View.VISIBLE);
+//                        TranslateAnimation animate1 = new TranslateAnimation(
+//                                0,                 // fromXDelta
+//                                0,                 // toXDelta
+//                                -spinner_container_main.getHeight(),  // fromYDelta
+//                                0);                // toYDelta
+//                        animate1.setDuration(250);
+//                        animate1.setFillAfter(true);
+//                        spinner_container_main.clearAnimation();
+//                        spinner_container_main.startAnimation(animate1);
+//
+//                    }
+//                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -791,15 +790,13 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                     List<SupportDashboardRetailerModel> supportDashboardRetailerModel = new ArrayList<>();
                     supportDashboardRetailerModel = gson.fromJson(String.valueOf(response.get(0)), type);
                     SupportList.addAll(supportDashboardRetailerModel);
+                    Log.i("SupportSize_2", String.valueOf(SupportList.size()));
 
                     if (SupportList.size() != 0) {
                         tv_shipment_no_data.setVisibility(View.GONE);
-
                     } else {
-
                         tv_shipment_no_data.setVisibility(View.VISIBLE);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -807,22 +804,22 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
 //                mAdapter = new SupportDashboardRetailerAdapter(getContext(), SupportList);
 //                recyclerView.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
-
-                if (SupportList.size() < 4) {
-                    if (spinner_container_main.getVisibility() == View.GONE) {
-
-                        spinner_container_main.setVisibility(View.VISIBLE);
-                        TranslateAnimation animate1 = new TranslateAnimation(
-                                0,                 // fromXDelta
-                                0,                 // toXDelta
-                                -spinner_container_main.getHeight(),  // fromYDelta
-                                0);                // toYDelta
-                        animate1.setDuration(250);
-                        animate1.setFillAfter(true);
-                        spinner_container_main.clearAnimation();
-                        spinner_container_main.startAnimation(animate1);
-                    }
-                }
+//
+//                if (SupportList.size() < 4) {
+//                    if (spinner_container_main.getVisibility() == View.GONE) {
+//
+//                        spinner_container_main.setVisibility(View.VISIBLE);
+//                        TranslateAnimation animate1 = new TranslateAnimation(
+//                                0,                 // fromXDelta
+//                                0,                 // toXDelta
+//                                -spinner_container_main.getHeight(),  // fromYDelta
+//                                0);                // toYDelta
+//                        animate1.setDuration(250);
+//                        animate1.setFillAfter(true);
+//                        spinner_container_main.clearAnimation();
+//                        spinner_container_main.startAnimation(animate1);
+//                    }
+//                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -874,12 +871,11 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 }.getType();
                 try {
                     SupportList = gson.fromJson(String.valueOf(response.get(0)), type);
+                    Log.i("SupportSize_3", String.valueOf(SupportList.size()));
 
                     if (SupportList.size() != 0) {
                         tv_shipment_no_data.setVisibility(View.GONE);
-
                     } else {
-
                         tv_shipment_no_data.setVisibility(View.VISIBLE);
                     }
 
@@ -889,22 +885,22 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
 
                 mAdapter = new SupportDashboardRetailerAdapter(getContext(), SupportList);
                 recyclerView.setAdapter(mAdapter);
-
-                if (SupportList.size() < 4) {
-                    if (spinner_container_main.getVisibility() == View.GONE) {
-
-                        spinner_container_main.setVisibility(View.VISIBLE);
-                        TranslateAnimation animate1 = new TranslateAnimation(
-                                0,                 // fromXDelta
-                                0,                 // toXDelta
-                                -spinner_container_main.getHeight(),  // fromYDelta
-                                0);                // toYDelta
-                        animate1.setDuration(250);
-                        animate1.setFillAfter(true);
-                        spinner_container_main.clearAnimation();
-                        spinner_container_main.startAnimation(animate1);
-                    }
-                }
+//
+//                if (SupportList.size() < 4) {
+//                    if (spinner_container_main.getVisibility() == View.GONE) {
+//
+//                        spinner_container_main.setVisibility(View.VISIBLE);
+//                        TranslateAnimation animate1 = new TranslateAnimation(
+//                                0,                 // fromXDelta
+//                                0,                 // toXDelta
+//                                -spinner_container_main.getHeight(),  // fromYDelta
+//                                0);                // toYDelta
+//                        animate1.setDuration(250);
+//                        animate1.setFillAfter(true);
+//                        spinner_container_main.clearAnimation();
+//                        spinner_container_main.startAnimation(animate1);
+//                    }
+//                }
             }
         }, new Response.ErrorListener() {
             @Override

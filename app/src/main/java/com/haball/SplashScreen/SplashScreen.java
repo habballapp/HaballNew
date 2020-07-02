@@ -70,11 +70,11 @@ public class SplashScreen extends AppCompatActivity {
             public void run() {
 //                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("LoginToken",
 //                        Context.MODE_PRIVATE);
-//                Intent intent1 = new Intent(SplashScreen.this, Retailer_UpdatePassword.class);
+////                Intent intent1 = new Intent(SplashScreen.this, Retailer_UpdatePassword.class);
 //                Intent intent1 = new Intent(SplashScreen.this, Retailer_TermsAndConditionsFragment.class);
 //                startActivity(intent1);
 //                finish();
-//
+
 
                 SharedPreferences selectedProducts = getSharedPreferences("selectedProducts_retailer",
                         Context.MODE_PRIVATE);
