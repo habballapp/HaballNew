@@ -157,6 +157,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         company_names = "";
 
         if (MenuItem.equals("View")) {
+            btn_update.setText("Back");
             txt_amount.setEnabled(false);
             spinner_companyName.setEnabled(false);
             spinner_companyName.setClickable(false);
@@ -218,20 +219,20 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         spinner_companyName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                try {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                    ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                    ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
-                } catch (NullPointerException ex) {
-                    ex.printStackTrace();
-                }
-                company_names = CompanyNames.get(i);
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+                    company_names = CompanyNames.get(i);
+                    checkFieldsForEmptyValues();
 //                Log.i("company name and id ", companyNameAndId.get(company_names));
-                checkFieldsForEmptyValues();
-                if (company_names.equals("Select Company") || company_names.equals(CompanyName))
-                    btn_update.setText("Back");
-                else
-                    btn_update.setText("Update");
+//                if (company_names.equals("Select Company") || company_names.equals(CompanyName))
+//                    btn_update.setText("Back");
+//                else
+//                    btn_update.setText("Update");
             }
 
             @Override
@@ -253,13 +254,14 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (!String.valueOf(txt_amount.getText()).equals("") && !String.valueOf(txt_amount.getText()).equals(Amount))
-                    btn_update.setText("Update");
-                else
-                    btn_update.setText("Back");
-                Log.i("PaymentAmountDebug", String.valueOf(txt_amount.getText()));
-                checkFieldsForEmptyValues();
-
+                if(txt_amount.hasFocus()) {
+//                if (!String.valueOf(txt_amount.getText()).equals("") && !String.valueOf(txt_amount.getText()).equals(Amount))
+//                    btn_update.setText("Update");
+//                else
+//                    btn_update.setText("Back");
+                    Log.i("PaymentAmountDebug", String.valueOf(txt_amount.getText()));
+                    checkFieldsForEmptyValues();
+                }
             }
         });
 
@@ -471,19 +473,33 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
     private void checkFieldsForEmptyValues() {
         String txt_amounts = txt_amount.getText().toString();
         String company = (String) spinner_companyName.getItemAtPosition(spinner_companyName.getSelectedItemPosition()).toString();
-        if ((!txt_amounts.equals("")
-                && !txt_amounts.equals(Amount))
-                || (!company.equals("Select Company") && !company.equals(CompanyName))
+        Log.i("DebugEditPayment", txt_amounts);
+        Log.i("DebugEditPayment", Amount);
+        Log.i("DebugEditPayment", company);
+        Log.i("DebugEditPayment", CompanyName);
+        if ((!txt_amounts.equals(Amount)) || (!company.equals(CompanyName))
 
         ) {
             btn_update.setText("Update");
-//            btn_update.setEnabled(true);
-//            btn_update.setBackground(getResources().getDrawable(R.drawable.button_background));
+//        } else if ((txt_amounts.equals(Amount)) && (company.equals(CompanyName))) {
+//            if(!String.valueOf(btn_update.getText()).equals("Back")) {
+//                btn_update.setEnabled(false);
+//                btn_update.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+//            }
+        }
+
+
+        if ((!txt_amounts.equals("")) && (!company.equals("Select Company"))) {
+//            btn_update.setText("Update");
+            btn_update.setEnabled(true);
+            btn_update.setBackground(getResources().getDrawable(R.drawable.button_background));
 
         } else {
-            btn_update.setText("Back");
-//            btn_update.setEnabled(false);
-//            btn_update.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+//            btn_update.setText("Back");
+            if (!String.valueOf(btn_update.getText()).equals("Back")) {
+                btn_update.setEnabled(false);
+                btn_update.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+            }
         }
     }
 
@@ -623,6 +639,15 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
                     Log.i("Debugging", String.valueOf(CompanyName));
 //        int spinnerPosition = arrayAdapterPayments.getPosition(CompanyName);
                     spinner_companyName.setSelection(CompanyNames.indexOf(CompanyName));
+                    company_names = CompanyName;
+
+                    btn_update.setText("Back");
+                    if (MenuItem.equals("View")) {
+                        txt_amount.setEnabled(false);
+                        spinner_companyName.setEnabled(false);
+                        spinner_companyName.setClickable(false);
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

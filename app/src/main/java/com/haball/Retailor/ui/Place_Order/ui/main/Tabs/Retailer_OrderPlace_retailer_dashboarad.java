@@ -409,16 +409,23 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     // handle back button's click listener
 //                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
-
-                    SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
-                            Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
-                    editorOrderTabsFromDraft.putString("TabNo", "0");
-                    editorOrderTabsFromDraft.apply();
-
-                    Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
-                    ((FragmentActivity) getContext()).startActivity(login_intent);
-                    ((FragmentActivity) getContext()).finish();
+//
+                    if (selectedProductsDataList == null || selectedProductsDataList.size() == 0) {
+                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("null");
+                        fragmentTransaction.commit();
+                    } else {
+                        showDiscardDialog();
+                    }
+//                    SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+//                            Context.MODE_PRIVATE);
+//                    SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+//                    editorOrderTabsFromDraft.putString("TabNo", "0");
+//                    editorOrderTabsFromDraft.apply();
+//
+//                    Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+//                    ((FragmentActivity) getContext()).startActivity(login_intent);
+//                    ((FragmentActivity) getContext()).finish();
                 }
                 return false;
             }
