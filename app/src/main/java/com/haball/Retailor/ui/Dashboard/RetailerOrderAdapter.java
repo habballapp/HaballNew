@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -66,6 +67,19 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
 
     @Override
     public void onBindViewHolder(@NonNull RetailerOrderAdapter.ViewHolder holder, final int position) {
+        if (OrderList.size() <= 3) {
+            if (position == (OrderList.size() - 1)) {
+//        if (position == 2) {
+                Log.i("DebugSupportFilter_In", OrderList.get(position).getOrderNumber());
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT
+                );
+                params.setMargins(0, 50, 0, 350);
+                holder.main_layout_order_box_retailer.setLayoutParams(params);
+            }
+        }
+
 //        holder.tv_heading.setText(heading);
 //        holder.order_no_value.setText(order_no_value);
 //        holder.tv_status.setText(status);
@@ -311,6 +325,7 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_heading, order_no_value, tv_status, tv_amount;
+        public RelativeLayout main_layout_order_box_retailer;
         public ImageButton menu_btn;
 
         public ViewHolder(@NonNull View itemView) {
@@ -320,6 +335,7 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
             tv_status = itemView.findViewById(R.id.status_value);
             tv_amount = itemView.findViewById(R.id.amount_value);
             menu_btn = itemView.findViewById(R.id.menu_btn_orders);
+            main_layout_order_box_retailer = itemView.findViewById(R.id.main_layout_order_box_retailer);
         }
     }
 

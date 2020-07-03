@@ -66,8 +66,8 @@ public class PaymentJazzCashApi extends Fragment {
     private Button btn_create;
 
     //    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "https://retailer.haball.pk/api/kyc/KYCDistributorList";
-//    private String URL_PAYMENT_REQUESTS_GET_DATA = "https://retailer.haball.pk/api/payaxis/PrePaidPay/";
-    private String URL_PAYMENT_REQUESTS_GET_DATA = "http://175.107.203.97:4014/api/payaxis/PrePaidPay/359934761903956";
+    private String URL_PAYMENT_REQUESTS_GET_DATA = "https://retailer.haball.pk/api/payaxis/PrePaidPay/";
+//    private String URL_PAYMENT_REQUESTS_GET_DATA = "http://175.107.203.97:4014/api/payaxis/PrePaidPay/359934761903956";
     private String URL_Jazz_Cash_Transaction = "https://sandbox.jazzcash.com.pk/Sandbox/HomeV20/DoTransactionMWallet";
     private String URL_RegenerateTxnReference = "https://sandbox.jazzcash.com.pk/Sandbox/HomeV20/RegenerateGenerateTxnReference";
     private String URL_Calculate_Secure_Hash = "https://sandbox.jazzcash.com.pk/Sandbox/HomeV20/CalculateSecureHash";
@@ -142,7 +142,11 @@ public class PaymentJazzCashApi extends Fragment {
         new TextField().changeColor(getContext(), layout_txt_account_no, txt_account_no);
         new TextField().changeColor(getContext(), layout_txt_cnic, txt_cnic);
         new TextField().changeColor(getContext(), layout_txt_otp, txt_otp);
-
+        SharedPreferences JazzCash = ((FragmentActivity) getContext()).getSharedPreferences("PaymentId",
+                Context.MODE_PRIVATE);
+        String payment_number = JazzCash.getString("PrePaidNumber", "");
+        if(!URL_PAYMENT_REQUESTS_GET_DATA.contains("/" + payment_number))
+            URL_PAYMENT_REQUESTS_GET_DATA = URL_PAYMENT_REQUESTS_GET_DATA + payment_number;
         getJazzCashData();
 
         txt_cnic.addTextChangedListener(new TextWatcher() {
@@ -327,6 +331,7 @@ public class PaymentJazzCashApi extends Fragment {
     }
 
     private void getJazzCashData() {
+        loader.showLoader();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -396,8 +401,8 @@ public class PaymentJazzCashApi extends Fragment {
                     pp_MobileNumber = sharedPreferences_retailer.getString("phone_number", "");
                     pp_CNIC = sharedPreferences_retailer.getString("cnic", "");
                     pp_CNIC = pp_CNIC.substring(pp_CNIC.length() - 6);
-//                    txt_cnic.setText(pp_CNIC);
-                    txt_cnic.setText("345678");
+                    txt_cnic.setText(pp_CNIC);
+//                    txt_cnic.setText("345678");
 //
 //                    layout_transaction_charges = root.findViewById(R.id.layout_transaction_charges);
 //                    txt_total_amount = root.findViewById(R.id.txt_total_amount);
@@ -433,7 +438,7 @@ public class PaymentJazzCashApi extends Fragment {
             }
         };
         sr.setRetryPolicy(new DefaultRetryPolicy(
-                15000,
+                1500000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);

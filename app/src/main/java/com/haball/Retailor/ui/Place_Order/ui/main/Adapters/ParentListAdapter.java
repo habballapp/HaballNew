@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -36,13 +37,17 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
     private List<OrderParentlist_Model> parentItemList;
     private RelativeLayout filter_layout;
     private OrderParentLIst_VH orderParentLIst_VH_main;
+    private Button btn_checkout;
+    private double Quantity = 0;
 
-    public ParentListAdapter(Context context, List<OrderParentlist_Model> parentItemList, RelativeLayout filter_layout) {
+    public ParentListAdapter(Context context, List<OrderParentlist_Model> parentItemList, RelativeLayout filter_layout, Button btn_checkout) {
         super(parentItemList);
         inflater = LayoutInflater.from(context);
         this.context = context;
         this.parentItemList = parentItemList;
         this.filter_layout = filter_layout;
+        this.btn_checkout = btn_checkout;
+
 
         SharedPreferences selectedProducts = context.getSharedPreferences("selectedProducts_retailer_own",
                 Context.MODE_PRIVATE);
@@ -60,6 +65,26 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
             Log.i("debugOrder_selProd", String.valueOf(object_string));
         }
 
+        Quantity = 0;
+        for(int i = 0; i < selectedProductsQuantityList.size(); i++) {
+            Quantity = Quantity + Float.parseFloat(selectedProductsQuantityList.get(i));
+        }
+        if(Quantity > 0) {
+            enableCheckoutButton();
+        } else {
+            disableCheckoutButton();
+        }
+
+    }
+
+    private void enableCheckoutButton() {
+        btn_checkout.setEnabled(true);
+        btn_checkout.setBackgroundResource(R.drawable.button_round);
+    }
+
+    private void disableCheckoutButton() {
+        btn_checkout.setEnabled(false);
+        btn_checkout.setBackgroundResource(R.drawable.button_grey_round);
     }
 
     @Override
@@ -256,6 +281,17 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
         editor.putString("selected_products", json);
         editor.putString("selected_products_qty", jsonqty);
         editor.apply();
+
+        Quantity = 0;
+        for(int i = 0; i < selectedProductsQuantityList.size(); i++) {
+            Quantity = Quantity + Float.parseFloat(selectedProductsQuantityList.get(i));
+        }
+        if(Quantity > 0) {
+            enableCheckoutButton();
+        } else {
+            disableCheckoutButton();
+        }
+
     }
 
 

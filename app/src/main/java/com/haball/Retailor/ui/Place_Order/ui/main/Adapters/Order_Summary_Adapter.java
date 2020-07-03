@@ -49,15 +49,21 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
     private List<OrderChildlist_Model> selectedProductsDataList;
     private List<String> selectedProductsDataListQty;
     private float grossAmount = 0;
-//    private String before = "", after = "";
+    //    private String before = "", after = "";
+    private Button btn_draft;
+    private Button btn_confirm;
+    private double Quantity = 0;
 
-    public Order_Summary_Adapter(FragmentActivity activity, Context context, List<OrderChildlist_Model> selectedProductsDataList, List<String> selectedProductsDataListQty) {
+    public Order_Summary_Adapter(FragmentActivity activity, Context context, List<OrderChildlist_Model> selectedProductsDataList, List<String> selectedProductsDataListQty, Button btn_confirm, Button btn_draft) {
         this.context = context;
         this.activity = activity;
         this.selectedProductsDataList = selectedProductsDataList;
         this.selectedProductsDataListQty = selectedProductsDataListQty;
+        this.btn_draft = btn_draft;
+        this.btn_confirm = btn_confirm;
+
         for (int iter = 0; iter < this.selectedProductsDataList.size(); iter++) {
-            if(this.selectedProductsDataListQty.get(iter).equals("0") || this.selectedProductsDataListQty.get(iter).equals("")) {
+            if (this.selectedProductsDataListQty.get(iter).equals("0") || this.selectedProductsDataListQty.get(iter).equals("")) {
                 this.selectedProductsDataListQty.set(iter, "0");
 
                 grossAmount = 0;
@@ -95,7 +101,31 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
                 editor.apply();
             }
         }
+
+        Quantity = 0;
+        for(int i = 0; i < this.selectedProductsDataListQty.size(); i++) {
+            Quantity = Quantity + Float.parseFloat(this.selectedProductsDataListQty.get(i));
+        }
+        if(Quantity > 0) {
+            enableCheckoutButton();
+        } else {
+            disableCheckoutButton();
+        }
         Log.i("selectedProducts", String.valueOf(this.selectedProductsDataList));
+    }
+
+    private void enableCheckoutButton() {
+        btn_confirm.setEnabled(true);
+        btn_confirm.setBackgroundResource(R.drawable.button_round);
+        btn_draft.setEnabled(true);
+        btn_draft.setBackgroundResource(R.drawable.button_round);
+    }
+
+    private void disableCheckoutButton() {
+        btn_confirm.setEnabled(false);
+        btn_confirm.setBackgroundResource(R.drawable.button_grey_round);
+        btn_draft.setEnabled(false);
+        btn_draft.setBackgroundResource(R.drawable.button_grey_round);
     }
 
     public Order_Summary_Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -567,6 +597,16 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
             editor_grossamount.putString("grossamount", String.valueOf(grossAmount));
             editor_grossamount.apply();
             grossAmount = 0;
+        }
+
+        Quantity = 0;
+        for(int i = 0; i < this.selectedProductsDataListQty.size(); i++) {
+            Quantity = Quantity + Float.parseFloat(this.selectedProductsDataListQty.get(i));
+        }
+        if(Quantity > 0) {
+            enableCheckoutButton();
+        } else {
+            disableCheckoutButton();
         }
 
     }

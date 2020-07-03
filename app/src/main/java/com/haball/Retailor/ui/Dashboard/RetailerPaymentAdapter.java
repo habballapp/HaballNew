@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,6 +70,19 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
 
     @Override
     public void onBindViewHolder(@NonNull RetailerPaymentAdapter.ViewHolder holder, final int position) {
+        if (paymentsList.size() <= 3) {
+            if (position == (paymentsList.size() - 1)) {
+//        if (position == 2) {
+                Log.i("DebugSupportFilter_In", paymentsList.get(position).getInvoiceNumber());
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT
+                );
+                params.setMargins(0, 50, 0, 350);
+                holder.main_layout_payment_box_retailer.setLayoutParams(params);
+            }
+        }
+
         holder.tv_heading.setText(paymentsList.get(position).getCompanyName());
         holder.tv_payment_id.setText(paymentsList.get(position).getInvoiceNumber());
 
@@ -470,6 +484,7 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tv_heading, tv_payment_id, tv_status, tv_amount;
+        public RelativeLayout main_layout_payment_box_retailer;
         public ImageButton menu_btn;
 
         public ViewHolder(@NonNull View itemView) {
@@ -479,16 +494,7 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
             tv_status = itemView.findViewById(R.id.status_value);
             tv_amount = itemView.findViewById(R.id.amount_value);
             menu_btn = itemView.findViewById(R.id.menu_btn);
-
+            main_layout_payment_box_retailer = itemView.findViewById(R.id.main_layout_payment_box_retailer);
         }
-    }
-
-    private static class ViewUtil {
-        @SuppressWarnings("unused")
-        public static int dp2px(int dp) {
-            float density = Resources.getSystem().getDisplayMetrics().density;
-            return Math.round(dp * density);
-        }
-
     }
 }

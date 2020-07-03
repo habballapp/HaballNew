@@ -1,109 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/main_layout_payment_box_retailer"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="20dp"
-    android:paddingRight="5dp"
-    android:paddingTop="20dp"
-    android:paddingBottom="20dp"
+    android:layout_marginTop="20dp"
     android:background="@drawable/edit_text_squared"
-    android:layout_marginTop="20dp">
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingTop="20dp"
+    android:paddingRight="5dp"
+    android:paddingBottom="20dp">
 
     <LinearLayout
         android:id="@+id/ll_heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="3">
+
         <TextView
             android:id="@+id/heading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="@dimen/rv_box_heading_size"
-            android:fontFamily="@font/open_sans_semibold"
             android:layout_weight="0.5"
+            android:fontFamily="@font/open_sans_semibold"
+            android:text=""
             android:textColor="@color/rv_box_color"
-            />
+            android:textSize="@dimen/rv_box_heading_size" />
+
         <ImageButton
             android:id="@+id/menu_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2.5"
-            android:src="@drawable/ic_more_vert_black_24dp"
             android:background="@null"
-            android:textSize="18sp"
+            android:src="@drawable/ic_more_vert_black_24dp"
             android:textColor="#676a6c"
-            />
+            android:textSize="18sp" />
     </LinearLayout>
+
     <TextView
         android:id="@+id/payment_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_heading"
         android:layout_marginTop="15dp"
-        android:text="Payment ID:"
-        android:textSize="@dimen/rv_box_text_size"
         android:layout_marginBottom="5dp"
         android:fontFamily="@font/open_sans"
+        android:text="Payment ID:"
         android:textColor="@color/rv_box_color"
-        />
+        android:textSize="@dimen/rv_box_text_size" />
+
     <TextView
         android:id="@+id/payment_id_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_heading"
-        android:layout_marginTop="15dp"
-        android:text="51247895354254780369"
-        android:textSize="@dimen/rv_box_text_size"
         android:layout_marginLeft="5dp"
+        android:layout_marginTop="15dp"
         android:layout_toRightOf="@+id/payment_id"
         android:fontFamily="@font/open_sans"
+        android:text="51247895354254780369"
         android:textColor="@color/rv_box_color"
-        />
+        android:textSize="@dimen/rv_box_text_size" />
+
     <TextView
         android:id="@+id/tv_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/payment_id"
         android:layout_marginBottom="5dp"
-        android:text="Amount: "
-        android:textSize="@dimen/rv_box_text_size"
         android:fontFamily="@font/open_sans"
+        android:text="Amount: "
         android:textColor="@color/rv_box_color"
-        />
+        android:textSize="@dimen/rv_box_text_size" />
+
     <TextView
         android:id="@+id/amount_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/payment_id"
-        android:text="PKR 600,000.00"
-        android:textSize="@dimen/rv_box_text_size"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/tv_amount"
         android:fontFamily="@font/open_sans"
+        android:text="PKR 600,000.00"
         android:textColor="@color/rv_box_color"
-        />
+        android:textSize="@dimen/rv_box_text_size" />
+
     <TextView
         android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_amount"
-        android:text="Status: "
-        android:textSize="@dimen/rv_box_text_size"
         android:fontFamily="@font/open_sans"
+        android:text="Status: "
         android:textColor="@color/rv_box_color"
-        />
+        android:textSize="@dimen/rv_box_text_size" />
+
     <TextView
         android:id="@+id/status_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_amount"
-        android:text="Paid"
-        android:layout_toRightOf="@+id/status"
-        android:textSize="@dimen/rv_box_text_size"
         android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/status"
         android:fontFamily="@font/open_sans"
+        android:text="Paid"
         android:textColor="@color/rv_box_color"
-        />
+        android:textSize="@dimen/rv_box_text_size" />
 
 </RelativeLayout>

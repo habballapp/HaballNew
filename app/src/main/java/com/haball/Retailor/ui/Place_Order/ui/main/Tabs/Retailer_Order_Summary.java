@@ -250,7 +250,7 @@ public class Retailer_Order_Summary extends Fragment {
         layoutManager1 = new LinearLayoutManager(getContext());
         recyclerView1.setLayoutManager(layoutManager1);
 
-        mAdapter1 = new Order_Summary_Adapter(getActivity(), getContext(), selectedProductsDataList, selectedProductsQuantityList);
+        mAdapter1 = new Order_Summary_Adapter(getActivity(), getContext(), selectedProductsDataList, selectedProductsQuantityList, btn_confirm, btn_draft);
         recyclerView1.setAdapter(mAdapter1);
         recyclerView1.setNestedScrollingEnabled(false);
 //
@@ -783,19 +783,19 @@ public class Retailer_Order_Summary extends Fragment {
 //        float gstAmount = (Float.parseFloat(grossamount.getString("grossamount", "")) * 17) / 100;
         float gstAmount = 0;
         totalAmount = Float.parseFloat(grossamount.getString("grossamount", "0")) + gstAmount;
-        if (totalAmount <= 0) {
-            btn_draft.setEnabled(false);
-            btn_draft.setBackgroundResource(R.drawable.button_grey_round);
-            btn_confirm.setEnabled(false);
-            btn_confirm.setBackgroundResource(R.drawable.button_grey_round);
-
-        } else {
-            btn_draft.setEnabled(true);
-            btn_draft.setBackgroundResource(R.drawable.button_round);
-            btn_confirm.setEnabled(true);
-            btn_confirm.setBackgroundResource(R.drawable.button_round);
-
-        }
+//        if (totalAmount <= 0) {
+//            btn_draft.setEnabled(false);
+//            btn_draft.setBackgroundResource(R.drawable.button_grey_round);
+//            btn_confirm.setEnabled(false);
+//            btn_confirm.setBackgroundResource(R.drawable.button_grey_round);
+//
+//        } else {
+//            btn_draft.setEnabled(true);
+//            btn_draft.setBackgroundResource(R.drawable.button_round);
+//            btn_confirm.setEnabled(true);
+//            btn_confirm.setBackgroundResource(R.drawable.button_round);
+//
+//        }
 //        float grossAmount = 0;
 //        if(selectedProductsDataList != null) {
 //            if (selectedProductsDataList.size() > 0) {

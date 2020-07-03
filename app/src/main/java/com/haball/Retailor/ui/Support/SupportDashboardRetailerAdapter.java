@@ -86,15 +86,17 @@ public class SupportDashboardRetailerAdapter extends RecyclerView.Adapter<Suppor
         Log.i("DebugSupportFilter", supportList.get(position).getIssueType());
         Log.i("DebugSupportFilter_1", String.valueOf(position));
         Log.i("DebugSupportFilter_2", String.valueOf((supportList.size() - 1)));
-        if(position == (supportList.size() - 1)) {
+        if(supportList.size() <= 3) {
+            if (position == (supportList.size() - 1)) {
 //        if (position == 2) {
-            Log.i("DebugSupportFilter_In", supportList.get(position).getIssueType());
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT
-            );
-            params.setMargins(0, 40, 0, 250);
-            holder.main_layout_support_box.setLayoutParams(params);
+                Log.i("DebugSupportFilter_In", supportList.get(position).getIssueType());
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT
+                );
+                params.setMargins(0, 50, 0, 350);
+                holder.main_layout_support_box_retailer.setLayoutParams(params);
+            }
         }
         holder.heading.setText(supportList.get(position).getIssueType());
         holder.ticket_id_value.setText(supportList.get(position).getTicketNumber());
@@ -197,12 +199,12 @@ public class SupportDashboardRetailerAdapter extends RecyclerView.Adapter<Suppor
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView heading, ticket_id_value, status_value, created_date_value;
-        public RelativeLayout main_layout_support_box;
+        public RelativeLayout main_layout_support_box_retailer;
         public ImageButton menu_btn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            main_layout_support_box = itemView.findViewById(R.id.main_layout_support_box);
+            main_layout_support_box_retailer = itemView.findViewById(R.id.main_layout_support_box_retailer);
             heading = itemView.findViewById(R.id.heading);
             ticket_id_value = itemView.findViewById(R.id.ticket_id_value);
             status_value = itemView.findViewById(R.id.status_value);
