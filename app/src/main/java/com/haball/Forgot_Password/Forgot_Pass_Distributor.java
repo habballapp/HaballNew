@@ -31,9 +31,11 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.textfield.TextInputEditText;
 import com.haball.Distribution_Login.Distribution_Login;
 import com.haball.R;
 import com.google.android.material.textfield.TextInputLayout;
+import com.haball.TextField;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,11 +51,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Forgot_Pass_Distributor extends AppCompatActivity {
     private ImageButton btn_back;
-    private EditText txt_email;
     private  Button btn_reset,btn_lgn;
     private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4013/api/Users/forgot";
      ProgressDialog progressDialog;
     private TextInputLayout layout_email_phone;
+    private TextInputEditText txt_email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +84,10 @@ public class Forgot_Pass_Distributor extends AppCompatActivity {
 //        bar.setBackgroundDrawable( new ColorDrawable( Color.parseColor( "#FFFFFF" ) ) );
 //        bar.setTitle( "" );
 //        btn_back = (ImageButton) customView.findViewById(R.id.btn_back);
-         btn_reset = findViewById( R.id.btn_reset );
+        new TextField().changeColor(this, layout_email_phone, txt_email);
+
+        btn_reset = findViewById( R.id.btn_reset );
+
 
         btn_reset.setEnabled( false );
         btn_reset.setBackground( getResources().getDrawable( R.drawable.disabled_button_background ) );

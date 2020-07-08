@@ -94,7 +94,7 @@ public class CreatePaymentRequestFragment extends Fragment {
         new TextField().changeColor(this.getContext(),layout_txt_amount,txt_amount);
 
         CompanyNames.add("Select Company");
-        company_names = "";
+        company_names = "session1";
 
         arrayAdapterPayments = new ArrayAdapter<String>(root.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, CompanyNames){@Override
