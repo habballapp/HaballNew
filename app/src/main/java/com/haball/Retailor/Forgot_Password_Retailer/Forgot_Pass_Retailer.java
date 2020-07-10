@@ -71,7 +71,7 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
     private TextView heading;
     private Button btn_lgn, btn_reset;
     private String URL_FORGOT_PASSWORD = "https://retailer.haball.pk/api/users/forgot";
-//    ProgressDialog progressDialog;
+    //    ProgressDialog progressDialog;
     private TextInputLayout layout_email;
     private Loader loader;
 

@@ -27,6 +27,7 @@ import com.haball.R;
 
 import org.json.JSONException;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +71,10 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
             holder.tv_status.setText(OrderList.get(position).getOrderStatusValue());
         else if (OrderList.get(position).getStatus() != null)
             holder.tv_status.setText(OrderList.get(position).getStatus());
-        holder.tv_amount.setText(OrderList.get(position).getTotalPrice());
+        DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
+        String yourFormattedString1 = formatter1.format(Double.parseDouble(OrderList.get(position).getTotalPrice()));
+        holder.tv_amount.setText("Rs. " + yourFormattedString1);
+        //holder.tv_amount.setText(OrderList.get(position).getTotalPrice());
 
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override

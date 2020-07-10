@@ -1677,8 +1677,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     String yourFormattedString1 = formatter1.format(Double.parseDouble(jsonObject.get("TotalUnpaidAmount").toString()));
                     DecimalFormat formatter2 = new DecimalFormat("#,###,###,##0.00");
                     String yourFormattedString2 = formatter2.format(Double.parseDouble(jsonObject.get("TotalPrepaidAmount").toString()));
-                    value_unpaid_amount.setText(yourFormattedString1);
-                    value_paid_amount.setText(yourFormattedString2);
+                    value_unpaid_amount.setText("Rs. "+yourFormattedString1);
+                    value_paid_amount.setText("Rs. "+yourFormattedString2);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

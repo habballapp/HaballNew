@@ -22,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
@@ -440,10 +441,11 @@ public class RetailerLogin extends AppCompatActivity {
                 //Toast.makeText(RetailerLogin.this,error.toString(),Toast.LENGTH_LONG).show();
             }
         });
-        Volley.newRequestQueue(this).
-
-                add(sr);
-
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(this).add(sr);
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(sr);
     }
@@ -455,6 +457,8 @@ public class RetailerLogin extends AppCompatActivity {
         finish();
 
     }
+
+
 
 //     private void printErrorMessage(VolleyError error) {
 //         if (error instanceof NetworkError) {

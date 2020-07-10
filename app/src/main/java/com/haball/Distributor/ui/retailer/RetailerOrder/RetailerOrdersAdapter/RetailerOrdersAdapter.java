@@ -52,7 +52,7 @@ public class RetailerOrdersAdapter extends RecyclerView.Adapter<RetailerOrdersAd
 
         DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
         String yourFormattedString1 = formatter1.format(Double.parseDouble(OrdersList.get(position).getTotalAmount()));
-        holder.tv_amount.setText(yourFormattedString1);
+        holder.tv_amount.setText("Rs. " +yourFormattedString1);
 
 //        if(paymentsList.get(position).getStatus().equals("0")){
 //            holder.tv_status.setText("Paid");

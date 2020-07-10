@@ -75,7 +75,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
         holder.payment_id_value.setText(paymentsRequestList.get(position).getPrePaidNumber());
         DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
         String yourFormattedString1 = formatter1.format(Integer.parseInt(paymentsRequestList.get(position).getPaidAmount()));
-        holder.amount_value.setText(yourFormattedString1);
+        holder.amount_value.setText("Rs. " +yourFormattedString1);
         if (paymentsRequestList.get(position).getStatus().equals("1"))
             holder.status_value.setText("Paid");
         else
