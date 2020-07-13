@@ -27,6 +27,7 @@ import com.haball.Loader;
 import com.haball.R;
 import com.haball.Registration.BooleanRequest;
 import com.haball.Retailor.ui.Notification.Retailer_Notification_Model;
+import com.haball.SSL_HandShake;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -43,7 +44,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
     private Context context;
     private  String subject,notification_txt;
     private List<Retailer_Notification_Model> NotificationList = new ArrayList<>();
-    private String dismiss_alert = "https://retailer.haball.pk/api/useralert/DismissAlert/";
+    private String dismiss_alert = "http://175.107.203.97:4014/api/useralert/DismissAlert/";
 
     public Notification_Adapter(Context context, List<Retailer_Notification_Model> notificationList) {
         this.context = context;
@@ -92,6 +93,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
 
                                 final Loader loader = new Loader(context);
                                 loader.showLoader();
+            new SSL_HandShake().handleSSLHandshake();
                                 BooleanRequest sr = new BooleanRequest(Request.Method.POST, dismiss_alert, null, new Response.Listener<Boolean>() {
                                     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                                     @Override

@@ -52,6 +52,7 @@ import com.haball.ProcessingError;
 import com.haball.R;
 import com.haball.Retailer_Login.RetailerLogin;
 import com.haball.Retailor.RetailorDashboard;
+import com.haball.SSL_HandShake;
 import com.haball.Support.Support_Ditributor.Support_Ticket_Form;
 import com.haball.TextField;
 import com.google.android.material.snackbar.Snackbar;
@@ -85,11 +86,11 @@ public class Support_Ticket_Form_Fragment extends Fragment {
     private String DistributorId;
     private Button btn_back;
     private Spinner IssueType, critcicality, Preffered_Contact;
-    private String URL_SPINNER_DATA = " https://retailer.haball.pk/api/lookup/null";
-    //    private String URL_SPINNER_ISSUETYPE = "https://retailer.haball.pk/api/lookup/public/ISSUE_TYPE_PRIVATE";
-//    private String URL_SPINNER_CRITICALITY = "https://retailer.haball.pk/api/lookup/public/CRITICALITY_PRIVATE";
-//    private String URL_SPINNER_PREFFEREDCONTACT = "https://retailer.haball.pk/api/lookup/public/CONTRACTING_METHOD";
-    private String URL_TICkET = "https://retailer.haball.pk/api/support/PrivateSave";
+    private String URL_SPINNER_DATA = " http://175.107.203.97:4014/api/lookup/null";
+    //    private String URL_SPINNER_ISSUETYPE = "http://175.107.203.97:4014/api/lookup/public/ISSUE_TYPE_PRIVATE";
+//    private String URL_SPINNER_CRITICALITY = "http://175.107.203.97:4014/api/lookup/public/CRITICALITY_PRIVATE";
+//    private String URL_SPINNER_PREFFEREDCONTACT = "http://175.107.203.97:4014/api/lookup/public/CONTRACTING_METHOD";
+    private String URL_TICkET = "http://175.107.203.97:4014/api/support/PrivateSave";
 
     private List<String> issue_type = new ArrayList<>();
     private List<String> criticality = new ArrayList<>();
@@ -900,6 +901,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
         Token = sharedPreferences.getString("Login_Token", "");
         Log.i("Token", Token);
 
+        new SSL_HandShake().handleSSLHandshake();
 
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNER_DATA, null, new Response.Listener<JSONArray>() {
             @Override
@@ -975,6 +977,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
         map.put("ID", 0);
 
         Log.i("TICKET_OBJECT", String.valueOf(map));
+        new SSL_HandShake().handleSSLHandshake();
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_TICkET, map, new Response.Listener<JSONObject>() {
             @Override

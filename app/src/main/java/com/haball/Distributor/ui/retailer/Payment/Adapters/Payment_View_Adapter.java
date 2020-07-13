@@ -57,10 +57,12 @@ public class Payment_View_Adapter extends RecyclerView.Adapter<Payment_View_Adap
 
         holder.UOM_value.setText(OrdersList.get(position).getUOM());
 
-        holder.Quantity_value.setText(OrdersList.get(position).getOrderQty());
+//        holder.Quantity_value.setText(OrdersList.get(position).getOrderQty());
+        holder.Quantity.setText("Quantity: "+OrdersList.get(position).getOrderQty());
 
         String yourFormattedString3 = formatter1.format(Double.parseDouble(OrdersList.get(position).getTotalPrice()));
-        holder.amount_value.setText("Rs. " + yourFormattedString3);
+//        holder.amount_value.setText("Rs. " + yourFormattedString3);
+        holder.amount.setText("Amount: Rs. " + yourFormattedString3);
     }
 
     @Override
@@ -69,7 +71,7 @@ public class Payment_View_Adapter extends RecyclerView.Adapter<Payment_View_Adap
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txt_products, product_code_value, price_value, discount_value, UOM_value, pack_size_value, Quantity_value, amount_value;
+        TextView txt_products, product_code_value, price_value, discount_value, UOM_value, pack_size_value, Quantity, amount;
         public ImageButton menu_btn;
 
         public ViewHolder(@NonNull View itemView) {
@@ -80,8 +82,10 @@ public class Payment_View_Adapter extends RecyclerView.Adapter<Payment_View_Adap
             discount_value = itemView.findViewById(R.id.discount_value);
             UOM_value = itemView.findViewById(R.id.UOM_value);
             pack_size_value = itemView.findViewById(R.id.tax_value);
-            Quantity_value = itemView.findViewById(R.id.Quantity_value);
-            amount_value = itemView.findViewById(R.id.amount_value);
+            Quantity = itemView.findViewById(R.id.Quantity);
+            amount = itemView.findViewById(R.id.amount);
+//            Quantity_value = itemView.findViewById(R.id.Quantity_value);
+//            amount_value = itemView.findViewById(R.id.amount_value);
         }
     }
 }

@@ -54,11 +54,13 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
     private FragmentTransaction fragmentTransaction;
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
     private Activity activity;
+//    private RelativeLayout rv_filter;
 
     public RetailerPaymentAdapter(Activity activity, Context context, List<RetailerPaymentModel> paymentsList) {
         this.context = context;
         this.paymentsList = paymentsList;
         this.activity = activity;
+//        this.rv_filter = rv_filter;
     }
 
     @NonNull
@@ -70,17 +72,19 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
 
     @Override
     public void onBindViewHolder(@NonNull RetailerPaymentAdapter.ViewHolder holder, final int position) {
-        if (paymentsList.size() <= 3) {
-            if (position == (paymentsList.size() - 1)) {
+        if (paymentsList.size() == 3) {
+//            if (rv_filter.getVisibility() == View.GONE) {
+                if (position == (paymentsList.size() - 1)) {
 //        if (position == 2) {
-                Log.i("DebugSupportFilter_In", paymentsList.get(position).getInvoiceNumber());
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                        RelativeLayout.LayoutParams.WRAP_CONTENT,
-                        RelativeLayout.LayoutParams.WRAP_CONTENT
-                );
-                params.setMargins(0, 50, 0, 350);
-                holder.main_layout_payment_box_retailer.setLayoutParams(params);
-            }
+                    Log.i("DebugSupportFilter_In", paymentsList.get(position).getInvoiceNumber());
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                            RelativeLayout.LayoutParams.WRAP_CONTENT,
+                            RelativeLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    params.setMargins(0, 50, 0, 280);
+                    holder.main_layout_payment_box_retailer.setLayoutParams(params);
+                }
+//            }
         }
 
         holder.tv_heading.setText(paymentsList.get(position).getCompanyName());
@@ -134,6 +138,7 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
                                         editor_JazzCash.putString("Amount", paymentsList.get(position).getTotalPrice());
                                         editor_JazzCash.putString("PaymentId", paymentsList.get(position).getRetailerInvoiceId());
                                         editor_JazzCash.putString("InvoiceStatus", String.valueOf(paymentsList.get(position).getStatus()));
+                                        editor_JazzCash.putString("Type", "Invoice");
                                         Log.i("InvoiceStatus_Adapter", String.valueOf(paymentsList.get(position).getStatus()));
                                         editor_JazzCash.commit();
                                         fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
@@ -318,6 +323,7 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
                         editor_JazzCash.putString("PrePaidId", paymentsList.get(position).getRetailerInvoiceId());
                         editor_JazzCash.putString("CompanyName", paymentsList.get(position).getCompanyName());
                         editor_JazzCash.putString("Amount", paymentsList.get(position).getTotalPrice());
+                        editor_JazzCash.putString("Type", "PrePayment");
                         editor_JazzCash.apply();
                         fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.main_container_ret, new PaymentJazzCashApi()).addToBackStack("null");

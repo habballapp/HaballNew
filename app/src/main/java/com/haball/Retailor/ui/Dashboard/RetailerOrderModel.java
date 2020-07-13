@@ -10,8 +10,9 @@ public class RetailerOrderModel {
     private String CreatedDate;
     private String Status;
     private String InvoiceStatus;
+    private int InvoiceUpload;
 
-    public RetailerOrderModel(String ID, String orderNumber, String companyName, String totalPrice, String netPrice, String orderStatusValue, String createdDate, String status, String invoiceStatus) {
+    public RetailerOrderModel(String ID, String orderNumber, String companyName, String totalPrice, String netPrice, String orderStatusValue, String createdDate, String status, String invoiceStatus, int invoiceUpload) {
         this.ID = ID;
         OrderNumber = orderNumber;
         CompanyName = companyName;
@@ -21,6 +22,7 @@ public class RetailerOrderModel {
         CreatedDate = createdDate;
         Status = status;
         InvoiceStatus = invoiceStatus;
+        InvoiceUpload = invoiceUpload;
     }
 
     public String getID() {
@@ -95,6 +97,12 @@ public class RetailerOrderModel {
         InvoiceStatus = invoiceStatus;
     }
 
+    public int getInvoiceUpload() {
+        return InvoiceUpload;
+    }
 
+    public void setInvoiceUpload(int invoiceUpload) {
+        InvoiceUpload = invoiceUpload;
+    }
 }
 

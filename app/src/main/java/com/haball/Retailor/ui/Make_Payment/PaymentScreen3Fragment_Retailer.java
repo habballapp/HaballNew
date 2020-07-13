@@ -62,6 +62,7 @@ import com.haball.Loader;
 import com.haball.ProcessingError;
 import com.haball.R;
 import com.haball.Retailor.RetailorDashboard;
+import com.haball.SSL_HandShake;
 import com.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -82,7 +83,7 @@ import static android.os.Build.ID;
 public class PaymentScreen3Fragment_Retailer extends Fragment {
     private String Token, DistributorId, ID;
     private TextView tv_banking_channel, payment_id, btn_newpayment;
-    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "https://retailer.haball.pk/api/prepaidrequests/GetByRetailerCode";
+    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4014/api/prepaidrequests/GetByRetailerCode";
     private String PrePaidNumber = "", PrePaidId = "", CompanyName = "", Amount = "", CompanyId = "", MenuItem = "";
     private Button btn_voucher, btn_update, btn_back;
     private Spinner spinner_companyName;
@@ -94,7 +95,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
     private String company_names;
     private Typeface myFont;
-    private String URL_PAYMENT_REQUESTS_SAVE = "https://retailer.haball.pk/api/prepaidrequests/save";
+    private String URL_PAYMENT_REQUESTS_SAVE = "http://175.107.203.97:4014/api/prepaidrequests/save";
     private String prepaid_number;
     private String prepaid_id;
     private FragmentTransaction fragmentTransaction;
@@ -131,18 +132,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         rl_jazz_cash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences JazzCash = ((FragmentActivity) getContext()).getSharedPreferences("PaymentId",
-                        Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor_JazzCash = JazzCash.edit();
-                editor_JazzCash.putString("PrePaidNumber", PrePaidNumber);
-                editor_JazzCash.putString("PrePaidId", PrePaidId);
-                editor_JazzCash.putString("CompanyName", CompanyName);
-                editor_JazzCash.putString("Amount", Amount);
-                editor_JazzCash.apply();
-                fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container_ret, new PaymentJazzCashApi()).addToBackStack("null");
-                fragmentTransaction.commit();
-
+                showDiscardDialogForJazzCash();
             }
         });
 
@@ -510,6 +500,66 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         }
     }
 
+    private void showDiscardDialogForJazzCash() {
+        if (!String.valueOf(btn_update.getText()).equals("Back")) {
+            final FragmentManager fm = getActivity().getSupportFragmentManager();
+            final AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            View view_popup = inflater.inflate(R.layout.discard_changes, null);
+            TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+            tv_discard_txt.setText("Are you sure, you want to leave this page? Your changes will be discarded.");
+            alertDialog.setView(view_popup);
+            alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+            WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+            layoutParams.y = 200;
+            layoutParams.x = -70;// top margin
+            alertDialog.getWindow().setAttributes(layoutParams);
+            Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+            btn_discard.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Log.i("CreatePayment", "Button Clicked");
+                    alertDialog.dismiss();
+                    SharedPreferences JazzCash = ((FragmentActivity) getContext()).getSharedPreferences("PaymentId",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor_JazzCash = JazzCash.edit();
+                    editor_JazzCash.putString("PrePaidNumber", PrePaidNumber);
+                    editor_JazzCash.putString("PrePaidId", PrePaidId);
+                    editor_JazzCash.putString("CompanyName", CompanyName);
+                    editor_JazzCash.putString("Amount", Amount);
+                    editor_JazzCash.putString("Type", "PrePayment");
+                    editor_JazzCash.apply();
+                    fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.main_container_ret, new PaymentJazzCashApi()).addToBackStack("null");
+                    fragmentTransaction.commit();
+                }
+            });
+
+            ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+            img_email.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+
+                }
+            });
+
+            alertDialog.show();
+        } else {
+            SharedPreferences JazzCash = ((FragmentActivity) getContext()).getSharedPreferences("PaymentId",
+                    Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor_JazzCash = JazzCash.edit();
+            editor_JazzCash.putString("PrePaidNumber", PrePaidNumber);
+            editor_JazzCash.putString("PrePaidId", PrePaidId);
+            editor_JazzCash.putString("CompanyName", CompanyName);
+            editor_JazzCash.putString("Amount", Amount);
+            editor_JazzCash.putString("Type", "PrePayment");
+            editor_JazzCash.apply();
+            fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.main_container_ret, new PaymentJazzCashApi()).addToBackStack("null");
+            fragmentTransaction.commit();
+        }
+    }
+
     private void checkFieldsForEmptyValues() {
         String txt_amounts = txt_amount.getText().toString();
         String company = (String) spinner_companyName.getItemAtPosition(spinner_companyName.getSelectedItemPosition()).toString();
@@ -585,6 +635,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
                 map.put("PaidAmount", txt_amount.getText().toString());
 
                 Log.i("JSON ", String.valueOf(map));
+                new SSL_HandShake().handleSSLHandshake();
 
                 JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PAYMENT_REQUESTS_SAVE, map, new Response.Listener<JSONObject>() {
                     @Override
@@ -656,6 +707,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         Token = sharedPreferences.getString("Login_Token", "");
 
         Log.i("Token", Token);
+        new SSL_HandShake().handleSSLHandshake();
 
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PAYMENT_REQUESTS_SELECT_COMPANY, null, new Response.Listener<JSONArray>() {
             @Override

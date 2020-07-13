@@ -47,6 +47,7 @@ import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.ProcessingError;
 import com.haball.R;
+import com.haball.SSL_HandShake;
 import com.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -70,8 +71,8 @@ public class Retailer_Support_Ticket_View extends Fragment {
     private Button btn_delete, btn_back;
     private TextInputLayout layout_txt_business_name, layout_txt_email_address, layout_txt_mobile_number, layout_txt_comments;
 
-    //    private String URL_SUPPORT_VIEW = "https://retailer.haball.pk/api/contact//";
-    private String URL_SUPPORT_VIEW = "https://retailer.haball.pk/api/support/TicketById/";
+    //    private String URL_SUPPORT_VIEW = "http://175.107.203.97:4014/api/contact//";
+    private String URL_SUPPORT_VIEW = "http://175.107.203.97:4014/api/support/TicketById/";
     private TextView tv_ticket_id;
     private TextInputEditText txt_business_name;
     private TextInputEditText txt_email_address;
@@ -236,6 +237,7 @@ public class Retailer_Support_Ticket_View extends Fragment {
         Log.i("IDDDD", ID);
         if (!URL_SUPPORT_VIEW.contains("/" + ID))
             URL_SUPPORT_VIEW = URL_SUPPORT_VIEW + ID;
+        new SSL_HandShake().handleSSLHandshake();
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_SUPPORT_VIEW, null, new Response.Listener<JSONObject>() {
             @Override

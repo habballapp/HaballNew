@@ -31,6 +31,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.CustomToast;
@@ -57,8 +58,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.URL;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -69,6 +81,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
+
 public class RetailerLogin extends AppCompatActivity {
 
     private Button btn_login, btn_signup, btn_support, btn_password, btn_reset;
@@ -78,8 +99,8 @@ public class RetailerLogin extends AppCompatActivity {
     private TextInputLayout layout_username, layout_password;
     private Toolbar tb;
     private RequestQueue queue;
-    private String URL = "https://retailer.haball.pk/Token";
-    //    private String URL_FORGOT_PASSWORD = "https://retailer.haball.pk/api/Users/forgot";
+    private String URL_Token = "http://175.107.203.97:4014/Token";
+    //    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4014/api/Users/forgot";
 //    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4013/api/users/forgot";
     private HttpURLConnection urlConnection = null;
     private java.net.URL url;
@@ -87,19 +108,47 @@ public class RetailerLogin extends AppCompatActivity {
     private String success_text = "";
     //    private ProgressDialog progressDialog;
     private Loader loader;
-    private String URL_Profile = "https://retailer.haball.pk/api/retailer/";
+    private String URL_Profile = "http://175.107.203.97:4014/api/retailer/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retailer_login);
 
-        new SSL_HandShake().handleSSLHandshake();
 
         Drawable background_drawable = getResources().getDrawable(R.drawable.background_logo);
         background_drawable.setAlpha(80);
         RelativeLayout rl_main_background = findViewById(R.id.rl_main_background);
         rl_main_background.setBackground(background_drawable);
+
+
+        SharedPreferences selectedProducts = getSharedPreferences("selectedProducts_retailer",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = selectedProducts.edit();
+        editor.remove("selected_products_qty");
+        editor.remove("selected_products");
+        editor.commit();
+        String IsTermAndConditionAccepted = "";
+        String UpdatePassword = "";
+        String Token = "";
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        if (!sharedPreferences.getString("Login_Token", "").equals(""))
+            Token = sharedPreferences.getString("Login_Token", "");
+        if (!sharedPreferences.getString("IsTermAndConditionAccepted", "").equals(""))
+            IsTermAndConditionAccepted = sharedPreferences.getString("IsTermAndConditionAccepted", "");
+        if (!sharedPreferences.getString("UpdatePassword", "").equals(""))
+            UpdatePassword = sharedPreferences.getString("UpdatePassword", "");
+        Log.i("Token Splash", Token);
+        Log.i("User Type", sharedPreferences.getString("User_Type", ""));
+//
+//        if (!Token.equals("")) {
+//            Intent intent = new Intent(RetailerLogin.this, RetailorDashboard.class);
+//            StatusKVP statusKVP = new StatusKVP(getApplicationContext(), Token);
+//            startActivity(intent);
+//            finish();
+//        }
+
         btn_login = findViewById(R.id.retailer_btn_login);
         btn_login.setEnabled(false);
         btn_login.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
@@ -304,7 +353,22 @@ public class RetailerLogin extends AppCompatActivity {
         map.put("Password", et_password.getText().toString());
         map.put("grant_type", "password");
 
-        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
+        new SSL_HandShake().handleSSLHandshake();
+//        HurlStack hurlStack = new HurlStack() {
+//            @Override
+//            protected HttpURLConnection createConnection(URL url) throws IOException {
+//                HttpsURLConnection httpsURLConnection = (HttpsURLConnection) super.createConnection(url);
+//                try {
+//                    httpsURLConnection.setSSLSocketFactory(getSSLSocketFactory());
+//                    httpsURLConnection.setHostnameVerifier(getHostnameVerifier());
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//                return httpsURLConnection;
+//            }
+//        };
+
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_Token, map, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONObject result) {
@@ -347,6 +411,8 @@ public class RetailerLogin extends AppCompatActivity {
                         //updatePassword token
 
                         URL_Profile = URL_Profile + RetailerId;
+
+                        new SSL_HandShake().handleSSLHandshake();
 
                         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_Profile, null, new Response.Listener<JSONObject>() {
                             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -399,7 +465,7 @@ public class RetailerLogin extends AppCompatActivity {
                                 new ProcessingError().showError(RetailerLogin.this);
                                 //Toast.makeText(RetailerLogin.this,error.toString(),Toast.LENGTH_LONG).show();
                             }
-                        }){
+                        }) {
                             @Override
                             public Map<String, String> getHeaders() throws AuthFailureError {
                                 Map<String, String> params = new HashMap<String, String>();
@@ -495,4 +561,5 @@ public class RetailerLogin extends AppCompatActivity {
 //         }
 
 //     }
+
 }

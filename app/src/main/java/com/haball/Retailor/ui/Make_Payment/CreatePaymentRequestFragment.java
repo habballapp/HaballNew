@@ -51,6 +51,7 @@ import com.haball.R;
 import com.haball.Retailor.Forgot_Password_Retailer.Forgot_Pass_Retailer;
 import com.haball.Retailor.RetailorDashboard;
 import com.haball.Retailor.ui.Support.SupportFragment;
+import com.haball.SSL_HandShake;
 import com.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -77,9 +78,9 @@ public class CreatePaymentRequestFragment extends Fragment {
     private String Token, DistributorId, ID;
     private Button btn_create;
 
-    //    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "https://retailer.haball.pk/api/kyc/KYCDistributorList";
-    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "https://retailer.haball.pk/api/prepaidrequests/GetByRetailerCode";
-    private String URL_PAYMENT_REQUESTS_SAVE = "https://retailer.haball.pk/api/prepaidrequests/save";
+    //    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4014/api/kyc/KYCDistributorList";
+    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4014/api/prepaidrequests/GetByRetailerCode";
+    private String URL_PAYMENT_REQUESTS_SAVE = "http://175.107.203.97:4014/api/prepaidrequests/save";
 
     private List<String> CompanyNames = new ArrayList<>();
     private HashMap<String, String> companyNameAndId = new HashMap<>();
@@ -361,6 +362,7 @@ public class CreatePaymentRequestFragment extends Fragment {
             map.put("PaidAmount", txt_amount.getText().toString());
 
             Log.i("JSON ", String.valueOf(map));
+            new SSL_HandShake().handleSSLHandshake();
 
             JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PAYMENT_REQUESTS_SAVE, map, new Response.Listener<JSONObject>() {
                 @Override
@@ -475,6 +477,7 @@ public class CreatePaymentRequestFragment extends Fragment {
         Token = sharedPreferences.getString("Login_Token", "");
 
         Log.i("Token", Token);
+            new SSL_HandShake().handleSSLHandshake();
 
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PAYMENT_REQUESTS_SELECT_COMPANY, null, new Response.Listener<JSONArray>() {
             @Override

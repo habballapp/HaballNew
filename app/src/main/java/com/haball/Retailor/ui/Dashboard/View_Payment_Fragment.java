@@ -34,6 +34,7 @@ import com.haball.Retailer_Login.RetailerLogin;
 import com.haball.Retailor.RetailorDashboard;
 import com.haball.Retailor.ui.Make_Payment.CreatePaymentRequestFragment;
 import com.haball.Retailor.ui.Make_Payment.ViewReceeiptPDFRequest;
+import com.haball.SSL_HandShake;
 import com.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -42,6 +43,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -52,7 +54,7 @@ import java.util.Map;
 public class View_Payment_Fragment extends Fragment {
 
     private String PaymentsRequestId;
-    private String PAYMENT_REQUEST_URL = "https://retailer.haball.pk/api/prepaidrequests/";
+    private String PAYMENT_REQUEST_URL = "http://175.107.203.97:4014/api/prepaidrequests/";
     private String Token;
     private TextInputEditText txt_heading, txt_paymentid, txt_created_date, txt_transaction_date, txt_bname, txt_authorization, txt_settlement, txt_amount, txt_status, txt_transaction_charges, txt_total_amount;
     private Button btn_vreciept, btn_back;
@@ -181,6 +183,7 @@ public class View_Payment_Fragment extends Fragment {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
+        new SSL_HandShake().handleSSLHandshake();
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, PAYMENT_REQUEST_URL, null, new Response.Listener<JSONObject>() {
             @Override
@@ -216,7 +219,10 @@ public class View_Payment_Fragment extends Fragment {
                         txt_settlement.setTextColor(getContext().getResources().getColor(R.color.textcolor));
                     }
                     if (!String.valueOf(result.get("PaidAmount")).equals("null")) {
-                        txt_amount.setText(String.valueOf(result.get("PaidAmount")));
+//                        txt_amount.setText(String.valueOf(result.get("PaidAmount")));
+                        DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
+                        String Formatted_TotalAmount = formatter1.format(Double.parseDouble(result.getString("PaidAmount")));
+                        txt_amount.setText(Formatted_TotalAmount);
                         txt_amount.setTextColor(getContext().getResources().getColor(R.color.textcolor));
                     }
                     if (!String.valueOf(result.get("Status")).equals("null")) {
@@ -228,7 +234,9 @@ public class View_Payment_Fragment extends Fragment {
                         txt_transaction_charges.setTextColor(getContext().getResources().getColor(R.color.textcolor));
                     }
                     if (!String.valueOf(result.get("TotalAmount")).equals("null")) {
-                        txt_total_amount.setText(String.valueOf(result.get("TotalAmount")));
+                        DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
+                        String Formatted_TotalAmount = formatter1.format(Double.parseDouble(result.getString("TotalAmount")));
+                        txt_total_amount.setText(Formatted_TotalAmount);
                         txt_total_amount.setTextColor(getContext().getResources().getColor(R.color.textcolor));
                     }
                 } catch (JSONException e) {

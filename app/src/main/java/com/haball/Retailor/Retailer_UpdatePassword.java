@@ -67,6 +67,7 @@ import com.haball.Registration.BooleanRequest;
 import com.haball.Retailer_Login.RetailerLogin;
 import com.haball.Retailor.ui.Dashboard.DashBoardFragment;
 import com.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
+import com.haball.SSL_HandShake;
 import com.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -86,7 +87,7 @@ import java.util.Map;
 public class Retailer_UpdatePassword extends AppCompatActivity {
 
     private Button update_password, btn_back;
-    private String URL = "https://retailer.haball.pk/api/users/UpdatePassword";
+    private String URL = "http://175.107.203.97:4014/api/users/UpdatePassword";
     private String Token;
     private String UserName, Name;
     private TextInputLayout layout_password3, layout_password1;
@@ -96,7 +97,7 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
     private TextView txt_change1;
     private TextView tv_pr1, txt_header1;
     boolean doubleBackToExitPressedOnce = false;
-    private String URL_Skip_Password = "https://retailer.haball.pk/api/users/update";
+    private String URL_Skip_Password = "http://175.107.203.97:4014/api/users/update";
     private Loader loader;
 
     @Override
@@ -308,6 +309,8 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
         Log.i("Password_Log", String.valueOf(jsonObject));
 
         String requestBody = jsonObject.toString();
+        
+        new SSL_HandShake().handleSSLHandshake();
 
         BooleanRequest sr = new BooleanRequest(Request.Method.POST, URL_Skip_Password, requestBody, new Response.Listener<Boolean>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -434,6 +437,7 @@ public class Retailer_UpdatePassword extends AppCompatActivity {
             Log.i("Password_Log", String.valueOf(jsonObject));
 
             String requestBody = jsonObject.toString();
+            new SSL_HandShake().handleSSLHandshake();
 
             BooleanRequest sr = new BooleanRequest(Request.Method.POST, URL, requestBody, new Response.Listener<Boolean>() {
                 @RequiresApi(api = Build.VERSION_CODES.KITKAT)

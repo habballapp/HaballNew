@@ -42,6 +42,7 @@ import com.haball.Retailor.ui.Dashboard.RetailerPaymentAdapter;
 import com.haball.Retailor.ui.Dashboard.RetailerPaymentModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.haball.SSL_HandShake;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,7 +64,7 @@ public class Payment_Summary extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private String URL = "https://retailer.haball.pk/api/prepaidrequests/Search";
+    private String URL = "http://175.107.203.97:4014/api/prepaidrequests/Search";
     private String Token;
     private List<RetailerPaymentModel> PaymentsList = new ArrayList<>();
 
@@ -108,6 +109,7 @@ public class Payment_Summary extends Fragment {
         jsonObject.put("AmountMax", null);
         jsonObject.put("TotalRecords", 10);
         jsonObject.put("PageNumber", 0);
+            new SSL_HandShake().handleSSLHandshake();
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)

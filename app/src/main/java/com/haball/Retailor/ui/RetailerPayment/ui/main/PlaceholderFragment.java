@@ -17,6 +17,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -70,6 +71,7 @@ import com.haball.Retailor.ui.Make_Payment.ViewReceeiptPDFRequest;
 import com.haball.Retailor.ui.Make_Payment.ViewVoucherRequest;
 import com.haball.Retailor.ui.RetailerOrder.RetailerOrdersAdapter.RetailerViewOrderProductAdapter;
 import com.haball.Retailor.ui.RetailerOrder.RetailerOrdersModel.RetailerViewOrderProductModel;
+import com.haball.SSL_HandShake;
 import com.haball.TextField;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
@@ -94,7 +96,7 @@ public class PlaceholderFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     private String paymentId, InvoiceStatus;
-    private String URL_Payment_Data = "https://retailer.haball.pk/api/invoices/";
+    private String URL_Payment_Data = "http://175.107.203.97:4014/api/invoices/";
     private PageViewModel pageViewModel;
     private TextInputLayout layout_txt_orderID, layout_txt_order_company, layout_txt_created_date_order, layout_txt_status_order, layout_txt_comments,
             layout_txt_companName, layout_txt_paymentID, layout_txt_created_date, layout_transaction_date,
@@ -116,7 +118,7 @@ public class PlaceholderFragment extends Fragment {
     private FragmentTransaction fragmentTransaction;
 
     private TextView tv_banking_channel, payment_id, btn_newpayment;
-    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "https://retailer.haball.pk/api/prepaidrequests/GetByRetailerCode";
+    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4014/api/prepaidrequests/GetByRetailerCode";
     private String PrePaidNumber = "", PrePaidId = "", CompanyName = "", Amount = "", CompanyId = "", MenuItem = "";
     private Button btn_voucher, btn_update, btn_back;
     private Spinner spinner_companyName;
@@ -379,20 +381,16 @@ public class PlaceholderFragment extends Fragment {
 
 
                     rl_jazz_cash = rootView.findViewById(R.id.rl_jazz_cash);
+
+                    if(InvoiceStatus.equals("Cancelled"))
+                        rl_jazz_cash.setVisibility(View.GONE);
+                    else
+                        rl_jazz_cash.setVisibility(View.VISIBLE);
+
                     rl_jazz_cash.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            SharedPreferences JazzCash = ((FragmentActivity) getContext()).getSharedPreferences("PaymentId",
-                                    Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor_JazzCash = JazzCash.edit();
-                            editor_JazzCash.putString("PrePaidNumber", PrePaidNumber);
-                            editor_JazzCash.putString("PrePaidId", PrePaidId);
-                            editor_JazzCash.putString("CompanyName", CompanyName);
-                            editor_JazzCash.putString("Amount", Amount);
-                            editor_JazzCash.apply();
-                            fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new PaymentJazzCashApi()).addToBackStack("null");
-                            fragmentTransaction.commit();
+                            showDiscardDialogForJazzCash();
 
                         }
                     });
@@ -543,6 +541,66 @@ public class PlaceholderFragment extends Fragment {
         return rootView;
     }
 
+    private void showDiscardDialogForJazzCash() {
+//        if (!MenuItem.equals("View")) {
+//            final FragmentManager fm = getActivity().getSupportFragmentManager();
+//            final AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+//            LayoutInflater inflater = LayoutInflater.from(getContext());
+//            View view_popup = inflater.inflate(R.layout.discard_changes, null);
+//            TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+//            tv_discard_txt.setText("Are you sure, you want to leave this page? Your changes will be discarded.");
+//            alertDialog.setView(view_popup);
+//            alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+//            WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+//            layoutParams.y = 200;
+//            layoutParams.x = -70;// top margin
+//            alertDialog.getWindow().setAttributes(layoutParams);
+//            Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+//            btn_discard.setOnClickListener(new View.OnClickListener() {
+//                public void onClick(View v) {
+//                    Log.i("CreatePayment", "Button Clicked");
+//                    alertDialog.dismiss();
+//                    SharedPreferences JazzCash = ((FragmentActivity) getContext()).getSharedPreferences("PaymentId",
+//                            Context.MODE_PRIVATE);
+//                    SharedPreferences.Editor editor_JazzCash = JazzCash.edit();
+//                    editor_JazzCash.putString("PrePaidNumber", PrePaidNumber);
+//                    editor_JazzCash.putString("PrePaidId", PrePaidId);
+//                    editor_JazzCash.putString("CompanyName", CompanyName);
+//                    editor_JazzCash.putString("Amount", Amount);
+//                    editor_JazzCash.putString("Type", "Invoice");
+//                    editor_JazzCash.apply();
+//                    fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+//                    fragmentTransaction.replace(R.id.main_container_ret, new PaymentJazzCashApi()).addToBackStack("null");
+//                    fragmentTransaction.commit();
+//                }
+//            });
+//
+//            ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+//            img_email.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    alertDialog.dismiss();
+//
+//                }
+//            });
+//
+//            alertDialog.show();
+//        } else {
+            SharedPreferences JazzCash = ((FragmentActivity) getContext()).getSharedPreferences("PaymentId",
+                    Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor_JazzCash = JazzCash.edit();
+            editor_JazzCash.putString("PrePaidNumber", PrePaidNumber);
+            editor_JazzCash.putString("PrePaidId", PrePaidId);
+            editor_JazzCash.putString("CompanyName", CompanyName);
+            editor_JazzCash.putString("Amount", Amount);
+            editor_JazzCash.putString("Type", "Invoice");
+            editor_JazzCash.apply();
+            fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.main_container_ret, new PaymentJazzCashApi()).addToBackStack("null");
+            fragmentTransaction.commit();
+//        }
+    }
+
     private void fetchCompanyData() {
         loader.showLoader();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
@@ -550,6 +608,7 @@ public class PlaceholderFragment extends Fragment {
         Token = sharedPreferences.getString("Login_Token", "");
 
         Log.i("Token", Token);
+        new SSL_HandShake().handleSSLHandshake();
 
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PAYMENT_REQUESTS_SELECT_COMPANY, null, new Response.Listener<JSONArray>() {
             @Override
@@ -653,6 +712,7 @@ public class PlaceholderFragment extends Fragment {
 //        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
 //        Log.i("DistributorId invoice", DistributorId);
         Log.i("Token invoice", Token);
+        new SSL_HandShake().handleSSLHandshake();
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Payment_Data, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
@@ -716,6 +776,8 @@ public class PlaceholderFragment extends Fragment {
             URL_Payment_Data = URL_Payment_Data + paymentId;
             Log.i("URL_Payment_Data", URL_Payment_Data);
         }
+        new SSL_HandShake().handleSSLHandshake();
+
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Payment_Data, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -801,6 +863,8 @@ public class PlaceholderFragment extends Fragment {
 //        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
 //        Log.i("DistributorId invoice", DistributorId);
         Log.i("Token invoice12", Token);
+        new SSL_HandShake().handleSSLHandshake();
+
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Payment_Data, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
@@ -820,7 +884,10 @@ public class PlaceholderFragment extends Fragment {
                             txt_created_date.setTextColor(getResources().getColor(R.color.textcolor));
                     }
                     if (response.has("Amount")) {
-                        setTextAndShow(layout_txt_amount, txt_amount, String.valueOf(response.get("Amount")));
+//                        setTextAndShow(layout_txt_amount, txt_amount, String.valueOf(response.get("Amount")));
+                        DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
+                        String Formatted_TotalAmount = formatter1.format(Double.parseDouble(response.getString("Amount")));
+                        setTextAndShow(layout_txt_amount, txt_amount, Formatted_TotalAmount);
                         if (!String.valueOf(response.get("Amount")).equals("") && !String.valueOf(response.get("Amount")).equals("null"))
                             txt_amount.setTextColor(getResources().getColor(R.color.textcolor));
                     }
@@ -850,7 +917,10 @@ public class PlaceholderFragment extends Fragment {
                             txt_settlement_id.setTextColor(getResources().getColor(R.color.textcolor));
                     }
                     if (response.has("TotalAmount")) {
-                        setTextAndShow(layout_txt_total_amount, txt_total_amount, String.valueOf(response.getString("TotalAmount")));
+//                        setTextAndShow(layout_txt_total_amount, txt_total_amount, String.valueOf(response.getString("TotalAmount")));
+                        DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
+                        String Formatted_TotalAmount = formatter1.format(Double.parseDouble(response.getString("TotalAmount")));
+                        setTextAndShow(layout_txt_total_amount, txt_total_amount, Formatted_TotalAmount);
                         if (!String.valueOf(response.get("TotalAmount")).equals("") && !String.valueOf(response.get("TotalAmount")).equals("null"))
                             txt_total_amount.setTextColor(getResources().getColor(R.color.textcolor));
                     }
@@ -907,6 +977,8 @@ public class PlaceholderFragment extends Fragment {
 //        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
 //        Log.i("DistributorId invoice", DistributorId);
         Log.i("Token invoice12", Token);
+        new SSL_HandShake().handleSSLHandshake();
+
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Payment_Data, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {

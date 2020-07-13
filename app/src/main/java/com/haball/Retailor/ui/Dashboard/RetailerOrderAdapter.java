@@ -67,7 +67,7 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
 
     @Override
     public void onBindViewHolder(@NonNull RetailerOrderAdapter.ViewHolder holder, final int position) {
-        if (OrderList.size() <= 3) {
+        if (OrderList.size() == 3) {
             if (position == (OrderList.size() - 1)) {
 //        if (position == 2) {
                 Log.i("DebugSupportFilter_In", OrderList.get(position).getOrderNumber());
@@ -75,7 +75,7 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
                         RelativeLayout.LayoutParams.WRAP_CONTENT,
                         RelativeLayout.LayoutParams.WRAP_CONTENT
                 );
-                params.setMargins(0, 50, 0, 350);
+                params.setMargins(0, 50, 0, 280);
                 holder.main_layout_order_box_retailer.setLayoutParams(params);
             }
         }
@@ -173,6 +173,7 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
                         SharedPreferences.Editor editor = OrderId.edit();
                         editor.putString("OrderId", OrderList.get(position).getID());
                         editor.putString("Status", OrderList.get(position).getStatus());
+                        editor.putString("InvoiceUpload", String.valueOf(OrderList.get(position).getInvoiceUpload()));
                         editor.putString("InvoiceStatus", String.valueOf(OrderList.get(position).getInvoiceStatus()));
                         editor.commit();
                         // Toast.makeText(mContxt, "View Order ID - " + ID, Toast.LENGTH_LONG).show();
@@ -247,6 +248,7 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
                         SharedPreferences.Editor editor = OrderId.edit();
                         editor.putString("OrderId", OrderList.get(position).getID());
                         editor.putString("Status", OrderList.get(position).getStatus());
+                        editor.putString("InvoiceUpload", String.valueOf(OrderList.get(position).getInvoiceUpload()));
                         editor.putString("InvoiceStatus", String.valueOf(OrderList.get(position).getInvoiceStatus()));
                         Log.i("InvoiceStatus_Adapter", String.valueOf(OrderList.get(position).getInvoiceStatus()));
                         editor.commit();

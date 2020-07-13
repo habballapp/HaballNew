@@ -44,6 +44,7 @@ import com.haball.Retailor.ui.Place_Order.ui.main.Adapters.Order_Summary_Adapter
 import com.haball.Retailor.ui.Place_Order.ui.main.Models.OrderChildlist_Model;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.haball.SSL_HandShake;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -70,9 +71,9 @@ public class OrderSummaryDraft extends Fragment {
     private List<OrderChildlist_Model> selectedProductsDataList = new ArrayList<>();
     private List<String> selectedProductsQuantityList = new ArrayList<>();
     private String object_string, object_stringqty, Token, DistributorId, CompanyId;
-    private String URL_CONFIRM_ORDERS = "https://retailer.haball.pk/api/Orders/saveOrder";
+    private String URL_CONFIRM_ORDERS = "http://175.107.203.97:4014/api/Orders/saveOrder";
     //    private String URL_SAVE_TEMPLATE = "http://175.107.203.97:4013/api/ordertemplate/save";
-    private String URL_SAVE_DRAFT = "https://retailer.haball.pk/api/Orders/draft";
+    private String URL_SAVE_DRAFT = "http://175.107.203.97:4014/api/Orders/draft";
     private Button btn_confirm, btn_template, btn_draft;
     private TextView gross_amount, discount_amount, gst_amount, total_amount;
     private float totalAmount;
@@ -380,6 +381,8 @@ public class OrderSummaryDraft extends Fragment {
 //        jsonObject.put("TotalDiscountAmount", 0);
 
         Log.i("jsonObject", String.valueOf(jsonObject));
+        new SSL_HandShake().handleSSLHandshake();
+
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_SAVE_DRAFT, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(final JSONObject result) {
@@ -456,6 +459,8 @@ public class OrderSummaryDraft extends Fragment {
 //        jsonObject.put("TotalPrice", totalAmount);
 
         Log.i("jsonObject", String.valueOf(jsonObject));
+        new SSL_HandShake().handleSSLHandshake();
+
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_CONFIRM_ORDERS, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(final JSONObject result) {

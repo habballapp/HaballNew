@@ -40,6 +40,7 @@ import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.ui.payments.InputStreamVolleyRequest;
 import com.haball.Loader;
 import com.haball.ProcessingError;
+import com.haball.SSL_HandShake;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -70,7 +71,7 @@ import static com.google.android.gms.plus.PlusOneDummyView.TAG;
 import static java.util.stream.Collectors.toList;
 
 public class ViewVoucherRequest {
-    public String URL_VOUCHER_VIEW = "https://retailer.haball.pk/api/prepaidrequests/mprintRecipt/";
+    public String URL_VOUCHER_VIEW = "http://175.107.203.97:4014/api/prepaidrequests/mprintRecipt/";
     public String Token;
     public Context mContext;
     private static final int PERMISSION_REQUEST_CODE = 1;
@@ -92,6 +93,7 @@ public class ViewVoucherRequest {
             URL_VOUCHER_VIEW = URL_VOUCHER_VIEW+paymentId;
         Log.i("URL_VOUCHER_VIEW ", URL_VOUCHER_VIEW);
 
+            new SSL_HandShake().handleSSLHandshake();
 
         final Context finalcontext = context;
         InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.GET, URL_VOUCHER_VIEW, null, new Response.Listener<byte[]>() {

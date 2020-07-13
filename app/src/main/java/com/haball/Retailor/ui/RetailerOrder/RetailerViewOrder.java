@@ -33,10 +33,13 @@ public class RetailerViewOrder extends Fragment {
         SharedPreferences sharedPreferences3 = getContext().getSharedPreferences("OrderId",
                 Context.MODE_PRIVATE);
         InvoiceStatus = sharedPreferences3.getString("InvoiceStatus", "");
+        String OrderStatus = sharedPreferences3.getString("Status", "");
+        String InvoiceUpload = sharedPreferences3.getString("InvoiceUpload", "");
         Log.i("InvoiceStatus", InvoiceStatus);
+        Log.i("OrderStatus", OrderStatus);
 
 //        SectionsPagerAdapter sectionsPagerAdapter = null;
-        if (InvoiceStatus.equals("null") || InvoiceStatus.equals("Pending")) {
+        if (InvoiceStatus.equals("null") || InvoiceStatus.equals("Pending") || ((InvoiceUpload.equals("0")) && OrderStatus.equals("Cancelled"))) {
             SectionsPagerAdapter_WithoutPayments sectionsPagerAdapter = new SectionsPagerAdapter_WithoutPayments(getActivity(), getChildFragmentManager());
             final ViewPager viewPager = root.findViewById(R.id.view_pager_ret_view_order);
             viewPager.setOffscreenPageLimit(3);

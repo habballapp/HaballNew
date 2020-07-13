@@ -27,6 +27,7 @@ import com.haball.Loader;
 import com.haball.ProcessingError;
 import com.haball.R;
 import com.haball.Retailor.RetailorDashboard;
+import com.haball.SSL_HandShake;
 
 import org.json.JSONObject;
 
@@ -35,7 +36,7 @@ import java.util.Map;
 
 class PaymentDeleteOrder {
 
-    public String URL_DELETE_PAYMENT = "https://retailer.haball.pk/api/prepaidrequests/Delete/";
+    public String URL_DELETE_PAYMENT = "http://175.107.203.97:4014/api/prepaidrequests/Delete/";
     public Context context;
     public String invoiceNumber;
     public String RetailerId,Token;
@@ -68,6 +69,7 @@ class PaymentDeleteOrder {
 
 
         final Context finalcontext = context;
+        new SSL_HandShake().handleSSLHandshake();
         JsonObjectRequest request = new JsonObjectRequest( Request.Method.DELETE, URL_DELETE_PAYMENT, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

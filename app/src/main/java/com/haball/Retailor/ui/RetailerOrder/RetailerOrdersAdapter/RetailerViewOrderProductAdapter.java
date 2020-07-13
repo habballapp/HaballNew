@@ -1,14 +1,24 @@
 package com.haball.Retailor.ui.RetailerOrder.RetailerOrdersAdapter;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.text.Layout;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.animation.LinearInterpolator;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -24,10 +34,13 @@ import com.haball.Retailor.ui.RetailerOrder.RetailerOrdersModel.RetailerViewOrde
 
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<RetailerViewOrderProductAdapter.ViewHolder> {
     private Context context;
     private List<RetailerViewOrderProductModel> OrdersList;
+    boolean scrollingLeft = false;
 
     public RetailerViewOrderProductAdapter(Context context, List<RetailerViewOrderProductModel> ordersList) {
         this.context = context;
@@ -41,8 +54,9 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
         return new RetailerViewOrderProductAdapter.ViewHolder(view_inflate);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull RetailerViewOrderProductAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final RetailerViewOrderProductAdapter.ViewHolder holder, int position) {
 
         SharedPreferences sharedPreferences1 = context.getSharedPreferences("OrderId",
                 Context.MODE_PRIVATE);
@@ -70,8 +84,8 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
             if (!OrdersList.get(position).getTaxValue().equals("0") && !OrdersList.get(position).getTaxValue().equals("") && !OrdersList.get(position).getTaxValue().equals("null")) {
                 holder.discount.setText("Tax: ");
                 String yourFormattedString4 = formatter1.format(Double.parseDouble(OrdersList.get(position).getTaxValue()));
-                holder.discount_value.setText("Rs. " + yourFormattedString4);
-                holder.tv_taxValue.setText("Quantity: ");
+                holder.discount_value.setText("Rs.\u00A0" + yourFormattedString4);
+                holder.tv_taxValue.setText("Quantity:\u00A0");
                 holder.tax_value.setText(OrdersList.get(position).getOrderQty());
                 holder.Quantity_value.setVisibility(View.GONE);
                 holder.separator_3.setVisibility(View.GONE);
@@ -88,15 +102,15 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
 
         } else {
             yourFormattedString2 = formatter1.format(Double.parseDouble(OrdersList.get(position).getDiscount()));
-            holder.discount_value.setText("Rs. " + yourFormattedString2);
+            holder.discount_value.setText("Rs.\u00A0" + yourFormattedString2);
             holder.tax_value.setText(OrdersList.get(position).getTaxValue());
             if (!OrdersList.get(position).getTaxValue().equals("0") && !OrdersList.get(position).getTaxValue().equals("") && !OrdersList.get(position).getTaxValue().equals("null")) {
                 String yourFormattedString4 = formatter1.format(Double.parseDouble(OrdersList.get(position).getTaxValue()));
-                holder.tax_value.setText("Rs. " + yourFormattedString4);
+                holder.tax_value.setText("Rs.\u00A0" + yourFormattedString4);
 //            holder.tax_value.setText(OrdersList.get(position).getTaxValue());
                 holder.Quantity_value.setText(OrdersList.get(position).getOrderQty());
             } else {
-                holder.tv_taxValue.setText("Quantity: ");
+                holder.tv_taxValue.setText("Quantity:\u00A0");
                 holder.tax_value.setText(OrdersList.get(position).getOrderQty());
                 holder.Quantity_value.setVisibility(View.GONE);
                 holder.separator_3.setVisibility(View.GONE);
@@ -108,7 +122,40 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
 //        holder.separator_2.setVisibility(View.GONE);
 
         String yourFormattedString3 = formatter1.format(Double.parseDouble(OrdersList.get(position).getTotalPrice()));
-        holder.amount_value.setText("Rs. " + yourFormattedString3);
+        holder.amount_value.setText("Rs.\u00A0" + yourFormattedString3);
+        holder.amount_new_line_value.setText("Rs.\u00A0" + yourFormattedString3);
+        Log.i("ellipsizing_textview", String.valueOf(isTextViewEllipsized(holder.amount_value)));
+
+    }
+
+    public static boolean isTextViewEllipsized(final TextView textView) {
+        // Check if the supplied TextView is not null
+        if (textView == null) {
+            return false;
+        }
+
+        // Check if ellipsizing the text is enabled
+        final TextUtils.TruncateAt truncateAt = textView.getEllipsize();
+        if (truncateAt == null || TextUtils.TruncateAt.END.equals(truncateAt)) {
+            return false;
+        }
+
+        // Retrieve the layout in which the text is rendered
+        final Layout layout = textView.getLayout();
+        if (layout == null) {
+            return false;
+        }
+
+        // Iterate all lines to search for ellipsized text
+        for (int line = 0; line < layout.getLineCount(); ++line) {
+
+            // Check if characters have been ellipsized away within this line of text
+            if (layout.getEllipsisCount(line) > 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override
@@ -118,6 +165,7 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txt_products, product_code_value, separator_1, discount, separator_2, tv_taxValue, price_value, discount_value, UOM_value, tax_value, Quantity_value, amount_value, Quantity, separator_3;
+        public TextView amount_new_line, amount_new_line_value, amount;
         public ImageButton menu_btn;
 
         public ViewHolder(@NonNull View itemView) {
@@ -133,10 +181,13 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
             separator_1 = itemView.findViewById(R.id.separator_1);
             separator_2 = itemView.findViewById(R.id.separator_2);
             Quantity_value = itemView.findViewById(R.id.Quantity_value);
+            amount = itemView.findViewById(R.id.amount);
             amount_value = itemView.findViewById(R.id.amount_value);
             separator_2 = itemView.findViewById(R.id.separator_2);
             Quantity = itemView.findViewById(R.id.Quantity);
             separator_3 = itemView.findViewById(R.id.separator_3);
+            amount_new_line = itemView.findViewById(R.id.amount_new_line);
+            amount_new_line_value = itemView.findViewById(R.id.amount_new_line_value);
         }
     }
 }

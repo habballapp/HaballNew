@@ -41,6 +41,7 @@ import com.haball.Registration.BooleanRequest;
 import com.haball.Retailer_Login.RetailerLogin;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+import com.haball.SSL_HandShake;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,7 +52,7 @@ import java.util.Iterator;
 public class SignUp extends AppCompatActivity implements View.OnFocusChangeListener {
 
     private ImageButton btn_back;
-    private String URL = "https://retailer.haball.pk/api/retailer/Register";
+    private String URL = "http://175.107.203.97:4014/api/retailer/Register";
     private EditText txt_username, txt_password, txt_confirmpass, txt_fullname, txt_email, txt_cnic, txt_mobile_number, txt_business_name, txt_address;
     private Button btn_register_signup, btn_register_close;
     private Boolean password_check = false, confirm_password_check = false;
@@ -259,6 +260,7 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
             map.put("PostCode", "12345");
 
             Log.i("MAP OBJECT", String.valueOf(map));
+            new SSL_HandShake().handleSSLHandshake();
 
             JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
                 @Override

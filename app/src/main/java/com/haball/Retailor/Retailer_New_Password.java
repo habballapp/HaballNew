@@ -69,6 +69,7 @@ import com.haball.Retailer_Login.RetailerLogin;
 import com.haball.Retailor.Forgot_Password_Retailer.Forgot_Pass_Retailer;
 import com.haball.Retailor.ui.Dashboard.DashBoardFragment;
 import com.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
+import com.haball.SSL_HandShake;
 import com.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -88,8 +89,8 @@ import java.util.Map;
 public class Retailer_New_Password extends AppCompatActivity {
 
     private Button update_password, btn_back;
-    private String URL = "https://retailer.haball.pk/api/users/UpdatePasswordByLink";
-    private String URL_TokenValidate = "https://retailer.haball.pk/api/users/ValidateToken";
+    private String URL = "http://175.107.203.97:4014/api/users/UpdatePasswordByLink";
+    private String URL_TokenValidate = "http://175.107.203.97:4014/api/users/ValidateToken";
     private String Token;
     private String UserName, Name;
     private TextInputLayout layout_password3, layout_password1;
@@ -199,6 +200,8 @@ public class Retailer_New_Password extends AppCompatActivity {
         Log.i("Password_Log", String.valueOf(jsonObject));
 
         String requestBody = jsonObject.toString();
+        
+        new SSL_HandShake().handleSSLHandshake();
 
         BooleanRequest sr = new BooleanRequest(Request.Method.POST, URL_TokenValidate, requestBody, new Response.Listener<Boolean>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -370,6 +373,8 @@ public class Retailer_New_Password extends AppCompatActivity {
             Log.i("Password_Log", String.valueOf(jsonObject));
 
             String requestBody = jsonObject.toString();
+            
+            new SSL_HandShake().handleSSLHandshake();
 
             BooleanRequest sr = new BooleanRequest(Request.Method.POST, URL, requestBody, new Response.Listener<Boolean>() {
                 @RequiresApi(api = Build.VERSION_CODES.KITKAT)

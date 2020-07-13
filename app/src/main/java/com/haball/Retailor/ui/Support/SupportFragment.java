@@ -50,6 +50,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.haball.Retailor.ui.Dashboard.RetailerPaymentModel;
+import com.haball.SSL_HandShake;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -88,7 +89,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
     private ArrayList<String> array = new ArrayList<>();
     private TextView btn_add_ticket_retailer;
     private String Token, DistributorId;
-    private String URL_SUPPORT = "https://retailer.haball.pk/api/support/Search";
+    private String URL_SUPPORT = "http://175.107.203.97:4014/api/support/Search";
     private SupportDashboardRetailerModel supportViewModel;
     private List<SupportDashboardRetailerModel> SupportList = new ArrayList<>();
     //spinner1
@@ -681,6 +682,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         JSONObject map = new JSONObject();
         map.put("TotalRecords", 10);
         map.put("PageNumber", pageNumber);
+        new SSL_HandShake().handleSSLHandshake();
 
         MyJsonArrayRequest request = new MyJsonArrayRequest(Request.Method.POST, URL_SUPPORT, map, new Response.Listener<JSONArray>() {
             @Override
@@ -777,6 +779,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
             map.put(Filter_selected, Filter_selected_value);
         }
         Log.i("map_SSSS", String.valueOf(map));
+        new SSL_HandShake().handleSSLHandshake();
         MyJsonArrayRequest request = new MyJsonArrayRequest(Request.Method.POST, URL_SUPPORT, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -861,6 +864,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
             map.put(Filter_selected, Filter_selected_value);
         }
         Log.i("map_SSSS", String.valueOf(map));
+        new SSL_HandShake().handleSSLHandshake();
         MyJsonArrayRequest request = new MyJsonArrayRequest(Request.Method.POST, URL_SUPPORT, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {

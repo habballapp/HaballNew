@@ -31,6 +31,7 @@ import com.haball.ProcessingError;
 import com.haball.R;
 import com.haball.Registration.BooleanRequest;
 import com.haball.Retailer_Login.RetailerLogin;
+import com.haball.SSL_HandShake;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,7 +42,7 @@ import java.util.Map;
 public class Retailer_TermsAndConditionsFragment extends AppCompatActivity {
 
     private Button agree_button, disagree_button;
-    private String URL = "https://retailer.haball.pk/api/users/termsandcondition";
+    private String URL = "http://175.107.203.97:4014/api/users/termsandcondition";
     private String Token;
     boolean doubleBackToExitPressedOnce = false;
     private Loader loader;
@@ -595,6 +596,8 @@ public class Retailer_TermsAndConditionsFragment extends AppCompatActivity {
         jsonObject.put("RetailerID", Integer.parseInt(RetailerID));
 
         String requestBody = jsonObject.toString();
+        
+        new SSL_HandShake().handleSSLHandshake();
 
         BooleanRequest sr = new BooleanRequest(Request.Method.POST, URL, requestBody, new Response.Listener<Boolean>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)

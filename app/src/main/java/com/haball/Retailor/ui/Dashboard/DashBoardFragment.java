@@ -54,6 +54,7 @@ import com.haball.R;
 import com.haball.Retailer_Login.RetailerLogin;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.haball.SSL_HandShake;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -78,7 +79,7 @@ public class DashBoardFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private String Token, DistributorId;
     ;
-    private String URL = "https://retailer.haball.pk/api/prepaidrequests/search";
+    private String URL = "http://175.107.203.97:4014/api/prepaidrequests/search";
     private List<RetailerPaymentModel> PaymentsList = new ArrayList<>();
     //spiner1
     private Spinner payment_retailer_spiner1;
@@ -265,6 +266,8 @@ public class DashBoardFragment extends Fragment {
 //        jsonObject.put("AmountMax", null);
         jsonObject.put("TotalRecords", 10);
         jsonObject.put("PageNumber", 0);
+        
+        new SSL_HandShake().handleSSLHandshake();
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -327,6 +330,7 @@ public class DashBoardFragment extends Fragment {
         map.put("PageNumber", 0);
         map.put(Filter_selected, Filter_selected_value);
         Log.i("Mapsssss", String.valueOf(map));
+        new SSL_HandShake().handleSSLHandshake();
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {

@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.os.Handler;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.util.Log;
@@ -48,6 +49,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.HaballError;
+import com.haball.Loader;
 import com.haball.NonSwipeableViewPager;
 import com.haball.R;
 import com.haball.Retailor.RetailorDashboard;
@@ -56,6 +58,7 @@ import com.haball.Retailor.ui.Place_Order.ui.main.Adapters.Order_Summary_Adapter
 import com.haball.Retailor.ui.Place_Order.ui.main.Models.OrderChildlist_Model;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.haball.SSL_HandShake;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -82,9 +85,9 @@ public class Retailer_Order_Summary extends Fragment {
     private List<OrderChildlist_Model> selectedProductsDataList = new ArrayList<>();
     private List<String> selectedProductsQuantityList = new ArrayList<>();
     private String object_string, object_stringqty, Token, DistributorId, CompanyId;
-    private String URL_CONFIRM_ORDERS = "https://retailer.haball.pk/api/Orders/saveOrder";
+    private String URL_CONFIRM_ORDERS = "http://175.107.203.97:4014/api/Orders/saveOrder";
     //    private String URL_SAVE_TEMPLATE = "http://175.107.203.97:4013/api/ordertemplate/save";
-    private String URL_SAVE_DRAFT = "https://retailer.haball.pk/api/Orders/draft";
+    private String URL_SAVE_DRAFT = "http://175.107.203.97:4014/api/Orders/draft";
     //    private Button btn_confirm, btn_template, btn_draft, btn_add_product;
     private Button btn_confirm, btn_draft, btn_add_product;
     private TextView gross_amount, discount_amount, total_amount;
@@ -122,30 +125,57 @@ public class Retailer_Order_Summary extends Fragment {
         btn_add_product = view.findViewById(R.id.btn_add_product);
 
         btn_draft = view.findViewById(R.id.place_item_button);
+
+        InputMethodManager imm = (InputMethodManager) (getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
+        final Loader loader = new Loader(getContext());
+
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NewApi")
             @Override
             public void onClick(View view) {
+                loader.showLoader();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                loader.hideLoader();
+                                try {
+                                    requestConfirmOrder();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
 
-                try {
-                    requestConfirmOrder();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
-                        Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = selectedProducts.edit();
-                editor.putString("selected_products", "");
-                editor.putString("selected_products_qty", "");
-                editor.apply();
+                                SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
+                                        Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = selectedProducts.edit();
+                                editor.putString("selected_products", "");
+                                editor.putString("selected_products_qty", "");
+                                editor.apply();
+                            }
+                        }, 3000);
+                    }
+                });
             }
         });
+
+
         btn_add_product.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NewApi")
             @Override
             public void onClick(View view) {
-                NonSwipeableViewPager viewPager = getActivity().findViewById(R.id.view_pager_rpoid);
+                loader.showLoader();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                loader.hideLoader();
+                                NonSwipeableViewPager viewPager = getActivity().findViewById(R.id.view_pager_rpoid);
 //                SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
 //                        Context.MODE_PRIVATE);
 //                Gson gson = new Gson();
@@ -164,48 +194,48 @@ public class Retailer_Order_Summary extends Fragment {
 //                                if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
 //                                    grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
 //                            }
-                float grossAmount = 0;
-                if (selectedProductsDataList == null) {
-                    Log.i("debugOrder_ListIsNull", "selected product list is null");
-                    SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
-                            Context.MODE_PRIVATE);
-                    Gson gson = new Gson();
-                    object_string = selectedProducts.getString("selected_products", "");
-                    object_stringqty = selectedProducts.getString("selected_products_qty", "");
-                    Log.i("object_string", object_string);
-                    Log.i("object_stringqty", object_stringqty);
-                    Type type = new TypeToken<List<OrderChildlist_Model>>() {
-                    }.getType();
-                    Type typeQty = new TypeToken<List<String>>() {
-                    }.getType();
-                    selectedProductsDataList = gson.fromJson(object_string, type);
-                    selectedProductsQuantityList = gson.fromJson(object_stringqty, typeQty);
-                }
-                if (selectedProductsDataList.size() > 0) {
-                    for (int i = 0; i < selectedProductsDataList.size(); i++) {
+                                float grossAmount = 0;
+                                if (selectedProductsDataList == null) {
+                                    Log.i("debugOrder_ListIsNull", "selected product list is null");
+                                    SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
+                                            Context.MODE_PRIVATE);
+                                    Gson gson = new Gson();
+                                    object_string = selectedProducts.getString("selected_products", "");
+                                    object_stringqty = selectedProducts.getString("selected_products_qty", "");
+                                    Log.i("object_string", object_string);
+                                    Log.i("object_stringqty", object_stringqty);
+                                    Type type = new TypeToken<List<OrderChildlist_Model>>() {
+                                    }.getType();
+                                    Type typeQty = new TypeToken<List<String>>() {
+                                    }.getType();
+                                    selectedProductsDataList = gson.fromJson(object_string, type);
+                                    selectedProductsQuantityList = gson.fromJson(object_stringqty, typeQty);
+                                }
+                                if (selectedProductsDataList.size() > 0) {
+                                    for (int i = 0; i < selectedProductsDataList.size(); i++) {
 //                        Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
 //                        Log.i("qty", selectedProductsQuantityList.get(i));
-                        if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
-                            grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
-                    }
-                    SharedPreferences add_more_product = getContext().getSharedPreferences("add_more_product",
-                            Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor1 = add_more_product.edit();
-                    editor1.putString("add_more_product", "fromAddMore");
-                    editor1.apply();
+                                        if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
+                                            grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
+                                    }
+                                    SharedPreferences add_more_product = getContext().getSharedPreferences("add_more_product",
+                                            Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor1 = add_more_product.edit();
+                                    editor1.putString("add_more_product", "fromAddMore");
+                                    editor1.apply();
 
-                    SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
-                            Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = grossamount.edit();
-                    editor.putString("grossamount", String.valueOf(grossAmount));
-                    editor.apply();
+                                    SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
+                                            Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = grossamount.edit();
+                                    editor.putString("grossamount", String.valueOf(grossAmount));
+                                    editor.apply();
 //                    Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
-                    grossAmount = 0;
-                    viewPager.setCurrentItem(0);
-                    FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.add(R.id.main_container_ret, new Retailer_OrderPlace_retailer_dashboarad());
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+                                    grossAmount = 0;
+                                    viewPager.setCurrentItem(0);
+                                    FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
+                                    fragmentTransaction.add(R.id.main_container_ret, new Retailer_OrderPlace_retailer_dashboarad());
+                                    fragmentTransaction.addToBackStack(null);
+                                    fragmentTransaction.commit();
 //                try {
 //                    requestSaveTemplate();
 //                } catch (JSONException e) {
@@ -218,26 +248,43 @@ public class Retailer_Order_Summary extends Fragment {
 //                editor.putString("selected_products", "");
 //                editor.putString("selected_products_qty", "");
 //                editor.apply();
-                }
+                                }
+                            }
+                        }, 3000);
+                    }
+                });
+
             }
         });
         btn_draft.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NewApi")
             @Override
             public void onClick(View view) {
+                loader.showLoader();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                loader.hideLoader();
 
-                try {
-                    requestSaveDraft();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                                try {
+                                    requestSaveDraft();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
 
-                SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
-                        Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = selectedProducts.edit();
-                editor.putString("selected_products", "");
-                editor.putString("selected_products_qty", "");
-                editor.apply();
+                                SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
+                                        Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = selectedProducts.edit();
+                                editor.putString("selected_products", "");
+                                editor.putString("selected_products_qty", "");
+                                editor.apply();
+                            }
+                        }, 3000);
+                    }
+                });
             }
         });
 
@@ -429,6 +476,7 @@ public class Retailer_Order_Summary extends Fragment {
 //        jsonObject.put("TotalDiscountAmount", 0);
 
 //        Log.i("jsonObject", String.valueOf(jsonObject));
+        new SSL_HandShake().handleSSLHandshake();
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_SAVE_DRAFT, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(final JSONObject result) {
@@ -551,6 +599,7 @@ public class Retailer_Order_Summary extends Fragment {
 //        jsonObject.put("TotalPrice", totalAmount);
 
 //        Log.i("jsonObject", String.valueOf(jsonObject));
+        new SSL_HandShake().handleSSLHandshake();
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_CONFIRM_ORDERS, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(final JSONObject result) {

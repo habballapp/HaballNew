@@ -60,6 +60,7 @@ import com.haball.Retailor.RetailorDashboard;
 import com.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
 import com.haball.Retailor.ui.Make_Payment.PaymentScreen3Fragment_Retailer;
 import com.haball.Retailor.ui.Profile.Profile_Tabs;
+import com.haball.SSL_HandShake;
 import com.haball.Select_User.Register_Activity;
 import com.haball.SplashScreen.SplashScreen;
 import com.haball.TextField;
@@ -88,10 +89,10 @@ import androidx.lifecycle.ViewModelProviders;
  */
 public class PlaceholderFragment extends Fragment {
 
-    private String ChangePass_URL = " https://retailer.haball.pk/api/users/ChangePassword";
-    private String PROFILE_EDIT_URL = "https://retailer.haball.pk/api/retailer/Save";
+    private String ChangePass_URL = " http://175.107.203.97:4014/api/users/ChangePassword";
+    private String PROFILE_EDIT_URL = "http://175.107.203.97:4014/api/retailer/Save";
     private String Token;
-    private String PROFILE_URL = "https://retailer.haball.pk/api/retailer/";
+    private String PROFILE_URL = "http://175.107.203.97:4014/api/retailer/";
     private String RetailerId, ID, username, CompanyName;
     private Button btn_changepwd, btn_save_password, update_password;
     private TextInputEditText Rfirstname, Remail, Rcode, Rcnic, Rmobile, R_created_date, R_Address, txt_password, txt_newpassword, txt_cfmpassword;
@@ -831,6 +832,7 @@ public class PlaceholderFragment extends Fragment {
 //            map.put("ID", ID);
             map.put("Username", username);
             Log.i("MapChangePass", map.toString());
+            new SSL_HandShake().handleSSLHandshake();
             BooleanRequest sr = new BooleanRequest(Request.Method.POST, ChangePass_URL, String.valueOf(map), new Response.Listener<Boolean>() {
                 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                 @Override
@@ -891,6 +893,7 @@ public class PlaceholderFragment extends Fragment {
                     loader.hideLoader();
 //                    new HaballError().printErrorMessage(error);
                     error.printStackTrace();
+                    new CustomToast().showToast(getActivity(), "Password mismatch");
 
                     layout_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
                     layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
@@ -1164,6 +1167,7 @@ public class PlaceholderFragment extends Fragment {
         jsonObject.put("CompanyName", CompanyName);
         jsonObject.put("Address", R_Address.getText().toString());
         jsonObject.put("Email", Remail.getText().toString());
+            new SSL_HandShake().handleSSLHandshake();
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, PROFILE_EDIT_URL, jsonObject, new Response.Listener<JSONObject>() {
             @Override
@@ -1276,6 +1280,7 @@ public class PlaceholderFragment extends Fragment {
         Log.i("RetailerId ", RetailerId);
         PROFILE_URL = PROFILE_URL + RetailerId;
         Log.i("Token Retailer ", Token);
+            new SSL_HandShake().handleSSLHandshake();
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, PROFILE_URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {

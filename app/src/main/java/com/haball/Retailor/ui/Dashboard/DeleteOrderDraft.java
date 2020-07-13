@@ -28,6 +28,7 @@ import com.haball.Distributor.ui.home.HomeFragment;
 import com.haball.R;
 import com.haball.Registration.BooleanRequest;
 import com.haball.Retailor.RetailorDashboard;
+import com.haball.SSL_HandShake;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,7 +37,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DeleteOrderDraft {
-    public String URL_DELETE_ORDER_DRAFT = "https://retailer.haball.pk/api/orders/deletedraft/";
+    public String URL_DELETE_ORDER_DRAFT = "http://175.107.203.97:4014/api/orders/deletedraft/";
     public String DistributorId, Token;
     public Context mContext;
     private FragmentTransaction fragmentTransaction;
@@ -60,6 +61,8 @@ public class DeleteOrderDraft {
             URL_DELETE_ORDER_DRAFT = URL_DELETE_ORDER_DRAFT + orderId;
 
 //        final Context finalcontext = context;
+        new SSL_HandShake().handleSSLHandshake();
+
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.DELETE, URL_DELETE_ORDER_DRAFT, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

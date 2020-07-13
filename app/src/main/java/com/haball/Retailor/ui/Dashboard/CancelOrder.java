@@ -29,6 +29,7 @@ package com.haball.Retailor.ui.Dashboard;
         import com.haball.R;
         import com.haball.Retailor.RetailorDashboard;
         import com.haball.Retailor.ui.Make_Payment.PaymentScreen3Fragment_Retailer;
+        import com.haball.SSL_HandShake;
 
         import org.json.JSONException;
         import org.json.JSONObject;
@@ -40,7 +41,7 @@ package com.haball.Retailor.ui.Dashboard;
         import androidx.fragment.app.FragmentTransaction;
 
 public class CancelOrder {
-    public String URL_CANCEL_ORDER = "https://retailer.haball.pk/api/orders/cancelorder";
+    public String URL_CANCEL_ORDER = "http://175.107.203.97:4014/api/orders/cancelorder";
     public String Token;
     public Context mContext;
     private FragmentTransaction fragmentTransaction;
@@ -64,6 +65,10 @@ public class CancelOrder {
         map.put("Status", 4);
 
         final Context finalcontext = context;
+
+        new SSL_HandShake().handleSSLHandshake();
+
+
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL_CANCEL_ORDER, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

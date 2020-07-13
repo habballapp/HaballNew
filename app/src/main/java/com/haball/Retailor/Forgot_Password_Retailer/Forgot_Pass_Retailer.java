@@ -46,6 +46,7 @@ import com.haball.R;
 import com.haball.Registration.BooleanRequest;
 import com.haball.Retailer_Login.RetailerLogin;
 import com.haball.Retailor.ui.Support.SupportFragment;
+import com.haball.SSL_HandShake;
 import com.haball.Select_User.Register_Activity;
 import com.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
@@ -70,7 +71,7 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
     private TextInputEditText txt_email;
     private TextView heading;
     private Button btn_lgn, btn_reset;
-    private String URL_FORGOT_PASSWORD = "https://retailer.haball.pk/api/users/forgot";
+    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4014/api/users/forgot";
 //    ProgressDialog progressDialog;
     private TextInputLayout layout_email;
     private Loader loader;
@@ -230,6 +231,8 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
 //        progressDialog.setTitle("Resetting Password");
 //        progressDialog.setMessage("Loading, Please Wait..");
 //        progressDialog.show();
+        new SSL_HandShake().handleSSLHandshake();
+
         StringRequest sr = new StringRequest(Request.Method.POST, URL_FORGOT_PASSWORD, new Response.Listener<String>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
@@ -318,7 +321,7 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject();
                     jsonObject.put("Email", String.valueOf(txt_email.getText()));
-                    jsonObject.put("RedirectUrl", "https://retailer.haball.pk/#/updatePassword");
+                    jsonObject.put("RedirectUrl", "http://175.107.203.97:4014/#/updatePassword");
                     return jsonObject.toString().getBytes(StandardCharsets.UTF_8);
                 } catch (Exception e) {
                     return null;

@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -49,6 +50,7 @@ import com.haball.R;
 import com.haball.Retailor.RetailorDashboard;
 import com.haball.Retailor.ui.Place_Order.ui.main.Models.Company_Fragment_Model;
 import com.haball.Retailor.ui.Place_Order.ui.main.Tabs.Retailer_OrderPlace_retailer_dashboarad;
+import com.haball.SSL_HandShake;
 import com.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -80,8 +82,8 @@ public class PlaceholderFragment extends Fragment {
     private RecyclerView.Adapter mAdapter1;
     private RecyclerView.LayoutManager layoutManager, layoutManager1;
     private String Token, Retailer_Id;
-    private String URL_Retailer = "https://retailer.haball.pk/api/kyc/ConnectedKycList/"; // To be done
-    private String URL_Retailer_Details = "https://retailer.haball.pk/api/retailer/"; // To be done
+    private String URL_Retailer = "http://175.107.203.97:4014/api/kyc/ConnectedKycList/"; // To be done
+    private String URL_Retailer_Details = "http://175.107.203.97:4014/api/retailer/"; // To be done
     private List<Company_Fragment_Model> CompanyList;
     private Button btn_next;
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -166,6 +168,9 @@ public class PlaceholderFragment extends Fragment {
                 txt_email_address = rootView.findViewById(R.id.txt_email_address);
                 txt_cnic_no = rootView.findViewById(R.id.txt_cnic_no);
                 txt_address = rootView.findViewById(R.id.txt_address);
+
+                InputMethodManager imm = (InputMethodManager) (getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(rootView.getWindowToken(), 0);
 
                 txt_ntn.setEnabled(false);
                 txt_mobile_no.setEnabled(false);
@@ -262,6 +267,10 @@ public class PlaceholderFragment extends Fragment {
 
             case 2: {
                 rootView = inflater.inflate(R.layout.fragment_rpoid_order_summary, container, false);
+
+                InputMethodManager imm = (InputMethodManager) (getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(rootView.getWindowToken(), 0);
+
                 break;
             }
 
@@ -317,6 +326,7 @@ public class PlaceholderFragment extends Fragment {
         if (!URL_Retailer.contains(Retailer_Id))
             URL_Retailer = URL_Retailer + Retailer_Id;
         Log.i("URL_Company ", URL_Retailer);
+            new SSL_HandShake().handleSSLHandshake();
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.GET, URL_Retailer, null, new Response.Listener<JSONArray>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)

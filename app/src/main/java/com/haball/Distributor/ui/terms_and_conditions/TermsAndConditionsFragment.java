@@ -40,6 +40,7 @@ import com.haball.Registration.BooleanRequest;
 import com.haball.Retailer_Login.RetailerLogin;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.haball.SSL_HandShake;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,7 +54,7 @@ public class TermsAndConditionsFragment extends AppCompatActivity {
 
     private TermsAndConditionsViewModel mViewModel;
     private Button agree_button, disagree_button;
-    private String URL = "https://retailer.haball.pk/api/users/termsandcondition";
+    private String URL = "http://175.107.203.97:4014/api/users/termsandcondition";
     private String Token;
 
     public static TermsAndConditionsFragment newInstance() {
@@ -103,6 +104,7 @@ public class TermsAndConditionsFragment extends AppCompatActivity {
         jsonObject.put("RetailerID", Integer.parseInt(RetailerID));
 
         String requestBody = jsonObject.toString();
+        new SSL_HandShake().handleSSLHandshake();
 
         BooleanRequest sr = new BooleanRequest(Request.Method.POST, URL, requestBody, new Response.Listener<Boolean>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)

@@ -28,6 +28,7 @@ import com.haball.Retailor.ui.Network.Models.Network_Recieve_Model;
 import com.haball.Retailor.ui.Network.Models.Network_Sent_Model;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.haball.SSL_HandShake;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,7 +58,7 @@ public class My_Network_Fragment extends Fragment {
     Netwok_Model paymentsViewModel;
     private RecyclerView.Adapter networkAdapter, sentadapter, recieveAdapter;
     private String Token, DistributorId;
-    private String MYNETWORK_URL = " https://retailer.haball.pk/api/kyc/Search";
+    private String MYNETWORK_URL = " http://175.107.203.97:4014/api/kyc/Search";
     private int pageNumbernetwork = 0;
     private double totalPagesnetwork = 0;
     private double totalEntriesnetwork = 0;
@@ -120,6 +121,7 @@ public class My_Network_Fragment extends Fragment {
 
         //   networkAdapter = new Fragment_My_Network_Adapter(getContext(), "Connected", "123456789","Mz-2,Horizon Vista,Plot-10,Block-4,Clifton");
         // rv_network.setAdapter(networkAdapter);
+            new SSL_HandShake().handleSSLHandshake();
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, MYNETWORK_URL, map, new Response.Listener<JSONArray>() {
             @Override

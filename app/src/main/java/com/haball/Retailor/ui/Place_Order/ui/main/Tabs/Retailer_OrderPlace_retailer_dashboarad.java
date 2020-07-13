@@ -30,8 +30,10 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -69,6 +71,7 @@ import com.haball.Retailor.ui.Place_Order.ui.main.Models.OrderParentlist_Model;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.haball.SSL_HandShake;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -91,8 +94,8 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
     private List<OrderParentlist_Model> titles = new ArrayList<>();
     private List<OrderChildlist_Model> productList = new ArrayList<>();
     private List<SimpleParent> parentObjects = new ArrayList<>();
-    private String URL_PRODUCT_CATEGORY = "https://retailer.haball.pk/api/products/GetProductByDealerCode/";
-    //    private String URL_PRODUCT = "https://retailer.haball.pk/api/products/GetProductByDealerCode/";
+    private String URL_PRODUCT_CATEGORY = "http://175.107.203.97:4014/api/products/GetProductByDealerCode/";
+    //    private String URL_PRODUCT = "http://175.107.203.97:4014/api/products/GetProductByDealerCode/";
     private String Token, Retailer_Id, CompanyId;
     private String object_string, object_stringqty;
     private List<OrderChildlist_Model> selectedProductsDataList = new ArrayList<>();
@@ -116,6 +119,8 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
     private FragmentTransaction fragmentTransaction;
     private int lastExpandedPosition = -1;
     private String editTextValue = "";
+    private View myview = null;
+    private Loader loader;
 
     public Retailer_OrderPlace_retailer_dashboarad() {
         // Required empty public constructor
@@ -126,11 +131,27 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_order_place_retailer_dashboarad, container, false);
+        final View view = inflater.inflate(R.layout.fragment_order_place_retailer_dashboarad, container, false);
+        myview = view;
         myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
         btn_checkout = view.findViewById(R.id.btn_checkout);
         btn_close = view.findViewById(R.id.close_button);
+        loader = new Loader(getContext());
+
+        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                int heightDiff = view.getRootView().getHeight() - view.getHeight();
+
+                if (heightDiff > 100) {
+                    Log.e("MyActivity", "keyboard opened");
+                } else {
+                    Log.e("MyActivity", "keyboard closed");
+                }
+            }
+        });
 
         btn_close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +164,10 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                 if (orderCheckedOut.equals("orderCheckout")) {
                     showDiscardDialog();
                 } else {
+
+                    InputMethodManager imm = (InputMethodManager) (getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(myview.getWindowToken(), 0);
+
                     fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("tag");
                     fragmentTransaction.commit();
@@ -364,7 +389,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
 
         final AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        final View view_popup = inflater.inflate(R.layout.discard_changes, null);
         TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
         tv_discard_txt.setText("Are you sure, you want to leave this page? Your changes will be discarded.");
         alertDialog.setView(view_popup);
@@ -389,6 +414,10 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                 SharedPreferences.Editor orderCheckout_editor = orderCheckout.edit();
                 orderCheckout_editor.putString("orderCheckout", "");
                 orderCheckout_editor.apply();
+
+                InputMethodManager imm = (InputMethodManager) (getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(myview.getWindowToken(), 0);
+
 
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("tag");
@@ -425,6 +454,10 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
 //                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
 //
                     if (selectedProductsDataList == null || selectedProductsDataList.size() == 0) {
+                        InputMethodManager imm = (InputMethodManager) (getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(myview.getWindowToken(), 0);
+
+
                         fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("null");
                         fragmentTransaction.commit();
@@ -545,6 +578,11 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
 //                            Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
                                             grossAmount = 0;
                                             viewPager.setCurrentItem(1);
+
+                                            InputMethodManager imm = (InputMethodManager) (getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
+                                            imm.hideSoftInputFromWindow(myview.getWindowToken(), 0);
+
+
                                             FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
                                             fragmentTransaction.add(R.id.main_container_ret, new Retailer_Order_Summary());
                                             fragmentTransaction.addToBackStack(null);
@@ -668,6 +706,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
 //    }
 
     private void getFilteredProductCategory(final String ParentId) throws JSONException {
+
         Log.i("ParentId", ParentId);
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
@@ -690,6 +729,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
 //        Log.i("Map", String.valueOf(map));
         if (!URL_PRODUCT_CATEGORY.contains("/" + CompanyId))
             URL_PRODUCT_CATEGORY = URL_PRODUCT_CATEGORY + CompanyId;
+            new SSL_HandShake().handleSSLHandshake();
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_PRODUCT_CATEGORY, null, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -841,6 +881,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
             URL_PRODUCT_CATEGORY = URL_PRODUCT_CATEGORY + CompanyId;
 
 //        Log.i("Map", String.valueOf(map));
+            new SSL_HandShake().handleSSLHandshake();
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_PRODUCT_CATEGORY, null, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -1059,6 +1100,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
             URL_PRODUCT_CATEGORY = URL_PRODUCT_CATEGORY + CompanyId;
 
 //        Log.i("Map", String.valueOf(map));
+            new SSL_HandShake().handleSSLHandshake();
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_PRODUCT_CATEGORY, null, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)

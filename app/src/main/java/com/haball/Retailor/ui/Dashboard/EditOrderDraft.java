@@ -25,6 +25,7 @@ package com.haball.Retailor.ui.Dashboard;
         import com.haball.Retailor.ui.Place_Order.Retailer_Place_Order;
         import com.haball.Retailor.ui.Place_Order.ui.main.Models.OrderChildlist_Model;
         import com.haball.Retailor.ui.RetailerOrder.RetailerOrdersModel.RetailerViewOrderProductModel;
+        import com.haball.SSL_HandShake;
 
         import org.json.JSONArray;
         import org.json.JSONException;
@@ -37,7 +38,7 @@ package com.haball.Retailor.ui.Dashboard;
         import java.util.Map;
 
 public class EditOrderDraft {
-    public String URL_EDIT_ORDER_DRAFT = "https://retailer.haball.pk/api/Orders/";
+    public String URL_EDIT_ORDER_DRAFT = "http://175.107.203.97:4014/api/Orders/";
     public String Token;
     public Context mContext;
     private List<RetailerViewOrderProductModel> RetailerDraftProductsList = new ArrayList<>();
@@ -64,6 +65,8 @@ public class EditOrderDraft {
             URL_EDIT_ORDER_DRAFT = URL_EDIT_ORDER_DRAFT + orderId;
 
 //        final Context finalcontext = context;
+        new SSL_HandShake().handleSSLHandshake();
+
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_EDIT_ORDER_DRAFT, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
