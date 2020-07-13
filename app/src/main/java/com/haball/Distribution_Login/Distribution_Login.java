@@ -28,6 +28,7 @@ import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
@@ -36,22 +37,31 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.CustomToast;
 import com.haball.Distributor.DistributorDashboard;
+import com.haball.Distributor.Distributor_TermsAndConditionsFragment;
+import com.haball.Distributor.ui.terms_and_conditions.TermsAndConditionsFragment;
+import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.ProcessingError;
 import com.haball.R;
 import com.haball.Registration.Registration_main;
 import com.haball.Retailer_Login.RetailerLogin;
+import com.haball.Retailor.Retailer_TermsAndConditionsFragment;
+import com.haball.Retailor.Retailer_UpdatePassword;
+import com.haball.Retailor.RetailorDashboard;
 import com.haball.Select_User.Register_Activity;
 import com.haball.Support.Support_Ditributor.Support_Ticket_Form;
 import com.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import com.haball.Forgot_Password.Forgot_Pass_Distributor;
 
@@ -67,6 +77,7 @@ public class Distribution_Login extends AppCompatActivity {
     private TextInputEditText et_username, et_password, txt_email;
     private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4013/api/Users/forgot";
     private String token;
+    private  String URL = "http://175.107.203.97:4013/Token";
     ProgressDialog progressDialog;
     private TextInputLayout layout_password, layout_username;
     private Loader loader;
@@ -186,11 +197,13 @@ public class Distribution_Login extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 try {
                     loginRequest();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
             }
         });
 //        btn_signup.setOnClickListener(new View.OnClickListener() {
@@ -248,33 +261,38 @@ public class Distribution_Login extends AppCompatActivity {
         loader.showLoader();
 
         JSONObject map = new JSONObject();
-        try {
             map.put("Username", et_username.getText().toString());
             map.put("Password", et_password.getText().toString());
             map.put("grant_type", "password");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
+
         Log.i("map", String.valueOf(map));
-        String URL = "http://175.107.203.97:4013/Token";
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONObject result) {
+                Log.i("result_", String.valueOf(result));
                 loader.hideLoader();
                 try {
                     if (!result.get("access_token").toString().isEmpty()) {
                         token = result.get("access_token").toString();
                         JSONObject userAccount = new JSONObject(String.valueOf(result.get("UserAccount")));
                         Log.i("user account => ", userAccount.get("DistributorID").toString());
-                        String DistributorId = userAccount.get("DistributorID").toString();
+                        JSONObject termsAndConditionObj = userAccount.getJSONObject("IsTermAndConditionAccepted");
+                       // int arr = ((int[]) termsAndConditionObj.get("data"))[0];
+                        JSONArray arr=(JSONArray)termsAndConditionObj.get("data");
+                        final String IsTermAndConditionAccepted = String.valueOf(arr.get(0));
+                        Log.i("abc",IsTermAndConditionAccepted);
+                        //final String UpdatePassword = userAccount.get("UpdatePassword").toString();
+                        String userRights = userAccount.get("UserRights").toString();
+                        final String DistributorId = userAccount.get("DistributorID").toString();
                         String username = userAccount.get("Username").toString();
                         String CompanyName = userAccount.get("CompanyName").toString();
                         String DealerCode = userAccount.get("DealerCode").toString();
                         String ID = userAccount.get("ID").toString();
-                        String FirstName = userAccount.get("FirstName").toString();
-                        String EmailAddress = userAccount.get("EmailAddress").toString();
-                        String Mobile = userAccount.get("Mobile").toString();
+                        final String FirstName = userAccount.get("FirstName").toString();
+                        final String EmailAddress = userAccount.get("EmailAddress").toString();
+                        final String Mobile = userAccount.get("Mobile").toString();
                         String Name = userAccount.get("FirstName").toString() + " " + userAccount.get("LastName").toString();
 
                         SharedPreferences login_token = getSharedPreferences("LoginToken",
@@ -288,24 +306,89 @@ public class Distribution_Login extends AppCompatActivity {
                         editor.putString("DealerCode", DealerCode);
                         editor.putString("Name", Name);
                         editor.putString("ID", ID);
+                        editor.putString("IsTermAndConditionAccepted", IsTermAndConditionAccepted);
+
+
+                      //  editor.putString("UpdatePassword", UpdatePassword);
 
                         editor.apply();
-
-
-                        SharedPreferences companyId = getSharedPreferences("SendData",
-                                Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editorCompany = companyId.edit();
-                        editorCompany.putString("first_name", FirstName);
-                        editorCompany.putString("email", EmailAddress);
-                        editorCompany.putString("phone_number", Mobile);
-                        editorCompany.apply();
-
-                        // Toast.makeText(Distribution_Login.this, "Login Success", Toast.LENGTH_LONG).show();
-                        Intent login_intent = new Intent(Distribution_Login.this, DistributorDashboard.class);
-                        startActivity(login_intent);
-                        finish();
+                        if (IsTermAndConditionAccepted.equals("0")) {
+                            Intent login_intent = new Intent(Distribution_Login.this, Distributor_TermsAndConditionsFragment.class);
+                            startActivity(login_intent);
+                            finish();
+                        }
+//                                else if (IsTermAndConditionAccepted.equals("1")) {
+//                                    Intent login_intent = new Intent(Distribution_Login.this, Retailer_UpdatePassword.class);
+//                                    startActivity(login_intent);
+//                                    finish();
+//                                }
+                        else if (IsTermAndConditionAccepted.equals("1")) {
+                            // Toast.makeText(Distribution_Login.this, "Login Success", Toast.LENGTH_LONG).show();
+                            Intent login_intent = new Intent(Distribution_Login.this, DistributorDashboard.class);
+                            startActivity(login_intent);
+                            finish();
+                        }
+//                        URL_FORGOT_PASSWORD = URL_FORGOT_PASSWORD + DistributorId;
+//                        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_FORGOT_PASSWORD, null, new Response.Listener<JSONObject>() {
+//                            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+//                            @Override
+//                            public void onResponse(JSONObject result1) {
+//                                loader.hideLoader();
+//                                SharedPreferences retailerInfo = getSharedPreferences("RetailerInfo",
+//                                        Context.MODE_PRIVATE);
+//                                SharedPreferences.Editor retailerInfo_editor = retailerInfo.edit();
+//                                //retailerInfo_editor.putString("RetailerCode", Dis);
+//                                retailerInfo_editor.putString("DistributorID", DistributorId);
+//                                retailerInfo_editor.apply();
+//
+//                                SharedPreferences companyId = getSharedPreferences("SendData",
+//                                        Context.MODE_PRIVATE);
+//                                SharedPreferences.Editor editorCompany = companyId.edit();
+//                                editorCompany.putString("first_name", FirstName);
+//                                editorCompany.putString("email", EmailAddress);
+//                                editorCompany.putString("phone_number", Mobile);
+//                                editorCompany.apply();
+//                               // Log.i("UpdatePassword", UpdatePassword);
+//                                if (IsTermAndConditionAccepted.equals("0")) {
+//                                    Intent login_intent = new Intent(Distribution_Login.this, TermsAndConditionsFragment.class);
+//                                    startActivity(login_intent);
+//                                    finish();
+//                                }
+////                                else if (IsTermAndConditionAccepted.equals("1")) {
+////                                    Intent login_intent = new Intent(Distribution_Login.this, Retailer_UpdatePassword.class);
+////                                    startActivity(login_intent);
+////                                    finish();
+////                                }
+//                                else if (IsTermAndConditionAccepted.equals("1")) {
+//                                    // Toast.makeText(Distribution_Login.this, "Login Success", Toast.LENGTH_LONG).show();
+//                                    Intent login_intent = new Intent(Distribution_Login.this, RetailorDashboard.class);
+//                                    startActivity(login_intent);
+//                                    finish();
+//                                }
+//
+//
+//                            }
+//                        }, new Response.ErrorListener() {
+//                            @Override
+//                            public void onErrorResponse(VolleyError error) {
+//                                loader.hideLoader();
+//                                error.printStackTrace();
+//                                new HaballError().printErrorMessage(Distribution_Login.this, error);
+//                                new ProcessingError().showError(Distribution_Login.this);
+//                                //Toast.makeText(Distribution_Login.this,error.toString(),Toast.LENGTH_LONG).show();
+//                            }
+//                        }){
+//                            @Override
+//                            public Map<String, String> getHeaders() throws AuthFailureError {
+//                                Map<String, String> params = new HashMap<String, String>();
+//                                params.put("Authorization", "bearer " + token);
+//                                return params;
+//                            }
+//                        };
+//                        Volley.newRequestQueue(Distribution_Login.this).add(sr);
+//                        RequestQueue requestQueue = Volley.newRequestQueue(Distribution_Login.this);
+//                        requestQueue.add(sr);
                     }
-
                 } catch (JSONException e) {
                     new CustomToast().showToast(Distribution_Login.this, "Invalid Credentials");
                     e.printStackTrace();
@@ -330,11 +413,12 @@ public class Distribution_Login extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onErrorResponse(VolleyError error) {
-                loader.hideLoader();
+               // loader.hideLoader();
                 error.printStackTrace();
+                new HaballError().printErrorMessage(Distribution_Login.this, error);
                 new ProcessingError().showError(Distribution_Login.this);
 //                Toast.makeText(Distribution_Login.this,error.toString(),Toast.LENGTH_LONG).show();
-                printErrorMessage(error);
+                //printErrorMessage(error);
             }
         });
         sr.setRetryPolicy(new DefaultRetryPolicy(
@@ -342,9 +426,8 @@ public class Distribution_Login extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(this).add(sr);
-
-//        RequestQueue requestQueue = Volley.newRequestQueue(this);
-//        requestQueue.add(sr);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(sr);
     }
 
     @Override
@@ -370,44 +453,44 @@ public class Distribution_Login extends AppCompatActivity {
         }
     }
 
-    private void printErrorMessage(VolleyError error) {
-        if (error instanceof NetworkError) {
-            Toast.makeText(Distribution_Login.this, "Network Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ServerError) {
-            Toast.makeText(Distribution_Login.this, "Server Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof AuthFailureError) {
-            Toast.makeText(Distribution_Login.this, "Auth Failure Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof ParseError) {
-            Toast.makeText(Distribution_Login.this, "Parse Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof NoConnectionError) {
-            Toast.makeText(Distribution_Login.this, "No Connection Error !", Toast.LENGTH_LONG).show();
-        } else if (error instanceof TimeoutError) {
-            Toast.makeText(Distribution_Login.this, "Timeout Error !", Toast.LENGTH_LONG).show();
-        }
-
-        if (error.networkResponse != null && error.networkResponse.data != null) {
-            try {
-                String message = "";
-                String responseBody = new String(error.networkResponse.data, "utf-8");
-                JSONObject data = new JSONObject(responseBody);
-                Iterator<String> keys = data.keys();
-                while (keys.hasNext()) {
-                    String key = keys.next();
-//                if (data.get(key) instanceof JSONObject) {
-                    message = message + data.get(key) + "\n";
+//    private void printErrorMessage(VolleyError error) {
+//        if (error instanceof NetworkError) {
+//            Toast.makeText(Distribution_Login.this, "Network Error !", Toast.LENGTH_LONG).show();
+//        } else if (error instanceof ServerError) {
+//            Toast.makeText(Distribution_Login.this, "Server Error !", Toast.LENGTH_LONG).show();
+//        } else if (error instanceof AuthFailureError) {
+//            Toast.makeText(Distribution_Login.this, "Auth Failure Error !", Toast.LENGTH_LONG).show();
+//        } else if (error instanceof ParseError) {
+//            Toast.makeText(Distribution_Login.this, "Parse Error !", Toast.LENGTH_LONG).show();
+//        } else if (error instanceof NoConnectionError) {
+//            Toast.makeText(Distribution_Login.this, "No Connection Error !", Toast.LENGTH_LONG).show();
+//        } else if (error instanceof TimeoutError) {
+//            Toast.makeText(Distribution_Login.this, "Timeout Error !", Toast.LENGTH_LONG).show();
+//        }
+//
+//        if (error.networkResponse != null && error.networkResponse.data != null) {
+//            try {
+//                String message = "";
+//                String responseBody = new String(error.networkResponse.data, "utf-8");
+//                JSONObject data = new JSONObject(responseBody);
+//                Iterator<String> keys = data.keys();
+//                while (keys.hasNext()) {
+//                    String key = keys.next();
+////                if (data.get(key) instanceof JSONObject) {
+//                    message = message + data.get(key) + "\n";
+////                }
 //                }
-                }
-//                    if(data.has("message"))
-//                        message = data.getString("message");
-//                    else if(data. has("Error"))
-                Toast.makeText(Distribution_Login.this, message, Toast.LENGTH_LONG).show();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+////                    if(data.has("message"))
+////                        message = data.getString("message");
+////                    else if(data. has("Error"))
+//                Toast.makeText(Distribution_Login.this, message, Toast.LENGTH_LONG).show();
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 }
 
 

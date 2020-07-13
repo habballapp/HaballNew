@@ -14,19 +14,24 @@ import com.haball.R;
 public class OrderParentList_VH_DistOrder extends ParentViewHolder {
     public TextView _textview;
     public ImageView imageView;
+    public RelativeLayout layout_expandable, rl_orderName_retailer;
     public ImageView minus_icon;
     public RecyclerView subchlid_RV;
-    public RelativeLayout layout_expandable, rl_orderName_retailer;
+    public RelativeLayout rl_parentList;
+    private RelativeLayout filter_layout;
 
-    public OrderParentList_VH_DistOrder(View itemView) {
+
+    public OrderParentList_VH_DistOrder(View itemView, RelativeLayout filter_layout) {
         super(itemView);
         _textview = (TextView) itemView.findViewById(R.id.orderName_retailer);
-        rl_orderName_retailer = itemView.findViewById(R.id.rl_orderName_retailer);
         imageView = itemView.findViewById(R.id.plus_icon);
-//        minus_icon = itemView.findViewById(R.id.minus_icon);
+        minus_icon = itemView.findViewById(R.id.minus_icon);
         subchlid_RV = itemView.findViewById(R.id.subchlid_RV);
         layout_expandable = itemView.findViewById(R.id.layout_expandable);
-//        minus_icon.setVisibility(View.GONE);
+        rl_orderName_retailer = itemView.findViewById(R.id.rl_orderName_retailer);
+        rl_parentList = itemView.findViewById(R.id.rl_parentList);
+        minus_icon.setVisibility(View.GONE);
+        this.filter_layout = filter_layout;
         View.OnClickListener plusMinusOnClick = new View.OnClickListener() {
             @Override
             public void onClick(View itemView) {

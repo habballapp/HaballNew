@@ -46,7 +46,7 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
 
         DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
         String yourFormattedString1 = formatter1.format(Double.parseDouble(paymentsList.get(position).getTotalPrice()));
-        holder.tv_amount.setText(yourFormattedString1);
+        holder.tv_amount.setText("Rs. " +yourFormattedString1);
 
 //        if(paymentsList.get(position).getStatus().equals("0")){
 //            holder.tv_status.setText("Paid");

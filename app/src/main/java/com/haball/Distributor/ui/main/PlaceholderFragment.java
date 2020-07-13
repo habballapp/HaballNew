@@ -133,7 +133,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private int pageNumberOrder = 0;
     private double totalPagesOrder = 0;
     private double totalEntriesOrder = 0;
-    private String fromDate, toDate, fromAmount, toAmount;
+    private String fromDate = "", toDate = "", fromAmount = "", toAmount = "";
     private FragmentTransaction fragmentTransaction;
     private String tabName;
     private RelativeLayout rv_filter, spinner_container_main;
@@ -419,18 +419,18 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 company_names.add("Select Company");
                 //company_names = "";
                 arrayAdapterPayments = new ArrayAdapter<String>(rootView.getContext(),
-                        android.R.layout.simple_spinner_dropdown_item, company_names){
+                        android.R.layout.simple_spinner_dropdown_item, company_names) {
                     @Override
-                public View getDropDownView(int position, View convertView, ViewGroup parent) {
-                    // TODO Auto-generated method stub
-                    View view = super.getView(position, convertView, parent);
-                    TextView text = (TextView) view.findViewById(android.R.id.text1);
-                    text.setTextColor(getResources().getColor(R.color.text_color_selection));
-                    text.setTextSize((float) 13.6);
-                    text.setPadding(30, 0, 30, 0);
-                    text.setTypeface(myFont);
-                    return view;
-                }
+                    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                        // TODO Auto-generated method stub
+                        View view = super.getView(position, convertView, parent);
+                        TextView text = (TextView) view.findViewById(android.R.id.text1);
+                        text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                        text.setTextSize((float) 13.6);
+                        text.setPadding(30, 0, 30, 0);
+                        text.setTypeface(myFont);
+                        return view;
+                    }
 
                     @Override
                     public View getView(int position, View convertView, ViewGroup parent) {
@@ -450,7 +450,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                             try {
                                 ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                                 ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                                ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
+                                ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                                 rl_overView.setVisibility(View.GONE);
                             } catch (NullPointerException e) {
                                 e.printStackTrace();
@@ -459,7 +459,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                             try {
                                 ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                                 ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                                ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
+                                ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                             } catch (NullPointerException ex) {
                                 ex.printStackTrace();
                             }
@@ -906,22 +906,34 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 //
     }
 
+
     private void checkAmountChanged() {
-        et_amount1.addTextChangedListener(new TextWatcher() {
+        et_amount1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!String.valueOf(et_amount1.getText()).equals("") && !String.valueOf(et_amount2.getText()).equals("")) {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
                     fromAmount = String.valueOf(et_amount1.getText());
+                    if (tabName.equals("Payment")) {
+                        try {
+                            fetchFilteredPaymentRequests();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (tabName.equals("Order")) {
+                        try {
+                            fetchFilteredOrderData();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+
+                        }
+                    }
+                }
+            }
+        });
+        et_amount2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
                     toAmount = String.valueOf(et_amount2.getText());
                     if (tabName.equals("Payment")) {
                         try {
@@ -940,41 +952,106 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 }
             }
         });
-
-        et_amount2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!String.valueOf(et_amount1.getText()).equals("") && !String.valueOf(et_amount2.getText()).equals("")) {
-                    fromAmount = String.valueOf(et_amount1.getText());
-                    toAmount = String.valueOf(et_amount2.getText());
-                    if (tabName.equals("Payment")) {
-                        try {
-                            fetchFilteredPaymentRequests();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    } else if (tabName.equals("Order")) {
-                        try {
-                            fetchFilteredOrderData();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-
-                        }
-                    }
-                }
-            }
-
-        });
+//        et_amount1.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                final String fromAmount_main = String.valueOf(et_amount1.getText());
+////                if (!String.valueOf(et_amount2.getText()).equals(""))
+//
+////                new java.util.Timer().schedule(
+////                        new java.util.TimerTask() {
+////                            @Override
+////                            public void run() {
+////                                // your code here
+////                                getActivity().runOnUiThread(new Runnable() {
+////                                    public void run() {
+////                                        //your code
+//                fromAmount = String.valueOf(et_amount1.getText());
+//                if (fromAmount_main.equals(fromAmount)) {
+//                    if (tabName.equals("Payment")) {
+//                        try {
+//                            fetchFilteredRetailerPayments();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    } else if (tabName.equals("Order")) {
+//                        try {
+//                            fetchFilteredOrderData();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//
+//                        }
+//                    }
+//                }
+////                                    }
+////                                });
+////                            }
+////                        },
+////                        2500
+////                );
+//            }
+//        });
+//
+//        et_amount2.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+////                if (!String.valueOf(et_amount2.getText()).equals(""))
+//                final String toAmount_main = String.valueOf(et_amount2.getText());
+//
+////                new java.util.Timer().schedule(
+////                        new java.util.TimerTask() {
+////                            @Override
+////                            public void run() {
+////                                // your code here
+////                                getActivity().runOnUiThread(new Runnable() {
+////                                    public void run() {
+////                                        //your code
+//                toAmount = String.valueOf(et_amount2.getText());
+//                if (toAmount_main.equals(toAmount)) {
+//                    if (tabName.equals("Payment")) {
+//                        try {
+//                            fetchFilteredRetailerPayments();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    } else if (tabName.equals("Order")) {
+//                        try {
+//                            fetchFilteredOrderData();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//
+//                        }
+//                    }
+//                }
+////                                    }
+////                                });
+////                            }
+////                        },
+////                        2500
+////                );
+//            }
+//
+//        });
 
     }
 
@@ -1421,11 +1498,15 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         map.put("TotalRecords", 10);
         map.put("PageNumber", 0.1);
         if (Filter_selected.equals("date")) {
-            map.put(Filter_selected1, fromDate);
-            map.put(Filter_selected2, toDate);
+            if (!fromDate.equals(""))
+                map.put(Filter_selected1, fromDate);
+            if (!toDate.equals(""))
+                map.put(Filter_selected2, toDate);
         } else if (Filter_selected.equals("amount")) {
-            map.put(Filter_selected1, fromAmount);
-            map.put(Filter_selected2, toAmount);
+            if (!fromAmount.equals(""))
+                map.put(Filter_selected1, fromAmount);
+            if (!toAmount.equals(""))
+                map.put(Filter_selected2, toAmount);
         } else {
             map.put(Filter_selected, Filter_selected_value);
         }
@@ -1611,11 +1692,15 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         map.put("TotalRecords", 10);
         map.put("PageNumber", 0.1);
         if (Filter_selected.equals("date")) {
-            map.put(Filter_selected1, fromDate);
-            map.put(Filter_selected2, toDate);
+            if (!fromDate.equals(""))
+                map.put(Filter_selected1, fromDate);
+            if (!toDate.equals(""))
+                map.put(Filter_selected2, toDate);
         } else if (Filter_selected.equals("amount")) {
-            map.put(Filter_selected1, fromAmount);
-            map.put(Filter_selected2, toAmount);
+            if (!fromAmount.equals(""))
+                map.put(Filter_selected1, fromAmount);
+            if (!toAmount.equals(""))
+                map.put(Filter_selected2, toAmount);
         } else {
             map.put(Filter_selected, Filter_selected_value);
         }
@@ -1677,8 +1762,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     String yourFormattedString1 = formatter1.format(Double.parseDouble(jsonObject.get("TotalUnpaidAmount").toString()));
                     DecimalFormat formatter2 = new DecimalFormat("#,###,###,##0.00");
                     String yourFormattedString2 = formatter2.format(Double.parseDouble(jsonObject.get("TotalPrepaidAmount").toString()));
-                    value_unpaid_amount.setText(yourFormattedString1);
-                    value_paid_amount.setText(yourFormattedString2);
+                    value_unpaid_amount.setText("Rs. " + yourFormattedString1);
+                    value_paid_amount.setText("Rs. " + yourFormattedString2);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -1786,6 +1871,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             }
         }
     }
+
     private void fetchCompanyData() {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);

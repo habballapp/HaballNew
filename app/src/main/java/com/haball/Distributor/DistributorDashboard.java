@@ -1,22 +1,28 @@
 package com.haball.Distributor;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
@@ -29,6 +35,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.haball.Distribution_Login.Distribution_Login;
 import com.haball.Distributor.ui.Fragment_Notification.FragmentNotification;
 import com.haball.Distributor.ui.Fragment_Notification.NotificationAdapter;
 import com.haball.Distributor.ui.Fragment_Notification.NotificationModel;
@@ -45,7 +52,10 @@ import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrderDashboard;
 import com.haball.Distributor.ui.shipments.Shipments_Fragments;
 import com.haball.Distributor.ui.support.SupportFragment;
 import com.haball.Distributor.ui.terms_and_conditions.TermsAndConditionsFragment;
+import com.haball.Loader;
+import com.haball.ProcessingError;
 import com.haball.R;
+import com.haball.Registration.BooleanRequest;
 import com.haball.Retailor.ui.Network.Select_Tabs.My_Network_Fragment;
 import com.haball.Select_User.Register_Activity;
 import com.google.android.material.navigation.NavigationView;
@@ -55,6 +65,7 @@ import com.techatmosphere.expandablenavigation.model.ChildModel;
 import com.techatmosphere.expandablenavigation.model.HeaderModel;
 import com.techatmosphere.expandablenavigation.view.ExpandableNavigationListView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -88,17 +99,6 @@ public class DistributorDashboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        SharedPreferences grossamount = getApplication().getSharedPreferences("grossamount",
-//                Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = grossamount.edit();
-//        editor.clear();
-//        editor.apply();
-//        SharedPreferences selectedProducts_distributor = getApplication().getSharedPreferences("selectedProducts_distributor",
-//                Context.MODE_PRIVATE);
-//        SharedPreferences.Editor selectedProducts_distributor_editor = selectedProducts_distributor.edit();
-//        selectedProducts_distributor_editor.clear();
-//        selectedProducts_distributor_editor.apply();
-
         setContentView(R.layout.activity_distributor_dashboard);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -169,14 +169,14 @@ public class DistributorDashboard extends AppCompatActivity {
                 .addHeaderModel(new HeaderModel("My Network"))
                 .addHeaderModel(
                         new HeaderModel("Place Order")
-                               )
+                )
                 .addHeaderModel(
                         new HeaderModel("Payment")
 //                                  .addChildModel(new ChildModel("\tPayments Summary"))
-                              //  .addChildModel(new ChildModel("\tConsolidate Payments"))
+                                //  .addChildModel(new ChildModel("\tConsolidate Payments"))
                                 .addChildModel(new ChildModel("\tMake Payment"))
                                 .addChildModel(new ChildModel("\tPayment Ledger"))
-                               // .addChildModel(new ChildModel("\tProof of Payments"))
+                        // .addChildModel(new ChildModel("\tProof of Payments"))
 
                 )
                 .addHeaderModel(new HeaderModel("Shipment"))
@@ -204,7 +204,7 @@ public class DistributorDashboard extends AppCompatActivity {
                             Log.i("My Network", "My Network Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
 //                            fragmentTransaction.replace(R.id.main_container_ret, new My_NetworkDashboard());
-                            fragmentTransaction.replace(R.id.main_container_ret, new My_Network_Fragment()).addToBackStack("tag");
+                            fragmentTransaction.replace(R.id.main_container, new My_Network_Fragment()).addToBackStack("tag");
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 2) {
@@ -261,9 +261,7 @@ public class DistributorDashboard extends AppCompatActivity {
 //                                Intent login = new Intent(DistributorDashboard.this, Distribution_Login.class);
 //                                startActivity(login);
 //                                finish();
-                                Intent intent = new Intent(DistributorDashboard.this, Register_Activity.class);
-                                startActivity(intent);
-                                finish();
+                                logoutUser();
                             }
                             drawer.closeDrawer(GravityCompat.START);
 //                        } else if (id == 8) {
@@ -292,7 +290,7 @@ public class DistributorDashboard extends AppCompatActivity {
 //                            fragmentTransaction.commit();
 //                            drawer.closeDrawer(GravityCompat.START);
 //                        }
-                       if (groupPosition == 3 && childPosition == 0) {
+                        if (groupPosition == 3 && childPosition == 0) {
                             Log.i("Make Payment", "Child");//DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new CreatePaymentRequestFragment()).addToBackStack(null);
@@ -403,6 +401,48 @@ public class DistributorDashboard extends AppCompatActivity {
             }
         });
         Volley.newRequestQueue(DistributorDashboard.this).add(sr);
+    }
+
+    private void logoutUser() {
+        SharedPreferences login_token = getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = login_token.edit();
+        editor.remove("Login_Token");
+        editor.commit();
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(DistributorDashboard.this).create();
+        LayoutInflater inflater = LayoutInflater.from(DistributorDashboard.this);
+        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
+        tv_discard.setText("Logout");
+        TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+        tv_discard_txt.setText("Are you sure, you want to logout?");
+        alertDialog.setView(view_popup);
+        alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+        WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+        layoutParams.y = 200;
+        layoutParams.x = -70;// top margin
+        alertDialog.getWindow().setAttributes(layoutParams);
+        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+        btn_discard.setText("Logout");
+        btn_discard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                Intent login = new Intent(DistributorDashboard.this, Distribution_Login.class);
+                startActivity(login);
+                finish();
+            }
+        });
+
+        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+        img_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
     }
 
 

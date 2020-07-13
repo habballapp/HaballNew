@@ -91,10 +91,10 @@
                     app:boxStrokeColor="@color/box_stroke">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/txt_email"
+                        android:id="@+id/txt_email_distributor"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:inputType="textPassword"
+                        android:inputType="textEmailAddress"
                         android:theme="@style/TextLabelEditeText" />
 
                 </com.google.android.material.textfield.TextInputLayout>
