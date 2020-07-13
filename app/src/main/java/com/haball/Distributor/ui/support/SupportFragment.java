@@ -124,7 +124,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                              ViewGroup container, Bundle savedInstanceState) {
         supportViewModel =
                 ViewModelProviders.of(this).get(SupportViewModel.class);
-        View root = inflater.inflate(R.layout.activity_support_dashboard, container, false);
+        final View root = inflater.inflate(R.layout.activity_support_dashboard, container, false);
         btn_add_ticket = root.findViewById(R.id.btn_add_ticket);
         myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
         btn_add_ticket.setOnClickListener(new View.OnClickListener() {
@@ -176,7 +176,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         consolidate_felter.add("Status");
 
         arrayAdapterPaymentsFilter = new ArrayAdapter<String>(root.getContext(),
-                android.R.layout.simple_dropdown_item_1line, consolidate_felter){
+                android.R.layout.simple_dropdown_item_1line, consolidate_felter) {
 
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
@@ -212,9 +212,9 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
 
                 if (i == 0) {
                     try {
-                           ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -222,7 +222,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                      ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -250,18 +250,19 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                         filters.add("Reports");
 
                         arrayAdapterFeltter = new ArrayAdapter<String>(getContext(),
-                                android.R.layout.simple_dropdown_item_1line, filters){
+                                android.R.layout.simple_dropdown_item_1line, filters) {
+
                             @Override
-                        public View getDropDownView(int position, View convertView, ViewGroup parent) {
-                            // TODO Auto-generated method stub
-                            View view = super.getView(position, convertView, parent);
-                            TextView text = (TextView) view.findViewById(android.R.id.text1);
-                            text.setTextColor(getResources().getColor(R.color.text_color_selection));
-                            text.setTextSize((float) 13.6);
-                            text.setPadding(30, 0, 30, 0);
-                            text.setTypeface(myFont);
-                            return view;
-                        }
+                            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                                // TODO Auto-generated method stub
+                                View view = super.getView(position, convertView, parent);
+                                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                                text.setTextSize((float) 13.6);
+                                text.setPadding(30, 0, 30, 0);
+                                text.setTypeface(myFont);
+                                return view;
+                            }
 
                             @Override
                             public View getView(int position, View convertView, ViewGroup parent) {
@@ -308,7 +309,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                         filters.add("Resolved");
 
                         arrayAdapterFeltter = new ArrayAdapter<String>(getContext(),
-                                android.R.layout.simple_dropdown_item_1line, filters){
+                                android.R.layout.simple_dropdown_item_1line, filters) {
                             @Override
                             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                                 // TODO Auto-generated method stub
@@ -362,9 +363,9 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 if (Filter_selected.equals("Status")) {
                     if (i == 0) {
                         try {
-                               ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                             ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                          ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
+                            ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                         } catch (NullPointerException ex) {
                             ex.printStackTrace();
                         }
@@ -372,7 +373,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                         try {
                             ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                             ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                          ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
+                            ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                         } catch (NullPointerException ex) {
                             ex.printStackTrace();
                         }
@@ -539,7 +540,6 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 }
                 mAdapter = new SupportDashboardAdapter(getContext(), SupportList, recyclerView, mAdapter);
                 recyclerView.setAdapter(mAdapter);
-
 
 
             }

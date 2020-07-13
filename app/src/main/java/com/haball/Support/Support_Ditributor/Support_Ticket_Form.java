@@ -202,7 +202,8 @@ public class Support_Ticket_Form extends AppCompatActivity {
         };
 //        arrayAdapterCriticality = new ArrayAdapter<>(this,
 //                android.R.layout.simple_dropdown_item_1line, criticality);
-        arrayAdapterCriticality = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, criticality) {
+        arrayAdapterCriticality = new ArrayAdapter<String>(getApplicationContext(),
+                android.R.layout.simple_spinner_dropdown_item, criticality) {
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 // TODO Auto-generated method stub
@@ -228,7 +229,8 @@ public class Support_Ticket_Form extends AppCompatActivity {
         };
 //        arrayAdapterPreferredContact = new ArrayAdapter<>(this,
 //                android.R.layout.simple_dropdown_item_1line, preffered_contact);
-        arrayAdapterPreferredContact = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, preffered_contact) {
+        arrayAdapterPreferredContact = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, preffered_contact) {
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 // TODO Auto-generated method stub
