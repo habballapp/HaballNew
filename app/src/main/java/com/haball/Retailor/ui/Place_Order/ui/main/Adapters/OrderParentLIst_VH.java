@@ -81,28 +81,12 @@ public class OrderParentLIst_VH extends ParentViewHolder {
     public void togglePlusMinusIcon() {
         if (isExpanded()) {
             collapseView();
-            minus_icon.setVisibility(View.GONE);
-            imageView.setVisibility(View.VISIBLE);
-
-            if (filter_layout.getVisibility() == View.GONE) {
-
-                filter_layout.setVisibility(View.VISIBLE);
-                TranslateAnimation animate1 = new TranslateAnimation(
-                        0,                 // fromXDelta
-                        0,                 // toXDelta
-                        -filter_layout.getHeight(),  // fromYDelta
-                        0);                // toYDelta
-                animate1.setDuration(250);
-                animate1.setFillAfter(true);
-                filter_layout.clearAnimation();
-                filter_layout.startAnimation(animate1);
-            }
-//            rl_orderName_retailer.setBackgroundResource(R.drawable.underline);
+//            minus_icon.setVisibility(View.GONE);
+//            imageView.setVisibility(View.VISIBLE);
         } else {
             expandView();
-            imageView.setVisibility(View.GONE);
-            minus_icon.setVisibility(View.VISIBLE);
-//            rl_orderName_retailer.setBackground(null);
+//            imageView.setVisibility(View.GONE);
+//            minus_icon.setVisibility(View.VISIBLE);
         }
 
     }

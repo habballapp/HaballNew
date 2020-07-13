@@ -107,13 +107,13 @@
                         android:id="@+id/search_rl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/spinner_container"
-                        android:visibility="gone">
+                        android:layout_below="@+id/spinner_container">
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/search_bar"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
                             android:hint="Search by Item"
                             android:textColorHint="#676a6c"
                             android:theme="@style/TextLabelSearchBox">
@@ -250,6 +250,7 @@
                                 android:layout_weight="0.5"
                                 android:background="@android:color/transparent"
                                 android:inputType="number"
+                                android:maxLength="9"
                                 android:textColor="#676A6C"
                                 android:textColorHint="#676A6C"
                                 android:textSize="14sp" />
@@ -289,6 +290,7 @@
                                 android:layout_weight="0.5"
                                 android:background="@android:color/transparent"
                                 android:inputType="number"
+                                android:maxLength="9"
                                 android:textColor="#676A6C"
                                 android:textColorHint="#676A6C"
                                 android:textSize="14sp" />
@@ -310,7 +312,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/spinner_container_main"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp">
 
                 <androidx.recyclerview.widget.RecyclerView

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Build;
@@ -13,11 +14,13 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,6 +42,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.haball.Distributor.ui.profile.Profile_Model;
 import com.haball.R;
@@ -61,6 +65,7 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 
@@ -78,7 +83,7 @@ public class PlaceholderFragment extends Fragment {
                             layout_tv_cnic,layout_edt_dist_mobile,layout_tv_NTN,layout_tv_companyname,layout_tv_created_date,
                             layout_R_Address;
     private TextInputEditText txt_password, txt_newpassword, txt_cfmpassword;
-    public TextInputEditText edt_dist_code, tv_cnic, tv_NTN, tv_companyname, tv_created_date, tv_pr1;
+    public TextInputEditText edt_dist_code, tv_cnic, tv_NTN, tv_companyname, tv_created_date;
     private String PROFILE_URL = "http://175.107.203.97:4013/api/distributor/";
     private String PROFILE_ADDRESS_URL = "http://175.107.203.97:4013/api/distributor/ReadAdditionalAddress/";
     private String ChangePass_URL = "http://175.107.203.97:4013/api/Users/ChangePassword";
@@ -86,11 +91,13 @@ public class PlaceholderFragment extends Fragment {
     private String Token;
     private String DistributorId, ID, Username, Phone;
     private Dialog change_password_dail;
-    private Boolean password_check = false, confirm_password_check = false;
+    private Boolean old_password_check = false,password_check = false, confirm_password_check = false;
     private int keyDel;
     private TextInputLayout layout_password1, layout_password3,layout_password;
     private String currentTab = "";
     private Boolean changed = false;
+    private Button btn_back;
+    private TextView tv_pr1;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -136,11 +143,25 @@ public class PlaceholderFragment extends Fragment {
                 tv_created_date = root.findViewById(R.id.tv_created_date);
                 R_Address = root.findViewById(R.id.R_Address);
                 distri_btn_save = root.findViewById(R.id.distri_btn_save);
+               // btn_back = root.findViewById(R.id.btn_back);
                 edt_firstname.setFocusable(false);
                 R_Address.setFocusable(false);
                 edt_lastname.setFocusable(false);
                 edt_email.setFocusable(false);
                 edt_dist_mobile.setFocusable(false);
+//                btn_back.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        if (changed) {
+//                            showDiscardDialog();
+//                        } else {
+//                            Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+//                            ((FragmentActivity) getContext()).startActivity(login_intent);
+//                            ((FragmentActivity) getContext()).finish();
+//                        }
+//
+//                    }
+//                });
 
 
                 new TextField().changeColor(this.getContext(),layout_edt_dist_code,edt_dist_code);
@@ -347,12 +368,14 @@ public class PlaceholderFragment extends Fragment {
                 });
                 profileData();
 
+
             }
             break;
 
             case 2:
                 root = inflater.inflate(R.layout.pasword_change, container, false);
                 currentTab = "Password";
+                btn_back = root.findViewById(R.id.btn_back);
                 layout_password3 = root.findViewById(R.id.layout_password3);
                 txt_password = root.findViewById(R.id.txt_password);
                 txt_newpassword = root.findViewById(R.id.txt_newpassword);
@@ -368,6 +391,21 @@ public class PlaceholderFragment extends Fragment {
 
                 update_password.setEnabled(false);
                 update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+                btn_back.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String txtpassword = txt_password.getText().toString();
+                        String txtnewpassword = txt_newpassword.getText().toString();
+                        String txtcfmpassword = txt_cfmpassword.getText().toString();
+                        if (!txtpassword.equals("") || !txtnewpassword.equals("") || !txtcfmpassword.equals("")) {
+                            showDiscardDialog();
+                        } else {
+                            Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+                            ((FragmentActivity) getContext()).startActivity(login_intent);
+                            ((FragmentActivity) getContext()).finish();
+                        }
+                    }
+                });
                 update_password.setOnClickListener(new View.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
@@ -397,6 +435,7 @@ public class PlaceholderFragment extends Fragment {
 
                     @Override
                     public void afterTextChanged(Editable s) {
+                        checkOldPasswords();
                         checkFieldsForEmptyValues();
 
                     }
@@ -513,13 +552,28 @@ public class PlaceholderFragment extends Fragment {
         View view_popup = inflater.inflate(R.layout.discard_changes, null);
         TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
         tv_discard_txt.setText("Are you sure, you want to leave this page? Your changes will be discarded.");
+        alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+        WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+        layoutParams.y = 200;
+        layoutParams.x = -70;// top margin
+        alertDialog.getWindow().setAttributes(layoutParams);
         alertDialog.setView(view_popup);
         Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
         btn_discard.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.i("CreatePayment", "Button Clicked");
                 alertDialog.dismiss();
-                fm.popBackStack();
+//                fm.popBackStack();
+                SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                editorOrderTabsFromDraft.putString("TabNo", "0");
+                editorOrderTabsFromDraft.apply();
+
+                Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+                ((FragmentActivity) getContext()).startActivity(login_intent);
+                ((FragmentActivity) getContext()).finish();
+
             }
         });
 
@@ -752,7 +806,7 @@ public class PlaceholderFragment extends Fragment {
     }
 
     private void updatePassword() throws JSONException {
-
+        checkOldPasswords();
         checkPasswords();
         checkConfirmPassword();
         if (password_check && confirm_password_check) {
@@ -794,6 +848,11 @@ public class PlaceholderFragment extends Fragment {
                             tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
                             tv_pr1.setText("User Profile ID " + ID + " password has been changed successfully.");
                             fbDialogue.setCancelable(true);
+                            fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                            WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+                            layoutParams.y = 200;
+                            layoutParams.x = -70;// top margin
+                            fbDialogue.getWindow().setAttributes(layoutParams);
                             fbDialogue.show();
                             ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
                             close_button.setOnClickListener(new View.OnClickListener() {
@@ -872,7 +931,7 @@ public class PlaceholderFragment extends Fragment {
             layout_password3.setPasswordVisibilityToggleEnabled(true);
         } else {
             confirm_password_check = false;
-            txt_cfmpassword.setError("Password does not match");
+          //  txt_cfmpassword.setError("Password does not match");
             txt_cfmpassword.setTextColor(getResources().getColor(R.color.error_stroke_color));
             layout_password3.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
             layout_password3.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
@@ -997,4 +1056,74 @@ public class PlaceholderFragment extends Fragment {
 
         }
     }
+    private void checkOldPasswords() {
+        String reg_ex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{6,}$";
+//        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
+        if (txt_password.getText().toString().matches(reg_ex)) {
+            old_password_check = true;
+            layout_password.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
+            layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+            layout_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
+            txt_password.setTextColor(getResources().getColor(R.color.textcolor));
+//            layout_password1.setPasswordVisibilityToggleEnabled(true);
+            checkFieldsForEmptyValuesUpdatePass();
+        } else {
+//            txt_newpassword.setError("Please enter password with minimum 6 characters & 1 Numeric or special character");
+            old_password_check = false;
+            layout_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+            layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            layout_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            txt_password.setTextColor(getResources().getColor(R.color.error_stroke_color));
+//            layout_password1.setPasswordVisibilityToggleEnabled(false);
+            update_password.setEnabled(false);
+            update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+        }
+//        txt_password.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                layout_password.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
+//                layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+//                layout_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
+//                txt_password.setTextColor(getResources().getColor(R.color.textcolor));
+////                layout_password1.setPasswordVisibilityToggleEnabled(true);
+//                checkFieldsForEmptyValuesUpdatePass();
+//                checkOldPasswords();
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
+    }
+    private void checkFieldsForEmptyValuesUpdatePass() {
+        String reg_ex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{6,}$";
+//        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
+
+
+        String password = txt_password.getText().toString();
+        String newPass = txt_newpassword.getText().toString();
+        String confrm_pass = txt_cfmpassword.getText().toString();
+        if (password.equals("")
+                || newPass.equals("")
+                || confrm_pass.equals("")
+                || !password.matches(reg_ex)
+                || !password.matches(reg_ex)
+                || !confrm_pass.matches(reg_ex)
+        ) {
+            update_password.setEnabled(false);
+            update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+
+        } else {
+            update_password.setEnabled(true);
+            update_password.setBackground(getResources().getDrawable(R.drawable.button_background));
+        }
+    }
+
+
 }

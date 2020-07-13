@@ -592,7 +592,7 @@ public class Distributor_TermsAndConditionsFragment extends AppCompatActivity {
         String DistributorID = sharedPreferences.getString("Distributor_Id", "");
         Log.i("Token", Token);
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("DistributorID", Integer.parseInt(DistributorID));
+        jsonObject.put("DistributorId", Integer.parseInt(DistributorID));
 
         String requestBody = jsonObject.toString();
 

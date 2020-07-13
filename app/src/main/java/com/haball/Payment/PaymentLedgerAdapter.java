@@ -37,6 +37,7 @@ public class PaymentLedgerAdapter extends RecyclerView.Adapter<PaymentLedgerAdap
 
     @Override
     public void onBindViewHolder(@NonNull PaymentLedgerAdapter.ViewHolder holder, int position) {
+        holder.menu_btn.setVisibility(View.GONE);
         holder.tv_heading.setText(PaymentLedgerList.get(position).getCompanyName());
         holder.ledger_id_value.setText(PaymentLedgerList.get(position).getDocumentNumber());
         holder.document_type_value.setText(PaymentLedgerList.get(position).getDocumentType());
@@ -48,7 +49,7 @@ public class PaymentLedgerAdapter extends RecyclerView.Adapter<PaymentLedgerAdap
             holder.transaction_value.setText("Rs. " +yourFormattedString1);
         } else{
             yourFormattedString1 = formatter1.format(Float.parseFloat(PaymentLedgerList.get(position).getCreditAmount()));
-            holder.transaction_value.setText(yourFormattedString1);
+            holder.transaction_value.setText("Rs. " +yourFormattedString1);
             holder.transaction.setText("Credit");
         }
         DecimalFormat formatter2 = new DecimalFormat("#,###,##0.00");
@@ -72,6 +73,7 @@ public class PaymentLedgerAdapter extends RecyclerView.Adapter<PaymentLedgerAdap
             transaction_value = itemView.findViewById(R.id.transaction_value);
             balance_value = itemView.findViewById(R.id.balance_value);
             transaction = itemView.findViewById(R.id.transaction);
+            menu_btn = itemView.findViewById(R.id.menu_btn);
         }
     }
 

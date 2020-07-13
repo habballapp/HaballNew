@@ -112,7 +112,7 @@ public class Dist_OrderPlace extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dist_main_placeorder, container, false);
         btn_checkout = view.findViewById(R.id.btn_checkout);
-        close_order_button = view.findViewById(R.id.close_order_button);
+        close_order_button = view.findViewById(R.id.close_button);
         recyclerView = view.findViewById(R.id.rv_order_list);
         spinner_container_main = view.findViewById(R.id.spinner_container_main);
 //        subchlid_RV = view.findViewById(R.id.subchlid_RV);
@@ -598,7 +598,7 @@ public class Dist_OrderPlace extends Fragment {
                 productList = gson.fromJson(String.valueOf(result), type);
                 Log.i("productList", String.valueOf(productList));
 
-                final ParentList_Adapter_DistOrder adapter = new ParentList_Adapter_DistOrder(getActivity(), initData());
+                final ParentList_Adapter_DistOrder adapter = new ParentList_Adapter_DistOrder(getActivity(), initData(), spinner_container_main, btn_checkout);
 //                adapter.setCustomParentAnimationViewId(R.id.parent_list_item_expand_arrow);
 //                adapter.setParentClickableViewAnimationDefaultDuration();
                 adapter.setExpandCollapseListener(new ExpandableRecyclerAdapter.ExpandCollapseListener() {
@@ -609,6 +609,8 @@ public class Dist_OrderPlace extends Fragment {
                         if (lastExpandedPosition != -1
                                 && parentPosition != lastExpandedPosition) {
                             adapter.collapseParent(lastExpandedPosition);
+//                                adapter.OrderParentList.get(lastExpandedPosition).togglePlusMinusIcon();
+//                                adapter.OrderParentList.get(parentPosition).togglePlusMinusIcon();
                         }
                         lastExpandedPosition = parentPosition;
                     }
@@ -616,8 +618,12 @@ public class Dist_OrderPlace extends Fragment {
                     @UiThread
                     @Override
                     public void onParentCollapsed(int parentPosition) {
+//                            adapter.OrderParentList.get(parentPosition).togglePlusMinusIcon();
                     }
                 });
+                //adapter.setParentClickableViewAnimationDefaultDuration();
+//                    adapter.setParentAndIconExpandOnClick(false);
+//                    recyclerView.addItemDecoration(new MyDividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL, 30));
                 recyclerView.setAdapter(adapter);
             }
         }, new Response.ErrorListener() {
@@ -714,13 +720,35 @@ public class Dist_OrderPlace extends Fragment {
                 }
                 Log.i("productList", String.valueOf(productList));
 //                Log.i("titles123", String.valueOf(titles));
-                ParentList_Adapter_DistOrder adapter = new ParentList_Adapter_DistOrder(getActivity(), initData());
+                final ParentList_Adapter_DistOrder adapter = new ParentList_Adapter_DistOrder(getActivity(), initData(), spinner_container_main, btn_checkout);
 //                adapter.setCustomParentAnimationViewId(R.id.parent_list_item_expand_arrow);
 //                adapter.set .setParentClickableViewAnimationDefaultDuration();
 //                adapter.setParentAndIconExpandOnClick(false);
 //                adapter.onParentItemClickListener(1);
-                recyclerView.setAdapter(adapter);
+                adapter.setExpandCollapseListener(new ExpandableRecyclerAdapter.ExpandCollapseListener() {
+                    @UiThread
+                    @Override
+                    public void onParentExpanded(int parentPosition) {
 
+                        if (lastExpandedPosition != -1
+                                && parentPosition != lastExpandedPosition) {
+                            adapter.collapseParent(lastExpandedPosition);
+//                                adapter.OrderParentList.get(lastExpandedPosition).togglePlusMinusIcon();
+//                                adapter.OrderParentList.get(parentPosition).togglePlusMinusIcon();
+                        }
+                        lastExpandedPosition = parentPosition;
+                    }
+
+                    @UiThread
+                    @Override
+                    public void onParentCollapsed(int parentPosition) {
+//                            adapter.OrderParentList.get(parentPosition).togglePlusMinusIcon();
+                    }
+                });
+                //adapter.setParentClickableViewAnimationDefaultDuration();
+//                    adapter.setParentAndIconExpandOnClick(false);
+//                    recyclerView.addItemDecoration(new MyDividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL, 30));
+                recyclerView.setAdapter(adapter);
             }
         }, new Response.ErrorListener() {
             @Override
