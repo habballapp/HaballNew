@@ -6,14 +6,13 @@
     android:layout_height="match_parent"
     android:background="#fff"
     android:theme="@style/AppTheme"
-    tools:context=".Retailor.ui.Support.SupportFragment">
+    tools:context="Distributor.ui.support.SupportFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="27dp"
         android:layout_marginEnd="27dp">
-
         <RelativeLayout
             android:id="@+id/ll_tv_support"
             android:layout_width="wrap_content"
@@ -48,7 +47,7 @@
                     android:src="@drawable/ic_baseline_add_24" />
 
                 <TextView
-                    android:id="@+id/btn_add_ticket_retailer"
+                    android:id="@+id/btn_add_ticket"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/image_plus"
@@ -59,12 +58,6 @@
                     android:textSize="13sp" />
             </RelativeLayout>
         </RelativeLayout>
-
-        <!--        <ScrollView-->
-        <!--            android:id="@+id/scrollview_support"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="match_parent"-->
-        <!--            android:layout_below="@+id/ll_tv_support">-->
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -79,7 +72,8 @@
                 <RelativeLayout
                     android:id="@+id/spinner_container_main_inner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    >
 
                     <RelativeLayout
                         android:id="@+id/spinner_container"
@@ -102,6 +96,7 @@
                             android:layout_alignTop="@id/spinner_conso"
                             android:layout_alignEnd="@+id/spinner_conso"
                             android:layout_alignRight="@+id/spinner_conso"
+                            android:layout_alignBottom="@+id/spinner_conso"
                             android:src="@drawable/ic_arrow_drop_down_black_24dp"
                             android:theme="@style/Spinner" />
                     </RelativeLayout>
@@ -112,8 +107,7 @@
                         android:layout_height="50dp"
                         android:layout_below="@+id/spinner_container"
                         android:layout_marginTop="20dp"
-                        android:background="@drawable/edit_text_squared"
-                        android:visibility="gone">
+                        android:background="@drawable/edit_text_squared">
 
                         <Spinner
                             android:id="@+id/conso_spinner2"
@@ -129,6 +123,7 @@
                             android:layout_alignTop="@id/conso_spinner2"
                             android:layout_alignEnd="@+id/conso_spinner2"
                             android:layout_alignRight="@+id/conso_spinner2"
+                            android:layout_alignBottom="@+id/conso_spinner2"
                             android:src="@drawable/ic_arrow_drop_down_black_24dp"
                             android:theme="@style/Spinner" />
                     </RelativeLayout>
@@ -138,13 +133,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/spinner_container"
-                        android:layout_marginTop="5dp"
-                        android:visibility="gone">
+                        android:visibility="visible">
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/search_bar"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:hint="Search by Item"
                             android:textColorHint="#676a6c"
                             android:theme="@style/TextLabelSearchBox">
 
@@ -159,7 +154,6 @@
                                 android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
-
                     </RelativeLayout>
 
                     <LinearLayout
@@ -169,7 +163,7 @@
                         android:layout_below="@+id/spinner_container"
                         android:layout_marginTop="20dp"
                         android:orientation="horizontal"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:weightSum="4">
 
                         <LinearLayout
@@ -246,12 +240,6 @@
 
                     </LinearLayout>
                 </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/line_bottom_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@+id/spinner_container_main_inner" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -262,9 +250,9 @@
                 android:layout_marginBottom="10dp">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_support_complaints_retailer"
+                    android:id="@+id/rv_support_complaints"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent" />
 
                 <TextView
                     android:id="@+id/tv_shipment_no_data"
@@ -278,26 +266,16 @@
 
             </RelativeLayout>
 
-            <!--            <TextView-->
-            <!--                android:id="@+id/footer"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_alignParentBottom="true"-->
-            <!--                android:layout_marginTop="30dp"-->
-            <!--                android:layout_marginBottom="10dp"-->
-            <!--                android:gravity="center"-->
-            <!--                android:text="© Haball | All rights reserved" />-->
+            <!--    <TextView-->
+            <!--        android:layout_below="@+id/rl_recycler"-->
+            <!--        android:id="@+id/footer"-->
+            <!--        android:layout_width="match_parent"-->
+            <!--        android:layout_height="wrap_content"-->
+            <!--        android:layout_alignParentBottom="true"-->
+            <!--        android:layout_marginTop="30dp"-->
+            <!--        android:layout_marginBottom="10dp"-->
+            <!--        android:gravity="center"-->
+            <!--        android:text="© Haball | All rights reserved" />-->
         </RelativeLayout>
-        <!--        </ScrollView>-->
     </RelativeLayout>
-
-    <!--    <pl.droidsonroids.gif.GifImageView-->
-    <!--        android:id="@+id/loader"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_centerInParent="true"-->
-    <!--        android:src="@drawable/loader_new"-->
-    <!--        android:visibility="visible"-->
-    <!--        />-->
-
 </RelativeLayout>

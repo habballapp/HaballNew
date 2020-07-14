@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="none"
     android:background="#fff"
+    android:scrollbars="none"
     tools:context=".MainActivity">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -38,14 +39,12 @@
                 android:layout_below="@+id/tv_support"
                 android:background="@drawable/horizontal_black_line" />
         </LinearLayout>
-
         <RelativeLayout
             android:id="@+id/rl_fields"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/header"
-            android:layout_marginTop="20dp"
-            >
+            android:layout_marginTop="20dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_BName"
@@ -55,18 +54,14 @@
                 android:hint="Business Name"
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
-                app:boxStrokeColor="@color/box_stroke"
-                app:boxStrokeWidth="0.5dp"
-               >
+                app:boxStrokeColor="@color/box_stroke">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/BName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/open_sans"
                     android:inputType="text|textCapSentences"
-                     android:theme="@style/TextLabelEditeText" 
-                    />
+                    android:theme="@style/TextLabelEditeText" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -82,7 +77,6 @@
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
                 app:boxStrokeColor="@color/box_stroke">
-
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/Email"
@@ -124,8 +118,8 @@
                 android:layout_height="50dp"
                 android:layout_below="@+id/layout_MobileNo"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/edit_round"
-                >
+                android:background="@drawable/edit_round">
+
                 <Spinner
                     android:id="@+id/IssueType"
                     android:layout_width="match_parent"
@@ -143,7 +137,6 @@
                     android:layout_alignBottom="@+id/IssueType"
                     android:src="@drawable/ic_arrow_drop_down_black_24dp"
                     android:theme="@style/Spinner" />
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -153,6 +146,7 @@
                 android:layout_below="@+id/relative_issuetype"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/edit_round">
+
                 <Spinner
                     android:id="@+id/critcicality"
                     android:layout_width="match_parent"
@@ -176,9 +170,10 @@
                 android:id="@+id/relative_Preffered_Contact"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="20dp"
                 android:layout_below="@+id/relative_criticality"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/edit_round">
+
                 <Spinner
                     android:id="@+id/Preffered_Contact"
                     android:layout_width="match_parent"
@@ -205,25 +200,27 @@
                 android:layout_height="100dp"
                 android:layout_below="@+id/relative_Preffered_Contact"
                 android:layout_marginTop="20dp"
-                android:hint="Comment"
+                android:hint="Comments"
+                android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
                 app:boxStrokeColor="@color/box_stroke"
-                app:boxStrokeWidth="0.5dp"
-                android:theme="@style/TextLabel"
-               >
+
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/Comment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/open_sans"
                     android:gravity="top|left"
                     android:inputType="textMultiLine|textCapSentences"
-                    android:theme="@style/TextLabelEditeText" 
-                    />
+                    android:theme="@style/TextLabelEditeText" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
         </RelativeLayout>
+
+
         <Button
             android:id="@+id/ticket_btn"
             android:layout_width="match_parent"
@@ -239,7 +236,7 @@
             android:textSize="@dimen/button_text_size" />
 
         <Button
-            android:id="@+id/btn_back"
+            android:id="@+id/btn_back_support"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_below="@+id/ticket_btn"

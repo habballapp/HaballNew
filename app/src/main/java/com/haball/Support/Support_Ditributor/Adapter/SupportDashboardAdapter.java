@@ -5,11 +5,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -165,52 +167,54 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
 //
 //                                break;
                             case R.id.menu_delete:
+                                showDeleteTicketDialog(position);
                                 //handle menu3 click
 //                                Toast.makeText(mContxt,"Delete Clicked",Toast.LENGTH_LONG).show();
-                                final AlertDialog deleteAlert = new AlertDialog.Builder(mContxt).create();
-                                LayoutInflater delete_inflater = LayoutInflater.from(mContxt);
-                                View delete_alert = delete_inflater.inflate(R.layout.delete_alert, null);
-                                deleteAlert.setView(delete_alert);
-                                Button btn_delete = (Button) delete_alert.findViewById(R.id.btn_delete);
-                                btn_delete.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-
-                                        try {
-                                            deleteAlert.dismiss();
-//                                            DeleteSupportTicket(supportList.get(position).getId());
-                                            DeleteSupport deleteSupport = new DeleteSupport();
-                                            String response = deleteSupport.DeleteSupportTicket(mContxt, supportList.get(position).getId());
-//                                            notifyItemRemoved(position);
-//                                            notifyItemRangeChanged(position, supportList.size());
-
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-
-//                                        final AlertDialog delete_successAlert = new AlertDialog.Builder(mContxt).create();
-//                                        LayoutInflater delete_inflater = LayoutInflater.from(mContxt);
-//                                        View delete_success_alert = delete_inflater.inflate(R.layout.delete_success, null);
-//                                        delete_successAlert.setView(delete_success_alert);
+//                                final AlertDialog deleteAlert = new AlertDialog.Builder(mContxt).create();
+//                                LayoutInflater delete_inflater = LayoutInflater.from(mContxt);
+//                                View delete_alert = delete_inflater.inflate(R.layout.delete_alert, null);
+//                                deleteAlert.setView(delete_alert);
+//                                Button btn_delete = (Button) delete_alert.findViewById(R.id.btn_delete);
+//                                btn_delete.setOnClickListener(new View.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(View view) {
 //
-//                                        ImageButton img_delete = (ImageButton) delete_success_alert.findViewById(R.id.btn_close_success);
-//                                        img_delete.setOnClickListener(new View.OnClickListener() {
-//                                            @Override
-//                                            public void onClick(View v) {
-//                                                delete_successAlert.dismiss();
-//                                            }
-//                                        });
-//                                        delete_successAlert.show();
-                                    }
-                                });
-                                ImageButton img_delete_alert = (ImageButton) delete_alert.findViewById(R.id.btn_close);
-                                img_delete_alert.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        deleteAlert.dismiss();
-                                    }
-                                });
-                                deleteAlert.show();
+//                                        try {
+//                                            deleteAlert.dismiss();
+////                                            DeleteSupportTicket(supportList.get(position).getId());
+//                                            DeleteSupport deleteSupport = new DeleteSupport();
+//                                            String response = deleteSupport.DeleteSupportTicket(mContxt, supportList.get(position).getId());
+////                                            notifyItemRemoved(position);
+////                                            notifyItemRangeChanged(position, supportList.size());
+//
+//                                        } catch (JSONException e) {
+//                                            e.printStackTrace();
+//                                        }
+//
+////                                        final AlertDialog delete_successAlert = new AlertDialog.Builder(mContxt).create();
+////                                        LayoutInflater delete_inflater = LayoutInflater.from(mContxt);
+////                                        View delete_success_alert = delete_inflater.inflate(R.layout.delete_success, null);
+////                                        delete_successAlert.setView(delete_success_alert);
+////
+////                                        ImageButton img_delete = (ImageButton) delete_success_alert.findViewById(R.id.btn_close_success);
+////                                        img_delete.setOnClickListener(new View.OnClickListener() {
+////                                            @Override
+////                                            public void onClick(View v) {
+////                                                delete_successAlert.dismiss();
+////                                            }
+////                                        });
+////                                        delete_successAlert.show();
+//                                    }
+//                                });
+//                                ImageButton img_delete_alert = (ImageButton) delete_alert.findViewById(R.id.btn_close);
+//                                img_delete_alert.setOnClickListener(new View.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(View v) {
+//                                        deleteAlert.dismiss();
+//                                    }
+//                                });
+//
+//                                deleteAlert.show();
                                 break;
                         }
                         return false;
@@ -219,13 +223,56 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
                 popup.show();
             }
         });
+
     }
 
     private void DeleteSupportTicket(String ID) throws JSONException {
         DeleteSupport deleteSupport = new DeleteSupport();
         String response = deleteSupport.DeleteSupportTicket(mContxt, ID);
-    }
 
+    }
+    private void showDeleteTicketDialog(final int position) {
+        Log.i("CreatePayment", "In Dialog");
+//        final FragmentManager fm = getSupportFragmentManager();
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(mContxt).create();
+        LayoutInflater inflater = LayoutInflater.from(mContxt);
+        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
+        tv_discard.setText("Delete Ticket");
+        Button btn_discard = view_popup.findViewById(R.id.btn_discard);
+        btn_discard.setText("Delete");
+        TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+        tv_discard_txt.setText("Are you sure, you want to delete this ticket?");
+        alertDialog.setView(view_popup);
+        alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+        WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+        layoutParams.y = 200;
+        layoutParams.x = -70;// top margin
+        alertDialog.getWindow().setAttributes(layoutParams);
+        btn_discard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                try {
+                    DeleteSupportTicket(supportList.get(position).getId());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+        img_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+            }
+        });
+
+        alertDialog.show();
+    }
     @Override
     public int getItemCount() {
         return supportList.size();
