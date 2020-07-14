@@ -112,6 +112,7 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
     private RelativeLayout spinner_container_main;
     private static int y;
     private List<String> scrollEvent = new ArrayList<>();
+    private RelativeLayout search_rl;
     private Typeface myFont;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -242,6 +243,7 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
         spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
+        search_rl = root.findViewById(R.id.search_rl);
         tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
         tv_shipment_no_data.setVisibility(View.GONE);
 
@@ -288,6 +290,7 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
                 conso_edittext.setVisibility(View.GONE);
                 date_filter_rl.setVisibility(View.GONE);
                 amount_filter_rl.setVisibility(View.GONE);
+                search_rl.setVisibility(View.GONE);
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
@@ -317,10 +320,12 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "RetailerCode";
                         conso_edittext.setVisibility(View.VISIBLE);
+                        search_rl.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Company")) {
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "CompanyName";
                         conso_edittext.setVisibility(View.VISIBLE);
+                        search_rl.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Creation Date")) {
 //                        Toast.makeText(getContext(), "Delivery Date selected", Toast.LENGTH_LONG).show();
                         date_filter_rl.setVisibility(View.VISIBLE);

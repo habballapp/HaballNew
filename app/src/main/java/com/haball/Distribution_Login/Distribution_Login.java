@@ -303,6 +303,8 @@ public class Distribution_Login extends AppCompatActivity {
                         editor.putString("Distributor_Id", DistributorId);
                         editor.putString("username", username);
                         editor.putString("CompanyName", CompanyName);
+                        editor.putString("EmailAddress", EmailAddress);
+                        editor.putString("Mobile", Mobile);
                         editor.putString("DealerCode", DealerCode);
                         editor.putString("Name", Name);
                         editor.putString("ID", ID);

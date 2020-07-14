@@ -85,7 +85,7 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
     private List<String> filters = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapterPayments;
     private ArrayAdapter<String> arrayAdapterFeltter;
-//    private Button consolidate;
+    //    private Button consolidate;
     private String Filter_selected, Filter_selected1, Filter_selected2, Filter_selected_value;
     private TextInputLayout search_bar;
     private Button btn_load_more;
@@ -111,6 +111,7 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
     private RelativeLayout spinner_container_main;
     private static int y;
     private List<String> scrollEvent = new ArrayList<>();
+    private RelativeLayout search_rl;
 
     public RetailerPaymentDashboard() {
         // Required empty public constructor
@@ -144,6 +145,7 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
         spinner_consolidate = (Spinner) rootView.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) rootView.findViewById(R.id.conso_spinner2);
         conso_edittext = (EditText) rootView.findViewById(R.id.conso_edittext);
+        search_rl = rootView.findViewById(R.id.search_rl);
         spinner_container1.setVisibility(View.GONE);
         conso_edittext.setVisibility(View.GONE);
         consolidate_felter = new ArrayList<>();
@@ -155,17 +157,18 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
         consolidate_felter.add("Status");
 
         arrayAdapterPayments = new ArrayAdapter<String>(rootView.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, consolidate_felter){@Override
-        public View getDropDownView(int position, View convertView, ViewGroup parent) {
-            // TODO Auto-generated method stub
-            View view = super.getView(position, convertView, parent);
-            TextView text = (TextView) view.findViewById(android.R.id.text1);
-            text.setTextColor(getResources().getColor(R.color.text_color_selection));
-            text.setTextSize((float) 13.6);
-            text.setPadding(30, 0, 30, 0);
-            text.setTypeface(myFont);
-            return view;
-        }
+                android.R.layout.simple_spinner_dropdown_item, consolidate_felter) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -187,6 +190,7 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
                 conso_edittext.setVisibility(View.GONE);
                 date_filter_rl.setVisibility(View.GONE);
                 amount_filter_rl.setVisibility(View.GONE);
+                search_rl.setVisibility(View.GONE);
 
                 if (i == 0) {
                     try {
@@ -195,6 +199,11 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
                         ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
+                    }
+                    try {
+                        fetchPaymentsData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 } else {
                     try {
@@ -216,10 +225,12 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "InvoiceNumber";
                         conso_edittext.setVisibility(View.VISIBLE);
+                        search_rl.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Company")) {
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "CompanyName";
                         conso_edittext.setVisibility(View.VISIBLE);
+                        search_rl.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Created Date")) {
                         date_filter_rl.setVisibility(View.VISIBLE);
                         Filter_selected = "date";
@@ -266,7 +277,7 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
         filters.add("Paid");
         filters.add("Payment Processing");
         arrayAdapterFeltter = new ArrayAdapter<String>(rootView.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, filters){
+                android.R.layout.simple_spinner_dropdown_item, filters) {
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 // TODO Auto-generated method stub
@@ -300,8 +311,14 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
                         ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
+
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
+                    }
+                    try {
+                        fetchPaymentsData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 } else {
                     try {
@@ -312,7 +329,7 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
                         ex.printStackTrace();
                     }
 
-                    Filter_selected_value = String.valueOf(i - 2);
+                    Filter_selected_value = filters.get(i);
                     Log.i("Filter_selected_value", String.valueOf(i));
 
                     if (Filter_selected_value != "") {
@@ -464,8 +481,8 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
                     }.getType();
                     PaymentsList = gson.fromJson(result.getJSONArray("PrePaidRequestData").toString(), type);
 
-                        mAdapter = new PaymentDashboardAdapter(getContext(), PaymentsList);
-                        rv_paymentDashBoard.setAdapter(mAdapter);
+                    mAdapter = new PaymentDashboardAdapter(getContext(), PaymentsList);
+                    rv_paymentDashBoard.setAdapter(mAdapter);
                     if (PaymentsList.size() != 0) {
                         tv_shipment_no_data.setVisibility(View.GONE);
                     } else {
@@ -515,11 +532,15 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
         map.put("TotalRecords", 10);
         map.put("PageNumber", 0.1);
         if (Filter_selected.equals("date")) {
-            map.put(Filter_selected1, fromDate);
-            map.put(Filter_selected2, toDate);
+            if (!fromDate.equals(""))
+                map.put(Filter_selected1, fromDate);
+            if (!toDate.equals(""))
+                map.put(Filter_selected2, toDate);
         } else if (Filter_selected.equals("amount")) {
-            map.put(Filter_selected1, fromAmount);
-            map.put(Filter_selected2, toAmount);
+            if (!fromAmount.equals(""))
+                map.put(Filter_selected1, fromAmount);
+            if (!toAmount.equals(""))
+                map.put(Filter_selected2, toAmount);
         } else {
             map.put(Filter_selected, Filter_selected_value);
         }
@@ -540,6 +561,12 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
 
                 mAdapter = new PaymentDashboardAdapter(getContext(), PaymentsList);
                 rv_paymentDashBoard.setAdapter(mAdapter);
+
+                if (PaymentsList.size() != 0) {
+                    tv_shipment_no_data.setVisibility(View.GONE);
+                } else {
+                    tv_shipment_no_data.setVisibility(View.VISIBLE);
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -561,15 +588,17 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
     }
+
     private void openCalenderPopup(String date_type) {
         dateType = date_type;
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
 
-        DatePickerDialog dialog = new DatePickerDialog(getContext(),  R.style.DialogTheme, this,
+        DatePickerDialog dialog = new DatePickerDialog(getContext(), R.style.DialogTheme, this,
                 calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH));
         dialog.show();
     }
+
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         if (dateType.equals("first date")) {
             year1 = i;
@@ -603,23 +632,25 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
         }
     }
 
-
     private void checkAmountChanged() {
-        et_amount1.addTextChangedListener(new TextWatcher() {
+        et_amount1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!String.valueOf(et_amount1.getText()).equals("") && !String.valueOf(et_amount2.getText()).equals("")) {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
                     fromAmount = String.valueOf(et_amount1.getText());
+
+                    try {
+                        fetchFilteredRetailerPayments();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        et_amount2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
                     toAmount = String.valueOf(et_amount2.getText());
                     try {
                         fetchFilteredRetailerPayments();
@@ -629,34 +660,110 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
                 }
             }
         });
-
-        et_amount2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!String.valueOf(et_amount1.getText()).equals("") && !String.valueOf(et_amount2.getText()).equals("")) {
-                    fromAmount = String.valueOf(et_amount1.getText());
-                    toAmount = String.valueOf(et_amount2.getText());
-                    try {
-                        fetchFilteredRetailerPayments();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-        });
+//        et_amount1.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                final String fromAmount_main = String.valueOf(et_amount1.getText());
+////                if (!String.valueOf(et_amount2.getText()).equals(""))
+//
+////                new java.util.Timer().schedule(
+////                        new java.util.TimerTask() {
+////                            @Override
+////                            public void run() {
+////                                // your code here
+////                                getActivity().runOnUiThread(new Runnable() {
+////                                    public void run() {
+////                                        //your code
+//                fromAmount = String.valueOf(et_amount1.getText());
+//                if (fromAmount_main.equals(fromAmount)) {
+//                    if (tabName.equals("Payment")) {
+//                        try {
+//                            fetchFilteredRetailerPayments();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    } else if (tabName.equals("Order")) {
+//                        try {
+//                            fetchFilteredOrderData();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//
+//                        }
+//                    }
+//                }
+////                                    }
+////                                });
+////                            }
+////                        },
+////                        2500
+////                );
+//            }
+//        });
+//
+//        et_amount2.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+////                if (!String.valueOf(et_amount2.getText()).equals(""))
+//                final String toAmount_main = String.valueOf(et_amount2.getText());
+//
+////                new java.util.Timer().schedule(
+////                        new java.util.TimerTask() {
+////                            @Override
+////                            public void run() {
+////                                // your code here
+////                                getActivity().runOnUiThread(new Runnable() {
+////                                    public void run() {
+////                                        //your code
+//                toAmount = String.valueOf(et_amount2.getText());
+//                if (toAmount_main.equals(toAmount)) {
+//                    if (tabName.equals("Payment")) {
+//                        try {
+//                            fetchFilteredRetailerPayments();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    } else if (tabName.equals("Order")) {
+//                        try {
+//                            fetchFilteredOrderData();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//
+//                        }
+//                    }
+//                }
+////                                    }
+////                                });
+////                            }
+////                        },
+////                        2500
+////                );
+//            }
+//
+//        });
 
     }
+
+
     private String getScrollEvent() {
         String scroll = "";
         if (scrollEvent.size() > 0) {
@@ -680,5 +787,6 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
         }
 //        Log.i("distinct", scroll);
         return scroll;
-    }}
+    }
+}
 

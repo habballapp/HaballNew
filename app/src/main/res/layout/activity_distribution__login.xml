@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FBFBFB"
     android:backgroundTintMode="src_over"
-    tools:context=".Retailer_Login.RetailerLogin">
+    tools:context=".Distribution_Login.Distribution_Login">
 
     <RelativeLayout
         android:id="@+id/rl_main_background"
@@ -71,8 +71,8 @@
                             android:layout_height="match_parent"
                             android:fontFamily="@font/open_sans"
                             android:inputType="text"
-                            android:textColor="@color/textcolor"
-                            android:theme="@style/TextLabelEditeText" />
+                            android:theme="@style/TextLabelEditeText"
+                            android:textColor="@color/textcolor" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout

@@ -2,11 +2,15 @@ package com.haball.Distributor.ui.support;
 
         import android.app.AlertDialog;
         import android.content.Context;
+        import android.content.DialogInterface;
         import android.content.SharedPreferences;
         import android.util.Log;
+        import android.view.Gravity;
         import android.view.LayoutInflater;
         import android.view.View;
+        import android.view.WindowManager;
         import android.widget.ImageButton;
+        import android.widget.TextView;
         import android.widget.Toast;
 
         import androidx.fragment.app.FragmentActivity;
@@ -61,14 +65,34 @@ public class DeleteSupport {
                     Log.i("support delete",String.valueOf(result));
                     Log.i("support delete id",String.valueOf(result.get("Id")));
                     final AlertDialog delete_successAlert = new AlertDialog.Builder(context).create();
-                    LayoutInflater delete_inflater = LayoutInflater.from(context);
-                    View delete_success_alert = delete_inflater.inflate(R.layout.delete_success, null);
-                    delete_successAlert.setView(delete_success_alert);
+                    delete_successAlert.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                    WindowManager.LayoutParams layoutParams = delete_successAlert.getWindow().getAttributes();
+                    layoutParams.y = 200;
+                    layoutParams.x = -70;// top margin
+                    delete_successAlert.getWindow().setAttributes(layoutParams);
 
-                    ImageButton img_delete = (ImageButton) delete_success_alert.findViewById(R.id.btn_close_success);
+                    LayoutInflater delete_inflater = LayoutInflater.from(context);
+                    View delete_success_alert = delete_inflater.inflate(R.layout.password_updatepopup, null);
+                    delete_successAlert.setView(delete_success_alert);
+                    TextView tv_pr1, txt_header1;
+                    txt_header1 = delete_success_alert.findViewById(R.id.txt_header1);
+                    tv_pr1 = delete_success_alert.findViewById(R.id.txt_details);
+                    txt_header1.setText("Ticket Deleted");
+                    tv_pr1.setText("Your Support Ticket has been deleted successfully.");
+
+                    ImageButton img_delete = (ImageButton) delete_success_alert.findViewById(R.id.image_button);
                     img_delete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            delete_successAlert.dismiss();
+                            fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container, new SupportFragment()).addToBackStack(null);
+                            fragmentTransaction.commit();
+                        }
+                    });
+                    delete_successAlert.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
                             delete_successAlert.dismiss();
                             fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, new SupportFragment()).addToBackStack(null);

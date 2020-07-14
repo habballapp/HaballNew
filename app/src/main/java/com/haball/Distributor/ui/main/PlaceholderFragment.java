@@ -149,6 +149,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private String Company_selected;
     private List<String> company_names = new ArrayList<>();
     private RelativeLayout rl_overView;
+    private Context context;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -188,6 +189,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 tabName = "Payment";
                 rootView = inflater.inflate(R.layout.fragment_payments, container, false);
                 paymentFragmentTask(rootView);
+                context = getContext();
                 try {
                     fetchPaymentRequests();
                 } catch (JSONException e) {
@@ -302,6 +304,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 tabName = "Order";
                 rootView = inflater.inflate(R.layout.fragment_orders, container, false);
                 orderFragmentTask(rootView);
+                context = getContext();
                 recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_fragment_orders);
                 spinner_container_main = rootView.findViewById(R.id.spinner_container_main);
 
@@ -411,6 +414,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             }
             case 3: {
                 tabName = "Dashboard";
+                context = getContext();
                 rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
                 spinner_criteria = rootView.findViewById(R.id.spinner_criteria);
                 rl_overView = rootView.findViewById(R.id.rl_overView);
@@ -1611,9 +1615,6 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
-                if (checkAndRequestPermissions()) {
-
-                }
                 if (result.length() != 0) {
 
 //                    Log.i("Payments Requests", result.toString());
@@ -1657,9 +1658,9 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
 
     private boolean checkAndRequestPermissions() {
-        int permissionRead = ContextCompat.checkSelfPermission(getContext(),
+        int permissionRead = ContextCompat.checkSelfPermission(context,
                 Manifest.permission.READ_EXTERNAL_STORAGE);
-        int permissionWrite = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int permissionWrite = ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         List<String> listPermissionsNeeded = new ArrayList<>();
         if (permissionWrite != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);

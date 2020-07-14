@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FBFBFB"
-    android:backgroundTintMode="src_over">
+    android:backgroundTintMode="src_over"
+    tools:context=".Retailor.Forgot_Password_Retailer.Forgot_Pass_Retailer">
 
     <include
         layout="@layout/action_bar_main_without_back"
@@ -29,7 +30,7 @@
                 android:id="@+id/ln_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="26dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/border_set">
 
                 <TextView
@@ -47,7 +48,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/text_ln"
+                android:id="@+id/text_ln_retailor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ln_login"
@@ -63,7 +64,7 @@
                     android:maxLines="2"
                     android:text="@string/txt_forgot"
                     android:textColor="@color/text_color_selection"
-                    android:textSize="@dimen/paragraph_size" />
+                    android:textSize="13sp" />
 
 
             </LinearLayout>
@@ -72,14 +73,14 @@
                 android:id="@+id/ln_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/text_ln"
+                android:layout_below="@+id/text_ln_retailor"
                 android:layout_marginTop="15dp"
                 android:orientation="vertical"
                 android:weightSum="1">
 
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layout_email_phone"
+                    android:id="@+id/layout_email"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
@@ -91,11 +92,11 @@
                     app:boxStrokeColor="@color/box_stroke">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/txt_email_distributor"
+                        android:id="@+id/txt_email"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:inputType="textEmailAddress"
-                        android:theme="@style/TextLabelEditeText" />
+                        android:inputType="text"
+                        android:theme="@style/TextLabelEditeText"  />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -110,6 +111,7 @@
                 android:layout_below="@id/ln_txt"
                 android:layout_marginTop="20dp"
                 android:orientation="vertical"
+
                 android:weightSum="2">
 
                 <Button
@@ -140,7 +142,9 @@
                     android:text="Login"
                     android:textAllCaps="false"
                     android:textColor="#fff"
-                    android:textSize="@dimen/button_text_size" />
+                    android:textSize="@dimen/button_text_size"
+
+                    />
 
             </LinearLayout>
 
@@ -150,13 +154,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/open_sans_semibold"
+                android:layout_marginBottom="25dp"
                 android:gravity="center"
                 android:text="© Haball | All rights reserved" />
 
 
         </RelativeLayout>
-    </RelativeLayout>
 
+    </RelativeLayout>
 </RelativeLayout>

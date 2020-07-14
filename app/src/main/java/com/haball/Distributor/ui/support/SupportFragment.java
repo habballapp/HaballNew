@@ -175,9 +175,8 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         consolidate_felter.add("Created Date");
         consolidate_felter.add("Status");
 
-        arrayAdapterPaymentsFilter = new ArrayAdapter<String>(root.getContext(),
-                android.R.layout.simple_dropdown_item_1line, consolidate_felter) {
-
+        arrayAdapterPaymentsFilter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_dropdown_item, consolidate_felter) {
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 // TODO Auto-generated method stub
@@ -201,7 +200,6 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 return view;
             }
         };
-
         spinner_consolidate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -250,8 +248,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                         filters.add("Reports");
 
                         arrayAdapterFeltter = new ArrayAdapter<String>(getContext(),
-                                android.R.layout.simple_dropdown_item_1line, filters) {
-
+                                android.R.layout.simple_spinner_dropdown_item, filters) {
                             @Override
                             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                                 // TODO Auto-generated method stub
@@ -275,7 +272,6 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                                 return view;
                             }
                         };
-
                         arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         arrayAdapterFeltter.notifyDataSetChanged();
                         spinner2.setAdapter(arrayAdapterFeltter);
@@ -309,7 +305,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                         filters.add("Resolved");
 
                         arrayAdapterFeltter = new ArrayAdapter<String>(getContext(),
-                                android.R.layout.simple_dropdown_item_1line, filters) {
+                                android.R.layout.simple_spinner_dropdown_item, filters) {
                             @Override
                             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                                 // TODO Auto-generated method stub

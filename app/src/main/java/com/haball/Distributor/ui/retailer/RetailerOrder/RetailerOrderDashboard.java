@@ -119,6 +119,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
     private RelativeLayout spinner_container_main;
     private HashMap<String, String> OrderStatusKVP;
     private Typeface myFont;
+    private RelativeLayout search_rl;
 
     public RetailerOrderDashboard() {
     }
@@ -163,6 +164,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
+        search_rl = root.findViewById(R.id.search_rl);
         tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
         tv_shipment_no_data.setVisibility(View.GONE);
 
@@ -181,17 +183,18 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         consolidate_felter.add("Status");
 
         arrayAdapterPayments = new ArrayAdapter<String>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, consolidate_felter){@Override
-        public View getDropDownView(int position, View convertView, ViewGroup parent) {
-            // TODO Auto-generated method stub
-            View view = super.getView(position, convertView, parent);
-            TextView text = (TextView) view.findViewById(android.R.id.text1);
-            text.setTextColor(getResources().getColor(R.color.text_color_selection));
-            text.setTextSize((float) 13.6);
-            text.setPadding(30, 0, 30, 0);
-            text.setTypeface(myFont);
-            return view;
-        }
+                android.R.layout.simple_spinner_dropdown_item, consolidate_felter) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -213,6 +216,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                 conso_edittext.setVisibility(View.GONE);
                 date_filter_rl.setVisibility(View.GONE);
                 amount_filter_rl.setVisibility(View.GONE);
+                search_rl.setVisibility(View.GONE);
 
                 if (i == 0) {
                     try {
@@ -245,10 +249,12 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "OrderNumber";
                         conso_edittext.setVisibility(View.VISIBLE);
+                        search_rl.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Retailer")) {
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "Retailer";
                         conso_edittext.setVisibility(View.VISIBLE);
+                        search_rl.setVisibility(View.VISIBLE);
                     } else if (Filter_selected.equals("Created Date")) {
                         date_filter_rl.setVisibility(View.VISIBLE);
                         Filter_selected = "date";
@@ -276,6 +282,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "Submitter";
                         conso_edittext.setVisibility(View.VISIBLE);
+                        search_rl.setVisibility(View.VISIBLE);
 
                     } else if (Filter_selected.equals("Status")) {
                         Filter_selected = "OrderStatus";
@@ -301,18 +308,18 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
 //        filters.add("Draft");
 //        filters.add("Cancelled");
         arrayAdapterFeltter = new ArrayAdapter<String>(root.getContext(),
-                android.R.layout.simple_spinner_dropdown_item, filters)
-        {@Override
-        public View getDropDownView(int position, View convertView, ViewGroup parent) {
-            // TODO Auto-generated method stub
-            View view = super.getView(position, convertView, parent);
-            TextView text = (TextView) view.findViewById(android.R.id.text1);
-            text.setTextColor(getResources().getColor(R.color.text_color_selection));
-            text.setTextSize((float) 13.6);
-            text.setPadding(30, 0, 30, 0);
-            text.setTypeface(myFont);
-            return view;
-        }
+                android.R.layout.simple_spinner_dropdown_item, filters) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -596,11 +603,15 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         jsonObject.put("TotalRecords", 10);
         jsonObject.put("PageNumber", 0);
         if (Filter_selected.equals("date")) {
-            jsonObject.put(Filter_selected1, fromDate);
-            jsonObject.put(Filter_selected2, toDate);
+            if (!fromDate.equals(""))
+                jsonObject.put(Filter_selected1, fromDate);
+            if (!toDate.equals(""))
+                jsonObject.put(Filter_selected2, toDate);
         } else if (Filter_selected.equals("amount")) {
-            jsonObject.put(Filter_selected1, fromAmount);
-            jsonObject.put(Filter_selected2, toAmount);
+            if (!fromAmount.equals(""))
+                jsonObject.put(Filter_selected1, fromAmount);
+            if (!toAmount.equals(""))
+                jsonObject.put(Filter_selected2, toAmount);
         } else {
             jsonObject.put(Filter_selected, Filter_selected_value);
         }
@@ -683,21 +694,24 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
     }
 
     private void checkAmountChanged() {
-        et_amount1.addTextChangedListener(new TextWatcher() {
+        et_amount1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!String.valueOf(et_amount1.getText()).equals("") && !String.valueOf(et_amount2.getText()).equals("")) {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
                     fromAmount = String.valueOf(et_amount1.getText());
+
+                    try {
+                        fetchFilteredOrderData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        et_amount2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
                     toAmount = String.valueOf(et_amount2.getText());
                     try {
                         fetchFilteredOrderData();
@@ -707,32 +721,106 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                 }
             }
         });
-
-        et_amount2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!String.valueOf(et_amount1.getText()).equals("") && !String.valueOf(et_amount2.getText()).equals("")) {
-                    fromAmount = String.valueOf(et_amount1.getText());
-                    toAmount = String.valueOf(et_amount2.getText());
-                    try {
-                        fetchFilteredOrderData();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-        });
+//        et_amount1.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                final String fromAmount_main = String.valueOf(et_amount1.getText());
+////                if (!String.valueOf(et_amount2.getText()).equals(""))
+//
+////                new java.util.Timer().schedule(
+////                        new java.util.TimerTask() {
+////                            @Override
+////                            public void run() {
+////                                // your code here
+////                                getActivity().runOnUiThread(new Runnable() {
+////                                    public void run() {
+////                                        //your code
+//                fromAmount = String.valueOf(et_amount1.getText());
+//                if (fromAmount_main.equals(fromAmount)) {
+//                    if (tabName.equals("Payment")) {
+//                        try {
+//                            fetchFilteredRetailerPayments();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    } else if (tabName.equals("Order")) {
+//                        try {
+//                            fetchFilteredOrderData();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//
+//                        }
+//                    }
+//                }
+////                                    }
+////                                });
+////                            }
+////                        },
+////                        2500
+////                );
+//            }
+//        });
+//
+//        et_amount2.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+////                if (!String.valueOf(et_amount2.getText()).equals(""))
+//                final String toAmount_main = String.valueOf(et_amount2.getText());
+//
+////                new java.util.Timer().schedule(
+////                        new java.util.TimerTask() {
+////                            @Override
+////                            public void run() {
+////                                // your code here
+////                                getActivity().runOnUiThread(new Runnable() {
+////                                    public void run() {
+////                                        //your code
+//                toAmount = String.valueOf(et_amount2.getText());
+//                if (toAmount_main.equals(toAmount)) {
+//                    if (tabName.equals("Payment")) {
+//                        try {
+//                            fetchFilteredRetailerPayments();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    } else if (tabName.equals("Order")) {
+//                        try {
+//                            fetchFilteredOrderData();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//
+//                        }
+//                    }
+//                }
+////                                    }
+////                                });
+////                            }
+////                        },
+////                        2500
+////                );
+//            }
+//
+//        });
 
     }
 

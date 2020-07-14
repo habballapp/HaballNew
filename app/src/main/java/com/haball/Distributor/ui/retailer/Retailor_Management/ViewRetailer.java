@@ -29,11 +29,13 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.textfield.TextInputLayout;
 import com.haball.Distributor.ui.retailer.RetailerFragment;
 import com.haball.Distributor.ui.shipments.Shipments_Fragments;
 import com.haball.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
+import com.haball.TextField;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,6 +53,7 @@ import java.util.Map;
 public class ViewRetailer extends Fragment {
     private String RetailerId;
     private TextInputEditText mg_rt_code, mg_rt_firstname, mg_rt_email, mg_cnic_no, mg_mobile_no, mg_rt_company, mg_tr_address, mg_rt_sapcode, mg_rt_status;
+    private TextInputLayout layout_mg_rt_code, layout_mg_rt_firstname, layout_mg_rt_email, layout_mg_cnic_no, layout_mg_mobile_no, layout_mg_rt_company, layout_mg_tr_address, layout_mg_rt_sapcode, layout_mg_rt_status;
     private String URL_RETAILER_DETAILS = "http://175.107.203.97:4013/api/retailer/";
     private String URL_UPDATE_RETAILER = "http://175.107.203.97:4013/api/retailer/RetailerUpdate";
     private String Token, DistributorId;
@@ -81,6 +84,17 @@ public class ViewRetailer extends Fragment {
         mg_rt_status = root.findViewById(R.id.mg_rt_status);
         mg_tr_address = root.findViewById(R.id.mg_tr_address);
         mg_rt_sapcode = root.findViewById(R.id.mg_rt_sapcode);
+
+        layout_mg_rt_code = root.findViewById(R.id.layout_mg_rt_code);
+        layout_mg_rt_firstname = root.findViewById(R.id.layout_mg_rt_firstname);
+        layout_mg_rt_email = root.findViewById(R.id.layout_mg_rt_email);
+        layout_mg_cnic_no = root.findViewById(R.id.layout_mg_cnic_no);
+        layout_mg_mobile_no = root.findViewById(R.id.layout_mg_mobile_no);
+        layout_mg_rt_company = root.findViewById(R.id.layout_mg_rt_company);
+        layout_mg_rt_status = root.findViewById(R.id.layout_mg_rt_status);
+        layout_mg_tr_address = root.findViewById(R.id.layout_mg_tr_address);
+        layout_mg_rt_sapcode = root.findViewById(R.id.layout_mg_rt_sapcode);
+
         btn_close = root.findViewById(R.id.btn_close);
         btn_save = root.findViewById(R.id.btn_save);
 
@@ -93,6 +107,16 @@ public class ViewRetailer extends Fragment {
         mg_rt_company.setEnabled(false);
         mg_rt_status.setEnabled(false);
         mg_tr_address.setEnabled(false);
+
+        new TextField().changeColor(getContext(), layout_mg_rt_code, mg_rt_code);
+        new TextField().changeColor(getContext(), layout_mg_rt_firstname, mg_rt_firstname);
+        new TextField().changeColor(getContext(), layout_mg_rt_email, mg_rt_email);
+        new TextField().changeColor(getContext(), layout_mg_cnic_no, mg_cnic_no);
+        new TextField().changeColor(getContext(), layout_mg_mobile_no, mg_mobile_no);
+        new TextField().changeColor(getContext(), layout_mg_rt_company, mg_rt_company);
+        new TextField().changeColor(getContext(), layout_mg_rt_status, mg_rt_status);
+        new TextField().changeColor(getContext(), layout_mg_tr_address, mg_tr_address);
+        new TextField().changeColor(getContext(), layout_mg_rt_sapcode, mg_rt_sapcode);
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,18 +159,26 @@ public class ViewRetailer extends Fragment {
 
         JSONObject map = new JSONObject();
         map.put("RetailerCode", mg_rt_code.getText());
-        map.put("Status", String.valueOf((check_box.isChecked()) ? 1 : 0));
+        map.put("Status", String.valueOf((check_box.isChecked()) ? 1 : 2));
         map.put("SapCode", mg_rt_sapcode.getText());
-        Log.i("Status", String.valueOf((check_box.isChecked()) ? 1 : 0));
+        Log.i("Status", String.valueOf((check_box.isChecked()) ? 1 : 2));
 
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_UPDATE_RETAILER, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
-                try {
-                    Toast.makeText(getContext(), "Retailer Code " + result.getString("RetailerCode") + " has been created successfully", Toast.LENGTH_LONG).show();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if(check_box.isChecked()) {
+                    try {
+                        Toast.makeText(getContext(), "Retailer Code " + result.getString("RetailerCode") + " has been activated successfully", Toast.LENGTH_LONG).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        Toast.makeText(getContext(), "Retailer Code " + result.getString("RetailerCode") + " has been inactivated successfully", Toast.LENGTH_LONG).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.main_container, new RetailerFragment());
@@ -198,18 +230,26 @@ public class ViewRetailer extends Fragment {
                 try {
 //                    Log.i("result", String.valueOf(result));
                     mg_rt_code.setText(result.getString("RetailerCode"));
+                    mg_rt_code.setTextColor(getResources().getColor(R.color.textcolor));
                     mg_rt_firstname.setText(result.getString("Name"));
+                    mg_rt_firstname.setTextColor(getResources().getColor(R.color.textcolor));
                     mg_rt_email.setText(result.getString("Email"));
+                    mg_rt_email.setTextColor(getResources().getColor(R.color.textcolor));
                     mg_cnic_no.setText(result.getString("CNIC"));
+                    mg_cnic_no.setTextColor(getResources().getColor(R.color.textcolor));
                     mg_mobile_no.setText(result.getString("Mobile"));
+                    mg_mobile_no.setTextColor(getResources().getColor(R.color.textcolor));
                     mg_rt_company.setText(result.getString("CompanyName"));
+                    mg_rt_company.setTextColor(getResources().getColor(R.color.textcolor));
                     mg_tr_address.setText(result.getString("Address"));
+                    mg_tr_address.setTextColor(getResources().getColor(R.color.textcolor));
                     if(result.getString("Status").equals("1"))
                         mg_rt_status.setText("Connected");
                     else if(result.getString("Status").equals("2"))
                         mg_rt_status.setText("Disconnected");
                     else if(result.getString("Status").equals("0"))
                         mg_rt_status.setText("Pending");
+                    mg_rt_status.setTextColor(getResources().getColor(R.color.textcolor));
                     if (result.getString("Status").equals("1"))
                         check_box.setChecked(true);
                     else

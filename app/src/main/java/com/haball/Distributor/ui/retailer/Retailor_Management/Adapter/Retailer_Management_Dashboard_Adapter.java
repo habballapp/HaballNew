@@ -85,11 +85,11 @@ public class Retailer_Management_Dashboard_Adapter extends RecyclerView.Adapter<
                                 break;
 
 
-
-                            case R.id.view_disconnect:
-
-                                Toast.makeText(mContext ,"Disconnect",Toast.LENGTH_SHORT).show();
-                                break;
+//
+//                            case R.id.view_disconnect:
+//
+//                                Toast.makeText(mContext ,"Disconnect",Toast.LENGTH_SHORT).show();
+//                                break;
 
                         }
 

@@ -80,7 +80,6 @@ public class Forgot_Pass_Distributor extends AppCompatActivity {
         background_drawable.setAlpha(80);
         RelativeLayout rl_main_background = findViewById(R.id.rl_main_background);
         rl_main_background.setBackground(background_drawable);
-        layout_email_phone = findViewById(R.id.layout_email_phone);
 
         loader = new Loader(Forgot_Pass_Distributor.this);
 
@@ -90,8 +89,8 @@ public class Forgot_Pass_Distributor extends AppCompatActivity {
 //        bar.setBackgroundDrawable( new ColorDrawable( Color.parseColor( "#FFFFFF" ) ) );
 
         LayoutInflater inflater = LayoutInflater.from(this);
-        txt_email = findViewById(R.id.txt_email_distributor);
-        layout_email_phone = findViewById(R.id.layout_email_phone);
+        txt_email = findViewById(R.id.txt_email);
+        layout_email_phone = findViewById(R.id.layout_email);
         //  progressDialog = new ProgressDialog(this);
 
 //        @SuppressLint("InflateParams") View customView = inflater.inflate( R.layout.action_bar_main, null );
