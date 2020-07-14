@@ -108,7 +108,7 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
     private TextView first_date, second_date;
     private EditText et_amount1, et_amount2;
 
-    private String fromDate, toDate, fromAmount, toAmount;
+    private String fromDate = "", toDate = "", fromAmount = "", toAmount = "";
     private RelativeLayout spinner_container_main;
     private static int y;
     private List<String> scrollEvent = new ArrayList<>();
@@ -126,7 +126,7 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
         tv_shipment_no_data.setVisibility(View.GONE);
         spinner_container_main = root.findViewById(R.id.spinner_container_main);
         search_bar = root.findViewById(R.id.search_bar);
-       // btn_load_more = root.findViewById(R.id.btn_load);
+        // btn_load_more = root.findViewById(R.id.btn_load);
         rv_filter = root.findViewById(R.id.spinner_container_main);
 
 //        SpannableString content = new SpannableString("Load More");
@@ -424,9 +424,9 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
                     }
 
 //                    Filter_selected_value = String.valueOf(i - 1);
-                    if(filters.get(i).equals("Disconnected"))
+                    if (filters.get(i).equals("Disconnected"))
                         Filter_selected_value = "2";
-                    else if(filters.get(i).equals("Connected"))
+                    else if (filters.get(i).equals("Connected"))
                         Filter_selected_value = "1";
                     else {
                         Filter_selected_value = "";

@@ -104,10 +104,10 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
     private int pageNumberOrder = 0;
     private double totalPagesOrder = 0;
     private double totalEntriesOrder = 0;
-    private String fromDate, toDate;
+    private String fromDate="", toDate="";
     private FragmentTransaction fragmentTransaction;
 
-    private String fromAmount, toAmount;
+    private String fromAmount="", toAmount="";
     private RelativeLayout spinner_container_main;
     private static int y;
     private List<String> scrollEvent = new ArrayList<>();

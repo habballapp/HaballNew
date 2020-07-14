@@ -111,7 +111,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
     private int pageNumberOrder = 0;
     private double totalPagesOrder = 0;
     private double totalEntriesOrder = 0;
-    private String fromDate, toDate, fromAmount, toAmount;
+    private String fromDate = "", toDate = "", fromAmount, toAmount;
     private FragmentTransaction fragmentTransaction;
     private String tabName;
     private RelativeLayout spinner_container_main;

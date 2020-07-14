@@ -110,10 +110,10 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
     private int pageNumberOrder = 0;
     private double totalPagesOrder = 0;
     private double totalEntriesOrder = 0;
-    private String fromDate, toDate;
+    private String fromDate="", toDate="";
     private FragmentTransaction fragmentTransaction;
 
-    private String fromAmount, toAmount;
+    private String fromAmount = "", toAmount = "";
     private static int y;
     private List<String> scrollEvent = new ArrayList<>();
     private RelativeLayout spinner_container_main;
@@ -225,6 +225,11 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                         ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
+                    }
+                    try {
+                        fetchRetailerOrdersData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 } else {
 
@@ -344,6 +349,11 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                         ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
+                    }
+                    try {
+                        fetchRetailerOrdersData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 } else {
                     try {
@@ -627,7 +637,13 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                     Type type = new TypeToken<List<RetailerOrdersModel>>() {
                     }.getType();
                     OrdersList = gson.fromJson(result.get("Data").toString(), type);
-                    tv_shipment_no_data.setVisibility(View.GONE);
+                    if (OrdersList.size() != 0) {
+                        tv_shipment_no_data.setVisibility(View.GONE);
+
+
+                    } else {
+                        tv_shipment_no_data.setVisibility(View.VISIBLE);
+                    }
                     Log.i("OrdersList", String.valueOf(OrdersList));
                     mAdapter = new RetailerOrdersAdapter(getContext(), OrdersList, OrderStatusKVP);
                     recyclerView.setAdapter(mAdapter);
