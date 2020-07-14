@@ -1,5 +1,6 @@
 package com.haball.Retailor.ui.Place_Order.ui.main.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.Editable;
@@ -7,11 +8,13 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -45,14 +48,16 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
     private OrderParentLIst_VH orderParentLIst_VH_main;
     private Button btn_checkout;
     private double Quantity = 0;
+    private List<OrderChildlist_Model> productList = new ArrayList<>();
 
-    public ParentListAdapter(Context context, List<OrderParentlist_Model> parentItemList, RelativeLayout filter_layout, Button btn_checkout) {
+    public ParentListAdapter(Context context, List<OrderParentlist_Model> parentItemList, RelativeLayout filter_layout, Button btn_checkout, List<OrderChildlist_Model> productList) {
         super(parentItemList);
         inflater = LayoutInflater.from(context);
         this.context = context;
         this.parentItemList = parentItemList;
         this.filter_layout = filter_layout;
         this.btn_checkout = btn_checkout;
+        this.productList = productList;
 
 
         SharedPreferences selectedProducts = context.getSharedPreferences("selectedProducts_retailer_own",
@@ -112,19 +117,18 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
     }
 
     @Override
-    public void onBindParentViewHolder(@NonNull final OrderParentLIst_VH orderParentLIst_vh, int position, @NonNull OrderParentlist_Model o) {
+    public void onBindParentViewHolder(@NonNull final OrderParentLIst_VH orderParentLIst_vh, final int position, @NonNull OrderParentlist_Model o) {
 //    public void onBindParentViewHolder(final OrderParentLIst_VH orderParentLIst_vh, final int position, OrderParentlist_Model o) {
         Log.i("debugOrder_object", String.valueOf(position));
         Log.i("debugOrder_object1", String.valueOf(orderParentLIst_vh.getPosition()));
         final OrderParentlist_Model orderParentlist_model = (OrderParentlist_Model) o;
         orderParentLIst_vh._textview.setText(orderParentlist_model.getTitle());
         orderParentLIst_VH_main = orderParentLIst_vh;
-
     }
 
 
     @Override
-    public void onBindChildViewHolder(@NonNull final OrderChildList_VH orderChildList_vh, int pos, int i, @NonNull OrderChildlist_Model o) {
+    public void onBindChildViewHolder(@NonNull final OrderChildList_VH orderChildList_vh, int pos, final int i, @NonNull OrderChildlist_Model o) {
 //    public void onBindChildViewHolder(OrderChildList_VH orderChildList_vh, int pos, int i, OrderChildlist_Model o) {
 
 //        Log.i("debugOrder_o", String.valueOf(o));
@@ -133,6 +137,12 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
         final int temp_i = i;
         final OrderChildlist_Model temp_orderChildlist_model = orderChildlist_model;
 
+        int totalChildInThisParent = 0;
+        for (int iter = 0; iter < productList.size(); iter++) {
+            if (productList.get(iter).getProductCategoryId().equals(orderChildlist_model.getProductCategoryId()))
+                totalChildInThisParent++;
+        }
+        Log.i("totalChildInThisParent", String.valueOf(totalChildInThisParent));
 
         orderChildList_vh.list_txt_products.setText(orderChildlist_model.getTitle());
         orderChildList_vh.list_product_code_value.setText(orderChildlist_model.getProductCode());
@@ -200,43 +210,18 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
 //                return false;
 //            }
 //        });
+
+        final int finalTotalChildInThisParent = totalChildInThisParent;
+
         orderChildList_vh.list_numberOFitems.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-                Log.i("order_place_debug", String.valueOf(actionId));
-                Log.i("order_place_debug1", String.valueOf(EditorInfo.IME_ACTION_DONE));
-                Log.i("order_place_debug2", String.valueOf(EditorInfo.IME_ACTION_GO));
-                Log.i("order_place_debug3", String.valueOf(EditorInfo.IME_ACTION_NEXT));
-                Log.i("order_place_debug4", String.valueOf(EditorInfo.IME_ACTION_SEND));
-                Log.i("order_place_debug5", String.valueOf(EditorInfo.IME_ACTION_SEARCH));
-//                if (actionId == EditorInfo.IME_ACTION_DONE) {
-//                    /* Write your logic here that will be executed when user taps next button */
-//                    Log.i("debugOrder_object", "done clicked");
-//                    InputMethodManager imm = (InputMethodManager) ((FragmentActivity) context).getSystemService(Context.INPUT_METHOD_SERVICE);
-//                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-//                    handled = true;
-//                }
-//                return handled;
-                int result = actionId & EditorInfo.IME_MASK_ACTION;
-                if (result == EditorInfo.IME_ACTION_DONE)
-                    Log.i("order_place_debug7", "done clicked");
-//                switch(result) {
-//                    case EditorInfo.IME_ACTION_DONE:
-//                        // done stuff
-//                        Log.i("order_place_debug7", "done clicked");
-//                        break;
-////                    case EditorInfo.IME_ACTION_NEXT:
-////                        Log.i("order_place_debug8", "next clicked");
-////                        // next stuff
-////                        break;
-//                }
-                if ((actionId & EditorInfo.IME_MASK_ACTION) != 0) {
-                    Log.i("order_place_debug6", "done clicked");
-//                    return true;
-//                } else {
+                if(finalTotalChildInThisParent == (i+1)) {
+                    Log.i("order_place_debug8", "done clicked on last child");
+                    InputMethodManager imm = (InputMethodManager) ((FragmentActivity) context).getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
-                    return false;
+                return false;
             }
         });
 

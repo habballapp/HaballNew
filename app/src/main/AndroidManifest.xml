@@ -222,6 +222,12 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
+            android:name=".Distributor.Distributor_UpdatePassword"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
             android:name=".Retailor.Retailer_UpdatePassword"
             android:configChanges="orientation"
             android:screenOrientation="portrait"

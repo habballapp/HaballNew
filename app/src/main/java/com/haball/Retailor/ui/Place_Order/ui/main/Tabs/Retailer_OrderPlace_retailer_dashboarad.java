@@ -796,7 +796,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                         }
                     }
 
-                    final ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData(), spinner_container_main, btn_checkout);
+                    final ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData(), spinner_container_main, btn_checkout, productList);
                     adapter.setExpandCollapseListener(new ExpandableRecyclerAdapter.ExpandCollapseListener() {
                         @UiThread
                         @Override
@@ -999,7 +999,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                     }
 
 
-                    final ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData(), spinner_container_main, btn_checkout);
+                    final ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData(), spinner_container_main, btn_checkout, productList);
                     adapter.setExpandCollapseListener(new ExpandableRecyclerAdapter.ExpandCollapseListener() {
                         @UiThread
                         @Override
@@ -1184,7 +1184,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                     }
                     Log.i("productList", String.valueOf(productList));
 
-                    final ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData(), spinner_container_main, btn_checkout);
+                    final ParentListAdapter adapter = new ParentListAdapter(getActivity(), initData(), spinner_container_main, btn_checkout, productList);
                     adapter.setExpandCollapseListener(new ExpandableRecyclerAdapter.ExpandCollapseListener() {
                         @UiThread
                         @Override
