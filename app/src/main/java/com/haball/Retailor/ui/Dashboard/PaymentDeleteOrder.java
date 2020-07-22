@@ -115,7 +115,7 @@ class PaymentDeleteOrder {
                     }
                 });
 //                fragmentTransaction = ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.main_container, new HomeFragment());
+//                fragmentTransaction.add(R.id.main_container, new HomeFragment());
 //                fragmentTransaction.commit();
 
             }

@@ -53,6 +53,7 @@ import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrdersAdapter.RetailerOrdersAdapter;
 import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrdersModel.RetailerOrdersModel;
 import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.RetailerPlaceOrder;
+import com.haball.Loader;
 import com.haball.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -78,14 +79,14 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private Button btn_place_order;
+    private RelativeLayout btn_place_order;
     private String URL_ORDER = "http://175.107.203.97:4013/api/retailerorder/search";
     private String Token, DistributorId;
     private TextView tv_shipment_no_data;
     private String URL_FETCH_ORDERS = "http://175.107.203.97:4013/api/retailerorder/search";
     private List<RetailerOrdersModel> OrdersList;
     private Spinner spinner_order_ret;
-    private RelativeLayout spinner_container1;
+    private RelativeLayout spinner_container, spinner_container1;
     private Spinner spinner_consolidate;
     private Spinner spinner2;
     private EditText conso_edittext;
@@ -118,8 +119,12 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
     private List<String> scrollEvent = new ArrayList<>();
     private RelativeLayout spinner_container_main;
     private HashMap<String, String> OrderStatusKVP;
+    private HashMap<String, String> InvoiceStatusKVP;
     private Typeface myFont;
     private RelativeLayout search_rl;
+    private StatusKVP statusKVP;
+    private Loader loader;
+
 
     public RetailerOrderDashboard() {
     }
@@ -132,8 +137,13 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         Token = sharedPreferences.getString("Login_Token", "");
         Log.i("Token", Token);
 
-        StatusKVP statusKVP = new StatusKVP(getContext(), Token);
+        loader = new Loader(getContext());
+
+        statusKVP = new StatusKVP(getContext(), Token);
         OrderStatusKVP = statusKVP.getOrderStatus();
+        InvoiceStatusKVP = statusKVP.getInvoiceStatus();
+
+        Log.i("InvoiceStatusKVP", String.valueOf(InvoiceStatusKVP));
 
         final View root = inflater.inflate(R.layout.fragment_retailer_order_dashboard, container, false);
         recyclerView = root.findViewById(R.id.rv_retailer_order_dashboard);
@@ -156,6 +166,8 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         et_amount1 = root.findViewById(R.id.et_amount1);
         et_amount2 = root.findViewById(R.id.et_amount2);
 
+        spinner_container = root.findViewById(R.id.spinner_container);
+        spinner_container.setVisibility(View.GONE);
         spinner_container1 = root.findViewById(R.id.spinner_container1);
         spinner_container1.setVisibility(View.GONE);
         date_filter_rl.setVisibility(View.GONE);
@@ -394,14 +406,45 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
             }
         });
         arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//        conso_edittext.addTextChangedListener(new TextWatcher() {
+//
+//            public void afterTextChanged(Editable s) {
+//                Log.i("text2", String.valueOf(Filter_selected));
+//                Log.i("text1", "check");
+//                Log.i("text", String.valueOf(s));
+//                Filter_selected_value = String.valueOf(s);
+//                if (!Filter_selected_value.equals("")) {
+//                    try {
+//                        fetchFilteredOrderData();
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                } else {
+//                    try {
+//                        fetchRetailerOrdersData();
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+////                else {
+////                    if(!Filter_selected.equals(""))
+////                        Filter_selected = "";
+////                }
+//            }
+//
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//            }
+//
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//            }
+//        });
 
-        conso_edittext.addTextChangedListener(new TextWatcher() {
+        conso_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
 
-            public void afterTextChanged(Editable s) {
-                Log.i("text2", String.valueOf(Filter_selected));
-                Log.i("text1", "check");
-                Log.i("text", String.valueOf(s));
-                Filter_selected_value = String.valueOf(s);
+                Filter_selected_value = String.valueOf(conso_edittext.getText());
                 if (!Filter_selected_value.equals("")) {
                     try {
                         fetchFilteredOrderData();
@@ -415,19 +458,8 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                         e.printStackTrace();
                     }
                 }
-//                else {
-//                    if(!Filter_selected.equals(""))
-//                        Filter_selected = "";
-//                }
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
         });
-
 
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -435,7 +467,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
             @Override
             public void onClick(View v) {
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, new RetailerPlaceOrder());
+                fragmentTransaction.add(R.id.main_container, new RetailerPlaceOrder());
                 fragmentTransaction.commit();
 
             }
@@ -527,6 +559,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
 
 
     private void fetchRetailerOrdersData() throws JSONException {
+        loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -546,7 +579,9 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONObject result) {
+                loader.hideLoader();
                 try {
+
                     if (filters.size() == 1) {
                         filters.addAll(OrderStatusKVP.values());
                         arrayAdapterFeltter.notifyDataSetChanged();
@@ -559,12 +594,12 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                     OrdersList = gson.fromJson(result.get("Data").toString(), type);
                     tv_shipment_no_data.setVisibility(View.GONE);
                     Log.i("OrdersList", String.valueOf(OrdersList));
-                    mAdapter = new RetailerOrdersAdapter(getContext(), OrdersList, OrderStatusKVP);
+                    InvoiceStatusKVP = statusKVP.getInvoiceStatus();
+                    mAdapter = new RetailerOrdersAdapter(getContext(), OrdersList, OrderStatusKVP, InvoiceStatusKVP);
                     recyclerView.setAdapter(mAdapter);
                     if (OrdersList.size() != 0) {
                         tv_shipment_no_data.setVisibility(View.GONE);
-
-
+                        spinner_container.setVisibility(View.VISIBLE);
                     } else {
                         tv_shipment_no_data.setVisibility(View.VISIBLE);
                     }
@@ -577,6 +612,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
                 error.printStackTrace();
             }
         }) {
@@ -597,6 +633,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
     }
 
     private void fetchFilteredOrderData() throws JSONException {
+        loader.showLoader();
         Log.i("map", "in function");
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
@@ -614,9 +651,13 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         jsonObject.put("PageNumber", 0);
         if (Filter_selected.equals("date")) {
             if (!fromDate.equals(""))
-                jsonObject.put(Filter_selected1, fromDate);
+                jsonObject.put(Filter_selected1, fromDate + "T00:00:00.000Z");
+            else if (!toDate.equals(""))
+                jsonObject.put(Filter_selected1, toDate + "T00:00:00.000Z");
             if (!toDate.equals(""))
-                jsonObject.put(Filter_selected2, toDate);
+                jsonObject.put(Filter_selected2, toDate + "T23:59:59.000Z");
+            else if (!fromDate.equals(""))
+                jsonObject.put(Filter_selected2, fromDate + "T23:59:59.000Z");
         } else if (Filter_selected.equals("amount")) {
             if (!fromAmount.equals(""))
                 jsonObject.put(Filter_selected1, fromAmount);
@@ -631,6 +672,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONObject result) {
+                loader.hideLoader();
                 try {
                     Log.i("ORDERS DATA - ", result.toString());
                     Gson gson = new Gson();
@@ -645,7 +687,8 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                         tv_shipment_no_data.setVisibility(View.VISIBLE);
                     }
                     Log.i("OrdersList", String.valueOf(OrdersList));
-                    mAdapter = new RetailerOrdersAdapter(getContext(), OrdersList, OrderStatusKVP);
+                    InvoiceStatusKVP = statusKVP.getInvoiceStatus();
+                    mAdapter = new RetailerOrdersAdapter(getContext(), OrdersList, OrderStatusKVP, InvoiceStatusKVP);
                     recyclerView.setAdapter(mAdapter);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -656,6 +699,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
                 error.printStackTrace();
             }
         }) {
@@ -692,15 +736,15 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
 
     private void updateDisplay(String date_type) {
         if (date_type.equals("first date")) {
-            fromDate = year1 + "-" + String.format("%02d", (month1 + 1)) + "-" + String.format("%02d", date1) + "T00:00:00.000Z";
+            fromDate = year1 + "-" + String.format("%02d", (month1 + 1)) + "-" + String.format("%02d", date1);
             Log.i("fromDate", fromDate);
 
             first_date.setText(new StringBuilder()
-                    .append(date1).append("/").append(month1 + 1).append("/").append(year1).append(" "));
+                    .append(String.format("%02d", date1)).append("/").append(String.format("%02d", (month1 + 1))).append("/").append(year1));
         } else if (date_type.equals("second date")) {
-            toDate = year2 + "-" + String.format("%02d", (month2 + 1)) + "-" + String.format("%02d", date2) + "T00:00:00.000Z";
+            toDate = year2 + "-" + String.format("%02d", (month2 + 1)) + "-" + String.format("%02d", date2);
             second_date.setText(new StringBuilder()
-                    .append(date2).append("/").append(month2 + 1).append("/").append(year2).append(" "));
+                    .append(String.format("%02d", date2)).append("/").append(String.format("%02d", (month2 + 1))).append("/").append(year2));
         }
         try {
             fetchFilteredOrderData();

@@ -96,7 +96,7 @@ public class ViewRetailer extends Fragment {
         layout_mg_rt_sapcode = root.findViewById(R.id.layout_mg_rt_sapcode);
 
         btn_close = root.findViewById(R.id.btn_close);
-        btn_save = root.findViewById(R.id.btn_save);
+//        btn_save = root.findViewById(R.id.btn_save);
 
 
         mg_rt_code.setEnabled(false);
@@ -118,22 +118,22 @@ public class ViewRetailer extends Fragment {
         new TextField().changeColor(getContext(), layout_mg_tr_address, mg_tr_address);
         new TextField().changeColor(getContext(), layout_mg_rt_sapcode, mg_rt_sapcode);
 
-        btn_save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Toast.makeText(getActivity(), "Save data", Toast.LENGTH_SHORT).show();
-                try {
-                    saveData();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+//        btn_save.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Toast.makeText(getActivity(), "Save data", Toast.LENGTH_SHORT).show();
+//                try {
+//                    saveData();
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
         btn_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, new RetailerFragment());
+                fragmentTransaction.add(R.id.main_container, new RetailerFragment());
                 fragmentTransaction.commit();
             }
         });
@@ -181,7 +181,7 @@ public class ViewRetailer extends Fragment {
                     }
                 }
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, new RetailerFragment());
+                fragmentTransaction.add(R.id.main_container, new RetailerFragment());
                 fragmentTransaction.commit();
             }
         }, new Response.ErrorListener() {
@@ -250,10 +250,10 @@ public class ViewRetailer extends Fragment {
                     else if(result.getString("Status").equals("0"))
                         mg_rt_status.setText("Pending");
                     mg_rt_status.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (result.getString("Status").equals("1"))
-                        check_box.setChecked(true);
-                    else
-                        check_box.setChecked(false);
+//                    if (result.getString("Status").equals("1"))
+//                        check_box.setChecked(true);
+//                    else
+//                        check_box.setChecked(false);
                     Log.i("result_getString", result.getString("Address"));
                 } catch (JSONException e) {
                     e.printStackTrace();

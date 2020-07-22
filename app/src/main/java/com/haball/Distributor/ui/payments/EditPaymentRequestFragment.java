@@ -117,7 +117,7 @@ public class EditPaymentRequestFragment extends Fragment {
 //            @Override
 //            public void onClick(View view) {
 //                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.main_container, new CreatePaymentRequestFragment());
+//                fragmentTransaction.add(R.id.main_container, new CreatePaymentRequestFragment());
 //                fragmentTransaction.commit();
 //            }
 //        });
@@ -375,6 +375,7 @@ public class EditPaymentRequestFragment extends Fragment {
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PAYMENT_REQUESTS_SELECT_COMPANY, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
+//                loader.hideLoader();
                 try {
                     JSONObject jsonObject = null;
                     for (int i = 0; i < result.length(); i++) {

@@ -85,7 +85,7 @@ public class Consolidate_Fragment_Adapter extends RecyclerView.Adapter<Consolida
                                 args.putString("ConsolidateInvoiceId", consolidatePaymentsRequestList.get(position).getID());
                                 consolidateFragment.setArguments(args);
                                 fragmentTransaction = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction.replace(R.id.main_container, consolidateFragment);
+                                fragmentTransaction.add(R.id.main_container, consolidateFragment);
                                 fragmentTransaction.commit();
                                 break;
                         }

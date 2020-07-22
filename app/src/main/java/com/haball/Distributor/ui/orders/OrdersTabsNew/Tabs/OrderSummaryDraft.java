@@ -305,6 +305,7 @@ public class OrderSummaryDraft extends Fragment {
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_CONFIRM_ORDERS, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(final JSONObject result) {
+//                loader.hideLoader();
                 Log.i("RESPONSE ORDER .. ", result.toString());
                 try {
                     SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
@@ -409,6 +410,7 @@ public class OrderSummaryDraft extends Fragment {
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_SAVE_TEMPLATE, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(final JSONObject result) {
+//                loader.hideLoader();
                 Log.i("RESPONSE ORDER .. ", result.toString());
                 SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
                         Context.MODE_PRIVATE);
@@ -529,6 +531,7 @@ public class OrderSummaryDraft extends Fragment {
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_SAVE_DRAFT, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(final JSONObject result) {
+//                loader.hideLoader();
                 Log.i("RESPONSE ORDER .. ", result.toString());
                 try {
                     SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
@@ -580,7 +583,7 @@ public class OrderSummaryDraft extends Fragment {
         editor.apply();
 
 //        fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
-//        fragmentTransaction.replace(R.id.main_container, new Distributor());
+//        fragmentTransaction.add(R.id.main_container, new Distributor());
 //        fragmentTransaction.commit();
     }
 

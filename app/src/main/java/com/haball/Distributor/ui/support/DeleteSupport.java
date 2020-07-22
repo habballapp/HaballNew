@@ -86,7 +86,7 @@ public class DeleteSupport {
                         public void onClick(View v) {
                             delete_successAlert.dismiss();
                             fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, new SupportFragment()).addToBackStack(null);
+                            fragmentTransaction.add(R.id.main_container, new SupportFragment()).addToBackStack(null);
                             fragmentTransaction.commit();
                         }
                     });
@@ -95,7 +95,7 @@ public class DeleteSupport {
                         public void onDismiss(DialogInterface dialog) {
                             delete_successAlert.dismiss();
                             fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, new SupportFragment()).addToBackStack(null);
+                            fragmentTransaction.add(R.id.main_container, new SupportFragment()).addToBackStack(null);
                             fragmentTransaction.commit();
                         }
                     });

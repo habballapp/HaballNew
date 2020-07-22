@@ -1,8 +1,11 @@
 package com.haball.Distributor.ui.retailer.RetailerPlaceOrder;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.haball.Distributor.ui.home.HomeViewModel;
+import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Tabs.Order_Summary;
 import com.haball.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -10,6 +13,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +38,39 @@ public class RetailerPlaceOrder extends Fragment {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = root.findViewById(R.id.tabs_rpoid);
         tabs.setupWithViewPager(viewPager);
+
+
+        SharedPreferences orderCheckout = getContext().getSharedPreferences("orderCheckout",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor orderCheckout_editor = orderCheckout.edit();
+        orderCheckout_editor.putString("orderCheckout", "");
+        orderCheckout_editor.apply();
+
+
+        SharedPreferences selectedProductsSP = getContext().getSharedPreferences("FromDraft",
+                Context.MODE_PRIVATE);
+        if (selectedProductsSP.getString("fromDraft", "").equals("draft")) {
+            viewPager.setCurrentItem(1);
+            FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.add(R.id.main_container, new Order_Summary());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+
+            SharedPreferences orderCheckout1 = getContext().getSharedPreferences("FromDraft",
+                    Context.MODE_PRIVATE);
+            SharedPreferences.Editor orderCheckout_editor1 = orderCheckout1.edit();
+            orderCheckout_editor1.putString("fromDraft", "");
+            orderCheckout_editor1.apply();
+
+        } else {
+            SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer",
+                    Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = selectedProducts.edit();
+            editor.putString("selected_products", "");
+            editor.putString("selected_products_qty", "");
+            editor.apply();
+        }
+
 
         LinearLayout tabStrip = ((LinearLayout)tabs.getChildAt(0));
         for(int i = 0; i < tabStrip.getChildCount(); i++) {

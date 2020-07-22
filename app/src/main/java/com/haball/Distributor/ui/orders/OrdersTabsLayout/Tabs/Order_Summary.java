@@ -36,6 +36,7 @@ import com.haball.Distributor.ui.orders.Adapter.OrdersItemsAdapter;
 import com.haball.Distributor.ui.orders.Models.OrderItemsModel;
 import com.haball.Distributor.ui.orders.OrdersTabsLayout.ui.main.PageViewModel;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
+import com.haball.Loader;
 import com.haball.R;
 import com.haball.Retailor.ui.Logout.LogoutFragment;
 import com.google.gson.Gson;
@@ -70,6 +71,7 @@ public class Order_Summary extends Fragment {
     private TextView gross_amount, discount_amount, gst_amount, total_amount;
     private float totalAmount;
     private ViewPager viewpager;
+    private Loader loader;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,6 +83,8 @@ public class Order_Summary extends Fragment {
         gst_amount = view.findViewById(R.id.gst_amount);
         total_amount = view.findViewById(R.id.total_amount);
         btn_more_items = view.findViewById(R.id.btn_more_items);
+
+        loader = new Loader(getContext());
 
         btn_more_items.setOnClickListener(new View.OnClickListener() {
 
@@ -218,11 +222,12 @@ public class Order_Summary extends Fragment {
         jsonObject.put("PaymentTermId", 1);
         jsonObject.put("TransportTypeId", 1);
         jsonObject.put("BillingAddressId", 569);
-
+        loader.showLoader();
         Log.i("jsonObject", String.valueOf(jsonObject));
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_CONFIRM_ORDERS, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(final JSONObject result) {
+                loader.hideLoader();
                 Log.i("RESPONSE ORDER .. ", result.toString());
                 try {
                     Toast.makeText(getContext(), "Order Request ID " + result.get("OrderNumber") + " has been submitted successfully and sent for approval.", Toast.LENGTH_LONG).show();
@@ -235,6 +240,7 @@ public class Order_Summary extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 printErrorMessage(error);
+                loader.hideLoader();
                 error.printStackTrace();
             }
         }) {

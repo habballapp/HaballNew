@@ -162,6 +162,7 @@ public class Orders_Items_Fragment extends Fragment {
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.GET, PRODUCTS_CATEGORY_URL, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(final JSONArray result) {
+//                loader.hideLoader();
                 Log.i("CATEGORY DATA .. ", result.toString());
                 for (i = 0; i < result.length(); i++) {
                     try {

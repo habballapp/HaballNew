@@ -827,7 +827,7 @@ public class Retailer_Order_Summary extends Fragment {
 //        gross_amount.setText(grossamount.getString("grossamount", "0"));
 //        float temp_grossAmount = Float.parseFloat(grossamount.getString("grossamount", "0"));
 //        gross_amount.setText(String.format("%.0f", temp_grossAmount));
-        discount_amount.setText(" - ");
+        discount_amount.setText("0.00");
 
 //        float gstAmount = (Float.parseFloat(grossamount.getString("grossamount", "")) * 17) / 100;
         float gstAmount = 0;

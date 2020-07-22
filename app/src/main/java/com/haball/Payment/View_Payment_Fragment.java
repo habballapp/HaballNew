@@ -3,6 +3,7 @@ package com.haball.Payment;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.ui.payments.CreatePaymentRequestFragment;
 import com.haball.Distributor.ui.payments.ViewPDFRequest;
 import com.haball.Distributor.ui.payments.ViewVoucherRequest;
@@ -44,6 +46,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -58,12 +61,13 @@ public class View_Payment_Fragment extends Fragment {
     private String PaymentsRequestId;
     private String PAYMENT_REQUEST_URL = "http://175.107.203.97:4013/api/prepaidrequests/";
     private String Token, DistributorId;
-    private TextInputLayout layout_txt_heading,layout_txt_paymentid,layout_created_date,layout_transaction_date,
-                            layout_txt_bname,layout_txt_authorization,layout_txt_settlement,layout_txt_amount,
-                            layout_txt_status,layout_txt_transaction_charges;
-    private TextInputEditText txt_heading, txt_paymentid, txt_created_date, txt_transaction_date, txt_bname, txt_authorization, txt_settlement, txt_amount, txt_status, txt_transaction_charges;
-    private Button btn_vreciept;
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
+    private TextInputEditText txt_heading, txt_paymentid, txt_created_date, txt_transaction_date, txt_bname, txt_authorization, txt_settlement, txt_amount, txt_status, txt_transaction_charges, txt_total_amount;
+    private Button btn_vreciept, btn_back;
+    private TextInputLayout layout_txt_heading, layout_txt_paymentid, layout_created_date, layout_transaction_date,
+            layout_txt_bname, layout_txt_authorization, layout_txt_settlement, layout_txt_amount,
+            layout_txt_status, layout_txt_transaction_charges, layout_txt_total_amount;
+    private FragmentTransaction fragmentTransaction;
     private TextView btn_make_payment;
 
     public View_Payment_Fragment() {
@@ -87,7 +91,19 @@ public class View_Payment_Fragment extends Fragment {
         if (!PAYMENT_REQUEST_URL.contains(PaymentsRequestId))
             PAYMENT_REQUEST_URL = PAYMENT_REQUEST_URL + PaymentsRequestId;
 
-        btn_make_payment = root.findViewById(R.id.btn_addpayment);
+        layout_txt_heading = root.findViewById(R.id.layout_txt_heading);
+        layout_txt_paymentid = root.findViewById(R.id.layout_txt_paymentid);
+        layout_created_date = root.findViewById(R.id.layout_created_date);
+        layout_transaction_date = root.findViewById(R.id.layout_transaction_date);
+        layout_txt_bname = root.findViewById(R.id.layout_txt_bname);
+        layout_txt_authorization = root.findViewById(R.id.layout_txt_authorization);
+        layout_txt_settlement = root.findViewById(R.id.layout_txt_settlement);
+        layout_txt_amount = root.findViewById(R.id.layout_txt_amount);
+        layout_txt_status = root.findViewById(R.id.layout_txt_status);
+        layout_txt_transaction_charges = root.findViewById(R.id.layout_txt_transaction_charges);
+        layout_txt_total_amount = root.findViewById(R.id.layout_txt_total_amount);
+
+        txt_transaction_charges = root.findViewById(R.id.txt_transaction_charges);
         txt_heading = root.findViewById(R.id.txt_heading);
         txt_paymentid = root.findViewById(R.id.txt_paymentid);
         txt_created_date = root.findViewById(R.id.txt_created_date);
@@ -98,7 +114,25 @@ public class View_Payment_Fragment extends Fragment {
         txt_amount = root.findViewById(R.id.txt_amount);
         txt_status = root.findViewById(R.id.txt_status);
         txt_transaction_charges = root.findViewById(R.id.txt_transaction_charges);
+        txt_total_amount = root.findViewById(R.id.txt_total_amount);
+
+        btn_make_payment = root.findViewById(R.id.btn_addpayment);
         btn_vreciept = root.findViewById(R.id.btn_vreciept);
+        btn_back = root.findViewById(R.id.btn_back);
+
+        new TextField().changeColor(this.getContext(), layout_txt_heading, txt_heading);
+        new TextField().changeColor(this.getContext(), layout_txt_transaction_charges, txt_transaction_charges);
+        new TextField().changeColor(this.getContext(), layout_created_date, txt_created_date);
+        new TextField().changeColor(this.getContext(), layout_transaction_date, txt_transaction_date);
+        new TextField().changeColor(this.getContext(), layout_txt_bname, txt_bname);
+        new TextField().changeColor(this.getContext(), layout_txt_authorization, txt_authorization);
+        new TextField().changeColor(this.getContext(), layout_txt_settlement, txt_settlement);
+        new TextField().changeColor(this.getContext(), layout_txt_amount, txt_amount);
+        new TextField().changeColor(this.getContext(), layout_txt_status, txt_status);
+        new TextField().changeColor(this.getContext(), layout_txt_settlement, txt_settlement);
+        new TextField().changeColor(this.getContext(), layout_txt_transaction_charges, txt_transaction_charges);
+        new TextField().changeColor(this.getContext(), layout_txt_paymentid, txt_paymentid);
+        new TextField().changeColor(this.getContext(), layout_txt_total_amount, txt_total_amount);
 
         txt_heading.setEnabled(false);
         txt_paymentid.setEnabled(false);
@@ -110,48 +144,30 @@ public class View_Payment_Fragment extends Fragment {
         txt_amount.setEnabled(false);
         txt_status.setEnabled(false);
         txt_transaction_charges.setEnabled(false);
-
-
-
-
-
-        layout_txt_heading = root.findViewById(R.id.layout_txt_heading);
-        layout_txt_paymentid= root.findViewById(R.id.layout_txt_paymentid);
-        layout_created_date = root.findViewById(R.id.layout_created_date);
-        layout_transaction_date = root.findViewById(R.id.layout_transaction_date);
-        layout_txt_bname = root.findViewById(R.id.layout_txt_bname);
-        layout_txt_authorization = root.findViewById(R.id.layout_txt_authorization);
-        layout_txt_settlement = root.findViewById(R.id.layout_txt_settlement);
-        layout_txt_amount = root.findViewById(R.id.layout_txt_amount);
-        layout_txt_status = root.findViewById(R.id. layout_txt_status);
-        layout_txt_transaction_charges = root.findViewById(R.id.layout_txt_transaction_charges);
-
-        new TextField().changeColor(getContext(), layout_txt_heading,  txt_heading);
-        new TextField().changeColor(getContext(), layout_txt_paymentid, txt_paymentid);
-        new TextField().changeColor(getContext(), layout_created_date, txt_created_date);
-        new TextField().changeColor(getContext(), layout_transaction_date,txt_transaction_date);
-        new TextField().changeColor(getContext(), layout_txt_bname,txt_bname);
-        new TextField().changeColor(getContext(), layout_txt_authorization,txt_authorization);
-        new TextField().changeColor(getContext(), layout_txt_settlement,txt_settlement);
-        new TextField().changeColor(getContext(), layout_txt_amount,txt_amount);
-        new TextField().changeColor(getContext(), layout_txt_status,txt_status);
-        new TextField().changeColor(getContext(), layout_txt_transaction_charges ,txt_transaction_charges );
+        txt_total_amount.setEnabled(false);
 
         btn_make_payment.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "On Click", Toast.LENGTH_LONG).show();
-                Log.i("Payment","In Payment Button Click");
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, new CreatePaymentRequestFragment());
+            public void onClick(View v) {
+                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.add(R.id.main_container, new CreatePaymentRequestFragment()).addToBackStack(null);
                 fragmentTransaction.commit();
+
+            }
+        });
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent login_intent = new Intent(getActivity(), DistributorDashboard.class);
+                startActivity(login_intent);
+                getActivity().finish();
             }
         });
 
         btn_vreciept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ViewVoucherRequest viewPDFRequest = new ViewVoucherRequest();
                 ViewPDFRequest viewPDFRequest = new ViewPDFRequest();
                 try {
                     viewPDFRequest.viewPDF(getContext(), PaymentsRequestId);
@@ -160,6 +176,7 @@ public class View_Payment_Fragment extends Fragment {
                 }
             }
         });
+
         try {
             fetchPaymentData();
         } catch (JSONException e) {
@@ -193,16 +210,54 @@ public class View_Payment_Fragment extends Fragment {
             public void onResponse(JSONObject result) {
                 Log.i("result", String.valueOf(result));
                 try {
-                    txt_heading.setText(String.valueOf(result.get("CompanyName")));
-                    txt_paymentid.setText(String.valueOf(result.get("PrePaidNumber")));
-                    txt_created_date.setText(String.valueOf(result.get("CreatedDate")));
-                    txt_transaction_date.setText(String.valueOf(result.get("TransactionDate")));
-                    txt_bname.setText(String.valueOf(result.get("BankName")));
-                    txt_authorization.setText(String.valueOf(result.get("AuthID")));
-                    txt_settlement.setText(String.valueOf(result.get("SettlementID")));
-                    txt_amount.setText(String.valueOf(result.get("PaidAmount")));
-                    txt_status.setText(String.valueOf(result.get("Status")));
-                    txt_transaction_charges.setText(String.valueOf(result.get("TransactionCharges")));
+                    if (!String.valueOf(result.get("CompanyName")).equals("null")) {
+                        txt_heading.setText(String.valueOf(result.get("CompanyName")));
+                        txt_heading.setTextColor(getContext().getResources().getColor(R.color.textcolor));
+                    }
+                    if (!String.valueOf(result.get("PrePaidNumber")).equals("null")) {
+                        txt_paymentid.setText(String.valueOf(result.get("PrePaidNumber")));
+                        txt_paymentid.setTextColor(getContext().getResources().getColor(R.color.textcolor));
+                    }
+                    if (!String.valueOf(result.get("CreatedDate")).equals("null")) {
+                        txt_created_date.setText(String.valueOf(result.get("CreatedDate")).split("T")[0]);
+                        txt_created_date.setTextColor(getContext().getResources().getColor(R.color.textcolor));
+                    }
+                    if (!String.valueOf(result.get("TransactionDate")).equals("null")) {
+                        txt_transaction_date.setText(String.valueOf(result.get("TransactionDate")).split("T")[0]);
+                        txt_transaction_date.setTextColor(getContext().getResources().getColor(R.color.textcolor));
+                    }
+                    if (!String.valueOf(result.get("BankName")).equals("null")) {
+                        txt_bname.setText(String.valueOf(result.get("BankName")));
+                        txt_bname.setTextColor(getContext().getResources().getColor(R.color.textcolor));
+                    }
+                    if (!String.valueOf(result.get("AuthID")).equals("null")) {
+                        txt_authorization.setText(String.valueOf(result.get("AuthID")));
+                        txt_authorization.setTextColor(getContext().getResources().getColor(R.color.textcolor));
+                    }
+                    if (!String.valueOf(result.get("SettlementID")).equals("null")) {
+                        txt_settlement.setText(String.valueOf(result.get("SettlementID")));
+                        txt_settlement.setTextColor(getContext().getResources().getColor(R.color.textcolor));
+                    }
+                    if (!String.valueOf(result.get("PaidAmount")).equals("null")) {
+                        txt_amount.setText(String.valueOf(result.get("PaidAmount")));
+                        txt_amount.setTextColor(getContext().getResources().getColor(R.color.textcolor));
+                    }
+                    if (!String.valueOf(result.get("Status")).equals("null")) {
+                        txt_status.setText(String.valueOf(result.get("Status")));
+                        txt_status.setTextColor(getContext().getResources().getColor(R.color.textcolor));
+                    }
+                    if (!String.valueOf(result.get("TransactionCharges")).equals("null")) {
+                        txt_transaction_charges.setText(String.valueOf(result.get("TransactionCharges")));
+                        txt_transaction_charges.setTextColor(getContext().getResources().getColor(R.color.textcolor));
+                    }
+                    if (!String.valueOf(result.get("TotalAmount")).equals("null")) {
+                        DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
+                        String Formatted_TotalAmount = formatter1.format(Double.parseDouble(result.getString("TotalAmount")));
+                        txt_total_amount.setText(Formatted_TotalAmount);
+                        txt_total_amount.setTextColor(getContext().getResources().getColor(R.color.textcolor));
+                    }
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

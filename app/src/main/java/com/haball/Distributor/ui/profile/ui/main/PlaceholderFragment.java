@@ -1343,7 +1343,7 @@ public class PlaceholderFragment extends Fragment {
                     public void onDismiss(DialogInterface dialog) {
                         //                    Toast.makeText(getContext(), "Profile Information Successfully updated for " + result.getString("RetailerCode"), Toast.LENGTH_LONG).show();
                         fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.main_container, new Distributor_Profile()).addToBackStack("tag");
+                        fragmentTransaction.add(R.id.main_container, new Distributor_Profile()).addToBackStack("tag");
                         fragmentTransaction.commit();
                     }
                 });

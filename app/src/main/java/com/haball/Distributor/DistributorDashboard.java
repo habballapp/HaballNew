@@ -39,6 +39,7 @@ import com.haball.Distribution_Login.Distribution_Login;
 import com.haball.Distributor.ui.Fragment_Notification.FragmentNotification;
 import com.haball.Distributor.ui.Fragment_Notification.NotificationAdapter;
 import com.haball.Distributor.ui.Fragment_Notification.NotificationModel;
+import com.haball.Distributor.ui.Network.Select_Tabs.My_Network_Fragment;
 import com.haball.Distributor.ui.home.HomeFragment;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Order_PlaceOrder;
 import com.haball.Distributor.ui.payments.ConsolidatedPaymentsFragment;
@@ -56,7 +57,6 @@ import com.haball.Loader;
 import com.haball.ProcessingError;
 import com.haball.R;
 import com.haball.Registration.BooleanRequest;
-import com.haball.Retailor.ui.Network.Select_Tabs.My_Network_Fragment;
 import com.haball.Select_User.Register_Activity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
@@ -120,7 +120,7 @@ public class DistributorDashboard extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, new FragmentNotification());
+                fragmentTransaction.add(R.id.main_container, new FragmentNotification());
                 fragmentTransaction.commit();
             }
         });
@@ -138,7 +138,7 @@ public class DistributorDashboard extends AppCompatActivity {
         fragmentTransaction.commit();
 
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_container, new HomeFragment());
+        fragmentTransaction.add(R.id.main_container, new HomeFragment());
         fragmentTransaction.commit();
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -156,7 +156,7 @@ public class DistributorDashboard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.main_container, new TermsAndConditionsFragment());
+//                fragmentTransaction.add(R.id.main_container, new TermsAndConditionsFragment());
 //                fragmentTransaction.commit();
 
                 drawer.closeDrawer(GravityCompat.START);
@@ -174,16 +174,16 @@ public class DistributorDashboard extends AppCompatActivity {
                         new HeaderModel("Payment")
 //                                  .addChildModel(new ChildModel("\tPayments Summary"))
                                 //  .addChildModel(new ChildModel("\tConsolidate Payments"))
-                                .addChildModel(new ChildModel("\tMake Payment"))
-                                .addChildModel(new ChildModel("\tPayment Ledger"))
+                                .addChildModel(new ChildModel("\t\t\tMake Payment"))
+                                .addChildModel(new ChildModel("\t\t\tPayment Ledger"))
                         // .addChildModel(new ChildModel("\tProof of Payments"))
 
                 )
                 .addHeaderModel(new HeaderModel("Shipment"))
                 .addHeaderModel(new HeaderModel("Retailer Management")
-                        .addChildModel(new ChildModel("\tRetailer"))
-                        .addChildModel(new ChildModel("\tOrder on Behalf"))
-                        .addChildModel(new ChildModel("\tRetailer Payments")))
+                        .addChildModel(new ChildModel("\t\t\tRetailer"))
+                        .addChildModel(new ChildModel("\t\t\tOrder on Behalf"))
+                        .addChildModel(new ChildModel("\t\t\tRetailer Payments")))
                 .addHeaderModel(new HeaderModel("Profile"))
                 .addHeaderModel(new HeaderModel("Support"))
                 .addHeaderModel(new HeaderModel("Logout"))
@@ -197,20 +197,20 @@ public class DistributorDashboard extends AppCompatActivity {
                         if (id == 0) {
                             Log.i("Dashboard", "Dashboard Activity"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, new HomeFragment());
+                            fragmentTransaction.add(R.id.main_container, new HomeFragment());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 1) {
                             Log.i("My Network", "My Network Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                            fragmentTransaction.replace(R.id.main_container_ret, new My_NetworkDashboard());
-                            fragmentTransaction.replace(R.id.main_container, new My_Network_Fragment()).addToBackStack("tag");
+//                            fragmentTransaction.add(R.id.main_container_ret, new My_NetworkDashboard());
+                            fragmentTransaction.add(R.id.main_container, new My_Network_Fragment()).addToBackStack("tag");
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 2) {
                             Log.i("Place Order", "Orders Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, new Order_PlaceOrder()).addToBackStack("tag");
+                            fragmentTransaction.add(R.id.main_container, new Order_PlaceOrder()).addToBackStack("tag");
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 3) {
@@ -219,7 +219,7 @@ public class DistributorDashboard extends AppCompatActivity {
                         } else if (id == 4) {
                             Log.i("Shipment", "Shipment Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, new Shipments_Fragments()).addToBackStack("tag");
+                            fragmentTransaction.add(R.id.main_container, new Shipments_Fragments()).addToBackStack("tag");
                             fragmentTransaction.commit();
 
 
@@ -239,14 +239,14 @@ public class DistributorDashboard extends AppCompatActivity {
                         } else if (id == 6) {
                             Log.i("Profile", "Profile Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, new Distributor_Profile()).addToBackStack("tag");
+                            fragmentTransaction.add(R.id.main_container, new Distributor_Profile()).addToBackStack("tag");
                             ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 7) {
                             Log.i("Suppport", "Support Activity"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, new SupportFragment()).addToBackStack("tag");
+                            fragmentTransaction.add(R.id.main_container, new SupportFragment()).addToBackStack("tag");
                             ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
@@ -267,7 +267,7 @@ public class DistributorDashboard extends AppCompatActivity {
 //                        } else if (id == 8) {
 //                            Log.i("terms and conditions", "terms and conditions");
 //                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                            fragmentTransaction.replace(R.id.main_container, new TermsAndConditionsFragment());
+//                            fragmentTransaction.add(R.id.main_container, new TermsAndConditionsFragment());
 //                            fragmentTransaction.commit();
 //
 //                            drawer.closeDrawer(GravityCompat.START);
@@ -285,7 +285,7 @@ public class DistributorDashboard extends AppCompatActivity {
 //                        if (groupPosition == 2 && childPosition == 0) {
 //                            Log.i("Consolidate Payments", "Child");//DONE
 //                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                            fragmentTransaction.replace(R.id.main_container, new ConsolidatedPaymentsFragment()).addToBackStack("tag");
+//                            fragmentTransaction.add(R.id.main_container, new ConsolidatedPaymentsFragment()).addToBackStack("tag");
 //                            ;
 //                            fragmentTransaction.commit();
 //                            drawer.closeDrawer(GravityCompat.START);
@@ -293,13 +293,13 @@ public class DistributorDashboard extends AppCompatActivity {
                         if (groupPosition == 3 && childPosition == 0) {
                             Log.i("Make Payment", "Child");//DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, new CreatePaymentRequestFragment()).addToBackStack(null);
+                            fragmentTransaction.add(R.id.main_container, new CreatePaymentRequestFragment()).addToBackStack(null);
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (groupPosition == 3 && childPosition == 1) {
                             Log.i("Payment Ledger", "Child"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, new Payments_Fragment()).addToBackStack("tag");
+                            fragmentTransaction.add(R.id.main_container, new Payments_Fragment()).addToBackStack("tag");
                             ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
@@ -307,7 +307,7 @@ public class DistributorDashboard extends AppCompatActivity {
 //                        else if (groupPosition == 2 && childPosition == 3) {
 //                            Log.i("Proof of Payments", "Child"); //DONE
 //                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                            fragmentTransaction.replace(R.id.main_container, new ProofOfPaymentsDashboardFragment()).addToBackStack("tag");
+//                            fragmentTransaction.add(R.id.main_container, new ProofOfPaymentsDashboardFragment()).addToBackStack("tag");
 //                            ;
 //                            fragmentTransaction.commit();
 //                            drawer.closeDrawer(GravityCompat.START);
@@ -315,27 +315,27 @@ public class DistributorDashboard extends AppCompatActivity {
                         else if (groupPosition == 2 && childPosition == 0) {
                             Log.i("Place order", "Child"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, new Order_PlaceOrder()).addToBackStack("tag");
+                            fragmentTransaction.add(R.id.main_container, new Order_PlaceOrder()).addToBackStack("tag");
                             ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (groupPosition == 5 && childPosition == 0) {
 //                            Toast.makeText(DistributorDashboard.this, "retialer Managment", Toast.LENGTH_SHORT).show();
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, new RetailerFragment()).addToBackStack("tag");
+                            fragmentTransaction.add(R.id.main_container, new RetailerFragment()).addToBackStack("tag");
                             ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (groupPosition == 5 && childPosition == 1) {
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, new RetailerOrderDashboard()).addToBackStack("tag");
+                            fragmentTransaction.add(R.id.main_container, new RetailerOrderDashboard()).addToBackStack("tag");
                             ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (groupPosition == 5 && childPosition == 2) {
 //                            Toast.makeText(DistributorDashboard.this, "Retailer Payment", Toast.LENGTH_SHORT).show();
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, new RetailerPaymentDashboard()).addToBackStack("tag");
+                            fragmentTransaction.add(R.id.main_container, new RetailerPaymentDashboard()).addToBackStack("tag");
                             ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);

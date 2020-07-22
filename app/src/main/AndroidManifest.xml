@@ -21,20 +21,6 @@
         android:theme="@style/AppTheme_My"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".Distributor.ui.profile.Distributor_Profile"
-            android:configChanges="orientation"
-            android:label="@string/title_activity_distributor__profile"
-            android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".Retailor.ui.Profile.Profile_Tabs"
-            android:configChanges="orientation"
-            android:label="@string/title_activity_profile__tabs"
-            android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
             android:name=".Retailor.Forgot_Password_Retailer.Forgot_Pass_Retailer"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
@@ -47,82 +33,9 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".Retailor.ui.Place_Order.Retailer_Place_Order"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".Retailor.ui.Dashboard.Dashboard_Tabs"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".Distributor.ui.orders.OrdersTabsNew.Order_PlaceOrder"
-            android:configChanges="orientation"
-            android:label="@string/title_activity_order__place_order"
-            android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
             android:name=".Retailor.Retailer_Support.Support_Ticket_Form_Retailer"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".Distributor.ui.retailer.Retailor_Management.Retailer_Dashboard"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".Distributor.ui.retailer.RetailerOrder.RetailerViewOrder"
-            android:configChanges="orientation"
-            android:label="@string/title_activity_retailer_view_order"
-            android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".Retailor.ui.RetailerOrder.RetailerViewOrder"
-            android:configChanges="orientation"
-            android:label="@string/title_activity_retailer_view_order"
-            android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".Distributor.ui.retailer.Payment.ViewPayment.RetailerPaymentView"
-            android:configChanges="orientation"
-            android:label="@string/title_activity_retailer_payment_view"
-            android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".Distributor.ui.retailer.RetailerPlaceOrder.RetailerPlaceOrder"
-            android:configChanges="orientation"
-            android:label="@string/title_activity_retailer_place_order"
-            android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".Distributor.ui.orders.OrdersTabsLayout.Orders_Dashboard"
-            android:configChanges="orientation"
-            android:label="@string/title_activity_orders__dashboard"
-            android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".Retailor.ui.Network.My_NetworkDashboard"
-            android:configChanges="orientation"
-            android:label="@string/title_activity_my__network"
-            android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".Invoice.Distributor_Invoice_DashBoard"
-            android:configChanges="orientation"
-            android:label="@string/title_activity_distributor__invoice__dash_board"
-            android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".Notfication.Notification"
@@ -220,6 +133,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".Distributor.Distributor_TermsAndConditionsFragment"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
 
         <activity
             android:name=".Distributor.Distributor_UpdatePassword"
@@ -266,11 +185,6 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".Distributor.ui.support.SupportTicketFormFragment"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".Select_User.Register_Activity"

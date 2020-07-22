@@ -118,7 +118,7 @@ public class Support_Ticket_View extends Fragment {
             @Override
             public void onClick(View v) {
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, new SupportFragment()).addToBackStack("tag");
+                fragmentTransaction.add(R.id.main_container, new SupportFragment()).addToBackStack("tag");
                 fragmentTransaction.commit();
             }
         });

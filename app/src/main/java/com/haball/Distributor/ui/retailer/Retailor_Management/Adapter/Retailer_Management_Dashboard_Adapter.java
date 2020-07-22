@@ -2,12 +2,14 @@ package com.haball.Distributor.ui.retailer.Retailor_Management.Adapter;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +53,18 @@ public class Retailer_Management_Dashboard_Adapter extends RecyclerView.Adapter<
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+        if (retailerList.size() == 3) {
+            if (position == (retailerList.size() - 1)) {
+//        if (position == 2) {
+                Log.i("DebugSupportFilter_In", retailerList.get(position).getRetailerCode());
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT
+                );
+                params.setMargins(0, 50, 0, 280);
+                holder.main_layout_retailer_box_retailer.setLayoutParams(params);
+            }
+        }
 
         holder.tv_heading.setText(retailerList.get(position).getCompanyName());
         holder.retailer_code_no.setText(retailerList.get(position).getRetailerCode());
@@ -111,6 +125,7 @@ public class Retailer_Management_Dashboard_Adapter extends RecyclerView.Adapter<
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_heading,retailer_code_no,tv_retailerdate_date_no,retailer_status_value;
+        public RelativeLayout main_layout_retailer_box_retailer;
         public ImageButton menu_btn;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -120,7 +135,7 @@ public class Retailer_Management_Dashboard_Adapter extends RecyclerView.Adapter<
             tv_retailerdate_date_no = itemView.findViewById(R.id.tv_retailerdate_date_no);
             retailer_status_value = itemView.findViewById(R.id.retailer_status_value);
             menu_btn = itemView.findViewById(R.id.mgretailer_menu_btn);
-
+            main_layout_retailer_box_retailer = itemView.findViewById(R.id.main_layout_retailer_box_retailer);
         }
     }
 }

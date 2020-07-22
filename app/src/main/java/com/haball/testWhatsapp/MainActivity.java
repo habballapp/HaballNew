@@ -880,11 +880,11 @@ public class MainActivity extends AppCompatActivity {
             Log.i("fromDate", fromDate);
 
             first_date.setText(new StringBuilder()
-                    .append(date1).append("/").append(month1 + 1).append("/").append(year1).append(" "));
+                    .append(String.format("%02d", date1)).append("/").append(String.format("%02d", (month1 + 1))).append("/").append(year1));
         } else if (date_type.equals("second date")) {
-            toDate = year2 + "-" + String.format("%02d", (month2 + 1)) + "-" + String.format("%02d", date2) + "T00:00:00.000Z";
+            toDate = year2 + "-" + String.format("%02d", (month2 + 1)) + "-" + String.format("%02d", date2) + "T23:59:59.000Z";
             second_date.setText(new StringBuilder()
-                    .append(date2).append("/").append(month2 + 1).append("/").append(year2).append(" "));
+                    .append(String.format("%02d", date2)).append("/").append(String.format("%02d", (month2 + 1))).append("/").append(year2));
         }
 
         try {

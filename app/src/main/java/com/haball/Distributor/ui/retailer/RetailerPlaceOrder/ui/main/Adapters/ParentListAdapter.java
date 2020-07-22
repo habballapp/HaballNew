@@ -1,23 +1,28 @@
 package com.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
-import com.bignerdranch.expandablerecyclerview.ChildViewHolder;
-import com.bignerdranch.expandablerecyclerview.ExpandableRecyclerAdapter;
-import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
-import com.bignerdranch.expandablerecyclerview.model.Parent;
-import com.bignerdranch.expandablerecyclerview.model.SimpleParent;
+import com.haball.Distributor.ui.orders.OrdersTabsNew.ExpandableRecyclerAdapter;
 import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models.OrderChildlist_Model;
 import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models.OrderParentlist_Model;
 import com.haball.R;
@@ -36,11 +41,25 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
     private List<String> selectedProductsQuantityList = new ArrayList<>();
     private String object_string, object_stringqty;
     private int pre_expanded = -1;
+    public List<OrderParentLIst_VH> OrderParentList = new ArrayList<>();
+    private int parentPosition = -1;
+    private List<OrderParentlist_Model> parentItemList;
+    private RelativeLayout filter_layout;
+    private OrderParentLIst_VH orderParentLIst_VH_main;
+    private Button btn_checkout;
+    private double Quantity = 0;
+    private List<OrderChildlist_Model> productList = new ArrayList<>();
 
-    public ParentListAdapter(Context context, List<OrderParentlist_Model> parentItemList) {
+    public ParentListAdapter(Context context, List<OrderParentlist_Model> parentItemList, RelativeLayout filter_layout, Button btn_checkout, List<OrderChildlist_Model> productList) {
         super(parentItemList);
         inflater = LayoutInflater.from(context);
         this.context = context;
+        this.parentItemList = parentItemList;
+        this.filter_layout = filter_layout;
+        this.btn_checkout = btn_checkout;
+        this.productList = productList;
+
+
         SharedPreferences selectedProducts = context.getSharedPreferences("selectedProducts_retailer",
                 Context.MODE_PRIVATE);
         Gson gson = new Gson();
@@ -53,16 +72,38 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
         if (!object_string.equals("")) {
             selectedProductsDataList = gson.fromJson(object_string, type);
             selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
-            Log.i("selectedProductsQty", String.valueOf(object_stringqty));
-            Log.i("selectedProducts", String.valueOf(object_string));
+            Log.i("debugOrder_selProdQty", String.valueOf(object_stringqty));
+            Log.i("debugOrder_selProd", String.valueOf(object_string));
         }
 
+        Quantity = 0;
+        for (int i = 0; i < selectedProductsQuantityList.size(); i++) {
+            Quantity = Quantity + Float.parseFloat(selectedProductsQuantityList.get(i));
+        }
+        if (Quantity > 0) {
+            enableCheckoutButton();
+        } else {
+            disableCheckoutButton();
+        }
+
+    }
+
+    private void enableCheckoutButton() {
+        btn_checkout.setEnabled(true);
+        btn_checkout.setBackgroundResource(R.drawable.button_round);
+    }
+
+    private void disableCheckoutButton() {
+        btn_checkout.setEnabled(false);
+        btn_checkout.setBackgroundResource(R.drawable.button_grey_round);
     }
 
     @Override
     public OrderParentLIst_VH onCreateParentViewHolder(ViewGroup viewGroup, int viewType) {
         View view = inflater.inflate(R.layout.parentlist_retailer_order, viewGroup, false);
-        return new OrderParentLIst_VH(view);
+        OrderParentLIst_VH orderParentLIst_VH = new OrderParentLIst_VH(view, filter_layout);
+        OrderParentList.add(orderParentLIst_VH);
+        return new OrderParentLIst_VH(view, filter_layout);
 
     }
 
@@ -76,27 +117,32 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
     }
 
     @Override
-    public void onBindParentViewHolder(@NonNull OrderParentLIst_VH parentViewHolder, int parentPosition, @NonNull OrderParentlist_Model parent) {
-        Log.i("obj", String.valueOf(parent));
-        final OrderParentlist_Model orderParentlist_model = parent;
-        parentViewHolder._textview.setText(orderParentlist_model.getTitle());
-
+    public void onBindParentViewHolder(@NonNull final OrderParentLIst_VH orderParentLIst_vh, final int position, @NonNull OrderParentlist_Model o) {
+//    public void onBindParentViewHolder(final OrderParentLIst_VH orderParentLIst_vh, final int position, OrderParentlist_Model o) {
+        Log.i("debugOrder_object", String.valueOf(position));
+        Log.i("debugOrder_object1", String.valueOf(orderParentLIst_vh.getPosition()));
+        final OrderParentlist_Model orderParentlist_model = (OrderParentlist_Model) o;
+        orderParentLIst_vh._textview.setText(orderParentlist_model.getTitle());
+        orderParentLIst_VH_main = orderParentLIst_vh;
     }
 
-    @Override
-    public void onBindChildViewHolder(@NonNull OrderChildList_VH orderChildList_vh, int parentPosition, int i, @NonNull OrderChildlist_Model o) {
 
-        Log.i("o", String.valueOf(o));
+    @Override
+    public void onBindChildViewHolder(@NonNull final OrderChildList_VH orderChildList_vh, int pos, final int i, @NonNull OrderChildlist_Model o) {
+//    public void onBindChildViewHolder(OrderChildList_VH orderChildList_vh, int pos, int i, OrderChildlist_Model o) {
+
+//        Log.i("debugOrder_o", String.valueOf(o));
         OrderChildlist_Model orderChildlist_model = (OrderChildlist_Model) o;
         final OrderChildList_VH temp_orderChildList_vh = orderChildList_vh;
         final int temp_i = i;
         final OrderChildlist_Model temp_orderChildlist_model = orderChildlist_model;
 
-
-        orderChildList_vh.list_numberOFitems.setText("");
-        if (selectedProductsDataList != null && selectedProductsQuantityList != null) {
-            setQuantity(orderChildList_vh, orderChildlist_model);
+        int totalChildInThisParent = 0;
+        for (int iter = 0; iter < productList.size(); iter++) {
+            if (productList.get(iter).getProductCategoryId().equals(orderChildlist_model.getProductCategoryId()))
+                totalChildInThisParent++;
         }
+        Log.i("totalChildInThisParent", String.valueOf(totalChildInThisParent));
 
         orderChildList_vh.list_txt_products.setText(orderChildlist_model.getTitle());
         orderChildList_vh.list_product_code_value.setText(orderChildlist_model.getProductCode());
@@ -109,160 +155,162 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
         if (orderChildlist_model.getDiscountAmount() != null)
             yourFormattedString2 = formatter1.format(Double.parseDouble(orderChildlist_model.getDiscountAmount()));
         else
-            yourFormattedString2 = formatter1.format(Double.parseDouble(orderChildlist_model.getProductUnitPrice()));
+            yourFormattedString2 = formatter1.format(0);
         orderChildList_vh.list_discount_value.setText("Rs. " + yourFormattedString2);
-        if (orderChildlist_model.getPackSize() != null)
-            orderChildList_vh.list_pack_size_value.setText(orderChildlist_model.getPackSize());
+//        if (orderChildlist_model.getPackSize() != null)
+//            orderChildList_vh.list_pack_size_value.setText(orderChildlist_model.getPackSize());
         orderChildList_vh.list_UOM_value.setText(orderChildlist_model.getUnitOFMeasure());
+        orderChildList_vh.list_numberOFitems.setText("");
+        orderChildList_vh.list_numberOFitems.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+//                ((FragmentActivity) context). .getView().findFocus();
+                Log.i("focusdebugging", String.valueOf(v.findFocus()));
+
+
+            }
+        });
         TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                String str_quantity = String.valueOf(s);
-//                Log.i("textChanged12", "check");
-//                Log.i("textChanged11", String.valueOf(s));
-                if (String.valueOf(s).equals(""))
-                    str_quantity = "0";
+                if (orderChildList_vh.list_numberOFitems.hasFocus()) {
+                    String str_quantity = String.valueOf(s);
+                    Log.i("textChanged12", "check");
+                    Log.i("textChanged11", "'" + String.valueOf(s) + "'");
+                    if (String.valueOf(s).equals(""))
+                        str_quantity = "0";
 
-                if (temp_orderChildList_vh.list_txt_products.getText().equals(temp_orderChildlist_model.getTitle())) {
-                    if (Float.parseFloat(str_quantity) <= 0) {
-                        Toast.makeText(context, "Quantity must be greater than 0", Toast.LENGTH_LONG).show();
-                    } else {
-                        Log.i("textChanged", String.valueOf(temp_orderChildlist_model.getTitle()));
-                        Log.i("textChanged11", String.valueOf(temp_orderChildList_vh.list_txt_products.getText()));
+                    if (temp_orderChildList_vh.list_txt_products.getText().equals(temp_orderChildlist_model.getTitle())) {
+//                    if (Float.parseFloat(str_quantity) <= 0) {
+//                        // Toast.makeText(context, "Quantity must be greater than 0", Toast.LENGTH_LONG).show();
+//                    } else {
+                        Log.i("debugOrder_textChang", String.valueOf(temp_orderChildlist_model.getTitle()));
+                        Log.i("debugOrder_textChang1", String.valueOf(temp_orderChildList_vh.list_txt_products.getText()));
                         checkOutEnabler(temp_orderChildList_vh, temp_i, temp_orderChildlist_model, str_quantity);
+//                    }
                     }
                 }
             }
         };
         orderChildList_vh.list_numberOFitems.addTextChangedListener(textWatcher);
-//        orderChildList_vh.list_numberOFitems.removeTextChangedListener(textWatcher);    }
+//        orderChildList_vh.list_numberOFitems.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                Log.i("order_place_debug", String.valueOf(keyCode));
+//                Log.i("order_place_debug", String.valueOf(KeyCode));
+//
+//                return false;
+//            }
+//        });
 
+        final int finalTotalChildInThisParent = totalChildInThisParent;
+
+        orderChildList_vh.list_numberOFitems.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (finalTotalChildInThisParent == (i + 1)) {
+                    Log.i("order_place_debug8", "done clicked on last child");
+                    InputMethodManager imm = (InputMethodManager) ((FragmentActivity) context).getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+                return false;
+            }
+        });
+
+//        orderChildList_vh.list_numberOFitems.setText("");
+        if (selectedProductsDataList != null && selectedProductsQuantityList != null) {
+            if (selectedProductsDataList.size() > 0 && selectedProductsQuantityList.size() > 0) {
+                Log.i("debugOrderQty1_found0", String.valueOf(i));
+                Log.i("debugOrderQty1_found1", String.valueOf(orderChildlist_model.getProductCode()));
+                Log.i("debugOrderQty1_found2", String.valueOf(orderChildList_vh.list_product_code_value.getText()));
+                Log.i("debugOrderQty1_found3", String.valueOf(orderChildlist_model.getTitle()));
+                Log.i("debugOrderQty1_found4", String.valueOf(orderChildList_vh.list_txt_products.getText()));
+                setQuantity(orderChildList_vh, orderChildlist_model, i);
+            }
+        }
+
+//        orderChildList_vh.list_numberOFitems.removeTextChangedListener(textWatcher);    }
     }
 
-//    @Override
-//    public void onBindParentViewHolder(@NonNull OrderParentLIst_VH parentViewHolder, int parentPosition, @NonNull OrderParentlist_Model parent) {
-//        Log.i("obj", String.valueOf(parent));
-//        final OrderParentlist_Model orderParentlist_model = (OrderParentlist_Model) parent;
-//        parentViewHolder._textview.setText(orderParentlist_model.getTitle());
-//
-//
-//    }
-
-//    @Override
-//    public void onBindParentViewHolder(final OrderParentLIst_VH orderParentLIst_vh, final int position, SimpleParent o) {
-//        Log.i("obj", String.valueOf(o));
-//        final OrderParentlist_Model orderParentlist_model = (OrderParentlist_Model) o;
-//        orderParentLIst_vh._textview.setText(orderParentlist_model.getTitle());
-//
-//    }
-
-//
-//    @Override
-//    public void onBindChildViewHolder(OrderChildList_VH orderChildList_vh, int i, Object o) {
-//
-//        Log.i("o", String.valueOf(o));
-//        OrderChildlist_Model orderChildlist_model = (OrderChildlist_Model) o;
-//        final OrderChildList_VH temp_orderChildList_vh = orderChildList_vh;
-//        final int temp_i = i;
-//        final OrderChildlist_Model temp_orderChildlist_model = orderChildlist_model;
-//
-//
-//        orderChildList_vh.list_numberOFitems.setText("");
-//        if (selectedProductsDataList != null && selectedProductsQuantityList != null) {
-//            setQuantity(orderChildList_vh, orderChildlist_model);
-//        }
-//
-//        orderChildList_vh.list_txt_products.setText(orderChildlist_model.getTitle());
-//        orderChildList_vh.list_product_code_value.setText(orderChildlist_model.getProductCode());
-//        DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
-//        if (orderChildlist_model.getProductUnitPrice() != null) {
-//            String yourFormattedString1 = formatter1.format(Double.parseDouble(orderChildlist_model.getProductUnitPrice()));
-//            orderChildList_vh.list_price_value.setText("Rs. " + yourFormattedString1);
-//        }
-//        String yourFormattedString2;
-//        if (orderChildlist_model.getDiscountAmount() != null)
-//            yourFormattedString2 = formatter1.format(Double.parseDouble(orderChildlist_model.getDiscountAmount()));
-//        else
-//            yourFormattedString2 = formatter1.format(Double.parseDouble(orderChildlist_model.getProductUnitPrice()));
-//        orderChildList_vh.list_discount_value.setText("Rs. " + yourFormattedString2);
-//        if (orderChildlist_model.getPackSize() != null)
-//            orderChildList_vh.list_pack_size_value.setText(orderChildlist_model.getPackSize());
-//        orderChildList_vh.list_UOM_value.setText(orderChildlist_model.getUnitOFMeasure());
-//        TextWatcher textWatcher = new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                String str_quantity = String.valueOf(s);
-////                Log.i("textChanged12", "check");
-////                Log.i("textChanged11", String.valueOf(s));
-//                if (String.valueOf(s).equals(""))
-//                    str_quantity = "0";
-//
-//                if (temp_orderChildList_vh.list_txt_products.getText().equals(temp_orderChildlist_model.getTitle())) {
-//                    if (Float.parseFloat(str_quantity) <= 0) {
-//                        Toast.makeText(context, "Quantity must be greater than 0", Toast.LENGTH_LONG).show();
-//                    }
-//                    Log.i("textChanged", String.valueOf(temp_orderChildlist_model.getTitle()));
-//                    Log.i("textChanged11", String.valueOf(temp_orderChildList_vh.list_txt_products.getText()));
-//                    checkOutEnabler(temp_orderChildList_vh, temp_i, temp_orderChildlist_model, str_quantity);
-//                }
-//            }
-//        };
-//        orderChildList_vh.list_numberOFitems.addTextChangedListener(textWatcher);
-////        orderChildList_vh.list_numberOFitems.removeTextChangedListener(textWatcher);    }
-//    }
-
-    private void setQuantity(OrderChildList_VH orderChildList_vh, OrderChildlist_Model orderChildlist_model) {
+    private void setQuantity(OrderChildList_VH orderChildList_vh, OrderChildlist_Model orderChildlist_model, int pos) {
         if (selectedProductsQuantityList != null && selectedProductsDataList != null) {
             for (int j = 0; j < selectedProductsDataList.size(); j++) {
-                if (selectedProductsDataList.get(j).getTitle().equals(orderChildlist_model.getTitle()) && selectedProductsDataList.get(j).getProductCode().equals(orderChildlist_model.getProductCode())) {
-                    Log.i("foundItem", String.valueOf(orderChildlist_model.getTitle()));
-                    orderChildList_vh.list_numberOFitems.setText(selectedProductsQuantityList.get(j));
+                if (orderChildList_vh.list_txt_products.getText().equals(String.valueOf(selectedProductsDataList.get(j).getTitle())) && orderChildList_vh.list_product_code_value.getText().equals(selectedProductsDataList.get(j).getProductCode())) {
+                    Log.i("debugOrderQty_found0", String.valueOf(j));
+                    Log.i("debugOrderQty_found1", String.valueOf(pos));
+                    Log.i("debugOrderQty_found2", String.valueOf(orderChildList_vh.list_txt_products.getText()));
+                    Log.i("debugOrderQty_found3", String.valueOf(selectedProductsDataList.get(j).getTitle()));
+                    Log.i("debugOrderQty_found4", String.valueOf(orderChildlist_model.getTitle()));
+                    Log.i("debugOrderQty_found5", String.valueOf(orderChildList_vh.list_product_code_value.getText()));
+                    Log.i("debugOrderQty_found6", String.valueOf(selectedProductsDataList.get(j).getProductCode()));
+                    Log.i("debugOrderQty_found7", String.valueOf(orderChildlist_model.getProductCode()));
+                    Log.i("debugOrderQty_found8", String.valueOf(orderChildList_vh));
+                    if (!selectedProductsQuantityList.get(j).equals("0") && !selectedProductsQuantityList.get(j).equals(""))
+                        orderChildList_vh.list_numberOFitems.setText(selectedProductsQuantityList.get(j));
+                    Log.i("debugOrderQty_found0", String.valueOf(j));
+                    Log.i("debugOrderQty_found1", String.valueOf(pos));
+                    Log.i("debugOrderQty_found2", String.valueOf(orderChildList_vh.list_txt_products.getText()));
+                    Log.i("debugOrderQty_found3", String.valueOf(selectedProductsDataList.get(j).getTitle()));
+                    Log.i("debugOrderQty_found4", String.valueOf(orderChildlist_model.getTitle()));
+                    Log.i("debugOrderQty_found5", String.valueOf(orderChildList_vh.list_product_code_value.getText()));
+                    Log.i("debugOrderQty_found6", String.valueOf(selectedProductsDataList.get(j).getProductCode()));
+                    Log.i("debugOrderQty_found7", String.valueOf(orderChildlist_model.getProductCode()));
+                    Log.i("debugOrderQty_found8", String.valueOf(orderChildList_vh));
                 }
             }
         }
     }
 
     private void checkOutEnabler(OrderChildList_VH holder, int position, OrderChildlist_Model orderChildlist_model, String s) {
+        Log.i("debugOrder_seldatalist", String.valueOf(selectedProductsDataList));
         if (selectedProductsDataList != null) {
-            if (!selectedProductsDataList.contains(orderChildlist_model)) {
-                selectedProductsDataList.add(orderChildlist_model);
-                selectedProductsQuantityList.add(String.valueOf(holder.list_numberOFitems.getText()));
-            } else {
-                int foundIndex = -1;
-                for (int i = 0; i < selectedProductsDataList.size(); i++) {
-                    if (selectedProductsDataList.get(i).equals(orderChildlist_model)) {
-                        foundIndex = i;
-                        break;
-                    }
+            Log.i("debugOrder_seldata_nnul", String.valueOf(selectedProductsDataList));
+//            if (!selectedProductsDataList.contains(orderChildlist_model)) {
+//                Log.i("selecteddatalist_cont", String.valueOf(orderChildlist_model));
+//                selectedProductsDataList.add(orderChildlist_model);
+//                selectedProductsQuantityList.add(String.valueOf(holder.list_numberOFitems.getText()));
+//            } else {
+            Log.i("debugOrder_seldata_mod", String.valueOf(orderChildlist_model));
+            int foundIndex = -1;
+            for (int i = 0; i < selectedProductsDataList.size(); i++) {
+//                    if (selectedProductsDataList.get(i).equals(orderChildlist_model)) {
+                if (selectedProductsDataList.get(i).getTitle().equals(orderChildlist_model.getTitle()) && selectedProductsDataList.get(i).getProductCode().equals(orderChildlist_model.getProductCode())) {
+                    foundIndex = i;
+                    break;
                 }
-
-                if (foundIndex != -1)
-                    selectedProductsQuantityList.set(foundIndex, String.valueOf(holder.list_numberOFitems.getText()));
-                Log.i("selected updated qty", String.valueOf(selectedProductsQuantityList));
             }
+            Log.i("debugOrder_seldata_ind", String.valueOf(foundIndex));
+
+            if (foundIndex != -1) {
+//                if (String.valueOf(s).equals("") || String.valueOf(s).equals("0")) {
+//
+//                } else {
+                selectedProductsQuantityList.set(foundIndex, String.valueOf(s));
+//                }
+            } else {
+                Log.i("debugOrder_seldata_cont", String.valueOf(orderChildlist_model));
+                if (!String.valueOf(holder.list_numberOFitems.getText()).equals("0") && !String.valueOf(holder.list_numberOFitems.getText()).equals("")) {
+                    selectedProductsDataList.add(orderChildlist_model);
+                    selectedProductsQuantityList.add(String.valueOf(holder.list_numberOFitems.getText()));
+                }
+            }
+//                    selectedProductsQuantityList.set(foundIndex, String.valueOf(holder.list_numberOFitems.getText()));
+            Log.i("debugOrder_seldata_qty", String.valueOf(selectedProductsQuantityList));
+//            }
         } else {
-            selectedProductsDataList.add(orderChildlist_model);
-            selectedProductsQuantityList.add(String.valueOf(holder.list_numberOFitems.getText()));
+            Log.i("debugOrder_seldata_null", String.valueOf(selectedProductsDataList));
+            if (!String.valueOf(holder.list_numberOFitems.getText()).equals("0") && !String.valueOf(holder.list_numberOFitems.getText()).equals("")) {
+                selectedProductsDataList.add(orderChildlist_model);
+                selectedProductsQuantityList.add(String.valueOf(s));
+            }
         }
 
         // for (int i = 0; i < selectedProductsDataList.size(); i++)
@@ -271,14 +319,25 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
         Gson gson = new Gson();
         String json = gson.toJson(selectedProductsDataList);
         String jsonqty = gson.toJson(selectedProductsQuantityList);
-        Log.i("jsonqty", jsonqty);
-        Log.i("json", json);
+        Log.i("debugOrder_jsonqty", jsonqty);
+        Log.i("debugOrder_json", json);
         SharedPreferences selectedProducts = context.getSharedPreferences("selectedProducts_retailer",
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = selectedProducts.edit();
         editor.putString("selected_products", json);
         editor.putString("selected_products_qty", jsonqty);
         editor.apply();
+
+        Quantity = 0;
+        for (int i = 0; i < selectedProductsQuantityList.size(); i++) {
+            Quantity = Quantity + Float.parseFloat(selectedProductsQuantityList.get(i));
+        }
+        if (Quantity > 0) {
+            enableCheckoutButton();
+        } else {
+            disableCheckoutButton();
+        }
+
     }
 
 

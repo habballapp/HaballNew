@@ -145,7 +145,7 @@ public class CompanyFragmentAdapter extends RecyclerView.Adapter<CompanyFragment
 
                  //drawer.closeDrawer(GravityCompat.START);
                     /*((FragmentActivity) v.getContext()).getFragmentManager().beginTransaction()
-                            .replace(R.id.main_container, new Order_Summary())
+                            .add(R.id.main_container, new Order_Summary())
                             .commit();*/
             }
         });

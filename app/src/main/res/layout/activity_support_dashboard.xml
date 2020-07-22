@@ -13,6 +13,7 @@
         android:layout_height="match_parent"
         android:layout_marginStart="27dp"
         android:layout_marginEnd="27dp">
+
         <RelativeLayout
             android:id="@+id/ll_tv_support"
             android:layout_width="wrap_content"
@@ -72,8 +73,7 @@
                 <RelativeLayout
                     android:id="@+id/spinner_container_main_inner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                   >
+                    android:layout_height="wrap_content">
 
                     <RelativeLayout
                         android:id="@+id/spinner_container"
@@ -152,7 +152,6 @@
                                 android:paddingRight="10dp"
                                 android:textColor="#676a6c"
                                 android:textSize="14sp" />
-
                         </com.google.android.material.textfield.TextInputLayout>
                     </RelativeLayout>
 
@@ -184,7 +183,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.25"
-                                android:text="22-12-2020" />
+                                android:text="DD/MM/YYYY" />
 
                             <ImageButton
                                 android:id="@+id/first_date_btn"
@@ -227,7 +226,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.25"
-                                android:text="22-12-2020" />
+                                android:text="DD/MM/YYYY" />
 
                             <ImageButton
                                 android:id="@+id/second_date_btn"
@@ -237,7 +236,6 @@
                                 android:background="@android:color/transparent"
                                 android:src="@drawable/ic_date_range_black_24dp" />
                         </LinearLayout>
-
                     </LinearLayout>
                 </RelativeLayout>
             </RelativeLayout>
@@ -263,19 +261,17 @@
                     android:gravity="center"
                     android:text="No Support Tickets Created"
                     android:textSize="@dimen/no_data_available_size" />
-
             </RelativeLayout>
-
-            <!--    <TextView-->
-            <!--        android:layout_below="@+id/rl_recycler"-->
-            <!--        android:id="@+id/footer"-->
-            <!--        android:layout_width="match_parent"-->
-            <!--        android:layout_height="wrap_content"-->
-            <!--        android:layout_alignParentBottom="true"-->
-            <!--        android:layout_marginTop="30dp"-->
-            <!--        android:layout_marginBottom="10dp"-->
-            <!--        android:gravity="center"-->
-            <!--        android:text="© Haball | All rights reserved" />-->
+            <!-- <TextView -->
+            <!-- android:layout_below="@+id/rl_recycler" -->
+            <!-- android:id="@+id/footer" -->
+            <!-- android:layout_width="match_parent" -->
+            <!-- android:layout_height="wrap_content" -->
+            <!-- android:layout_alignParentBottom="true" -->
+            <!-- android:layout_marginTop="30dp" -->
+            <!-- android:layout_marginBottom="10dp" -->
+            <!-- android:gravity="center" -->
+            <!-- android:text="© Haball | All rights reserved" /> -->
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

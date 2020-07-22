@@ -43,6 +43,7 @@ import com.haball.Distributor.ui.orders.OrdersTabsNew.Models.Distributor_Fragmen
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Tabs.Dist_OrderPlace;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Tabs.Dist_Order_Summary;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
+import com.haball.Loader;
 import com.haball.R;
 import com.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
@@ -88,6 +89,7 @@ public class PlaceholderFragment extends Fragment {
     private List<Distributor_Fragment_Model_DistOrder> CompanyList;
     private String object_string;
     private Typeface myFont;
+    private Loader loader;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -133,6 +135,7 @@ public class PlaceholderFragment extends Fragment {
 //                });
 //                break;
                 rootView = inflater.inflate(R.layout.fragment_place_order_company, container, false);
+                loader = new Loader(getContext());
                 company_names.add(" Select Company ");
                 myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
                 layout_name = rootView.findViewById(R.id.layout_name);
@@ -148,6 +151,7 @@ public class PlaceholderFragment extends Fragment {
                 txt_email_address = rootView.findViewById(R.id.txt_email_address);
                 txt_cnic_no = rootView.findViewById(R.id.txt_cnic_no);
                 txt_address = rootView.findViewById(R.id.txt_address);
+                spinner_retailer_details.setVisibility(View.GONE);
 
                 txt_name.setEnabled(false);
                 txt_mobile_no.setEnabled(false);
@@ -209,7 +213,7 @@ public class PlaceholderFragment extends Fragment {
                             }
 
                             Company_selected = company_names.get(i);
-                            spinner_retailer_details.setVisibility(View.VISIBLE);
+//                            spinner_retailer_details.setVisibility(View.VISIBLE);
 //                            try {
 //                                Toast.makeText(getContext(), "Retailer Code: " + companies.get(Company_selected) + "\nCompany Name: " + Company_selected, Toast.LENGTH_LONG).show();
 //                            Log.i("Retailer", "Retailer Code: " + companies.get(Company_selected) + "\nCompany Name: " + Company_selected);
@@ -218,6 +222,8 @@ public class PlaceholderFragment extends Fragment {
 //                                e.printStackTrace();
 //                            }
                             retailer_heading.setText(Company_selected);
+//                            retailer_heading.setVisibility(View.GONE);
+//                            txt_name.setVisibility(View.GONE);
                             txt_name.setText(Company_selected);
                             setCompanyDetails(i - 1);
                         }
@@ -252,17 +258,17 @@ public class PlaceholderFragment extends Fragment {
             e.printStackTrace();
         }
         btn_next = root.findViewById(R.id.btn_next);
-        btn_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Toast.makeText(getContext(), "thek hai", Toast.LENGTH_SHORT).show();
-                FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-
-            }
-        });
+//        btn_next.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Toast.makeText(getContext(), "thek hai", Toast.LENGTH_SHORT).show();
+//                FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace());
+//                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.commit();
+//
+//            }
+//        });
 
 //        recyclerView = root.findViewById(R.id.rv_order_ledger);
 //        recyclerView.setHasFixedSize(true);
@@ -281,6 +287,7 @@ public class PlaceholderFragment extends Fragment {
     }
 
     private void fetchCompany(final ViewPager pager) throws JSONException {
+        loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -298,6 +305,7 @@ public class PlaceholderFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
+                loader.hideLoader();
                 Log.i("result", String.valueOf(result));
                 object_string = String.valueOf(result);
                 Gson gson = new Gson();
@@ -320,6 +328,7 @@ public class PlaceholderFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 printErrorMessage(error);
+                loader.hideLoader();
 
                 error.printStackTrace();
             }
@@ -345,10 +354,15 @@ public class PlaceholderFragment extends Fragment {
 
     private void setCompanyDetails(int position) {
         Log.i("companyDetail", String.valueOf(CompanyList.get(position)));
+//        txt_name.setVisibility(View.GONE);
         txt_name.setText(CompanyList.get(position).getName());
+//        txt_email_address.setVisibility(View.GONE);
         txt_email_address.setText(CompanyList.get(position).getEmailAddress());
+//        txt_cnic_no.setVisibility(View.GONE);
         txt_cnic_no.setText(CompanyList.get(position).getNTN());
+//        txt_mobile_no.setVisibility(View.GONE);
         txt_mobile_no.setText(CompanyList.get(position).getPhone());
+//        txt_address.setVisibility(View.GONE);
         txt_address.setText(CompanyList.get(position).getAddress1());
         Log.i("CompanyID", CompanyList.get(position).getID());
         SharedPreferences companyInfo = getContext().getSharedPreferences("CompanyInfo",
@@ -356,6 +370,10 @@ public class PlaceholderFragment extends Fragment {
         SharedPreferences.Editor editor = companyInfo.edit();
         editor.putString("CompanyId", CompanyList.get(position).getID());
         editor.apply();
+        FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     private void printErrorMessage(VolleyError error) {

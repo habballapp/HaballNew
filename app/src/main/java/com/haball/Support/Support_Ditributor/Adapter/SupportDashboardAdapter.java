@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,6 +80,19 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
 
     @Override
     public void onBindViewHolder(@NonNull final SupportDashboardAdapter.ViewHolder holder, final int position) {
+        if (supportList.size() == 3) {
+            if (position == (supportList.size() - 1)) {
+//        if (position == 2) {
+                Log.i("DebugSupportFilter_In", supportList.get(position).getId());
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT
+                );
+                params.setMargins(0, 50, 0, 280);
+                holder.main_layout_support_box_retailer.setLayoutParams(params);
+            }
+        }
+
         holder.heading.setText(supportList.get(position).getIssueType());
         holder.ticket_id_value.setText(supportList.get(position).getId());
         holder.status_value.setText(supportList.get(position).getStatus());
@@ -280,6 +294,7 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView heading, ticket_id_value, status_value, created_date_value;
+        public RelativeLayout main_layout_support_box_retailer;
         public ImageButton menu_btn;
 
         public ViewHolder(@NonNull View itemView) {
@@ -289,6 +304,7 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
             status_value = itemView.findViewById(R.id.status_value);
             created_date_value = itemView.findViewById(R.id.created_date_value);
             menu_btn = itemView.findViewById(R.id.menu_btn);
+            main_layout_support_box_retailer = itemView.findViewById(R.id.main_layout_support_box_retailer);
         }
     }
 

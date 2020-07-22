@@ -28,18 +28,42 @@
                     android:id="@+id/ln_txt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ln_login"
-                    android:layout_marginTop="34dp"
+                    android:layout_above="@+id/ln_txt_back"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="20dp"
                     android:layout_marginLeft="27dp"
                     android:layout_marginRight="27dp"
-                    android:layout_marginBottom="40dp"
+                    android:layout_marginBottom="15dp"
                     android:orientation="vertical"
                     android:weightSum="8">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_order_company_name"
+                        android:hint="Company"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:fontFamily="@font/open_sans"
+                        android:textColorHint="#96bb3c"
+                        android:theme="@style/TextLabel"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/order_company_name"
+                            android:theme="@style/TextLabelEditeText"
+                            android:layout_width="match_parent"
+                            android:enabled="false"
+                            android:layout_height="match_parent"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_order_id"
                         android:hint="Order ID"
                         android:layout_width="match_parent"
+                        android:layout_marginTop="20dp"
                         android:layout_height="55dp"
                         android:fontFamily="@font/open_sans_semibold"
                         android:textColorHint="#96bb3c"
@@ -57,70 +81,47 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/layout_order_company_name"
-                        android:hint="Company Name"
-                        android:layout_width="match_parent"
-                        android:layout_marginTop="20dp"
-                        android:layout_height="55dp"
-                        android:fontFamily="@font/open_sans"
-                        android:textColorHint="#96bb3c"
-                        android:theme="@style/TextLabel"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+<!--                    <com.google.android.material.textfield.TextInputLayout-->
+<!--                        android:id="@+id/layout_order_tr_mode"-->
+<!--                        android:hint="Transport Mode"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:layout_height="55dp"-->
+<!--                        android:fontFamily="@font/open_sans"-->
+<!--                        android:textColorHint="#96bb3c"-->
+<!--                        android:theme="@style/TextLabel"-->
+<!--                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
 
+<!--                        <com.google.android.material.textfield.TextInputEditText-->
+<!--                            android:id="@+id/order_tr_mode"-->
+<!--                             android:theme="@style/TextLabelEditeText" -->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:enabled="false"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            />-->
 
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/order_company_name"
-                            android:theme="@style/TextLabelEditeText" 
-                            android:layout_width="match_parent"
-                            android:enabled="false"
-                            android:layout_height="match_parent"
-                            />
+<!--                    <com.google.android.material.textfield.TextInputLayout-->
+<!--                        android:id="@+id/layout_order_payment_term"-->
+<!--                        android:hint="Payment Term"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:layout_height="55dp"-->
+<!--                        android:fontFamily="@font/open_sans"-->
+<!--                        android:textColorHint="#96bb3c"-->
+<!--                        android:theme="@style/TextLabel"-->
+<!--                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
 
-                    </com.google.android.material.textfield.TextInputLayout>
+<!--                        <com.google.android.material.textfield.TextInputEditText-->
+<!--                            android:id="@+id/order_payment_term"-->
+<!--                            android:theme="@style/TextLabelEditeText" -->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:enabled="false"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            />-->
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/layout_order_tr_mode"
-                        android:hint="Transport Mode"
-                        android:layout_width="match_parent"
-                        android:layout_marginTop="20dp"
-                        android:layout_height="55dp"
-                        android:fontFamily="@font/open_sans"
-                        android:textColorHint="#96bb3c"
-                        android:theme="@style/TextLabel"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/order_tr_mode"
-                             android:theme="@style/TextLabelEditeText" 
-                            android:layout_width="match_parent"
-                            android:enabled="false"
-                            android:layout_height="match_parent"
-                            />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/layout_order_payment_term"
-                        android:hint="Payment Term"
-                        android:layout_width="match_parent"
-                        android:layout_marginTop="20dp"
-                        android:layout_height="55dp"
-                        android:fontFamily="@font/open_sans"
-                        android:textColorHint="#96bb3c"
-                        android:theme="@style/TextLabel"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/order_payment_term"
-                            android:theme="@style/TextLabelEditeText" 
-                            android:layout_width="match_parent"
-                            android:enabled="false"
-                            android:layout_height="match_parent"
-                            />
-
-                    </com.google.android.material.textfield.TextInputLayout>
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_order_tv_cdate"
@@ -165,49 +166,101 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
+<!--                    <com.google.android.material.textfield.TextInputLayout-->
+<!--                        android:id="@+id/layout_order_tv_shaddress"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="100dp"-->
+<!--                        android:hint="Shipment Address"-->
+<!--                        android:fontFamily="@font/open_sans"-->
+<!--                        android:textColorHint="#96bb3c"-->
+<!--                        android:theme="@style/TextLabel"-->
+<!--                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
+
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                            android:id="@+id/order_tv_shaddress"-->
+<!--                         android:theme="@style/TextLabelEditeText" -->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:enabled="false"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        />-->
+
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--                    <com.google.android.material.textfield.TextInputLayout-->
+<!--                        android:id="@+id/layout_order_tv_billingAdd"-->
+<!--                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="100dp"-->
+<!--                        android:hint="Billing Address"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:fontFamily="@font/open_sans"-->
+<!--                        android:textColorHint="#96bb3c"-->
+<!--                        android:theme="@style/TextLabel"-->
+<!--                        >-->
+
+<!--                        <com.google.android.material.textfield.TextInputEditText-->
+<!--                            android:id="@+id/order_tv_billingAdd"-->
+<!--                            android:theme="@style/TextLabelEditeText" -->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:enabled="false"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            />-->
+
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_order_tv_shaddress"
                         android:layout_marginTop="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
-                        android:hint="Shipment Address"
+                        android:hint="Comments"
                         android:fontFamily="@font/open_sans"
                         android:textColorHint="#96bb3c"
                         android:theme="@style/TextLabel"
+                        android:gravity="top|left"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/order_tv_shaddress"
-                         android:theme="@style/TextLabelEditeText" 
-                        android:layout_width="match_parent"
-                        android:enabled="false"
-                        android:layout_height="match_parent"
-                        />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/layout_order_tv_billingAdd"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:hint="Billing Address"
-                        android:layout_marginTop="20dp"
-                        android:fontFamily="@font/open_sans"
-                        android:textColorHint="#96bb3c"
-                        android:theme="@style/TextLabel"
-                        >
-
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/order_tv_billingAdd"
-                            android:theme="@style/TextLabelEditeText" 
+                            android:id="@+id/order_tv_shaddress"
+                            android:theme="@style/TextLabelEditeText"
                             android:layout_width="match_parent"
+                            android:gravity="top|left"
                             android:enabled="false"
                             android:layout_height="match_parent"
                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ln_txt_back"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical"
+                    android:weightSum="8">
+
+
+                    <Button
+                        android:id="@+id/btn_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:background="@drawable/button_round"
+                        android:fontFamily="@font/open_sans"
+                        android:layout_marginLeft="27dp"
+                        android:layout_marginRight="27dp"
+                        android:gravity="center"
+                        android:stateListAnimator="@null"
+                        android:text="Back"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="@dimen/button_text_size"
+                        app:elevation="0dp" />
                 </LinearLayout>
 
 

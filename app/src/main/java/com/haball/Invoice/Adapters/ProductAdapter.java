@@ -9,7 +9,6 @@ package com.haball.Invoice.Adapters;
         import androidx.annotation.NonNull;
         import androidx.recyclerview.widget.RecyclerView;
 
-        import com.haball.Invoice.Models.ProductDetails_Model;
         import com.haball.R;
         import com.haball.Shipment.ui.main.Models.Distributor_ProductModel;
 
@@ -18,9 +17,9 @@ package com.haball.Invoice.Adapters;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ShipmentDetailsVH> {
 
     private Context context;
-    List<ProductDetails_Model> product_list;
+    List<Distributor_ProductModel> product_list;
 
-    public ProductAdapter(Context context, List<ProductDetails_Model> product_list) {
+    public ProductAdapter(Context context, List<Distributor_ProductModel> product_list) {
         this.context = context;
         this.product_list = product_list;
     }
@@ -34,13 +33,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Shipment
 
     @Override
     public void onBindViewHolder(@NonNull ShipmentDetailsVH holder, int position) {
-        holder.shipment_productCode.setText(product_list.get(position).getProductCode());
-        holder.shipment_productName.setText(product_list.get(position).getProductName());
-        holder.shipment_quantity.setText(product_list.get(position).getDeliveredQty());
-        holder.shipment_unitPrice.setText(product_list.get(position).getUnitPrice());
-        holder.shipment_discount.setText(product_list.get(position).getDiscount());
-        holder.shipment_amount.setText(product_list.get(position).getTotalPrice());
-
+        holder.list_product_code_value.setText(product_list.get(position).getProductCode());
+        holder.list_txt_products_.setText(product_list.get(position).getProductName());
+        holder.shipped_qty_value.setText(product_list.get(position).getDeliveredQty());
+        holder.list_batch_no_value.setText(product_list.get(position).getBatchNumber());
+        holder.list_prod_date_value.setText(product_list.get(position).getProductionDate());
+        holder.list_exp_date_value.setText(product_list.get(position).getExpiryDate());
     }
 
     @Override
@@ -49,18 +47,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Shipment
     }
 
     public class ShipmentDetailsVH extends RecyclerView.ViewHolder {
-        private TextView shipment_productCode,shipment_productName,shipment_quantity ,shipment_unitPrice ,shipment_discount ,shipment_amount;
+        private TextView list_txt_products_,list_product_code_value,list_prod_date_value ,list_exp_date_value ,list_batch_no_value ,shipped_qty_value;
 
         public ShipmentDetailsVH(@NonNull View itemView) {
             super(itemView);
-            shipment_productCode = itemView.findViewById(R.id.shipment_productCode);
-            shipment_productName = itemView.findViewById(R.id.shipment_productName);
-            shipment_productCode = itemView.findViewById(R.id.shipment_productCode);
-            shipment_quantity = itemView.findViewById(R.id.shipment_quantity);
-            shipment_unitPrice = itemView.findViewById(R.id.shipment_unitPrice);
-            shipment_discount = itemView.findViewById(R.id.shipment_discount);
-            shipment_amount = itemView.findViewById(R.id.shipment_amount);
-
+            list_txt_products_ = itemView.findViewById(R.id.list_txt_products_);
+            list_product_code_value = itemView.findViewById(R.id.list_product_code_value);
+            list_prod_date_value = itemView.findViewById(R.id.list_prod_date_value);
+            list_exp_date_value = itemView.findViewById(R.id.list_exp_date_value);
+            list_batch_no_value = itemView.findViewById(R.id.list_batch_no_value);
+            shipped_qty_value = itemView.findViewById(R.id.shipped_qty_value);
 
         }
     }

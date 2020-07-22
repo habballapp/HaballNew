@@ -76,7 +76,7 @@ public class Consolidate_Fragment_View_Adapter extends RecyclerView.Adapter<Cons
                                 editor.commit();
 
                                 FragmentTransaction fragmentTransaction = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction.replace(R.id.main_container, new Distributor_Invoice_DashBoard());
+                                fragmentTransaction.add(R.id.main_container, new Distributor_Invoice_DashBoard());
                                 fragmentTransaction.addToBackStack(null);
                                 fragmentTransaction.commit();
 //

@@ -42,6 +42,8 @@ public class PaymentLedgerAdapter extends RecyclerView.Adapter<PaymentLedgerAdap
         holder.ledger_id_value.setText(PaymentLedgerList.get(position).getDocumentNumber());
         holder.document_type_value.setText(PaymentLedgerList.get(position).getDocumentType());
 
+        holder.date_ledger_value.setText(PaymentLedgerList.get(position).getTransactionDate());
+
         DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
         String yourFormattedString1;
         if(!PaymentLedgerList.get(position).getDebitAmount().equals("0")) {
@@ -50,7 +52,7 @@ public class PaymentLedgerAdapter extends RecyclerView.Adapter<PaymentLedgerAdap
         } else{
             yourFormattedString1 = formatter1.format(Float.parseFloat(PaymentLedgerList.get(position).getCreditAmount()));
             holder.transaction_value.setText("Rs. " +yourFormattedString1);
-            holder.transaction.setText("Credit");
+            holder.transaction.setText("Credit Amount: ");
         }
         DecimalFormat formatter2 = new DecimalFormat("#,###,##0.00");
         String yourFormattedString2 = formatter2.format(Double.parseDouble(PaymentLedgerList.get(position).getBalanceAmount()));
@@ -63,7 +65,7 @@ public class PaymentLedgerAdapter extends RecyclerView.Adapter<PaymentLedgerAdap
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_heading, ledger_id_value, document_type_value, transaction_value,balance_value, transaction;
+        public TextView tv_heading, ledger_id_value, document_type_value, transaction_value,balance_value, transaction, date_ledger_value;
         public ImageButton menu_btn;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,6 +76,7 @@ public class PaymentLedgerAdapter extends RecyclerView.Adapter<PaymentLedgerAdap
             balance_value = itemView.findViewById(R.id.balance_value);
             transaction = itemView.findViewById(R.id.transaction);
             menu_btn = itemView.findViewById(R.id.menu_btn);
+            date_ledger_value = itemView.findViewById(R.id.date_ledger_value);
         }
     }
 

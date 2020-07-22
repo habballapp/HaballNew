@@ -169,6 +169,7 @@ public class PlaceholderFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
+//                loader.hideLoader();
                 Log.i("Payments Requests", result.toString());
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<Company_Fragment_Model>>() {

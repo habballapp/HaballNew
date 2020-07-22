@@ -39,6 +39,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.textfield.TextInputLayout;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Adapters.RetailerFragmentAdapter;
 import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models.Retailer_Fragment_Model;
@@ -48,6 +49,7 @@ import com.haball.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.haball.TextField;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -84,6 +86,7 @@ public class PlaceholderFragment extends Fragment {
     private PageViewModel pageViewModel;
     private TextView retailer_heading;
     private TextInputEditText txt_name, txt_mobile_no, txt_email_address, txt_cnic_no, txt_address;
+    private TextInputLayout layout_mobile_no, layout_email_address, layout_cnic_no, layout_txt_address;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -116,19 +119,27 @@ public class PlaceholderFragment extends Fragment {
                 spinner_conso = rootView.findViewById(R.id.spinner_conso);
                 spinner_retailer_details = rootView.findViewById(R.id.spinner_retailer_details);
                 retailer_heading = rootView.findViewById(R.id.retailer_heading);
-                txt_name = rootView.findViewById(R.id.txt_name);
                 txt_mobile_no = rootView.findViewById(R.id.txt_mobile_no);
                 txt_email_address = rootView.findViewById(R.id.txt_email_address);
                 txt_cnic_no = rootView.findViewById(R.id.txt_cnic_no);
                 txt_address = rootView.findViewById(R.id.txt_address);
 
-                txt_name.setEnabled(false);
+                layout_mobile_no = rootView.findViewById(R.id.layout_mobile_no);
+                layout_email_address = rootView.findViewById(R.id.layout_email_address);
+                layout_cnic_no = rootView.findViewById(R.id.layout_cnic_no);
+                layout_txt_address = rootView.findViewById(R.id.layout_txt_address);
+
                 txt_mobile_no.setEnabled(false);
                 txt_email_address.setEnabled(false);
                 txt_cnic_no.setEnabled(false);
                 txt_address.setEnabled(false);
 
-                arrayAdapterPayments = new ArrayAdapter<>(rootView.getContext(),
+                new TextField().changeColor(getContext(), layout_mobile_no, txt_mobile_no);
+                new TextField().changeColor(getContext(), layout_email_address, txt_email_address);
+                new TextField().changeColor(getContext(), layout_cnic_no, txt_cnic_no);
+                new TextField().changeColor(getContext(), layout_txt_address, txt_address);
+
+                 arrayAdapterPayments = new ArrayAdapter<>(rootView.getContext(),
                         android.R.layout.simple_spinner_dropdown_item, company_names);
                 spinner_retailer_details.setVisibility(View.GONE);
 
@@ -162,7 +173,7 @@ public class PlaceholderFragment extends Fragment {
 //                                e.printStackTrace();
 //                            }
                             retailer_heading.setText(Company_selected);
-                            txt_name.setText(Company_selected);
+//                            txt_name.setText(Company_selected);
                             try {
                                 getRetailerDetail();
                             } catch (JSONException e) {
@@ -217,7 +228,7 @@ public class PlaceholderFragment extends Fragment {
             public void onResponse(JSONObject result) {
                 try {
 //                    Log.i("result", String.valueOf(result));
-                    txt_name.setText(result.getString("Name"));
+//                    txt_name.setText(result.getString("Name"));
                     txt_email_address.setText(result.getString("Email"));
                     txt_cnic_no.setText(result.getString("CNIC"));
                     txt_mobile_no.setText(result.getString("Mobile"));

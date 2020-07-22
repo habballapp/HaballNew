@@ -1,56 +1,29 @@
 package com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrdersModel;
 
 public class RetailerOrdersModel {
-    private String ID;
-    String OrderNumber;
-    String Retailer;
-    String OrderId;
-    String TotalAmount;
-    String CreatedDate;
-    String Submitter;
-    String OrderStatus;
-    String InvoiceStatus;
+    private String CreatedDate;
+    private String InvoiceReferenceNumber;
+    private String InvoiceStatus;
+    private String OrderId;
+    private String OrderNumber;
+    private String OrderReferenceNumber;
+    private String OrderStatus;
+    private String OrderStatusValue;
+    private String Retailer;
+    private String Submitter;
+    private String TotalAmount;
 
-    public RetailerOrdersModel(String orderNumber, String retailer, String orderId, String totalAmount, String createdDate, String submitter, String orderStatus, String invoiceStatus) {
-        OrderNumber = orderNumber;
-        Retailer = retailer;
-        OrderId = orderId;
-        TotalAmount = totalAmount;
+    public RetailerOrdersModel(String createdDate, String invoiceReferenceNumber, String invoiceStatus, String orderId, String orderNumber, String orderReferenceNumber, String orderStatus, String orderStatusValue, String retailer, String submitter, String totalAmount) {
         CreatedDate = createdDate;
-        Submitter = submitter;
-        OrderStatus = orderStatus;
+        InvoiceReferenceNumber = invoiceReferenceNumber;
         InvoiceStatus = invoiceStatus;
-    }
-
-    public String getOrderNumber() {
-        return OrderNumber;
-    }
-
-    public void setOrderNumber(String orderNumber) {
-        OrderNumber = orderNumber;
-    }
-
-    public String getRetailer() {
-        return Retailer;
-    }
-
-    public void setRetailer(String retailer) {
-        Retailer = retailer;
-    }
-
-    public String getOrderId() {
-        return OrderId;
-    }
-
-    public void setOrderId(String orderId) {
         OrderId = orderId;
-    }
-
-    public String getTotalAmount() {
-        return TotalAmount;
-    }
-
-    public void setTotalAmount(String totalAmount) {
+        OrderNumber = orderNumber;
+        OrderReferenceNumber = orderReferenceNumber;
+        OrderStatus = orderStatus;
+        OrderStatusValue = orderStatusValue;
+        Retailer = retailer;
+        Submitter = submitter;
         TotalAmount = totalAmount;
     }
 
@@ -62,12 +35,44 @@ public class RetailerOrdersModel {
         CreatedDate = createdDate;
     }
 
-    public String getSubmitter() {
-        return Submitter;
+    public String getInvoiceReferenceNumber() {
+        return InvoiceReferenceNumber;
     }
 
-    public void setSubmitter(String submitter) {
-        Submitter = submitter;
+    public void setInvoiceReferenceNumber(String invoiceReferenceNumber) {
+        InvoiceReferenceNumber = invoiceReferenceNumber;
+    }
+
+    public String getInvoiceStatus() {
+        return InvoiceStatus;
+    }
+
+    public void setInvoiceStatus(String invoiceStatus) {
+        InvoiceStatus = invoiceStatus;
+    }
+
+    public String getOrderId() {
+        return OrderId;
+    }
+
+    public void setOrderId(String orderId) {
+        OrderId = orderId;
+    }
+
+    public String getOrderNumber() {
+        return OrderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        OrderNumber = orderNumber;
+    }
+
+    public String getOrderReferenceNumber() {
+        return OrderReferenceNumber;
+    }
+
+    public void setOrderReferenceNumber(String orderReferenceNumber) {
+        OrderReferenceNumber = orderReferenceNumber;
     }
 
     public String getOrderStatus() {
@@ -78,19 +83,35 @@ public class RetailerOrdersModel {
         OrderStatus = orderStatus;
     }
 
-    public String getInvoiceStatus() {
-        return InvoiceStatus;
+    public String getOrderStatusValue() {
+        return OrderStatusValue;
     }
 
-    public void setInvoiceStatus(String invoiceStatus) {
-        InvoiceStatus = invoiceStatus;
-    }
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setOrderStatusValue(String orderStatusValue) {
+        OrderStatusValue = orderStatusValue;
     }
 
+    public String getRetailer() {
+        return Retailer;
+    }
 
-    public String getID() {
-        return ID;
+    public void setRetailer(String retailer) {
+        Retailer = retailer;
+    }
+
+    public String getSubmitter() {
+        return Submitter;
+    }
+
+    public void setSubmitter(String submitter) {
+        Submitter = submitter;
+    }
+
+    public String getTotalAmount() {
+        return TotalAmount;
+    }
+
+    public void setTotalAmount(String totalAmount) {
+        TotalAmount = totalAmount;
     }
 }

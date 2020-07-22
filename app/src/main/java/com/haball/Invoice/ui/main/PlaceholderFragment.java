@@ -37,6 +37,7 @@ import com.haball.R;
 import com.haball.Shipment.ui.main.Models.Distributor_InvoiceModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.haball.Shipment.ui.main.Models.Distributor_ProductModel;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -81,7 +82,7 @@ public class PlaceholderFragment extends Fragment {
     private RecyclerView rv_invo_product;
     private RecyclerView.Adapter rv_productAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private List<ProductDetails_Model> invo_productList = new ArrayList<>();
+    private List<Distributor_ProductModel> invo_productList = new ArrayList<>();
     // Shipment Details
     private TextView invoice_shipment_id, invoice_shpDelivery_date, invoice_shpRecieving_date, invoice_shpstatus;
 
@@ -297,8 +298,11 @@ public class PlaceholderFragment extends Fragment {
                 try {
                     total_price.setText(response.get("InvoiceTotal").toString());
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<ProductDetails_Model>>() {
+//                    Type type = new TypeToken<List<ProductDetails_Model>>() {
+//                    }.getType();
+                    Type type = new TypeToken<List<Distributor_ProductModel>>() {
                     }.getType();
+
                     invo_productList = gson.fromJson(response.get("InvoiceDetails").toString(), type);
                     Log.i("ProductList", String.valueOf(response.get("InvoiceDetails")));
                     ProductAdapter productAdapter = new ProductAdapter(getContext(), invo_productList);

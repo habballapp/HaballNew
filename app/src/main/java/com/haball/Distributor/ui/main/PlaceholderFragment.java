@@ -43,6 +43,7 @@ import com.haball.Distribution_Login.Distribution_Login;
 import com.haball.Distributor.DistributorOrdersAdapter;
 import com.haball.Distributor.DistributorOrdersModel;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
+import com.haball.Loader;
 import com.haball.Payment.DistributorPaymentRequestAdaptor;
 import com.haball.Payment.DistributorPaymentRequestModel;
 import com.haball.R;
@@ -104,7 +105,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private String Token, DistributorId;
 
     private PageViewModel pageViewModel;
-    private RelativeLayout spinner_container1;
+    private RelativeLayout spinner_container1, spinner_container;
     private Spinner spinner_consolidate;
     private Spinner spinner2;
     private EditText conso_edittext;
@@ -150,6 +151,9 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private List<String> company_names = new ArrayList<>();
     private RelativeLayout rl_overView;
     private Context context;
+    private Loader loader;
+    boolean byDefaultSelectCriteria = true;
+    boolean byDefaultStatus = true;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -190,6 +194,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 rootView = inflater.inflate(R.layout.fragment_payments, container, false);
                 paymentFragmentTask(rootView);
                 context = getContext();
+                loader = new Loader(context);
                 try {
                     fetchPaymentRequests();
                 } catch (JSONException e) {
@@ -305,6 +310,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 rootView = inflater.inflate(R.layout.fragment_orders, container, false);
                 orderFragmentTask(rootView);
                 context = getContext();
+                loader = new Loader(context);
                 recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_fragment_orders);
                 spinner_container_main = rootView.findViewById(R.id.spinner_container_main);
 
@@ -415,6 +421,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             case 3: {
                 tabName = "Dashboard";
                 context = getContext();
+                loader = new Loader(context);
                 rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
                 spinner_criteria = rootView.findViewById(R.id.spinner_criteria);
                 rl_overView = rootView.findViewById(R.id.rl_overView);
@@ -515,23 +522,50 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     }
 
     private void performPaginationOrder() throws JSONException {
-
+        loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
-        DistributorId = sharedPreferences.getString("Distributor_Id", "");
+        String username = sharedPreferences.getString("username", "");
+        String UserTypeId = sharedPreferences.getString("UserTypeId", "");
 //        Log.i("Token", Token);
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+//        Log.i("DistributorId ", DistributorId);
+
         JSONObject map = new JSONObject();
-        map.put("Status", -1);
-        map.put("OrderState", -1);
-        map.put("DistributorId", DistributorId);
+        map.put("DistributorId", Integer.parseInt(DistributorId));
         map.put("TotalRecords", 10);
         map.put("PageNumber", pageNumberOrder);
+//        map.put("Status", null);
+        map.put("username", username);
+        map.put("usertypeid", UserTypeId);
+        if (Filter_selected.equals("date")) {
+            if (!fromDate.equals(""))
+                map.put(Filter_selected1, fromDate + "T00:00:00.000Z");
+            else if (!toDate.equals(""))
+                map.put(Filter_selected1, toDate + "T00:00:00.000Z");
+            if (!toDate.equals(""))
+                map.put(Filter_selected2, toDate + "T23:59:59.000Z");
+            else if (!fromDate.equals(""))
+                map.put(Filter_selected2, fromDate + "T23:59:59.000Z");
+        } else if (Filter_selected.equals("amount")) {
+            if (!fromAmount.equals(""))
+                map.put(Filter_selected1, fromAmount);
+            if (!toAmount.equals(""))
+                map.put(Filter_selected2, toAmount);
+        } else if (!Filter_selected.equals("")) {
+            map.put(Filter_selected, Filter_selected_value);
+        }
+
         Log.i("Placeholder_Order", String.valueOf(map));
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
+                loader.hideLoader();
 //                btn_load_more.setVisibility(View.GONE);
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<DistributorOrdersModel>>() {
@@ -548,6 +582,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @Override
             public void onErrorResponse(VolleyError error) {
                 printErrorMessage(error);
+                loader.hideLoader();
 
                 error.printStackTrace();
             }
@@ -568,10 +603,13 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     }
 
     private void performPagination() throws JSONException {
-
+        Log.i("PaymentDebug", "In Pagination");
+        loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
+        String username = sharedPreferences.getString("username", "");
+        String UserTypeId = sharedPreferences.getString("UserTypeId", "");
 //        Log.i("Token", Token);
 
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
@@ -583,11 +621,32 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         map.put("DistributorId", Integer.parseInt(DistributorId));
         map.put("TotalRecords", 10);
         map.put("PageNumber", pageNumber);
+//        map.put("Status", null);
+        map.put("username", username);
+        map.put("usertypeid", UserTypeId);
+        if (Filter_selected.equals("date")) {
+            if (!fromDate.equals(""))
+                map.put(Filter_selected1, fromDate + "T00:00:00.000Z");
+            else if (!toDate.equals(""))
+                map.put(Filter_selected1, toDate + "T00:00:00.000Z");
+            if (!toDate.equals(""))
+                map.put(Filter_selected2, toDate + "T23:59:59.000Z");
+            else if (!fromDate.equals(""))
+                map.put(Filter_selected2, fromDate + "T23:59:59.000Z");
+        } else if (Filter_selected.equals("amount")) {
+            if (!fromAmount.equals(""))
+                map.put(Filter_selected1, fromAmount);
+            if (!toAmount.equals(""))
+                map.put(Filter_selected2, toAmount);
+        } else if (!Filter_selected.equals("")) {
+            map.put(Filter_selected, Filter_selected_value);
+        }
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_PAYMENTS, map, new Response.Listener<JSONArray>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
+                loader.hideLoader();
 //                Log.i("Payments Requests", result.toString());
 //                btn_load_more.setVisibility(View.GONE);
                 Gson gson = new Gson();
@@ -606,6 +665,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @Override
             public void onErrorResponse(VolleyError error) {
                 printErrorMessage(error);
+                loader.hideLoader();
 
                 error.printStackTrace();
             }
@@ -644,6 +704,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         et_amount1 = rootView.findViewById(R.id.et_amount1);
         et_amount2 = rootView.findViewById(R.id.et_amount2);
 
+        spinner_container = rootView.findViewById(R.id.spinner_container);
+        spinner_container.setVisibility(View.GONE);
         spinner_container1 = rootView.findViewById(R.id.spinner_container1);
         spinner_consolidate = (Spinner) rootView.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) rootView.findViewById(R.id.conso_spinner2);
@@ -707,7 +769,15 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
+                    if (!byDefaultSelectCriteria) {
+                        try {
+                            fetchPaymentRequests();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 } else {
+                    byDefaultSelectCriteria = false;
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
@@ -789,6 +859,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
         spinner_consolidate.setAdapter(arrayAdapterPayments);
 
+        filters = new ArrayList<>();
         filters.add("Status");
         filters.add("Processing Payment");
         filters.add("Unpaid ");
@@ -832,7 +903,15 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
+                    if (!byDefaultStatus) {
+                        try {
+                            fetchPaymentRequests();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 } else {
+                    byDefaultStatus = false;
                     // if (i > 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
@@ -864,13 +943,40 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //        arrayAdapterFeltter.notifyDataSetChanged();
         spinner2.setAdapter(arrayAdapterFeltter);
+//
+//        conso_edittext.addTextChangedListener(new TextWatcher() {
+//
+//            public void afterTextChanged(Editable s) {
+////                Log.i("text1", "check");
+////                Log.i("text", String.valueOf(s));
+//                Filter_selected_value = String.valueOf(s);
+//                if (!Filter_selected_value.equals("")) {
+//                    try {
+//                        fetchFilteredPaymentRequests();
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                } else {
+//                    try {
+//                        fetchPaymentRequests();
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//            }
+//
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//            }
+//        });
 
-        conso_edittext.addTextChangedListener(new TextWatcher() {
+        conso_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
 
-            public void afterTextChanged(Editable s) {
-//                Log.i("text1", "check");
-//                Log.i("text", String.valueOf(s));
-                Filter_selected_value = String.valueOf(s);
+                Filter_selected_value = String.valueOf(conso_edittext.getText());
                 if (!Filter_selected_value.equals("")) {
                     try {
                         fetchFilteredPaymentRequests();
@@ -885,19 +991,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     }
                 }
             }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
         });
-
 //        consolidate.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.main_container, new RetailerPlaceOrder());
+//                fragmentTransaction.add(R.id.main_container, new RetailerPlaceOrder());
 //                fragmentTransaction.commit();
         // Toast.makeText(getContext(), "Consolidate clicked", Toast.LENGTH_LONG).show();
 //                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -1086,6 +1185,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         et_amount1 = rootView.findViewById(R.id.et_amount1);
         et_amount2 = rootView.findViewById(R.id.et_amount2);
 
+        spinner_container = rootView.findViewById(R.id.spinner_container);
+        spinner_container.setVisibility(View.GONE);
         spinner_container1 = rootView.findViewById(R.id.spinner_container1);
         spinner_consolidate = (Spinner) rootView.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) rootView.findViewById(R.id.conso_spinner2);
@@ -1147,7 +1248,17 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
+                    if (!byDefaultSelectCriteria) {
+                        try {
+                            loader.showLoader();
+                            fetchOrderData();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
                 } else {
+                    byDefaultSelectCriteria = false;
                     // if (i > 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
@@ -1312,6 +1423,25 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 0) {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
+                    if (!byDefaultStatus) {
+                        try {
+                            loader.showLoader();
+                            fetchOrderData();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } else {
+                    byDefaultStatus = false;
+                }
                 if (Filter_selected.equals("Status") || Filter_selected.equals("PaymentType")) {
 
                     if (i == 0) {
@@ -1321,6 +1451,11 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                             ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                         } catch (NullPointerException ex) {
                             ex.printStackTrace();
+                        }
+                        try {
+                            fetchOrderData();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     } else {
                         // if (i > 0) {
@@ -1339,6 +1474,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                        } else {
+                            try {
+                                fetchOrderData();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 } else if (Filter_selected.equals("PaymentType")) {
@@ -1354,23 +1495,55 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         }
                     }
                 }
-
             }
+
+//        }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
+
         arrayAdapterFeltter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(arrayAdapterFeltter);
+//
+//        conso_edittext.addTextChangedListener(new
+//
+//                                                      TextWatcher() {
+//
+//                                                          public void afterTextChanged(Editable s) {
+////                Log.i("text1", "check");
+////                Log.i("text", String.valueOf(s));
+//                                                              Filter_selected_value = String.valueOf(s);
+//                                                              if (!Filter_selected_value.equals("")) {
+//                                                                  try {
+//                                                                      fetchFilteredOrderData();
+//                                                                  } catch (JSONException e) {
+//                                                                      e.printStackTrace();
+//                                                                  }
+//                                                              } else {
+//                                                                  try {
+//                                                                      fetchOrderData();
+//                                                                  } catch (JSONException e) {
+//                                                                      e.printStackTrace();
+//                                                                  }
+//                                                              }
+//                                                          }
+//
+//                                                          public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                                                          }
+//
+//                                                          public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                                                          }
+//                                                      });
 
-        conso_edittext.addTextChangedListener(new TextWatcher() {
 
-            public void afterTextChanged(Editable s) {
-//                Log.i("text1", "check");
-//                Log.i("text", String.valueOf(s));
-                Filter_selected_value = String.valueOf(s);
+        conso_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                Filter_selected_value = String.valueOf(conso_edittext.getText());
                 if (!Filter_selected_value.equals("")) {
                     try {
                         fetchFilteredOrderData();
@@ -1385,16 +1558,11 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     }
                 }
             }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
         });
     }
 
     private void fetchOrderData() throws JSONException {
+//        loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -1452,6 +1620,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @Override
             public void onResponse(JSONArray result) {
                 //                    JSONArray jsonArray = new JSONArray(result);
+                loader.hideLoader();
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<DistributorOrdersModel>>() {
                 }.getType();
@@ -1461,6 +1630,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 recyclerView.setAdapter(OrdersAdapter);
                 if (result.length() != 0) {
                     tv_shipment_no_data.setVisibility(View.GONE);
+                    spinner_container.setVisibility(View.VISIBLE);
                 } else {
                     tv_shipment_no_data.setVisibility(View.VISIBLE);
                 }
@@ -1471,6 +1641,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @Override
             public void onErrorResponse(VolleyError error) {
                 printErrorMessage(error);
+                loader.hideLoader();
 
                 error.printStackTrace();
             }
@@ -1491,21 +1662,35 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     }
 
     private void fetchFilteredOrderData() throws JSONException {
+        loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
-        DistributorId = sharedPreferences.getString("Distributor_Id", "");
+        String username = sharedPreferences.getString("username", "");
+        String UserTypeId = sharedPreferences.getString("UserTypeId", "");
 //        Log.i("Token", Token);
 
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+//        Log.i("DistributorId ", DistributorId);
+        pageNumberOrder = 0;
         JSONObject map = new JSONObject();
         map.put("DistributorId", Integer.parseInt(DistributorId));
         map.put("TotalRecords", 10);
-        map.put("PageNumber", 0.1);
+        map.put("PageNumber", pageNumberOrder);
+//        map.put("Status", null);
+        map.put("username", username);
+        map.put("usertypeid", UserTypeId);
         if (Filter_selected.equals("date")) {
             if (!fromDate.equals(""))
-                map.put(Filter_selected1, fromDate);
+                map.put(Filter_selected1, fromDate + "T00:00:00.000Z");
+            else if (!toDate.equals(""))
+                map.put(Filter_selected1, toDate + "T00:00:00.000Z");
             if (!toDate.equals(""))
-                map.put(Filter_selected2, toDate);
+                map.put(Filter_selected2, toDate + "T23:59:59.000Z");
+            else if (!fromDate.equals(""))
+                map.put(Filter_selected2, fromDate + "T23:59:59.000Z");
         } else if (Filter_selected.equals("amount")) {
             if (!fromAmount.equals(""))
                 map.put(Filter_selected1, fromAmount);
@@ -1519,6 +1704,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
+                loader.hideLoader();
                 //                    JSONArray jsonArray = new JSONArray(result);
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<DistributorOrdersModel>>() {
@@ -1538,6 +1724,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @Override
             public void onErrorResponse(VolleyError error) {
                 printErrorMessage(error);
+                loader.hideLoader();
 
                 error.printStackTrace();
             }
@@ -1558,6 +1745,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     }
 
     private void fetchPaymentRequests() throws JSONException {
+        Log.i("PaymentDebug", "In Main");
+        loader.showLoader();
         tv_shipment_no_data1.setVisibility(View.GONE);
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
@@ -1615,6 +1804,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
+                loader.hideLoader();
                 if (result.length() != 0) {
 
 //                    Log.i("Payments Requests", result.toString());
@@ -1623,10 +1813,11 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     }.getType();
                     PaymentsRequestList = gson.fromJson(result.toString(), type);
 
-                    mAdapter = new DistributorPaymentRequestAdaptor(getContext(), PaymentsRequestList);
+                    mAdapter = new DistributorPaymentRequestAdaptor(getActivity(), getContext(), PaymentsRequestList);
                     recyclerView.setAdapter(mAdapter);
                     tv_shipment_no_data1.setVisibility(View.GONE);
 
+                    spinner_container.setVisibility(View.VISIBLE);
                 } else {
                     tv_shipment_no_data1.setVisibility(View.VISIBLE);
                 }
@@ -1637,6 +1828,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @Override
             public void onErrorResponse(VolleyError error) {
                 printErrorMessage(error);
+                loader.hideLoader();
 
                 error.printStackTrace();
             }
@@ -1677,12 +1869,16 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
 
     private void fetchFilteredPaymentRequests() throws JSONException {
+        Log.i("PaymentDebug", "In Filter");
+        loader.showLoader();
         tv_shipment_no_data1.setVisibility(View.GONE);
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
+        String username = sharedPreferences.getString("username", "");
+        String UserTypeId = sharedPreferences.getString("UserTypeId", "");
 //        Log.i("Token", Token);
-
+        pageNumber = 0;
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
@@ -1691,12 +1887,19 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         JSONObject map = new JSONObject();
         map.put("DistributorId", Integer.parseInt(DistributorId));
         map.put("TotalRecords", 10);
-        map.put("PageNumber", 0.1);
+        map.put("PageNumber", pageNumber);
+//        map.put("Status", null);
+        map.put("username", username);
+        map.put("usertypeid", UserTypeId);
         if (Filter_selected.equals("date")) {
             if (!fromDate.equals(""))
-                map.put(Filter_selected1, fromDate);
+                map.put(Filter_selected1, fromDate + "T00:00:00.000Z");
+            else if (!toDate.equals(""))
+                map.put(Filter_selected1, toDate + "T00:00:00.000Z");
             if (!toDate.equals(""))
-                map.put(Filter_selected2, toDate);
+                map.put(Filter_selected2, toDate + "T23:59:59.000Z");
+            else if (!fromDate.equals(""))
+                map.put(Filter_selected2, fromDate + "T23:59:59.000Z");
         } else if (Filter_selected.equals("amount")) {
             if (!fromAmount.equals(""))
                 map.put(Filter_selected1, fromAmount);
@@ -1712,13 +1915,14 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
+                loader.hideLoader();
                 Log.i("Payments Requests11", result.toString());
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
                 }.getType();
                 PaymentsRequestList = gson.fromJson(result.toString(), type);
 
-                mAdapter = new DistributorPaymentRequestAdaptor(getContext(), PaymentsRequestList);
+                mAdapter = new DistributorPaymentRequestAdaptor(getActivity(), getContext(), PaymentsRequestList);
                 recyclerView.setAdapter(mAdapter);
                 if (result.length() != 0) {
                     tv_shipment_no_data1.setVisibility(View.GONE);
@@ -1730,6 +1934,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @Override
             public void onErrorResponse(VolleyError error) {
                 printErrorMessage(error);
+                loader.hideLoader();
 
                 error.printStackTrace();
             }
@@ -1750,6 +1955,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     }
 
     private void fetchDashboardData() {
+//        loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -1757,6 +1963,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         StringRequest sr = new StringRequest(Request.Method.POST, URL_DISTRIBUTOR_DASHBOARD, new Response.Listener<String>() {
             @Override
             public void onResponse(String result) {
+                loader.hideLoader();
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     DecimalFormat formatter1 = new DecimalFormat("#,###,###,##0.00");
@@ -1773,6 +1980,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @Override
             public void onErrorResponse(VolleyError error) {
                 printErrorMessage(error);
+                loader.hideLoader();
 
                 error.printStackTrace();
             }
@@ -1848,15 +2056,15 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
     private void updateDisplay(String date_type) {
         if (date_type.equals("first date")) {
-            fromDate = year1 + "-" + String.format("%02d", (month1 + 1)) + "-" + String.format("%02d", date1) + "T00:00:00.000Z";
+            fromDate = year1 + "-" + String.format("%02d", (month1 + 1)) + "-" + String.format("%02d", date1);
 //            Log.i("fromDate", fromDate);
 
             first_date.setText(new StringBuilder()
-                    .append(date1).append("/").append(month1 + 1).append("/").append(year1).append(" "));
+                    .append(String.format("%02d", date1)).append("/").append(String.format("%02d", (month1 + 1))).append("/").append(year1));
         } else if (date_type.equals("second date")) {
-            toDate = year2 + "-" + String.format("%02d", (month2 + 1)) + "-" + String.format("%02d", date2) + "T00:00:00.000Z";
+            toDate = year2 + "-" + String.format("%02d", (month2 + 1)) + "-" + String.format("%02d", date2);
             second_date.setText(new StringBuilder()
-                    .append(date2).append("/").append(month2 + 1).append("/").append(year2).append(" "));
+                    .append(String.format("%02d", date2)).append("/").append(String.format("%02d", (month2 + 1))).append("/").append(year2));
         }
         if (tabName.equals("Payment")) {
             try {
@@ -1874,6 +2082,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     }
 
     private void fetchCompanyData() {
+//        loader.showLoader();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -1891,6 +2100,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PAYMENT_LEDGER_COMPANY, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
+                loader.hideLoader();
                 Log.i("aaaaaabb", String.valueOf(result));
                 try {
                     JSONObject jsonObject = null;
@@ -1909,6 +2119,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @Override
             public void onErrorResponse(VolleyError error) {
                 printErrorMessage(error);
+                loader.hideLoader();
 
                 error.printStackTrace();
             }

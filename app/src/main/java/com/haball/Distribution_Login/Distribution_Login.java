@@ -248,6 +248,12 @@ public class Distribution_Login extends AppCompatActivity {
 
         editor.apply();
 
+        SharedPreferences tabsFromDraft = getSharedPreferences("OrderTabsFromDraft",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+        editorOrderTabsFromDraft.putString("TabNo", "0");
+        editorOrderTabsFromDraft.apply();
+
         SharedPreferences companyId = getSharedPreferences("SendData",
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editorCompany = companyId.edit();
@@ -292,6 +298,7 @@ public class Distribution_Login extends AppCompatActivity {
                         String ID = userAccount.get("ID").toString();
                         final String FirstName = userAccount.get("FirstName").toString();
                         final String EmailAddress = userAccount.get("EmailAddress").toString();
+                        final String UserTypeId = userAccount.get("UserTypeId").toString();
                         final String Mobile = userAccount.get("Mobile").toString();
                         String Name = userAccount.get("FirstName").toString() + " " + userAccount.get("LastName").toString();
 
@@ -302,6 +309,7 @@ public class Distribution_Login extends AppCompatActivity {
                         editor.putString("User_Type", "Distributor");
                         editor.putString("Distributor_Id", DistributorId);
                         editor.putString("username", username);
+                        editor.putString("UserTypeId", UserTypeId);
                         editor.putString("CompanyName", CompanyName);
                         editor.putString("EmailAddress", EmailAddress);
                         editor.putString("Mobile", Mobile);

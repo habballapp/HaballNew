@@ -127,7 +127,7 @@ public class DistributorPaymentsAdapter extends RecyclerView.Adapter<Distributor
                                         // Toast.makeText(mContxt, "View Invoice", Toast.LENGTH_LONG).show();
 
                                         FragmentTransaction fragmentTransaction = ((FragmentActivity) mContxt).getSupportFragmentManager().beginTransaction();
-                                        fragmentTransaction.replace(R.id.main_container, new Distributor_Invoice_DashBoard());
+                                        fragmentTransaction.add(R.id.main_container, new Distributor_Invoice_DashBoard());
                                         fragmentTransaction.addToBackStack(null);
                                         fragmentTransaction.commit();
 

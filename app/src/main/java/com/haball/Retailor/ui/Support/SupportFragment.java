@@ -101,6 +101,8 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
     private Spinner spinner2;
     private EditText conso_edittext;
     private RelativeLayout spinner_container1;
+    private RelativeLayout spinner_container;
+
     private List<String> consolidate_felter = new ArrayList<>();
     private List<String> filters = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapterFeltter;
@@ -190,6 +192,9 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
         spinner_container1 = root.findViewById(R.id.spinner_container1);
+        spinner_container = root.findViewById(R.id.spinner_container);
+        spinner_container.setVisibility(View.GONE);
+
         spinner_container1.setVisibility(View.GONE);
         date_filter_rl.setVisibility(View.GONE);
         conso_edittext.setVisibility(View.GONE);
@@ -712,6 +717,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                     Log.i("SupportSize_1", String.valueOf(SupportList.size()));
                     if (SupportList.size() != 0) {
                         tv_shipment_no_data.setVisibility(View.GONE);
+                        spinner_container.setVisibility(View.VISIBLE);
                     } else {
                         tv_shipment_no_data.setVisibility(View.VISIBLE);
                     }
@@ -976,11 +982,11 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
             Log.i("fromDate", fromDate);
 
             first_date.setText(new StringBuilder()
-                    .append(date1).append("/").append(month1 + 1).append("/").append(year1).append(" "));
+                    .append(String.format("%02d", date1)).append("/").append(String.format("%02d", (month1 + 1))).append("/").append(year1));
         } else if (date_type.equals("second date")) {
-            toDate = year2 + "-" + String.format("%02d", (month2 + 1)) + "-" + String.format("%02d", date2) + "T00:00:00.000Z";
+            toDate = year2 + "-" + String.format("%02d", (month2 + 1)) + "-" + String.format("%02d", date2) + "T23:59:59.000Z";
             second_date.setText(new StringBuilder()
-                    .append(date2).append("/").append(month2 + 1).append("/").append(year2).append(" "));
+                    .append(String.format("%02d", date2)).append("/").append(String.format("%02d", (month2 + 1))).append("/").append(year2));
         }
 
         try {

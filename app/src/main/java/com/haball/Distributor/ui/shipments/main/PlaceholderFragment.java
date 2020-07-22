@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
@@ -37,6 +38,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.haball.Distribution_Login.Distribution_Login;
 import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.ui.main.OrdersFragment;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
@@ -44,6 +46,7 @@ import com.haball.Distributor.ui.shipments.main.Adapters.SectionsPagerAdapter;
 import com.haball.Distributor.ui.shipments.main.Models.PageViewModel;
 import com.haball.R;
 import com.haball.Shipment.Adapters.ProductDetailsAdapter;
+import com.haball.Shipment.Adapters.ProductOrderDetailsAdapter;
 import com.haball.Shipment.ui.main.Models.Distributor_InvoiceModel;
 import com.haball.Shipment.ui.main.Models.Distributor_OrderModel;
 import com.haball.Shipment.ui.main.Models.Distributor_ProductModel;
@@ -61,6 +64,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -72,26 +76,32 @@ import java.util.Map;
  */
 public class PlaceholderFragment extends Fragment {
     // invoice data
-    private TextInputEditText invoice_id, invoice_tv_date, invoice_tv_amount, tv_status;
     private String INVOICE_URL = "http://175.107.203.97:4013/api/deliverynotes/";
     private String Token;
     private String DistributorId;
     private String shipmentID;
     private View view;
     // order data
-    private Button btn_next;
-    private TextInputLayout layout_shipment_invoice_id,layout_invoice_tv_date,layout_invoice_tv_amount,layout_shipment_tv_status;
-    private TextInputEditText order_id, order_company_name, order_tr_mode, order_payment_term, order_tv_cdate, order_tv_status, order_tv_shaddress, order_tv_billingAdd;
-    private TextInputLayout layout_order_id,layout_order_company_name,layout_order_tr_mode,layout_order_payment_term,
-                            layout_order_tv_cdate,layout_order_tv_status,layout_order_tv_shaddress,layout_order_tv_billingAdd,
-                            layout_total_price,layout_shipment_id,layout_shipment_delivery_date,layout_shipment_recieving_date,layout_shipment_tv_quantity,
-                            layout_shipment_tv_shstatus;
+    private Button btn_next, btn_back;
 
-    //shipmentDetails
-    private TextInputEditText total_price, shipment_id, shipment_delivery_date, shipment_recieving_date, shipment_tv_quantity, shipment_tv_shstatus;
-    //product details
-    private RecyclerView product_RecyclerV;
+    private TextInputLayout layout_company, layout_shipment_id, layout_shipment_created_date, layout_shipment_recieving_date, layout_shipment_tv_dc_number, layout_shipment_tv_shstatus;
+    private TextInputEditText company, shipment_id, shipment_created_date, shipment_recieving_date, shipment_tv_dc_number, shipment_tv_shstatus;
+
+    private TextInputLayout layout_order_company_name, layout_order_id, layout_order_tv_cdate, layout_order_tv_status, layout_order_tv_shaddress;
+    private TextInputEditText order_company_name, order_id, order_tv_cdate, order_tv_status, order_tv_shaddress;
+
+    private TextInputLayout layout_txt_companName, layout_txt_paymentID, layout_txt_created_date, layout_transaction_date,
+            layout_txt_bank, layout_txt_authorization_id, layout_txt_settlement_id, layout_txt_status,
+            layout_txt_amount, layout_txt_transaction_charges, layout_txt_total_amount;
+    private TextInputEditText txt_companyName, txt_paymentID, txt_created_date, txt_confirm, txt_bank, txt_authorization_id, txt_settlement_id, txt_status, txt_amount, txt_transaction_charges, txt_total_amount;
+
+
+    private TextView discount_amount, total_amount;
+    private RecyclerView product_rv_shipment;
+
+    private RecyclerView.Adapter productShipmentDetailsAdapter;
     private RecyclerView.Adapter productDetailsAdapter;
+    private List<Distributor_ProductModel> productShipmentList = new ArrayList<>();
     private List<Distributor_ProductModel> productList = new ArrayList<>();
 
     private RecyclerView.LayoutManager layoutManager;
@@ -132,99 +142,197 @@ public class PlaceholderFragment extends Fragment {
         switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
 
             case 1: {
+                rootView = inflater.inflate(R.layout.distributor_shipment__view_shipment_fragment, container, false);
 
+                btn_back = rootView.findViewById(R.id.btn_back);
 
-                rootView = inflater.inflate(R.layout.distributor_shipment__view_shipment_1_fragment, container, false);
-                final View root = inflater.inflate(R.layout.activity_distributor_shipment__view_dashboard, container, false);
+                layout_company = rootView.findViewById(R.id.layout_company);
+                layout_shipment_id = rootView.findViewById(R.id.layout_shipment_id);
+                layout_shipment_created_date = rootView.findViewById(R.id.layout_shipment_created_date);
+                layout_shipment_recieving_date = rootView.findViewById(R.id.layout_shipment_recieving_date);
+                layout_shipment_tv_dc_number = rootView.findViewById(R.id.layout_shipment_tv_dc_number);
+                layout_shipment_tv_shstatus = rootView.findViewById(R.id.layout_shipment_tv_shstatus);
 
-                layout_shipment_invoice_id = rootView.findViewById(R.id.layout_shipment_invoice_id);
-                layout_invoice_tv_date = rootView.findViewById(R.id.layout_invoice_tv_date);
-                layout_invoice_tv_amount = rootView.findViewById(R.id.layout_invoice_tv_amount);
-                layout_shipment_tv_status = rootView.findViewById(R.id.layout_shipment_tv_status);
+                company = rootView.findViewById(R.id.company);
+                shipment_id = rootView.findViewById(R.id.shipment_id);
+                shipment_created_date = rootView.findViewById(R.id.shipment_created_date);
+                shipment_recieving_date = rootView.findViewById(R.id.shipment_recieving_date);
+                shipment_tv_dc_number = rootView.findViewById(R.id.shipment_tv_dc_number);
+                shipment_tv_shstatus = rootView.findViewById(R.id.shipment_tv_shstatus);
 
-                invoice_id = rootView.findViewById(R.id.shipment_invoice_id);
-                invoice_tv_date = rootView.findViewById(R.id.invoice_tv_date);
-                invoice_tv_amount = rootView.findViewById(R.id.invoice_tv_amount);
-                tv_status = rootView.findViewById(R.id.shipment_tv_status);
+                new TextField().changeColor(this.getContext(), layout_company, company);
+                new TextField().changeColor(this.getContext(), layout_shipment_id, shipment_id);
+                new TextField().changeColor(this.getContext(), layout_shipment_created_date, shipment_created_date);
+                new TextField().changeColor(this.getContext(), layout_shipment_recieving_date, shipment_recieving_date);
+                new TextField().changeColor(this.getContext(), layout_shipment_tv_dc_number, shipment_tv_dc_number);
+                new TextField().changeColor(this.getContext(), layout_shipment_tv_shstatus, shipment_tv_shstatus);
+                shipmentData();
 
-                new TextField().changeColor(this.getContext(), layout_shipment_invoice_id,invoice_id);
-                new TextField().changeColor(this.getContext(), layout_invoice_tv_date,invoice_tv_date);
-                new TextField().changeColor(this.getContext(), layout_invoice_tv_amount, invoice_tv_amount);
-                new TextField().changeColor(this.getContext(), layout_shipment_tv_status, tv_status);
+                btn_back.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+                        ((FragmentActivity) getContext()).startActivity(login_intent);
+                        ((FragmentActivity) getContext()).finish();
+                    }
+                });
 
-                InvoiceData();
                 break;
             }
             case 2: {
+                rootView = inflater.inflate(R.layout.distributor_shipment_view_shipment_details_fragment, container, false);
+
+                product_rv_shipment = rootView.findViewById(R.id.product_rv_shipment);
+                btn_back = rootView.findViewById(R.id.btn_back);
+                product_rv_shipment.setHasFixedSize(true);
+                layoutManager = new LinearLayoutManager(rootView.getContext());
+                product_rv_shipment.setLayoutManager(layoutManager);
+                btn_back.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+                        ((FragmentActivity) getContext()).startActivity(login_intent);
+                        ((FragmentActivity) getContext()).finish();
+                    }
+                });
+
+                shipmentListData();
+                break;
+            }
+            case 3: {
                 rootView = inflater.inflate(R.layout.distributor_shipment__view_shipment_2_fragment, container, false);
 
-                layout_order_id = rootView.findViewById(R.id. layout_order_id);
-                layout_order_company_name = rootView.findViewById( R.id.layout_order_company_name);
-                layout_order_tr_mode = rootView.findViewById( R.id.layout_order_tr_mode);
-                layout_order_payment_term = rootView.findViewById( R.id. layout_order_payment_term);
-                layout_order_tv_cdate = rootView.findViewById( R.id.layout_order_tv_cdate);
-                layout_order_tv_status = rootView.findViewById( R.id.layout_order_tv_status);
-                layout_order_tv_shaddress = rootView.findViewById( R.id.layout_order_tv_shaddress);
-                layout_order_tv_billingAdd = rootView.findViewById( R.id.layout_order_tv_billingAdd );
+                btn_back = rootView.findViewById(R.id.btn_back);
+
+                layout_order_id = rootView.findViewById(R.id.layout_order_id);
+                layout_order_company_name = rootView.findViewById(R.id.layout_order_company_name);
+                layout_order_tv_cdate = rootView.findViewById(R.id.layout_order_tv_cdate);
+                layout_order_tv_status = rootView.findViewById(R.id.layout_order_tv_status);
+                layout_order_tv_shaddress = rootView.findViewById(R.id.layout_order_tv_shaddress);
 
                 order_id = rootView.findViewById(R.id.order_id);
                 order_company_name = rootView.findViewById(R.id.order_company_name);
-                order_tr_mode = rootView.findViewById(R.id.order_tr_mode);
-                order_payment_term = rootView.findViewById(R.id.order_payment_term);
                 order_tv_cdate = rootView.findViewById(R.id.order_tv_cdate);
                 order_tv_status = rootView.findViewById(R.id.order_tv_status);
                 order_tv_shaddress = rootView.findViewById(R.id.order_tv_shaddress);
-                order_tv_billingAdd = rootView.findViewById(R.id.order_tv_billingAdd);
 
-                new TextField().changeColor(this.getContext(), layout_order_id,order_id );
-                new TextField().changeColor(this.getContext(), layout_order_company_name,order_company_name);
-                new TextField().changeColor(this.getContext(), layout_order_tr_mode,order_tr_mode);
-                new TextField().changeColor(this.getContext(), layout_order_payment_term,order_payment_term);
-                new TextField().changeColor(this.getContext(), layout_order_tv_cdate,order_tv_cdate);
-                new TextField().changeColor(this.getContext(), layout_order_tv_status,order_tv_status);
-                new TextField().changeColor(this.getContext(), layout_order_tv_shaddress,order_tv_shaddress);
-                new TextField().changeColor(this.getContext(), layout_order_tv_billingAdd ,order_tv_billingAdd );
+                new TextField().changeColor(this.getContext(), layout_order_id, order_id);
+                new TextField().changeColor(this.getContext(), layout_order_company_name, order_company_name);
+                new TextField().changeColor(this.getContext(), layout_order_tv_cdate, order_tv_cdate);
+                new TextField().changeColor(this.getContext(), layout_order_tv_status, order_tv_status);
+                new TextField().changeColor(this.getContext(), layout_order_tv_shaddress, order_tv_shaddress);
 
+                btn_back.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+                        ((FragmentActivity) getContext()).startActivity(login_intent);
+                        ((FragmentActivity) getContext()).finish();
+                    }
+                });
 
                 orderData();
                 break;
             }
-
-            case 3: {
+            case 4: {
                 rootView = inflater.inflate(R.layout.distributor_shipment__view_shipment_3_fragment, container, false);
-                product_RecyclerV = (RecyclerView) rootView.findViewById(R.id.product_rv_shipment);
-                layout_total_price = rootView.findViewById(R.id.layout_total_price);
+
+                btn_back = rootView.findViewById(R.id.btn_back);
+
+                product_rv_shipment = (RecyclerView) rootView.findViewById(R.id.product_rv_shipment);
+                discount_amount = rootView.findViewById(R.id.discount_amount);
+                total_amount = rootView.findViewById(R.id.total_amount);
                 ProductData();
-                product_RecyclerV.setHasFixedSize(true);
+                product_rv_shipment.setHasFixedSize(true);
                 layoutManager = new LinearLayoutManager(rootView.getContext());
-                product_RecyclerV.setLayoutManager(layoutManager);
-                total_price = rootView.findViewById(R.id.total_price);
-                new TextField().changeColor(this.getContext(), layout_total_price,total_price);
+                product_rv_shipment.setLayoutManager(layoutManager);
+
+                btn_back.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+                        ((FragmentActivity) getContext()).startActivity(login_intent);
+                        ((FragmentActivity) getContext()).finish();
+                    }
+                });
+
                 break;
             }
 
-            case 4: {
-                rootView = inflater.inflate(R.layout.distributor_shipment__view_shipment_fragment, container, false);
+            case 5: {
+                rootView = inflater.inflate(R.layout.fragment_retailer_payment_tab, container, false);
+                layout_txt_companName = rootView.findViewById(R.id.layout_txt_companName);
+                layout_txt_paymentID = rootView.findViewById(R.id.layout_txt_paymentID);
+                layout_txt_created_date = rootView.findViewById(R.id.layout_txt_created_date);
+                layout_transaction_date = rootView.findViewById(R.id.layout_transaction_date);
+                layout_txt_bank = rootView.findViewById(R.id.layout_txt_bank);
+                layout_txt_status = rootView.findViewById(R.id.layout_txt_status);
+                layout_txt_authorization_id = rootView.findViewById(R.id.layout_txt_authorization_id);
+                layout_txt_settlement_id = rootView.findViewById(R.id.layout_txt_settlement_id);
+                layout_txt_amount = rootView.findViewById(R.id.layout_txt_amount);
+                layout_txt_transaction_charges = rootView.findViewById(R.id.layout_txt_transaction_charges);
+                layout_txt_total_amount = rootView.findViewById(R.id.layout_txt_total_amount);
+                btn_back = rootView.findViewById(R.id.button_back);
+                Button button_view_receipt = rootView.findViewById(R.id.button_view_receipt);
+                button_view_receipt.setVisibility(View.GONE);
 
-                layout_shipment_id = rootView.findViewById(R.id.layout_shipment_id);
-                layout_shipment_delivery_date = rootView.findViewById(R.id.layout_shipment_delivery_date);
-                layout_shipment_recieving_date = rootView.findViewById(R.id.layout_shipment_recieving_date);
-                layout_shipment_tv_quantity = rootView.findViewById(R.id.layout_shipment_tv_quantity);
-                layout_shipment_tv_shstatus = rootView.findViewById(R.id.layout_shipment_tv_shstatus);
+                txt_companyName = rootView.findViewById(R.id.txt_companyName);
+                txt_paymentID = rootView.findViewById(R.id.txt_paymentID);
+                txt_created_date = rootView.findViewById(R.id.txt_created_date);
+                txt_confirm = rootView.findViewById(R.id.txt_confirm);
+                txt_bank = rootView.findViewById(R.id.txt_bank);
+                txt_authorization_id = rootView.findViewById(R.id.txt_authorization_id);
+                txt_settlement_id = rootView.findViewById(R.id.txt_settlement_id);
+                txt_status = rootView.findViewById(R.id.txt_status);
+                txt_amount = rootView.findViewById(R.id.txt_amount);
+                txt_transaction_charges = rootView.findViewById(R.id.txt_transaction_charges);
+                txt_total_amount = rootView.findViewById(R.id.txt_total_amount);
 
 
-                shipment_id = rootView.findViewById(R.id.shipment_id);
-                shipment_delivery_date = rootView.findViewById(R.id.shipment_delivery_date);
-                shipment_tv_quantity = rootView.findViewById(R.id.shipment_tv_quantity);
-                shipment_tv_shstatus = rootView.findViewById(R.id.shipment_tv_shstatus);
-                shipment_recieving_date = rootView.findViewById(R.id.shipment_recieving_date);
+                new TextField().changeColor(getContext(), layout_txt_companName, txt_companyName);
+                new TextField().changeColor(getContext(), layout_txt_paymentID, txt_paymentID);
+                new TextField().changeColor(getContext(), layout_txt_created_date, txt_created_date);
+                new TextField().changeColor(getContext(), layout_transaction_date, txt_confirm);
+                new TextField().changeColor(getContext(), layout_txt_bank, txt_bank);
+                new TextField().changeColor(getContext(), layout_txt_authorization_id, txt_authorization_id);
+                new TextField().changeColor(getContext(), layout_txt_settlement_id, txt_settlement_id);
+                new TextField().changeColor(getContext(), layout_txt_status, txt_status);
+                new TextField().changeColor(getContext(), layout_txt_amount, txt_amount);
+                new TextField().changeColor(getContext(), layout_txt_transaction_charges, txt_transaction_charges);
+                new TextField().changeColor(getContext(), layout_txt_total_amount, txt_total_amount);
 
-                new TextField().changeColor(this.getContext(),layout_shipment_id,shipment_id );
-                new TextField().changeColor(this.getContext(),layout_shipment_delivery_date,shipment_delivery_date);
-                new TextField().changeColor(this.getContext(),layout_shipment_recieving_date,shipment_recieving_date);
-                new TextField().changeColor(this.getContext(),layout_shipment_tv_quantity,shipment_tv_quantity);
-                new TextField().changeColor(this.getContext(),layout_shipment_tv_shstatus, shipment_tv_shstatus);
-                shipmentData();
+                layout_txt_created_date.setVisibility(View.GONE);
+                layout_transaction_date.setVisibility(View.GONE);
+                layout_txt_bank.setVisibility(View.GONE);
+                layout_txt_authorization_id.setVisibility(View.GONE);
+                layout_txt_settlement_id.setVisibility(View.GONE);
+                layout_txt_status.setVisibility(View.GONE);
+                layout_txt_amount.setVisibility(View.GONE);
+                layout_txt_transaction_charges.setVisibility(View.GONE);
+                layout_txt_total_amount.setVisibility(View.GONE);
+
+                txt_companyName.setEnabled(false);
+                txt_paymentID.setEnabled(false);
+                txt_created_date.setEnabled(false);
+                txt_confirm.setEnabled(false);
+                txt_bank.setEnabled(false);
+                txt_authorization_id.setEnabled(false);
+                txt_settlement_id.setEnabled(false);
+                txt_status.setEnabled(false);
+                txt_amount.setEnabled(false);
+                txt_transaction_charges.setEnabled(false);
+                txt_total_amount.setEnabled(false);
+
+                btn_back.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+                        ((FragmentActivity) getContext()).startActivity(login_intent);
+                        ((FragmentActivity) getContext()).finish();
+                    }
+                });
+
+                InvoiceData();
                 break;
             }
         }
@@ -262,7 +370,14 @@ public class PlaceholderFragment extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    total_price.setText(response.getString("TotalPrice"));
+                    DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
+                    String yourFormattedString1 = formatter1.format(Double.parseDouble(response.getString("TotalPrice")));
+
+                    total_amount.setText(yourFormattedString1);
+
+                    yourFormattedString1 = formatter1.format(Double.parseDouble(response.getString("Discount")));
+                    discount_amount.setText(yourFormattedString1);
+
                     Log.i("responesProductmy", response.getString("DeliveryNoteDetails").toString());
                     JSONArray jsonArray = new JSONArray(response.getString("DeliveryNoteDetails"));
                     Log.i("responesProduct", jsonArray.toString());
@@ -273,8 +388,8 @@ public class PlaceholderFragment extends Fragment {
                     productList = gson.fromJson(String.valueOf(jsonArray), type);
                     Log.i("productList", String.valueOf(productList));
 
-                    productDetailsAdapter = new ProductDetailsAdapter(getContext(), productList);
-                    product_RecyclerV.setAdapter(productDetailsAdapter);
+                    productDetailsAdapter = new ProductOrderDetailsAdapter(getContext(), productList);
+                    product_rv_shipment.setAdapter(productDetailsAdapter);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -321,42 +436,113 @@ public class PlaceholderFragment extends Fragment {
             INVOICE_URL = INVOICE_URL + shipmentID;
         Log.i("INVOICE_URL1", INVOICE_URL);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, INVOICE_URL, new Response.Listener<String>() {
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, INVOICE_URL, null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                Log.i("response", response);
+            public void onResponse(JSONObject response) {
+                Log.i("response", String.valueOf(response));
                 try {
-                    if (response != null && !response.equals("")) {
-                        Gson gson = new Gson();
-                        Distributor_ShipmentModel shipmentModel = gson.fromJson(response, Distributor_ShipmentModel.class);
-                        shipment_id.setText(shipmentModel.getDeliveryNumber());
-                        String string = shipmentModel.getDeliveryDate();
-                        String[] parts_d = string.split("T");
-                        String Date = parts_d[0];
-                        shipment_delivery_date.setText(Date);
-                        if (shipmentModel.getGoodsreceivenotesReceivingDate() != null) {
-                            String stringRecv = shipmentModel.getGoodsreceivenotesReceivingDate();
-                            String[] parts_dRecv = stringRecv.split("T");
-                            String DateRecv = parts_dRecv[0];
-                            shipment_recieving_date.setText(DateRecv);
-                        } else {
-                            shipment_recieving_date.setText("");
-                        }
-                        shipment_tv_quantity.setText(shipmentModel.getGoodsreceivenotesReceiveQty());
-//                        shipment_tv_shstatus.setText(shipmentModel.getDeliveryNoteStatus());
+                    Gson gson = new Gson();
+                    Distributor_ShipmentModel shipmentModel = gson.fromJson(String.valueOf(response), Distributor_ShipmentModel.class);
+                    company.setText(response.getJSONObject("deliveryCorp").getString("CompanyName"));
+                    shipment_id.setText(shipmentModel.getDeliveryNumber());
+                    shipment_created_date.setText(shipmentModel.getCreatedDate().split("T")[0]);
 
-                        if (shipmentModel.getDeliveryNoteStatus().equals("0")) {
-                            shipment_tv_shstatus.setText("Pending");
-                        } else if (shipmentModel.getDeliveryNoteStatus().equals("1")) {
-                            shipment_tv_shstatus.setText("In Transit");
-                        } else if (shipmentModel.getDeliveryNoteStatus().equals("2")) {
-                            shipment_tv_shstatus.setText("Received");
-                        } else if (shipmentModel.getDeliveryNoteStatus().equals("3")) {
-                            shipment_tv_shstatus.setText("Returned");
-                        } else if (shipmentModel.getDeliveryNoteStatus().equals("4")) {
-                            shipment_tv_shstatus.setText("Revised");
-                        }
+                    if (shipmentModel.getDeliveryNoteStatus().equals("0")) {
+                        shipment_tv_shstatus.setText("Pending");
+                    } else if (shipmentModel.getDeliveryNoteStatus().equals("1")) {
+                        shipment_tv_shstatus.setText("In Transit");
+                    } else if (shipmentModel.getDeliveryNoteStatus().equals("2")) {
+                        shipment_tv_shstatus.setText("Received");
+                    } else if (shipmentModel.getDeliveryNoteStatus().equals("3")) {
+                        shipment_tv_shstatus.setText("Returned");
+                    } else if (shipmentModel.getDeliveryNoteStatus().equals("4")) {
+                        shipment_tv_shstatus.setText("Revised");
                     }
+
+                    if (shipment_tv_shstatus.getText().equals("Received")) {
+                        shipment_recieving_date.setVisibility(View.VISIBLE);
+                        shipment_tv_dc_number.setVisibility(View.VISIBLE);
+
+                        shipment_recieving_date.setText(shipmentModel.getGoodsreceivenotesReceivingDate().split("T")[0]);
+                        shipment_tv_dc_number.setText(shipmentModel.getShippmentNo());
+
+                        if (!String.valueOf(shipment_recieving_date.getText()).equals("") && !String.valueOf(shipment_recieving_date.getText()).equals("null"))
+                            shipment_recieving_date.setTextColor(getResources().getColor(R.color.textcolor));
+                        if (!String.valueOf(shipment_tv_dc_number.getText()).equals("") && !String.valueOf(shipment_tv_dc_number.getText()).equals("null"))
+                            shipment_tv_dc_number.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+
+                    if (!String.valueOf(company.getText()).equals("") && !String.valueOf(company.getText()).equals("null"))
+                        company.setTextColor(getResources().getColor(R.color.textcolor));
+                    if (!String.valueOf(shipment_id.getText()).equals("") && !String.valueOf(shipment_id.getText()).equals("null"))
+                        shipment_id.setTextColor(getResources().getColor(R.color.textcolor));
+                    if (!String.valueOf(shipment_created_date.getText()).equals("") && !String.valueOf(shipment_created_date.getText()).equals("null"))
+                        shipment_created_date.setTextColor(getResources().getColor(R.color.textcolor));
+                    if (!String.valueOf(shipment_tv_shstatus.getText()).equals("") && !String.valueOf(shipment_tv_shstatus.getText()).equals("null"))
+                        shipment_tv_shstatus.setTextColor(getResources().getColor(R.color.textcolor));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(), "Error" + e.toString(), Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        printErrorMessage(error);
+
+
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(stringRequest);
+
+    }
+
+
+    private void shipmentListData() {
+        SharedPreferences sharedPreferences3 = getContext().getSharedPreferences("Shipment_ID",
+                Context.MODE_PRIVATE);
+        shipmentID = sharedPreferences3.getString("ShipmentID", "");
+        Log.i("shipmentID shared pref", shipmentID);
+
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+        Log.i("DistributorId invoice", DistributorId);
+        Log.i("Token invoice", Token);
+        if (!INVOICE_URL.contains(shipmentID))
+            INVOICE_URL = INVOICE_URL + shipmentID;
+        Log.i("INVOICE_URL1", INVOICE_URL);
+
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, INVOICE_URL, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.i("response", String.valueOf(response));
+                try {
+                    Gson gson = new Gson();
+                    JSONObject deliveryCorp = response.getJSONObject("deliveryCorp");
+                    JSONArray jsonArray = deliveryCorp.getJSONArray("DeliveryNoteDetails");
+                    Log.i("responesProduct", jsonArray.toString());
+
+                    Type type = new TypeToken<List<Distributor_ProductModel>>() {
+                    }.getType();
+                    productShipmentList = gson.fromJson(String.valueOf(jsonArray), type);
+                    Log.i("productList", String.valueOf(productShipmentList));
+
+                    productShipmentDetailsAdapter = new ProductDetailsAdapter(getContext(), productShipmentList);
+                    product_rv_shipment.setAdapter(productShipmentDetailsAdapter);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -404,39 +590,46 @@ public class PlaceholderFragment extends Fragment {
         if (!INVOICE_URL.contains(shipmentID))
             INVOICE_URL = INVOICE_URL + shipmentID;
         Log.i("INVOICE_URL", INVOICE_URL);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, INVOICE_URL, new Response.Listener<String>() {
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, INVOICE_URL, null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                Log.i("response", response);
+            public void onResponse(JSONObject response) {
+                Log.i("response", String.valueOf(response));
                 try {
-                    if (response != null && !response.equals("")) {
-                        Gson gson = new Gson();
-                        Distributor_OrderModel orderModel = gson.fromJson(response, Distributor_OrderModel.class);
-                        order_id.setText(orderModel.getOrderNumber());
-                        order_company_name.setText(orderModel.getDistributorCompanyName());
-                        order_tr_mode.setText(orderModel.getTransportTypeDescription());
-                        order_payment_term.setText(orderModel.getPaymentTermDescription());
+                    Gson gson = new Gson();
+                    Distributor_ShipmentModel orderModel = gson.fromJson(String.valueOf(response), Distributor_ShipmentModel.class);
+                    order_id.setText(orderModel.getOrderNumber());
+                    order_company_name.setText(response.getJSONObject("deliveryCorp").getString("CompanyName"));
 
-                        String string = orderModel.getCreatedDate();
-                        String[] parts = string.split("T");
-                        String Date = parts[0];
-                        order_tv_cdate.setText(Date);
-                        order_tv_status.setText(orderModel.getOrderStatus());
+                    String string = orderModel.getCreatedDate();
+                    String[] parts = string.split("T");
+                    String Date = parts[0];
+                    order_tv_cdate.setText(Date);
+                    order_tv_status.setText(orderModel.getOrderStatus());
 
-                        if (orderModel.getOrderStatus().equals("0")) {
-                            order_tv_status.setText("Pending");
-                        } else if (orderModel.getOrderStatus().equals("1")) {
-                            order_tv_status.setText("Approved");
-                        } else if (orderModel.getOrderStatus().equals("2")) {
-                            order_tv_status.setText("Rejected");
-                        } else if (orderModel.getOrderStatus().equals("3")) {
-                            order_tv_status.setText("Draft");
-                        } else if (orderModel.getOrderStatus().equals("4")) {
-                            order_tv_status.setText("Cancelled");
-                        }
-                        order_tv_shaddress.setText(orderModel.getOrdersShippingAddress());
-                        order_tv_billingAdd.setText(orderModel.getOrdersBillingAddress());
+                    if (orderModel.getOrderStatus().equals("0")) {
+                        order_tv_status.setText("Pending");
+                    } else if (orderModel.getOrderStatus().equals("1")) {
+                        order_tv_status.setText("Approved");
+                    } else if (orderModel.getOrderStatus().equals("2")) {
+                        order_tv_status.setText("Rejected");
+                    } else if (orderModel.getOrderStatus().equals("3")) {
+                        order_tv_status.setText("Draft");
+                    } else if (orderModel.getOrderStatus().equals("4")) {
+                        order_tv_status.setText("Cancelled");
                     }
+                    order_tv_shaddress.setText(orderModel.getComments());
+
+                    if (!String.valueOf(order_id.getText()).equals("") && !String.valueOf(order_id.getText()).equals("null"))
+                        order_id.setTextColor(getResources().getColor(R.color.textcolor));
+                    if (!String.valueOf(order_company_name.getText()).equals("") && !String.valueOf(order_company_name.getText()).equals("null"))
+                        order_company_name.setTextColor(getResources().getColor(R.color.textcolor));
+                    if (!String.valueOf(order_tv_cdate.getText()).equals("") && !String.valueOf(order_tv_cdate.getText()).equals("null"))
+                        order_tv_cdate.setTextColor(getResources().getColor(R.color.textcolor));
+                    if (!String.valueOf(order_tv_status.getText()).equals("") && !String.valueOf(order_tv_status.getText()).equals("null"))
+                        order_tv_status.setTextColor(getResources().getColor(R.color.textcolor));
+                    if (!String.valueOf(order_tv_shaddress.getText()).equals("") && !String.valueOf(order_tv_shaddress.getText()).equals("null"))
+                        order_tv_shaddress.setTextColor(getResources().getColor(R.color.textcolor));
+
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -494,28 +687,49 @@ public class PlaceholderFragment extends Fragment {
                 if (response.has("Invoice"))
                     try {
                         Log.i("responseInvoice", String.valueOf(response.getJSONObject("Invoice")));
-                        if (response != null && !response.equals("")) {
-                            Gson gson = new Gson();
-                            Distributor_InvoiceModel invoiceModel = gson.fromJson(String.valueOf(response.getJSONObject("Invoice")), Distributor_InvoiceModel.class);
-                            invoice_id.setText(invoiceModel.getInvoiceNumber());
-                            String string = invoiceModel.getCreatedDate();
-                            String[] parts = string.split("T");
-                            String Date = parts[0];
-                            invoice_tv_date.setText(Date);
-                            invoice_tv_amount.setText(invoiceModel.getNetPrice());
+                        Gson gson = new Gson();
+                        Distributor_InvoiceModel invoiceModel = gson.fromJson(String.valueOf(response.getJSONObject("Invoice")), Distributor_InvoiceModel.class);
+                        txt_paymentID.setText(invoiceModel.getInvoiceNumber());
+                        txt_companyName.setText(response.getJSONObject("deliveryCorp").getString("CompanyName"));
+                        txt_created_date.setText(invoiceModel.getCreatedDate().split("T")[0]);
+                        txt_amount.setText(invoiceModel.getPaidAmount());
+                        txt_total_amount.setText(invoiceModel.getTotalPrice());
 //                        tv_status.setText(invoiceModel.getStatus());
-                            if (invoiceModel.getStatus().equals("0")) {
-                                tv_status.setText("Pending");
-                            } else if (invoiceModel.getStatus().equals("1")) {
-                                tv_status.setText("Unpaid");
-                            } else if (invoiceModel.getStatus().equals("2")) {
-                                tv_status.setText("Partially Paid");
-                            } else if (invoiceModel.getStatus().equals("3")) {
-                                tv_status.setText("Paid");
-                            } else if (invoiceModel.getStatus().equals("4")) {
-                                tv_status.setText("Payment Processing");
-                            }
+                        if (invoiceModel.getStatus().equals("0")) {
+                            txt_status.setText("Pending");
+                        } else if (invoiceModel.getStatus().equals("1")) {
+                            txt_status.setText("Unpaid");
+                        } else if (invoiceModel.getStatus().equals("2")) {
+                            txt_status.setText("Partially Paid");
+                        } else if (invoiceModel.getStatus().equals("3")) {
+                            txt_status.setText("Paid");
+                        } else if (invoiceModel.getStatus().equals("4")) {
+                            txt_status.setText("Payment Processing");
+                        }
 
+
+                        if (!String.valueOf(txt_paymentID.getText()).equals("") && !String.valueOf(txt_paymentID.getText()).equals("null"))
+                            txt_paymentID.setTextColor(getResources().getColor(R.color.textcolor));
+                        if (!String.valueOf(txt_companyName.getText()).equals("") && !String.valueOf(txt_companyName.getText()).equals("null"))
+                            txt_companyName.setTextColor(getResources().getColor(R.color.textcolor));
+                        if (!String.valueOf(txt_created_date.getText()).equals("") && !String.valueOf(txt_created_date.getText()).equals("null"))
+                            txt_created_date.setTextColor(getResources().getColor(R.color.textcolor));
+                        if (!String.valueOf(txt_amount.getText()).equals("") && !String.valueOf(txt_amount.getText()).equals("null"))
+                            txt_amount.setTextColor(getResources().getColor(R.color.textcolor));
+                        if (!String.valueOf(txt_total_amount.getText()).equals("") && !String.valueOf(txt_total_amount.getText()).equals("null"))
+                            txt_total_amount.setTextColor(getResources().getColor(R.color.textcolor));
+                        if (!String.valueOf(txt_status.getText()).equals("") && !String.valueOf(txt_status.getText()).equals("null"))
+                            txt_status.setTextColor(getResources().getColor(R.color.textcolor));
+
+                        layout_txt_created_date.setVisibility(View.VISIBLE);
+                        layout_transaction_date.setVisibility(View.GONE);
+                        layout_txt_bank.setVisibility(View.GONE);
+                        layout_txt_authorization_id.setVisibility(View.GONE);
+                        layout_txt_settlement_id.setVisibility(View.GONE);
+                        layout_txt_status.setVisibility(View.VISIBLE);
+                        layout_txt_amount.setVisibility(View.VISIBLE);
+                        layout_txt_transaction_charges.setVisibility(View.GONE);
+                        layout_txt_total_amount.setVisibility(View.VISIBLE);
 
 //                        if (invoiceModel.getStatus().equals("1")) {
 //                            tv_status.setText("Delivered");
@@ -526,7 +740,6 @@ public class PlaceholderFragment extends Fragment {
 //                        } else if (invoiceModel.getStatus().equals("4")) {
 //                            tv_status.setText("Revised");
 //                        }
-                        }
 
                     } catch (Exception e) {
                         e.printStackTrace();

@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ln_login"
                     android:layout_marginTop="20dp"
-                    android:layout_marginBottom="40dp"
+                    android:layout_marginBottom="20dp"
                     android:orientation="vertical"
                     android:weightSum="8">
 
@@ -265,16 +265,16 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
 
-                    <CheckBox
-                        android:id="@+id/check_box"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                       
-                        android:layout_marginTop="15dp"
-                        
-                        android:paddingLeft="10dp"
-                        android:text="Active"
-                        android:textColor="#676a6e" />
+<!--                    <CheckBox-->
+<!--                        android:id="@+id/check_box"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                       -->
+<!--                        android:layout_marginTop="15dp"-->
+<!--                        -->
+<!--                        android:paddingLeft="10dp"-->
+<!--                        android:text="Active"-->
+<!--                        android:textColor="#676a6e" />-->
 
                 </LinearLayout>
                 <LinearLayout
@@ -285,31 +285,30 @@
                     android:orientation="vertical"
                     android:weightSum="2">
 
-                    <Button
-                        android:id="@+id/btn_save"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/button_round"
-                        android:gravity="center"
-                        android:stateListAnimator="@null"
-                        android:text="@string/Save"
-                        android:textAllCaps="false"
-                        android:textColor="#fff"
-                        android:textSize="@dimen/button_text_size"
-                        app:elevation="0dp"
-                        android:fontFamily="@font/open_sans"/>
+<!--                    <Button-->
+<!--                        android:id="@+id/btn_save"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:background="@drawable/button_round"-->
+<!--                        android:gravity="center"-->
+<!--                        android:stateListAnimator="@null"-->
+<!--                        android:text="@string/Save"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:textColor="#fff"-->
+<!--                        android:textSize="@dimen/button_text_size"-->
+<!--                        app:elevation="0dp"-->
+<!--                        android:fontFamily="@font/open_sans"/>-->
 
                     <Button
                         android:id="@+id/btn_close"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:layout_marginTop="15dp"
                         android:layout_weight="1"
                         android:background="@drawable/button_round"
                         android:gravity="center"
                         android:stateListAnimator="@null"
-                        android:text="@string/close"
+                        android:text="Back"
                         android:textAllCaps="false"
                         android:textColor="#fff"
                         android:fontFamily="@font/open_sans"

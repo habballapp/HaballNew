@@ -532,6 +532,7 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_CONSOLIDATE_PAYMENTS, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
+//                loader.hideLoader();
 
            //     btn_load_more.setVisibility(View.GONE);
 
@@ -583,6 +584,7 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_CONSOLIDATE_PAYMENTS, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
+//                loader.hideLoader();
                 Log.i("ConsolidatePayments", result.toString());
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<ConsolidatePaymentsModel>>() {
@@ -640,6 +642,7 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_CONSOLIDATE_PAYMENTS, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
+//                loader.hideLoader();
                 Log.i("ConsolidatePayments", result.toString());
 
                 Gson gson = new Gson();

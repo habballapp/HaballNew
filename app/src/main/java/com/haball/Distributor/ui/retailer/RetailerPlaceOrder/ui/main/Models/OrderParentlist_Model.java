@@ -6,7 +6,8 @@ import com.haball.Distributor.ui.orders.OrdersTabsNew.Parent;
 import java.util.List;
 import java.util.UUID;
 
-public class OrderParentlist_Model extends SimpleParent<OrderChildlist_Model> implements Parent<com.haball.Retailor.ui.Place_Order.ui.main.Models.OrderChildlist_Model> {
+//public class OrderParentlist_Model extends SimpleParent<OrderChildlist_Model> {
+public class OrderParentlist_Model extends SimpleParent<OrderChildlist_Model> implements Parent<OrderChildlist_Model> {
     private List<Object> myCHildrenList;
     private UUID _id;
     private String CategoryId;
@@ -22,6 +23,10 @@ public class OrderParentlist_Model extends SimpleParent<OrderChildlist_Model> im
         Title = title;
         ParentId = parentId;
         this.expanded = expanded;
+    }
+
+    protected OrderParentlist_Model(List<OrderChildlist_Model> childItemList) {
+        super(childItemList);
     }
 
     public String getCategoryId() {

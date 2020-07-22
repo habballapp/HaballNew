@@ -2,6 +2,7 @@ package com.haball.Distributor.ui.retailer.Payment.Adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +43,19 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
 
     @Override
     public void onBindViewHolder(@NonNull PaymentDashboardVH holder, final int position) {
+        if (paymentsList.size() == 3) {
+            if (position == (paymentsList.size() - 1)) {
+//        if (position == 2) {
+                Log.i("DebugSupportFilter_In", paymentsList.get(position).getInvoiceNumber());
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT
+                );
+                params.setMargins(0, 50, 0, 280);
+                holder.main_layout_payment_box_retailer.setLayoutParams(params);
+            }
+        }
+
         holder.tv_heading.setText(paymentsList.get(position).getCompanyName());
         holder.tv_payment_id.setText(paymentsList.get(position).getInvoiceNumber());
 
@@ -135,6 +150,7 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
 
     public static class  PaymentDashboardVH  extends  RecyclerView.ViewHolder {
          TextView tv_heading, tv_payment_id, tv_status, tv_amount;
+        public RelativeLayout main_layout_payment_box_retailer;
         public ImageButton menu_btn;
         public PaymentDashboardVH(@NonNull View itemView) {
             super(itemView);
@@ -143,6 +159,7 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
             tv_status = itemView.findViewById(R.id.status_value);
             tv_amount = itemView.findViewById(R.id.dist_ret_amount_value);
             menu_btn = itemView.findViewById(R.id.menu_btn);
+            main_layout_payment_box_retailer = itemView.findViewById(R.id.main_layout_payment_box_retailer);
 
         }
 

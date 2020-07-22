@@ -107,6 +107,8 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
                         setMenuCancelled(popup, position);
                     else if (OrderList.get(position).getOrderStatusValue().equals("Rejected"))
                         setMenuCancelled(popup, position);
+                    else if (OrderList.get(position).getOrderStatusValue().equals("Approved"))
+                        setMenuApproved(popup, position);
                     else
                         setMenuAll(popup, position);
                 } else if (OrderList.get(position).getStatus() != null) {
@@ -116,6 +118,8 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
                         setMenuCancelled(popup, position);
                     else if (OrderList.get(position).getStatus().equals("Rejected"))
                         setMenuCancelled(popup, position);
+                    else if (OrderList.get(position).getStatus().equals("Approved"))
+                        setMenuApproved(popup, position);
                     else
                         setMenuAll(popup, position);
                 }
@@ -256,6 +260,36 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
                     case R.id.orders_cancel:
                         showConfirmCancelOrderDialog(position);
 //                                Toast.makeText(mContxt, "View Order ID - " + ID, Toast.LENGTH_LONG).show();
+                        break;
+                }
+                return false;
+            }
+        });
+        popup.show();
+
+    }
+
+    private void setMenuApproved(PopupMenu popup, final int position) {
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.orders_fragment_menu, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.orders_view:
+                        String ID = OrderList.get(position).getID();
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) mContxt).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container_ret, new RetailerViewOrder()).addToBackStack("tag");
+                        fragmentTransaction.commit();
+                        SharedPreferences OrderId = ((FragmentActivity) mContxt).getSharedPreferences("OrderId",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = OrderId.edit();
+                        editor.putString("OrderId", OrderList.get(position).getID());
+                        editor.putString("Status", OrderList.get(position).getStatus());
+                        editor.putString("InvoiceUpload", String.valueOf(OrderList.get(position).getInvoiceUpload()));
+                        editor.putString("InvoiceStatus", String.valueOf(OrderList.get(position).getInvoiceStatus()));
+                        Log.i("InvoiceStatus_Adapter", String.valueOf(OrderList.get(position).getInvoiceStatus()));
+                        editor.commit();
                         break;
                 }
                 return false;

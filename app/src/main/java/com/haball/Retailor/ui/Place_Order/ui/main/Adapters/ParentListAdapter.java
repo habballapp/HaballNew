@@ -216,7 +216,7 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
         orderChildList_vh.list_numberOFitems.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(finalTotalChildInThisParent == (i+1)) {
+                if (finalTotalChildInThisParent == (i + 1)) {
                     Log.i("order_place_debug8", "done clicked on last child");
                     InputMethodManager imm = (InputMethodManager) ((FragmentActivity) context).getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
@@ -224,6 +224,7 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
                 return false;
             }
         });
+
 
 //        orderChildList_vh.list_numberOFitems.setText("");
         if (selectedProductsDataList != null && selectedProductsQuantityList != null) {

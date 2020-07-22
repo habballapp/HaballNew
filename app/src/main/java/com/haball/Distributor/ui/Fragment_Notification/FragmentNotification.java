@@ -27,6 +27,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.haball.Loader;
 import com.haball.Payment.ConsolidatePaymentsModel;
 import com.haball.R;
 import com.google.gson.Gson;
@@ -55,10 +56,12 @@ public class FragmentNotification extends Fragment {
     private String Token, DistributorId, ID;
     static int counter;
     //private String URL_NOTIFICATION = "http://175.107.203.97:4013/api/useralert/ShowAll/";
+    private Loader loader;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.activity_notification, container, false);
+        loader = new Loader(getContext());
 
         recyclerView = root.findViewById(R.id.rv_notification);
         recyclerView.setHasFixedSize(true);
@@ -73,6 +76,7 @@ public class FragmentNotification extends Fragment {
     }
 
     private void fetchNotification(final int resultLenght) {
+        loader.showLoader();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -92,6 +96,7 @@ public class FragmentNotification extends Fragment {
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_NOTIFICATION, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
+                loader.hideLoader();
 
                 if (resultLenght == result.length()) {
 
@@ -108,6 +113,7 @@ public class FragmentNotification extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
                 printErrorMessage(error);
                 error.printStackTrace();
             }
@@ -139,6 +145,7 @@ public class FragmentNotification extends Fragment {
     }
 
     private void setNotificationStatus(String DistributorId, String ID) {
+        loader.showLoader();
         String URL_NOTIFICATION_SEEN = "http://175.107.203.97:4013/api/useralert/MarkSeen/";
         if (!URL_NOTIFICATION_SEEN.contains("/" + ID))
             URL_NOTIFICATION_SEEN = URL_NOTIFICATION_SEEN + ID;
@@ -147,10 +154,12 @@ public class FragmentNotification extends Fragment {
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_NOTIFICATION_SEEN, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
+                loader.hideLoader();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
                 printErrorMessage(error);
                 error.printStackTrace();
             }
@@ -182,6 +191,7 @@ public class FragmentNotification extends Fragment {
     }
 
     private void fetchNotificationForItemCount() {
+        loader.showLoader();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -200,6 +210,7 @@ public class FragmentNotification extends Fragment {
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_NOTIFICATION, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(final JSONArray result) {
+                loader.hideLoader();
 
                 FragmentNotification.counter = result.length();
 

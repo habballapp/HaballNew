@@ -345,13 +345,14 @@ public class PaymentRequestDashboard extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
+//                loader.hideLoader();
                 Log.i("Payments Requests", result.toString());
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
                 }.getType();
                 PaymentsRequestList = gson.fromJson(result.toString(), type);
 
-                mAdapter = new DistributorPaymentRequestAdaptor(getContext(), PaymentsRequestList);
+                mAdapter = new DistributorPaymentRequestAdaptor(getActivity(), getContext(), PaymentsRequestList);
                 recyclerView.setAdapter(mAdapter);
             }
         }, new Response.ErrorListener() {
@@ -400,13 +401,14 @@ public class PaymentRequestDashboard extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
+//                loader.hideLoader();
                 Log.i("Payments Requests", result.toString());
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
                 }.getType();
                 PaymentsRequestList = gson.fromJson(result.toString(), type);
 
-                mAdapter = new DistributorPaymentRequestAdaptor(getContext(), PaymentsRequestList);
+                mAdapter = new DistributorPaymentRequestAdaptor(getActivity(), getContext(), PaymentsRequestList);
                 recyclerView.setAdapter(mAdapter);
             }
         }, new Response.ErrorListener() {

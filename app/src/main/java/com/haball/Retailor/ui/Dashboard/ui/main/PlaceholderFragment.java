@@ -215,7 +215,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private String fromDate = "", toDate = "", fromAmount = "", toAmount = "";
     private FragmentTransaction fragmentTransaction;
     private String tabName;
-    private RelativeLayout rv_filter, spinner_container_main;
+    private RelativeLayout rv_filter, spinner_container_main, spinner_container;
     //    private ScrollView scroll_view_main;
 //    private ObservableScrollView scroll_view_main;
     private static int y;
@@ -345,6 +345,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         et_amount2 = root.findViewById(R.id.et_amount2);
 
         spinner_container1 = root.findViewById(R.id.spinner_container1);
+        spinner_container = root.findViewById(R.id.spinner_container);
+        spinner_container.setVisibility(View.GONE);
         spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
@@ -555,7 +557,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     }
 
                     Filter_selected_value = String.valueOf(filters.get(i));
-                    if(Filter_selected_value.equals("Cancelled"))
+                    if (Filter_selected_value.equals("Cancelled"))
                         Filter_selected_value = "Payment Processing";
 //                    Log.i("Filter_selected_value", String.valueOf(i));
 
@@ -996,11 +998,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     // loader.hideLoader();
                     e.printStackTrace();
                 }
-                if (PaymentsList.size() != 0)
+                if (PaymentsList.size() != 0) {
                     tv_shipment_no_data1.setVisibility(View.GONE);
-                else
+                    spinner_container.setVisibility(View.VISIBLE);
+                } else {
                     tv_shipment_no_data1.setVisibility(View.VISIBLE);
-
+                }
 
             }
         }, new Response.ErrorListener() {
@@ -1064,7 +1067,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         }
 
         Log.i("Mapsssss", String.valueOf(map));
-            new SSL_HandShake().handleSSLHandshake();
+        new SSL_HandShake().handleSSLHandshake();
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
@@ -1160,7 +1163,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         }
 
         Log.i("mapRetailerPayment", String.valueOf(map));
-            new SSL_HandShake().handleSSLHandshake();
+        new SSL_HandShake().handleSSLHandshake();
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
@@ -1298,7 +1301,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             loader.showLoader();
             map.put(Filter_selected, Filter_selected_value);
         }
-            new SSL_HandShake().handleSSLHandshake();
+        new SSL_HandShake().handleSSLHandshake();
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS, map, new Response.Listener<JSONArray>() {
             @Override
@@ -1391,6 +1394,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         et_amount1 = root.findViewById(R.id.et_amount1);
         et_amount2 = root.findViewById(R.id.et_amount2);
 
+        spinner_container = root.findViewById(R.id.spinner_container);
+        spinner_container.setVisibility(View.GONE);
         spinner_container1 = root.findViewById(R.id.spinner_container1);
         spinner_consolidate = (Spinner) root.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) root.findViewById(R.id.conso_spinner2);
@@ -1806,7 +1811,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         JSONObject map = new JSONObject();
         map.put("TotalRecords", 10);
         map.put("PageNumber", 0);
-            new SSL_HandShake().handleSSLHandshake();
+        new SSL_HandShake().handleSSLHandshake();
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS, map, new Response.Listener<JSONArray>() {
             @Override
@@ -1830,6 +1835,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 recyclerView.setAdapter(OrdersAdapter);
                 if (OrdersList.size() != 0) {
                     tv_shipment_no_data.setVisibility(View.GONE);
+                    spinner_container.setVisibility(View.VISIBLE);
                 } else {
                     tv_shipment_no_data.setVisibility(View.VISIBLE);
                 }
@@ -1905,7 +1911,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         }
 
         Log.i("OrderFilter", String.valueOf(map));
-            new SSL_HandShake().handleSSLHandshake();
+        new SSL_HandShake().handleSSLHandshake();
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS, map, new Response.Listener<JSONArray>() {
             @Override
@@ -1997,11 +2003,11 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 //            Log.i("fromDate", fromDate);
 
             first_date.setText(new StringBuilder()
-                    .append(date1).append("/").append(month1 + 1).append("/").append(year1).append(" "));
+                    .append(String.format("%02d", date1)).append("/").append(String.format("%02d", (month1 + 1))).append("/").append(year1));
         } else if (date_type.equals("second date")) {
-            toDate = year2 + "-" + String.format("%02d", (month2 + 1)) + "-" + String.format("%02d", date2) + "T00:00:00.000Z";
-            second_date.setText(new StringBuilder()
-                    .append(date2).append("/").append(month2 + 1).append("/").append(year2).append(" "));
+            toDate = year2 + "-" + String.format("%02d", (month2 + 1)) + "-" + String.format("%02d", date2) + "T23:59:59.000Z";
+           second_date.setText(new StringBuilder()
+                    .append(String.format("%02d", date2)).append("/").append(String.format("%02d", (month2 + 1))).append("/").append(year2));
         }
         if (tabName.equals("Payment")) {
             try {

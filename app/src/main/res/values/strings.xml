@@ -2,328 +2,337 @@
 	<string name="app_name">
 		Haball
 	</string>
-	<string name="Txt_Description_haball">
+    <string name="Txt_Description_haball">
 		Haball Mobile App is a one window solution to manage business to business transactions and enable process optimization from
 		ordering digitally to making payments easily.
 	</string>
-	<string name="Txt_Description_Retailer">
+    <string name="Txt_Description_Retailer">
 		Haball Self-Service Retailer is a one window solution to manage business transactions and enable process optimization from
 		ordering digitally to making payments easily
 	</string>
-	<string name="title_activity_distributor__dashboard">
+    <string name="title_activity_distributor__dashboard">
 		Distributor_Dashboard
 	</string>
-	<string name="tab_text_1">
+    <string name="tab_text_1">
 		Overview
 	</string>
-	<string name="tab_text_2">
+    <string name="tab_text_2">
 		Payments
 	</string>
-	<string name="tab_text_3">
+    <string name="tab_text_3">
 		Orders
 	</string>
-	<string name="tab_text_4">
+    <string name="tab_text_4">
 		Invoice Details
 	</string>
-	<string name="tab_text_5">
-		Order Details
+    <string name="tab_text_5">
+		Order Detail
 	</string>
-	<string name="tab_text_6">
-		Product Details
-	</string>
-	<string name="tab_text_7">
-		Shipment Details
-	</string>
-	//invoice
-	<string name="tab_text_01">
-		Invoice Details
-	</string>
-	<string name="tab_text_02">
-		Dealer Information
-	</string>
-	<string name="tab_text_03">
-		Orders Details
-	</string>
-	<string name="tab_text_04">
-		Products Details
-	</string>
-	<string name="tab_text_05">
-		Shipments Details
-	</string>
-	<string name="tab_text_06">
-		My Network
-	</string>
-	<string name="tab_text_06_tab">
-	</string>
-	<string name="tab_text_07">
-		Sent
-	</string>
-	<string name="tab_text_10">
-		Received
-	</string>
-	<string name="tab_text_08">
-		Place Order
-	</string>
-	<string name="tab_text_09">
-		Order Summary
-	</string>
-	//retailer_place_order in distributor
-	<string name="tab_text_rpoid_01">
-		Place Order
-	</string>
-	<string name="tab_text_rpoid_02">
-		Order Summary
-	</string>
-	<!-- <string name="tab_retailer_order">\tOrder\t</string> -->
-	<!-- <string name="tab_retailer_payment">\tPayment\t</string> -->
-	<string name="tab_retailer_order">
+	<string name="tab_text_5_0">
 		Order
 	</string>
-	<string name="tab_retailer_payment">
+	<string name="tab_text_5_1">
 		Payment
 	</string>
-	<string name="tab_retailer_profile">
+    <string name="tab_text_6">
+		Product Details
+	</string>
+    <string name="tab_text_7">
+		Shipment Detail
+	</string>
+	<string name="tab_text_7_0">
+		Shipment
+	</string>
+    //invoice
+    <string name="tab_text_01">
+		Invoice Details
+	</string>
+    <string name="tab_text_02">
+		Dealer Information
+	</string>
+    <string name="tab_text_03">
+		Orders Details
+	</string>
+    <string name="tab_text_04">
+		Products Details
+	</string>
+    <string name="tab_text_05">
+		Shipments Details
+	</string>
+    <string name="tab_text_06">
+		My Network
+	</string>
+    <string name="tab_text_06_tab">
+	</string>
+    <string name="tab_text_07">
+		Sent
+	</string>
+    <string name="tab_text_10">
+		Received
+	</string>
+    <string name="tab_text_08">
+		Place Order
+	</string>
+    <string name="tab_text_09">
+		Order Summary
+	</string>
+    //retailer_place_order in distributor
+    <string name="tab_text_rpoid_01">
+		Place Order
+	</string>
+    <string name="tab_text_rpoid_02">
+		Order Summary
+	</string>
+    <!-- <string name="tab_retailer_order">\tOrder\t</string> -->
+    <!-- <string name="tab_retailer_payment">\tPayment\t</string> -->
+    <string name="tab_retailer_order">
+		Order
+	</string>
+    <string name="tab_retailer_payment">
+		Payment
+	</string>
+    <string name="tab_retailer_profile">
 		Profile
 	</string>
-	<string name="tab_retailer_profile1">
+    <string name="tab_retailer_profile1">
 		Change Password
 	</string>
-	<string name="tab_distributor_profile">
+    <string name="tab_distributor_profile">
 		Profile
 	</string>
-	<string name="tab_distributor_profile1">
+    <string name="tab_distributor_profile1">
 		Change Password
 	</string>
-	<string name="load_more">
+    <string name="load_more">
 		<u>
 			Load More
 		</u>
 	</string>
-	<string name="Forgot_Password">
+    <string name="Forgot_Password">
 		Forgot Password
 	</string>
-	<string name="info_reset_password">
+    <string name="info_reset_password">
 		Please enter your registered email address to reset your password
 	</string>
-	<string name="Txt_Dashboard">
+    <string name="Txt_Dashboard">
 		Dashboard
 	</string>
-	<string name="Txt_Payment">
+    <string name="Txt_Payment">
 		Payment Options
 	</string>
-	<string name="TxT_Update">
+    <string name="TxT_Update">
 		Update
 	</string>
-	<string name="Save">
+    <string name="Save">
 		Save
 	</string>
-	<string name="close">
+    <string name="close">
 		Close
 	</string>
-	<string name="Txt_Header1">
+    <string name="Txt_Header1">
 		Following are the steps to use Internet/Mobile Bankings for making payments:
 	</string>
-	<string name="Txt_Header2">
+    <string name="Txt_Header2">
 		Following are the steps to make payments over the counter:
 	</string>
-	<string name="Txt_Header3">
+    <string name="Txt_Header3">
 		Following are the steps to make payments over the counter:
 	</string>
-	<string name="Txt_Pr1">
+    <string name="Txt_Pr1">
 		* User shall login the online banking portal (web or mobile app)
 	</string>
-	<string name="Txt_Pr2">
+    <string name="Txt_Pr2">
 		* User would be required to move to the biller section where “Haball” will be displayed as a biller.
 	</string>
-	<string name="Txt_Pr3">
+    <string name="Txt_Pr3">
 		* User would be required to enter the Payment ID generated by benefeciary a name.
 	</string>
-	<string name="Txt_Pr4">
+    <string name="Txt_Pr4">
 		* By entering PSID, the payment details shall be fetched, including payment amount and beneficiary (company to whom payment is being made).
 	</string>
-	<string name="Txt_Pr5">
+    <string name="Txt_Pr5">
 		* Upon confirmation, the bank account of the user will be debited and distributor portal would be updated accordingly.
 	</string>
-	<string name="Txt_Pr6">
+    <string name="Txt_Pr6">
 		* User should visit bank teller of his/her bank.
 	</string>
-	<string name="Txt_Pr7">
+    <string name="Txt_Pr7">
 		* User will fill out the deposit slip mentioning cheque/instrument number and PS-ID and give it to the bank teller
 		and ask him to process payment.
 	</string>
-	<string name="Txt_Pr8">
+    <string name="Txt_Pr8">
 		* By entering PSID, details would be displayed to bank teller, including bill amount. Teller would request cash from the user.
 	</string>
-	<string name="Txt_Pr9">
+    <string name="Txt_Pr9">
 		* Once payment is received by teller, transaction would be initiated where bill would be paid. Haball would update distributor portal in real-time and email alerts would be generated instantly
 	</string>
-	<string name="Txt_Pr10">
+    <string name="Txt_Pr10">
 		* User will keep the bank-stamped copy of the deposit slip for uploading in Haball portal as proof of payment
 	</string>
-	<string name="Txt_Pr11">
+    <string name="Txt_Pr11">
 		* User shall visit the bank’s ATM. User would enter their card and login the ATM with their pin.
 	</string>
-	<string name="Txt_Pr12">
+    <string name="Txt_Pr12">
 		* The user would be required to enter the consumer number. Over here, user would need to input the 14-digit Payment ID generated by Haball.
 	</string>
-	<string name="Txt_Pr13">
+    <string name="Txt_Pr13">
 		* By entering PSID, the payment details shall be visible to the user, including the bill amount.
 	</string>
-	<string name="Txt_Pr14">
+    <string name="Txt_Pr14">
 		* User will keep the payment-reciept from ATM as proof of payment.
 	</string>
-	<!-- TODO: Remove or change this placeholder text -->
-	<string name="hello_blank_fragment">
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">
 		Hello blank fragment logout
 	</string>
-	<string name="Open">
+    <string name="Open">
 		OPEN
 	</string>
-	<string name="Close">
+    <string name="Close">
 		CLOSE
 	</string>
-	<string name="title_activity_distributor_dashboard">
+    <string name="title_activity_distributor_dashboard">
 		DistributorDashboard
 	</string>
-	<string name="navigation_drawer_open">
+    <string name="navigation_drawer_open">
 		Open navigation drawer
 	</string>
-	<string name="navigation_drawer_close">
+    <string name="navigation_drawer_close">
 		Close navigation drawer
 	</string>
-	<string name="nav_header_title">
+    <string name="nav_header_title">
 		Android Studio
 	</string>
-	<string name="nav_header_subtitle">
+    <string name="nav_header_subtitle">
 		android.studio@android.com
 	</string>
-	<string name="nav_header_desc">
+    <string name="nav_header_desc">
 		Navigation header
 	</string>
-	<string name="action_settings">
+    <string name="action_settings">
 		Settings
 	</string>
-	<string name="signup_close">
+    <string name="signup_close">
 		Close
 	</string>
-	<string name="signup">
+    <string name="signup">
 		Signup
 	</string>
-	<string name="menu_home">
+    <string name="menu_home">
 		Home
 	</string>
-	<string name="menu_gallery">
+    <string name="menu_gallery">
 		Gallery
 	</string>
-	<string name="menu_slideshow">
+    <string name="menu_slideshow">
 		Slideshow
 	</string>
-	<string name="menu_tools">
+    <string name="menu_tools">
 		Tools
 	</string>
-	<string name="menu_share">
+    <string name="menu_share">
 		Share
 	</string>
-	<string name="menu_send">
+    <string name="menu_send">
 		Send
 	</string>
-	<string name="title_activity_new_distributor_dashboard">
+    <string name="title_activity_new_distributor_dashboard">
 		NewDistributorDashboard
 	</string>
-	<string name="title_activity_distributor_shipment__view_dashboard">
+    <string name="title_activity_distributor_shipment__view_dashboard">
 		DistributorShipment_ViewDashboard
 	</string>
-	<string name="pr1">
+    <string name="pr1">
 		Your complaint has been registered and forwarded to the relevant department.Your complaint number is
 	</string>
-	<string name="pr2">
+    <string name="pr2">
 		We would be contacting you shortly.
 	</string>
-	<string name="pr3">
+    <string name="pr3">
 		Hey Faizan, your password has been updated successfully
 	</string>
-	<string name="pr4">
+    <string name="pr4">
 		Now, you may use your new password to Sign in to your Haball Account
 	</string>
-	<string name="pr5">
+    <string name="pr5">
 		Please use the following tips to set a new password
 	</string>
-	<string name="pr6">
+    <string name="pr6">
 		Password must be atleast 6 characters long.
 	</string>
-	<string name="pr7">
+    <string name="pr7">
 		Password must have atleast 1 alphabet,Numeric or special character.
 	</string>
-	<string name="pr8">
+    <string name="pr8">
 		Payment Request
 	</string>
-	<string name="pr9">
+    <string name="pr9">
 		has been updated successfully.
 	</string>
-	<string name="pr10">
+    <string name="pr10">
 		Kindly use this payment ID to pay your invoice using the following channels.
 	</string>
-	<string name="title_activity_distributor__invoice__dash_board">
+    <string name="title_activity_distributor__invoice__dash_board">
 		Distributor_Invoice_DashBoard
 	</string>
-	<string name="title_activity_my__network">
+    <string name="title_activity_my__network">
 		My_Network
 	</string>
-	<string name="title_activity_orders__dashboard">
+    <string name="title_activity_orders__dashboard">
 		Orders_Dashboard
 	</string>
-	<string name="title_activity_retailer_payment_view">
+    <string name="title_activity_retailer_payment_view">
 		RetailerPaymentView
 	</string>
-	<string name="title_activity_retailer_place_order">
+    <string name="title_activity_retailer_place_order">
 		RetailerPlaceOrder
 	</string>
-	// Dist_RetailerDashboard
-	<string name="retailer_Payment">
+    // Dist_RetailerDashboard
+    <string name="retailer_Payment">
 		Payment
 	</string>
-	<string name="retailer_Order">
+    <string name="retailer_Order">
 		Order
 	</string>
-	<string name="retailer_OrderDetails">
+    <string name="retailer_OrderDetails">
 		Order Details
 	</string>
-	<string name="title_activity_retailer_view_order">
+    <string name="title_activity_retailer_view_order">
 		RetailerViewOrder
 	</string>
-	<string name="title_activity_place_order_retailer">
+    <string name="title_activity_place_order_retailer">
 		PlaceOrder_retailer
 	</string>
-	<string name="title_activity_order__place_order">
+    <string name="title_activity_order__place_order">
 		Order_PlaceOrder
 	</string>
-	<string name="title_activity_profile__tabs">
+    <string name="title_activity_profile__tabs">
 		Profile_Tabs
 	</string>
-	<string name="title_activity_profie__tabs__distributor">
+    <string name="title_activity_profie__tabs__distributor">
 		Profie_Tabs_Distributor
 	</string>
-	<string name="title_activity_profie__distributor__tabs">
+    <string name="title_activity_profie__distributor__tabs">
 		Profie_Distributor_Tabs
 	</string>
-	<string name="title_activity_distributor__profile">
+    <string name="title_activity_distributor__profile">
 		Distributor_Profile
 	</string>
-	<string name="txt_forgot">
+    <string name="txt_forgot">
 		Please enter your registered email address or reset your password.
 	</string>
-	<string name="txt_popup_email_snt">
+    <string name="txt_popup_email_snt">
 		Password reset instructions have been sent to the email address provided.
 	</string>
-	<string name="txt_popup_alert">
+    <string name="txt_popup_alert">
 		Are you sure, you want to exit this page?
 	</string>
-	<string name="termsAndConditionsHeading1">
+    <string name="termsAndConditionsHeading1">
 		<b>
 			HABALL DIGITAL INTERFACE\nEND USER LICENSE AGREEMENT
 		</b>
 	</string>
-	<string name="termsAndConditionsText">
+    <string name="termsAndConditionsText">
 		<strong>
 			IMPORTANT NOTE
 		</strong>
@@ -546,7 +555,7 @@
 		20.2.	WITHOUT PREJUDICE TO THE FOREGOING, IN ANY EVENT THE LIABILITY OF HABALL, FOR ANY CLAIM WITH RESPECT TO A PARTICULAR TRANSACTION SHALL BE LIMITED TO THE LOWEST OF (AND NOT EXCEED) 1% OF THE HABALL’S TRANSACTIONAL INCOME FOR MONTH IN WHICH SUCH CLAIM OCCURRED.\n
 		20.3.	HABALL’S MAXIMUM AGGREGATE LIABILITY FOR CLAIMS IN EACH COMPLETED YEAR OF THIS AGREEMENT SHALL NOT EXCEED 1% OF THE HABALL’S TRANSACTIONAL INCOMCE FOR THE TWELVE (12) MONTHS PRECEDING THE CLAIM.\n
 	</string>
-	<string name="termsAndConditionsText1">
+    <string name="termsAndConditionsText1">
 		21.
 		<b>
 			INDEMNIFICATION
@@ -730,10 +739,10 @@
 		</b>
 		Haball’s income per transaction after deduction of revenue share between Financial Institutions, PSO/PSP and Onboarding Party, where applicable, along with deduction of any and all applicable taxes\n
 	</string>
-	<string name="title">
+    <string name="title">
 		This is a long title text displayed in multiple lines.
 	</string>
-	<string name="loremipsum">
+    <string name="loremipsum">
 		Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
 		nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
 		Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
@@ -745,25 +754,25 @@
 		Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
 		nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
 	</string>
-	<string name="terms_amp_conditions">
+    <string name="terms_amp_conditions">
 		Terms &amp; Conditions
 	</string>
-	<string name="txt_pop_update_pass">
+    <string name="txt_pop_update_pass">
 		It is recommended to change the default generated password. Are you sure, you want to skip?
 	</string>
-	<string name="txt_popup_tick_create">
+    <string name="txt_popup_tick_create">
 		Your Ticket ID 651321 has been created successfully, Our customer support officer will contact you shortly.
 	</string>
-	<string name="default_notification_channel_id" translatable="false">
+    <string name="default_notification_channel_id" translatable="false">
 		fcm_default_channel
 	</string>
-	<string name="retailer_production_server">
+    <string name="retailer_production_server">
 		http://175.107.203.97:4014/
 	</string>
-	<string name="retailer_qa_server">
+    <string name="retailer_qa_server">
 		http://http://175.107.203.97:4014/
 	</string>
-	<string name="retailer_server">
+    <string name="retailer_server">
 		http://175.107.203.97:4014/
 	</string>
 </resources>

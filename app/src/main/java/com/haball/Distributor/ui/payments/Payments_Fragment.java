@@ -48,6 +48,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.ui.support.MyJsonArrayRequest;
+import com.haball.Loader;
 import com.haball.Payment.PaymentLedgerAdapter;
 import com.haball.Payment.PaymentLedgerModel;
 import com.haball.R;
@@ -131,6 +132,7 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
     private List<String> scrollEvent = new ArrayList<>();
     private Typeface myFont;
     private Context mcontext;
+    private Loader loader;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -141,6 +143,8 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
         company_names.add("Company ");
         myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
         //   btn_load_more = root.findViewById(R.id.btn_load_more);
+
+        loader = new Loader(getContext());
 
         SpannableString content = new SpannableString("Load More");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
@@ -229,7 +233,8 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);} catch (NullPointerException ex) {
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
+                    } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
                 } else {
@@ -416,7 +421,8 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.grey_color));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);  } catch (NullPointerException ex) {
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
+                    } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
                     spinner_consolidate.setVisibility(View.GONE);
@@ -424,7 +430,8 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0); } catch (NullPointerException ex) {
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
+                    } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
 
@@ -560,6 +567,8 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
     }
 
     private void fetchCompanyNames() {
+        loader.showLoader();
+
         SharedPreferences sharedPreferences = mcontext.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -573,6 +582,7 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PAYMENT_LEDGER_COMPANY, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
+                loader.hideLoader();
                 try {
                     JSONObject jsonObject = null;
                     for (int i = 0; i < result.length(); i++) {
@@ -589,6 +599,7 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
             @Override
             public void onErrorResponse(VolleyError error) {
                 printErrorMessage(error);
+                loader.hideLoader();
 
                 error.printStackTrace();
             }
@@ -664,10 +675,12 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
         map.put("CompanyId", companyId);
         map.put("TotalRecords", 10);
         map.put("PageNumber", pageNumber);
+        loader.showLoader();
 
         MyJsonArrayRequest request = new MyJsonArrayRequest(Request.Method.POST, URL_PAYMENT_LEDGER, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                loader.hideLoader();
                 Log.i(" PAYMENT LEDGER => ", "" + response.toString());
                 JSONObject jsonObject = new JSONObject();
                 for (int i = 0; i < response.length(); i++) {
@@ -702,6 +715,7 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
             @Override
             public void onErrorResponse(VolleyError error) {
                 printErrorMessage(error);
+                loader.hideLoader();
 
                 error.printStackTrace();
                 Log.i("onErrorResponse", "Error");
@@ -745,6 +759,7 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
         MyJsonArrayRequest request = new MyJsonArrayRequest(Request.Method.POST, URL_PAYMENT_LEDGER, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                loader.hideLoader();
                 Log.i(" PAYMENT LEDGER PAGE2", "" + response.toString());
                 JSONObject jsonObject = new JSONObject();
                 for (int i = 0; i < response.length(); i++) {
@@ -812,10 +827,11 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
             map.put(Filter_selected, Filter_selected_value);
         }
         Log.i("Map", String.valueOf(map));
-
+        loader.showLoader();
         MyJsonArrayRequest request = new MyJsonArrayRequest(Request.Method.POST, URL_PAYMENT_LEDGER, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                loader.hideLoader();
                 Log.i(" PAYMENT LEDGER => ", "" + response.toString());
                 JSONObject jsonObject = new JSONObject();
                 for (int i = 0; i < response.length(); i++) {
@@ -838,6 +854,7 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
             @Override
             public void onErrorResponse(VolleyError error) {
                 printErrorMessage(error);
+                loader.hideLoader();
 
                 error.printStackTrace();
                 Log.i("onErrorResponse", "Error");
@@ -890,11 +907,11 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
             Log.i("fromDate", fromDate);
 
             first_date.setText(new StringBuilder()
-                    .append(date1).append("/").append(month1 + 1).append("/").append(year1).append(" "));
+                    .append(String.format("%02d", date1)).append("/").append(String.format("%02d", (month1 + 1))).append("/").append(year1));
         } else if (date_type.equals("second date")) {
-            toDate = year2 + "-" + String.format("%02d", (month2 + 1)) + "-" + String.format("%02d", date2) + "T00:00:00.000Z";
+            toDate = year2 + "-" + String.format("%02d", (month2 + 1)) + "-" + String.format("%02d", date2) + "T23:59:59.000Z";
             second_date.setText(new StringBuilder()
-                    .append(date2).append("/").append(month2 + 1).append("/").append(year2).append(" "));
+                    .append(String.format("%02d", date2)).append("/").append(String.format("%02d", (month2 + 1))).append("/").append(year2));
         }
         try {
             fetchFilteredPaymentLedgerData(companies.get(Company_selected));

@@ -52,6 +52,7 @@ public class EditPayment {
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PAYMENT_REQUESTS_SAVE, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
+//                loader.hideLoader();
                 Toast.makeText(context, "Payment Request " + PrePaidNumber + " has been updated successfully.", Toast.LENGTH_SHORT).show();
                 Intent dashboard_intent = new Intent(context, DistributorDashboard.class);
                 context.startActivity(dashboard_intent);

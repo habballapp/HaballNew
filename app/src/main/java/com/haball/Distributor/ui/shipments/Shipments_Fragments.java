@@ -48,6 +48,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.ui.main.ViewOrder;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
+import com.haball.Loader;
 import com.haball.R;
 import com.haball.Shipment.Adapters.DistributorShipmentAdapter;
 import com.google.android.material.textfield.TextInputLayout;
@@ -93,7 +94,7 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
     private TextView tv_shipment_no_data;
 
 
-    private RelativeLayout spinner_container1;
+    private RelativeLayout spinner_container, spinner_container1;
     private String Filter_selected1, Filter_selected2;
     private TextInputLayout search_bar;
 
@@ -109,7 +110,7 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
     private List<String> scrollEvent = new ArrayList<>();
     private Typeface myFont;
     private RelativeLayout search_rl;
-
+    private Loader loader;
     private String fromDate = "", toDate = "", fromAmount = "", toAmount = "";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -121,6 +122,8 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
         recyclerView = (RecyclerView) root.findViewById(R.id.rv_shipment);
         myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
         recyclerView.setHasFixedSize(true);
+
+        loader = new Loader(getContext());
 
         search_bar = root.findViewById(R.id.search_bar);
         spinner_container_main = root.findViewById(R.id.spinner_container_main);
@@ -137,6 +140,8 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
         et_amount1 = root.findViewById(R.id.et_amount1);
         et_amount2 = root.findViewById(R.id.et_amount2);
 
+        spinner_container = root.findViewById(R.id.spinner_container);
+        spinner_container.setVisibility(View.GONE);
         spinner_container1 = root.findViewById(R.id.spinner_container1);
         spinner_container1.setVisibility(View.GONE);
         date_filter_rl.setVisibility(View.GONE);
@@ -366,15 +371,43 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
         arrayAdapterFeltter.notifyDataSetChanged();
         spinner2.setAdapter(arrayAdapterFeltter);
 
+//
+//        conso_edittext.addTextChangedListener(new TextWatcher() {
+//
+//            public void afterTextChanged(Editable s) {
+//                Log.i("text1", "check");
+//                Log.i("text", String.valueOf(s));
+//                Filter_selected_value = String.valueOf(s);
+//                if (!Filter_selected_value.equals("")) {
+//
+//                    try {
+//                        fetchFilteredShipments();
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                } else {
+//                    try {
+//                        fetchShipments();
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//            }
+//
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//            }
+//        });
 
-        conso_edittext.addTextChangedListener(new TextWatcher() {
 
-            public void afterTextChanged(Editable s) {
-                Log.i("text1", "check");
-                Log.i("text", String.valueOf(s));
-                Filter_selected_value = String.valueOf(s);
+        conso_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                Filter_selected_value = String.valueOf(conso_edittext.getText());
                 if (!Filter_selected_value.equals("")) {
-
                     try {
                         fetchFilteredShipments();
                     } catch (JSONException e) {
@@ -387,12 +420,6 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
                         e.printStackTrace();
                     }
                 }
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
         });
         layoutManager = new LinearLayoutManager(getContext());
@@ -473,6 +500,7 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
     }
 
     private void fetchShipments() throws JSONException {
+        loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -492,6 +520,7 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
+                loader.hideLoader();
                 Log.i("Shipment", result.toString());
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<ShipmentModel>>() {
@@ -503,6 +532,7 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
                 recyclerView.setAdapter(mAdapter);
                 if (result.length() != 0) {
                     tv_shipment_no_data.setVisibility(View.GONE);
+                    spinner_container.setVisibility(View.VISIBLE);
                 } else {
 //                    Toast.makeText(getContext(), "No Data Available", Toast.LENGTH_LONG).show();
                     tv_shipment_no_data.setVisibility(View.VISIBLE);
@@ -511,6 +541,7 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
                 printErrorMessage(error);
 
                 error.printStackTrace();
@@ -533,6 +564,7 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
     }
 
     private void fetchFilteredShipments() throws JSONException {
+        loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -549,9 +581,13 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
         map.put("PageNumber", 0.1);
         if (Filter_selected.equals("date")) {
             if (!fromDate.equals(""))
-                map.put(Filter_selected1, fromDate);
+                map.put(Filter_selected1, fromDate + "T00:00:00.000Z");
+            else if (!toDate.equals(""))
+                map.put(Filter_selected1, toDate + "T00:00:00.000Z");
             if (!toDate.equals(""))
-                map.put(Filter_selected2, toDate);
+                map.put(Filter_selected2, toDate + "T23:59:59.000Z");
+            else if (!fromDate.equals(""))
+                map.put(Filter_selected2, fromDate + "T23:59:59.000Z");
         } else if (Filter_selected.equals("amount")) {
             if (!fromAmount.equals(""))
                 map.put(Filter_selected1, fromAmount);
@@ -566,6 +602,7 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
+                loader.hideLoader();
                 Log.i("Shipment Filtered", result.toString());
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<ShipmentModel>>() {
@@ -584,6 +621,7 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
                 printErrorMessage(error);
 
                 error.printStackTrace();
@@ -632,15 +670,15 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
 
     private void updateDisplay(String date_type) {
         if (date_type.equals("first date")) {
-            fromDate = year1 + "-" + String.format("%02d", (month1 + 1)) + "-" + String.format("%02d", date1) + "T00:00:00.000Z";
+            fromDate = year1 + "-" + String.format("%02d", (month1 + 1)) + "-" + String.format("%02d", date1);
             Log.i("fromDate", fromDate);
 
             first_date.setText(new StringBuilder()
-                    .append(date1).append("/").append(month1 + 1).append("/").append(year1).append(" "));
+                    .append(String.format("%02d", date1)).append("/").append(String.format("%02d", (month1 + 1))).append("/").append(year1));
         } else if (date_type.equals("second date")) {
-            toDate = year2 + "-" + String.format("%02d", (month2 + 1)) + "-" + String.format("%02d", date2) + "T00:00:00.000Z";
+            toDate = year2 + "-" + String.format("%02d", (month2 + 1)) + "-" + String.format("%02d", date2);
             second_date.setText(new StringBuilder()
-                    .append(date2).append("/").append(month2 + 1).append("/").append(year2).append(" "));
+                    .append(String.format("%02d", date2)).append("/").append(String.format("%02d", (month2 + 1))).append("/").append(year2));
         }
         try {
             fetchFilteredShipments();

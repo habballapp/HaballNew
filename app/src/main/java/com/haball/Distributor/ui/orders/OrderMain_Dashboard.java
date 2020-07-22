@@ -29,7 +29,7 @@ public class OrderMain_Dashboard extends Fragment {
             @Override
             public void onClick(View v) {
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, new Order_PlaceOrder());
+                fragmentTransaction.add(R.id.main_container, new Order_PlaceOrder());
                 fragmentTransaction.commit();
 
             }

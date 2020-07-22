@@ -1,9 +1,16 @@
 package com.haball.Distributor.ui.orders;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -16,7 +23,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.ui.home.HomeFragment;
+import com.haball.Loader;
 import com.haball.R;
+import com.haball.Retailor.RetailorDashboard;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,11 +41,14 @@ public class CancelOrder {
     public String DistributorId, Token;
     public Context mContext;
     private FragmentTransaction fragmentTransaction;
+    private Loader loader;
 
     public CancelOrder() {
     }
 
     public void cancelOrder(final Context context, String orderId, final String orderNumber) throws JSONException {
+        loader = new Loader(context);
+        loader.showLoader();
         mContext = context;
         SharedPreferences sharedPreferences = context.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
@@ -56,21 +68,61 @@ public class CancelOrder {
             @Override
             public void onResponse(JSONObject response) {
                 // TODO handle the response
-                Toast.makeText(context, "Order # " + orderNumber + " is cancelled", Toast.LENGTH_LONG).show();
-                SharedPreferences tabsFromDraft = context.getSharedPreferences("OrderTabsFromDraft",
-                        Context.MODE_PRIVATE);
-                SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
-                editorOrderTabsFromDraft.putString("TabNo", "1");
-                editorOrderTabsFromDraft.apply();
+                loader.hideLoader();
+//                Toast.makeText(context, "Order # " + orderNumber + " is cancelled", Toast.LENGTH_LONG).show();
+//                SharedPreferences tabsFromDraft = context.getSharedPreferences("OrderTabsFromDraft",
+//                        Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+//                editorOrderTabsFromDraft.putString("TabNo", "1");
+//                editorOrderTabsFromDraft.apply();
+//
+//                Intent login_intent = new Intent(((FragmentActivity) context), DistributorDashboard.class);
+//                ((FragmentActivity) context).startActivity(login_intent);
+//                ((FragmentActivity) context).finish();
 
-                Intent login_intent = new Intent(((FragmentActivity) context), DistributorDashboard.class);
-                ((FragmentActivity) context).startActivity(login_intent);
-                ((FragmentActivity) context).finish();
+                final Dialog fbDialogue = new Dialog(mContext);
+                //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                fbDialogue.setContentView(R.layout.password_updatepopup);
+                TextView tv_pr1, txt_header1;
+                txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
+                tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
+                tv_pr1.setText("Your Order ID " + orderNumber + " has been cancelled successfully.");
+                txt_header1.setText("Order Cancelled");
+                fbDialogue.setCancelable(true);
+                fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+                layoutParams.y = 200;
+                layoutParams.x = -70;// top margin
+                fbDialogue.getWindow().setAttributes(layoutParams);
+                fbDialogue.show();
 
+                ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+                close_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        fbDialogue.dismiss();
+                    }
+                });
+
+                fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        SharedPreferences tabsFromDraft = context.getSharedPreferences("OrderTabsFromDraft",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                        editorOrderTabsFromDraft.putString("TabNo", "1");
+                        editorOrderTabsFromDraft.apply();
+
+                        Intent login_intent = new Intent(((FragmentActivity) context), DistributorDashboard.class);
+                        ((FragmentActivity) context).startActivity(login_intent);
+                        ((FragmentActivity) context).finish();
+                    }
+                });
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
                 error.printStackTrace();
             }
         }) {

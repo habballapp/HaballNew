@@ -1,14 +1,20 @@
 package com.haball.Distributor;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +66,18 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
 
     @Override
     public void onBindViewHolder(@NonNull DistributorOrdersAdapter.ViewHolder holder, final int position) {
+        if (OrderList.size() == 3) {
+            if (position == (OrderList.size() - 1)) {
+//        if (position == 2) {
+                Log.i("DebugSupportFilter_In", OrderList.get(position).getOrderNumber());
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT
+                );
+                params.setMargins(0, 50, 0, 280);
+                holder.main_layout_order_box.setLayoutParams(params);
+            }
+        }
 //        holder.tv_heading.setText(heading);
 //        holder.order_no_value.setText(order_no_value);
 //        holder.tv_status.setText(status);
@@ -85,6 +103,10 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
                         setMenuDraft(popup, position);
                     else if (OrderList.get(position).getOrderStatusValue().equals("Cancelled"))
                         setMenuCancelled(popup, position);
+                    else if (OrderList.get(position).getOrderStatusValue().equals("Rejected"))
+                        setMenuCancelled(popup, position);
+                    else if (OrderList.get(position).getOrderStatusValue().equals("Approved"))
+                        setMenuApproved(popup, position);
                     else
                         setMenuAll(popup, position);
                 } else if (OrderList.get(position).getStatus() != null) {
@@ -92,6 +114,10 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
                         setMenuDraft(popup, position);
                     else if (OrderList.get(position).getStatus().equals("Cancelled"))
                         setMenuCancelled(popup, position);
+                    else if (OrderList.get(position).getStatus().equals("Rejected"))
+                        setMenuCancelled(popup, position);
+                    else if (OrderList.get(position).getStatus().equals("Approved"))
+                        setMenuApproved(popup, position);
                     else
                         setMenuAll(popup, position);
                 }
@@ -139,14 +165,47 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
                 switch (item.getItemId()) {
                     case R.id.orders_view:
                         String ID = OrderList.get(position).getID();
-                        FragmentTransaction fragmentTransaction= ((FragmentActivity)mContxt).getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.add(R.id.main_container,new ViewOrder()).addToBackStack("tag");
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) mContxt).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new ViewOrder()).addToBackStack("tag");
                         fragmentTransaction.commit();
-                        SharedPreferences OrderId = ((FragmentActivity)mContxt).getSharedPreferences("OrderId",
+                        SharedPreferences OrderId = ((FragmentActivity) mContxt).getSharedPreferences("OrderId",
                                 Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = OrderId.edit();
                         editor.putString("OrderId", OrderList.get(position).getID());
                         editor.putString("Status", OrderList.get(position).getOrderStatusValue());
+                        editor.putString("InvoiceUpload", String.valueOf(OrderList.get(position).getOrderState()));
+                        editor.putString("InvoiceStatus", String.valueOf(OrderList.get(position).getOrderStateValue()));
+                        editor.commit();
+
+                        // Toast.makeText(mContxt, "View Order ID - " + ID, Toast.LENGTH_LONG).show();
+                        break;
+                }
+                return false;
+            }
+        });
+        popup.show();
+
+    }
+
+    private void setMenuApproved(PopupMenu popup, final int position) {
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.orders_fragment_menu, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.orders_view:
+                        String ID = OrderList.get(position).getID();
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) mContxt).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new ViewOrder()).addToBackStack("tag");
+                        fragmentTransaction.commit();
+                        SharedPreferences OrderId = ((FragmentActivity) mContxt).getSharedPreferences("OrderId",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = OrderId.edit();
+                        editor.putString("OrderId", OrderList.get(position).getID());
+                        editor.putString("Status", OrderList.get(position).getOrderStatusValue());
+                        editor.putString("InvoiceUpload", String.valueOf(OrderList.get(position).getOrderState()));
+                        editor.putString("InvoiceStatus", String.valueOf(OrderList.get(position).getOrderStateValue()));
                         editor.commit();
 
                         // Toast.makeText(mContxt, "View Order ID - " + ID, Toast.LENGTH_LONG).show();
@@ -168,23 +227,21 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
                 switch (item.getItemId()) {
                     case R.id.orders_view:
                         String ID = OrderList.get(position).getID();
-                        FragmentTransaction fragmentTransaction= ((FragmentActivity)mContxt).getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.add(R.id.main_container,new ViewOrder()).addToBackStack("tag");
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) mContxt).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new ViewOrder()).addToBackStack("tag");
                         fragmentTransaction.commit();
-                        SharedPreferences OrderId = ((FragmentActivity)mContxt).getSharedPreferences("OrderId",
+                        SharedPreferences OrderId = ((FragmentActivity) mContxt).getSharedPreferences("OrderId",
                                 Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = OrderId.edit();
                         editor.putString("OrderId", OrderList.get(position).getID());
                         editor.putString("Status", OrderList.get(position).getOrderStatusValue());
+                        editor.putString("InvoiceUpload", String.valueOf(OrderList.get(position).getOrderState()));
+                        editor.putString("InvoiceStatus", String.valueOf(OrderList.get(position).getOrderStateValue()));
                         editor.commit();
                         break;
                     case R.id.orders_cancel:
                         String orderID = OrderList.get(position).getID();
-                        try {
-                            cancelOrder(mContxt, OrderList.get(position).getID(), OrderList.get(position).getOrderNumber());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        showConfirmCancelOrderDialog(position);
 //                                Toast.makeText(mContxt, "View Order ID - " + ID, Toast.LENGTH_LONG).show();
                         break;
                 }
@@ -195,14 +252,102 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
 
     }
 
+    private void showConfirmCancelOrderDialog(final int position) {
+
+        Log.i("CreatePayment", "In Dialog");
+//            final FragmentManager fm = mContxt.getSupportFragmentManager();
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(mContxt).create();
+        LayoutInflater inflater = LayoutInflater.from(mContxt);
+        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
+        tv_discard.setText("Cancel Order");
+        TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+        tv_discard_txt.setText("Are you sure, you want to cancel this order?");
+        alertDialog.setView(view_popup);
+        alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+        WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+        layoutParams.y = 200;
+        layoutParams.x = -70;// top margin
+        alertDialog.getWindow().setAttributes(layoutParams);
+        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+        btn_discard.setText("Cancel Order");
+        btn_discard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                String orderID = OrderList.get(position).getID();
+                try {
+                    cancelOrder(mContxt, OrderList.get(position).getID(), OrderList.get(position).getOrderNumber());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+        img_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+            }
+        });
+
+        alertDialog.show();
+
+    }
+
     private void cancelOrder(Context context, String ID, String OrderNumber) throws JSONException {
         CancelOrder cancelOrder = new CancelOrder();
         cancelOrder.cancelOrder(context, ID, OrderNumber);
     }
 
-    private void deleteOrderDraft(Context context, String ID, String OrderNumber) throws JSONException {
-        DeleteOrderDraft deleteDraft = new DeleteOrderDraft();
-        deleteDraft.deleteDraft(context, ID, OrderNumber);
+
+    private void deleteOrderDraft(final Context context, final String ID, final String OrderNumber) throws JSONException {
+//        DeleteOrderDraft deleteDraft = new DeleteOrderDraft();
+//        deleteDraft.deleteDraft(context, ID, OrderNumber);
+
+
+        Log.i("CreatePayment", "In Dialog");
+//            final FragmentManager fm = mContxt.getSupportFragmentManager();
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(mContxt).create();
+        LayoutInflater inflater = LayoutInflater.from(mContxt);
+        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
+        tv_discard.setText("Delete Order");
+        TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+        tv_discard_txt.setText("Are you sure, you want to delete this order?");
+        alertDialog.setView(view_popup);
+        alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+        WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+        layoutParams.y = 200;
+        layoutParams.x = -70;// top margin
+        alertDialog.getWindow().setAttributes(layoutParams);
+        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+        btn_discard.setText("Delete");
+        btn_discard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                DeleteOrderDraft deleteDraft = new DeleteOrderDraft();
+                try {
+                    deleteDraft.deleteDraft(context, ID, OrderNumber);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+        img_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+            }
+        });
+
+        alertDialog.show();
     }
 
     private void editOrderDraft(Context context, String ID, String OrderNumber) throws JSONException {
@@ -217,6 +362,7 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_heading, order_no_value, tv_status, tv_amount;
+        public RelativeLayout main_layout_order_box;
         public ImageButton menu_btn;
 
         public ViewHolder(@NonNull View itemView) {
@@ -226,6 +372,7 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
             tv_status = itemView.findViewById(R.id.status_value);
             tv_amount = itemView.findViewById(R.id.amount_value);
             menu_btn = itemView.findViewById(R.id.menu_btn_orders);
+            main_layout_order_box = itemView.findViewById(R.id.main_layout_order_box_retailer);
         }
     }
 

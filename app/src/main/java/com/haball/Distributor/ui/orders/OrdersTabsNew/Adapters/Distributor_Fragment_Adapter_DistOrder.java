@@ -147,7 +147,7 @@ public class Distributor_Fragment_Adapter_DistOrder extends RecyclerView.Adapter
 
                 //drawer.closeDrawer(GravityCompat.START);
                     /*((FragmentActivity) v.getContext()).getFragmentManager().beginTransaction()
-                            .replace(R.id.main_container, new Order_Summary())
+                            .add(R.id.main_container, new Order_Summary())
                             .commit();*/
             }
         });

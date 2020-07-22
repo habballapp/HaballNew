@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     tools:context=".Distributor.ui.retailer.RetailerOrder.RetailerOrderDashboard">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -27,6 +28,34 @@
                 android:text="Orders"
                 android:textColor="@color/textcolor"
                 android:textSize="17sp" />
+
+			<RelativeLayout
+				android:id="@+id/btn_place_order"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentEnd="true"
+				android:layout_alignParentRight="true"
+				android:gravity="center_vertical"
+				android:paddingTop="10dp"
+				android:paddingBottom="10dp">
+
+				<ImageView
+					android:id="@+id/image_plus"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginRight="5dp"
+					android:src="@drawable/ic_baseline_add_24" />
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_toRightOf="@+id/image_plus"
+					android:fontFamily="@font/open_sans"
+					android:paddingTop="2dp"
+					android:text="Place Order"
+					android:textColor="@color/textcolor"
+					android:textSize="13sp" />
+			</RelativeLayout>
         </RelativeLayout>
 
         <RelativeLayout
@@ -35,30 +64,30 @@
             android:layout_below="@+id/tv_retailer_order_dashboard"
             android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/btn_place_order"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/button_background"
-                android:text="Place Order"
-                android:textAllCaps="false"
-                android:textColor="#fff"
-                android:fontFamily="@font/open_sans"
-                android:textSize="@dimen/button_text_size" />
+<!--            <Button-->
+<!--                android:id="@+id/btn_place_order"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="45dp"-->
+<!--                android:layout_marginTop="15dp"-->
+<!--                android:background="@drawable/button_background"-->
+<!--                android:text="Place Order"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="#fff"-->
+<!--                android:fontFamily="@font/open_sans"-->
+<!--                android:textSize="@dimen/button_text_size" />-->
 
             <RelativeLayout
                 android:id="@+id/spinner_container_main_inner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/btn_place_order">
+                android:layout_height="wrap_content">
 
                 <RelativeLayout
                     android:id="@+id/spinner_container"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="15dp"
                     android:background="@drawable/edit_text_squared">
+
                     <Spinner
                         android:id="@+id/spinner_conso"
                         android:layout_width="match_parent"
@@ -94,6 +123,7 @@
                         android:dropDownWidth="match_parent"
                         android:background="@null"
                         android:popupBackground="@drawable/spinner_round" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -130,13 +160,9 @@
                             android:paddingRight="10dp"
                             android:textColor="#676a6c"
                             android:textSize="14sp" />
-
                     </com.google.android.material.textfield.TextInputLayout>
-
                 </RelativeLayout>
-
-                <!--        date filter layout-->
-
+                <!-- date filter layout -->
                 <LinearLayout
                     android:id="@+id/date_filter_rl"
                     android:layout_width="match_parent"
@@ -165,7 +191,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="0.25"
-                            android:text="22-12-2020" />
+                            android:text="DD/MM/YYYY" />
 
                         <ImageButton
                             android:id="@+id/first_date_btn"
@@ -188,7 +214,6 @@
                             android:layout_width="2dp"
                             android:layout_height="match_parent"
                             android:layout_centerInParent="true"
-
                             android:background="#676A6C" />
                     </LinearLayout>
 
@@ -210,7 +235,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="0.25"
-                            android:text="22-12-2020" />
+                            android:text="DD/MM/YYYY" />
 
                         <ImageButton
                             android:id="@+id/second_date_btn"
@@ -220,12 +245,9 @@
                             android:background="@android:color/transparent"
                             android:src="@drawable/ic_date_range_black_24dp" />
                     </LinearLayout>
-
                 </LinearLayout>
-                <!--        date filter layout-->
-
-                <!--        amount filter layout-->
-
+                <!-- date filter layout -->
+                <!-- amount filter layout -->
                 <LinearLayout
                     android:id="@+id/amount_filter_rl"
                     android:layout_width="match_parent"
@@ -248,7 +270,6 @@
                         android:paddingRight="5dp"
                         android:paddingBottom="10dp"
                         android:weightSum="2">
-
 
                         <TextView
                             android:layout_width="match_parent"
@@ -316,16 +337,14 @@
                             android:textColorHint="#676A6C"
                             android:textSize="14sp" />
                     </LinearLayout>
-
                 </LinearLayout>
-
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/line_bottom"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/spinner_container_main_inner"
-                />
+                android:layout_below="@+id/spinner_container_main_inner" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -348,18 +367,15 @@
                 android:gravity="center"
                 android:text="No Data Available"
                 android:textSize="@dimen/no_data_available_size" />
-
         </RelativeLayout>
-
-<!--        <Button-->
-<!--            android:id="@+id/btn_load"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="30dp"-->
-<!--            android:layout_alignParentBottom="true"-->
-<!--            android:background="@android:color/transparent"-->
-<!--            android:text="@string/load_more"-->
-<!--            android:textAllCaps="false"-->
-<!--            android:textSize="18sp" />-->
-
-</RelativeLayout>
+        <!-- <Button -->
+        <!-- android:id="@+id/btn_load" -->
+        <!-- android:layout_width="match_parent" -->
+        <!-- android:layout_height="30dp" -->
+        <!-- android:layout_alignParentBottom="true" -->
+        <!-- android:background="@android:color/transparent" -->
+        <!-- android:text="@string/load_more" -->
+        <!-- android:textAllCaps="false" -->
+        <!-- android:textSize="18sp" /> -->
+    </RelativeLayout>
 </RelativeLayout>

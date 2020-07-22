@@ -1,8 +1,11 @@
 package com.haball.Payment;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,12 +17,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,13 +55,16 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
     public ImageButton btn_back;
     private String company_names;
     List<String> CompanyNames = new ArrayList<>();
-    ArrayAdapter<String>   arrayAdapterPayments;
+    ArrayAdapter<String> arrayAdapterPayments;
     private HashMap<String, String> companyNameAndId = new HashMap<>();
+    private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
+    private Activity activity;
 
-      Spinner  spinner ;
+    Spinner spinner;
     private FragmentTransaction fragmentTransaction;
 
-    public DistributorPaymentRequestAdaptor(Context context, List<DistributorPaymentRequestModel> paymentsRequestList) {
+    public DistributorPaymentRequestAdaptor(Activity activity, Context context, List<DistributorPaymentRequestModel> paymentsRequestList) {
+        this.activity = activity;
         this.context = context;
         this.paymentsRequestList = paymentsRequestList;
     }
@@ -69,13 +78,25 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+        if (paymentsRequestList.size() == 3) {
+            if (position == (paymentsRequestList.size() - 1)) {
+//        if (position == 2) {
+                Log.i("DebugSupportFilter_In", paymentsRequestList.get(position).getPrePaidNumber());
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT
+                );
+                params.setMargins(0, 50, 0, 280);
+                holder.main_layout_payment_box.setLayoutParams(params);
+            }
+        }
         holder.tv_state.setVisibility(View.GONE);
         holder.tv_state_value.setVisibility(View.GONE);
         holder.tv_heading.setText(paymentsRequestList.get(position).getCompanyName());
         holder.payment_id_value.setText(paymentsRequestList.get(position).getPrePaidNumber());
         DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
         String yourFormattedString1 = formatter1.format(Integer.parseInt(paymentsRequestList.get(position).getPaidAmount()));
-        holder.amount_value.setText("Rs. " +yourFormattedString1);
+        holder.amount_value.setText("Rs. " + yourFormattedString1);
         if (paymentsRequestList.get(position).getStatus().equals("1"))
             holder.status_value.setText("Paid");
         else
@@ -101,7 +122,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
                                     editor.commit();
 
                                     fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                                    fragmentTransaction.replace(R.id.main_container, new View_Payment_Fragment()).addToBackStack("tag");
+                                    fragmentTransaction.add(R.id.main_container, new View_Payment_Fragment()).addToBackStack("tag");
                                     fragmentTransaction.commit();
                                     break;
                                 case R.id.payment_request_ebay:
@@ -130,7 +151,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
 //                                    editor.commit();
 //
 //                                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                                    fragmentTransaction.replace(R.id.main_container, view_Payment_Fragment);
+//                                    fragmentTransaction.add(R.id.main_container, view_Payment_Fragment);
 //                                    fragmentTransaction.commit();
                                     SharedPreferences PrePaidNumber = context.getSharedPreferences("PrePaidNumber",
                                             Context.MODE_PRIVATE);
@@ -140,10 +161,11 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
                                     editor.putString("CompanyId", paymentsRequestList.get(position).getCompanyId());
                                     editor.putString("CompanyName", paymentsRequestList.get(position).getCompanyName());
                                     editor.putString("Amount", paymentsRequestList.get(position).getPaidAmount());
+                                    editor.putString("MenuItem", "View");
                                     editor.apply();
 
                                     fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                                    fragmentTransaction.replace(R.id.main_container, new PaymentScreen3Fragment()).addToBackStack("tag");
+                                    fragmentTransaction.add(R.id.main_container, new PaymentScreen3Fragment()).addToBackStack("tag");
                                     fragmentTransaction.addToBackStack(null);
                                     fragmentTransaction.commit();
 
@@ -223,15 +245,13 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
                                     SharedPreferences.Editor editorEdit = PrePaidNumberEdit.edit();
                                     editorEdit.putString("PrePaidNumber", paymentsRequestList.get(position).getPrePaidNumber());
                                     editorEdit.putString("PrePaidId", paymentsRequestList.get(position).getID());
-                                    editorEdit.putString("CompanyId", paymentsRequestList.get(position).getCompanyId());
                                     editorEdit.putString("CompanyName", paymentsRequestList.get(position).getCompanyName());
                                     editorEdit.putString("Amount", paymentsRequestList.get(position).getPaidAmount());
+                                    editorEdit.putString("MenuItem", "Edit");
                                     editorEdit.apply();
 
                                     FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-//                                    fragmentTransaction.replace(R.id.main_container, new EditPaymentRequestFragment()).addToBackStack("tag");
-                                    fragmentTransaction.replace(R.id.main_container, new EditPaymentRequestFragment());
-                                    fragmentTransaction.addToBackStack(null);
+                                    fragmentTransaction.add(R.id.main_container, new PaymentScreen3Fragment()).addToBackStack("Tag");
                                     fragmentTransaction.commit();
 
                                     break;
@@ -243,6 +263,19 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
                                     View view_popup2 = inflater2.inflate(R.layout.payment_request_details, null);
                                     alertDialog2.setView(view_popup2);
                                     alertDialog2.show();
+                                    Button btn_view_voucher = view_popup2.findViewById(R.id.btn_view_voucher);
+                                    btn_view_voucher.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            if (checkAndRequestPermissions()) {
+                                                try {
+                                                    viewPDF(context, paymentsRequestList.get(position).getID());
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        }
+                                    });
                                     ImageButton img_close = (ImageButton) view_popup2.findViewById(R.id.image_button_close);
                                     img_close.setOnClickListener(new View.OnClickListener() {
                                         @Override
@@ -296,6 +329,24 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
         });
     }
 
+    private boolean checkAndRequestPermissions() {
+        int permissionRead = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+        int permissionWrite = ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (permissionWrite != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (permissionRead != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(activity, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), REQUEST_ID_MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
+    }
+
     private void viewPDF(Context context, String ID) throws JSONException {
         ViewVoucherRequest viewPDFRequest = new ViewVoucherRequest();
         viewPDFRequest.viewPDF(context, ID);
@@ -308,6 +359,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_heading, payment_id_value, amount_value, status_value, tv_state, tv_state_value;
+        public RelativeLayout main_layout_payment_box;
         public ImageButton menu_btn;
 
         public ViewHolder(@NonNull View itemView) {
@@ -319,6 +371,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
             menu_btn = itemView.findViewById(R.id.menu_btn);
             tv_state = itemView.findViewById(R.id.tv_state);
             tv_state_value = itemView.findViewById(R.id.tv_state_value);
+            main_layout_payment_box = itemView.findViewById(R.id.main_layout_payment_box_retailer);
         }
     }
 

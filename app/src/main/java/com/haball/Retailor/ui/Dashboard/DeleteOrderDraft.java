@@ -57,7 +57,7 @@ public class DeleteOrderDraft {
 //        Log.i("DistributorId ", DistributorId);
         Log.i("Token", Token);
 
-        if(!URL_DELETE_ORDER_DRAFT.contains(orderId))
+        if (!URL_DELETE_ORDER_DRAFT.contains(orderId))
             URL_DELETE_ORDER_DRAFT = URL_DELETE_ORDER_DRAFT + orderId;
 
 //        final Context finalcontext = context;
@@ -106,7 +106,8 @@ public class DeleteOrderDraft {
                         ((FragmentActivity) context).startActivity(login_intent);
                         ((FragmentActivity) context).finish();
                     }
-                });            }
+                });
+            }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {

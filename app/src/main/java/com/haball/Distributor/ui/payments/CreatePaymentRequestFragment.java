@@ -51,10 +51,9 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.CustomToast;
+import com.haball.Distributor.DistributorDashboard;
 import com.haball.Loader;
 import com.haball.R;
-import com.haball.Retailor.RetailorDashboard;
-import com.haball.Retailor.ui.Make_Payment.PaymentScreen3Fragment_Retailer;
 import com.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -235,7 +234,7 @@ public class CreatePaymentRequestFragment extends Fragment {
                         editorOrderTabsFromDraft.putString("TabNo", "0");
                         editorOrderTabsFromDraft.apply();
 
-                        Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                        Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
                         ((FragmentActivity) getContext()).startActivity(login_intent);
                         ((FragmentActivity) getContext()).finish();
                     }
@@ -262,7 +261,7 @@ public class CreatePaymentRequestFragment extends Fragment {
                         editorOrderTabsFromDraft.putString("TabNo", "0");
                         editorOrderTabsFromDraft.apply();
 
-                        Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                        Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
                         ((FragmentActivity) getContext()).startActivity(login_intent);
                         ((FragmentActivity) getContext()).finish();
                     }
@@ -299,7 +298,7 @@ public class CreatePaymentRequestFragment extends Fragment {
                 editorOrderTabsFromDraft.putString("TabNo", "0");
                 editorOrderTabsFromDraft.apply();
 
-                Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
                 ((FragmentActivity) getContext()).startActivity(login_intent);
                 ((FragmentActivity) getContext()).finish();
 
@@ -360,12 +359,16 @@ public class CreatePaymentRequestFragment extends Fragment {
             JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PAYMENT_REQUESTS_SAVE, map, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject result) {
+                loader.hideLoader();
                     try {
                         prepaid_number = result.getString("PrePaidNumber");
                         prepaid_id = result.getString("ID");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
+                    btn_create.setEnabled(true);
+                    btn_create.setBackground(getResources().getDrawable(R.drawable.button_background));
 
                     SharedPreferences PrePaidNumber = getContext().getSharedPreferences("PrePaidNumber",
                             Context.MODE_PRIVATE);
@@ -375,15 +378,13 @@ public class CreatePaymentRequestFragment extends Fragment {
                     editor.putString("CompanyId", companyNameAndId.get(company_names));
                     editor.putString("CompanyName", company_names);
                     editor.putString("Amount", txt_amount.getText().toString());
+                    editor.putString("MenuItem", "Edit");
                     editor.apply();
 
-                    fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.main_container, new PaymentScreen3Fragment());
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+                    showSuccessDialog(prepaid_number);
 
-                    Toast.makeText(getContext(), "Payment Request " + prepaid_number + " has been created successfully.", Toast.LENGTH_SHORT).show();
-                    Log.e("RESPONSE prepaid_number", result.toString());
+                    //                    Toast.makeText(getContext(), "Payment Request " + prepaid_number + " has been created successfully.", Toast.LENGTH_SHORT).show();
+//                    Log.e("RESPONSE prepaid_number", result.toString());
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -409,6 +410,69 @@ public class CreatePaymentRequestFragment extends Fragment {
             new CustomToast().showToast(getActivity(), "Amount cannot be less than PKR 500.");
         }
     }
+
+    private void fetchCompanyData() {
+        loader.showLoader();
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+        Log.i("DistributorId ", DistributorId);
+
+        URL_PAYMENT_REQUESTS_SELECT_COMPANY = URL_PAYMENT_REQUESTS_SELECT_COMPANY + DistributorId;
+        Log.i("URL_PROOF_OF_PAYMENTS ", URL_PAYMENT_REQUESTS_SELECT_COMPANY);
+
+        Log.i("Token", Token);
+
+        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PAYMENT_REQUESTS_SELECT_COMPANY, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray result) {
+                loader.hideLoader();
+                Log.i("aaaaaabb", String.valueOf(result));
+                try {
+                    JSONObject jsonObject = null;
+                    CompanyNames = new ArrayList<>();
+                    CompanyNames.add("Select Company");
+                    companyNameAndId = new HashMap<>();
+                    for (int i = 0; i < result.length(); i++) {
+                        jsonObject = result.getJSONObject(i);
+                        CompanyNames.add(jsonObject.getString("Name"));
+                        companyNameAndId.put(jsonObject.getString("Name"), jsonObject.getString("ID"));
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Log.e("RESPONSE OF COMPANY ID", result.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(getContext()).add(sr);
+        arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapterPayments.notifyDataSetChanged();
+        spinner_company.setAdapter(arrayAdapterPayments);
+    }
+
 
     private void showSuccessDialog(String paymentID) {
 
@@ -449,69 +513,10 @@ public class CreatePaymentRequestFragment extends Fragment {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
+                fragmentTransaction.add(R.id.main_container, new PaymentScreen3Fragment());
                 fragmentTransaction.commit();
             }
         });
-    }
-
-    private void fetchCompanyData() {
-        loader.showLoader();
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token", "");
-
-        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
-        Log.i("DistributorId ", DistributorId);
-
-        URL_PAYMENT_REQUESTS_SELECT_COMPANY = URL_PAYMENT_REQUESTS_SELECT_COMPANY + DistributorId;
-        Log.i("URL_PROOF_OF_PAYMENTS ", URL_PAYMENT_REQUESTS_SELECT_COMPANY);
-
-        Log.i("Token", Token);
-
-        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PAYMENT_REQUESTS_SELECT_COMPANY, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray result) {
-                loader.hideLoader();
-                Log.i("aaaaaabb", String.valueOf(result));
-                try {
-                    JSONObject jsonObject = null;
-                    for (int i = 0; i < result.length(); i++) {
-                        jsonObject = result.getJSONObject(i);
-                        CompanyNames.add(jsonObject.getString("Name"));
-                        companyNameAndId.put(jsonObject.getString("Name"), jsonObject.getString("ID"));
-
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                Log.e("RESPONSE OF COMPANY ID", result.toString());
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
-
-                error.printStackTrace();
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer " + Token);
-                return params;
-            }
-        };
-        sr.setRetryPolicy(new DefaultRetryPolicy(
-                15000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext()).add(sr);
-        arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        arrayAdapterPayments.notifyDataSetChanged();
-        spinner_company.setAdapter(arrayAdapterPayments);
     }
 
 
