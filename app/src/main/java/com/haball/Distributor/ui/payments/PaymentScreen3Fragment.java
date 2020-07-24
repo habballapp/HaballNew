@@ -276,7 +276,7 @@ public class PaymentScreen3Fragment extends Fragment {
             public void onClick(View view) {
                 if (btn_update.getText().equals("Back")) {
                     FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment());
+                    fragmentTransaction.replace(R.id.main_container, new CreatePaymentRequestFragment());
                     fragmentTransaction.commit();
                 } else {
                     showDiscardDialogForCreatePayment();

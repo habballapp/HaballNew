@@ -49,6 +49,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.CustomToast;
+import com.haball.Distributor.DistributorDashboard;
 import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.ProcessingError;
@@ -170,7 +171,7 @@ public class PlaceholderFragment extends Fragment {
                         if (changed) {
                             showDiscardDialog();
                         } else {
-                            Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                            Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
                             ((FragmentActivity) getContext()).startActivity(login_intent);
                             ((FragmentActivity) getContext()).finish();
                         }
@@ -178,12 +179,13 @@ public class PlaceholderFragment extends Fragment {
                     }
                 });
 
-                btn_save_password.setEnabled(false);
-                btn_save_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
                 Remail.setFocusable(false);
                 Rmobile.setFocusable(false);
                 R_Address.setFocusable(false);
+
+                btn_save_password.setEnabled(false);
+                btn_save_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
                 new TextField().changeColor(getContext(), layout_Rcode, Rcode);
                 new TextField().changeColor(getContext(), layout_Rfirstname, Rfirstname);
@@ -377,8 +379,7 @@ public class PlaceholderFragment extends Fragment {
                 layout_password3 = root.findViewById(R.id.layout_password3);
                 update_password = root.findViewById(R.id.update_password);
                 LinearLayout ll_fields1 = root.findViewById(R.id.ll_fields1);
-                update_password.setEnabled(false);
-                update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+
 
                 btn_back = root.findViewById(R.id.btn_back);
 
@@ -404,6 +405,8 @@ public class PlaceholderFragment extends Fragment {
                 new TextField().changeColor(getContext(), layout_password1, txt_newpassword);
                 new TextField().changeColor(getContext(), layout_password3, txt_cfmpassword);
                 new TextField().changeColor(getContext(), layout_password, txt_password);
+                update_password.setEnabled(false);
+                update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
                 update_password.setOnClickListener(new View.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
