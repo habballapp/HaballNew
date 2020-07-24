@@ -33,9 +33,11 @@ import java.util.Map;
 public class StatusKVP {
     private String URL_OrderStatus = "http://175.107.203.97:4013/api/lookup/ORDER_STATUS";
     private String URL_InvoiceStatus = "http://175.107.203.97:4013/api/lookup/INVOICE_STATUS";
+    private String URL_PREPAIDStatus = "http://175.107.203.97:4013/api/lookup/PREPAID_STATUS";
     private String URL_InvoiceState = "http://175.107.203.97:4013/api/lookup/INVOICE_STATE";
     private String URL_Retailer_All_Status = "http://175.107.203.97:4014/api/lookup/null";
     private HashMap<String, String> OrderStatusKVP = new HashMap<>();
+    private HashMap<String, String> PREPAIDStatusKVP = new HashMap<>();
     private HashMap<String, String> InvoiceStatusKVP = new HashMap<>();
     private HashMap<String, String> InvoiceStateKVP = new HashMap<>();
     private HashMap<String, String> RetailerOrderStatusKVP = new HashMap<>();
@@ -70,10 +72,11 @@ public class StatusKVP {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         User_Type = sharedPreferences.getString("User_Type", "");
-        if(User_Type.equals("Distributor")) {
+        if (User_Type.equals("Distributor")) {
             GetOrderStatusDefault();
             GetInvoiceStatusDefault();
-        } else if(User_Type.equals("Retailer")) {
+            GetPrepaidStatusDefault();
+        } else if (User_Type.equals("Retailer")) {
             GetRetailerStatusDefault();
         }
 
@@ -175,6 +178,50 @@ public class StatusKVP {
     public HashMap<String, String> getInvoiceStatus() {
         wait_until_fetched(InvoiceStatusKVP);
         return InvoiceStatusKVP;
+    }
+
+    private void GetPrepaidStatusDefault() {
+        new SSL_HandShake().handleSSLHandshake();
+        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_InvoiceStatus, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray result) {
+                try {
+                    JSONObject jsonObject = null;
+                    for (int i = 0; i < result.length(); i++) {
+                        jsonObject = result.getJSONObject(i);
+                        PREPAIDStatusKVP.put(jsonObject.getString("key"), jsonObject.getString("value"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                new HaballError().printErrorMessage(context, error);
+
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                params.put("Content-Type", "application/json; charset=utf-8");
+                params.put("rightid", "-1");
+                return params;
+            }
+        };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(context).add(sr);
+    }
+
+    public HashMap<String, String> getPrepaidStatus() {
+        wait_until_fetched(PREPAIDStatusKVP);
+        return PREPAIDStatusKVP;
     }
 
     private void GetInvoiceStateDefault() {

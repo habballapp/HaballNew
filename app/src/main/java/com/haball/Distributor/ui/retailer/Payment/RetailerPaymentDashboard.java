@@ -522,7 +522,7 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
                     }.getType();
                     PaymentsList = gson.fromJson(result.getJSONArray("PrePaidRequestData").toString(), type);
 
-                    mAdapter = new PaymentDashboardAdapter(getContext(), PaymentsList);
+                    mAdapter = new PaymentDashboardAdapter(getActivity(), getContext(), PaymentsList);
                     rv_paymentDashBoard.setAdapter(mAdapter);
                     if (PaymentsList.size() != 0) {
                         tv_shipment_no_data.setVisibility(View.GONE);
@@ -608,7 +608,7 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
                     e.printStackTrace();
                 }
 
-                mAdapter = new PaymentDashboardAdapter(getContext(), PaymentsList);
+                mAdapter = new PaymentDashboardAdapter(getActivity(), getContext(), PaymentsList);
                 rv_paymentDashBoard.setAdapter(mAdapter);
 
                 if (PaymentsList.size() != 0) {

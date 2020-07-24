@@ -1,72 +1,28 @@
 package com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrdersModel;
 
 public class RetailerViewOrderProductModel {
-    private String Discount;
-    private String DiscountedAmount;
-    private String OrderedQty;
-    private String PackSize;
-    private String ProductCode;
-    private String ProductId;
-    private String ProductTitle;
-    private String ProductUnitPrice;
-    private String TaxValue;
-    private String Totalamount;
-    private String UOMId;
-    private String UnitOFMeasure;
+    String ProductId;
+    String ProductCode;
+    String ProductName;
+    String OrderQty;
+    String UnitPrice;
+    String Discount;
+    String TotalPrice;
+    String UOM;
+    String TaxValue;
+    String UOMTitle;
 
-    public RetailerViewOrderProductModel(String discount, String discountedAmount, String orderedQty, String packSize, String productCode, String productId, String productTitle, String productUnitPrice, String taxValue, String totalamount, String UOMId, String unitOFMeasure) {
-        Discount = discount;
-        DiscountedAmount = discountedAmount;
-        OrderedQty = orderedQty;
-        PackSize = packSize;
-        ProductCode = productCode;
+    public RetailerViewOrderProductModel(String productId, String productCode, String productName, String orderQty, String unitPrice, String discount, String totalPrice, String UOM, String taxValue, String UOMTitle) {
         ProductId = productId;
-        ProductTitle = productTitle;
-        ProductUnitPrice = productUnitPrice;
-        TaxValue = taxValue;
-        Totalamount = totalamount;
-        this.UOMId = UOMId;
-        UnitOFMeasure = unitOFMeasure;
-    }
-
-    public String getDiscount() {
-        return Discount;
-    }
-
-    public void setDiscount(String discount) {
-        Discount = discount;
-    }
-
-    public String getDiscountedAmount() {
-        return DiscountedAmount;
-    }
-
-    public void setDiscountedAmount(String discountedAmount) {
-        DiscountedAmount = discountedAmount;
-    }
-
-    public String getOrderedQty() {
-        return OrderedQty;
-    }
-
-    public void setOrderedQty(String orderedQty) {
-        OrderedQty = orderedQty;
-    }
-
-    public String getPackSize() {
-        return PackSize;
-    }
-
-    public void setPackSize(String packSize) {
-        PackSize = packSize;
-    }
-
-    public String getProductCode() {
-        return ProductCode;
-    }
-
-    public void setProductCode(String productCode) {
         ProductCode = productCode;
+        ProductName = productName;
+        OrderQty = orderQty;
+        UnitPrice = unitPrice;
+        Discount = discount;
+        TotalPrice = totalPrice;
+        this.UOM = UOM;
+        TaxValue = taxValue;
+        this.UOMTitle = UOMTitle;
     }
 
     public String getProductId() {
@@ -77,20 +33,60 @@ public class RetailerViewOrderProductModel {
         ProductId = productId;
     }
 
-    public String getProductTitle() {
-        return ProductTitle;
+    public String getProductCode() {
+        return ProductCode;
     }
 
-    public void setProductTitle(String productTitle) {
-        ProductTitle = productTitle;
+    public void setProductCode(String productCode) {
+        ProductCode = productCode;
     }
 
-    public String getProductUnitPrice() {
-        return ProductUnitPrice;
+    public String getProductName() {
+        return ProductName;
     }
 
-    public void setProductUnitPrice(String productUnitPrice) {
-        ProductUnitPrice = productUnitPrice;
+    public void setProductName(String productName) {
+        ProductName = productName;
+    }
+
+    public String getOrderQty() {
+        return OrderQty;
+    }
+
+    public void setOrderQty(String orderQty) {
+        OrderQty = orderQty;
+    }
+
+    public String getUnitPrice() {
+        return UnitPrice;
+    }
+
+    public void setUnitPrice(String unitPrice) {
+        UnitPrice = unitPrice;
+    }
+
+    public String getDiscount() {
+        return Discount;
+    }
+
+    public void setDiscount(String discount) {
+        Discount = discount;
+    }
+
+    public String getTotalPrice() {
+        return TotalPrice;
+    }
+
+    public void setTotalPrice(String totalPrice) {
+        TotalPrice = totalPrice;
+    }
+
+    public String getUOM() {
+        return UOM;
+    }
+
+    public void setUOM(String UOM) {
+        this.UOM = UOM;
     }
 
     public String getTaxValue() {
@@ -101,27 +97,11 @@ public class RetailerViewOrderProductModel {
         TaxValue = taxValue;
     }
 
-    public String getTotalamount() {
-        return Totalamount;
+    public String getUOMTitle() {
+        return UOMTitle;
     }
 
-    public void setTotalamount(String totalamount) {
-        Totalamount = totalamount;
-    }
-
-    public String getUOMId() {
-        return UOMId;
-    }
-
-    public void setUOMId(String UOMId) {
-        this.UOMId = UOMId;
-    }
-
-    public String getUnitOFMeasure() {
-        return UnitOFMeasure;
-    }
-
-    public void setUnitOFMeasure(String unitOFMeasure) {
-        UnitOFMeasure = unitOFMeasure;
+    public void setUOMTitle(String UOMTitle) {
+        this.UOMTitle = UOMTitle;
     }
 }

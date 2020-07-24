@@ -1,4 +1,4 @@
-package com.haball.Distributor.ui.retailer.RetailerOrder.ui.main;
+package com.haball.Distributor.ui.retailer.RetailerPayment.ui.main;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -9,10 +9,16 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -28,6 +34,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -47,26 +54,25 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.textfield.TextInputLayout;
 import com.haball.CustomToast;
 import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.StatusKVP;
 import com.haball.Distributor.ui.payments.CreatePaymentRequestFragment;
-import com.haball.Distributor.ui.payments.ViewPDFRequest;
-import com.haball.Distributor.ui.payments.ViewVoucherRequest;
 import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrdersAdapter.RetailerViewOrderProductAdapter;
 import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrdersModel.RetailerViewOrderProductModel;
+import com.haball.Distributor.ui.retailer.ViewInvoiceReceipt;
+import com.haball.Distributor.ui.retailer.ViewInvoiceVoucher;
 import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.ProcessingError;
 import com.haball.R;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.haball.Retailor.ui.Make_Payment.ViewInvoiceReceipt;
-import com.haball.Retailor.ui.Make_Payment.ViewInvoiceVoucher;
 import com.haball.SSL_HandShake;
 import com.haball.TextField;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -83,36 +89,23 @@ import java.util.Map;
 
 public class PlaceholderFragment extends Fragment {
 
-    //    private static final String ARG_SECTION_NUMBER = "section_number";
-//    private String orderID;
-    private String URL_Order_Data = "http://175.107.203.97:4013/api/retailerorder/";
-    //    private PageViewModel pageViewModel;
-//    private TextInputEditText txt_orderID, txt_company_order, txt_created_date_order, txt_status_order, txt_comments;
-//    private TextInputEditText txt_companyName, txt_paymentID, txt_created_date, txt_confirm, txt_bank, txt_authorization_id, txt_settlement_id, txt_status, txt_amount, txt_transaction_charges, txt_total_amount;
-//    private RecyclerView rv_fragment_retailer_order_details;
-//    private TextView tv_shipment_no_data;
-//    private RecyclerView.Adapter rv_productAdapter;
-//    private RecyclerView.LayoutManager layoutManager;
-//    private List<RetailerViewOrderProductModel> invo_productList = new ArrayList<>();
-    private String Token;
-    private String DistributorId;
-
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private String orderID, InvoiceStatus, invoiceID;
+    private String paymentId, InvoiceStatus;
+    private String URL_Payment_Data = "http://175.107.203.97:4013/api/retailerinvoice/";
     private PageViewModel pageViewModel;
     private TextInputLayout layout_txt_orderID, layout_txt_order_company, layout_txt_created_date_order, layout_txt_status_order, layout_txt_comments,
             layout_txt_companName, layout_txt_paymentID, layout_txt_created_date, layout_transaction_date,
             layout_txt_bank, layout_txt_authorization_id, layout_txt_settlement_id, layout_txt_status,
             layout_txt_amount, layout_txt_transaction_charges, layout_txt_total_amount;
     private TextInputEditText txt_orderID, txt_company_order, txt_created_date_order, txt_status_order, txt_comments;
-    private TextView discount, Rs_discount;
     private TextInputEditText txt_companyName, txt_paymentID, txt_created_date, txt_confirm, txt_bank, txt_authorization_id, txt_settlement_id, txt_status, txt_amount, txt_transaction_charges, txt_total_amount;
     private RecyclerView rv_fragment_retailer_order_details;
     private TextView tv_shipment_no_data;
     private RecyclerView.Adapter rv_productAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private List<RetailerViewOrderProductModel> invo_productList = new ArrayList<>();
-    private HashMap<String, String> RetailerOrderStatusKVP = new HashMap<>();
+    private String Token;
+    private HashMap<String, String> PREPAIDStatusKVP = new HashMap<>();
     private StatusKVP StatusKVPClass;
     private TextView discount_amount;
     private TextView total_amount, disclaimer_tv;
@@ -120,8 +113,8 @@ public class PlaceholderFragment extends Fragment {
     private FragmentTransaction fragmentTransaction;
 
     private TextView tv_banking_channel, payment_id, btn_newpayment;
-    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4013/api/company/ReadActiveCompanyContract/";
-    private String PrePaidNumber = "", PrePaidId = "", CompanyName = "", Amount = "", CompanyId = "", MenuItem = "";
+//    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4014/api/prepaidrequests/GetByRetailerCode";
+    private String PrePaidNumber = "", PrePaidId = "", RetailerCompanyName = "", Amount = "", CompanyId = "", MenuItem = "";
     private Button btn_voucher, btn_update, btn_back;
     private Spinner spinner_companyName;
     private HashMap<String, String> companyNameAndId = new HashMap<>();
@@ -130,10 +123,12 @@ public class PlaceholderFragment extends Fragment {
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
     private String company_names;
     private Typeface myFont;
-    private Loader loader;
     private RelativeLayout ln_login;
+    private TextView discount, Rs_discount;
+    private Loader loader;
+    //    private String DistributorId;
+    // private TextInputLayout layout_txt_created_date, layout_transaction_date, layout_txt_bank, layout_txt_authorization_id, layout_txt_settlement_id, layout_txt_status, layout_txt_amount, layout_txt_transaction_charges, layout_txt_total_amount;
     private RelativeLayout rl_jazz_cash;
-
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -153,117 +148,30 @@ public class PlaceholderFragment extends Fragment {
         }
         pageViewModel.setIndex(index);
     }
-//
-//    @Override
-//    public View onCreateView(
-//            @NonNull LayoutInflater inflater, ViewGroup container,
-//            Bundle savedInstanceState) {
-//        SharedPreferences sharedPreferences3 = getContext().getSharedPreferences("OrderId",
-//                Context.MODE_PRIVATE);
-//
-//
-//        orderID = sharedPreferences3.getString("OrderId", "");
-//        Log.i("OrderId", orderID);
-//        if (!URL_Order_Data.contains(orderID)) {
-//            URL_Order_Data = URL_Order_Data + orderID;
-//            Log.i("URL_Order_Data", URL_Order_Data);
-//        }
-//        View rootView = null;
-//        switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
-//            case 1: {
-//                rootView = inflater.inflate(R.layout.fragment_retailer_orders_tab, container, false);
-//                txt_orderID = rootView.findViewById(R.id.txt_orderID);
-//                txt_company_order = rootView.findViewById(R.id.txt_company_order);
-//                txt_created_date_order = rootView.findViewById(R.id.txt_created_date_order);
-//                txt_status_order = rootView.findViewById(R.id.txt_status_order);
-//                txt_comments = rootView.findViewById(R.id.txt_comments);
-//
-//                txt_orderID.setEnabled(false);
-//                txt_company_order.setEnabled(false);
-//                txt_created_date_order.setEnabled(false);
-//                txt_status_order.setEnabled(false);
-//                txt_comments.setEnabled(false);
-//
-//                getOrderData();
-//                break;
-//            }
-//            case 2: {
-//                rootView = inflater.inflate(R.layout.fragment_retailer_orders_details_tab, container, false);
-//                rv_fragment_retailer_order_details = rootView.findViewById(R.id.rv_fragment_retailer_order_details);
-//                rv_fragment_retailer_order_details.setHasFixedSize(true);
-//                layoutManager = new LinearLayoutManager(rootView.getContext());
-//                rv_fragment_retailer_order_details.setLayoutManager(layoutManager);
-//
-//
-//                getOrderDetailsData(rootView);
-//                break;
-//            }
-//            case 3: {
-//                rootView = inflater.inflate(R.layout.fragment_retailer_payment_tab, container, false);
-//                txt_companyName = rootView.findViewById(R.id.txt_companyName);
-//                txt_paymentID = rootView.findViewById(R.id.txt_paymentID);
-//                txt_created_date = rootView.findViewById(R.id.txt_created_date);
-//                txt_confirm = rootView.findViewById(R.id.txt_confirm);
-//                txt_bank = rootView.findViewById(R.id.txt_bank);
-//                txt_authorization_id = rootView.findViewById(R.id.txt_authorization_id);
-//                txt_settlement_id = rootView.findViewById(R.id.txt_settlement_id);
-//                txt_status = rootView.findViewById(R.id.txt_status);
-//                txt_amount = rootView.findViewById(R.id.txt_amount);
-//                txt_transaction_charges = rootView.findViewById(R.id.txt_transaction_charges);
-//                txt_total_amount = rootView.findViewById(R.id.txt_total_amount);
-//
-//                txt_companyName.setEnabled(false);
-//                txt_paymentID.setEnabled(false);
-//                txt_created_date.setEnabled(false);
-//                txt_confirm.setEnabled(false);
-//                txt_bank.setEnabled(false);
-//                txt_authorization_id.setEnabled(false);
-//                txt_settlement_id.setEnabled(false);
-//                txt_status.setEnabled(false);
-//                txt_amount.setEnabled(false);
-//                txt_transaction_charges.setEnabled(false);
-//                txt_total_amount.setEnabled(false);
-//
-//
-//                getPaymentData();
-//                break;
-//            }
-//        }
-//        return rootView;
-//    }
-
 
     @Override
     public View onCreateView(
-            @NonNull final LayoutInflater inflater, final ViewGroup container,
+            @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        SharedPreferences sharedPreferences3 = getContext().getSharedPreferences("OrderId",
+        SharedPreferences sharedPreferences3 = getContext().getSharedPreferences("PaymentId",
                 Context.MODE_PRIVATE);
 
 
-        orderID = sharedPreferences3.getString("OrderId", "");
-        Log.i("OrderId", orderID);
-        if (!URL_Order_Data.contains(orderID)) {
-            URL_Order_Data = URL_Order_Data + orderID;
-            Log.i("URL_Order_Data", URL_Order_Data);
+        paymentId = sharedPreferences3.getString("PaymentId", "");
+        Log.i("paymentId", paymentId);
+        if (!URL_Payment_Data.contains(paymentId)) {
+            URL_Payment_Data = URL_Payment_Data + paymentId;
+            Log.i("URL_Payment_Data", URL_Payment_Data);
         }
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
-        DistributorId = sharedPreferences.getString("Distributor_Id", "");
 
         StatusKVPClass = new StatusKVP(getContext(), Token);
-        RetailerOrderStatusKVP = StatusKVPClass.getRetailerOrderStatusKVP();
-        SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
-        editorOrderTabsFromDraft.putString("TabNo", "1");
-        editorOrderTabsFromDraft.apply();
-
+        PREPAIDStatusKVP = StatusKVPClass.getPrepaidStatus();
         View rootView = null;
         switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
-            case 1: {
-                loader = new Loader(getContext());
+            case 2: {
                 rootView = inflater.inflate(R.layout.fragment_retailer_orders_tab, container, false);
 
                 layout_txt_orderID = rootView.findViewById(R.id.layout_txt_orderID);
@@ -290,23 +198,24 @@ public class PlaceholderFragment extends Fragment {
                 txt_status_order.setEnabled(false);
                 txt_comments.setEnabled(false);
 
+
                 button_back.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 //                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                        fragmentTransaction.add(R.id.main_container, new Dashboard_Tab());
 //                        fragmentTransaction.commit();
-
                         Intent login_intent = new Intent(getContext(), DistributorDashboard.class);
                         startActivity(login_intent);
                         getActivity().finish();
                     }
                 });
 
+
                 getOrderData();
                 break;
             }
-            case 2: {
+            case 3: {
                 rootView = inflater.inflate(R.layout.fragment_retailer_orders_details_tab, container, false);
                 rv_fragment_retailer_order_details = rootView.findViewById(R.id.rv_fragment_retailer_order_details);
                 total_amount = rootView.findViewById(R.id.total_amount);
@@ -315,19 +224,18 @@ public class PlaceholderFragment extends Fragment {
                 rv_fragment_retailer_order_details.setLayoutManager(layoutManager);
                 disclaimer_tv = rootView.findViewById(R.id.disclaimer_tv);
                 button_back = rootView.findViewById(R.id.button_back);
-                discount = rootView.findViewById(R.id.discount);
                 Rs_discount = rootView.findViewById(R.id.Rs_discount);
+                discount = rootView.findViewById(R.id.discount);
                 discount_amount = rootView.findViewById(R.id.discount_amount);
 
 
-                SharedPreferences sharedPreferences1 = getContext().getSharedPreferences("OrderId",
+                SharedPreferences sharedPreferences1 = getContext().getSharedPreferences("PaymentId",
                         Context.MODE_PRIVATE);
                 InvoiceStatus = sharedPreferences1.getString("InvoiceStatus", "");
-                String Status = sharedPreferences1.getString("RetailerOrderStatusValue", "");
                 Log.i("InvoiceStatus", InvoiceStatus);
 
 //        SectionsPagerAdapter sectionsPagerAdapter = null;
-                if ((!InvoiceStatus.equals("null") && !InvoiceStatus.equals("Pending")) || Status.equals("Cancelled")) {
+                if (!InvoiceStatus.equals("null") && !InvoiceStatus.equals("Pending")) {
                     disclaimer_tv.setVisibility(View.GONE);
                 }
 
@@ -347,13 +255,17 @@ public class PlaceholderFragment extends Fragment {
                 getOrderDetailsData(rootView);
                 break;
             }
-            case 3: {
+            case 1: {
+                loader = new Loader(getContext());
 
-                SharedPreferences sharedPreferences1 = getContext().getSharedPreferences("OrderId",
+                SharedPreferences sharedPreferences1 = getContext().getSharedPreferences("PaymentId",
                         Context.MODE_PRIVATE);
                 InvoiceStatus = sharedPreferences1.getString("InvoiceStatus", "");
+                String ReferenceNumber = sharedPreferences1.getString("ReferenceNumber", "");
                 Log.i("InvoiceStatus", InvoiceStatus);
-                if (InvoiceStatus.equals("Paid")) {
+
+//        SectionsPagerAdapter sectionsPagerAdapter = null;
+                if (InvoiceStatus.equals("Paid") || InvoiceStatus.equals("Pending") || ReferenceNumber.equals("null")) {
 
                     rootView = inflater.inflate(R.layout.fragment_retailer_payment_tab, container, false);
                     layout_txt_companName = rootView.findViewById(R.id.layout_txt_companName);
@@ -417,20 +329,6 @@ public class PlaceholderFragment extends Fragment {
                     txt_transaction_charges.setEnabled(false);
                     txt_total_amount.setEnabled(false);
 
-                    button_view_receipt.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (checkAndRequestPermissions()) {
-                                try {
-                                    viewReceiptPDF(getContext(), invoiceID);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                        }
-                    });
-
                     button_back.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -443,8 +341,22 @@ public class PlaceholderFragment extends Fragment {
                         }
                     });
 
+                    button_view_receipt.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (checkAndRequestPermissions()) {
+                                try {
+                                    viewReceiptPDF(getContext(), paymentId);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    });
+
                     getPaidInvoiceData();
-                } else if (InvoiceStatus.equals("Un-Paid") || InvoiceStatus.equals("Payment Processing") || InvoiceStatus.equals("Cancelled") || InvoiceStatus.equals("Pending")) {
+//                } else if (InvoiceStatus.equals("Un-Paid")) {
+                } else if (InvoiceStatus.equals("Un-Paid") || InvoiceStatus.equals("Payment Processing") || InvoiceStatus.equals("Cancelled")) {
 //                    rootView = inflater.inflate(R.layout.activity_payment__screen3, container, false);
 
 
@@ -467,60 +379,38 @@ public class PlaceholderFragment extends Fragment {
 
                     rl_jazz_cash.setVisibility(View.GONE);
 
-                    new TextField().changeColor(getContext(), layout_txt_amount, txt_amount);
-
-                    getUnPaidInvoiceData();
-
                     payment_id.setOnLongClickListener(new View.OnLongClickListener() {
                         @Override
                         public boolean onLongClick(View v) {
                             ClipboardManager cm = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
                             cm.setText(payment_id.getText());
-//                            new CustomToast().showToast(getActivity(), "Payment ID: " + String.valueOf(payment_id.getText()) + " - Copied to clipboard");
+//                            Toast.makeText(getContext(), "Payment ID: " + String.valueOf(payment_id.getText()) + " - Copied to clipboard", Toast.LENGTH_SHORT).show();
+//                            Toast toast = Toast.makeText(getContext(), "Payment ID: " + String.valueOf(payment_id.getText()) + " - Copied to clipboard", Toast.LENGTH_LONG);
+////                    toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, 0);
+//                            toast.setGravity(Gravity.TOP | Gravity.START | Gravity.END, 0, 200);
+////                            toast.setGravity(Gravity.TOP, 0, 200);
+//                            toast.show();
+
                             new CustomToast().showToast(getActivity(), "PSID has been copied to clipboard");
+
+
                             return false;
                         }
                     });
 
-                    company_names = "";
+
+                    new TextField().changeColor(getContext(), layout_txt_amount, txt_amount);
 
                     txt_amount.setEnabled(false);
                     spinner_companyName.setEnabled(false);
                     spinner_companyName.setClickable(false);
-
-                    arrayAdapterPayments = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, CompanyNames) {
-                        @Override
-                        public View getDropDownView(int position, View convertView, ViewGroup parent) {
-                            // TODO Auto-generated method stub
-                            View view = super.getView(position, convertView, parent);
-                            TextView text = (TextView) view.findViewById(android.R.id.text1);
-                            text.setTextColor(getResources().getColor(R.color.text_color_selection));
-                            text.setTextSize((float) 13.6);
-                            text.setPadding(50, 0, 50, 0);
-                            text.setTypeface(myFont);
-                            return view;
-                        }
-
-                        @Override
-                        public View getView(int position, View convertView, ViewGroup parent) {
-                            // TODO Auto-generated method stub
-                            View view = super.getView(position, convertView, parent);
-                            TextView text = (TextView) view.findViewById(android.R.id.text1);
-                            text.setTextColor(getResources().getColor(R.color.text_color_selection));
-                            text.setTextSize((float) 13.6);
-                            text.setPadding(50, 0, 50, 0);
-                            return view;
-                        }
-                    };
-
-                    spinner_companyName.setAdapter(arrayAdapterPayments);
 
 
                     btn_newpayment.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.add(R.id.main_container, new CreatePaymentRequestFragment());
+                            fragmentTransaction.replace(R.id.main_container, new CreatePaymentRequestFragment());
                             fragmentTransaction.commit();
                         }
                     });
@@ -541,7 +431,7 @@ public class PlaceholderFragment extends Fragment {
                             ((FragmentActivity) getContext()).finish();
 
 //                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.add(R.id.main_container, new EditPaymentRequestFragment());
+//                fragmentTransaction.replace(R.id.main_container, new EditPaymentRequestFragment());
 //                fragmentTransaction.commit();
 
                         }
@@ -552,7 +442,7 @@ public class PlaceholderFragment extends Fragment {
                         public void onClick(View view) {
                             if (checkAndRequestPermissions()) {
                                 try {
-                                    viewPDF(getContext(), invoiceID);
+                                    viewPDF(getContext(), PrePaidId);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -579,7 +469,7 @@ public class PlaceholderFragment extends Fragment {
                                 public void onClick(View v) {
                                     if (checkAndRequestPermissions()) {
                                         try {
-                                            viewPDF(getContext(), invoiceID);
+                                            viewPDF(getContext(), PrePaidId);
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
@@ -595,6 +485,7 @@ public class PlaceholderFragment extends Fragment {
                             });
                         }
                     });
+                    getUnPaidInvoiceData();
 
                 }
 
@@ -604,14 +495,14 @@ public class PlaceholderFragment extends Fragment {
         return rootView;
     }
 
-    private void viewReceiptPDF(Context context, String ID) throws JSONException {
-        ViewPDFRequest viewPDFRequest = new ViewPDFRequest();
-        viewPDFRequest.viewPDF_Invoice(context, ID);
+    private void viewPDF(Context context, String ID) throws JSONException {
+        ViewInvoiceVoucher viewPDFRequest = new ViewInvoiceVoucher();
+        viewPDFRequest.viewPDF(context, ID);
     }
 
-    private void viewPDF(Context context, String ID) throws JSONException {
-        ViewVoucherRequest viewPDFRequest = new ViewVoucherRequest();
-        viewPDFRequest.viewPDF_Invoice(context, ID);
+    private void viewReceiptPDF(Context context, String ID) throws JSONException {
+        ViewInvoiceReceipt viewPDFRequest = new ViewInvoiceReceipt();
+        viewPDFRequest.viewPDF(context, ID);
     }
 
     private boolean checkAndRequestPermissions() {
@@ -632,173 +523,23 @@ public class PlaceholderFragment extends Fragment {
         return true;
     }
 
-//
-//    private void getOrderData() {
-//        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
-//                Context.MODE_PRIVATE);
-//        Token = sharedPreferences.getString("Login_Token", "");
-//
-//        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
-//                Context.MODE_PRIVATE);
-//        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
-//        Log.i("DistributorId invoice", DistributorId);
-//        Log.i("Token invoice", Token);
-//        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Order_Data, null, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                Log.i("Order Data response", String.valueOf(response));
-//                try {
-//                    txt_orderID.setText(String.valueOf(response.get("RetailerOrderNumber")));
-//                    txt_company_order.setText(String.valueOf(response.get("RetailerCompanyName")));
-//                    txt_created_date_order.setText(String.valueOf(response.get("RetailerRetailerOrderCreatedDate")).split("T")[0]);
-//                    txt_status_order.setText(String.valueOf(response.get("RetailerOrderStatusValue")));
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//        },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        printErrorMessage(error);
-//
-//                    }
-//                }) {
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                Map<String, String> params = new HashMap<String, String>();
-//                params.put("Authorization", "bearer " + Token);
-//                return params;
-//            }
-//        };
-//        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-//                15000,
-//                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-//                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-//        Volley.newRequestQueue(getContext()).add(stringRequest);
-//
-//    }
-//
-//    private void getOrderDetailsData(View rootView) {
-//        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
-//                Context.MODE_PRIVATE);
-//        Token = sharedPreferences.getString("Login_Token", "");
-//
-//        tv_shipment_no_data = rootView.findViewById(R.id.tv_shipment_no_data);
-//        tv_shipment_no_data.setVisibility(View.GONE);
-//
-//        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
-//                Context.MODE_PRIVATE);
-//        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
-//        Log.i("DistributorId invoice", DistributorId);
-//        Log.i("Token invoice", Token);
-//        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Order_Data, null, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                Gson gson = new Gson();
-//                Type type = new TypeToken<List<RetailerViewOrderProductModel>>() {
-//                }.getType();
-//                try {
-//                    invo_productList = gson.fromJson(response.get("OrderDetails").toString(), type);
-//                    Log.i("OrderDetails", String.valueOf(response.get("OrderDetails")));
-//                    RetailerViewOrderProductAdapter productAdapter = new RetailerViewOrderProductAdapter(getContext(), invo_productList);
-//                    rv_fragment_retailer_order_details.setAdapter(productAdapter);
-//                    if (invo_productList.size() != 0) {
-//                        tv_shipment_no_data.setVisibility(View.GONE);
-//                    } else {
-//                        tv_shipment_no_data.setVisibility(View.VISIBLE);
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//        },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        printErrorMessage(error);
-//
-//                    }
-//                }) {
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                Map<String, String> params = new HashMap<String, String>();
-//                params.put("Authorization", "bearer " + Token);
-//                return params;
-//            }
-//        };
-//        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-//                15000,
-//                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-//                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-//        Volley.newRequestQueue(getContext()).add(stringRequest);
-//
-//    }
-//
-//    private void getPaymentData() {
-//        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
-//                Context.MODE_PRIVATE);
-//        Token = sharedPreferences.getString("Login_Token", "");
-//
-//        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
-//                Context.MODE_PRIVATE);
-//        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
-//        Log.i("DistributorId invoice", DistributorId);
-//        Log.i("Token invoice", Token);
-//        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Order_Data, null, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                Log.i("Order Data response2", String.valueOf(response));
-//                try {
-//                    txt_companyName.setText(String.valueOf(response.get("RetailerCompanyName")));
-//                    txt_paymentID.setText(String.valueOf(response.get("RetailerInvoiceNumber")));
-//                    txt_created_date.setText(String.valueOf(response.get("RetailerInvoiceCreateDate")));
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//        },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        printErrorMessage(error);
-//
-//                    }
-//                }) {
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                Map<String, String> params = new HashMap<String, String>();
-//                params.put("Authorization", "bearer " + Token);
-//                return params;
-//            }
-//        };
-//        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-//                15000,
-//                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-//                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-//        Volley.newRequestQueue(getContext()).add(stringRequest);
-//
-//    }
-
     private void getOrderData() {
-        loader.showLoader();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
-
+        if (!URL_Payment_Data.contains("/" + paymentId)) {
+            URL_Payment_Data = URL_Payment_Data + paymentId;
+            Log.i("URL_Payment_Data", URL_Payment_Data);
+        }
 //        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
 //                Context.MODE_PRIVATE);
 //        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
 //        Log.i("DistributorId invoice", DistributorId);
         Log.i("Token invoice", Token);
         new SSL_HandShake().handleSSLHandshake();
-        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Order_Data, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Payment_Data, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                loader.hideLoader();
                 Log.i("Order Data response", String.valueOf(response));
                 try {
                     if (!String.valueOf(response.get("RetailerOrderNumber")).equals("") && !String.valueOf(response.get("RetailerOrderNumber")).equals("null"))
@@ -807,8 +548,8 @@ public class PlaceholderFragment extends Fragment {
                         txt_company_order.setText(String.valueOf(response.get("RetailerCompanyName")));
                     if (!String.valueOf(response.get("RetailerOrderCreatedDate")).equals("") && !String.valueOf(response.get("RetailerOrderCreatedDate")).equals("null"))
                         txt_created_date_order.setText(String.valueOf(response.get("RetailerOrderCreatedDate")).split("T")[0]);
-                    if (!String.valueOf(response.get("RetailerOrderStatusValue")).equals("") && !String.valueOf(response.get("RetailerOrderStatusValue")).equals("null"))
-                        txt_status_order.setText(String.valueOf(response.get("RetailerOrderStatusValue")));
+                    if (!String.valueOf(response.get("OrderStatus")).equals("") && !String.valueOf(response.get("OrderStatus")).equals("null"))
+                        txt_status_order.setText(String.valueOf(response.get("OrderStatus")));
 
                     if (!String.valueOf(response.get("RetailerOrderNumber")).equals("") && !String.valueOf(response.get("RetailerOrderNumber")).equals("null"))
                         txt_orderID.setTextColor(getResources().getColor(R.color.textcolor));
@@ -816,7 +557,7 @@ public class PlaceholderFragment extends Fragment {
                         txt_company_order.setTextColor(getResources().getColor(R.color.textcolor));
                     if (!String.valueOf(response.get("RetailerOrderCreatedDate")).equals("") && !String.valueOf(response.get("RetailerOrderCreatedDate")).equals("null"))
                         txt_created_date_order.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("RetailerOrderStatusValue")).equals("") && !String.valueOf(response.get("RetailerOrderStatusValue")).equals("null"))
+                    if (!String.valueOf(response.get("OrderStatus")).equals("") && !String.valueOf(response.get("OrderStatus")).equals("null"))
                         txt_status_order.setTextColor(getResources().getColor(R.color.textcolor));
 
                 } catch (JSONException e) {
@@ -828,8 +569,6 @@ public class PlaceholderFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        loader.hideLoader();
-                        new ProcessingError().showError(getContext());
                         new HaballError().printErrorMessage(getContext(), error);
 
                     }
@@ -856,15 +595,20 @@ public class PlaceholderFragment extends Fragment {
 
         tv_shipment_no_data = rootView.findViewById(R.id.tv_shipment_no_data);
         tv_shipment_no_data.setVisibility(View.GONE);
+        if (!URL_Payment_Data.contains("/" + paymentId)) {
+            URL_Payment_Data = URL_Payment_Data + paymentId;
+            Log.i("URL_Payment_Data", URL_Payment_Data);
+        }
         new SSL_HandShake().handleSSLHandshake();
 
-        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Order_Data, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Payment_Data, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<RetailerViewOrderProductModel>>() {
                 }.getType();
                 try {
+//                    JSONObject OrderPaymentDetails = response.getJSONObject("Invoice");
                     double totalPrice = 0;
                     double totalDiscount = 0;
                     invo_productList = gson.fromJson(response.get("OrderDetails").toString(), type);
@@ -895,7 +639,6 @@ public class PlaceholderFragment extends Fragment {
                         String OrderTotalDiscount = formatter1.format(totalDiscount);
                         discount_amount.setText(OrderTotalDiscount);
                     }
-
                     if (invo_productList.size() != 0) {
                         tv_shipment_no_data.setVisibility(View.GONE);
                     } else {
@@ -929,13 +672,127 @@ public class PlaceholderFragment extends Fragment {
 
     }
 
-    private void getUnPaidInvoiceData() {
+    private void getPaidInvoiceData() {
+        loader.showLoader();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
-        if (!URL_Order_Data.contains("/" + orderID)) {
-            URL_Order_Data = URL_Order_Data + orderID;
-            Log.i("URL_Payment_Data", URL_Order_Data);
+//        if (!URL_Payment_Data.contains("/" + paymentId)) {
+//            URL_Payment_Data = URL_Payment_Data + paymentId;
+//            Log.i("URL_Payment_Data", URL_Payment_Data);
+//        }
+//        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+//                Context.MODE_PRIVATE);
+//        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+//        Log.i("DistributorId invoice", DistributorId);
+        Log.i("Token invoice12", Token);
+        new SSL_HandShake().handleSSLHandshake();
+
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Payment_Data, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                loader.hideLoader();
+                Log.i("Order Data response2", String.valueOf(response));
+                try {
+                    txt_companyName.setText(String.valueOf(response.get("RetailerCompanyName")));
+                    if (!String.valueOf(response.get("RetailerCompanyName")).equals("") && !String.valueOf(response.get("RetailerCompanyName")).equals("null"))
+                        txt_companyName.setTextColor(getResources().getColor(R.color.textcolor));
+                    if (!String.valueOf(response.get("PaymentID")).equals("") && !String.valueOf(response.get("PaymentID")).equals("null"))
+                        txt_paymentID.setTextColor(getResources().getColor(R.color.textcolor));
+                    txt_paymentID.setText(String.valueOf(response.get("PaymentID")));
+                    if (response.has("PaymentCreatedDate")) {
+                        setTextAndShowDate(layout_txt_created_date, txt_created_date, String.valueOf(response.get("PaymentCreatedDate")).split("T")[0]);
+                        if (!String.valueOf(response.get("PaymentCreatedDate")).split("T")[0].equals("") && !String.valueOf(response.get("PaymentCreatedDate")).split("T")[0].equals("null"))
+                            txt_created_date.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+                    if (response.has("Amount")) {
+//                        setTextAndShow(layout_txt_amount, txt_amount, String.valueOf(response.get("Amount")));
+                        DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
+                        String Formatted_TotalAmount = formatter1.format(Double.parseDouble(response.getString("Amount")));
+                        setTextAndShow(layout_txt_amount, txt_amount, Formatted_TotalAmount);
+                        if (!String.valueOf(response.get("Amount")).equals("") && !String.valueOf(response.get("Amount")).equals("null"))
+                            txt_amount.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+                    if (response.has("Status")) {
+                        setTextAndShow(layout_txt_status, txt_status, String.valueOf(response.getString("Status")));
+                        if (!String.valueOf(response.get("Status")).equals("") && !String.valueOf(response.get("Status")).equals("null"))
+                            txt_status.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+                    if (response.has("PaymentTransactionDate")) {
+                        setTextAndShow(layout_transaction_date, txt_confirm, String.valueOf(response.getString("PaymentTransactionDate")).split("T")[0]);
+                        if (!String.valueOf(response.get("PaymentTransactionDate")).equals("") && !String.valueOf(response.get("PaymentTransactionDate")).equals("null"))
+                            txt_confirm.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+                    if (response.has("BankName")) {
+                        setTextAndShow(layout_txt_bank, txt_bank, String.valueOf(response.getString("BankName")));
+                        if (!String.valueOf(response.get("BankName")).equals("") && !String.valueOf(response.get("BankName")).equals("null"))
+                            txt_bank.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+                    if (response.has("AuthorizationID")) {
+                        setTextAndShow(layout_txt_authorization_id, txt_authorization_id, String.valueOf(response.getString("AuthorizationID")));
+                        if (!String.valueOf(response.get("AuthorizationID")).equals("") && !String.valueOf(response.get("AuthorizationID")).equals("null"))
+                            txt_authorization_id.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+                    if (response.has("SettlementID")) {
+                        setTextAndShow(layout_txt_settlement_id, txt_settlement_id, String.valueOf(response.getString("SettlementID")));
+                        if (!String.valueOf(response.get("SettlementID")).equals("") && !String.valueOf(response.get("SettlementID")).equals("null"))
+                            txt_settlement_id.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+                    if (response.has("TotalAmount")) {
+//                        setTextAndShow(layout_txt_total_amount, txt_total_amount, String.valueOf(response.getString("TotalAmount")));
+                        DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
+                        String Formatted_TotalAmount = formatter1.format(Double.parseDouble(response.getString("TotalAmount")));
+                        setTextAndShow(layout_txt_total_amount, txt_total_amount, Formatted_TotalAmount);
+                        if (!String.valueOf(response.get("TotalAmount")).equals("") && !String.valueOf(response.get("TotalAmount")).equals("null"))
+                            txt_total_amount.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+                    if (response.has("TransactionCharges")) {
+                        setTextAndShow(layout_txt_transaction_charges, txt_transaction_charges, String.valueOf(response.getString("TransactionCharges")));
+                        if (!String.valueOf(response.get("TransactionCharges")).equals("") && !String.valueOf(response.get("TransactionCharges")).equals("null"))
+                            txt_transaction_charges.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+
+                    PrePaidId = paymentId;
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loader.hideLoader();
+                        new ProcessingError().showError(getContext());
+                        new HaballError().printErrorMessage(getContext(), error);
+
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(getContext()).add(stringRequest);
+
+    }
+
+    private void getUnPaidInvoiceData() {
+        loader.showLoader();
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+        if (!URL_Payment_Data.contains("/" + paymentId)) {
+            URL_Payment_Data = URL_Payment_Data + paymentId;
+            Log.i("URL_Payment_Data", URL_Payment_Data);
         }
 //        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
 //                Context.MODE_PRIVATE);
@@ -943,16 +800,22 @@ public class PlaceholderFragment extends Fragment {
 //        Log.i("DistributorId invoice", DistributorId);
         Log.i("Token invoice12", Token);
         new SSL_HandShake().handleSSLHandshake();
-        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Order_Data, null, new Response.Listener<JSONObject>() {
+
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Payment_Data, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                loader.hideLoader();
                 Log.i("Order Data_UnPaid", String.valueOf(response));
                 try {
-                    invoiceID = response.getString("RetailerInvoiceId");
-                    CompanyName = String.valueOf(response.get("RetailerCompanyName"));
-//                    spinner_companyName.setSelection(CompanyNames.indexOf(CompanyName));
+                    RetailerCompanyName = String.valueOf(response.get("RetailerCompanyName"));
 
-                    CompanyNames.add(CompanyName);
+                    CompanyNames.add(RetailerCompanyName);
+                    company_names = "";
+
+                    txt_amount.setEnabled(false);
+                    spinner_companyName.setEnabled(false);
+                    spinner_companyName.setClickable(false);
+
                     arrayAdapterPayments = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, CompanyNames) {
                         @Override
                         public View getDropDownView(int position, View convertView, ViewGroup parent) {
@@ -980,13 +843,12 @@ public class PlaceholderFragment extends Fragment {
 
                     spinner_companyName.setAdapter(arrayAdapterPayments);
 
-
                     PrePaidNumber = String.valueOf(response.get("PaymentID"));
-                    Amount = String.valueOf(response.get("RetailerPaymentAmount"));
+                    Amount = String.valueOf(response.get("Amount"));
                     txt_amount.setText(Amount);
                     payment_id.setText(PrePaidNumber);
-//                    PrePaidId = String.valueOf(response.get("InvoiceTotalAmount"));
-                    if (!String.valueOf(response.get("RetailerPaymentAmount")).equals("") && !String.valueOf(response.get("RetailerPaymentAmount")).equals("null"))
+                    PrePaidId = paymentId;
+                    if (!String.valueOf(response.get("Amount")).equals("") && !String.valueOf(response.get("Amount")).equals("null"))
                         txt_amount.setTextColor(getResources().getColor(R.color.textcolor));
 
                 } catch (JSONException e) {
@@ -998,94 +860,8 @@ public class PlaceholderFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        new HaballError().printErrorMessage(getContext(), error);
-
-                    }
-                }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer " + Token);
-                return params;
-            }
-        };
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                15000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext()).add(stringRequest);
-
-    }
-
-    private void getPaidInvoiceData() {
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token", "");
-
-//        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
-//                Context.MODE_PRIVATE);
-//        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
-        new SSL_HandShake().handleSSLHandshake();
-//        Log.i("DistributorId invoice", DistributorId);
-        Log.i("Token invoice12", Token);
-        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Order_Data, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject result) {
-                Log.i("Order Data response2", String.valueOf(result));
-                try {
-                    JSONObject response = result.getJSONObject("OrderPaymentDetails");
-                    invoiceID = response.getString("InvoiceID");
-                    txt_companyName.setText(String.valueOf(response.get("RetailerCompanyName")));
-                    txt_paymentID.setText(String.valueOf(response.get("InvoiceNumber")));
-                    setTextAndShowDate(layout_txt_created_date, txt_created_date, String.valueOf(response.get("InvoiceCreatedDate")).split("T")[0]);
-//                    setTextAndShow(layout_txt_amount, txt_amount, String.valueOf(response.get("InvoiceTotalAmount")));
-                    DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
-                    String Formatted_TotalAmount = formatter1.format(Double.parseDouble(response.getString("InvoiceTotalAmount")));
-                    setTextAndShow(layout_txt_amount, txt_amount, Formatted_TotalAmount);
-
-                    setTextAndShow(layout_txt_status, txt_status, String.valueOf(response.getString("InvoiceStatus")));
-                    setTextAndShow(layout_transaction_date, txt_confirm, String.valueOf(response.getString("TransactionDate")).split("T")[0]);
-                    setTextAndShow(layout_txt_bank, txt_bank, String.valueOf(response.getString("BankName")));
-                    setTextAndShow(layout_txt_authorization_id, txt_authorization_id, String.valueOf(response.getString("AuthID")));
-                    setTextAndShow(layout_txt_settlement_id, txt_settlement_id, String.valueOf(response.getString("SettlementID")));
-//                    setTextAndShow(layout_txt_total_amount, txt_total_amount, String.valueOf(response.getString("TotalAmount")));
-                    Formatted_TotalAmount = formatter1.format(Double.parseDouble(response.getString("TotalAmount")));
-                    setTextAndShow(layout_txt_total_amount, txt_total_amount, Formatted_TotalAmount);
-
-                    setTextAndShow(layout_txt_transaction_charges, txt_transaction_charges, String.valueOf(response.getString("TransactionCharges")));
-
-                    if (!String.valueOf(response.get("RetailerCompanyName")).equals("") && !String.valueOf(response.get("RetailerCompanyName")).equals("null"))
-                        txt_companyName.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("InvoiceNumber")).equals("") && !String.valueOf(response.get("InvoiceNumber")).equals("null"))
-                        txt_paymentID.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("InvoiceCreatedDate")).split("T")[0].equals("") && !String.valueOf(response.get("InvoiceCreatedDate")).split("T")[0].equals("null"))
-                        txt_created_date.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("TransactionDate")).equals("") && !String.valueOf(response.get("TransactionDate")).equals("null"))
-                        txt_confirm.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("BankName")).equals("") && !String.valueOf(response.get("BankName")).equals("null"))
-                        txt_bank.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("AuthID")).equals("") && !String.valueOf(response.get("AuthID")).equals("null"))
-                        txt_authorization_id.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("SettlementID")).equals("") && !String.valueOf(response.get("SettlementID")).equals("null"))
-                        txt_settlement_id.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("InvoiceStatus")).equals("") && !String.valueOf(response.get("InvoiceStatus")).equals("null"))
-                        txt_status.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("InvoiceTotalAmount")).equals("") && !String.valueOf(response.get("InvoiceTotalAmount")).equals("null"))
-                        txt_amount.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("TransactionCharges")).equals("") && !String.valueOf(response.get("TransactionCharges")).equals("null"))
-                        txt_transaction_charges.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("TotalAmount")).equals("") && !String.valueOf(response.get("TotalAmount")).equals("null"))
-                        txt_total_amount.setTextColor(getResources().getColor(R.color.textcolor));
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
+                        loader.hideLoader();
+                        new ProcessingError().showError(getContext());
                         new HaballError().printErrorMessage(getContext(), error);
 
                     }
@@ -1119,42 +895,41 @@ public class PlaceholderFragment extends Fragment {
         }
     }
 
+    // private void printErrorMessage(VolleyError error) {
+    //     if (getContext() != null) {
+    //         if (error instanceof NetworkError) {
+    //             Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+    //         } else if (error instanceof ServerError) {
+    //             Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+    //         } else if (error instanceof AuthFailureError) {
+    //             Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+    //         } else if (error instanceof ParseError) {
+    //             Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+    //         } else if (error instanceof NoConnectionError) {
+    //             Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+    //         } else if (error instanceof TimeoutError) {
+    //             Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+    //         }
 
-    private void printErrorMessage(VolleyError error) {
-        if (getContext() != null) {
-            if (error instanceof NetworkError) {
-                Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
-            } else if (error instanceof ServerError) {
-                Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
-            } else if (error instanceof AuthFailureError) {
-                Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
-            } else if (error instanceof ParseError) {
-                Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
-            } else if (error instanceof NoConnectionError) {
-                Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
-            } else if (error instanceof TimeoutError) {
-                Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
-            }
-
-            if (error.networkResponse != null && error.networkResponse.data != null) {
-                try {
-                    String message = "";
-                    String responseBody = new String(error.networkResponse.data, "utf-8");
-                    Log.i("responseBody", responseBody);
-                    JSONObject data = new JSONObject(responseBody);
-                    Log.i("data", String.valueOf(data));
-                    Iterator<String> keys = data.keys();
-                    while (keys.hasNext()) {
-                        String key = keys.next();
-                        message = message + data.get(key) + "\n";
-                    }
-                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
+    //         if (error.networkResponse != null && error.networkResponse.data != null) {
+    //             try {
+    //                 String message = "";
+    //                 String responseBody = new String(error.networkResponse.data, "utf-8");
+    //                 Log.i("responseBody", responseBody);
+    //                 JSONObject data = new JSONObject(responseBody);
+    //                 Log.i("data", String.valueOf(data));
+    //                 Iterator<String> keys = data.keys();
+    //                 while (keys.hasNext()) {
+    //                     String key = keys.next();
+    //                     message = message + data.get(key) + "\n";
+    //                 }
+    //                 Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+    //             } catch (UnsupportedEncodingException e) {
+    //                 e.printStackTrace();
+    //             } catch (JSONException e) {
+    //                 e.printStackTrace();
+    //             }
+    //         }
+    //     }
+    // }
 }

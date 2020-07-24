@@ -1,4 +1,4 @@
-package com.haball.Retailor.ui.Dashboard;
+package com.haball.Distributor.ui.retailer.Payment;
 
 import android.app.Dialog;
 import android.content.Context;

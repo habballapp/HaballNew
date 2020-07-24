@@ -195,7 +195,7 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
                         });
                         popup.show();
 
-                    } else if (paymentsList.get(position).getStatus().equals("Paid") || paymentsList.get(position).getStatus().equals("Payment Processing") || paymentsList.get(position).getStatus().equals("Cancelled")) {
+                    } else if (paymentsList.get(position).getStatus().equals("Pending") || paymentsList.get(position).getStatus().equals("Paid") || paymentsList.get(position).getStatus().equals("Payment Processing") || paymentsList.get(position).getStatus().equals("Cancelled")) {
                         Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
                         final PopupMenu popup = new PopupMenu(wrapper, view);
                         MenuInflater inflater = popup.getMenuInflater();
