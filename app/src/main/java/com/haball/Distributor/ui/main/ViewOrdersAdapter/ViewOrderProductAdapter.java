@@ -23,7 +23,6 @@ import android.view.ViewTreeObserver;
 import android.view.animation.LinearInterpolator;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,12 +59,6 @@ public class ViewOrderProductAdapter extends RecyclerView.Adapter<ViewOrderProdu
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull final ViewOrderProductAdapter.ViewHolder holder, int position) {
-
-        SharedPreferences sharedPreferences1 = context.getSharedPreferences("OrderId",
-                Context.MODE_PRIVATE);
-        String InvoiceStatus = sharedPreferences1.getString("InvoiceStatus", "null");
-        Log.i("InvoiceStatus", InvoiceStatus);
-
         holder.txt_products.setText(OrdersList.get(position).getProductName());
         holder.product_code.setText("Product Code:\u00A0");
         SpannableString ss1 = new SpannableString(OrdersList.get(position).getProductCode());

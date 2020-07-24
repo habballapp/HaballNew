@@ -99,7 +99,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private String URL_DISTRIBUTOR_ORDERS_COUNT = "http://175.107.203.97:4013/api/orders/searchCount";
     private String URL_PAYMENT_LEDGER_COMPANY = "http://175.107.203.97:4013/api/company/ReadActiveCompanyContract/";
 
-    private TextView value_unpaid_amount, value_paid_amount;
+    private TextView tv_select_company, value_unpaid_amount, value_paid_amount;
     private List<DistributorPaymentRequestModel> PaymentsRequestList = new ArrayList<>();
     private List<DistributorOrdersModel> OrdersList = new ArrayList<>();
     private String Token, DistributorId;
@@ -313,6 +313,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 orderFragmentTask(rootView);
                 context = getContext();
                 loader = new Loader(context);
+                rv_filter = rootView.findViewById(R.id.rv_filter);
                 recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_fragment_orders);
                 spinner_container_main = rootView.findViewById(R.id.spinner_container_main);
 
@@ -427,6 +428,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 loader = new Loader(context);
                 rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
                 spinner_criteria = rootView.findViewById(R.id.spinner_criteria);
+                tv_select_company = rootView.findViewById(R.id.tv_select_company);
                 rl_overView = rootView.findViewById(R.id.rl_overView);
                 value_unpaid_amount = rootView.findViewById(R.id.value_unpaid_amount);
                 value_paid_amount = rootView.findViewById(R.id.value_paid_amount);
@@ -469,7 +471,9 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                             } catch (NullPointerException e) {
                                 e.printStackTrace();
                             }
+                            tv_select_company.setVisibility(View.VISIBLE);
                         } else {
+                            tv_select_company.setVisibility(View.GONE);
                             try {
                                 ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                                 ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
@@ -731,10 +735,11 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         consolidate_felter.add("Select Criteria");
         consolidate_felter.add("Payment ID");
         consolidate_felter.add("Company");
-        consolidate_felter.add("Transaction Date");
-        consolidate_felter.add("Created Date");
-        consolidate_felter.add("Amount");
+//        consolidate_felter.add("Transaction Date");
+//        consolidate_felter.add("Created Date");
+        consolidate_felter.add("Date");
         consolidate_felter.add("Status");
+        consolidate_felter.add("Amount");
 
         arrayAdapterPayments = new ArrayAdapter<String>(rootView.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, consolidate_felter) {
@@ -772,6 +777,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 amount_filter_rl.setVisibility(View.GONE);
                 search_rl.setVisibility(View.GONE);
 
+                spinner2.setSelection(0);
+                conso_edittext.setText("");
+                et_amount1.setText("");
+                et_amount2.setText("");
+                first_date.setText("DD/MM/YYYY");
+                second_date.setText("DD/MM/YYYY");
 
                 if (i == 0) {
                     try {
@@ -800,10 +811,6 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 //                if (i > 0) {
                     Filter_selected = consolidate_felter.get(i);
 
-                    if (!Filter_selected.equals("Status"))
-                        spinner2.setSelection(0);
-                    if (!conso_edittext.getText().equals(""))
-                        conso_edittext.setText("");
 
                     if (Filter_selected.equals("Payment ID")) {
                         search_bar.setHint("Search by " + Filter_selected);
@@ -815,7 +822,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         Filter_selected = "CompanyName";
                         conso_edittext.setVisibility(View.VISIBLE);
                         search_rl.setVisibility(View.VISIBLE);
-                    } else if (Filter_selected.equals("Transaction Date")) {
+                    } else if (Filter_selected.equals("Date")) {
                         date_filter_rl.setVisibility(View.VISIBLE);
                         Filter_selected = "date";
                         Filter_selected1 = "PrepaidDateFrom";
@@ -1211,10 +1218,10 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         consolidate_felter.add("Select Criteria");
         consolidate_felter.add("Order No");
         consolidate_felter.add("Company");
-        consolidate_felter.add("Payment Term");
-        consolidate_felter.add("Created Date");
-        consolidate_felter.add("Amount");
+//        consolidate_felter.add("Payment Term");
+        consolidate_felter.add("Date");
         consolidate_felter.add("Status");
+        consolidate_felter.add("Amount");
 
         arrayAdapterPayments = new ArrayAdapter<String>(rootView.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, consolidate_felter) {
@@ -1251,6 +1258,13 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 date_filter_rl.setVisibility(View.GONE);
                 amount_filter_rl.setVisibility(View.GONE);
                 search_rl.setVisibility(View.GONE);
+
+                spinner2.setSelection(0);
+                conso_edittext.setText("");
+                et_amount1.setText("");
+                et_amount2.setText("");
+                first_date.setText("DD/MM/YYYY");
+                second_date.setText("DD/MM/YYYY");
 
                 if (i == 0) {
                     try {
@@ -1328,7 +1342,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
                         spinner2.setAdapter(arrayAdapterFeltter);
                         spinner_container1.setVisibility(View.VISIBLE);
-                    } else if (Filter_selected.equals("Created Date")) {
+                    } else if (Filter_selected.equals("Date")) {
                         date_filter_rl.setVisibility(View.VISIBLE);
 //                        Toast.makeText(getContext(), "Created Date selected", Toast.LENGTH_LONG).show();
                         Filter_selected = "date";

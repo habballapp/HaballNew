@@ -151,6 +151,7 @@
         android:layout_toRightOf="@+id/separator_2"
         android:stateListAnimator="@null"
         android:text="Shipped Qty: "
+        android:fontFamily="@font/open_sans"
         android:textSize="@dimen/rv_box_text_size" />
 
     <TextView

@@ -199,6 +199,24 @@
 
 
                     <Button
+                        android:id="@+id/btn_receive"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:background="@drawable/button_round"
+                        android:fontFamily="@font/open_sans"
+                        android:layout_marginLeft="27dp"
+                        android:layout_marginRight="27dp"
+                        android:layout_marginBottom="20dp"
+                        android:gravity="center"
+                        android:stateListAnimator="@null"
+                        android:text="Receive"
+                        android:textAllCaps="false"
+                        android:visibility="gone"
+                        android:textColor="#fff"
+                        android:textSize="@dimen/button_text_size"
+                        app:elevation="0dp" />
+
+                    <Button
                         android:id="@+id/btn_back"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"

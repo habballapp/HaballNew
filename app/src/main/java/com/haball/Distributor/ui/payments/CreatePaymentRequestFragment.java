@@ -112,30 +112,6 @@ public class CreatePaymentRequestFragment extends Fragment {
 //        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
 //                android.R.layout.simple_spinner_dropdown_item, CompanyNames);
 
-        arrayAdapterPayments = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, CompanyNames) {
-            @Override
-            public View getDropDownView(int position, View convertView, ViewGroup parent) {
-                // TODO Auto-generated method stub
-                View view = super.getView(position, convertView, parent);
-                TextView text = (TextView) view.findViewById(android.R.id.text1);
-                text.setTextColor(getResources().getColor(R.color.text_color_selection));
-                text.setTextSize((float) 13.6);
-                text.setPadding(30, 0, 30, 0);
-                text.setTypeface(myFont);
-                return view;
-            }
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                // TODO Auto-generated method stub
-                View view = super.getView(position, convertView, parent);
-                TextView text = (TextView) view.findViewById(android.R.id.text1);
-                text.setTextColor(getResources().getColor(R.color.text_color_selection));
-                text.setTextSize((float) 13.6);
-                text.setPadding(30, 0, 30, 0);
-                return view;
-            }
-        };
 
 
         spinner_company.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -217,7 +193,7 @@ public class CreatePaymentRequestFragment extends Fragment {
     public void onResume() {
         super.onResume();
         final String txt_amounts = txt_amount.getText().toString();
-        final String company = (String) spinner_company.getItemAtPosition(spinner_company.getSelectedItemPosition()).toString();
+        final String company = String.valueOf(spinner_company.getItemAtPosition(spinner_company.getSelectedItemPosition()));
         final FragmentManager fm = getActivity().getSupportFragmentManager();
 
         txt_amount.setOnKeyListener(new View.OnKeyListener() {
@@ -443,6 +419,32 @@ public class CreatePaymentRequestFragment extends Fragment {
                         companyNameAndId.put(jsonObject.getString("Name"), jsonObject.getString("ID"));
 
                     }
+                    arrayAdapterPayments = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, CompanyNames) {
+                        @Override
+                        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                            // TODO Auto-generated method stub
+                            View view = super.getView(position, convertView, parent);
+                            TextView text = (TextView) view.findViewById(android.R.id.text1);
+                            text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                            text.setTextSize((float) 13.6);
+                            text.setPadding(30, 0, 30, 0);
+                            text.setTypeface(myFont);
+                            return view;
+                        }
+
+                        @Override
+                        public View getView(int position, View convertView, ViewGroup parent) {
+                            // TODO Auto-generated method stub
+                            View view = super.getView(position, convertView, parent);
+                            TextView text = (TextView) view.findViewById(android.R.id.text1);
+                            text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                            text.setTextSize((float) 13.6);
+                            text.setPadding(30, 0, 30, 0);
+                            return view;
+                        }
+                    };
+                    spinner_company.setAdapter(arrayAdapterPayments);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -468,9 +470,6 @@ public class CreatePaymentRequestFragment extends Fragment {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
-        arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        arrayAdapterPayments.notifyDataSetChanged();
-        spinner_company.setAdapter(arrayAdapterPayments);
     }
 
 

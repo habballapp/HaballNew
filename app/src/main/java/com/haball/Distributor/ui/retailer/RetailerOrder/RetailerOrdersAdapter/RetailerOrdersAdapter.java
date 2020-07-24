@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -31,6 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -182,9 +182,9 @@ public class RetailerOrdersAdapter extends RecyclerView.Adapter<RetailerOrdersAd
         editor.putString("OrderId", OrdersList.get(finalPosition).getOrderId());
         editor.putString("Status", OrdersList.get(finalPosition).getOrderStatus());
         editor.putString("InvoiceUpload", String.valueOf(OrdersList.get(finalPosition).getInvoiceReferenceNumber()));
-        Log.i("InvoiceStatusKVP65432", OrdersList.get(finalPosition).getInvoiceStatus());
-        Log.i("InvoiceStatusKVP65432", String.valueOf(InvoiceStatusKVP));
-        Log.i("InvoiceStatusKVP65432", "" + InvoiceStatusKVP.get(OrdersList.get(finalPosition).getInvoiceStatus()));
+//        Log.i("InvoiceStatusKVP65432", OrdersList.get(finalPosition).getInvoiceStatus());
+//        Log.i("InvoiceStatusKVP65432", String.valueOf(InvoiceStatusKVP));
+//        Log.i("InvoiceStatusKVP65432", "" + InvoiceStatusKVP.get(OrdersList.get(finalPosition).getInvoiceStatus()));
         editor.putString("InvoiceStatus", String.valueOf(InvoiceStatusKVP.get(OrdersList.get(finalPosition).getInvoiceStatus())));
         editor.commit();
 

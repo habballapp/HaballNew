@@ -1,84 +1,66 @@
 package com.haball.Payment;
 
 public class DistributorPaymentRequestModel {
-    String ID;
-    String PrePaidNumber;
-    String PaidAmount;
-    String PaidDate;
-    String DistributorId;
-    String CompanyId;
-    String ReferenceID;
-    String Status;
-    String IsTransmitted;
-    String CreatedBy;
-    String CreatedDate;
-    String LastChangedBy;
-    String LastChangedDate;
-    String State;
-    String CompanyName;
-    String employeesName;
-    String DistributorName;
-    String PrepaidStatusValue;
+    private String BankIMD;
+    private String CompanyCNIC;
+    private String CompanyId;
+    private String CompanyName;
+    private String CreatedBy;
+    private String CreatedDate;
+    private String DistributorCNIC;
+    private String DistributorId;
+    private String DistributorName;
+    private String ID;
+    private String IsTransmitted;
+    private String LastChangedBy;
+    private String LastChangedDate;
+    private String PaidAmount;
+    private String PaidDate;
+    private String PrePaidNumber;
+    private String PrepaidStatusValue;
+    private String ReferenceID;
+    private String State;
+    private String Status;
+    private String employeesName;
 
-    public DistributorPaymentRequestModel(String ID, String prePaidNumber, String paidAmount, String paidDate, String distributorId, String companyId, String referenceID, String status, String isTransmitted, String createdBy, String createdDate, String lastChangedBy, String lastChangedDate, String state, String companyName, String employeesName, String distributorName, String prepaidStatusValue) {
-        this.ID = ID;
-        PrePaidNumber = prePaidNumber;
-        PaidAmount = paidAmount;
-        PaidDate = paidDate;
-        DistributorId = distributorId;
+    public DistributorPaymentRequestModel(String bankIMD, String companyCNIC, String companyId, String companyName, String createdBy, String createdDate, String distributorCNIC, String distributorId, String distributorName, String ID, String isTransmitted, String lastChangedBy, String lastChangedDate, String paidAmount, String paidDate, String prePaidNumber, String prepaidStatusValue, String referenceID, String state, String status, String employeesName) {
+        BankIMD = bankIMD;
+        CompanyCNIC = companyCNIC;
         CompanyId = companyId;
-        ReferenceID = referenceID;
-        Status = status;
-        IsTransmitted = isTransmitted;
+        CompanyName = companyName;
         CreatedBy = createdBy;
         CreatedDate = createdDate;
+        DistributorCNIC = distributorCNIC;
+        DistributorId = distributorId;
+        DistributorName = distributorName;
+        this.ID = ID;
+        IsTransmitted = isTransmitted;
         LastChangedBy = lastChangedBy;
         LastChangedDate = lastChangedDate;
-        State = state;
-        CompanyName = companyName;
-        this.employeesName = employeesName;
-        DistributorName = distributorName;
-        PrepaidStatusValue = prepaidStatusValue;
-    }
-
-    public String getID() {
-        return ID;
-    }
-
-    public void setID(String ID) {
-        this.ID = ID;
-    }
-
-    public String getPrePaidNumber() {
-        return PrePaidNumber;
-    }
-
-    public void setPrePaidNumber(String prePaidNumber) {
-        PrePaidNumber = prePaidNumber;
-    }
-
-    public String getPaidAmount() {
-        return PaidAmount;
-    }
-
-    public void setPaidAmount(String paidAmount) {
         PaidAmount = paidAmount;
-    }
-
-    public String getPaidDate() {
-        return PaidDate;
-    }
-
-    public void setPaidDate(String paidDate) {
         PaidDate = paidDate;
+        PrePaidNumber = prePaidNumber;
+        PrepaidStatusValue = prepaidStatusValue;
+        ReferenceID = referenceID;
+        State = state;
+        Status = status;
+        this.employeesName = employeesName;
     }
 
-    public String getDistributorId() {
-        return DistributorId;
+    public String getBankIMD() {
+        return BankIMD;
     }
 
-    public void setDistributorId(String distributorId) {
-        DistributorId = distributorId;
+    public void setBankIMD(String bankIMD) {
+        BankIMD = bankIMD;
+    }
+
+    public String getCompanyCNIC() {
+        return CompanyCNIC;
+    }
+
+    public void setCompanyCNIC(String companyCNIC) {
+        CompanyCNIC = companyCNIC;
     }
 
     public String getCompanyId() {
@@ -89,28 +71,12 @@ public class DistributorPaymentRequestModel {
         CompanyId = companyId;
     }
 
-    public String getReferenceID() {
-        return ReferenceID;
+    public String getCompanyName() {
+        return CompanyName;
     }
 
-    public void setReferenceID(String referenceID) {
-        ReferenceID = referenceID;
-    }
-
-    public String getStatus() {
-        return Status;
-    }
-
-    public void setStatus(String status) {
-        Status = status;
-    }
-
-    public String getIsTransmitted() {
-        return IsTransmitted;
-    }
-
-    public void setIsTransmitted(String isTransmitted) {
-        IsTransmitted = isTransmitted;
+    public void setCompanyName(String companyName) {
+        CompanyName = companyName;
     }
 
     public String getCreatedBy() {
@@ -129,6 +95,46 @@ public class DistributorPaymentRequestModel {
         CreatedDate = createdDate;
     }
 
+    public String getDistributorCNIC() {
+        return DistributorCNIC;
+    }
+
+    public void setDistributorCNIC(String distributorCNIC) {
+        DistributorCNIC = distributorCNIC;
+    }
+
+    public String getDistributorId() {
+        return DistributorId;
+    }
+
+    public void setDistributorId(String distributorId) {
+        DistributorId = distributorId;
+    }
+
+    public String getDistributorName() {
+        return DistributorName;
+    }
+
+    public void setDistributorName(String distributorName) {
+        DistributorName = distributorName;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public String getIsTransmitted() {
+        return IsTransmitted;
+    }
+
+    public void setIsTransmitted(String isTransmitted) {
+        IsTransmitted = isTransmitted;
+    }
+
     public String getLastChangedBy() {
         return LastChangedBy;
     }
@@ -145,36 +151,28 @@ public class DistributorPaymentRequestModel {
         LastChangedDate = lastChangedDate;
     }
 
-    public String getState() {
-        return State;
+    public String getPaidAmount() {
+        return PaidAmount;
     }
 
-    public void setState(String state) {
-        State = state;
+    public void setPaidAmount(String paidAmount) {
+        PaidAmount = paidAmount;
     }
 
-    public String getCompanyName() {
-        return CompanyName;
+    public String getPaidDate() {
+        return PaidDate;
     }
 
-    public void setCompanyName(String companyName) {
-        CompanyName = companyName;
+    public void setPaidDate(String paidDate) {
+        PaidDate = paidDate;
     }
 
-    public String getEmployeesName() {
-        return employeesName;
+    public String getPrePaidNumber() {
+        return PrePaidNumber;
     }
 
-    public void setEmployeesName(String employeesName) {
-        this.employeesName = employeesName;
-    }
-
-    public String getDistributorName() {
-        return DistributorName;
-    }
-
-    public void setDistributorName(String distributorName) {
-        DistributorName = distributorName;
+    public void setPrePaidNumber(String prePaidNumber) {
+        PrePaidNumber = prePaidNumber;
     }
 
     public String getPrepaidStatusValue() {
@@ -183,5 +181,37 @@ public class DistributorPaymentRequestModel {
 
     public void setPrepaidStatusValue(String prepaidStatusValue) {
         PrepaidStatusValue = prepaidStatusValue;
+    }
+
+    public String getReferenceID() {
+        return ReferenceID;
+    }
+
+    public void setReferenceID(String referenceID) {
+        ReferenceID = referenceID;
+    }
+
+    public String getState() {
+        return State;
+    }
+
+    public void setState(String state) {
+        State = state;
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
+    }
+
+    public String getEmployeesName() {
+        return employeesName;
+    }
+
+    public void setEmployeesName(String employeesName) {
+        this.employeesName = employeesName;
     }
 }

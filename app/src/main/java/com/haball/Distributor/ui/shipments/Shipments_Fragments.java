@@ -166,7 +166,7 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
         consolidate_felter.add("Company");
         consolidate_felter.add("Shipment Date");
         consolidate_felter.add("Receiving Date");
-        consolidate_felter.add("Quantity");
+//        consolidate_felter.add("Quantity");
         consolidate_felter.add("Status");
         arrayAdapterPayments = new ArrayAdapter<String>(root.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, consolidate_felter) {
@@ -203,6 +203,12 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
                 date_filter_rl.setVisibility(View.GONE);
                 amount_filter_rl.setVisibility(View.GONE);
                 search_rl.setVisibility(View.GONE);
+
+                spinner2.setSelection(0);
+                conso_edittext.setText("");
+                first_date.setText("DD/MM/YYYY");
+                second_date.setText("DD/MM/YYYY");
+
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));

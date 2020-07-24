@@ -161,11 +161,11 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
         conso_edittext.setVisibility(View.GONE);
         consolidate_felter = new ArrayList<>();
         consolidate_felter.add("Select Criteria");
-        consolidate_felter.add("Payment ID");
+//        consolidate_felter.add("Payment ID");
         consolidate_felter.add("Company");
-        consolidate_felter.add("Created Date");
-        consolidate_felter.add("Amount");
+        consolidate_felter.add("Date");
         consolidate_felter.add("Status");
+        consolidate_felter.add("Amount");
 
         arrayAdapterPayments = new ArrayAdapter<String>(rootView.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, consolidate_felter) {
@@ -202,6 +202,13 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
                 date_filter_rl.setVisibility(View.GONE);
                 amount_filter_rl.setVisibility(View.GONE);
                 search_rl.setVisibility(View.GONE);
+
+                spinner2.setSelection(0);
+                conso_edittext.setText("");
+                et_amount1.setText("");
+                et_amount2.setText("");
+                first_date.setText("DD/MM/YYYY");
+                second_date.setText("DD/MM/YYYY");
 
                 if (i == 0) {
                     try {
@@ -242,7 +249,7 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
                         Filter_selected = "CompanyName";
                         conso_edittext.setVisibility(View.VISIBLE);
                         search_rl.setVisibility(View.VISIBLE);
-                    } else if (Filter_selected.equals("Created Date")) {
+                    } else if (Filter_selected.equals("Date")) {
                         date_filter_rl.setVisibility(View.VISIBLE);
                         Filter_selected = "date";
                         Filter_selected1 = "DateTo";

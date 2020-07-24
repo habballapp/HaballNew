@@ -34,6 +34,16 @@
             android:src="@drawable/ic_arrow_drop_down_black_24dp"
             android:theme="@style/Spinner" />
     </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_select_company"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/open_sans"
+            android:layout_below="@+id/spinner_containerMain"
+            android:gravity="center"
+            android:visibility="visible"
+            android:text="Please Select Company"
+            android:textSize="@dimen/no_data_available_size" />
     <RelativeLayout
         android:id="@+id/rl_overView"
         android:layout_width="match_parent"

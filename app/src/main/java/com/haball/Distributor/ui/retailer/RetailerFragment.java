@@ -264,9 +264,9 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
         date_filter_rl.setVisibility(View.GONE);
         amount_filter_rl.setVisibility(View.GONE);
         consolidate_felter.add("Select Criteria");
-        consolidate_felter.add("Retailer Code");
+//        consolidate_felter.add("Retailer Code");
         consolidate_felter.add("Company");
-        consolidate_felter.add("Creation Date");
+        consolidate_felter.add("Date");
         consolidate_felter.add("Status");
 
         arrayAdapterPayments = new ArrayAdapter<String>(root.getContext(),
@@ -303,6 +303,16 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
                 date_filter_rl.setVisibility(View.GONE);
                 amount_filter_rl.setVisibility(View.GONE);
                 search_rl.setVisibility(View.GONE);
+
+
+                spinner2.setSelection(0);
+                conso_edittext.setText("");
+                et_amount1.setText("");
+                et_amount2.setText("");
+                first_date.setText("DD/MM/YYYY");
+                second_date.setText("DD/MM/YYYY");
+
+
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
@@ -311,6 +321,11 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
                         ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
+                    }
+                    try {
+                        fetchRetailer();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 } else {
                     try {
@@ -338,7 +353,7 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
                         Filter_selected = "CompanyName";
                         conso_edittext.setVisibility(View.VISIBLE);
                         search_rl.setVisibility(View.VISIBLE);
-                    } else if (Filter_selected.equals("Creation Date")) {
+                    } else if (Filter_selected.equals("Date")) {
 //                        Toast.makeText(getContext(), "Delivery Date selected", Toast.LENGTH_LONG).show();
                         date_filter_rl.setVisibility(View.VISIBLE);
                         Filter_selected = "date";
@@ -425,6 +440,12 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
+                    try {
+                        fetchRetailer();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                 } else {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));

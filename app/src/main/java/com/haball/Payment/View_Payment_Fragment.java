@@ -239,11 +239,19 @@ public class View_Payment_Fragment extends Fragment {
                         txt_settlement.setTextColor(getContext().getResources().getColor(R.color.textcolor));
                     }
                     if (!String.valueOf(result.get("PaidAmount")).equals("null")) {
-                        txt_amount.setText(String.valueOf(result.get("PaidAmount")));
+                        DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
+                        String Formatted_TotalAmount = formatter1.format(Double.parseDouble(result.getString("PaidAmount")));
+                        txt_amount.setText(Formatted_TotalAmount);
                         txt_amount.setTextColor(getContext().getResources().getColor(R.color.textcolor));
                     }
                     if (!String.valueOf(result.get("Status")).equals("null")) {
-                        txt_status.setText(String.valueOf(result.get("Status")));
+                        if (String.valueOf(result.get("Status")).equals("1"))
+                            txt_status.setText("Paid");
+                        else if (String.valueOf(result.get("Status")).equals("0"))
+                            txt_status.setText("Unpaid");
+                        else if (String.valueOf(result.get("Status")).equals("-1"))
+                            txt_status.setText("Processing Payment");
+
                         txt_status.setTextColor(getContext().getResources().getColor(R.color.textcolor));
                     }
                     if (!String.valueOf(result.get("TransactionCharges")).equals("null")) {

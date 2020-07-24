@@ -2,7 +2,9 @@ package com.haball.Distributor.ui.support;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -46,6 +48,7 @@ import com.haball.Distributor.DistributorDashboard;
 import com.haball.Loader;
 import com.haball.R;
 import com.haball.Retailor.RetailorDashboard;
+import com.haball.Retailor.ui.Support.SupportFragment;
 import com.haball.TextField;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -556,15 +559,59 @@ public class SupportTicketFormFragment extends Fragment {
         map.put("ID", 0);
 
         Log.i("TICKET OBJECT", String.valueOf(map));
-
+        loader.showLoader();
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_TICkET, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
                 Log.e("RESPONSE", result.toString());
-                Toast.makeText(getContext(), "Ticket generated successfully.", Toast.LENGTH_LONG).show();
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new SupportFragment());
-                fragmentTransaction.commit();
+//                Toast.makeText(getContext(), "Ticket generated successfully.", Toast.LENGTH_LONG).show();
+//                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new SupportFragment());
+//                fragmentTransaction.commit();
+                loader.hideLoader();
+                Log.e("RESPONSE", result.toString());
+//                Toast.makeText(getContext(), "Ticket generated successfully.", Toast.LENGTH_LONG).show();
+//                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new SupportFragment());
+//                fragmentTransaction.commit();
+
+
+                final Dialog fbDialogue = new Dialog(getActivity());
+                //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                fbDialogue.setContentView(R.layout.password_updatepopup);
+                TextView tv_pr1, txt_header1;
+                txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
+                tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
+                txt_header1.setText("Ticket Created");
+                try {
+                    tv_pr1.setText("Your Ticket ID " + result.get("TicketNumber") + " has been created successfully.");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                fbDialogue.setCancelable(true);
+                fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+                layoutParams.y = 200;
+                layoutParams.x = -70;// top margin
+                fbDialogue.getWindow().setAttributes(layoutParams);
+                fbDialogue.show();
+
+                ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+                close_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        fbDialogue.dismiss();
+                    }
+                });
+
+                fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new SupportFragment());
+                        fragmentTransaction.commit();
+                    }
+                });
             }
 
         }, new Response.ErrorListener() {

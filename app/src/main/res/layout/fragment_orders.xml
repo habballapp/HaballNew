@@ -5,6 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Distributor.ui.main.OrdersFragment">
+
+    <RelativeLayout
+        android:id="@+id/rv_filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
         <RelativeLayout
             android:id="@+id/spinner_container_main"
             android:layout_width="match_parent"
@@ -28,9 +34,10 @@
                         android:id="@+id/spinner_conso"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:dropDownWidth="match_parent"
                         android:background="@null"
+                        android:dropDownWidth="match_parent"
                         android:popupBackground="@drawable/spinner_round" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -48,8 +55,8 @@
                     android:layout_height="50dp"
                     android:layout_below="@+id/spinner_container"
                     android:layout_marginLeft="27dp"
-                    android:layout_marginRight="27dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginRight="27dp"
                     android:background="@drawable/edit_text_squared"
                     android:visibility="gone">
 
@@ -57,9 +64,10 @@
                         android:id="@+id/conso_spinner2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:dropDownWidth="match_parent"
                         android:background="@null"
+                        android:dropDownWidth="match_parent"
                         android:popupBackground="@drawable/spinner_round" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -296,44 +304,45 @@
                 android:layout_height="1dp"
                 android:layout_below="@+id/spinner_container_main_inner" />
         </RelativeLayout>
+    </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/rl_recycler"
+    <RelativeLayout
+        android:id="@+id/rl_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rv_filter"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/tv_shipment_no_data"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_below="@+id/spinner_container_main">
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp"
+            android:fontFamily="@font/open_sans"
+            android:gravity="center"
+            android:text="No Data Available"
+            android:textSize="@dimen/no_data_available_size" />
 
-            <TextView
-                android:id="@+id/tv_shipment_no_data"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="27dp"
-                android:layout_marginRight="27dp"
-                android:gravity="center"
-                android:fontFamily="@font/open_sans"
-                android:text="No Data Available"
-                android:textSize="@dimen/no_data_available_size" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_fragment_orders"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp"
+            android:isScrollContainer="false"
+            android:nestedScrollingEnabled="false" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_fragment_orders"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="27dp"
-                android:layout_marginRight="27dp"
-                android:isScrollContainer="false"
-                android:nestedScrollingEnabled="false" />
-
-        </RelativeLayout>
-
-
-<!--        <TextView-->
-<!--            android:id="@+id/haballCopyright"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignParentBottom="true"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            android:gravity="center"-->
-<!--            android:text="© Haball | All rights reserved" />-->
     </RelativeLayout>
+
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/haballCopyright"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_alignParentBottom="true"-->
+    <!--            android:layout_marginTop="10dp"-->
+    <!--            android:layout_marginBottom="10dp"-->
+    <!--            android:gravity="center"-->
+    <!--            android:text="© Haball | All rights reserved" />-->
+</RelativeLayout>

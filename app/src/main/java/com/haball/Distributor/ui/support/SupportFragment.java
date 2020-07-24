@@ -182,10 +182,10 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         date_filter_rl.setVisibility(View.GONE);
         conso_edittext.setVisibility(View.GONE);
         consolidate_felter.add("Select Criteria");
-        consolidate_felter.add("Contact Name");
+//        consolidate_felter.add("Contact Name");
         consolidate_felter.add("Issue Type");
-        consolidate_felter.add("Created Date");
         consolidate_felter.add("Status");
+        consolidate_felter.add("Date");
 
         arrayAdapterPaymentsFilter = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_spinner_dropdown_item, consolidate_felter) {
@@ -219,6 +219,11 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 spinner_container1.setVisibility(View.GONE);
                 date_filter_rl.setVisibility(View.GONE);
                 conso_edittext.setVisibility(View.GONE);
+
+                spinner2.setSelection(0);
+                conso_edittext.setText("");
+                first_date.setText("DD/MM/YYYY");
+                second_date.setText("DD/MM/YYYY");
 
                 if (i == 0) {
                     try {
@@ -288,7 +293,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                         arrayAdapterFeltter.notifyDataSetChanged();
                         spinner2.setAdapter(arrayAdapterFeltter);
 
-                    } else if (Filter_selected.equals("Created Date")) {
+                    } else if (Filter_selected.equals("Date")) {
                         date_filter_rl.setVisibility(View.VISIBLE);
 //                        Toast.makeText(getContext(), "Created Date selected", Toast.LENGTH_LONG).show();
                         Filter_selected = "date";

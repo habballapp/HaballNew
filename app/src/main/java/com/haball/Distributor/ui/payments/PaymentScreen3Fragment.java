@@ -51,10 +51,13 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.haball.CustomToast;
 import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.ui.main.PlaceholderFragment;
 import com.haball.Loader;
+import com.haball.Payment.DistributorPaymentRequestModel;
 import com.haball.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.haball.TextField;
@@ -63,6 +66,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -118,6 +122,7 @@ public class PaymentScreen3Fragment extends Fragment {
         MenuItem = sharedPreferences.getString("MenuItem", "");
         prepaid_number = PrePaidNumber;
 
+
         rl_jazz_cash = root.findViewById(R.id.rl_jazz_cash);
         rl_jazz_cash.setVisibility(View.GONE);
 
@@ -164,33 +169,58 @@ public class PaymentScreen3Fragment extends Fragment {
 //        arrayAdapterPayments = new ArrayAdapter<>(root.getContext(),
 //                android.R.layout.simple_spinner_dropdown_item, CompanyNames);
 
+//
+//        arrayAdapterPayments = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, CompanyNames) {
+//            @Override
+//            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+//                // TODO Auto-generated method stub
+//                View view = super.getView(position, convertView, parent);
+//                TextView text = (TextView) view.findViewById(android.R.id.text2);
+//                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+//                text.setTextSize((float) 13.6);
+//                text.setPadding(50, 0, 50, 0);
+//                text.setTypeface(myFont);
+//                return view;
+//            }
+//
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent) {
+//                // TODO Auto-generated method stub
+//                View view = super.getView(position, convertView, parent);
+//                TextView text = (TextView) view.findViewById(android.R.id.text2);
+//                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+//                text.setTextSize((float) 13.6);
+//                text.setPadding(50, 0, 50, 0);
+//                return view;
+//            }
+//        };
+//
+//        spinner_companyName.setAdapter(arrayAdapterPayments);
 
-        arrayAdapterPayments = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, CompanyNames) {
-            @Override
-            public View getDropDownView(int position, View convertView, ViewGroup parent) {
-                // TODO Auto-generated method stub
-                View view = super.getView(position, convertView, parent);
-                TextView text = (TextView) view.findViewById(android.R.id.text1);
-                text.setTextColor(getResources().getColor(R.color.text_color_selection));
-                text.setTextSize((float) 13.6);
-                text.setPadding(50, 0, 50, 0);
-                text.setTypeface(myFont);
-                return view;
-            }
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                // TODO Auto-generated method stub
-                View view = super.getView(position, convertView, parent);
-                TextView text = (TextView) view.findViewById(android.R.id.text1);
-                text.setTextColor(getResources().getColor(R.color.text_color_selection));
-                text.setTextSize((float) 13.6);
-                text.setPadding(50, 0, 50, 0);
-                return view;
-            }
-        };
-
-        spinner_companyName.setAdapter(arrayAdapterPayments);
+//        spinner_companyName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                try {
+//                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+//                    ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+//                    ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
+//                } catch (NullPointerException ex) {
+//                    ex.printStackTrace();
+//                }
+//                company_names = CompanyNames.get(i);
+//                checkFieldsForEmptyValues();
+////                Log.i("company name and id ", companyNameAndId.get(company_names));
+////                if (company_names.equals("Select Company") || company_names.equals(CompanyName))
+////                    btn_update.setText("Back");
+////                else
+////                    btn_update.setText("Update");
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
         spinner_companyName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -349,15 +379,39 @@ public class PaymentScreen3Fragment extends Fragment {
                 SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                         Context.MODE_PRIVATE);
                 DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+
+                SharedPreferences sharedPreferences2 = this.getActivity().getSharedPreferences("PrePaidNumber",
+                        Context.MODE_PRIVATE);
+                Gson gson = new Gson();
+                Type type = new TypeToken<DistributorPaymentRequestModel>(){}.getType();
+                DistributorPaymentRequestModel paymentsRequestList = gson.fromJson(sharedPreferences2.getString("paymentsRequestList", ""), type);
                 Log.i("DistributorId ", DistributorId);
+                Log.i("paymentsRequestList", String.valueOf(paymentsRequestList));
                 Log.i("Token", Token);
 
                 JSONObject map = new JSONObject();
+                map.put("ActionValue", 0);
+                map.put("BankIMD", paymentsRequestList.getBankIMD());
+                map.put("CompanyCNIC", paymentsRequestList.getCompanyCNIC());
+                map.put("CompanyId", paymentsRequestList.getCompanyId());
+                map.put("CompanyName", paymentsRequestList.getCompanyName());
+                map.put("CreatedBy", paymentsRequestList.getCreatedBy());
+                map.put("CreatedDate", paymentsRequestList.getCreatedDate());
+                map.put("DistributorCNIC",  paymentsRequestList.getDistributorCNIC());
+                map.put("DistributorId", paymentsRequestList.getDistributorId());
+                map.put("DistributorName", paymentsRequestList.getDistributorName());
+                map.put("ID", paymentsRequestList.getID());
+                map.put("IsTransmitted", paymentsRequestList.getIsTransmitted());
+                map.put("LastChangedBy", paymentsRequestList.getLastChangedBy());
+                map.put("LastChangedDate", paymentsRequestList.getLastChangedDate());
+                map.put("PaidAmount", paymentsRequestList.getPaidAmount());
+                map.put("PaidDate", paymentsRequestList.getPaidDate());
+                map.put("PrePaidNumber", paymentsRequestList.getPrePaidNumber());
+                map.put("PrepaidStatusValue", paymentsRequestList.getPrepaidStatusValue());
+                map.put("ReferenceID", paymentsRequestList.getReferenceID());
+                map.put("State", paymentsRequestList.getState());
                 map.put("Status", 0);
-                map.put("ID", PrePaidId);
-                map.put("DistributorId", Integer.parseInt(DistributorId));
-                map.put("CompanyId", CompanyId);
-                map.put("PaidAmount", String.valueOf(txt_amount.getText()));
+                map.put("employeesName", paymentsRequestList.getEmployeesName());
 
                 JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PAYMENT_REQUESTS_SAVE, map, new Response.Listener<JSONObject>() {
                     @Override
@@ -698,6 +752,32 @@ public class PaymentScreen3Fragment extends Fragment {
 
                     }
 
+                    arrayAdapterPayments = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, CompanyNames) {
+                        @Override
+                        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                            // TODO Auto-generated method stub
+                            View view = super.getView(position, convertView, parent);
+                            TextView text = (TextView) view.findViewById(android.R.id.text1);
+                            text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                            text.setTextSize((float) 13.6);
+                            text.setPadding(50, 0, 50, 0);
+                            text.setTypeface(myFont);
+                            return view;
+                        }
+
+                        @Override
+                        public View getView(int position, View convertView, ViewGroup parent) {
+                            // TODO Auto-generated method stub
+                            View view = super.getView(position, convertView, parent);
+                            TextView text = (TextView) view.findViewById(android.R.id.text1);
+                            text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                            text.setTextSize((float) 13.6);
+                            text.setPadding(50, 0, 50, 0);
+                            return view;
+                        }
+                    };
+                    spinner_companyName.setAdapter(arrayAdapterPayments);
+
                     spinner_companyName.setSelection(CompanyNames.indexOf(CompanyName));
                     company_names = CompanyName;
 
@@ -731,6 +811,6 @@ public class PaymentScreen3Fragment extends Fragment {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
-        spinner_companyName.setAdapter(arrayAdapterPayments);
+
     }
 }

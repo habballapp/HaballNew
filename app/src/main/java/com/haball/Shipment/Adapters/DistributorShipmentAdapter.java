@@ -126,6 +126,7 @@ public class DistributorShipmentAdapter extends RecyclerView.Adapter<Distributor
                                         Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = shipmentid.edit();
                                 editor.putString("ShipmentID", shipmentList.get(position).getID());
+                                editor.putString("DeliveryNumber", shipmentList.get(position).getDeliveryNumber());
                                 editor.putString("ShipmentStatusValue", shipmentList.get(position).getShipmentStatusValue());
                                 editor.commit();
                                 FragmentTransaction fragmentTransaction= ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();

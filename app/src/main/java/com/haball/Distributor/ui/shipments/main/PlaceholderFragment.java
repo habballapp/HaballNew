@@ -1,17 +1,25 @@
 package com.haball.Distributor.ui.shipments.main;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +50,8 @@ import com.haball.Distribution_Login.Distribution_Login;
 import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.ui.main.OrdersFragment;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
+import com.haball.Distributor.ui.payments.PaymentScreen3Fragment;
+import com.haball.Distributor.ui.shipments.Shipments_Fragments;
 import com.haball.Distributor.ui.shipments.main.Adapters.SectionsPagerAdapter;
 import com.haball.Distributor.ui.shipments.main.Models.PageViewModel;
 import com.haball.R;
@@ -82,7 +92,7 @@ public class PlaceholderFragment extends Fragment {
     private String shipmentID;
     private View view;
     // order data
-    private Button btn_next, btn_back;
+    private Button btn_receive, btn_back;
 
     private TextInputLayout layout_company, layout_shipment_id, layout_shipment_created_date, layout_shipment_recieving_date, layout_shipment_tv_dc_number, layout_shipment_tv_shstatus;
     private TextInputEditText company, shipment_id, shipment_created_date, shipment_recieving_date, shipment_tv_dc_number, shipment_tv_shstatus;
@@ -143,6 +153,14 @@ public class PlaceholderFragment extends Fragment {
 
             case 1: {
                 rootView = inflater.inflate(R.layout.distributor_shipment__view_shipment_fragment, container, false);
+                SharedPreferences sharedPreferences3 = getContext().getSharedPreferences("Shipment_ID",
+                        Context.MODE_PRIVATE);
+                String ShipmentStatusValue = sharedPreferences3.getString("ShipmentStatusValue", "");
+//                Log.i("shipmentID shared pref", shipmentID);
+
+                btn_receive = rootView.findViewById(R.id.btn_receive);
+                if (ShipmentStatusValue.equals("Delivered"))
+                    btn_receive.setVisibility(View.VISIBLE);
 
                 btn_back = rootView.findViewById(R.id.btn_back);
 
@@ -177,6 +195,12 @@ public class PlaceholderFragment extends Fragment {
                     }
                 });
 
+                btn_receive.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        receiveShipment();
+                    }
+                });
                 break;
             }
             case 2: {
@@ -338,6 +362,85 @@ public class PlaceholderFragment extends Fragment {
         }
 
         return rootView;
+
+    }
+
+    private void receiveShipment() {
+        SharedPreferences sharedPreferences3 = getContext().getSharedPreferences("Shipment_ID",
+                Context.MODE_PRIVATE);
+        shipmentID = sharedPreferences3.getString("ShipmentID", "");
+        final String DeliveryNumber = sharedPreferences3.getString("DeliveryNumber", "");
+        Log.i("shipmentID shared pref", shipmentID);
+
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+        String RECEIVE_SHIPMENT_URL = "http://175.107.203.97:4013/api/deliverynotes/MarkReceived/" + shipmentID;
+
+        JsonObjectRequest obj = new JsonObjectRequest(Request.Method.GET, RECEIVE_SHIPMENT_URL, null, new Response.Listener<JSONObject>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onResponse(JSONObject response) {
+
+                final Dialog fbDialogue = new Dialog(getActivity());
+                //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                fbDialogue.setContentView(R.layout.password_updatepopup);
+                TextView tv_pr1, txt_header1;
+                txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
+                tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
+                tv_pr1.setText("");
+                txt_header1.setText("Shipment Request Received");
+                String steps1 = "Shipment Request ID ";
+                String steps2 = " has been received successfully.";
+                String title = DeliveryNumber;
+                SpannableString ss1 = new SpannableString(title);
+                ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
+
+                tv_pr1.append(steps1);
+                tv_pr1.append(ss1);
+                tv_pr1.append(steps2);
+                fbDialogue.setCancelable(true);
+                fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+                layoutParams.y = 200;
+                layoutParams.x = -70;// top margin
+                fbDialogue.getWindow().setAttributes(layoutParams);
+                fbDialogue.show();
+
+                ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+                close_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        fbDialogue.dismiss();
+                    }
+                });
+
+                fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new Shipments_Fragments());
+                        fragmentTransaction.commit();
+                    }
+                });
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                printErrorMessage(error);
+
+                error.printStackTrace();
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(obj);
 
     }
 
