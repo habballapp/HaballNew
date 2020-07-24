@@ -105,6 +105,7 @@ public class SupportTicketFormFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.activity_support__ticket__form, container, false);
         myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
+        loader = new Loader(getContext());
 
         SharedPreferences data = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);

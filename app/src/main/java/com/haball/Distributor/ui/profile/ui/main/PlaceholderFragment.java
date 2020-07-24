@@ -139,7 +139,20 @@ public class PlaceholderFragment extends Fragment {
                 layout_tv_NTN = root.findViewById(R.id.layout_tv_NTN);
                 layout_tv_companyname = root.findViewById(R.id.layout_tv_companyname);
                 layout_tv_created_date = root.findViewById(R.id.layout_tv_created_date);
+                btn_back = root.findViewById(R.id.btn_back);
+                btn_back.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (changed) {
+                            showDiscardDialog();
+                        } else {
+                            Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                            ((FragmentActivity) getContext()).startActivity(login_intent);
+                            ((FragmentActivity) getContext()).finish();
+                        }
 
+                    }
+                });
                 currentTab = "Profile";
 
                 edt_dist_code = root.findViewById(R.id.edt_dist_code);
@@ -172,7 +185,8 @@ public class PlaceholderFragment extends Fragment {
 //
 //                    }
 //                });
-
+                distri_btn_save.setEnabled(false);
+                distri_btn_save.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
                 new TextField().changeColor(getContext(), layout_edt_dist_code, edt_dist_code);
                 new TextField().changeColor(getContext(), layout_edt_firstname, edt_firstname);
@@ -203,8 +217,6 @@ public class PlaceholderFragment extends Fragment {
                                 InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                                 edt_firstname.setSelection(edt_firstname.getText().length());
-                                distri_btn_save.setEnabled(true);
-                                distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
                                 changed = true;
                                 return true;
                             }
@@ -233,8 +245,8 @@ public class PlaceholderFragment extends Fragment {
                                 R_Address.setSelection(R_Address.getText().length());
                                 InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-                                distri_btn_save.setEnabled(true);
-                                distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
+//                                distri_btn_save.setEnabled(true);
+//                                distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
                                 changed = true;
                                 return true;
                             }
@@ -261,8 +273,8 @@ public class PlaceholderFragment extends Fragment {
                                 InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                                 edt_lastname.setSelection(edt_lastname.getText().length());
-                                distri_btn_save.setEnabled(true);
-                                distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
+//                                distri_btn_save.setEnabled(true);
+//                                distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
                                 changed = true;
                                 return true;
                             }
@@ -290,8 +302,8 @@ public class PlaceholderFragment extends Fragment {
                                 InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                                 edt_email.setSelection(edt_email.getText().length());
-                                distri_btn_save.setEnabled(true);
-                                distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
+//                                distri_btn_save.setEnabled(true);
+//                                distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
                                 changed = true;
                                 return true;
                             }
@@ -318,8 +330,8 @@ public class PlaceholderFragment extends Fragment {
                                 InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                                 edt_dist_mobile.setSelection(edt_dist_mobile.getText().length());
-                                distri_btn_save.setEnabled(true);
-                                distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
+//                                distri_btn_save.setEnabled(true);
+//                                distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
                                 changed = true;
                                 return true;
                             }
