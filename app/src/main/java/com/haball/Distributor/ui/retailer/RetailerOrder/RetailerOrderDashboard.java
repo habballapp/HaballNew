@@ -2,6 +2,7 @@ package com.haball.Distributor.ui.retailer.RetailerOrder;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +49,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.StatusKVP;
 import com.haball.Distributor.ui.orders.Adapter.CompanyFragmentAdapter;
 import com.haball.Distributor.ui.orders.Models.Company_Fragment_Model;
@@ -187,11 +191,9 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         consolidate_felter = new ArrayList<>();
         consolidate_felter = new ArrayList<>();
         consolidate_felter.add("Select Criteria");
-//        consolidate_felter.add("Order ID");
-        consolidate_felter.add("Retailer");
+        consolidate_felter.add("Company");
         consolidate_felter.add("Amount");
         consolidate_felter.add("Created Date");
-//        consolidate_felter.add("Submitter");
         consolidate_felter.add("Status");
 
         arrayAdapterPayments = new ArrayAdapter<String>(root.getContext(),
@@ -946,4 +948,30 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
 //        Log.i("distinct", scroll);
         return scroll;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                    editorOrderTabsFromDraft.putString("TabNo", "0");
+                    editorOrderTabsFromDraft.apply();
+
+                    Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+                    ((FragmentActivity) getContext()).startActivity(login_intent);
+                    ((FragmentActivity) getContext()).finish();
+                }
+                return false;
+            }
+        });
+    }
+
 }

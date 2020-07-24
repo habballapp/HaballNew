@@ -3,6 +3,8 @@ package com.haball.SplashScreen;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -27,6 +29,7 @@ import com.haball.Retailor.Retailer_TermsAndConditionsFragment;
 import com.haball.Retailor.Retailer_UpdatePassword;
 import com.haball.Retailor.RetailorDashboard;
 import com.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
+import com.haball.Retailor.ui.RetailerOrder.RetailerViewOrder;
 import com.haball.SSL_HandShake;
 import com.haball.Select_User.Register_Activity;
 import com.haball.testWhatsapp.MainActivity;
@@ -155,6 +158,7 @@ public class SplashScreen extends AppCompatActivity {
                     finish();
                 } else if (sharedPreferences.getString("User_Type", "").equals("Retailer")) {
                     Intent intent = new Intent(SplashScreen.this, RetailerLogin.class);
+//                    Intent intent = new Intent(SplashScreen.this, RetailorDashboard.class);
                     startActivity(intent);
                     finish();
                 } else {

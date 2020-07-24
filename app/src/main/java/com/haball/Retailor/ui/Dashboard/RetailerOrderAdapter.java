@@ -256,6 +256,10 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
                         editor.putString("InvoiceStatus", String.valueOf(OrderList.get(position).getInvoiceStatus()));
                         Log.i("InvoiceStatus_Adapter", String.valueOf(OrderList.get(position).getInvoiceStatus()));
                         editor.commit();
+                        Log.i("order_debug_getID", OrderList.get(position).getID());
+                        Log.i("order_debug_getStatus", OrderList.get(position).getStatus());
+                        Log.i("order_debug_InvUpload", String.valueOf(OrderList.get(position).getInvoiceUpload()));
+                        Log.i("order_debug_InvStatus", "" + OrderList.get(position).getInvoiceStatus());
                         break;
                     case R.id.orders_cancel:
                         showConfirmCancelOrderDialog(position);

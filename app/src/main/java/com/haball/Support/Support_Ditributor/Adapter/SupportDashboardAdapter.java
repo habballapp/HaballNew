@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -101,7 +102,9 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PopupMenu popup = new PopupMenu(mContxt, view);
+                // PopupMenu popup = new PopupMenu(mContxt, view);
+                Context wrapper = new ContextThemeWrapper(mContxt, R.style.AppBaseTheme);
+                final PopupMenu popup = new androidx.appcompat.widget.PopupMenu(wrapper, view);
                 MenuInflater inflater = popup.getMenuInflater();
                 inflater.inflate(R.menu.menu_items, popup.getMenu());
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {

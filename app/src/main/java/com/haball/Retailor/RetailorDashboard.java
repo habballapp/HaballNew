@@ -61,6 +61,7 @@ import com.haball.Retailor.ui.Notification.Retailer_Notification_Model;
 import com.haball.Retailor.ui.Place_Order.PlaceOrderFragment;
 import com.haball.Retailor.ui.Place_Order.Retailer_Place_Order;
 import com.haball.Retailor.ui.Profile.Profile_Tabs;
+import com.haball.Retailor.ui.RetailerOrder.RetailerViewOrder;
 import com.haball.Retailor.ui.Support.SupportFragment;
 import com.haball.SSL_HandShake;
 import com.haball.Select_User.Register_Activity;
@@ -255,6 +256,18 @@ public class RetailorDashboard extends AppCompatActivity {
             notification_icon.setVisibility(View.GONE);
 
         if (Payment_View || Order_View) {
+//            SharedPreferences OrderId = getSharedPreferences("OrderId",
+//                    Context.MODE_PRIVATE);
+//            SharedPreferences.Editor editor1 = OrderId.edit();
+//            editor1.putString("OrderId", "7415");
+//            editor1.putString("Status", "Pending");
+//            editor1.putString("InvoiceUpload", "0");
+//            editor1.putString("InvoiceStatus", "null");
+//            editor1.commit();
+//            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.add(R.id.main_container_ret, new RetailerViewOrder()).addToBackStack("tag");
+//            fragmentTransaction.commit();
+
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tabs());
             fragmentTransaction.commit();

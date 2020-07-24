@@ -2,6 +2,7 @@ package com.haball.Distributor.ui.Fragment_Notification;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -43,7 +44,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                final PopupMenu popup = new PopupMenu(context, view);
+                // final PopupMenu popup = new PopupMenu(context, view);
+                Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
+                final PopupMenu popup = new androidx.appcompat.widget.PopupMenu(wrapper, view);
                 MenuInflater inflater = popup.getMenuInflater();
                 inflater.inflate(R.menu.notification_menu, popup.getMenu());
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {

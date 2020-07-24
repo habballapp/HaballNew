@@ -223,12 +223,15 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
                     Log.i("DebugQtyHas2", String.valueOf(finalPosition));
 ////                Log.i("textChanged12", "check");
 ////                Log.i("textChanged11", String.valueOf(s));
+
                     String str_quantity = String.valueOf(s);
-                    if (String.valueOf(s).equals("") || String.valueOf(s).equals("0")) {
+                    if (String.valueOf(s).equals("")) {
+                        str_quantity = "0";
+                    } else if (Integer.parseInt(String.valueOf(s)) == 0) {
                         str_quantity = "0";
                     }
 
-                    if (String.valueOf(s).equals("0")) {
+                    if (str_quantity.equals("0")) {
                         final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
                         LayoutInflater inflater = LayoutInflater.from(context);
                         View view_popup = inflater.inflate(R.layout.discard_changes, null);

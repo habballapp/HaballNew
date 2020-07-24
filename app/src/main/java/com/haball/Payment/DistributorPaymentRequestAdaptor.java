@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -107,7 +108,9 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
             @Override
             public void onClick(View view) {
                 if (paymentsRequestList.get(position).getPrepaidStatusValue().equals("Paid")) {
-                    final PopupMenu popup = new PopupMenu(context, view);
+                    // final PopupMenu popup = new PopupMenu(context, view);
+                    Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
+                    final PopupMenu popup = new androidx.appcompat.widget.PopupMenu(wrapper, view);
                     MenuInflater inflater = popup.getMenuInflater();
                     inflater.inflate(R.menu.payment_request_menu_items_status, popup.getMenu());
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -135,7 +138,9 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
                     popup.show();
 
                 } else if (paymentsRequestList.get(position).getPrepaidStatusValue().equals("Unpaid")) {
-                    final PopupMenu popup = new PopupMenu(context, view);
+                    // final PopupMenu popup = new PopupMenu(context, view);
+                    Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
+                    final PopupMenu popup = new androidx.appcompat.widget.PopupMenu(wrapper, view);
                     MenuInflater inflater = popup.getMenuInflater();
                     inflater.inflate(R.menu.payment_request_menu_items, popup.getMenu());
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {

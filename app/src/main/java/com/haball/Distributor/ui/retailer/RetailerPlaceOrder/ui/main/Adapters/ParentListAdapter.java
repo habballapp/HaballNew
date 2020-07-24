@@ -272,44 +272,37 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
     private void checkOutEnabler(OrderChildList_VH holder, int position, OrderChildlist_Model orderChildlist_model, String s) {
         Log.i("debugOrder_seldatalist", String.valueOf(selectedProductsDataList));
         if (selectedProductsDataList != null) {
-            Log.i("debugOrder_seldata_nnul", String.valueOf(selectedProductsDataList));
-//            if (!selectedProductsDataList.contains(orderChildlist_model)) {
-//                Log.i("selecteddatalist_cont", String.valueOf(orderChildlist_model));
-//                selectedProductsDataList.add(orderChildlist_model);
-//                selectedProductsQuantityList.add(String.valueOf(holder.list_numberOFitems.getText()));
-//            } else {
-            Log.i("debugOrder_seldata_mod", String.valueOf(orderChildlist_model));
             int foundIndex = -1;
             for (int i = 0; i < selectedProductsDataList.size(); i++) {
-//                    if (selectedProductsDataList.get(i).equals(orderChildlist_model)) {
                 if (selectedProductsDataList.get(i).getTitle().equals(orderChildlist_model.getTitle()) && selectedProductsDataList.get(i).getProductCode().equals(orderChildlist_model.getProductCode())) {
                     foundIndex = i;
                     break;
                 }
             }
-            Log.i("debugOrder_seldata_ind", String.valueOf(foundIndex));
-
             if (foundIndex != -1) {
-//                if (String.valueOf(s).equals("") || String.valueOf(s).equals("0")) {
-//
-//                } else {
-                selectedProductsQuantityList.set(foundIndex, String.valueOf(s));
-//                }
-            } else {
-                Log.i("debugOrder_seldata_cont", String.valueOf(orderChildlist_model));
-                if (!String.valueOf(holder.list_numberOFitems.getText()).equals("0") && !String.valueOf(holder.list_numberOFitems.getText()).equals("")) {
-                    selectedProductsDataList.add(orderChildlist_model);
-                    selectedProductsQuantityList.add(String.valueOf(holder.list_numberOFitems.getText()));
+                if (!String.valueOf(holder.list_numberOFitems.getText()).equals(""))
+                    if (Integer.parseInt(String.valueOf(holder.list_numberOFitems.getText())) > 0) {
+                        selectedProductsQuantityList.set(foundIndex, String.valueOf(holder.list_numberOFitems.getText()));
+                    } else {
+                        selectedProductsQuantityList.set(foundIndex, "0");
+                    }
+                else {
+                    selectedProductsQuantityList.set(foundIndex, "0");
+//                    selectedProductsQuantityList.remove(foundIndex);
                 }
+            } else {
+                if (!String.valueOf(holder.list_numberOFitems.getText()).equals(""))
+                    if (Integer.parseInt(String.valueOf(holder.list_numberOFitems.getText())) > 0) {
+                        selectedProductsDataList.add(orderChildlist_model);
+                        selectedProductsQuantityList.add(String.valueOf(holder.list_numberOFitems.getText()));
+                    }
             }
-//                    selectedProductsQuantityList.set(foundIndex, String.valueOf(holder.list_numberOFitems.getText()));
-            Log.i("debugOrder_seldata_qty", String.valueOf(selectedProductsQuantityList));
-//            }
         } else {
-            Log.i("debugOrder_seldata_null", String.valueOf(selectedProductsDataList));
-            if (!String.valueOf(holder.list_numberOFitems.getText()).equals("0") && !String.valueOf(holder.list_numberOFitems.getText()).equals("")) {
-                selectedProductsDataList.add(orderChildlist_model);
-                selectedProductsQuantityList.add(String.valueOf(s));
+            if (!String.valueOf(holder.list_numberOFitems.getText()).equals("")) {
+                if (Integer.parseInt(String.valueOf(holder.list_numberOFitems.getText())) > 0) {
+                    selectedProductsDataList.add(orderChildlist_model);
+                    selectedProductsQuantityList.add(String.valueOf(s));
+                }
             }
         }
 

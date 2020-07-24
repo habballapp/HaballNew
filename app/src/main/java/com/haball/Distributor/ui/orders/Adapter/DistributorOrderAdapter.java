@@ -3,6 +3,7 @@ package com.haball.Distributor.ui.orders.Adapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -120,7 +121,9 @@ public class DistributorOrderAdapter extends RecyclerView.Adapter<DistributorOrd
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PopupMenu popup = new PopupMenu(context, view);
+                // PopupMenu popup = new PopupMenu(context, view);
+                Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
+                final PopupMenu popup = new androidx.appcompat.widget.PopupMenu(wrapper, view);
                 MenuInflater inflater = popup.getMenuInflater();
                 inflater.inflate(R.menu.orders_fragment_menu, popup.getMenu());
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {

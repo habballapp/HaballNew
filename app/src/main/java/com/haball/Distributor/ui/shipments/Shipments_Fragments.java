@@ -2,6 +2,7 @@ package com.haball.Distributor.ui.shipments;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +48,8 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.haball.Distributor.DistributorDashboard;
+import com.haball.Distributor.ui.home.HomeFragment;
 import com.haball.Distributor.ui.main.ViewOrder;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.haball.Loader;
@@ -880,6 +884,28 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
 //        Log.i("distinct", scroll);
         return scroll;
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.add(R.id.main_container, new HomeFragment());
+                    fragmentTransaction.commit();
+                }
+                return false;
+            }
+        });
+
+    }
+
 
 //    @Override
 //    public boolean onBackPressed() {

@@ -225,6 +225,7 @@ public class PlaceholderFragment extends Fragment {
                 break;
             }
             case 2: {
+                loader = new Loader(getContext());
                 rootView = inflater.inflate(R.layout.fragment_retailer_orders_details_tab, container, false);
                 rv_fragment_retailer_order_details = rootView.findViewById(R.id.rv_fragment_retailer_order_details);
                 total_amount = rootView.findViewById(R.id.total_amount);
@@ -266,6 +267,7 @@ public class PlaceholderFragment extends Fragment {
                 break;
             }
             case 3: {
+                loader = new Loader(getContext());
 
                 SharedPreferences sharedPreferences11 = getContext().getSharedPreferences("OrderId",
                         Context.MODE_PRIVATE);

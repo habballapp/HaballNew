@@ -137,10 +137,6 @@ public class DistributorDashboard extends AppCompatActivity {
         fragmentTransaction.add(R.id.main_container, new HomeFragment());
         fragmentTransaction.commit();
 
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.main_container, new HomeFragment());
-        fragmentTransaction.commit();
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -300,7 +296,6 @@ public class DistributorDashboard extends AppCompatActivity {
                             Log.i("Payment Ledger", "Child"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.add(R.id.main_container, new Payments_Fragment()).addToBackStack("tag");
-                            ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         }
@@ -308,7 +303,6 @@ public class DistributorDashboard extends AppCompatActivity {
 //                            Log.i("Proof of Payments", "Child"); //DONE
 //                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
 //                            fragmentTransaction.add(R.id.main_container, new ProofOfPaymentsDashboardFragment()).addToBackStack("tag");
-//                            ;
 //                            fragmentTransaction.commit();
 //                            drawer.closeDrawer(GravityCompat.START);
 //                        }
@@ -316,27 +310,23 @@ public class DistributorDashboard extends AppCompatActivity {
                             Log.i("Place order", "Child"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.add(R.id.main_container, new Order_PlaceOrder()).addToBackStack("tag");
-                            ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (groupPosition == 5 && childPosition == 0) {
 //                            Toast.makeText(DistributorDashboard.this, "retialer Managment", Toast.LENGTH_SHORT).show();
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.add(R.id.main_container, new RetailerFragment()).addToBackStack("tag");
-                            ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (groupPosition == 5 && childPosition == 1) {
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.add(R.id.main_container, new RetailerOrderDashboard()).addToBackStack("tag");
-                            ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (groupPosition == 5 && childPosition == 2) {
 //                            Toast.makeText(DistributorDashboard.this, "Retailer Payment", Toast.LENGTH_SHORT).show();
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.add(R.id.main_container, new RetailerPaymentDashboard()).addToBackStack("tag");
-                            ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                             drawer.closeDrawer(GravityCompat.START);
@@ -466,34 +456,60 @@ public class DistributorDashboard extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+//        getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+////            super.onBackPressed();
+//        if (drawer.isDrawerOpen(Gravity.LEFT)) {
+//            drawer.closeDrawer(Gravity.LEFT);
+//        } else {
+//            FragmentManager fm = getSupportFragmentManager();
+//            if (fm.getBackStackEntryCount() == 0) {
+//                if (doubleBackToExitPressedOnce) {
+//                    super.onBackPressed();
+//                    finishAffinity();
+//                    return;
+//                }
+//                this.doubleBackToExitPressedOnce = true;
+//                Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        doubleBackToExitPressedOnce = false;
+//                    }
+//                }, 1500);
+//            } else {
+////            super.onBackPressed();
+//                fm.popBackStack();
+//            }
+//
+//        }
+
         getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 //            super.onBackPressed();
         if (drawer.isDrawerOpen(Gravity.LEFT)) {
             drawer.closeDrawer(Gravity.LEFT);
         } else {
-            FragmentManager fm = getSupportFragmentManager();
-            if (fm.getBackStackEntryCount() == 0) {
-                if (doubleBackToExitPressedOnce) {
-                    super.onBackPressed();
-                    finishAffinity();
-                    return;
-                }
-                this.doubleBackToExitPressedOnce = true;
-                Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        doubleBackToExitPressedOnce = false;
-                    }
-                }, 1500);
-            } else {
-//            super.onBackPressed();
-                fm.popBackStack();
+//            FragmentManager fm = getSupportFragmentManager();
+//            if (fm.getBackStackEntryCount() == 0) {
+            if (doubleBackToExitPressedOnce) {
+//                    super.onBackPressed();
+//                    finishAffinity();
+                logoutUser();
+
+                return;
             }
-
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 1500);
+//            } else {
+////            super.onBackPressed();
+//                fm.popBackStack();
+//            }
         }
-
-
     }
 
     private void printErrorMessage(VolleyError error) {

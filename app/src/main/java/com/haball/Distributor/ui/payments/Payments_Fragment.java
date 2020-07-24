@@ -3,6 +3,7 @@ package com.haball.Distributor.ui.payments;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,6 +50,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.ui.support.MyJsonArrayRequest;
 import com.haball.Loader;
 import com.haball.Payment.PaymentLedgerAdapter;
@@ -1037,4 +1041,30 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
 //        Log.i("distinct", scroll);
         return scroll;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                    editorOrderTabsFromDraft.putString("TabNo", "0");
+                    editorOrderTabsFromDraft.apply();
+
+                    Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+                    ((FragmentActivity) getContext()).startActivity(login_intent);
+                    ((FragmentActivity) getContext()).finish();
+                }
+                return false;
+            }
+        });
+    }
+
 }

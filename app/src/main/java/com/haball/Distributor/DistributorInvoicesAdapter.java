@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -69,7 +70,9 @@ public class DistributorInvoicesAdapter extends RecyclerView.Adapter<Distributor
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final PopupMenu popup = new PopupMenu(mContxt, view);
+                // final PopupMenu popup = new PopupMenu(mContxt, view);
+                Context wrapper = new ContextThemeWrapper(mContxt, R.style.AppBaseTheme);
+                final PopupMenu popup = new androidx.appcompat.widget.PopupMenu(wrapper, view);
                 MenuInflater inflater = popup.getMenuInflater();
                 inflater.inflate(R.menu.payment_invoice_menu, popup.getMenu());
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {

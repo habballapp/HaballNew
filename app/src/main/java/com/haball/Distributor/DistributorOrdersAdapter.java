@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -97,7 +98,9 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final PopupMenu popup = new PopupMenu(mContxt, view);
+                // final PopupMenu popup = new PopupMenu(mContxt, view);
+                Context wrapper = new ContextThemeWrapper(mContxt, R.style.AppBaseTheme);
+                final PopupMenu popup = new PopupMenu(wrapper, view);
                 if (OrderList.get(position).getOrderStatusValue() != null) {
                     if (OrderList.get(position).getOrderStatusValue().equals("Draft"))
                         setMenuDraft(popup, position);

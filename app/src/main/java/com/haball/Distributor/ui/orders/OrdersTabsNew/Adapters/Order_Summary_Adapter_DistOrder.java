@@ -102,10 +102,10 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
         }
 
         Quantity = 0;
-        for(int i = 0; i < this.selectedProductsDataListQty.size(); i++) {
+        for (int i = 0; i < this.selectedProductsDataListQty.size(); i++) {
             Quantity = Quantity + Float.parseFloat(this.selectedProductsDataListQty.get(i));
         }
-        if(Quantity > 0) {
+        if (Quantity > 0) {
             enableCheckoutButton();
         } else {
             disableCheckoutButton();
@@ -186,7 +186,7 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(Editable s1) {
                 if (holder.list_numberOFitems.hasFocus()) {
 //                after = String.valueOf(s);
 ////                if (String.valueOf(s).equals("0")) {
@@ -223,12 +223,14 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
                     Log.i("DebugQtyHas2", String.valueOf(finalPosition));
 ////                Log.i("textChanged12", "check");
 ////                Log.i("textChanged11", String.valueOf(s));
-                    String str_quantity = String.valueOf(s);
-                    if (String.valueOf(s).equals("") || String.valueOf(s).equals("0")) {
+                    String str_quantity = String.valueOf(s1);
+                    if (String.valueOf(s1).equals("")) {
+                        str_quantity = "0";
+                    } else if (Integer.parseInt(String.valueOf(s1)) == 0) {
                         str_quantity = "0";
                     }
 
-                    if (String.valueOf(s).equals("0")) {
+                    if (str_quantity.equals("0")) {
                         final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
                         LayoutInflater inflater = LayoutInflater.from(context);
                         View view_popup = inflater.inflate(R.layout.discard_changes, null);
@@ -599,10 +601,10 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
         }
 
         Quantity = 0;
-        for(int i = 0; i < this.selectedProductsDataListQty.size(); i++) {
+        for (int i = 0; i < this.selectedProductsDataListQty.size(); i++) {
             Quantity = Quantity + Float.parseFloat(this.selectedProductsDataListQty.get(i));
         }
-        if(Quantity > 0) {
+        if (Quantity > 0) {
             enableCheckoutButton();
         } else {
             disableCheckoutButton();

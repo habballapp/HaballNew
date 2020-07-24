@@ -2,6 +2,7 @@ package com.haball.Distributor.ui.retailer.Payment;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +43,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.ui.main.PageViewModel;
 import com.haball.Distributor.ui.retailer.Payment.Adapters.PaymentDashboardAdapter;
 import com.haball.Distributor.ui.retailer.Payment.Models.Dist_Retailer_Dashboard_Model;
@@ -802,6 +806,31 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
 
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                    editorOrderTabsFromDraft.putString("TabNo", "0");
+                    editorOrderTabsFromDraft.apply();
+
+                    Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+                    ((FragmentActivity) getContext()).startActivity(login_intent);
+                    ((FragmentActivity) getContext()).finish();
+                }
+                return false;
+            }
+        });
+    }
 
     private String getScrollEvent() {
         String scroll = "";

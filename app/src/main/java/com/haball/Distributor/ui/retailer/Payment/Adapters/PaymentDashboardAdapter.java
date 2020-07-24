@@ -3,6 +3,7 @@ package com.haball.Distributor.ui.retailer.Payment.Adapters;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -75,7 +76,9 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
             @Override
             public void onClick(View view) {
                 if (paymentsList.get(position).getInvoiceStatusValue().equals("Pending") || paymentsList.get(position).getInvoiceStatusValue().equals("Unpaid")) {
-                    final PopupMenu popup = new PopupMenu(context, view);
+                    // final PopupMenu popup = new PopupMenu(context, view);
+                    Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
+                    final PopupMenu popup = new PopupMenu(wrapper, view);
                     MenuInflater inflater = popup.getMenuInflater();
                     inflater.inflate(R.menu.payment_dashboard_menu, popup.getMenu());
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -105,7 +108,10 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
 
                 }
                 else {
-                    final PopupMenu popup = new PopupMenu(context, view);
+                    // final PopupMenu popup = new PopupMenu(context, view);
+                    Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
+                    final PopupMenu popup = new PopupMenu(wrapper, view);
+
                     MenuInflater inflater = popup.getMenuInflater();
                     inflater.inflate(R.menu.payment_dashboard_menu2, popup.getMenu());
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {

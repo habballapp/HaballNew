@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -88,7 +89,10 @@ public class RetailerOrdersAdapter extends RecyclerView.Adapter<RetailerOrdersAd
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final PopupMenu popup = new PopupMenu(context, view);
+                // final PopupMenu popup = new PopupMenu(context, view);
+                Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
+                final PopupMenu popup = new PopupMenu(wrapper, view);
+
                 MenuInflater inflater = popup.getMenuInflater();
                 if (OrderStatusKVP.get(OrdersList.get(position).getOrderStatus()).equals("Approved"))
                     inflater.inflate(R.menu.dist_order_menu, popup.getMenu());

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -54,7 +55,10 @@ public class ProofOfPaymentViewFormAdapter extends RecyclerView.Adapter<ProofOfP
         holder.pop_menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final PopupMenu popup = new PopupMenu(context, view);
+                // final PopupMenu popup = new PopupMenu(context, view);
+                Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
+                final PopupMenu popup = new androidx.appcompat.widget.PopupMenu(wrapper, view);
+
                 MenuInflater inflater = popup.getMenuInflater();
                 inflater.inflate(R.menu.cosolidate_payment_menu, popup.getMenu());
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {

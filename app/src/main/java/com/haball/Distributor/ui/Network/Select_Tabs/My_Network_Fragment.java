@@ -23,6 +23,7 @@ import com.haball.Distributor.ui.Network.Adapters.Fragment_My_Network_Adapter;
 import com.haball.Distributor.ui.Network.Models.Netwok_Model;
 import com.haball.Distributor.ui.Network.Models.Network_Recieve_Model;
 import com.haball.Distributor.ui.Network.Models.Network_Sent_Model;
+import com.haball.Distributor.ui.home.HomeFragment;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.haball.Loader;
 import com.haball.ProcessingError;
@@ -44,6 +45,7 @@ import java.util.Map;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -221,24 +223,14 @@ public class My_Network_Fragment extends Fragment {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
-                    // handle back button's click listener
-//                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
-
-                    SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
-                            Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
-                    editorOrderTabsFromDraft.putString("TabNo", "0");
-                    editorOrderTabsFromDraft.apply();
-
-                    Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
-                    ((FragmentActivity) getContext()).startActivity(login_intent);
-                    ((FragmentActivity) getContext()).finish();
+                    FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.add(R.id.main_container, new HomeFragment());
+                    fragmentTransaction.commit();
                 }
                 return false;
             }
         });
 
     }
-
 
 }

@@ -3,6 +3,7 @@ package com.haball.Distributor.ui.retailer.Retailor_Management.Adapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -76,7 +77,10 @@ public class Retailer_Management_Dashboard_Adapter extends RecyclerView.Adapter<
             @Override
             public void onClick(View view) {
                 //Toast.makeText(mContext,"View Retailer",Toast.LENGTH_LONG).show();
-                final androidx.appcompat.widget.PopupMenu popup = new PopupMenu(mContext, view);
+                // final androidx.appcompat.widget.PopupMenu popup = new PopupMenu(mContext, view);
+                Context wrapper = new ContextThemeWrapper(mContext, R.style.AppBaseTheme);
+                final PopupMenu popup = new androidx.appcompat.widget.PopupMenu(wrapper, view);
+
                 MenuInflater inflater = popup.getMenuInflater();
                 inflater.inflate(R.menu.fragment_view_management_retailer_menu, popup.getMenu());
 

@@ -114,7 +114,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private ArrayAdapter<String> arrayAdapterPayments;
     private ArrayAdapter<String> arrayAdapterFeltter;
     private Button consolidate;
-    private String Filter_selected, Filter_selected1, Filter_selected2, Filter_selected_value;
+    private String Filter_selected = "", Filter_selected1 = "", Filter_selected2 = "", Filter_selected_value = "";
     private RecyclerView.Adapter mAdapter;
     private TextInputLayout search_bar;
     private RelativeLayout search_rl;
@@ -261,7 +261,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                                         0,                 // toXDelta
                                         -rv_filter.getHeight(),  // fromYDelta
                                         0);                // toYDelta
-                                animate1.setDuration(250);
+                                animate1.setDuration(230);
                                 animate1.setFillAfter(true);
                                 rv_filter.clearAnimation();
                                 rv_filter.startAnimation(animate1);
@@ -282,19 +282,21 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                                 rv_filter.setVisibility(View.GONE);
                             }
                         }
+                        if (isLastItemDisplaying(recyclerView)) {
 
-                        int visibleItemCount = layoutManager.getChildCount();
-                        int totalItemCount = layoutManager.getItemCount();
-                        int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
-                        if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
-                            if (totalPages != 0 && pageNumber < totalPages) {
+                            int visibleItemCount = layoutManager.getChildCount();
+                            int totalItemCount = layoutManager.getItemCount();
+                            int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                            if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
+                                if (totalPages != 0 && pageNumber < totalPages) {
 //                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
-                                //  btn_load_more.setVisibility(View.VISIBLE);
-                                pageNumber++;
-                                try {
-                                    performPagination();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
+//                        btn_load_more.setVisibility(View.VISIBLE);
+                                    pageNumber++;
+                                    try {
+                                        performPagination();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                             }
                         }
@@ -317,7 +319,6 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 recyclerView.setHasFixedSize(true);
                 layoutManager = new LinearLayoutManager(rootView.getContext());
                 recyclerView.setLayoutManager(layoutManager);
-
 
 //
 //                SpannableString content = new SpannableString("Load More");
@@ -361,48 +362,50 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         String scroll = getScrollEvent();
 
                         if (scroll.equals("ScrollDown")) {
-                            if (spinner_container_main.getVisibility() == View.GONE) {
+                            if (rv_filter.getVisibility() == View.GONE) {
 
-                                spinner_container_main.setVisibility(View.VISIBLE);
+                                rv_filter.setVisibility(View.VISIBLE);
                                 TranslateAnimation animate1 = new TranslateAnimation(
                                         0,                 // fromXDelta
                                         0,                 // toXDelta
-                                        -spinner_container_main.getHeight(),  // fromYDelta
+                                        -rv_filter.getHeight(),  // fromYDelta
                                         0);                // toYDelta
-                                animate1.setDuration(250);
+                                animate1.setDuration(230);
                                 animate1.setFillAfter(true);
-                                spinner_container_main.clearAnimation();
-                                spinner_container_main.startAnimation(animate1);
+                                rv_filter.clearAnimation();
+                                rv_filter.startAnimation(animate1);
                             }
                         } else if (scroll.equals("ScrollUp")) {
                             y = 0;
-                            if (spinner_container_main.getVisibility() == View.VISIBLE) {
+                            if (rv_filter.getVisibility() == View.VISIBLE) {
 //                                line_bottom.setVisibility(View.INVISIBLE);
                                 TranslateAnimation animate = new TranslateAnimation(
                                         0,                 // fromXDelta
                                         0,                 // toXDelta
                                         0,  // fromYDelta
-                                        -spinner_container_main.getHeight()); // toYDelta
+                                        -rv_filter.getHeight()); // toYDelta
                                 animate.setDuration(100);
                                 animate.setFillAfter(true);
-                                spinner_container_main.clearAnimation();
-                                spinner_container_main.startAnimation(animate);
-                                spinner_container_main.setVisibility(View.GONE);
+                                rv_filter.clearAnimation();
+                                rv_filter.startAnimation(animate);
+                                rv_filter.setVisibility(View.GONE);
                             }
                         }
+                        if (isLastItemDisplaying(recyclerView)) {
 
-                        int visibleItemCount = layoutManager.getChildCount();
-                        int totalItemCount = layoutManager.getItemCount();
-                        int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
-                        if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
-                            if (totalPagesOrder != 0 && pageNumberOrder < totalPagesOrder) {
+                            int visibleItemCount = layoutManager.getChildCount();
+                            int totalItemCount = layoutManager.getItemCount();
+                            int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                            if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
+                                if (totalPagesOrder != 0 && pageNumberOrder < totalPagesOrder) {
 //                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
-//                                btn_load_more.setVisibility(View.VISIBLE);
-                                pageNumberOrder++;
-                                try {
-                                    performPaginationOrder();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
+//                        btn_load_more.setVisibility(View.VISIBLE);
+                                    pageNumberOrder++;
+                                    try {
+                                        performPaginationOrder();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                             }
                         }
@@ -496,6 +499,15 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         return rootView;
     }
 
+    private boolean isLastItemDisplaying(RecyclerView recyclerView) {
+        if (recyclerView.getAdapter().getItemCount() > 9) {
+            int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+            if (lastVisibleItemPosition != RecyclerView.NO_POSITION && lastVisibleItemPosition == recyclerView.getAdapter().getItemCount() - 1)
+                return true;
+        }
+        return false;
+    }
+
     private String getScrollEvent() {
         String scroll = "";
         if (scrollEvent.size() > 0) {
@@ -522,7 +534,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     }
 
     private void performPaginationOrder() throws JSONException {
-        loader.showLoader();
+//        loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -604,7 +616,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
     private void performPagination() throws JSONException {
         Log.i("PaymentDebug", "In Pagination");
-        loader.showLoader();
+//        loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");

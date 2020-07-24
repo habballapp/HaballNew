@@ -2,14 +2,17 @@ package com.haball.Distributor.ui.retailer.Retailor_Management;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +33,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputLayout;
+import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.ui.retailer.RetailerFragment;
 import com.haball.Distributor.ui.shipments.Shipments_Fragments;
 import com.haball.R;
@@ -167,7 +171,7 @@ public class ViewRetailer extends Fragment {
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_UPDATE_RETAILER, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
-                if(check_box.isChecked()) {
+                if (check_box.isChecked()) {
                     try {
                         Toast.makeText(getContext(), "Retailer Code " + result.getString("RetailerCode") + " has been activated successfully", Toast.LENGTH_LONG).show();
                     } catch (JSONException e) {
@@ -203,6 +207,25 @@ public class ViewRetailer extends Fragment {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.add(R.id.main_container, new RetailerFragment());
+                    fragmentTransaction.commit();
+                }
+                return false;
+            }
+        });
     }
 
     private void fetchRetailerData() throws JSONException {
@@ -243,11 +266,11 @@ public class ViewRetailer extends Fragment {
                     mg_rt_company.setTextColor(getResources().getColor(R.color.textcolor));
                     mg_tr_address.setText(result.getString("Address"));
                     mg_tr_address.setTextColor(getResources().getColor(R.color.textcolor));
-                    if(result.getString("Status").equals("1"))
+                    if (result.getString("Status").equals("1"))
                         mg_rt_status.setText("Connected");
-                    else if(result.getString("Status").equals("2"))
+                    else if (result.getString("Status").equals("2"))
                         mg_rt_status.setText("Disconnected");
-                    else if(result.getString("Status").equals("0"))
+                    else if (result.getString("Status").equals("0"))
                         mg_rt_status.setText("Pending");
                     mg_rt_status.setTextColor(getResources().getColor(R.color.textcolor));
 //                    if (result.getString("Status").equals("1"))
