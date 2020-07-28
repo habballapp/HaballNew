@@ -159,10 +159,12 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
 
 
         float totalamount = 0;
+        String yourFormattedString3;
         if (!selectedProductsDataList.get(position).getProductUnitPrice().equals("") && !selectedProductsDataListQty.get(position).equals(""))
             totalamount = Float.parseFloat(selectedProductsDataListQty.get(position)) * Float.parseFloat(selectedProductsDataList.get(position).getProductUnitPrice());
 //        holder.totalAmount_value.setText(String.valueOf(totalamount));
-        holder.totalAmount_value.setText(String.format("%.0f", totalamount));
+        yourFormattedString3 = formatter1.format(totalamount);
+        holder.totalAmount_value.setText(yourFormattedString3);
 
         holder.list_numberOFitems.setOnKeyListener(new View.OnKeyListener() {
             @Override

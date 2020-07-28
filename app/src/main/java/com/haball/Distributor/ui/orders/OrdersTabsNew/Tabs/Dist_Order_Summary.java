@@ -45,6 +45,7 @@ import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.ui.home.HomeFragment;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Adapters.Order_Summary_Adapter_DistOrder;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderChildlist_Model_DistOrder;
+import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrderDashboard;
 import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.NonSwipeableViewPager;
@@ -603,10 +604,12 @@ public class Dist_Order_Summary extends Fragment {
                 SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
                 editorOrderTabsFromDraft.putString("TabNo", "0");
                 editorOrderTabsFromDraft.apply();
-
-                Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
-                ((FragmentActivity) getContext()).startActivity(login_intent);
-                ((FragmentActivity) getContext()).finish();
+                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                fragmentTransaction.commit();
+//                Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+//                ((FragmentActivity) getContext()).startActivity(login_intent);
+//                ((FragmentActivity) getContext()).finish();
 
 //                fm.popBackStack();
             }
@@ -852,7 +855,6 @@ public class Dist_Order_Summary extends Fragment {
         float gstAmount = 0;
         totalAmount = Float.parseFloat(grossamount.getString("grossamount", "0")) + gstAmount;
         DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
-        float totalamount = 0;
         String yourFormattedString3 = formatter1.format(totalAmount);
 //        gst_amount.setText(String.valueOf(gstAmount));
         total_amount.setText(String.format(yourFormattedString3));

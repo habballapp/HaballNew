@@ -43,6 +43,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputLayout;
+import com.haball.Distributor.ui.orders.OrdersTabsNew.Order_PlaceOrder;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrderDashboard;
 import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Adapters.RetailerFragmentAdapter;
@@ -146,7 +147,7 @@ public class PlaceholderFragment extends Fragment {
                 new TextField().changeColor(getContext(), layout_cnic_no, txt_cnic_no);
                 new TextField().changeColor(getContext(), layout_txt_address, txt_address);
 
-                 arrayAdapterPayments = new ArrayAdapter<>(rootView.getContext(),
+                arrayAdapterPayments = new ArrayAdapter<>(rootView.getContext(),
                         android.R.layout.simple_spinner_dropdown_item, company_names);
                 spinner_retailer_details.setVisibility(View.GONE);
 
@@ -155,9 +156,9 @@ public class PlaceholderFragment extends Fragment {
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         if (i == 0) {
                             try {
-                                   ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                                ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                                 ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                              ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
+                                ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                             } catch (NullPointerException ex) {
                                 ex.printStackTrace();
                             }
@@ -165,7 +166,7 @@ public class PlaceholderFragment extends Fragment {
                             try {
                                 ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                                 ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                              ((TextView) adapterView.getChildAt(0)).setPadding(30,0 ,30 ,0);
+                                ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                             } catch (NullPointerException ex) {
                                 ex.printStackTrace();
                             }
@@ -384,10 +385,14 @@ public class PlaceholderFragment extends Fragment {
                     SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
                     editorOrderTabsFromDraft.putString("TabNo", "0");
                     editorOrderTabsFromDraft.apply();
-
-                    Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailerOrderDashboard.class);
-                    ((FragmentActivity) getContext()).startActivity(login_intent);
-                    ((FragmentActivity) getContext()).finish();
+                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                        fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace()).addToBackStack("null");
+                    fragmentTransaction.add(R.id.main_container, new RetailerOrderDashboard()).addToBackStack("null");
+                    fragmentTransaction.commit();
+                    return true;
+//                    Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailerOrderDashboard.class);
+//                    ((FragmentActivity) getContext()).startActivity(login_intent);
+//                    ((FragmentActivity) getContext()).finish();
                 }
                 return false;
             }

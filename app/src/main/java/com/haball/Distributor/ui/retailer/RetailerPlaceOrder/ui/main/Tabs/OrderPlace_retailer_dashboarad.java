@@ -52,8 +52,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bignerdranch.expandablerecyclerview.model.SimpleParent;
+import com.haball.Distributor.ui.home.HomeFragment;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.ExpandableRecyclerAdapter;
+import com.haball.Distributor.ui.orders.OrdersTabsNew.Order_PlaceOrder;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
+import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrderDashboard;
 import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.RetailerPlaceOrder;
 import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Adapters.ParentListAdapter;
 import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models.OrderChildlist_Model;
@@ -161,7 +164,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
                     imm.hideSoftInputFromWindow(myview.getWindowToken(), 0);
 
                     fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.add(R.id.main_container, new RetailerPlaceOrder()).addToBackStack("tag");
+                    fragmentTransaction.add(R.id.main_container, new RetailerPlaceOrder()).addToBackStack("null");
                     fragmentTransaction.commit();
                 }
             }
@@ -368,7 +371,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
 
 
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.add(R.id.main_container, new RetailerPlaceOrder()).addToBackStack("tag");
+                fragmentTransaction.add(R.id.main_container, new RetailerOrderDashboard()).addToBackStack("tag");
                 fragmentTransaction.commit();
 
 //                fm.popBackStack();
@@ -398,19 +401,24 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
-                    // handle back button's click listener
-//                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
-//
-                    if (selectedProductsDataList == null || selectedProductsDataList.size() == 0) {
+                    SharedPreferences orderCheckout = getContext().getSharedPreferences("orderCheckout",
+                            Context.MODE_PRIVATE);
+                    Gson gson = new Gson();
+                    String orderCheckedOut = orderCheckout.getString("orderCheckout", "");
+
+                    if (orderCheckedOut.equals("orderCheckout")) {
+                        showDiscardDialog();
+                        return true;
+                    } else {
                         InputMethodManager imm = (InputMethodManager) (getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(myview.getWindowToken(), 0);
 
 
                         fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                        fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace()).addToBackStack("null");
                         fragmentTransaction.add(R.id.main_container, new RetailerPlaceOrder()).addToBackStack("null");
                         fragmentTransaction.commit();
-                    } else {
-                        showDiscardDialog();
+                        return true;
                     }
 //                    SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
 //                            Context.MODE_PRIVATE);

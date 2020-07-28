@@ -21,8 +21,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.haball.Distributor.ui.orders.OrdersTabsNew.ExpandableRecyclerAdapter;
+import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.RetailerPlaceOrder;
 import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models.OrderChildlist_Model;
 import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models.OrderParentlist_Model;
 import com.haball.R;
@@ -201,15 +203,23 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
             }
         };
         orderChildList_vh.list_numberOFitems.addTextChangedListener(textWatcher);
-//        orderChildList_vh.list_numberOFitems.setOnKeyListener(new View.OnKeyListener() {
-//            @Override
-//            public boolean onKey(View v, int keyCode, KeyEvent event) {
-//                Log.i("order_place_debug", String.valueOf(keyCode));
+        orderChildList_vh.list_numberOFitems.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                Log.i("order_place_debug", String.valueOf(keyCode));
+                Log.i("order_place_debug123123", String.valueOf(KeyEvent.KEYCODE_BACK));
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+//                        fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace()).addToBackStack("null");
+                    fragmentTransaction.add(R.id.main_container, new RetailerPlaceOrder()).addToBackStack("null");
+                    fragmentTransaction.commit();
+                    return true;
+                }
 //                Log.i("order_place_debug", String.valueOf(KeyCode));
-//
-//                return false;
-//            }
-//        });
+
+                return false;
+            }
+        });
 
         final int finalTotalChildInThisParent = totalChildInThisParent;
 

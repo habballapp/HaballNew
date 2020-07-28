@@ -21,10 +21,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.haball.Distributor.ui.orders.OrdersTabsNew.ExpandableRecyclerAdapter;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderChildlist_Model_DistOrder;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderParentlist_Model_DistOrder;
+import com.haball.Distributor.ui.orders.OrdersTabsNew.Order_PlaceOrder;
+import com.haball.Distributor.ui.orders.OrdersTabsNew.Tabs.Dist_OrderPlace;
+import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.RetailerPlaceOrder;
 import com.haball.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -187,16 +191,23 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
             }
         };
         OrderChildList_VH_DistOrder.list_numberOFitems.addTextChangedListener(textWatcher);
-//        OrderChildList_VH_DistOrder.list_numberOFitems.setOnKeyListener(new View.OnKeyListener() {
-//            @Override
-//            public boolean onKey(View v, int keyCode, KeyEvent event) {
-//                Log.i("order_place_debug", String.valueOf(keyCode));
+        OrderChildList_VH_DistOrder.list_numberOFitems.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                Log.i("order_place_debug", String.valueOf(keyCode));
+                Log.i("order_place_debug123123", String.valueOf(KeyEvent.KEYCODE_BACK));
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+//                        fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace()).addToBackStack("null");
+                    fragmentTransaction.add(R.id.main_container, new Order_PlaceOrder()).addToBackStack("null");
+                    fragmentTransaction.commit();
+                    return true;
+                }
 //                Log.i("order_place_debug", String.valueOf(KeyCode));
-//
-//                return false;
-//            }
-//        });
 
+                return false;
+            }
+        });
         final int finalTotalChildInThisParent = totalChildInThisParent;
 
         OrderChildList_VH_DistOrder.list_numberOFitems.setOnEditorActionListener(new TextView.OnEditorActionListener() {

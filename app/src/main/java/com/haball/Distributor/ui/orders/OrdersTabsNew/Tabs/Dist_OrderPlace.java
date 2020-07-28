@@ -214,7 +214,7 @@ public class Dist_OrderPlace extends Fragment {
                     imm.hideSoftInputFromWindow(myview.getWindowToken(), 0);
 
                     fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("null");
+                    fragmentTransaction.add(R.id.main_container, new Order_PlaceOrder()).addToBackStack("null");
                     fragmentTransaction.commit();
                 }
             }

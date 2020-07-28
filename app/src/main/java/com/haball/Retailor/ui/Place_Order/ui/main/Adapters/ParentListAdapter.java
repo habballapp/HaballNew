@@ -21,9 +21,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.haball.Distributor.ui.orders.OrdersTabsNew.ExpandableRecyclerAdapter;
+import com.haball.Distributor.ui.orders.OrdersTabsNew.Order_PlaceOrder;
 import com.haball.R;
+import com.haball.Retailor.ui.Place_Order.Retailer_Place_Order;
 import com.haball.Retailor.ui.Place_Order.ui.main.Models.OrderChildlist_Model;
 import com.haball.Retailor.ui.Place_Order.ui.main.Models.OrderParentlist_Model;
 import com.google.gson.Gson;
@@ -201,16 +204,23 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
             }
         };
         orderChildList_vh.list_numberOFitems.addTextChangedListener(textWatcher);
-//        orderChildList_vh.list_numberOFitems.setOnKeyListener(new View.OnKeyListener() {
-//            @Override
-//            public boolean onKey(View v, int keyCode, KeyEvent event) {
-//                Log.i("order_place_debug", String.valueOf(keyCode));
+        orderChildList_vh.list_numberOFitems.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                Log.i("order_place_debug", String.valueOf(keyCode));
+                Log.i("order_place_debug123123", String.valueOf(KeyEvent.KEYCODE_BACK));
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+//                        fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace()).addToBackStack("null");
+                    fragmentTransaction.add(R.id.main_container, new Retailer_Place_Order()).addToBackStack("null");
+                    fragmentTransaction.commit();
+                    return true;
+                }
 //                Log.i("order_place_debug", String.valueOf(KeyCode));
-//
-//                return false;
-//            }
-//        });
 
+                return false;
+            }
+        });
         final int finalTotalChildInThisParent = totalChildInThisParent;
 
         orderChildList_vh.list_numberOFitems.setOnEditorActionListener(new TextView.OnEditorActionListener() {
