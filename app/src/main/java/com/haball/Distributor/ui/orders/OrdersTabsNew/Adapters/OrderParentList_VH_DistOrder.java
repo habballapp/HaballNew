@@ -1,6 +1,7 @@
 package com.haball.Distributor.ui.orders.OrdersTabsNew.Adapters;
 
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -47,6 +48,21 @@ public class OrderParentList_VH_DistOrder extends ParentViewHolder {
 
 
     private void togglePlusMinusIcon() {
+
+
+        if (filter_layout.getVisibility() == View.GONE) {
+
+            filter_layout.setVisibility(View.VISIBLE);
+            TranslateAnimation animate1 = new TranslateAnimation(
+                    0,                 // fromXDelta
+                    0,                 // toXDelta
+                    -filter_layout.getHeight(),  // fromYDelta
+                    0);                // toYDelta
+            animate1.setDuration(250);
+            animate1.setFillAfter(true);
+            filter_layout.clearAnimation();
+            filter_layout.startAnimation(animate1);
+        }
         if (isExpanded()) {
             collapseView();
 //            minus_icon.setVisibility(View.GONE);

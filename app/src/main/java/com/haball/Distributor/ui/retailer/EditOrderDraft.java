@@ -1,4 +1,4 @@
-package com.haball.Distributor.ui.orders;
+package com.haball.Distributor.ui.retailer;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -19,9 +19,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.reflect.TypeToken;
 import com.haball.Distributor.ui.home.HomeFragment;
-import com.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderChildlist_Model_DistOrder;
-import com.haball.Distributor.ui.orders.OrdersTabsNew.Order_PlaceOrder;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Tabs.OrderSummaryDraft;
+import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.RetailerPlaceOrder;
+import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models.OrderChildlist_Model;
 import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.NonSwipeableViewPager;
@@ -42,12 +42,12 @@ import java.util.List;
 import java.util.Map;
 
 public class EditOrderDraft {
-    public String URL_EDIT_ORDER_DRAFT = "http://175.107.203.97:4013/api/Orders/";
+    public String URL_EDIT_ORDER_DRAFT = "http://175.107.203.97:4013/api/retailerorder/";
     public String DistributorId, Token;
     public Context mContext;
 
     private List<ViewOrderProductModel> RetailerDraftProductsList = new ArrayList<>();
-    private List<OrderChildlist_Model_DistOrder> selectedProductsDataList = new ArrayList<>();
+    private List<OrderChildlist_Model> selectedProductsDataList = new ArrayList<>();
     private List<String> selectedProductsQuantityList = new ArrayList<>();
     private float grossAmount = 0;
     private FragmentTransaction fragmentTransaction;
@@ -127,7 +127,7 @@ public class EditOrderDraft {
                 try {
                     JSONArray arr = response.getJSONArray("OrderDetails");
 //                    JSONObject obj = response.getJSONObject("OrderPaymentDetails");
-                    String CompanyName = response.getString("CompanyName");
+                    String CompanyName = response.getString("RetailerCompanyName");
 
                     Log.i("jsonOrderDetail1", String.valueOf(arr));
                     Gson gson = new Gson();
@@ -135,20 +135,20 @@ public class EditOrderDraft {
                     }.getType();
                     RetailerDraftProductsList = gson.fromJson(arr.toString(), type);
                     for(int i = 0; i < RetailerDraftProductsList.size(); i++) {
-                        Log.i("jsonOrderDetail", String.valueOf(RetailerDraftProductsList.get(i).getProductName()));
+                        Log.i("jsonOrderDetail", String.valueOf(RetailerDraftProductsList.get(i).getProductTitle()));
                                                                                     //                                                                                                                                                                                                                                                                                                  public OrderChildlist_Model_DistOrder(String ID, String companyId, String categoryId, String code, String title, String shortDescription, String longDescription, String unitPrice, String categoryTitle, String packSize, String UOMId, String UOMTitle, String imageData, String imageType, String discountId, String effectiveDate, String expiryDate, String isPercentage, String discountValue, String discountAmount) {
-                        selectedProductsDataList.add(new OrderChildlist_Model_DistOrder(RetailerDraftProductsList.get(i).getID(), RetailerDraftProductsList.get(i).getCompanyId(), RetailerDraftProductsList.get(i).getCategoryId(), RetailerDraftProductsList.get(i).getProductCode(), RetailerDraftProductsList.get(i).getTitle(), RetailerDraftProductsList.get(i).getShortDescription(), RetailerDraftProductsList.get(i).getLongDescription(), RetailerDraftProductsList.get(i).getUnitPrice(), RetailerDraftProductsList.get(i).getCategoryTitle(), RetailerDraftProductsList.get(i).getPackSize(), RetailerDraftProductsList.get(i).getUOMId(), RetailerDraftProductsList.get(i).getUOMTitle(), RetailerDraftProductsList.get(i).getImageData(), RetailerDraftProductsList.get(i).getImageType(), RetailerDraftProductsList.get(i).getDiscountId(), RetailerDraftProductsList.get(i).getEffectiveDate(), RetailerDraftProductsList.get(i).getExpiryDate(), RetailerDraftProductsList.get(i).getIsPercentage(), RetailerDraftProductsList.get(i).getDiscountValue(), RetailerDraftProductsList.get(i).getDiscountAmount()));
-                        selectedProductsQuantityList.add(RetailerDraftProductsList.get(i).getOrderQty());
+                        selectedProductsDataList.add(new OrderChildlist_Model(RetailerDraftProductsList.get(i).getProductId(), RetailerDraftProductsList.get(i).getProductCode(), RetailerDraftProductsList.get(i).getProductTitle(), RetailerDraftProductsList.get(i).getProductUnitPrice(), "0", RetailerDraftProductsList.get(i).getUnitOFMeasure(), RetailerDraftProductsList.get(i).getDiscount(), "1"));
+                        selectedProductsQuantityList.add(RetailerDraftProductsList.get(i).getOrderedQty());
                     }
 
                     grossAmount = 0;
 
                     if (selectedProductsDataList.size() > 0) {
                         for (int i = 0; i < selectedProductsDataList.size(); i++) {
-                            Log.i("unit price", selectedProductsDataList.get(i).getUnitPrice());
+                            Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
                             Log.i("qty", selectedProductsQuantityList.get(i));
-                            if (!selectedProductsDataList.get(i).getUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
-                                grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
+                            if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
+                                grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
                         }
                         SharedPreferences grossamount = context.getSharedPreferences("grossamount",
                                 Context.MODE_PRIVATE);
@@ -162,7 +162,7 @@ public class EditOrderDraft {
                     String jsonqty = gson.toJson(selectedProductsQuantityList);
                     Log.i("debugOrder_jsonqty", jsonqty);
                     Log.i("debugOrder_json", json);
-                    SharedPreferences selectedProducts = context.getSharedPreferences("selectedProducts_distributor",
+                    SharedPreferences selectedProducts = context.getSharedPreferences("selectedProducts_retailer",
                             Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = selectedProducts.edit();
                     editor.putString("CompanyName", CompanyName);
@@ -177,7 +177,7 @@ public class EditOrderDraft {
                     editorDraft.apply();
 
                     FragmentTransaction fragmentTransaction = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.add(R.id.main_container, new Order_PlaceOrder()).addToBackStack("null");
+                    fragmentTransaction.add(R.id.main_container, new RetailerPlaceOrder()).addToBackStack("null");
                     fragmentTransaction.commit();
 
 //
@@ -203,10 +203,10 @@ public class EditOrderDraft {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                 new HaballError().printErrorMessage(context, error);
-                new ProcessingError().showError(context);
                 error.printStackTrace();
                 loader.hideLoader();
+                 new HaballError().printErrorMessage(context, error);
+                new ProcessingError().showError(context);
             }
         }) {
             @Override

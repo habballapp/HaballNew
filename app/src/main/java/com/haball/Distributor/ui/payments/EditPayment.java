@@ -21,6 +21,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.DistributorDashboard;
+import com.haball.HaballError;
+import com.haball.ProcessingError;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,7 +65,8 @@ public class EditPayment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(context, error);
+                new ProcessingError().showError(context);
 
                 error.printStackTrace();
             }
@@ -84,7 +87,7 @@ public class EditPayment {
     }
 
 
-    private void printErrorMessage(VolleyError error) {
+    private void printErrMessage(VolleyError error) {
         if (error instanceof NetworkError) {
             Toast.makeText(mContext, "Network Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof ServerError) {

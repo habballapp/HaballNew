@@ -49,12 +49,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distribution_Login.Distribution_Login;
+import com.haball.HaballError;
 import com.haball.Payment.ConsolidatePaymentsModel;
 import com.haball.Payment.Consolidate_Fragment_Adapter;
 import com.haball.Payment.DistributorPaymentRequestAdaptor;
 import com.haball.Payment.DistributorPaymentRequestModel;
 import com.haball.Payment.PaymentLedgerAdapter;
 import com.haball.Payment.PaymentLedgerModel;
+import com.haball.ProcessingError;
 import com.haball.R;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
@@ -505,7 +507,8 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
                 Log.i("onErrorResponse", "Error");
@@ -546,7 +549,8 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }
@@ -603,7 +607,8 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }
@@ -656,7 +661,8 @@ public class ConsolidatedPaymentsFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }
@@ -677,7 +683,7 @@ public class ConsolidatedPaymentsFragment extends Fragment {
     }
 
 
-    private void printErrorMessage(VolleyError error) {
+    private void printErrMessage(VolleyError error) {
         if (getContext() != null) {
             if (error instanceof NetworkError) {
                 Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();

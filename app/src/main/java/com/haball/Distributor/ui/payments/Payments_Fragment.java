@@ -52,9 +52,11 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.ui.support.MyJsonArrayRequest;
+import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.Payment.PaymentLedgerAdapter;
 import com.haball.Payment.PaymentLedgerModel;
+import com.haball.ProcessingError;
 import com.haball.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -602,7 +604,8 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 loader.hideLoader();
 
                 error.printStackTrace();
@@ -654,7 +657,8 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
                 Log.i("onErrorResponse", "Error");
@@ -718,7 +722,8 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 loader.hideLoader();
 
                 error.printStackTrace();
@@ -784,7 +789,8 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 error.printStackTrace();
                 Log.i("onErrorResponse", "Error");
             }
@@ -857,7 +863,8 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 loader.hideLoader();
 
                 error.printStackTrace();
@@ -979,7 +986,7 @@ public class Payments_Fragment extends Fragment implements DatePickerDialog.OnDa
 
     }
 
-    private void printErrorMessage(VolleyError error) {
+    private void printErrMessage(VolleyError error) {
         if (getContext() != null) {
             if (error instanceof NetworkError) {
                 Toast.makeText(mcontext, "Network Error !", Toast.LENGTH_LONG).show();

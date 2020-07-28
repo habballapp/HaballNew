@@ -49,10 +49,10 @@ import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.haball.Distributor.ui.profile.Distributor_Profile;
 import com.haball.Distributor.ui.profile.Profile_Model;
+import com.haball.HaballError;
+import com.haball.ProcessingError;
 import com.haball.R;
 import com.haball.Registration.BooleanRequest;
-import com.haball.Retailer_Login.RetailerLogin;
-import com.haball.Retailor.RetailorDashboard;
 import com.haball.Retailor.ui.Profile.Profile_Tabs;
 import com.haball.TextField;
 import com.google.android.material.snackbar.Snackbar;
@@ -81,6 +81,7 @@ import androidx.fragment.app.FragmentTransaction;
  * A placeholder fragment containing a simple view.
  */
 public class PlaceholderFragment extends Fragment {
+
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -127,8 +128,10 @@ public class PlaceholderFragment extends Fragment {
 
         switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
             case 1: {
-
                 root = inflater.inflate(R.layout.fragment_distributor_profile, container, false);
+
+                InputMethodManager imm =(InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(root.getWindowToken(), 0);
 
                 layout_edt_dist_code = root.findViewById(R.id.layout_edt_dist_code);
                 layout_edt_firstname = root.findViewById(R.id.layout_edt_firstname);
@@ -139,6 +142,7 @@ public class PlaceholderFragment extends Fragment {
                 layout_tv_NTN = root.findViewById(R.id.layout_tv_NTN);
                 layout_tv_companyname = root.findViewById(R.id.layout_tv_companyname);
                 layout_tv_created_date = root.findViewById(R.id.layout_tv_created_date);
+                layout_R_Address = root.findViewById(R.id.layout_R_Address);
                 btn_back = root.findViewById(R.id.btn_back);
                 btn_back.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -146,7 +150,7 @@ public class PlaceholderFragment extends Fragment {
                         if (changed) {
                             showDiscardDialog();
                         } else {
-                            Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                            Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
                             ((FragmentActivity) getContext()).startActivity(login_intent);
                             ((FragmentActivity) getContext()).finish();
                         }
@@ -178,7 +182,7 @@ public class PlaceholderFragment extends Fragment {
 //                        if (changed) {
 //                            showDiscardDialog();
 //                        } else {
-//                            Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+//                            Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
 //                            ((FragmentActivity) getContext()).startActivity(login_intent);
 //                            ((FragmentActivity) getContext()).finish();
 //                        }
@@ -197,6 +201,7 @@ public class PlaceholderFragment extends Fragment {
                 new TextField().changeColor(getContext(), layout_tv_NTN, tv_NTN);
                 new TextField().changeColor(getContext(), layout_tv_companyname, tv_companyname);
                 new TextField().changeColor(getContext(), layout_tv_created_date, tv_created_date);
+                new TextField().changeColor(getContext(), layout_R_Address, R_Address);
 
                 edt_firstname.setOnTouchListener(new View.OnTouchListener() {
                     @SuppressLint("ClickableViewAccessibility")
@@ -466,6 +471,10 @@ public class PlaceholderFragment extends Fragment {
 
             case 2:
                 root = inflater.inflate(R.layout.pasword_change, container, false);
+
+                InputMethodManager imm =(InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(root.getWindowToken(), 0);
+
                 currentTab = "Password";
                 btn_back = root.findViewById(R.id.btn_back);
                 layout_password3 = root.findViewById(R.id.layout_password3);
@@ -568,34 +577,36 @@ public class PlaceholderFragment extends Fragment {
         String remail = edt_email.getText().toString();
         String rmobile = edt_dist_mobile.getText().toString();
         String r_Address = R_Address.getText().toString();
-        if (!remail.equals("") && !rmobile.equals("") && !r_Address.equals("")) {
-            if ((remail.equals(Email)
-                    && rmobile.equals(Mobile)
-                    && r_Address.equals(Address))
-                    || !remail.matches(reg_ex)
-                    || rmobile.length() != 12
+        if (changed) {
+            if (!remail.equals("") && !rmobile.equals("") && !r_Address.equals("")) {
+                if ((remail.equals(Email)
+                        && rmobile.equals(Mobile)
+                        && r_Address.equals(Address))
+                        || !remail.matches(reg_ex)
+                        || rmobile.length() != 12
 //                || comment.equals("")
-            ) {
-                Log.i("debugProfileVali", "true");
-                Log.i("debugProfileVali", "'" + remail + "'");
-                Log.i("debugProfileVali", "'" + rmobile + "'");
-                Log.i("debugProfileVali", "'" + r_Address + "'");
+                ) {
+                    Log.i("debugProfileVali", "true");
+                    Log.i("debugProfileVali", "'" + remail + "'");
+                    Log.i("debugProfileVali", "'" + rmobile + "'");
+                    Log.i("debugProfileVali", "'" + r_Address + "'");
+                    distri_btn_save.setEnabled(false);
+                    distri_btn_save.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+
+                } else {
+                    Log.i("debugProfileVali", "false");
+                    Log.i("debugProfileVali", "'" + remail + "'");
+                    Log.i("debugProfileVali", "'" + rmobile + "'");
+                    Log.i("debugProfileVali", "'" + r_Address + "'");
+
+                    distri_btn_save.setEnabled(true);
+                    distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
+                }
+            } else {
                 distri_btn_save.setEnabled(false);
                 distri_btn_save.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
-            } else {
-                Log.i("debugProfileVali", "false");
-                Log.i("debugProfileVali", "'" + remail + "'");
-                Log.i("debugProfileVali", "'" + rmobile + "'");
-                Log.i("debugProfileVali", "'" + r_Address + "'");
-
-                distri_btn_save.setEnabled(true);
-                distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
             }
-        } else {
-            distri_btn_save.setEnabled(false);
-            distri_btn_save.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
-
         }
     }
 
@@ -632,6 +643,8 @@ public class PlaceholderFragment extends Fragment {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    edt_firstname.clearFocus();
+                    edt_lastname.clearFocus();
                     edt_email.clearFocus();
                     edt_dist_mobile.clearFocus();
                     R_Address.clearFocus();
@@ -640,6 +653,8 @@ public class PlaceholderFragment extends Fragment {
                 return false;
             }
         };
+        edt_firstname.setOnKeyListener(listener);
+        edt_lastname.setOnKeyListener(listener);
         edt_dist_mobile.setOnKeyListener(listener);
         edt_email.setOnKeyListener(listener);
         R_Address.setOnKeyListener(listener);
@@ -659,6 +674,7 @@ public class PlaceholderFragment extends Fragment {
                         Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
                         ((FragmentActivity) getContext()).startActivity(login_intent);
                         ((FragmentActivity) getContext()).finish();
+                        return true;
                     }
                 }
                 return false;
@@ -803,29 +819,38 @@ public class PlaceholderFragment extends Fragment {
                         Profile_Model profile_model = gson.fromJson(result, Profile_Model.class);
                         Phone = profile_model.getPhone();
                         edt_dist_code.setText(profile_model.getDealerCode());
-                        edt_dist_code.setTextColor(getResources().getColor(R.color.textcolor));
+                        if (!String.valueOf(edt_dist_code.getText()).equals(""))
+                            edt_dist_code.setTextColor(getResources().getColor(R.color.textcolor));
                         edt_firstname.setText(profile_model.getFirstName());
-                        edt_firstname.setTextColor(getResources().getColor(R.color.textcolor));
+                        if (!String.valueOf(edt_firstname.getText()).equals(""))
+                            edt_firstname.setTextColor(getResources().getColor(R.color.textcolor));
                         edt_lastname.setText(profile_model.getLastName());
-                        edt_lastname.setTextColor(getResources().getColor(R.color.textcolor));
+                        if (!String.valueOf(edt_lastname.getText()).equals(""))
+                            edt_lastname.setTextColor(getResources().getColor(R.color.textcolor));
                         edt_email.setText(profile_model.getEmail());
-                        edt_email.setTextColor(getResources().getColor(R.color.textcolor));
+                        if (!String.valueOf(edt_email.getText()).equals(""))
+                            edt_email.setTextColor(getResources().getColor(R.color.textcolor));
                         Email = profile_model.getEmail();
                         edt_dist_mobile.setText(profile_model.getMobile());
-                        edt_dist_mobile.setTextColor(getResources().getColor(R.color.textcolor));
+                        if (!String.valueOf(edt_dist_mobile.getText()).equals(""))
+                            edt_dist_mobile.setTextColor(getResources().getColor(R.color.textcolor));
                         Mobile = profile_model.getMobile();
                         tv_cnic.setText(profile_model.getCNIC());
-                        tv_cnic.setTextColor(getResources().getColor(R.color.textcolor));
+                        if (!String.valueOf(tv_cnic.getText()).equals(""))
+                            tv_cnic.setTextColor(getResources().getColor(R.color.textcolor));
                         tv_NTN.setText(profile_model.getCompanyNTN());
-                        tv_NTN.setTextColor(getResources().getColor(R.color.textcolor));
+                        if (!String.valueOf(tv_NTN.getText()).equals(""))
+                            tv_NTN.setTextColor(getResources().getColor(R.color.textcolor));
                         tv_companyname.setText(profile_model.getCompanyName());
-                        tv_companyname.setTextColor(getResources().getColor(R.color.textcolor));
+                        if (!String.valueOf(tv_companyname.getText()).equals(""))
+                            tv_companyname.setTextColor(getResources().getColor(R.color.textcolor));
 //                        R_Address.setText(profile_model.getAddress());
                         String string = profile_model.getCreatedDate();
                         String[] parts = string.split("T");
                         String Date = parts[0];
                         tv_created_date.setText(Date);
-                        tv_created_date.setTextColor(getResources().getColor(R.color.textcolor));
+                        if (!String.valueOf(tv_created_date.getText()).equals(""))
+                            tv_created_date.setTextColor(getResources().getColor(R.color.textcolor));
 
                         fetchAddresses();
 
@@ -849,7 +874,8 @@ public class PlaceholderFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }
@@ -897,10 +923,10 @@ public class PlaceholderFragment extends Fragment {
                             address.concat(String.valueOf(result.getJSONObject(i).get("ProvinceName")));
                             address.concat(", ");
                             address.concat(String.valueOf(result.getJSONObject(i).get("CountryName")));
-                            ;
                             R_Address.setText(address);
                             Address = address;
-                            R_Address.setTextColor(getResources().getColor(R.color.textcolor));
+                            if (!String.valueOf(R_Address.getText()).equals(""))
+                                R_Address.setTextColor(getResources().getColor(R.color.textcolor));
 
                             break;
 
@@ -913,7 +939,8 @@ public class PlaceholderFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }
@@ -1109,7 +1136,8 @@ public class PlaceholderFragment extends Fragment {
             layout_password3.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
             layout_password3.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
 //            layout_password3.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
-            txt_cfmpassword.setTextColor(getResources().getColor(R.color.error_stroke_color));        }
+            txt_cfmpassword.setTextColor(getResources().getColor(R.color.error_stroke_color));
+        }
 
 
     }
@@ -1259,7 +1287,7 @@ public class PlaceholderFragment extends Fragment {
         });
     }
 
-    private void printErrorMessage(VolleyError error) {
+    private void printErrMessage(VolleyError error) {
         if (getContext() != null) {
             if (error instanceof NetworkError) {
                 Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
@@ -1363,7 +1391,8 @@ public class PlaceholderFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }

@@ -12,7 +12,16 @@ public class RetailerViewOrderProductModel {
     String TaxValue;
     String UOMTitle;
 
-    public RetailerViewOrderProductModel(String productId, String productCode, String productName, String orderQty, String unitPrice, String discount, String totalPrice, String UOM, String taxValue, String UOMTitle) {
+    String DiscountedAmount;
+    String OrderedQty;
+    String PackSize;
+    String ProductTitle;
+    String ProductUnitPrice;
+    String Totalamount;
+    String UOMId;
+    String UnitOFMeasure;
+
+    public RetailerViewOrderProductModel(String productId, String productCode, String productName, String orderQty, String unitPrice, String discount, String totalPrice, String UOM, String taxValue, String UOMTitle, String discountedAmount, String orderedQty, String packSize, String productTitle, String productUnitPrice, String totalamount, String UOMId, String unitOFMeasure) {
         ProductId = productId;
         ProductCode = productCode;
         ProductName = productName;
@@ -23,6 +32,14 @@ public class RetailerViewOrderProductModel {
         this.UOM = UOM;
         TaxValue = taxValue;
         this.UOMTitle = UOMTitle;
+        DiscountedAmount = discountedAmount;
+        OrderedQty = orderedQty;
+        PackSize = packSize;
+        ProductTitle = productTitle;
+        ProductUnitPrice = productUnitPrice;
+        Totalamount = totalamount;
+        this.UOMId = UOMId;
+        UnitOFMeasure = unitOFMeasure;
     }
 
     public String getProductId() {
@@ -103,5 +120,69 @@ public class RetailerViewOrderProductModel {
 
     public void setUOMTitle(String UOMTitle) {
         this.UOMTitle = UOMTitle;
+    }
+
+    public String getDiscountedAmount() {
+        return DiscountedAmount;
+    }
+
+    public void setDiscountedAmount(String discountedAmount) {
+        DiscountedAmount = discountedAmount;
+    }
+
+    public String getOrderedQty() {
+        return OrderedQty;
+    }
+
+    public void setOrderedQty(String orderedQty) {
+        OrderedQty = orderedQty;
+    }
+
+    public String getPackSize() {
+        return PackSize;
+    }
+
+    public void setPackSize(String packSize) {
+        PackSize = packSize;
+    }
+
+    public String getProductTitle() {
+        return ProductTitle;
+    }
+
+    public void setProductTitle(String productTitle) {
+        ProductTitle = productTitle;
+    }
+
+    public String getProductUnitPrice() {
+        return ProductUnitPrice;
+    }
+
+    public void setProductUnitPrice(String productUnitPrice) {
+        ProductUnitPrice = productUnitPrice;
+    }
+
+    public String getTotalamount() {
+        return Totalamount;
+    }
+
+    public void setTotalamount(String totalamount) {
+        Totalamount = totalamount;
+    }
+
+    public String getUOMId() {
+        return UOMId;
+    }
+
+    public void setUOMId(String UOMId) {
+        this.UOMId = UOMId;
+    }
+
+    public String getUnitOFMeasure() {
+        return UnitOFMeasure;
+    }
+
+    public void setUnitOFMeasure(String unitOFMeasure) {
+        UnitOFMeasure = unitOFMeasure;
     }
 }

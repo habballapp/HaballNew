@@ -58,8 +58,10 @@ import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.RetailerPlaceOrder;
 import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Adapters.ParentListAdapter;
 import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models.OrderChildlist_Model;
 import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models.OrderParentlist_Model;
+import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.NonSwipeableViewPager;
+import com.haball.ProcessingError;
 import com.haball.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
@@ -649,7 +651,8 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }
@@ -746,7 +749,8 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }
@@ -904,7 +908,8 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }
@@ -984,7 +989,8 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }
@@ -1073,7 +1079,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
         }
     }
 
-    private void printErrorMessage(VolleyError error) {
+    private void printErrMessage(VolleyError error) {
         if (getContext() != null) {
             if (error instanceof NetworkError) {
                 Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();

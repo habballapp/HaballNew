@@ -26,7 +26,9 @@ package com.haball.Distributor.ui.orders;
         import com.android.volley.toolbox.Volley;
         import com.haball.Distributor.DistributorDashboard;
         import com.haball.Distributor.ui.home.HomeFragment;
+        import com.haball.HaballError;
         import com.haball.Loader;
+        import com.haball.ProcessingError;
         import com.haball.R;
         import com.haball.Registration.BooleanRequest;
         import com.haball.Retailor.RetailorDashboard;
@@ -125,6 +127,8 @@ public class DeleteOrderDraft {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                 new HaballError().printErrorMessage(context, error);
+                new ProcessingError().showError(context);
                 loader.hideLoader();
                 error.printStackTrace();
             }

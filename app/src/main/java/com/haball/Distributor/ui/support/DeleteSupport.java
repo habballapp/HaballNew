@@ -23,6 +23,8 @@ package com.haball.Distributor.ui.support;
         import com.android.volley.VolleyError;
         import com.android.volley.toolbox.JsonObjectRequest;
         import com.android.volley.toolbox.Volley;
+        import com.haball.HaballError;
+        import com.haball.ProcessingError;
         import com.haball.R;
 
         import org.json.JSONException;
@@ -107,7 +109,8 @@ public class DeleteSupport {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(context, error);
+                new ProcessingError().showError(context);
                 error.printStackTrace();
             }
         }) {
@@ -129,7 +132,7 @@ public class DeleteSupport {
     }
 
 
-    private void printErrorMessage(VolleyError error) {
+    private void printErrMessage(VolleyError error) {
         if(error.networkResponse != null && error.networkResponse.data != null) {
             try {
                 String message = "";

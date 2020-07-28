@@ -36,7 +36,9 @@ import com.haball.Distributor.ui.orders.Adapter.OrdersItemsAdapter;
 import com.haball.Distributor.ui.orders.Models.OrderItemsModel;
 import com.haball.Distributor.ui.orders.OrdersTabsLayout.ui.main.PageViewModel;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
+import com.haball.HaballError;
 import com.haball.Loader;
+import com.haball.ProcessingError;
 import com.haball.R;
 import com.haball.Retailor.ui.Logout.LogoutFragment;
 import com.google.gson.Gson;
@@ -239,7 +241,8 @@ public class Order_Summary extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 loader.hideLoader();
                 error.printStackTrace();
             }
@@ -256,7 +259,7 @@ public class Order_Summary extends Fragment {
         Volley.newRequestQueue(getContext()).add(sr);
     }
 
-    private void printErrorMessage(VolleyError error) {
+    private void printErrMessage(VolleyError error) {
         if (getContext() != null) {
             if (error instanceof NetworkError) {
                 Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();

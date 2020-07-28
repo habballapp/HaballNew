@@ -342,7 +342,6 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
                         editorEdit.putString("Amount", paymentsList.get(position).getTotalPrice());
                         editorEdit.putString("MenuItem", "Edit");
                         editorEdit.apply();
-
                         FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.main_container, new PaymentScreen3Fragment()).addToBackStack("Tag");
                         fragmentTransaction.commit();

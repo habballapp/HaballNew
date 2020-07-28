@@ -62,7 +62,7 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull final RetailerViewOrderProductAdapter.ViewHolder holder, int position) {
-        holder.txt_products.setText(OrdersList.get(position).getProductName());
+        holder.txt_products.setText(OrdersList.get(position).getProductTitle());
         holder.product_code.setText("Product Code:\u00A0");
         SpannableString ss1 = new SpannableString(OrdersList.get(position).getProductCode());
         ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
@@ -73,7 +73,7 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
         holder.product_code.append("Price:\u00A0");
 
         DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
-        String yourFormattedString1 = formatter1.format(Double.parseDouble(OrdersList.get(position).getUnitPrice()));
+        String yourFormattedString1 = formatter1.format(Double.parseDouble(OrdersList.get(position).getProductUnitPrice()));
 
         ss1 = new SpannableString("Rs.\u00A0" + yourFormattedString1);
         ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
@@ -106,7 +106,7 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
 
         holder.product_code.append("Qty:\u00A0");
 
-        ss1 = new SpannableString(OrdersList.get(position).getOrderQty());
+        ss1 = new SpannableString(OrdersList.get(position).getOrderedQty());
         ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
         holder.product_code.append(ss1);
 
@@ -115,7 +115,7 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
         holder.product_code.append("Amount:\u00A0");
 
         formatter1 = new DecimalFormat("#,###,##0.00");
-        yourFormattedString1 = formatter1.format(Double.parseDouble(OrdersList.get(position).getTotalPrice()));
+        yourFormattedString1 = formatter1.format(Double.parseDouble(OrdersList.get(position).getTotalamount()));
 
         ss1 = new SpannableString("Rs.\u00A0" + yourFormattedString1);
         ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
@@ -129,7 +129,7 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
 //
 //        holder.product_code_value.setText(OrdersList.get(position).getProductCode());
 //        DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
-//        String yourFormattedString1 = formatter1.format(Double.parseDouble(OrdersList.get(position).getUnitPrice()));
+//        String yourFormattedString1 = formatter1.format(Double.parseDouble(OrdersList.get(position).getProductUnitPrice()));
 //        holder.price_value.setText("Rs. " + yourFormattedString1);
 //        holder.UOM_value.setText(OrdersList.get(position).getUOMTitle());
 //        String yourFormattedString2;

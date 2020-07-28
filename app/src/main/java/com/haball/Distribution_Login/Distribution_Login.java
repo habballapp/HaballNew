@@ -463,7 +463,7 @@ public class Distribution_Login extends AppCompatActivity {
         }
     }
 
-//    private void printErrorMessage(VolleyError error) {
+//    private void printErrMessage(VolleyError error) {
 //        if (error instanceof NetworkError) {
 //            Toast.makeText(Distribution_Login.this, "Network Error !", Toast.LENGTH_LONG).show();
 //        } else if (error instanceof ServerError) {

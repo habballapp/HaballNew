@@ -22,7 +22,9 @@ import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrderDashboard;
+import com.haball.HaballError;
 import com.haball.Loader;
+import com.haball.ProcessingError;
 import com.haball.R;
 import com.haball.Retailor.RetailorDashboard;
 
@@ -112,6 +114,8 @@ public class RetailerCancelOrder {
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
                 loader.hideLoader();
+                 new HaballError().printErrorMessage(context, error);
+                new ProcessingError().showError(context);
             }
         }) {
             @Override

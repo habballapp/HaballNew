@@ -38,6 +38,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.ui.payments.InputStreamVolleyRequest;
+import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.ProcessingError;
 import com.haball.SSL_HandShake;
@@ -148,8 +149,8 @@ public class ViewVoucherRequest {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
-                new ProcessingError().showError(context);
-                error.printStackTrace();
+ new HaballError().printErrorMessage(context, error);
+                new ProcessingError().showError(context);                error.printStackTrace();
             }
         }, null)  {
             @Override

@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 
 import com.haball.Distributor.StatusKVP;
+import com.haball.Distributor.ui.retailer.DeleteOrderDraft;
+import com.haball.Distributor.ui.retailer.EditOrderDraft;
 import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrdersModel.RetailerOrdersModel;
 import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerViewOrder;
 import com.haball.R;
@@ -90,36 +92,61 @@ public class RetailerOrdersAdapter extends RecyclerView.Adapter<RetailerOrdersAd
             @Override
             public void onClick(View view) {
                 // final PopupMenu popup = new PopupMenu(context, view);
+//                Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
+//                final PopupMenu popup = new PopupMenu(wrapper, view);
+//
+//                MenuInflater inflater = popup.getMenuInflater();
+//                if (OrderStatusKVP.get(OrdersList.get(position).getOrderStatus()).equals("Approved"))
+//                    inflater.inflate(R.menu.dist_order_menu, popup.getMenu());
+//                else if (OrderStatusKVP.get(OrdersList.get(position).getOrderStatus()).equals("Cancelled"))
+//                    inflater.inflate(R.menu.cosolidate_payment_menu, popup.getMenu());
+//                else if (OrderStatusKVP.get(OrdersList.get(position).getOrderStatus()).equals("Draft"))
+//                    inflater.inflate(R.menu.dist_order_draft_menu, popup.getMenu());
+//                else if (OrderStatusKVP.get(OrdersList.get(position).getOrderStatus()).equals("Pending"))
+//                    inflater.inflate(R.menu.pending_order_menu, popup.getMenu());
+//                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                    @Override
+//                    public boolean onMenuItemClick(MenuItem item) {
+//                        switch (item.getItemId()) {
+//                            case R.id.consiladate_view:
+//                            case R.id.view_payment:
+//                            case R.id.orders_view:
+//                                viewOrder(position);
+//                                break;
+//                            case R.id.view_payment_cancel:
+//                            case R.id.orders_cancel:
+//                                String orderID = OrdersList.get(position).getOrderId();
+//                                showConfirmCancelOrderDialog(position);
+//                        }
+//                        return false;
+//                    }
+//                });
+//                popup.show();
                 Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
-                final PopupMenu popup = new PopupMenu(wrapper, view);
-
-                MenuInflater inflater = popup.getMenuInflater();
-                if (OrderStatusKVP.get(OrdersList.get(position).getOrderStatus()).equals("Approved"))
-                    inflater.inflate(R.menu.dist_order_menu, popup.getMenu());
-                else if (OrderStatusKVP.get(OrdersList.get(position).getOrderStatus()).equals("Cancelled"))
-                    inflater.inflate(R.menu.cosolidate_payment_menu, popup.getMenu());
-                else if (OrderStatusKVP.get(OrdersList.get(position).getOrderStatus()).equals("Draft"))
-                    inflater.inflate(R.menu.dist_order_draft_menu, popup.getMenu());
-                else if (OrderStatusKVP.get(OrdersList.get(position).getOrderStatus()).equals("Pending"))
-                    inflater.inflate(R.menu.pending_order_menu, popup.getMenu());
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.consiladate_view:
-                            case R.id.view_payment:
-                            case R.id.orders_view:
-                                viewOrder(position);
-                                break;
-                            case R.id.view_payment_cancel:
-                            case R.id.orders_cancel:
-                                String orderID = OrdersList.get(position).getOrderId();
-                                showConfirmCancelOrderDialog(position);
-                        }
-                        return false;
-                    }
-                });
-                popup.show();
+                final PopupMenu popup = new androidx.appcompat.widget.PopupMenu(wrapper, view);
+                if (OrdersList.get(position).getOrderStatusValue() != null) {
+                    if (OrdersList.get(position).getOrderStatusValue().equals("Draft"))
+                        setMenuDraft(popup, position);
+                    else if (OrdersList.get(position).getOrderStatusValue().equals("Cancelled"))
+                        setMenuCancelled(popup, position);
+                    else if (OrdersList.get(position).getOrderStatusValue().equals("Rejected"))
+                        setMenuCancelled(popup, position);
+                    else if (OrdersList.get(position).getOrderStatusValue().equals("Approved"))
+                        setMenuApproved(popup, position);
+                    else
+                        setMenuAll(popup, position);
+                } else if (OrdersList.get(position).getOrderStatus() != null) {
+                    if (OrderStatusKVP.get(OrdersList.get(position).getOrderStatus()).equals("Draft"))
+                        setMenuDraft(popup, position);
+                    else if (OrderStatusKVP.get(OrdersList.get(position).getOrderStatus()).equals("Cancelled"))
+                        setMenuCancelled(popup, position);
+                    else if (OrderStatusKVP.get(OrdersList.get(position).getOrderStatus()).equals("Rejected"))
+                        setMenuCancelled(popup, position);
+                    else if (OrderStatusKVP.get(OrdersList.get(position).getOrderStatus()).equals("Approved"))
+                        setMenuApproved(popup, position);
+                    else
+                        setMenuAll(popup, position);
+                }
             }
 
 
@@ -127,10 +154,196 @@ public class RetailerOrdersAdapter extends RecyclerView.Adapter<RetailerOrdersAd
 
     }
 
-    private void showConfirmCancelOrderDialog(final int position) {
+
+    private void setMenuDraft(PopupMenu popup, final int position) {
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.dist_order_draft_menu, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.orders_edit:
+                        try {
+                            editOrderDraft(context, OrdersList.get(position).getOrderId(), OrdersList.get(position).getOrderNumber());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        // Toast.makeText(context, "View Order ID - " + OrdersList.get(position).getOrderNumber(), Toast.LENGTH_LONG).show();
+                        break;
+                    case R.id.orders_delete:
+                        try {
+                            deleteOrderDraft(context, OrdersList.get(position).getOrderId(), OrdersList.get(position).getOrderNumber());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+//                                Toast.makeText(context, "View Order ID - " + ID, Toast.LENGTH_LONG).show();
+                        break;
+                }
+                return false;
+            }
+        });
+        popup.show();
+
+    }
+
+    private void editOrderDraft(Context context, String ID, String OrderNumber) throws JSONException {
+        EditOrderDraft editDraft = new EditOrderDraft();
+        editDraft.editDraft(context, ID, OrderNumber);
+    }
+
+    private void deleteOrderDraft(final Context context, final String ID, final String OrderNumber) throws JSONException {
 
         Log.i("CreatePayment", "In Dialog");
 //            final FragmentManager fm = mContxt.getSupportFragmentManager();
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
+        tv_discard.setText("Delete Order");
+        TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+        tv_discard_txt.setText("Are you sure, you want to delete this order?");
+        alertDialog.setView(view_popup);
+        alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+        WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+        layoutParams.y = 200;
+        layoutParams.x = -70;// top margin
+        alertDialog.getWindow().setAttributes(layoutParams);
+        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+        btn_discard.setText("Delete");
+        btn_discard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                DeleteOrderDraft deleteDraft = new DeleteOrderDraft();
+                try {
+                    deleteDraft.deleteDraft(context, ID, OrderNumber);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+        img_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+            }
+        });
+
+        alertDialog.show();
+
+    }
+
+    private void setMenuCancelled(PopupMenu popup, final int position) {
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.orders_fragment_menu, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.orders_view:
+                        String ID = OrdersList.get(position).getOrderId();
+
+
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new RetailerViewOrder()).addToBackStack("tag");
+                        fragmentTransaction.commit();
+                        SharedPreferences OrderId = ((FragmentActivity) context).getSharedPreferences("OrderId",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = OrderId.edit();
+                        editor.putString("OrderId", OrdersList.get(position).getOrderId());
+                        editor.putString("Status", OrdersList.get(position).getOrderStatusValue());
+                        editor.putString("InvoiceUpload", String.valueOf(OrdersList.get(position).getInvoiceReferenceNumber()));
+                        editor.putString("InvoiceStatus", String.valueOf(OrdersList.get(position).getInvoiceStatus()));
+                        editor.commit();
+                        // Toast.makeText(context, "View Order ID - " + ID, Toast.LENGTH_LONG).show();
+                        break;
+                }
+                return false;
+            }
+        });
+        popup.show();
+
+    }
+
+
+    private void setMenuAll(PopupMenu popup, final int position) {
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.dist_order_menu, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.orders_view:
+                        String ID = OrdersList.get(position).getOrderId();
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new RetailerViewOrder()).addToBackStack("tag");
+                        fragmentTransaction.commit();
+                        SharedPreferences OrderId = ((FragmentActivity) context).getSharedPreferences("OrderId",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = OrderId.edit();
+                        editor.putString("OrderId", OrdersList.get(position).getOrderId());
+                        editor.putString("Status", OrdersList.get(position).getOrderStatusValue());
+                        editor.putString("InvoiceUpload", String.valueOf(OrdersList.get(position).getInvoiceReferenceNumber()));
+                        editor.putString("InvoiceStatus", String.valueOf(OrdersList.get(position).getInvoiceStatus()));
+                        Log.i("InvoiceStatus_Adapter", String.valueOf(OrdersList.get(position).getInvoiceStatus()));
+                        editor.commit();
+                        Log.i("order_debug_getID", OrdersList.get(position).getOrderId());
+                        Log.i("order_debug_getStatus", OrdersList.get(position).getOrderStatusValue());
+                        Log.i("order_debug_InvUpload", String.valueOf(OrdersList.get(position).getInvoiceReferenceNumber()));
+                        Log.i("order_debug_InvStatus", "" + OrdersList.get(position).getInvoiceStatus());
+                        break;
+                    case R.id.orders_cancel:
+                        showConfirmCancelOrderDialog(position);
+//                                Toast.makeText(context, "View Order ID - " + ID, Toast.LENGTH_LONG).show();
+                        break;
+                }
+                return false;
+            }
+        });
+        popup.show();
+
+    }
+
+    private void setMenuApproved(PopupMenu popup, final int position) {
+        if (OrdersList.get(position).getInvoiceStatus().equals("0") || OrdersList.get(position).getInvoiceStatus().equals("1")) {
+            setMenuAll(popup, position);
+        } else {
+            MenuInflater inflater = popup.getMenuInflater();
+            inflater.inflate(R.menu.orders_fragment_menu, popup.getMenu());
+            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.orders_view:
+                            String ID = OrdersList.get(position).getOrderId();
+                            FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.add(R.id.main_container, new RetailerViewOrder()).addToBackStack("tag");
+                            fragmentTransaction.commit();
+                            SharedPreferences OrderId = ((FragmentActivity) context).getSharedPreferences("OrderId",
+                                    Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = OrderId.edit();
+                            editor.putString("OrderId", OrdersList.get(position).getOrderId());
+                            editor.putString("Status", OrdersList.get(position).getOrderStatusValue());
+                            editor.putString("InvoiceUpload", String.valueOf(OrdersList.get(position).getInvoiceReferenceNumber()));
+                            editor.putString("InvoiceStatus", String.valueOf(OrdersList.get(position).getInvoiceStatus()));
+                            Log.i("InvoiceStatus_Adapter", String.valueOf(OrdersList.get(position).getInvoiceStatus()));
+                            editor.commit();
+                            break;
+                    }
+                    return false;
+                }
+            });
+            popup.show();
+        }
+    }
+
+    private void showConfirmCancelOrderDialog(final int position) {
+
+        Log.i("CreatePayment", "In Dialog");
+//            final FragmentManager fm = context.getSupportFragmentManager();
 
         final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
         LayoutInflater inflater = LayoutInflater.from(context);

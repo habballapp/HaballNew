@@ -712,7 +712,8 @@ public class Support_Ticket_Form extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
-                new HaballError().printErrorMessage(Support_Ticket_Form.this, error);
+                 new HaballError().printErrorMessage(Support_Ticket_Form.this, error);
+                new ProcessingError().showError(Support_Ticket_Form.this);
             }
 
         }) {
@@ -956,7 +957,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
     }
 
 
-    private void printErrorMessage(VolleyError error) {
+    private void printErrMessage(VolleyError error) {
         if (error instanceof NetworkError) {
             Toast.makeText(this, "Network Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof ServerError) {

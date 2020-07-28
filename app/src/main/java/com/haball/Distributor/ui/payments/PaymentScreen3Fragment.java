@@ -56,8 +56,10 @@ import com.google.gson.reflect.TypeToken;
 import com.haball.CustomToast;
 import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.ui.main.PlaceholderFragment;
+import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.Payment.DistributorPaymentRequestModel;
+import com.haball.ProcessingError;
 import com.haball.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.haball.TextField;
@@ -383,7 +385,8 @@ public class PaymentScreen3Fragment extends Fragment {
                 SharedPreferences sharedPreferences2 = this.getActivity().getSharedPreferences("PrePaidNumber",
                         Context.MODE_PRIVATE);
                 Gson gson = new Gson();
-                Type type = new TypeToken<DistributorPaymentRequestModel>(){}.getType();
+                Type type = new TypeToken<DistributorPaymentRequestModel>() {
+                }.getType();
                 DistributorPaymentRequestModel paymentsRequestList = gson.fromJson(sharedPreferences2.getString("paymentsRequestList", ""), type);
                 Log.i("DistributorId ", DistributorId);
                 Log.i("paymentsRequestList", String.valueOf(paymentsRequestList));
@@ -397,7 +400,7 @@ public class PaymentScreen3Fragment extends Fragment {
                 map.put("CompanyName", paymentsRequestList.getCompanyName());
                 map.put("CreatedBy", paymentsRequestList.getCreatedBy());
                 map.put("CreatedDate", paymentsRequestList.getCreatedDate());
-                map.put("DistributorCNIC",  paymentsRequestList.getDistributorCNIC());
+                map.put("DistributorCNIC", paymentsRequestList.getDistributorCNIC());
                 map.put("DistributorId", paymentsRequestList.getDistributorId());
                 map.put("DistributorName", paymentsRequestList.getDistributorName());
                 map.put("ID", paymentsRequestList.getID());
@@ -443,7 +446,8 @@ public class PaymentScreen3Fragment extends Fragment {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        new HaballError().printErrorMessage(getContext(), error);
+                        new ProcessingError().showError(getContext());
                         error.printStackTrace();
                     }
                 }) {
@@ -796,6 +800,8 @@ public class PaymentScreen3Fragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 error.printStackTrace();
             }
         }) {

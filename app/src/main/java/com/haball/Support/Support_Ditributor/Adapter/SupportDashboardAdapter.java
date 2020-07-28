@@ -312,7 +312,7 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
     }
 
 
-    // private void printErrorMessage(VolleyError error) {
+    // private void printErrMessage(VolleyError error) {
     //     if (mContxt != null) {
     //         if (error instanceof NetworkError) {
     //             Toast.makeText(mContxt, "Network Error !", Toast.LENGTH_LONG).show();

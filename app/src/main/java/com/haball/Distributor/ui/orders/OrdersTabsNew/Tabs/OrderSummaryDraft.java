@@ -40,7 +40,9 @@ import com.haball.Distributor.ui.orders.OrdersTabsNew.Adapters.Order_Summary_Ada
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Adapters.Order_Summary_Draft_Adapter;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderChildlist_Draft_Model_DistOrder;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderChildlist_Model_DistOrder;
+import com.haball.HaballError;
 import com.haball.NonSwipeableViewPager;
+import com.haball.ProcessingError;
 import com.haball.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -332,7 +334,8 @@ public class OrderSummaryDraft extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 error.printStackTrace();
                 refreshRetailerInfo();
             }
@@ -433,7 +436,8 @@ public class OrderSummaryDraft extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 error.printStackTrace();
                 refreshRetailerInfo();
             }
@@ -558,7 +562,8 @@ public class OrderSummaryDraft extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 error.printStackTrace();
                 refreshRetailerInfo();
             }
@@ -678,7 +683,7 @@ public class OrderSummaryDraft extends Fragment {
 
     }
 
-    private void printErrorMessage(VolleyError error) {
+    private void printErrMessage(VolleyError error) {
         if (getContext() != null) {
             if (error instanceof NetworkError) {
                 Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();

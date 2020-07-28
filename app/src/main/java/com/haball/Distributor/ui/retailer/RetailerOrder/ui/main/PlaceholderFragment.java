@@ -869,8 +869,8 @@ public class PlaceholderFragment extends Fragment {
                     double totalDiscount = 0;
                     invo_productList = gson.fromJson(response.get("OrderDetails").toString(), type);
                     for (int i = 0; i < invo_productList.size(); i++) {
-                        if (!String.valueOf(invo_productList.get(i).getTotalPrice()).equals("null"))
-                            totalPrice += Double.parseDouble(invo_productList.get(i).getTotalPrice());
+                        if (!String.valueOf(invo_productList.get(i).getTotalamount()).equals("null"))
+                            totalPrice += Double.parseDouble(invo_productList.get(i).getTotalamount());
                     }
                     for (int i = 0; i < invo_productList.size(); i++) {
                         if (!String.valueOf(invo_productList.get(i).getDiscount()).equals("null"))
@@ -911,7 +911,7 @@ public class PlaceholderFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         new HaballError().printErrorMessage(getContext(), error);
-
+                        new ProcessingError().showError(getContext());
                     }
                 }) {
             @Override
@@ -999,7 +999,7 @@ public class PlaceholderFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         new HaballError().printErrorMessage(getContext(), error);
-
+                        new ProcessingError().showError(getContext());
                     }
                 }) {
             @Override
@@ -1087,7 +1087,7 @@ public class PlaceholderFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         new HaballError().printErrorMessage(getContext(), error);
-
+                        new ProcessingError().showError(getContext());
                     }
                 }) {
             @Override
@@ -1120,7 +1120,7 @@ public class PlaceholderFragment extends Fragment {
     }
 
 
-    private void printErrorMessage(VolleyError error) {
+    private void printErrMessage(VolleyError error) {
         if (getContext() != null) {
             if (error instanceof NetworkError) {
                 Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();

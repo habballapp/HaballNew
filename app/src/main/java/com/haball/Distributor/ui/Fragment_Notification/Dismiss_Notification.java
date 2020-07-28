@@ -14,7 +14,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.haball.HaballError;
 import com.haball.Loader;
+import com.haball.ProcessingError;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,12 +28,14 @@ public class Dismiss_Notification {
     private String ID;
     private String URL_NOTIFICATION = "http://175.107.203.97:4013/api/useralert/DismissAlert/";
     private Loader loader;
-    public Dismiss_Notification() {}
 
-    protected void requestDismissNotification(String id, Context context, final String Token) {
+    public Dismiss_Notification() {
+    }
+
+    protected void requestDismissNotification(String id, final Context context, final String Token) {
         loader = new Loader(context);
         loader.showLoader();
-        URL_NOTIFICATION = URL_NOTIFICATION+id;
+        URL_NOTIFICATION = URL_NOTIFICATION + id;
         Log.i("NOTIFICATION_DISMISS", URL_NOTIFICATION);
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_NOTIFICATION, null, new Response.Listener<JSONObject>() {
@@ -46,6 +50,8 @@ public class Dismiss_Notification {
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
                 error.printStackTrace();
+                new HaballError().printErrorMessage(context, error);
+                new ProcessingError().showError(context);
             }
         }) {
             @Override

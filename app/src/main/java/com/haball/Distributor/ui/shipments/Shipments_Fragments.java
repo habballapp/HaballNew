@@ -52,7 +52,9 @@ import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.ui.home.HomeFragment;
 import com.haball.Distributor.ui.main.ViewOrder;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
+import com.haball.HaballError;
 import com.haball.Loader;
+import com.haball.ProcessingError;
 import com.haball.R;
 import com.haball.Shipment.Adapters.DistributorShipmentAdapter;
 import com.google.android.material.textfield.TextInputLayout;
@@ -552,7 +554,8 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }
@@ -632,7 +635,8 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }
@@ -828,7 +832,7 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
 
     }
 
-    private void printErrorMessage(VolleyError error) {
+    private void printErrMessage(VolleyError error) {
         if (getContext() != null) {
             if (error instanceof NetworkError) {
                 Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();

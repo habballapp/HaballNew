@@ -23,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.ProcessingError;
 import com.haball.R;
@@ -39,9 +40,8 @@ public class PaymentDeleteOrder {
     public String URL_DELETE_PAYMENT = "http://175.107.203.97:4014/api/prepaidrequests/Delete/";
     public Context context;
     public String invoiceNumber;
-    public String RetailerId,Token;
+    public String RetailerId, Token;
     private Loader loader;
-
 
 
     public PaymentDeleteOrder() {
@@ -51,8 +51,8 @@ public class PaymentDeleteOrder {
     public void deleteOrder(final Context context, String invoiceId, final String invoiceNumber) {
         loader = new Loader(context);
         loader.showLoader();
-        Log.i("paymentLog", "in delete order" );
-        Log.i("paymentLog_Error", String.valueOf( invoiceId ) );
+        Log.i("paymentLog", "in delete order");
+        Log.i("paymentLog_Error", String.valueOf(invoiceId));
 
 
         SharedPreferences sharedPreferences = context.getSharedPreferences("LoginToken",
@@ -62,7 +62,7 @@ public class PaymentDeleteOrder {
         SharedPreferences sharedPreferences1 = context.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         RetailerId = sharedPreferences1.getString("Retailer_Id", "");
-        if(!URL_DELETE_PAYMENT.contains( "/" + invoiceId ))
+        if (!URL_DELETE_PAYMENT.contains("/" + invoiceId))
             URL_DELETE_PAYMENT = URL_DELETE_PAYMENT + invoiceId;
         Log.i("RetailerId ", RetailerId);
         Log.i("Token Retailer ", Token);
@@ -70,12 +70,12 @@ public class PaymentDeleteOrder {
 
         final Context finalcontext = context;
         new SSL_HandShake().handleSSLHandshake();
-        JsonObjectRequest request = new JsonObjectRequest( Request.Method.DELETE, URL_DELETE_PAYMENT, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.DELETE, URL_DELETE_PAYMENT, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 // TODO handle the response
                 loader.hideLoader();
-                Log.i("paymentLog_Response", String.valueOf( response ) );
+                Log.i("paymentLog_Response", String.valueOf(response));
                 final Dialog fbDialogue = new Dialog(context);
                 //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
                 fbDialogue.setContentView(R.layout.password_updatepopup);
@@ -122,8 +122,9 @@ public class PaymentDeleteOrder {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.i("paymentLog_Error", String.valueOf( error ) );
+                Log.i("paymentLog_Error", String.valueOf(error));
                 loader.hideLoader();
+                new HaballError().printErrorMessage(context, error);
                 new ProcessingError().showError(context);
                 error.printStackTrace();
             }

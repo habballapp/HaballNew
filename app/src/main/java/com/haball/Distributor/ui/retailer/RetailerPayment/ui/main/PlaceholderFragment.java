@@ -569,8 +569,8 @@ public class PlaceholderFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        new HaballError().printErrorMessage(getContext(), error);
-
+ new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                     }
                 }) {
             @Override
@@ -653,8 +653,8 @@ public class PlaceholderFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        new HaballError().printErrorMessage(getContext(), error);
-
+ new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                     }
                 }) {
             @Override
@@ -895,7 +895,7 @@ public class PlaceholderFragment extends Fragment {
         }
     }
 
-    // private void printErrorMessage(VolleyError error) {
+    // private void printErrMessage(VolleyError error) {
     //     if (getContext() != null) {
     //         if (error instanceof NetworkError) {
     //             Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();

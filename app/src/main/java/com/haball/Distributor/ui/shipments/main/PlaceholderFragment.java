@@ -47,13 +47,14 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distribution_Login.Distribution_Login;
-import com.haball.Distributor.DistributorDashboard;
+import com.haball.Distributor.ui.home.HomeFragment;
 import com.haball.Distributor.ui.main.OrdersFragment;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.haball.Distributor.ui.payments.PaymentScreen3Fragment;
-import com.haball.Distributor.ui.shipments.Shipments_Fragments;
 import com.haball.Distributor.ui.shipments.main.Adapters.SectionsPagerAdapter;
 import com.haball.Distributor.ui.shipments.main.Models.PageViewModel;
+import com.haball.HaballError;
+import com.haball.ProcessingError;
 import com.haball.R;
 import com.haball.Shipment.Adapters.ProductDetailsAdapter;
 import com.haball.Shipment.Adapters.ProductOrderDetailsAdapter;
@@ -189,9 +190,12 @@ public class PlaceholderFragment extends Fragment {
                 btn_back.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
-                        ((FragmentActivity) getContext()).startActivity(login_intent);
-                        ((FragmentActivity) getContext()).finish();
+//                        Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+//                        ((FragmentActivity) getContext()).startActivity(login_intent);
+//                        ((FragmentActivity) getContext()).finish();
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                        fragmentTransaction.commit();
                     }
                 });
 
@@ -214,9 +218,13 @@ public class PlaceholderFragment extends Fragment {
                 btn_back.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
-                        ((FragmentActivity) getContext()).startActivity(login_intent);
-                        ((FragmentActivity) getContext()).finish();
+//                        Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+//                        ((FragmentActivity) getContext()).startActivity(login_intent);
+//                        ((FragmentActivity) getContext()).finish();
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                        fragmentTransaction.commit();
+
                     }
                 });
 
@@ -249,9 +257,13 @@ public class PlaceholderFragment extends Fragment {
                 btn_back.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
-                        ((FragmentActivity) getContext()).startActivity(login_intent);
-                        ((FragmentActivity) getContext()).finish();
+//                        Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+//                        ((FragmentActivity) getContext()).startActivity(login_intent);
+//                        ((FragmentActivity) getContext()).finish();
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                        fragmentTransaction.commit();
+
                     }
                 });
 
@@ -274,9 +286,12 @@ public class PlaceholderFragment extends Fragment {
                 btn_back.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
-                        ((FragmentActivity) getContext()).startActivity(login_intent);
-                        ((FragmentActivity) getContext()).finish();
+//                        Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+//                        ((FragmentActivity) getContext()).startActivity(login_intent);
+//                        ((FragmentActivity) getContext()).finish();
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                        fragmentTransaction.commit();
                     }
                 });
 
@@ -350,9 +365,12 @@ public class PlaceholderFragment extends Fragment {
                 btn_back.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
-                        ((FragmentActivity) getContext()).startActivity(login_intent);
-                        ((FragmentActivity) getContext()).finish();
+//                        Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+//                        ((FragmentActivity) getContext()).startActivity(login_intent);
+//                        ((FragmentActivity) getContext()).finish();
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                        fragmentTransaction.commit();
                     }
                 });
 
@@ -419,7 +437,7 @@ public class PlaceholderFragment extends Fragment {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
                         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.add(R.id.main_container, new Shipments_Fragments());
+                        fragmentTransaction.add(R.id.main_container, new HomeFragment());
                         fragmentTransaction.commit();
                     }
                 });
@@ -427,7 +445,8 @@ public class PlaceholderFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }
@@ -503,7 +522,8 @@ public class PlaceholderFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }
@@ -593,7 +613,8 @@ public class PlaceholderFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        printErrorMessage(error);
+                        new HaballError().printErrorMessage(getContext(), error);
+                        new ProcessingError().showError(getContext());
 
 
                     }
@@ -657,7 +678,8 @@ public class PlaceholderFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        printErrorMessage(error);
+                        new HaballError().printErrorMessage(getContext(), error);
+                        new ProcessingError().showError(getContext());
 
 
                     }
@@ -671,6 +693,27 @@ public class PlaceholderFragment extends Fragment {
         };
         Volley.newRequestQueue(getContext()).add(stringRequest);
 
+    }
+
+    @Override
+    public void onResume() {
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+//                    fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                    fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                    fragmentTransaction.commit();
+                    return true;
+                }
+                return false;
+            }
+        });
+        super.onResume();
     }
 
     private void orderData() {
@@ -744,7 +787,8 @@ public class PlaceholderFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        printErrorMessage(error);
+                        new HaballError().printErrorMessage(getContext(), error);
+                        new ProcessingError().showError(getContext());
 
 
                     }
@@ -854,7 +898,8 @@ public class PlaceholderFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        printErrorMessage(error);
+                        new HaballError().printErrorMessage(getContext(), error);
+                        new ProcessingError().showError(getContext());
 
 
                     }
@@ -870,7 +915,7 @@ public class PlaceholderFragment extends Fragment {
 
     }
 
-    private void printErrorMessage(VolleyError error) {
+    private void printErrMessage(VolleyError error) {
         if (getContext() != null) {
             if (error instanceof NetworkError) {
                 Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();

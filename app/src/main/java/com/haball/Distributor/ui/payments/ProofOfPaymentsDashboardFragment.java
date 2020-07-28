@@ -50,12 +50,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.haball.HaballError;
 import com.haball.Payment.ConsolidatePaymentsModel;
 import com.haball.Payment.Consolidate_Fragment_Adapter;
 import com.haball.Payment.PaymentLedgerAdapter;
 import com.haball.Payment.PaymentLedgerModel;
 import com.haball.Payment.ProofOfPaymentAdapter;
 import com.haball.Payment.ProofOfPaymentModel;
+import com.haball.ProcessingError;
 import com.haball.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -579,7 +581,8 @@ public class ProofOfPaymentsDashboardFragment extends Fragment implements DatePi
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }
@@ -627,7 +630,8 @@ public class ProofOfPaymentsDashboardFragment extends Fragment implements DatePi
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
                 Log.i("onErrorResponse", "Error");
@@ -670,7 +674,8 @@ public class ProofOfPaymentsDashboardFragment extends Fragment implements DatePi
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }
@@ -741,7 +746,8 @@ public class ProofOfPaymentsDashboardFragment extends Fragment implements DatePi
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }
@@ -862,7 +868,7 @@ public class ProofOfPaymentsDashboardFragment extends Fragment implements DatePi
 
     }
 
-    private void printErrorMessage(VolleyError error) {
+    private void printErrMessage(VolleyError error) {
         if (getContext() != null) {
             if (error instanceof NetworkError) {
                 if (error instanceof NetworkError) {

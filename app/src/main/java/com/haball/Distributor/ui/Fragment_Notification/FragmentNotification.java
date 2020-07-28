@@ -27,8 +27,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.haball.Distributor.DistributorDashboard;
+import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.Payment.ConsolidatePaymentsModel;
+import com.haball.ProcessingError;
 import com.haball.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -114,8 +117,10 @@ public class FragmentNotification extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
-                printErrorMessage(error);
+//                printErrorMessage(error);
                 error.printStackTrace();
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
             }
         }) {
             @Override
@@ -160,7 +165,8 @@ public class FragmentNotification extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 error.printStackTrace();
             }
         }) {
@@ -228,7 +234,8 @@ public class FragmentNotification extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 error.printStackTrace();
             }
         }) {
@@ -258,7 +265,7 @@ public class FragmentNotification extends Fragment {
         Volley.newRequestQueue(getContext()).add(sr);
     }
 
-    private void printErrorMessage(VolleyError error) {
+    private void printErrMessage(VolleyError error) {
         if (getContext() != null) {
             if (error instanceof NetworkError) {
                 Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();

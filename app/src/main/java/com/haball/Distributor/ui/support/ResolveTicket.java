@@ -12,6 +12,8 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.haball.HaballError;
+import com.haball.ProcessingError;
 
 import org.json.JSONObject;
 
@@ -26,7 +28,7 @@ public class ResolveTicket {
 
     public ResolveTicket() {}
 
-    protected void RequestResolveTicket(String id, Context context, final String Token) {
+    protected void RequestResolveTicket(String id, final Context context, final String Token) {
 
         URL_RESOLVE_TICKET = URL_RESOLVE_TICKET+id;
         Log.i("NOTIFICATION_DISMISS", URL_RESOLVE_TICKET);
@@ -41,6 +43,8 @@ public class ResolveTicket {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                 new HaballError().printErrorMessage(context, error);
+                new ProcessingError().showError(context);
             }
         }) {
             @Override

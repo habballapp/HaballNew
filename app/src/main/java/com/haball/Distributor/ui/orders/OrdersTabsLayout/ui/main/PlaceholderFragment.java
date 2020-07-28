@@ -33,6 +33,8 @@ import com.haball.Distributor.ui.orders.Models.Company_Fragment_Model;
 import com.haball.Distributor.ui.orders.Models.OrderFragmentModel;
 import com.haball.Distributor.ui.orders.OrdersTabsLayout.Tabs.Orders_Items_Fragment;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
+import com.haball.HaballError;
+import com.haball.ProcessingError;
 import com.haball.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -182,7 +184,8 @@ public class PlaceholderFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }
@@ -254,7 +257,7 @@ public class PlaceholderFragment extends Fragment {
 //        Volley.newRequestQueue(getContext()).add(sr);
 //    }
 
-    private void printErrorMessage(VolleyError error) {
+    private void printErrMessage(VolleyError error) {
         if (error.networkResponse != null && error.networkResponse.data != null) {
             try {
                 String message = "";

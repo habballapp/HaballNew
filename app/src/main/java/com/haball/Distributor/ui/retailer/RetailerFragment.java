@@ -46,7 +46,9 @@ import com.haball.Distributor.ui.home.HomeFragment;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.haball.Distributor.ui.retailer.Retailor_Management.Adapter.Retailer_Management_Dashboard_Adapter;
 import com.haball.Distributor.ui.retailer.Retailor_Management.Model.Retailer_Management_Dashboard_Model;
+import com.haball.HaballError;
 import com.haball.Loader;
+import com.haball.ProcessingError;
 import com.haball.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -662,7 +664,8 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }
@@ -730,7 +733,8 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }
@@ -813,7 +817,8 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }
@@ -953,7 +958,7 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
 
     }
 
-    private void printErrorMessage(VolleyError error) {
+    private void printErrMessage(VolleyError error) {
         if (getContext() != null) {
             if (error instanceof NetworkError) {
                 Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();

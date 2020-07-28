@@ -25,6 +25,7 @@ import com.haball.Distributor.ui.Network.Models.Network_Recieve_Model;
 import com.haball.Distributor.ui.Network.Models.Network_Sent_Model;
 import com.haball.Distributor.ui.home.HomeFragment;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
+import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.ProcessingError;
 import com.haball.R;
@@ -141,8 +142,8 @@ public class My_Network_Fragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                new HaballError().printErrorMessage(getContext(), error);
                 new ProcessingError().showError(getContext());
-
                 error.printStackTrace();
             }
         }) {
@@ -190,8 +191,8 @@ public class My_Network_Fragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 //new HaballError().printErrorMessage(error);
                 loader.hideLoader();
+                new HaballError().printErrorMessage(getContext(), error);
                 new ProcessingError().showError(getContext());
-
                 error.printStackTrace();
             }
         }) {

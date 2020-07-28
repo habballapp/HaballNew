@@ -45,6 +45,7 @@ import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.ui.support.DeleteSupport;
 import com.haball.Distributor.ui.support.SupportFragment;
 import com.haball.HaballError;
+import com.haball.ProcessingError;
 import com.haball.R;
 import com.haball.TextField;
 import com.google.android.material.textfield.TextInputEditText;
@@ -166,8 +167,8 @@ public class Support_Ticket_View extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                new HaballError().printErrorMessage(getContext(), error);
-
+ new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 error.printStackTrace();
                 Log.i("onErrorResponse", "Error");
             }
@@ -177,7 +178,7 @@ public class Support_Ticket_View extends Fragment {
     }
 
 
-    // private void printErrorMessage(VolleyError error) {
+    // private void printErrMessage(VolleyError error) {
     //     if (getContext() != null) {
     //         if (error instanceof NetworkError) {
     //             Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();

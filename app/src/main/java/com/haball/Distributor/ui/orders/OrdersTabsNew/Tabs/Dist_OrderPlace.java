@@ -2,6 +2,7 @@ package com.haball.Distributor.ui.orders.OrdersTabsNew.Tabs;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -39,6 +40,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.ui.home.HomeFragment;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Adapters.ParentList_Adapter_DistOrder;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.ExpandableRecyclerAdapter;
@@ -46,12 +48,15 @@ import com.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderChildlist_Mode
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderParentlist_Model_DistOrder;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Order_PlaceOrder;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
+import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.NonSwipeableViewPager;
+import com.haball.ProcessingError;
 import com.haball.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.haball.Retailor.RetailorDashboard;
 import com.haball.Retailor.ui.Place_Order.ui.main.Tabs.Retailer_OrderPlace_retailer_dashboarad;
 
 import org.json.JSONArray;
@@ -71,6 +76,7 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.UiThread;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -181,16 +187,16 @@ public class Dist_OrderPlace extends Fragment {
 
 
         loader = new Loader(getContext());
-
-        close_order_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.add(R.id.main_container, new HomeFragment());
-                fragmentTransaction.commit();
-
-            }
-        });
+//
+//        close_order_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.add(R.id.main_container, new HomeFragment());
+//                fragmentTransaction.commit();
+//
+//            }
+//        });
 
         close_order_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -509,10 +515,9 @@ public class Dist_OrderPlace extends Fragment {
                 InputMethodManager imm = (InputMethodManager) (getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(myview.getWindowToken(), 0);
 
-
-                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.add(R.id.main_container, new Order_PlaceOrder()).addToBackStack("tag");
-                fragmentTransaction.commit();
+                Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+                ((FragmentActivity) getContext()).startActivity(login_intent);
+                ((FragmentActivity) getContext()).finish();
 
 //                fm.popBackStack();
             }
@@ -756,7 +761,8 @@ public class Dist_OrderPlace extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }
@@ -850,7 +856,8 @@ public class Dist_OrderPlace extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }
@@ -944,7 +951,8 @@ public class Dist_OrderPlace extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }
@@ -1071,7 +1079,8 @@ public class Dist_OrderPlace extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
             }
@@ -1241,7 +1250,7 @@ public class Dist_OrderPlace extends Fragment {
 //        }
 //    }
 
-    private void printErrorMessage(VolleyError error) {
+    private void printErrMessage(VolleyError error) {
         if (getContext() != null) {
             if (error instanceof NetworkError) {
                 Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
@@ -1348,7 +1357,7 @@ public class Dist_OrderPlace extends Fragment {
         }
     }
 
-    // private void printErrorMessage(VolleyError error) {
+    // private void printErrMessage(VolleyError error) {
     //     if (getContext() != null) {
     //         if (error instanceof NetworkError) {
     //             Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();

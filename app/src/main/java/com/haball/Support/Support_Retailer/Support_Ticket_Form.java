@@ -711,6 +711,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
                 new HaballError().printErrorMessage(Support_Ticket_Form.this, error);
+                new ProcessingError().showError(Support_Ticket_Form.this);
             }
 
         }) {

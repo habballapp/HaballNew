@@ -49,8 +49,10 @@ import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrderDashboard;
 import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Adapters.Order_Summary_Adapter;
 import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models.OrderChildlist_Model;
+import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.NonSwipeableViewPager;
+import com.haball.ProcessingError;
 import com.haball.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -576,7 +578,8 @@ public class Order_Summary extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
                 enableAllButtons();
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 error.printStackTrace();
                 refreshRetailerInfo();
             }
@@ -708,7 +711,8 @@ public class Order_Summary extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
                 enableAllButtons();
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 error.printStackTrace();
                 refreshRetailerInfo();
             }
@@ -909,7 +913,7 @@ public class Order_Summary extends Fragment {
 
     }
 
-    private void printErrorMessage(VolleyError error) {
+    private void printErrMessage(VolleyError error) {
         if (getContext() != null) {
             if (error instanceof NetworkError) {
                 Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();

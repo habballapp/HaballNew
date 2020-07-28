@@ -418,11 +418,14 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                 InputMethodManager imm = (InputMethodManager) (getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(myview.getWindowToken(), 0);
 
+//
+//                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("tag");
+//                fragmentTransaction.commit();
 
-                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("tag");
-                fragmentTransaction.commit();
-
+                Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+                ((FragmentActivity) getContext()).startActivity(login_intent);
+                ((FragmentActivity) getContext()).finish();
 //                fm.popBackStack();
             }
         });
@@ -729,7 +732,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
 //        Log.i("Map", String.valueOf(map));
         if (!URL_PRODUCT_CATEGORY.contains("/" + CompanyId))
             URL_PRODUCT_CATEGORY = URL_PRODUCT_CATEGORY + CompanyId;
-            new SSL_HandShake().handleSSLHandshake();
+        new SSL_HandShake().handleSSLHandshake();
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_PRODUCT_CATEGORY, null, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -881,7 +884,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
             URL_PRODUCT_CATEGORY = URL_PRODUCT_CATEGORY + CompanyId;
 
 //        Log.i("Map", String.valueOf(map));
-            new SSL_HandShake().handleSSLHandshake();
+        new SSL_HandShake().handleSSLHandshake();
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_PRODUCT_CATEGORY, null, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -1100,7 +1103,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
             URL_PRODUCT_CATEGORY = URL_PRODUCT_CATEGORY + CompanyId;
 
 //        Log.i("Map", String.valueOf(map));
-            new SSL_HandShake().handleSSLHandshake();
+        new SSL_HandShake().handleSSLHandshake();
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_PRODUCT_CATEGORY, null, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)

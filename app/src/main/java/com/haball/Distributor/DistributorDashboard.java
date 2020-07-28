@@ -53,10 +53,12 @@ import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrderDashboard;
 import com.haball.Distributor.ui.shipments.Shipments_Fragments;
 import com.haball.Distributor.ui.support.SupportFragment;
 import com.haball.Distributor.ui.terms_and_conditions.TermsAndConditionsFragment;
+import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.ProcessingError;
 import com.haball.R;
 import com.haball.Registration.BooleanRequest;
+import com.haball.Retailer_Login.RetailerLogin;
 import com.haball.Select_User.Register_Activity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
@@ -243,7 +245,6 @@ public class DistributorDashboard extends AppCompatActivity {
                             Log.i("Suppport", "Support Activity"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.add(R.id.main_container, new SupportFragment()).addToBackStack("tag");
-                            ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 8) {
@@ -363,8 +364,10 @@ public class DistributorDashboard extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+//                printErrorMessage(error);
                 error.printStackTrace();
+                new HaballError().printErrorMessage(DistributorDashboard.this, error);
+                new ProcessingError().showError(DistributorDashboard.this);
             }
         }) {
             @Override
@@ -512,7 +515,7 @@ public class DistributorDashboard extends AppCompatActivity {
         }
     }
 
-    private void printErrorMessage(VolleyError error) {
+    private void printErrMessage(VolleyError error) {
         if (error instanceof NetworkError) {
             Toast.makeText(DistributorDashboard.this, "Network Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof ServerError) {

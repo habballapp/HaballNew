@@ -597,34 +597,36 @@ public class PlaceholderFragment extends Fragment {
         String remail = Remail.getText().toString();
         String rmobile = Rmobile.getText().toString();
         String r_Address = R_Address.getText().toString();
-        if (!remail.equals("") && !rmobile.equals("") && !r_Address.equals("")) {
-            if ((remail.equals(Email)
-                    && rmobile.equals(Mobile)
-                    && r_Address.equals(Address))
-                    || !remail.matches(reg_ex)
-                    || rmobile.length() != 12
+        if (changed) {
+            if (!remail.equals("") && !rmobile.equals("") && !r_Address.equals("")) {
+                if ((remail.equals(Email)
+                        && rmobile.equals(Mobile)
+                        && r_Address.equals(Address))
+                        || !remail.matches(reg_ex)
+                        || rmobile.length() != 12
 //                || comment.equals("")
-            ) {
-                Log.i("debugProfileVali", "true");
-                Log.i("debugProfileVali", "'" + remail + "'");
-                Log.i("debugProfileVali", "'" + rmobile + "'");
-                Log.i("debugProfileVali", "'" + r_Address + "'");
+                ) {
+                    Log.i("debugProfileVali", "true");
+                    Log.i("debugProfileVali", "'" + remail + "'");
+                    Log.i("debugProfileVali", "'" + rmobile + "'");
+                    Log.i("debugProfileVali", "'" + r_Address + "'");
+                    btn_save_password.setEnabled(false);
+                    btn_save_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+
+                } else {
+                    Log.i("debugProfileVali", "false");
+                    Log.i("debugProfileVali", "'" + remail + "'");
+                    Log.i("debugProfileVali", "'" + rmobile + "'");
+                    Log.i("debugProfileVali", "'" + r_Address + "'");
+
+                    btn_save_password.setEnabled(true);
+                    btn_save_password.setBackground(getResources().getDrawable(R.drawable.button_background));
+                }
+            } else {
                 btn_save_password.setEnabled(false);
                 btn_save_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
-            } else {
-                Log.i("debugProfileVali", "false");
-                Log.i("debugProfileVali", "'" + remail + "'");
-                Log.i("debugProfileVali", "'" + rmobile + "'");
-                Log.i("debugProfileVali", "'" + r_Address + "'");
-
-                btn_save_password.setEnabled(true);
-                btn_save_password.setBackground(getResources().getDrawable(R.drawable.button_background));
             }
-        } else {
-            btn_save_password.setEnabled(false);
-            btn_save_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
-
         }
     }
 
@@ -1170,7 +1172,7 @@ public class PlaceholderFragment extends Fragment {
         jsonObject.put("CompanyName", CompanyName);
         jsonObject.put("Address", R_Address.getText().toString());
         jsonObject.put("Email", Remail.getText().toString());
-            new SSL_HandShake().handleSSLHandshake();
+        new SSL_HandShake().handleSSLHandshake();
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, PROFILE_EDIT_URL, jsonObject, new Response.Listener<JSONObject>() {
             @Override
@@ -1283,7 +1285,7 @@ public class PlaceholderFragment extends Fragment {
         Log.i("RetailerId ", RetailerId);
         PROFILE_URL = PROFILE_URL + RetailerId;
         Log.i("Token Retailer ", Token);
-            new SSL_HandShake().handleSSLHandshake();
+        new SSL_HandShake().handleSSLHandshake();
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, PROFILE_URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {

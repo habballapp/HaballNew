@@ -47,7 +47,9 @@ import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.ui.main.PageViewModel;
 import com.haball.Distributor.ui.retailer.Payment.Adapters.PaymentDashboardAdapter;
 import com.haball.Distributor.ui.retailer.Payment.Models.Dist_Retailer_Dashboard_Model;
+import com.haball.HaballError;
 import com.haball.Loader;
+import com.haball.ProcessingError;
 import com.haball.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -540,6 +542,8 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
                 error.printStackTrace();
+                 new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
             }
         }) {
 
@@ -622,6 +626,8 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
                 error.printStackTrace();
+                 new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
             }
         }) {
             @Override

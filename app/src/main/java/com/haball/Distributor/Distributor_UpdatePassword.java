@@ -666,7 +666,7 @@ public class Distributor_UpdatePassword extends AppCompatActivity {
 
     }
 
-    // private void printErrorMessage(VolleyError error) {
+    // private void printErrMessage(VolleyError error) {
 
     //     if (error instanceof NetworkError) {
     //         Toast.makeText(this, "Network Error !", Toast.LENGTH_LONG).show();

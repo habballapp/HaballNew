@@ -39,6 +39,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distribution_Login.Distribution_Login;
 
+import com.haball.HaballError;
+import com.haball.ProcessingError;
 import com.haball.R;
 
 import org.json.JSONArray;
@@ -523,7 +525,8 @@ public class Registration_page2 extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.i("Register_Activity", String.valueOf(error));
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(Registration_page2.this, error);
+                new ProcessingError().showError(Registration_page2.this);
                 error.printStackTrace();
                 //  Toast.makeText(Registration_Actvity2.this,error.toString(),Toast.LENGTH_LONG).show();
             }
@@ -549,7 +552,8 @@ public class Registration_page2 extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(Registration_page2.this, error);
+                new ProcessingError().showError(Registration_page2.this);
                 error.printStackTrace();
             }
         });
@@ -579,7 +583,8 @@ public class Registration_page2 extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(Registration_page2.this, error);
+                new ProcessingError().showError(Registration_page2.this);
                 error.printStackTrace();
             }
         });
@@ -610,7 +615,8 @@ public class Registration_page2 extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(Registration_page2.this, error);
+                new ProcessingError().showError(Registration_page2.this);
                 error.printStackTrace();
             }
         });
@@ -622,7 +628,7 @@ public class Registration_page2 extends AppCompatActivity {
 
     }
 
-    private void printErrorMessage(VolleyError error) {
+    private void printErrMessage(VolleyError error) {
         if (error instanceof NetworkError) {
             Toast.makeText(Registration_page2.this, "Network Error !", Toast.LENGTH_LONG).show();
         } else if (error instanceof ServerError) {

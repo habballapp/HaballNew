@@ -835,7 +835,7 @@ public class MainActivity extends AppCompatActivity {
         Volley.newRequestQueue(MainActivity.this).add(request);
     }
 
-    // private void printErrorMessage(VolleyError error) {
+    // private void printErrMessage(VolleyError error) {
     //     if (MainActivity.this != null) {
     //         if (error instanceof NetworkError) {
     //             Toast.makeText(MainActivity.this, "Network Error !", Toast.LENGTH_LONG).show();

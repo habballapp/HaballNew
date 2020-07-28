@@ -35,6 +35,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.haball.HaballError;
+import com.haball.ProcessingError;
 import com.haball.R;
 import com.haball.Registration.BooleanRequest;
 import com.haball.Retailer_Login.RetailerLogin;
@@ -124,6 +126,8 @@ public class TermsAndConditionsFragment extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 // printErrorMessage(error);
                 error.printStackTrace();
+                 new HaballError().printErrorMessage(TermsAndConditionsFragment.this, error);
+                new ProcessingError().showError(TermsAndConditionsFragment.this);
             }
         }) {
 

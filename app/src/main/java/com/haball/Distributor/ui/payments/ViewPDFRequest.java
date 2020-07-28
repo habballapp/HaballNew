@@ -36,7 +36,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.haball.HaballError;
 import com.haball.Loader;
+import com.haball.ProcessingError;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -186,6 +188,8 @@ public class ViewPDFRequest {
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
                 error.printStackTrace();
+                 new HaballError().printErrorMessage(context, error);
+                new ProcessingError().showError(context);
             }
         }, null) {
             @Override
@@ -317,6 +321,8 @@ public class ViewPDFRequest {
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
                 error.printStackTrace();
+                 new HaballError().printErrorMessage(context, error);
+                new ProcessingError().showError(context);
             }
         }, null) {
             @Override

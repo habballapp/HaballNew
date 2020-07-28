@@ -1,54 +1,55 @@
-package com.haball.Distributor.ui.orders;
+package com.haball.Distributor.ui.retailer;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
+        import android.app.Dialog;
+        import android.content.Context;
+        import android.content.DialogInterface;
+        import android.content.Intent;
+        import android.content.SharedPreferences;
+        import android.util.Log;
+        import android.view.Gravity;
+        import android.view.View;
+        import android.view.WindowManager;
+        import android.widget.ImageButton;
+        import android.widget.TextView;
+        import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HurlStack;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.haball.Distributor.DistributorDashboard;
-import com.haball.Distributor.ui.home.HomeFragment;
-import com.haball.HaballError;
-import com.haball.Loader;
-import com.haball.ProcessingError;
-import com.haball.R;
-import com.haball.Retailor.RetailorDashboard;
+        import androidx.fragment.app.FragmentActivity;
+        import androidx.fragment.app.FragmentTransaction;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+        import com.android.volley.AuthFailureError;
+        import com.android.volley.Request;
+        import com.android.volley.RequestQueue;
+        import com.android.volley.Response;
+        import com.android.volley.VolleyError;
+        import com.android.volley.toolbox.HurlStack;
+        import com.android.volley.toolbox.JsonObjectRequest;
+        import com.android.volley.toolbox.Volley;
+        import com.haball.Distributor.DistributorDashboard;
+        import com.haball.Distributor.ui.home.HomeFragment;
+        import com.haball.HaballError;
+        import com.haball.Loader;
+        import com.haball.ProcessingError;
+        import com.haball.R;
+        import com.haball.Registration.BooleanRequest;
+        import com.haball.Retailor.RetailorDashboard;
 
-import java.util.HashMap;
-import java.util.Map;
+        import org.json.JSONException;
+        import org.json.JSONObject;
 
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentTransaction;
+        import java.util.HashMap;
+        import java.util.Map;
 
-public class CancelOrder {
-    public String URL_CANCEL_ORDER = "http://175.107.203.97:4013/api/orders/cancelorder";
+public class DeleteOrderDraft {
+    public String URL_DELETE_ORDER_DRAFT = "http://175.107.203.97:4013/api/retailerorder/delete/";
     public String DistributorId, Token;
     public Context mContext;
     private FragmentTransaction fragmentTransaction;
     private Loader loader;
 
-    public CancelOrder() {
+    public DeleteOrderDraft() {
     }
 
-    public void cancelOrder(final Context context, String orderId, final String orderNumber) throws JSONException {
+    public void deleteDraft(final Context context, String orderId, final String orderNumber) throws JSONException {
         loader = new Loader(context);
         loader.showLoader();
         mContext = context;
@@ -62,16 +63,17 @@ public class CancelOrder {
         Log.i("DistributorId ", DistributorId);
         Log.i("Token", Token);
 
-        JSONObject map = new JSONObject();
-        map.put("ID", orderId);
+        if(!URL_DELETE_ORDER_DRAFT.contains(orderId))
+            URL_DELETE_ORDER_DRAFT = URL_DELETE_ORDER_DRAFT + orderId;
 
-        final Context finalcontext = context;
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL_CANCEL_ORDER, map, new Response.Listener<JSONObject>() {
+//        final Context finalcontext = context;
+        BooleanRequest request = new BooleanRequest(Request.Method.GET, URL_DELETE_ORDER_DRAFT, null, new Response.Listener<Boolean>() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onResponse(Boolean response) {
                 // TODO handle the response
                 loader.hideLoader();
-//                Toast.makeText(context, "Order # " + orderNumber + " is cancelled", Toast.LENGTH_LONG).show();
+//                if(response)
+//                    Toast.makeText(context, "Draft for Order # " + orderNumber + " is deleted", Toast.LENGTH_LONG).show();
 //                SharedPreferences tabsFromDraft = context.getSharedPreferences("OrderTabsFromDraft",
 //                        Context.MODE_PRIVATE);
 //                SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
@@ -88,8 +90,8 @@ public class CancelOrder {
                 TextView tv_pr1, txt_header1;
                 txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
                 tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
-                tv_pr1.setText("Your Order ID " + orderNumber + " has been cancelled successfully.");
-                txt_header1.setText("Order Cancelled");
+                tv_pr1.setText("Your Order ID " + orderNumber + " has been deleted successfully.");
+                txt_header1.setText("Order Deleted");
                 fbDialogue.setCancelable(true);
                 fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
                 WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
@@ -112,7 +114,7 @@ public class CancelOrder {
                         SharedPreferences tabsFromDraft = context.getSharedPreferences("OrderTabsFromDraft",
                                 Context.MODE_PRIVATE);
                         SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
-                        editorOrderTabsFromDraft.putString("TabNo", "1");
+                        editorOrderTabsFromDraft.putString("TabNo", "0");
                         editorOrderTabsFromDraft.apply();
 
                         Intent login_intent = new Intent(((FragmentActivity) context), DistributorDashboard.class);
@@ -120,14 +122,15 @@ public class CancelOrder {
                         ((FragmentActivity) context).finish();
                     }
                 });
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                 new HaballError().printErrorMessage(context, error);
-                new ProcessingError().showError(context);
                 loader.hideLoader();
                 error.printStackTrace();
+                 new HaballError().printErrorMessage(context, error);
+                new ProcessingError().showError(context);
             }
         }) {
             @Override

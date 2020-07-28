@@ -488,7 +488,7 @@ public class StatusKVP {
         return false;
     }
 
-    // private void printErrorMessage(VolleyError error) {
+    // private void printErrMessage(VolleyError error) {
     //     if (error instanceof NetworkError) {
     //         Toast.makeText(context, "Network Error !", Toast.LENGTH_LONG).show();
     //     } else if (error instanceof ServerError) {

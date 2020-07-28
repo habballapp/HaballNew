@@ -17,6 +17,8 @@ import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.DistributorOrdersAdapter;
 import com.haball.Distributor.DistributorOrdersModel;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
+import com.haball.HaballError;
+import com.haball.ProcessingError;
 import com.haball.R;
 import com.haball.Retailor.ui.Network.Adapters.Fragment_My_Network_Adapter;
 import com.haball.Retailor.ui.Network.Adapters.Fragment_Recieved_Adapter;
@@ -190,7 +192,8 @@ public class PlaceholderFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 //   new HaballError().printErrorMessage(error);
-
+ new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 error.printStackTrace();
             }
         }) {
@@ -253,7 +256,8 @@ public class PlaceholderFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
              //   new HaballError().printErrorMessage(error);
-
+ new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 error.printStackTrace();
             }
         }) {
@@ -319,7 +323,8 @@ public class PlaceholderFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 //new HaballError().printErrorMessage(error);
-
+ new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 error.printStackTrace();
             }
         }) {

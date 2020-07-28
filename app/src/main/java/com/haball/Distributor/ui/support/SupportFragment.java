@@ -39,7 +39,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.ui.home.HomeFragment;
+import com.haball.HaballError;
 import com.haball.Loader;
+import com.haball.ProcessingError;
 import com.haball.R;
 import com.haball.Support.Support_Ditributor.Adapter.SupportDashboardAdapter;
 import com.haball.Support.Support_Ditributor.Model.SupportDashboardModel;
@@ -585,7 +587,8 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
                 Log.i("onErrorResponse", "Error");
@@ -645,7 +648,8 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
                 Log.i("onErrorResponse", "Error");
@@ -655,7 +659,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
     }
 
 
-    private void printErrorMessage(VolleyError error) {
+    private void printErrMessage(VolleyError error) {
         if (getContext() != null) {
             if (error instanceof NetworkError) {
                 Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();

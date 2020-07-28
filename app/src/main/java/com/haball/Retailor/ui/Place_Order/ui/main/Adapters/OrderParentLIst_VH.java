@@ -39,10 +39,10 @@ public class OrderParentLIst_VH extends ParentViewHolder {
                 togglePlusMinusIcon();
             }
         };
-//        _textview.setOnClickListener(plusMinusOnClick);
-//        imageView.setOnClickListener(plusMinusOnClick);
-//        minus_icon.setOnClickListener(plusMinusOnClick);
-//        imageView.setOnClickListener(plusMinusOnClick);
+        _textview.setOnClickListener(plusMinusOnClick);
+        imageView.setOnClickListener(plusMinusOnClick);
+        minus_icon.setOnClickListener(plusMinusOnClick);
+        imageView.setOnClickListener(plusMinusOnClick);
         rl_orderName_retailer.setOnClickListener(plusMinusOnClick);
     }
 
@@ -79,6 +79,21 @@ public class OrderParentLIst_VH extends ParentViewHolder {
     }
 
     public void togglePlusMinusIcon() {
+
+
+        if (filter_layout.getVisibility() == View.GONE) {
+
+            filter_layout.setVisibility(View.VISIBLE);
+            TranslateAnimation animate1 = new TranslateAnimation(
+                    0,                 // fromXDelta
+                    0,                 // toXDelta
+                    -filter_layout.getHeight(),  // fromYDelta
+                    0);                // toYDelta
+            animate1.setDuration(250);
+            animate1.setFillAfter(true);
+            filter_layout.clearAnimation();
+            filter_layout.startAnimation(animate1);
+        }
         if (isExpanded()) {
             collapseView();
 //            minus_icon.setVisibility(View.GONE);

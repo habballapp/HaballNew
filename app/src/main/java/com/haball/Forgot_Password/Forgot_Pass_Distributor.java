@@ -331,7 +331,7 @@ public class Forgot_Pass_Distributor extends AppCompatActivity {
     }
 
 //    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-//    private void printErrorMessage(VolleyError error) {
+//    private void printErrMessage(VolleyError error) {
 //
 //        if (error instanceof NetworkError) {
 //            Toast.makeText(Forgot_Pass_Distributor.this, "Network Error !", Toast.LENGTH_LONG).show();

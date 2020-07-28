@@ -52,6 +52,7 @@ import com.haball.Distributor.ui.payments.EditPaymentRequestFragment;
 import com.haball.Distributor.ui.payments.PaymentScreen3Fragment;
 import com.haball.Distributor.ui.payments.Payments_Fragment;
 import com.haball.Distributor.ui.payments.ViewVoucherRequest;
+import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.ProcessingError;
 import com.haball.R;
@@ -495,6 +496,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
             public void onErrorResponse(VolleyError error) {
                 Log.i("paymentLog_Error", String.valueOf(error));
                 loader.hideLoader();
+ new HaballError().printErrorMessage(context, error);
                 new ProcessingError().showError(context);
                 error.printStackTrace();
             }

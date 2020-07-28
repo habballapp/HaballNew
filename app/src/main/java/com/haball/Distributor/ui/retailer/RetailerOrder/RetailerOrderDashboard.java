@@ -57,7 +57,9 @@ import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrdersAdapter.RetailerOrdersAdapter;
 import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrdersModel.RetailerOrdersModel;
 import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.RetailerPlaceOrder;
+import com.haball.HaballError;
 import com.haball.Loader;
+import com.haball.ProcessingError;
 import com.haball.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -623,6 +625,8 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
                 error.printStackTrace();
+                 new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
             }
         }) {
 
@@ -710,6 +714,8 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
                 error.printStackTrace();
+                 new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
             }
         }) {
 
@@ -893,7 +899,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
 
     }
 
-    private void printErrorMessage(VolleyError error) {
+    private void printErrMessage(VolleyError error) {
         if (getContext() != null) {
             if (error instanceof NetworkError) {
                 Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
@@ -975,6 +981,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                     Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
                     ((FragmentActivity) getContext()).startActivity(login_intent);
                     ((FragmentActivity) getContext()).finish();
+                    return true;
                 }
                 return false;
             }

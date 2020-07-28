@@ -36,7 +36,9 @@ package com.haball.Distributor.ui.payments;
         import com.android.volley.toolbox.HurlStack;
         import com.android.volley.toolbox.StringRequest;
         import com.android.volley.toolbox.Volley;
+        import com.haball.HaballError;
         import com.haball.Loader;
+        import com.haball.ProcessingError;
 
         import org.json.JSONArray;
         import org.json.JSONException;
@@ -151,6 +153,8 @@ public class ViewVoucherRequest {
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
                 error.printStackTrace();
+                 new HaballError().printErrorMessage(context, error);
+                new ProcessingError().showError(context);
             }
         }, null)  {
             @Override
@@ -245,6 +249,8 @@ public class ViewVoucherRequest {
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
                 error.printStackTrace();
+                 new HaballError().printErrorMessage(context, error);
+                new ProcessingError().showError(context);
             }
         }, null)  {
             @Override

@@ -43,9 +43,11 @@ import com.haball.Distribution_Login.Distribution_Login;
 import com.haball.Distributor.DistributorOrdersAdapter;
 import com.haball.Distributor.DistributorOrdersModel;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
+import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.Payment.DistributorPaymentRequestAdaptor;
 import com.haball.Payment.DistributorPaymentRequestModel;
+import com.haball.ProcessingError;
 import com.haball.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -597,7 +599,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 loader.hideLoader();
 
                 error.printStackTrace();
@@ -680,7 +683,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 loader.hideLoader();
 
                 error.printStackTrace();
@@ -1614,7 +1618,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
 //                Log.i("onErrorResponse", "Error");
@@ -1666,7 +1671,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 loader.hideLoader();
 
                 error.printStackTrace();
@@ -1749,7 +1755,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 loader.hideLoader();
 
                 error.printStackTrace();
@@ -1802,7 +1809,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
 
                 error.printStackTrace();
 //                Log.i("onErrorResponse", "Error");
@@ -1853,7 +1861,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 loader.hideLoader();
 
                 error.printStackTrace();
@@ -1959,7 +1968,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 loader.hideLoader();
 
                 error.printStackTrace();
@@ -2005,7 +2015,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 loader.hideLoader();
 
                 error.printStackTrace();
@@ -2027,7 +2038,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     }
 
 
-    private void printErrorMessage(VolleyError error) {
+    private void printErrMessage(VolleyError error) {
         if (error.networkResponse != null && error.networkResponse.data != null) {
             try {
                 String message = "";
@@ -2144,7 +2155,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
                 loader.hideLoader();
 
                 error.printStackTrace();
