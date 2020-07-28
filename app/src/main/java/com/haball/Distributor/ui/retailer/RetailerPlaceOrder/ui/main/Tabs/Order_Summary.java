@@ -47,6 +47,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrderDashboard;
+import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.RetailerPlaceOrder;
 import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Adapters.Order_Summary_Adapter;
 import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Models.OrderChildlist_Model;
 import com.haball.HaballError;
@@ -562,6 +563,7 @@ public class Order_Summary extends Fragment {
                             editorOrderTabsFromDraft.putString("TabNo", "0");
                             editorOrderTabsFromDraft.apply();
 
+
                             Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
                             ((FragmentActivity) getContext()).startActivity(login_intent);
                             ((FragmentActivity) getContext()).finish();
@@ -773,10 +775,12 @@ public class Order_Summary extends Fragment {
                 SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
                 editorOrderTabsFromDraft.putString("TabNo", "0");
                 editorOrderTabsFromDraft.apply();
-
-                Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
-                ((FragmentActivity) getContext()).startActivity(login_intent);
-                ((FragmentActivity) getContext()).finish();
+                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.add(R.id.main_container, new RetailerOrderDashboard()).addToBackStack("tag");
+                fragmentTransaction.commit();
+//                Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+//                ((FragmentActivity) getContext()).startActivity(login_intent);
+//                ((FragmentActivity) getContext()).finish();
 
 //                fm.popBackStack();
             }

@@ -60,6 +60,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -850,9 +851,11 @@ public class Dist_Order_Summary extends Fragment {
 //        float gstAmount = (Float.parseFloat(grossamount.getString("grossamount", "")) * 17) / 100;
         float gstAmount = 0;
         totalAmount = Float.parseFloat(grossamount.getString("grossamount", "0")) + gstAmount;
-
+        DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
+        float totalamount = 0;
+        String yourFormattedString3 = formatter1.format(totalAmount);
 //        gst_amount.setText(String.valueOf(gstAmount));
-        total_amount.setText(String.format("%.0f", totalAmount));
+        total_amount.setText(String.format(yourFormattedString3));
 
 
     }

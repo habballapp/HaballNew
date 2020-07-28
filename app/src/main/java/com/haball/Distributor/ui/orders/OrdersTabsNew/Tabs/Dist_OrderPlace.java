@@ -515,9 +515,14 @@ public class Dist_OrderPlace extends Fragment {
                 InputMethodManager imm = (InputMethodManager) (getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(myview.getWindowToken(), 0);
 
-                Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
-                ((FragmentActivity) getContext()).startActivity(login_intent);
-                ((FragmentActivity) getContext()).finish();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                        fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace()).addToBackStack("null");
+                fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("null");
+                fragmentTransaction.commit();
+
+//                Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+//                ((FragmentActivity) getContext()).startActivity(login_intent);
+//                ((FragmentActivity) getContext()).finish();
 
 //                fm.popBackStack();
             }
@@ -549,16 +554,28 @@ public class Dist_OrderPlace extends Fragment {
                     // handle back button's click listener
 //                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
 //
-                    if (selectedProductsDataList == null || selectedProductsDataList.size() == 0) {
+//                    if (selectedProductsDataList == null || selectedProductsDataList.size() == 0) {
+                    SharedPreferences orderCheckout = getContext().getSharedPreferences("orderCheckout",
+                            Context.MODE_PRIVATE);
+                    Gson gson = new Gson();
+                    String orderCheckedOut = orderCheckout.getString("orderCheckout", "");
+
+                    if (orderCheckedOut.equals("orderCheckout")) {
+                        showDiscardDialog();
+                        return true;
+                    } else {
                         InputMethodManager imm = (InputMethodManager) (getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(myview.getWindowToken(), 0);
 
 
                         fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace()).addToBackStack("null");
+//                        fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace()).addToBackStack("null");
+                        fragmentTransaction.add(R.id.main_container, new Order_PlaceOrder()).addToBackStack("null");
                         fragmentTransaction.commit();
-                    } else {
-                        showDiscardDialog();
+                        return true;
+//                    } else {
+//                        showDiscardDialog();
+//                        return true;
                     }
 //                    SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
 //                            Context.MODE_PRIVATE);

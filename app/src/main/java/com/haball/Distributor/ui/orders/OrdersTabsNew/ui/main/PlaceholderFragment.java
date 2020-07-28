@@ -6,9 +6,11 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -39,7 +41,9 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.haball.Distributor.ui.home.HomeFragment;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Models.Distributor_Fragment_Model_DistOrder;
+import com.haball.Distributor.ui.orders.OrdersTabsNew.Order_PlaceOrder;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Tabs.Dist_OrderPlace;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Tabs.Dist_Order_Summary;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
@@ -253,6 +257,40 @@ public class PlaceholderFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    // handle back button's click listener
+//                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
+//
+                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                        fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace()).addToBackStack("null");
+                    fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("null");
+                    fragmentTransaction.commit();
+                    return true;
+//                    SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+//                            Context.MODE_PRIVATE);
+//                    SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+//                    editorOrderTabsFromDraft.putString("TabNo", "0");
+//                    editorOrderTabsFromDraft.apply();
+//
+//                    Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
+//                    ((FragmentActivity) getContext()).startActivity(login_intent);
+//                    ((FragmentActivity) getContext()).finish();
+                }
+                return false;
+            }
+        });
+
+    }
+
     private void Holderorders(final View root, ViewPager pager) {
         try {
             fetchCompany(pager);
@@ -374,8 +412,8 @@ public class PlaceholderFragment extends Fragment {
         editor.putString("CompanyId", CompanyList.get(position).getID());
         editor.apply();
         FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace());
-        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace()).addToBackStack("tag");
+//        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
