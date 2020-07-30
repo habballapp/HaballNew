@@ -3,7 +3,9 @@ package com.haball.Distributor.ui.orders.OrdersTabsNew.Tabs;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -22,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -32,6 +35,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -39,6 +43,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.DistributorDashboard;
@@ -432,10 +437,70 @@ public class Dist_Order_Summary extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                new HaballError().printErrorMessage(getContext(), error);
-                new ProcessingError().showError(getContext());
-                error.printStackTrace();
                 loader.hideLoader();
+                if(error.networkResponse.statusCode == 405) {
+                    String messageMain = "";
+                    NetworkResponse response = error.networkResponse;
+                     if (error instanceof ServerError && response != null) {
+                         try {
+                             String message = "";
+
+                             String res = new String(response.data,
+                                     HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+                             // Now you can use any deserializer to make sense of data
+                             JSONObject obj = new JSONObject(res);
+                             messageMain = obj.getString("message");
+                         } catch (UnsupportedEncodingException e1) {
+                             // Couldn't properly decode data to string
+                             e1.printStackTrace();
+                         } catch (JSONException e2) {
+                             // returned data is not JSONObject?
+                             e2.printStackTrace();
+                         }
+                     }
+
+                    final Dialog fbDialogue = new Dialog(getContext());
+                    //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                    fbDialogue.setContentView(R.layout.password_updatepopup);
+                    TextView tv_pr1;
+                    TextView txt_header1;
+
+                    tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
+                    txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
+//                            tv_pr1.setText("User Profile ID " + ID + " password has been changed successfully.");
+                    txt_header1.setText("   Error");
+                    txt_header1.setTextColor(getContext().getResources().getColor(R.color.error_stroke_color));
+                    txt_header1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.border_set_error));
+                    tv_pr1.setText(messageMain);
+                    fbDialogue.setCancelable(true);
+                    fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                    WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+                    layoutParams.y = 200;
+                    layoutParams.x = -70;// top margin
+                    fbDialogue.getWindow().setAttributes(layoutParams);
+                    fbDialogue.show();
+
+                    ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+                    close_button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            fbDialogue.dismiss();
+                        }
+                    });
+
+                    fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+//                Intent intent = new Intent(Retailer_UpdatePassword.this, RetailerLogin.class);
+//                startActivity(intent);
+//                finish();
+                        }
+                    });
+                } else {
+                    new HaballError().printErrorMessage(getContext(), error);
+                    new ProcessingError().showError(getContext());
+                    error.printStackTrace();
+                }
                 refreshRetailerInfo();
             }
         }) {
