@@ -644,7 +644,6 @@ public class Dist_OrderPlace extends Fragment {
                 btn_checkout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getContext(), "next", Toast.LENGTH_SHORT).show();
                         loader.showLoader();
                         getActivity().runOnUiThread(new Runnable() {
                             @Override

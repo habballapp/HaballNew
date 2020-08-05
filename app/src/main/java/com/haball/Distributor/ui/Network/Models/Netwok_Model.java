@@ -5,15 +5,16 @@ public class Netwok_Model {
     private String CreatedDate;
     private String KYCNumber;
     private String KycStatusValue;
-
+    private String DistributorMobile;
     public Netwok_Model() {
     }
 
-    public Netwok_Model(String companyName, String createdDate, String KYCNumber, String kycStatusValue) {
+    public Netwok_Model(String companyName, String createdDate, String KYCNumber, String kycStatusValue, String distributorMobile) {
         CompanyName = companyName;
         CreatedDate = createdDate;
         this.KYCNumber = KYCNumber;
         KycStatusValue = kycStatusValue;
+        DistributorMobile = distributorMobile;
     }
 
     public String getCompanyName() {
@@ -46,5 +47,13 @@ public class Netwok_Model {
 
     public void setKycStatusValue(String kycStatusValue) {
         KycStatusValue = kycStatusValue;
+    }
+
+    public String getDistributorMobile() {
+        return DistributorMobile;
+    }
+
+    public void setDistributorMobile(String distributorMobile) {
+        DistributorMobile = distributorMobile;
     }
 }
