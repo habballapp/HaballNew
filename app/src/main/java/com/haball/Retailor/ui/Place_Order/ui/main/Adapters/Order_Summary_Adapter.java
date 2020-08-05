@@ -414,6 +414,7 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
                     grossAmount = 0;
                     NonSwipeableViewPager viewPager = activity.findViewById(R.id.view_pager_rpoid);
                     viewPager.setCurrentItem(0);
+
                     FragmentTransaction fragmentTransaction = (activity).getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.add(R.id.main_container_ret, new Retailer_OrderPlace_retailer_dashboarad());
                     fragmentTransaction.addToBackStack(null);

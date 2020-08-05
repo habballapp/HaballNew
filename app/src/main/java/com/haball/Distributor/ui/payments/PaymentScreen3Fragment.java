@@ -415,6 +415,8 @@ public class PaymentScreen3Fragment extends Fragment {
                 map.put("State", paymentsRequestList.getState());
                 map.put("Status", 0);
                 map.put("employeesName", paymentsRequestList.getEmployeesName());
+                map.put("PaidAmount" ,txt_amount.getText().toString());
+                Log.i("UpdatePaymentsss", String.valueOf(map));
 
                 JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PAYMENT_REQUESTS_SAVE, map, new Response.Listener<JSONObject>() {
                     @Override

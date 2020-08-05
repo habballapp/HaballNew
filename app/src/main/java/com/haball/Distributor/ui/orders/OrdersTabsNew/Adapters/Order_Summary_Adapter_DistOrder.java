@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderChildlist_Model_DistOrder;
+import com.haball.Distributor.ui.orders.OrdersTabsNew.Tabs.Dist_OrderPlace;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Tabs.Dist_Order_Summary;
 import com.haball.NonSwipeableViewPager;
 import com.haball.R;
@@ -228,7 +229,7 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
                     String str_quantity = String.valueOf(s1);
                     if (String.valueOf(s1).equals("")) {
                         str_quantity = "0";
-                    } else if (Integer.parseInt(String.valueOf(s1)) == 0) {
+                    } else if (Double.parseDouble(String.valueOf(s1)) == 0) {
                         str_quantity = "0";
                     }
 
@@ -413,10 +414,11 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
                     editor.apply();
 //                    Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
                     grossAmount = 0;
-                    NonSwipeableViewPager viewPager = activity.findViewById(R.id.view_pager_rpoid);
+                    NonSwipeableViewPager viewPager = activity.findViewById(R.id.view_pager5);
                     viewPager.setCurrentItem(0);
+
                     FragmentTransaction fragmentTransaction = (activity).getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.add(R.id.main_container_ret, new Dist_Order_Summary());
+                    fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace());
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 }

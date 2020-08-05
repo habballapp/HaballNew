@@ -85,7 +85,7 @@ import java.util.Map;
 public class PlaceholderFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private String orderID;
+    private String orderID ,orderStatus;
     private String URL_Order_Data = "http://175.107.203.97:4013/api/Orders/";
     private PageViewModel pageViewModel;
     private TextInputEditText txt_orderID, txt_company_order, txt_created_date_order, txt_status_order, txt_comments, txt_confirm;
@@ -158,7 +158,9 @@ public class PlaceholderFragment extends Fragment {
 
 
         orderID = sharedPreferences3.getString("OrderId", "");
+        orderStatus = sharedPreferences3.getString("Status" ,"");
         Log.i("OrderId", orderID);
+        Log.i("orderStatus" , orderStatus);
         if (!URL_Order_Data.contains(orderID)) {
             URL_Order_Data = URL_Order_Data + orderID;
             Log.i("URL_Order_Data", URL_Order_Data);
@@ -679,12 +681,14 @@ public class PlaceholderFragment extends Fragment {
     private void getOrderData() {
         Log.i("DistributorId invoice", DistributorId);
         Log.i("Token invoice", Token);
+        Log.i("status_order_111", String.valueOf(txt_status_order));
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Order_Data, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 loader.hideLoader();
                 Log.i("Order Data response", String.valueOf(response));
                 try {
+
 //                    txt_orderID.setText(String.valueOf(response.get("OrderNumber")));
 //                    txt_company_order.setText(String.valueOf(response.get("CompanyName")));
 //                    txt_created_date_order.setText(String.valueOf(response.get("CreatedDate")).split("T")[0]);
@@ -697,8 +701,8 @@ public class PlaceholderFragment extends Fragment {
                         txt_company_order.setText(String.valueOf(response.get("CompanyName")));
                     if (!String.valueOf(response.get("CreatedDate")).equals("") && !String.valueOf(response.get("CreatedDate")).equals("null"))
                         txt_created_date_order.setText(String.valueOf(response.get("CreatedDate")).split("T")[0]);
-                    if (!String.valueOf(OrderStatusKVP.get(String.valueOf(response.get("Status")))).equals("") && !String.valueOf(OrderStatusKVP.get(String.valueOf(OrderStatusKVP.get(String.valueOf(response.get("Status")))))).equals("null"))
-                        txt_status_order.setText(OrderStatusKVP.get(String.valueOf(response.get("Status"))));
+                    if (!txt_status_order.equals("") && !txt_status_order.equals("null"))
+                        txt_status_order.setText(orderStatus);
 
                     if (!String.valueOf(response.get("OrderNumber")).equals("") && !String.valueOf(response.get("OrderNumber")).equals("null"))
                         txt_orderID.setTextColor(getResources().getColor(R.color.textcolor));
@@ -706,7 +710,7 @@ public class PlaceholderFragment extends Fragment {
                         txt_company_order.setTextColor(getResources().getColor(R.color.textcolor));
                     if (!String.valueOf(response.get("CreatedDate")).equals("") && !String.valueOf(response.get("CreatedDate")).equals("null"))
                         txt_created_date_order.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(OrderStatusKVP.get(String.valueOf(response.get("Status")))).equals("") && !String.valueOf(OrderStatusKVP.get(String.valueOf(OrderStatusKVP.get(String.valueOf(response.get("Status")))))).equals("null"))
+                    if (!txt_status_order.equals("") && !txt_status_order.equals("null"))
                         txt_status_order.setTextColor(getResources().getColor(R.color.textcolor));
                 } catch (JSONException e) {
                     e.printStackTrace();

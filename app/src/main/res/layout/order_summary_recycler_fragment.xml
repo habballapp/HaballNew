@@ -238,6 +238,7 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:textSize="@dimen/rv_box_text_size"
+                android:maxLength="9"
                 android:textColor="@color/textcolor"
                 android:padding="10dp" />
         </RelativeLayout>

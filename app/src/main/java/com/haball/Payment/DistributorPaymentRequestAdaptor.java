@@ -119,6 +119,8 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
         holder.tv_heading.setText(paymentsRequestList.get(position).getCompanyName());
         holder.payment_id_value.setText(paymentsRequestList.get(position).getPrePaidNumber());
         DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
+
+
         String yourFormattedString1 = formatter1.format(Integer.parseInt(paymentsRequestList.get(position).getPaidAmount()));
         holder.amount_value.setText("Rs. " + yourFormattedString1);
         if (paymentsRequestList.get(position).getStatus().equals("1"))

@@ -107,7 +107,7 @@ public class PlaceholderFragment extends Fragment {
     private Boolean changed = false;
     private Button btn_back;
     private TextView tv_pr1;
-    private String Email = "", Address = "", Mobile = "";
+    private String Email = "", Address = "", Mobile = "", firstname = "", lastname = "";
     private FragmentTransaction fragmentTransaction;
 
     public static PlaceholderFragment newInstance(int index) {
@@ -222,6 +222,8 @@ public class PlaceholderFragment extends Fragment {
                                 InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                                 edt_firstname.setSelection(edt_firstname.getText().length());
+//                                distri_btn_save.setEnabled(true);
+//                                distri_btn_save.setBackground(getResources().getDrawable(R.drawable.button_background));
                                 changed = true;
                                 return true;
                             }
@@ -453,6 +455,38 @@ public class PlaceholderFragment extends Fragment {
                         checkFieldsForEmptyValues();
                     }
                 });
+                edt_lastname.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        checkFieldsForEmptyValues();
+                    }
+                });
+                edt_firstname.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        checkFieldsForEmptyValues();
+                    }
+                });
                 distri_btn_save.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -575,12 +609,16 @@ public class PlaceholderFragment extends Fragment {
         String reg_ex = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
 
         String remail = edt_email.getText().toString();
+        String str_edt_firstname = edt_firstname.getText().toString();
+        String str_edt_lastname = edt_lastname.getText().toString();
         String rmobile = edt_dist_mobile.getText().toString();
         String r_Address = R_Address.getText().toString();
         if (changed) {
             if (!remail.equals("") && !rmobile.equals("") && !r_Address.equals("")) {
                 if ((remail.equals(Email)
                         && rmobile.equals(Mobile)
+                        && str_edt_firstname.equals(firstname)
+                        && str_edt_lastname.equals(lastname)
                         && r_Address.equals(Address))
                         || !remail.matches(reg_ex)
                         || rmobile.length() != 12
@@ -822,9 +860,11 @@ public class PlaceholderFragment extends Fragment {
                         if (!String.valueOf(edt_dist_code.getText()).equals(""))
                             edt_dist_code.setTextColor(getResources().getColor(R.color.textcolor));
                         edt_firstname.setText(profile_model.getFirstName());
+                        firstname = profile_model.getFirstName();
                         if (!String.valueOf(edt_firstname.getText()).equals(""))
                             edt_firstname.setTextColor(getResources().getColor(R.color.textcolor));
                         edt_lastname.setText(profile_model.getLastName());
+                        lastname = profile_model.getEmail();
                         if (!String.valueOf(edt_lastname.getText()).equals(""))
                             edt_lastname.setTextColor(getResources().getColor(R.color.textcolor));
                         edt_email.setText(profile_model.getEmail());

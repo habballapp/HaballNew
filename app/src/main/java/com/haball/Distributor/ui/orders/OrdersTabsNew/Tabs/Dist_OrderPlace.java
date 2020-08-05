@@ -520,6 +520,8 @@ public class Dist_OrderPlace extends Fragment {
                 fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("null");
                 fragmentTransaction.commit();
 
+
+
 //                Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
 //                ((FragmentActivity) getContext()).startActivity(login_intent);
 //                ((FragmentActivity) getContext()).finish();
@@ -642,6 +644,7 @@ public class Dist_OrderPlace extends Fragment {
                 btn_checkout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Toast.makeText(getContext(), "next", Toast.LENGTH_SHORT).show();
                         loader.showLoader();
                         getActivity().runOnUiThread(new Runnable() {
                             @Override

@@ -175,7 +175,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
         spinner_container_main = root.findViewById(R.id.spinner_container_main);
         tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
-        tv_shipment_no_data.setVisibility(View.VISIBLE);
+        //tv_shipment_no_data.setVisibility(View.VISIBLE);
         spinner_container1 = root.findViewById(R.id.spinner_container1);
         spinner_container = root.findViewById(R.id.spinner_container);
         spinner_container.setVisibility(View.GONE);
@@ -231,7 +231,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -239,7 +239,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(50, 0, 50, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
@@ -316,7 +316,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                     } else if (Filter_selected.equals("Status")) {
 
                         Filter_selected = "Status";
-                        tv_shipment_no_data.setVisibility(View.VISIBLE);
+                        //  tv_shipment_no_data.setVisibility(View.VISIBLE);
                         spinner_container1.setVisibility(View.VISIBLE);
 
                         filters.add("Status");
@@ -769,25 +769,25 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
     }
 
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        getView().setFocusableInTouchMode(true);
-        getView().requestFocus();
-        getView().setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
-                    FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.add(R.id.main_container, new HomeFragment());
-                    fragmentTransaction.commit();
-                }
-                return false;
-            }
-        });
-
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//
+//        getView().setFocusableInTouchMode(true);
+//        getView().requestFocus();
+//        getView().setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+//                    FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+//                    fragmentTransaction.add(R.id.main_container, new HomeFragment());
+//                    fragmentTransaction.commit();
+//                }
+//                return false;
+//            }
+//        });
+//
+//    }
 
 
 }

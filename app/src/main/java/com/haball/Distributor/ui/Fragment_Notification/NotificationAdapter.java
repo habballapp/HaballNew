@@ -46,7 +46,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             public void onClick(final View view) {
                 // final PopupMenu popup = new PopupMenu(context, view);
                 Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
-                final PopupMenu popup = new androidx.appcompat.widget.PopupMenu(wrapper, view);
+                final PopupMenu popup = new PopupMenu(wrapper, view);
                 MenuInflater inflater = popup.getMenuInflater();
                 inflater.inflate(R.menu.notification_menu, popup.getMenu());
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -60,7 +60,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                                 dismiss_notification.requestDismissNotification(notificationLists.get(position).getID(),context, token);
                                 notifyItemRemoved(position);
                                 notifyItemRangeChanged(position, notificationLists.size());
-                                Toast.makeText(context, "Notification Dismissed", Toast.LENGTH_LONG).show();
+//                                Toast.makeText(context, "Notification Dismissed", Toast.LENGTH_LONG).show();
                                 break;
                         }
                         return false;

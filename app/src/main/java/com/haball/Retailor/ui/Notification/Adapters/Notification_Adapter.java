@@ -42,7 +42,7 @@ import java.util.Map;
 public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adapter.ViewHolder> {
 
     private Context context;
-    private  String subject,notification_txt;
+    private String subject, notification_txt;
     private List<Retailer_Notification_Model> NotificationList = new ArrayList<>();
     private String dismiss_alert = "http://175.107.203.97:4014/api/useralert/DismissAlert/";
 
@@ -54,7 +54,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
     }
 
     public Notification_Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view_inflate = LayoutInflater.from(context).inflate(R.layout.notification_retailor_recycler,parent,false);
+        View view_inflate = LayoutInflater.from(context).inflate(R.layout.notification_retailor_recycler, parent, false);
         return new Notification_Adapter.ViewHolder(view_inflate);
     }
 
@@ -93,7 +93,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
 
                                 final Loader loader = new Loader(context);
                                 loader.showLoader();
-            new SSL_HandShake().handleSSLHandshake();
+                                new SSL_HandShake().handleSSLHandshake();
                                 BooleanRequest sr = new BooleanRequest(Request.Method.POST, dismiss_alert, null, new Response.Listener<Boolean>() {
                                     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                                     @Override
@@ -146,6 +146,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
         public TextView notification_message, subject;
         public ImageButton menu_btn;
         public RelativeLayout rl_payments_notification;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             notification_message = itemView.findViewById(R.id.notification_message);

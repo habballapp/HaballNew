@@ -26,8 +26,9 @@
                 android:layout_below="@+id/consolidate_invoice_no_view"
                 android:layout_toRightOf="@+id/tv_pkr_amount_view"
                 android:text=" Payment"
-                android:textColor="#96bb3c"
-                android:textSize="14sp"
+                android:textSize="@dimen/rv_box_heading_size"
+                android:fontFamily="@font/open_sans_semibold"
+                android:textColor="@color/rv_box_color"
                 android:textStyle="bold" />
 
             <TextView
@@ -35,9 +36,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/subject"
-                android:layout_marginTop="10dp"
-                android:text="Payment ID"
-                android:textSize="14sp" />
+                android:layout_marginTop="15dp"
+                android:text="Payment ID 23455677007070070707"
+                android:textSize="@dimen/rv_box_text_size"
+                android:fontFamily="@font/open_sans"
+                android:textColor="@color/rv_box_color"/>
 
         </RelativeLayout>
         <ImageButton

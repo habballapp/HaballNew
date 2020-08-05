@@ -1,9 +1,13 @@
 package com.haball.Distributor.ui.Fragment_Notification;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +15,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,6 +34,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.DistributorDashboard;
+import com.haball.Distributor.ui.home.HomeFragment;
 import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.Payment.ConsolidatePaymentsModel;
@@ -35,6 +42,7 @@ import com.haball.ProcessingError;
 import com.haball.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.haball.Retailor.RetailorDashboard;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,6 +65,8 @@ public class FragmentNotification extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private List<NotificationModel> notificationLists = new ArrayList<>();
     private String Token, DistributorId, ID;
+    SharedPreferences sharedPreferences;
+    private Context mcontext;
     static int counter;
     //private String URL_NOTIFICATION = "http://175.107.203.97:4013/api/useralert/ShowAll/";
     private Loader loader;
@@ -64,9 +74,11 @@ public class FragmentNotification extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.activity_notification, container, false);
-        loader = new Loader(getContext());
+        mcontext = getContext();
 
+        loader = new Loader(mcontext);
         recyclerView = root.findViewById(R.id.rv_notification);
+
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(root.getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -79,12 +91,18 @@ public class FragmentNotification extends Fragment {
     }
 
     private void fetchNotification(final int resultLenght) {
-        loader.showLoader();
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+        sharedPreferences = mcontext.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                loader.showLoader();
+            }
+        });
 
-        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+
+        SharedPreferences sharedPreferences1 = mcontext.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         ID = sharedPreferences1.getString("ID", "");
@@ -109,18 +127,19 @@ public class FragmentNotification extends Fragment {
                 Type type = new TypeToken<List<NotificationModel>>() {
                 }.getType();
                 notificationLists = gson.fromJson(result.toString(), type);
-                NotificationAdapter = new NotificationAdapter(getContext(), notificationLists, Token);
+                NotificationAdapter = new NotificationAdapter(mcontext, notificationLists, Token);
                 recyclerView.setAdapter(NotificationAdapter);
-                setNotificationStatus(DistributorId, ID);
+//                setNotificationStatus(DistributorId, ID);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
 //                printErrorMessage(error);
+                Log.i("fetch_notification","error in fetch notification");
                 error.printStackTrace();
-                new HaballError().printErrorMessage(getContext(), error);
-                new ProcessingError().showError(getContext());
+                new HaballError().printErrorMessage(mcontext, error);
+                new ProcessingError().showError(mcontext);
             }
         }) {
             @Override
@@ -146,7 +165,7 @@ public class FragmentNotification extends Fragment {
 
             }
         });
-        Volley.newRequestQueue(getContext()).add(sr);
+        Volley.newRequestQueue(mcontext).add(sr);
     }
 
     private void setNotificationStatus(String DistributorId, String ID) {
@@ -165,8 +184,9 @@ public class FragmentNotification extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
-                new HaballError().printErrorMessage(getContext(), error);
-                new ProcessingError().showError(getContext());
+                Log.i("fetch_notification","error in setNotificationStatus");
+                new HaballError().printErrorMessage(mcontext, error);
+                new ProcessingError().showError(mcontext);
                 error.printStackTrace();
             }
         }) {
@@ -193,12 +213,12 @@ public class FragmentNotification extends Fragment {
 
             }
         });
-        Volley.newRequestQueue(getContext()).add(sr);
+        Volley.newRequestQueue(mcontext).add(sr);
     }
 
     private void fetchNotificationForItemCount() {
         loader.showLoader();
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+        SharedPreferences sharedPreferences = mcontext.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
 
@@ -234,8 +254,9 @@ public class FragmentNotification extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                new HaballError().printErrorMessage(getContext(), error);
-                new ProcessingError().showError(getContext());
+                new HaballError().printErrorMessage(mcontext, error);
+                Log.i("fetch_notification","error in fetchNotificationForItemCount");
+                new ProcessingError().showError(mcontext);
                 error.printStackTrace();
             }
         }) {
@@ -262,44 +283,40 @@ public class FragmentNotification extends Fragment {
 
             }
         });
-        Volley.newRequestQueue(getContext()).add(sr);
+        Volley.newRequestQueue(mcontext).add(sr);
     }
 
-    private void printErrMessage(VolleyError error) {
-        if (getContext() != null) {
-            if (error instanceof NetworkError) {
-                Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
-            } else if (error instanceof ServerError) {
-                Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
-            } else if (error instanceof AuthFailureError) {
-                Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
-            } else if (error instanceof ParseError) {
-                Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
-            } else if (error instanceof NoConnectionError) {
-                Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
-            } else if (error instanceof TimeoutError) {
-                Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
-            }
+    @Override
+    public void onResume() {
+        super.onResume();
 
-            if (error.networkResponse != null && error.networkResponse.data != null) {
-                try {
-                    String message = "";
-                    String responseBody = new String(error.networkResponse.data, "utf-8");
-                    Log.i("responseBody", responseBody);
-                    JSONObject data = new JSONObject(responseBody);
-                    Log.i("data", String.valueOf(data));
-                    Iterator<String> keys = data.keys();
-                    while (keys.hasNext()) {
-                        String key = keys.next();
-                        message = message + data.get(key) + "\n";
-                    }
-                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    // handle back button's click listener
+//                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
+
+//                    SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+//                            Context.MODE_PRIVATE);
+//                    SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+//                    editorOrderTabsFromDraft.putString("TabNo", "0");
+//                    editorOrderTabsFromDraft.apply();
+                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                        fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace()).addToBackStack("null");
+                    fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("null");
+                    fragmentTransaction.commit();
+                    return  true;
+
+//                    Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+//                    ((FragmentActivity) getContext()).startActivity(login_intent);
+//                    ((FragmentActivity) getContext()).finish();
                 }
+                return false;
             }
-        }
+        });
+
     }
 }

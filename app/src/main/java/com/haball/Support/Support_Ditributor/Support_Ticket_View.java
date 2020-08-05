@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -42,6 +43,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.haball.Distributor.ui.home.HomeFragment;
 import com.haball.Distributor.ui.support.DeleteSupport;
 import com.haball.Distributor.ui.support.SupportFragment;
 import com.haball.HaballError;
@@ -119,7 +121,7 @@ public class Support_Ticket_View extends Fragment {
             @Override
             public void onClick(View v) {
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.add(R.id.main_container, new SupportFragment()).addToBackStack("tag");
+                fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
                 fragmentTransaction.commit();
             }
         });
@@ -160,6 +162,22 @@ public class Support_Ticket_View extends Fragment {
                     txt_comments.setText(String.valueOf(response.get("Description")));
                     ID = String.valueOf(response.get("Id"));
                     tv_ticket_id.setText(ID);
+
+                    txt_business_name.setEnabled(false);
+                    txt_email_address.setEnabled(false);
+                    txt_mobile_number.setEnabled(false);
+                    txt_issue_type.setEnabled(false);
+                    txt_criticality.setEnabled(false);
+                    txt_preferred_contact_method.setEnabled(false);
+                    txt_comments.setEnabled(false);
+
+                    txt_business_name.setTextColor(getResources().getColor(R.color.textcolor));
+                    txt_email_address.setTextColor(getResources().getColor(R.color.textcolor));
+                    txt_mobile_number.setTextColor(getResources().getColor(R.color.textcolor));
+                    txt_issue_type.setTextColor(getResources().getColor(R.color.textcolor));
+                    txt_criticality.setTextColor(getResources().getColor(R.color.textcolor));
+                    txt_preferred_contact_method.setTextColor(getResources().getColor(R.color.textcolor));
+                    txt_comments.setTextColor(getResources().getColor(R.color.textcolor));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -257,4 +275,26 @@ public class Support_Ticket_View extends Fragment {
 
         alertDialog.show();
     }
+
+    public void onResume() {
+        super.onResume();
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+
+                    fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("null");
+                    fragmentTransaction.commit();
+                    return  true;
+                }
+                return false;
+            }
+        });
+
+    }
+
 }

@@ -63,6 +63,7 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
     @Override
     public void onBindViewHolder(@NonNull final RetailerViewOrderProductAdapter.ViewHolder holder, int position) {
         holder.txt_products.setText(OrdersList.get(position).getProductName());
+
         holder.product_code.setText("Product Code:\u00A0");
         SpannableString ss1 = new SpannableString(OrdersList.get(position).getProductCode());
         ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);

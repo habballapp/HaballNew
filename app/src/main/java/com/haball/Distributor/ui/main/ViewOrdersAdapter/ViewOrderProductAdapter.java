@@ -78,7 +78,7 @@ public class ViewOrderProductAdapter extends RecyclerView.Adapter<ViewOrderProdu
 
         if (OrdersList.get(position).getUOMTitle() != null && !OrdersList.get(position).getUOMTitle().equals("null")) {
 
-            holder.product_code.append("        ");
+            holder.product_code.append("      |       ");
 
             holder.product_code.append("UOM:\u00A0");
             ss1 = new SpannableString(OrdersList.get(position).getUOMTitle());
@@ -88,7 +88,7 @@ public class ViewOrderProductAdapter extends RecyclerView.Adapter<ViewOrderProdu
         }
 
         if (!OrdersList.get(position).getDiscount().equals("0") && !OrdersList.get(position).getDiscount().equals("") && !OrdersList.get(position).getDiscount().equals("null")) {
-            holder.product_code.append("            ");
+            holder.product_code.append("      |       ");
 
             holder.product_code.append("Disc:\u00A0");
 
@@ -100,7 +100,7 @@ public class ViewOrderProductAdapter extends RecyclerView.Adapter<ViewOrderProdu
             holder.product_code.append(ss1);
 
         }
-        holder.product_code.append("        ");
+        holder.product_code.append("      |       ");
 
         holder.product_code.append("Qty:\u00A0");
 

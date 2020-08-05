@@ -76,6 +76,7 @@
         android:textColor="@color/rv_box_color"
         android:textSize="@dimen/rv_order_view_box_text_size" />
 
+
     <TextView
         android:id="@+id/price_value"
         android:layout_width="wrap_content"

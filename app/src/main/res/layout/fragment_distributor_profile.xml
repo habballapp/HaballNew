@@ -51,7 +51,7 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/open_sans"
                 android:hint="First Name"
-                
+
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
                 app:boxStrokeColor="@color/box_stroke"
@@ -62,11 +62,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableRight="@drawable/ic_edit_black_24dp"
-                    android:enabled="false"
                     android:theme="@style/TextLabelEditeText" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_edt_lastname"
