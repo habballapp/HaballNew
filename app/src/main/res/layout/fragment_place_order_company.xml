@@ -19,9 +19,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="Select Company"
+            android:text="Who do you want to order from?"
             android:textColor="#898989"
-            android:textSize="20sp" />
+            android:textSize="17sp" />
 
         <RelativeLayout
             android:id="@+id/spinner_container"
