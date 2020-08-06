@@ -438,26 +438,26 @@ public class Dist_Order_Summary extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
-                if(error.networkResponse.statusCode == 405) {
+                if (error.networkResponse.statusCode == 405) {
                     String messageMain = "";
                     NetworkResponse response = error.networkResponse;
-                     if (error instanceof ServerError && response != null) {
-                         try {
-                             String message = "";
+                    if (error instanceof ServerError && response != null) {
+                        try {
+                            String message = "";
 
-                             String res = new String(response.data,
-                                     HttpHeaderParser.parseCharset(response.headers, "utf-8"));
-                             // Now you can use any deserializer to make sense of data
-                             JSONObject obj = new JSONObject(res);
-                             messageMain = obj.getString("message");
-                         } catch (UnsupportedEncodingException e1) {
-                             // Couldn't properly decode data to string
-                             e1.printStackTrace();
-                         } catch (JSONException e2) {
-                             // returned data is not JSONObject?
-                             e2.printStackTrace();
-                         }
-                     }
+                            String res = new String(response.data,
+                                    HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+                            // Now you can use any deserializer to make sense of data
+                            JSONObject obj = new JSONObject(res);
+                            messageMain = obj.getString("message");
+                        } catch (UnsupportedEncodingException e1) {
+                            // Couldn't properly decode data to string
+                            e1.printStackTrace();
+                        } catch (JSONException e2) {
+                            // returned data is not JSONObject?
+                            e2.printStackTrace();
+                        }
+                    }
 
                     final Dialog fbDialogue = new Dialog(getContext());
                     //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
@@ -468,10 +468,10 @@ public class Dist_Order_Summary extends Fragment {
                     tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
                     txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
 //                            tv_pr1.setText("User Profile ID " + ID + " password has been changed successfully.");
-                    txt_header1.setText("   Error");
+                    txt_header1.setText(" Insufficient Balance");
                     txt_header1.setTextColor(getContext().getResources().getColor(R.color.error_stroke_color));
                     txt_header1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.border_set_error));
-                    tv_pr1.setText(messageMain);
+                    tv_pr1.setText("Sorry, your order cannot be processed as your available balance is PKR 5000 only");
                     fbDialogue.setCancelable(true);
                     fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
                     WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
