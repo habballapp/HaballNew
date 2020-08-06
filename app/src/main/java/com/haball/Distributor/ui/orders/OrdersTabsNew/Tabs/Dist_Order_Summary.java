@@ -412,26 +412,61 @@ public class Dist_Order_Summary extends Fragment {
             public void onResponse(final JSONObject result) {
                 loader.hideLoader();
                 Log.i("RESPONSE ORDER .. ", result.toString());
+
+                final Dialog fbDialogue = new Dialog(getActivity());
+                //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                fbDialogue.setContentView(R.layout.password_updatepopup);
+                TextView tv_pr1, txt_header1;
+                txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
+                tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
+                txt_header1.setText("Order Created");
                 try {
-                    SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
-                            Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = grossamount.edit();
-                    editor.clear();
-                    editor.apply();
-                    SharedPreferences selectedProducts_distributor = getContext().getSharedPreferences("selectedProducts_distributor",
-                            Context.MODE_PRIVATE);
-                    SharedPreferences.Editor selectedProducts_distributor_editor = selectedProducts_distributor.edit();
-                    selectedProducts_distributor_editor.clear();
-                    selectedProducts_distributor_editor.apply();
-
-                    Toast.makeText(getContext(), "Order Request ID " + result.get("OrderNumber") + " has been submitted successfully and sent for approval.", Toast.LENGTH_LONG).show();
-                    Intent login_intent = new Intent(getActivity(), DistributorDashboard.class);
-                    startActivity(login_intent);
-                    getActivity().finish();
-
+                    tv_pr1.setText("Your Order ID " + result.getString("OrderNumber") + " has been created successfully.");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                fbDialogue.setCancelable(true);
+                fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+                layoutParams.y = 200;
+                layoutParams.x = -70;// top margin
+                fbDialogue.getWindow().setAttributes(layoutParams);
+                fbDialogue.show();
+
+                ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+                close_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        fbDialogue.dismiss();
+                    }
+                });
+
+                fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+//                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                        fragmentTransaction.replace(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
+//                        fragmentTransaction.commit();
+
+                        SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = grossamount.edit();
+                        editor.clear();
+                        editor.apply();
+                        SharedPreferences selectedProducts_distributor = getContext().getSharedPreferences("selectedProducts_distributor",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor selectedProducts_distributor_editor = selectedProducts_distributor.edit();
+                        selectedProducts_distributor_editor.clear();
+                        selectedProducts_distributor_editor.apply();
+
+                        Intent login_intent = new Intent(getActivity(), DistributorDashboard.class);
+                        startActivity(login_intent);
+                        getActivity().finish();
+                    }
+                });
+//                    Toast.makeText(getContext(), "Order Request ID " + result.get("OrderNumber") + " has been submitted successfully and sent for approval.", Toast.LENGTH_LONG).show();
+
+
                 refreshRetailerInfo();
             }
         }, new Response.ErrorListener() {
