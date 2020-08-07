@@ -119,6 +119,7 @@ public class Dist_OrderPlace extends Fragment {
     private Loader loader;
     private View myview = null;
     private MyAsyncTask myAsyncTask;
+    private String editTextValue = "";
 
     public Dist_OrderPlace() {
         // Required empty public constructor
@@ -278,27 +279,64 @@ public class Dist_OrderPlace extends Fragment {
 //            }
 //        });
 
-
-        et_test.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        et_test.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                String Filter_selected_value = String.valueOf(et_test.getText());
-                if (!Filter_selected_value.equals("")) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Log.i("DebugFilter", "in edit text: " + s);
+                Log.i("DebugFilter", "in edit text: C, " + Category_selected);
+                editTextValue = String.valueOf(s);
+
+//                titles = new ArrayList<>();
+                if (!String.valueOf(s).equals("")) {
+                    spinner_conso.setSelection(0);
+                    Log.i("titles123", "in if");
                     try {
-                        getFilteredProductsFromCategory(String.valueOf(Filter_selected_value));
+                        getFilteredProductsFromCategory(String.valueOf(s));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 } else {
-                    try {
-                        getProductCategory();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    Log.i("titles123", "in else");
+                    if (Category_selected != null && Category_selected.equals("All Category")) {
+                        try {
+                            getProductCategory();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
         });
+//        et_test.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//
+//                String Filter_selected_value = String.valueOf(et_test.getText());
+//                if (!Filter_selected_value.equals("")) {
+//                    try {
+//                        getFilteredProductsFromCategory(String.valueOf(Filter_selected_value));
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                } else {
+//                    try {
+//                        getProductCategory();
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        });
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -365,6 +403,75 @@ public class Dist_OrderPlace extends Fragment {
 
         });
 
+        btn_checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loader.showLoader();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                loader.hideLoader();
+                                //Do something after 1 second
+
+                                SharedPreferences orderCheckout = getContext().getSharedPreferences("orderCheckout",
+                                        Context.MODE_PRIVATE);
+                                SharedPreferences.Editor orderCheckout_editor = orderCheckout.edit();
+                                orderCheckout_editor.putString("orderCheckout", "orderCheckout");
+                                orderCheckout_editor.apply();
+                                NonSwipeableViewPager viewPager = getActivity().findViewById(R.id.view_pager5);
+                                SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_distributor",
+                                        Context.MODE_PRIVATE);
+                                Gson gson = new Gson();
+                                object_stringqty = selectedProducts.getString("selected_products_qty", "");
+                                object_string = selectedProducts.getString("selected_products", "");
+                                Type type = new TypeToken<List<OrderChildlist_Model_DistOrder>>() {
+                                }.getType();
+                                Type typeString = new TypeToken<List<String>>() {
+                                }.getType();
+                                selectedProductsDataList = gson.fromJson(object_string, type);
+                                selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
+//                        if (selectedProductsDataList.size() > 0) {
+//                            for (int i = 0; i < selectedProductsDataList.size(); i++) {
+//                                Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+//                                Log.i("qty", selectedProductsQuantityList.get(i));
+//                                if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
+//                                    grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
+//                            }
+                                if (selectedProductsDataList.size() > 0) {
+                                    for (int i = 0; i < selectedProductsDataList.size(); i++) {
+//                                Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+//                                Log.i("qty", selectedProductsQuantityList.get(i));
+                                        if (!selectedProductsDataList.get(i).getUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
+                                            grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
+                                    }
+                                    SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
+                                            Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = grossamount.edit();
+                                    editor.putString("grossamount", String.valueOf(grossAmount));
+                                    editor.apply();
+//                            Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
+                                    grossAmount = 0;
+                                    viewPager.setCurrentItem(1);
+
+                                    InputMethodManager imm = (InputMethodManager) (getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
+                                    imm.hideSoftInputFromWindow(myview.getWindowToken(), 0);
+
+
+                                    FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
+                                    fragmentTransaction.add(R.id.main_container, new Dist_Order_Summary());
+                                    fragmentTransaction.addToBackStack(null);
+                                    fragmentTransaction.commit();
+
+                                }
+                            }
+                        }, 3000);
+                    }
+                });
+            }
+        });
 
         try {
             getProductCategory();
@@ -519,7 +626,6 @@ public class Dist_OrderPlace extends Fragment {
 //                        fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace()).addToBackStack("null");
                 fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("null");
                 fragmentTransaction.commit();
-
 
 
 //                Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);

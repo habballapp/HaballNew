@@ -479,6 +479,7 @@ public class RetailerLogin extends AppCompatActivity {
                         requestQueue.add(sr);
                     }
                 } catch (JSONException e) {
+                    loader.hideLoader();
                     new CustomToast().showToast(RetailerLogin.this, "Invalid Credentials");
                     e.printStackTrace();
 //                    try {

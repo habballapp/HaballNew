@@ -46,6 +46,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.DistributorDashboard;
+import com.haball.Distributor.ui.home.HomeFragment;
 import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrderDashboard;
 import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.RetailerPlaceOrder;
 import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Adapters.Order_Summary_Adapter;
@@ -565,9 +566,10 @@ public class Order_Summary extends Fragment {
                             editorOrderTabsFromDraft.apply();
 
 
-                            Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
-                            ((FragmentActivity) getContext()).startActivity(login_intent);
-                            ((FragmentActivity) getContext()).finish();
+                            FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.add(R.id.main_container, new HomeFragment());
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
 
                         }
                     });
@@ -698,9 +700,10 @@ public class Order_Summary extends Fragment {
                             editorOrderTabsFromDraft.putString("TabNo", "0");
                             editorOrderTabsFromDraft.apply();
 
-                            Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
-                            ((FragmentActivity) getContext()).startActivity(login_intent);
-                            ((FragmentActivity) getContext()).finish();
+                            FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.add(R.id.main_container, new RetailerOrderDashboard());
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
 
                         }
                     });
@@ -807,9 +810,9 @@ public class Order_Summary extends Fragment {
         editor.putString("RetailerID", "");
         editor.apply();
 
-        Intent login_intent = new Intent(getActivity(), DistributorDashboard.class);
-        startActivity(login_intent);
-        getActivity().finish();
+//        Intent login_intent = new Intent(getActivity(), DistributorDashboard.class);
+//        startActivity(login_intent);
+//        getActivity().finish();
     }
 
     private class MyAsyncTask extends AsyncTask<Void, Void, Void> {
