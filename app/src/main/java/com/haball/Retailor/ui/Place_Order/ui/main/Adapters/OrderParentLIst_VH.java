@@ -96,12 +96,12 @@ public class OrderParentLIst_VH extends ParentViewHolder {
         }
         if (isExpanded()) {
             collapseView();
-//            minus_icon.setVisibility(View.GONE);
-//            imageView.setVisibility(View.VISIBLE);
+            minus_icon.setVisibility(View.GONE);
+            imageView.setVisibility(View.VISIBLE);
         } else {
             expandView();
-//            imageView.setVisibility(View.GONE);
-//            minus_icon.setVisibility(View.VISIBLE);
+            imageView.setVisibility(View.GONE);
+            minus_icon.setVisibility(View.VISIBLE);
         }
 
     }

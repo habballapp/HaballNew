@@ -47,6 +47,7 @@ import com.haball.Loader;
 import com.haball.ProcessingError;
 import com.haball.R;
 import com.haball.Retailer_Login.RetailerLogin;
+import com.haball.Retailor.Forgot_Password_Retailer.Forgot_Pass_Retailer;
 import com.haball.Retailor.ui.Support.SupportFragment;
 import com.haball.SSL_HandShake;
 import com.haball.Select_User.Register_Activity;
@@ -404,6 +405,8 @@ public class Support_Ticket_Form extends AppCompatActivity {
                 if (!txt_BName.equals("") || !txt_Email.equals("") || !txt_MobileNo.equals("") || !txt_IssueType.equals("Issue Type") || !txt_critcicality.equals("Criticality") || !txt_Preffered_Contact.equals("Preferred Method of Contacting") || !txt_Comment.equals("")) {
                     showDiscardDialog();
                 } else {
+                    Intent intent = new Intent(Support_Ticket_Form.this, RetailerLogin.class);
+                    startActivity(intent);
                     finish();
                 }
             }
@@ -564,6 +567,8 @@ public class Support_Ticket_Form extends AppCompatActivity {
         if (!txt_BName.equals("") || !txt_Email.equals("") || !txt_MobileNo.equals("") || !txt_IssueType.equals("Issue Type") || !txt_critcicality.equals("Criticality") || !txt_Preffered_Contact.equals("Preferred Method of Contacting") || !txt_Comment.equals("")) {
             showDiscardDialog();
         } else {
+            Intent intent = new Intent(Support_Ticket_Form.this, RetailerLogin.class);
+            startActivity(intent);
             finish();
         }
     }
@@ -590,6 +595,8 @@ public class Support_Ticket_Form extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i("CreatePayment", "Button Clicked");
                 alertDialog.dismiss();
+                Intent intent = new Intent(Support_Ticket_Form.this, RetailerLogin.class);
+                startActivity(intent);
                 finish();
             }
         });

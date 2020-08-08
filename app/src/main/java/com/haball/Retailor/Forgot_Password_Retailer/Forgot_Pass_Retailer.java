@@ -45,6 +45,7 @@ import com.haball.ProcessingError;
 import com.haball.R;
 import com.haball.Registration.BooleanRequest;
 import com.haball.Retailer_Login.RetailerLogin;
+import com.haball.Retailor.RetailorDashboard;
 import com.haball.Retailor.ui.Support.SupportFragment;
 import com.haball.SSL_HandShake;
 import com.haball.Select_User.Register_Activity;
@@ -72,7 +73,7 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
     private TextView heading;
     private Button btn_lgn, btn_reset;
     private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4014/api/users/forgot";
-//    ProgressDialog progressDialog;
+    //    ProgressDialog progressDialog;
     private TextInputLayout layout_email;
     private Loader loader;
 
@@ -149,6 +150,8 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
                 if (!String.valueOf(txt_email.getText()).equals(""))
                     showDiscardDialog();
                 else {
+                    Intent intent = new Intent(Forgot_Pass_Retailer.this, RetailerLogin.class);
+                    startActivity(intent);
                     finish();
                 }
             }
@@ -201,6 +204,9 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
         if (!txt_Email.equals("")) {
             showDiscardDialog();
         } else {
+
+            Intent intent = new Intent(Forgot_Pass_Retailer.this, RetailerLogin.class);
+            startActivity(intent);
             finish();
         }
     }
@@ -375,6 +381,8 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i("CreatePayment", "Button Clicked");
                 alertDialog.dismiss();
+                Intent intent = new Intent(Forgot_Pass_Retailer.this, RetailerLogin.class);
+                startActivity(intent);
                 finish();
             }
         });

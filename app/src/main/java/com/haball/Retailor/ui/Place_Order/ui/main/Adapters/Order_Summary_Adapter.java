@@ -140,7 +140,7 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
         holder.list_numberOFitems.setText(selectedProductsDataListQty.get(position));
         holder.list_product_code_value.setText(selectedProductsDataList.get(position).getProductCode());
         holder.list_txt_products_.setText(selectedProductsDataList.get(position).getTitle());
-        DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
+        final DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
 
         if (selectedProductsDataList.get(position).getProductUnitPrice() != null) {
             String yourFormattedString1 = formatter1.format(Double.parseDouble(selectedProductsDataList.get(position).getProductUnitPrice()));
@@ -225,9 +225,7 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
 //                String str_quantity = String.valueOf(s);
 
                     String str_quantity = String.valueOf(s);
-                    if (String.valueOf(s).equals("")) {
-                        str_quantity = "0";
-                    } else if (Integer.parseInt(String.valueOf(s)) == 0) {
+                    if (!String.valueOf(s).equals("") && Integer.parseInt(String.valueOf(s)) == 0) {
                         str_quantity = "0";
                     }
 
@@ -266,7 +264,20 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
                         });
 
                         alertDialog.show();
+                    } else if (!str_quantity.equals("")) {
+                        float totalamount = 0;
+                        String yourFormattedString3;
+                        if (!selectedProductsDataList.get(position).getProductUnitPrice().equals("") && !selectedProductsDataListQty.get(position).equals(""))
+                            totalamount = Float.parseFloat(str_quantity) * Float.parseFloat(selectedProductsDataList.get(position).getProductUnitPrice());
+//        holder.totalAmount_value.setText(String.valueOf(totalamount));
+                        yourFormattedString3 = formatter1.format(totalamount);
+                        holder.totalAmount_value.setText(yourFormattedString3);
                     }
+
+                    if (String.valueOf(s).equals("")) {
+                        str_quantity = "0";
+                    }
+
 
                     if (holder.list_txt_products_.getText().equals(selectedProductsDataList.get(position).getTitle())) {
 //                    if (Float.parseFloat(str_quantity) <= 0) {

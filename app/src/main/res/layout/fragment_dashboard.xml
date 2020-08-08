@@ -131,6 +131,7 @@
                     android:text="Ledger Balance"
                     android:textColor="@color/rv_box_color"
                     android:textSize="@dimen/rv_box_heading_size" />
+
                 <TextView
                     android:id="@+id/current_balance"
                     android:layout_width="wrap_content"
@@ -141,69 +142,83 @@
                     android:text="PKR 0.00"
                     android:textColor="@color/rv_box_color"
                     android:textSize="@dimen/rv_box_text_size" />
-                <!--            <TextView-->
-                <!--                android:id="@+id/tv_opening_balance"-->
-                <!--                android:layout_width="wrap_content"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:text="Opening Balance"-->
-                <!--                android:paddingTop="30dp"-->
-                <!--                android:paddingBottom="5dp"-->
-                <!--                android:fontFamily="@font/open_sans"-->
-                <!--                android:textColor="@color/rv_box_color"-->
-                <!--                android:textSize="@dimen/rv_box_text_size"-->
-                <!--                android:layout_below="@+id/tv_prepaid_balance"/>-->
-                <!--            <TextView-->
-                <!--                android:id="@+id/tv_closing_balance"-->
-                <!--                android:layout_width="wrap_content"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:text="Closing Balance"-->
-                <!--                android:paddingBottom="5dp"-->
-                <!--                android:fontFamily="@font/open_sans"-->
-                <!--                android:textColor="@color/rv_box_color"-->
-                <!--                android:textSize="@dimen/rv_box_text_size"-->
-                <!--                android:layout_below="@+id/tv_opening_balance"/>-->
-                <!--            <TextView-->
-                <!--                android:id="@+id/tv_net_settlement"-->
-                <!--                android:layout_width="wrap_content"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:text="Net Settlement"-->
-                <!--                android:fontFamily="@font/open_sans"-->
-                <!--                android:textColor="@color/rv_box_color"-->
-                <!--                android:textSize="@dimen/rv_box_text_size"-->
-                <!--                android:layout_below="@+id/tv_closing_balance"/>-->
-                <!--            <TextView-->
-                <!--                android:id="@+id/opening_balance"-->
-                <!--                android:layout_width="wrap_content"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:text="PKR 0.00"-->
-                <!--                android:fontFamily="@font/open_sans"-->
-                <!--                android:textColor="@color/rv_box_color"-->
-                <!--                android:textSize="@dimen/rv_box_text_size"-->
-                <!--                android:paddingBottom="5dp"-->
-                <!--                android:paddingTop="30dp"-->
-                <!--                android:layout_below="@+id/tv_prepaid_balance"-->
-                <!--                android:layout_alignParentRight="true"/>-->
-                <!--            <TextView-->
-                <!--                android:id="@+id/closing_balance"-->
-                <!--                android:layout_width="wrap_content"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:text="PKR 0.00"-->
-                <!--                android:fontFamily="@font/open_sans"-->
-                <!--                android:textColor="@color/rv_box_color"-->
-                <!--                android:textSize="@dimen/rv_box_text_size"-->
-                <!--                android:paddingBottom="5dp"-->
-                <!--                android:layout_below="@+id/tv_opening_balance"-->
-                <!--                android:layout_alignParentRight="true"/>-->
-                <!--            <TextView-->
-                <!--                android:id="@+id/net_settlement"-->
-                <!--                android:layout_width="wrap_content"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:text="PKR 0.00"-->
-                <!--                android:fontFamily="@font/open_sans"-->
-                <!--                android:textColor="@color/rv_box_color"-->
-                <!--                android:textSize="@dimen/rv_box_text_size"-->
-                <!--                android:layout_below="@+id/tv_closing_balance"-->
-                <!--                android:layout_alignParentRight="true"/>-->
+
+
+
+                <RelativeLayout
+                    android:id="@+id/rl_balances"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_prepaid_balance"
+                    android:visibility="gone"
+                    >
+                    <TextView
+                        android:id="@+id/tv_opening_balance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/open_sans"
+                        android:paddingTop="30dp"
+                        android:paddingBottom="5dp"
+                        android:text="Opening Balance"
+                        android:textColor="@color/rv_box_color"
+                        android:textSize="@dimen/rv_box_text_size" />
+                    <TextView
+                        android:id="@+id/tv_closing_balance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_opening_balance"
+                        android:fontFamily="@font/open_sans"
+                        android:paddingBottom="5dp"
+                        android:text="Closing Balance"
+                        android:textColor="@color/rv_box_color"
+                        android:textSize="@dimen/rv_box_text_size" />
+
+                    <TextView
+                        android:id="@+id/tv_net_settlement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_closing_balance"
+                        android:fontFamily="@font/open_sans"
+                        android:text="Net Settlement"
+                        android:textColor="@color/rv_box_color"
+                        android:textSize="@dimen/rv_box_text_size" />
+
+                    <TextView
+                        android:id="@+id/opening_balance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:fontFamily="@font/open_sans"
+                        android:paddingTop="30dp"
+                        android:paddingBottom="5dp"
+                        android:text="PKR 0.00"
+                        android:textColor="@color/rv_box_color"
+                        android:textSize="@dimen/rv_box_text_size" />
+
+                    <TextView
+                        android:id="@+id/closing_balance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_opening_balance"
+                        android:layout_alignParentRight="true"
+                        android:fontFamily="@font/open_sans"
+                        android:paddingBottom="5dp"
+                        android:text="PKR 0.00"
+                        android:textColor="@color/rv_box_color"
+                        android:textSize="@dimen/rv_box_text_size" />
+
+                    <TextView
+                        android:id="@+id/net_settlement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_closing_balance"
+                        android:layout_alignParentRight="true"
+                        android:fontFamily="@font/open_sans"
+                        android:text="PKR 0.00"
+                        android:textColor="@color/rv_box_color"
+                        android:textSize="@dimen/rv_box_text_size" />
+                </RelativeLayout>
+
             </RelativeLayout>
         </RelativeLayout>
         <!--    <TextView-->

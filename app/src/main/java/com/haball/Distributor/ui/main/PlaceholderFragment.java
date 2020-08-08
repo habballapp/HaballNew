@@ -150,9 +150,9 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     //overView
     private Spinner spinner_criteria;
     private String Company_selected;
-    private  TextView current_balance;
+    private TextView current_balance;
     private List<String> company_names = new ArrayList<>();
-    private RelativeLayout rl_overView;
+    private RelativeLayout rl_overView, rl_balances;
     private Context context;
     private Loader loader;
     boolean byDefaultSelectCriteria = true;
@@ -436,7 +436,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 rl_overView = rootView.findViewById(R.id.rl_overView);
                 value_unpaid_amount = rootView.findViewById(R.id.value_unpaid_amount);
                 value_paid_amount = rootView.findViewById(R.id.value_paid_amount);
-                current_balance= rootView.findViewById(R.id.current_balance);
+                current_balance = rootView.findViewById(R.id.current_balance);
+                rl_balances = rootView.findViewById(R.id.rl_balances);
                 company_names.add("Select Company");
                 //company_names = "";
                 arrayAdapterPayments = new ArrayAdapter<String>(rootView.getContext(),
@@ -472,10 +473,10 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                                 ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                                 ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
                                 ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
-                                rl_overView.setVisibility(View.GONE);
                             } catch (NullPointerException e) {
                                 e.printStackTrace();
                             }
+                            rl_overView.setVisibility(View.GONE);
                             tv_select_company.setVisibility(View.VISIBLE);
                         } else {
                             tv_select_company.setVisibility(View.GONE);
@@ -488,7 +489,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                             }
 
                             Company_selected = company_names.get(i);
+                            Log.i("company_debug", Company_selected);
                             rl_overView.setVisibility(View.VISIBLE);
+                            if(Company_selected.equals("Continental Biscuit Ltd")) {
+                                rl_balances.setVisibility(View.VISIBLE);
+                                current_balance.setVisibility(View.GONE);
+                            }
                         }
                     }
 
@@ -2002,7 +2008,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         StringRequest sr = new StringRequest(Request.Method.POST, URL_DISTRIBUTOR_DASHBOARD, new Response.Listener<String>() {
             @Override
             public void onResponse(String result) {
-                Log.i("over_view" ,result);
+                Log.i("over_view", result);
                 loader.hideLoader();
                 try {
                     JSONObject jsonObject = new JSONObject(result);

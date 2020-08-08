@@ -478,7 +478,22 @@ public class RetailorDashboard extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         loader.hideLoader();
                         error.printStackTrace();
-                        new ProcessingError().showError(RetailorDashboard.this);
+//                        new ProcessingError().showError(RetailorDashboard.this);
+                        SharedPreferences login_token = getSharedPreferences("LoginToken",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = login_token.edit();
+                        editor.remove("Login_Token");
+                        editor.remove("User_Type");
+                        editor.remove("Retailer_Id");
+                        editor.remove("username");
+                        editor.remove("CompanyName");
+                        editor.remove("UserId");
+                        editor.commit();
+
+
+                        Intent intent = new Intent(RetailorDashboard.this, Register_Activity.class);
+                        startActivity(intent);
+                        finish();
                     }
                 }) {
 
