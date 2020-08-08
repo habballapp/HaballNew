@@ -108,7 +108,7 @@
         android:textColor="@color/rv_box_color"
         android:layout_toRightOf="@id/separator_1"
         android:fontFamily="@font/open_sans"
-        android:text="Discount: "
+        android:text="Disc: "
         android:textSize="@dimen/rv_box_text_size" />
 
     <TextView

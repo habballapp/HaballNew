@@ -227,9 +227,7 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
 ////                Log.i("textChanged12", "check");
 ////                Log.i("textChanged11", String.valueOf(s));
                     String str_quantity = String.valueOf(s1);
-                    if (String.valueOf(s1).equals("")) {
-                        str_quantity = "0";
-                    } else if (Double.parseDouble(String.valueOf(s1)) == 0) {
+                    if (!String.valueOf(s1).equals("")&& Double.parseDouble(String.valueOf(s1)) == 0) {
                         str_quantity = "0";
                     }
 
@@ -268,6 +266,10 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
                         });
 
                         alertDialog.show();
+                    }
+
+                    if (String.valueOf(s1).equals("")) {
+                        str_quantity = "0";
                     }
 
                     if (holder.list_txt_products_.getText().equals(selectedProductsDataList.get(position).getTitle())) {

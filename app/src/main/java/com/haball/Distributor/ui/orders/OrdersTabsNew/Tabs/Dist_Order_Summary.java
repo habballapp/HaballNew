@@ -95,6 +95,8 @@ public class Dist_Order_Summary extends Fragment {
     private List<OrderChildlist_Model_DistOrder> temp_list = new ArrayList<>();
     private List<String> temp_listqty = new ArrayList<>();
     private Loader loader;
+    String current_balance;
+    String yourFormattedString3;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -117,6 +119,9 @@ public class Dist_Order_Summary extends Fragment {
         SharedPreferences.Editor editor1 = add_more_product.edit();
         editor1.putString("add_more_product", "");
         editor1.apply();
+        SharedPreferences tabsFromDraft = getContext().getSharedPreferences("currentBalance",
+                Context.MODE_PRIVATE);
+        current_balance = tabsFromDraft.getString("current_balance" ,"");
 
         loader = new Loader(getContext());
 
@@ -506,10 +511,10 @@ public class Dist_Order_Summary extends Fragment {
                     tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
                     txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
 //                            tv_pr1.setText("User Profile ID " + ID + " password has been changed successfully.");
-                    txt_header1.setText(" Insufficient Balance");
+                    txt_header1.setText("Alert");
                     txt_header1.setTextColor(getContext().getResources().getColor(R.color.error_stroke_color));
                     txt_header1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.border_set_error));
-                    tv_pr1.setText("Sorry, your order cannot be processed as your available balance is PKR 5000 only");
+                    tv_pr1.setText("Sorry, your order cannot be processed as your available balance is PKR. "+current_balance+ " only");
                     fbDialogue.setCancelable(true);
                     fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
                     WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();

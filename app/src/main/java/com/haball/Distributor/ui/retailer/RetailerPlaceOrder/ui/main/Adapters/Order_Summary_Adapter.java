@@ -228,9 +228,7 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
 ////                Log.i("textChanged11", String.valueOf(s));
 
                     String str_quantity = String.valueOf(s);
-                    if (String.valueOf(s).equals("")) {
-                        str_quantity = "0";
-                    } else if (Integer.parseInt(String.valueOf(s)) == 0) {
+                    if (!String.valueOf(s).equals("")&& Double.parseDouble(String.valueOf(s)) == 0) {
                         str_quantity = "0";
                     }
 
@@ -270,7 +268,9 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
 
                         alertDialog.show();
                     }
-
+                    if (String.valueOf(s).equals("")) {
+                        str_quantity = "0";
+                    }
                     if (holder.list_txt_products_.getText().equals(selectedProductsDataList.get(position).getTitle())) {
 //                    if (Float.parseFloat(str_quantity) <= 0) {
 //                        // Toast.makeText(context, "Quantity must be greater than 0", Toast.LENGTH_LONG).show();
