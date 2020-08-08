@@ -39,6 +39,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.ui.home.HomeFragment;
@@ -65,6 +66,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -91,6 +93,7 @@ public class Dist_OrderPlace extends Fragment {
     private List<OrderParentlist_Model_DistOrder> titles = new ArrayList<>();
     private List<OrderChildlist_Model_DistOrder> productList = new ArrayList<>();
     //    private List<SimpleParent> parentObjects = new ArrayList<>();
+    private String URL_DISTRIBUTOR_DASHBOARD = "http://175.107.203.97:4013/api/dashboard/ReadDistributorDashboard";
     private String URL_PRODUCT_CATEGORY = "http://175.107.203.97:4013/api/products/ReadCategories/0/";
     private String URL_PRODUCT = "http://175.107.203.97:4013/api/products/ReadProductsByCategories/0/";
     private String Token, DistributorId;
@@ -120,6 +123,7 @@ public class Dist_OrderPlace extends Fragment {
     private View myview = null;
     private MyAsyncTask myAsyncTask;
     private String editTextValue = "";
+    String current_balance;
 
     public Dist_OrderPlace() {
         // Required empty public constructor
@@ -186,7 +190,7 @@ public class Dist_OrderPlace extends Fragment {
             editor.apply();
         }
 
-
+        fetchDashboardData();
         loader = new Loader(getContext());
 //
 //        close_order_button.setOnClickListener(new View.OnClickListener() {
@@ -207,7 +211,7 @@ public class Dist_OrderPlace extends Fragment {
                 Gson gson = new Gson();
                 String orderCheckedOut = orderCheckout.getString("orderCheckout", "");
 
-                if (orderCheckedOut.equals("orderCheckout")) {
+                if (selectedProductsDataList != null && selectedProductsDataList.size() > 0 && orderCheckedOut.equals("orderCheckout")) {
                     showDiscardDialog();
                 } else {
 
@@ -668,7 +672,7 @@ public class Dist_OrderPlace extends Fragment {
                     Gson gson = new Gson();
                     String orderCheckedOut = orderCheckout.getString("orderCheckout", "");
 
-                    if (orderCheckedOut.equals("orderCheckout")) {
+                    if (selectedProductsDataList != null && selectedProductsDataList.size() > 0 && orderCheckedOut.equals("orderCheckout")) {
                         showDiscardDialog();
                         return true;
                     } else {
@@ -1544,5 +1548,53 @@ public class Dist_OrderPlace extends Fragment {
         }
 //        Log.i("distinct", scroll);
         return scroll;
+    }
+
+    private void fetchDashboardData() {
+//        loader.showLoader();
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+
+        StringRequest sr = new StringRequest(Request.Method.POST, URL_DISTRIBUTOR_DASHBOARD, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String result) {
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    DecimalFormat formatter3 = new DecimalFormat("#,###,###,##0.00");
+                     current_balance = formatter3.format(Double.parseDouble(jsonObject.get("TotalDistributorBalance").toString()));
+                    SharedPreferences tabsFromDraft = getContext().getSharedPreferences("currentBalance",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                    editorOrderTabsFromDraft.putString("current_balance" , String.valueOf(current_balance));
+                    editorOrderTabsFromDraft.apply();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
+                loader.hideLoader();
+
+                error.printStackTrace();
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(getContext()).add(sr);
     }
 }

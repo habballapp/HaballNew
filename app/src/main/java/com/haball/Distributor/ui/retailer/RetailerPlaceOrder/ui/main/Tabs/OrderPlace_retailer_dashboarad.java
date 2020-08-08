@@ -225,8 +225,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
                         Context.MODE_PRIVATE);
                 Gson gson = new Gson();
                 String orderCheckedOut = orderCheckout.getString("orderCheckout", "");
-
-                if (orderCheckedOut.equals("orderCheckout")) {
+                if (selectedProductsDataList != null && selectedProductsDataList.size() > 0 && orderCheckedOut.equals("orderCheckout")) {
                     showDiscardDialog();
                 } else {
 
@@ -476,7 +475,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
                     Gson gson = new Gson();
                     String orderCheckedOut = orderCheckout.getString("orderCheckout", "");
 
-                    if (orderCheckedOut.equals("orderCheckout")) {
+                    if (selectedProductsDataList != null && selectedProductsDataList.size() > 0 && orderCheckedOut.equals("orderCheckout")) {
                         showDiscardDialog();
                         return true;
                     } else {

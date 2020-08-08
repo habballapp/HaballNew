@@ -122,7 +122,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/price"
-        android:text="Discount: "
+        android:text="Disc: "
         android:textColor="@color/rv_box_color"
         android:fontFamily="@font/open_sans"
         android:textSize="@dimen/rv_box_text_size" />

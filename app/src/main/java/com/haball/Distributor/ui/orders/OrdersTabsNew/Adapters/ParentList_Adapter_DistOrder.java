@@ -149,7 +149,7 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
         }
 
         OrderChildList_VH_DistOrder.discount.setText("Pack Size: ");
-        OrderChildList_VH_DistOrder.UOM.setText("Discount: ");
+        OrderChildList_VH_DistOrder.UOM.setText("Disc: ");
 
         OrderChildList_VH_DistOrder.list_txt_products.setText(OrderChildlist_Model_DistOrder.getTitle());
         OrderChildList_VH_DistOrder.list_product_code_value.setText(OrderChildlist_Model_DistOrder.getCode());
