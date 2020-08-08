@@ -110,6 +110,7 @@ public class Support_Ticket_View extends Fragment {
 
         fetchSupportData();
 
+        
         btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

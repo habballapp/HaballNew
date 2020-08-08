@@ -138,7 +138,10 @@ public class CreatePaymentRequestFragment extends Fragment {
                         ex.printStackTrace();
                     }
                     company_names = CompanyNames.get(i);
+
                     Log.i("company name and id ", companyNameAndId.get(company_names));
+                    Log.i("Company_Nameeee ", company_names);
+
                 }
                 checkFieldsForEmptyValues();
 
@@ -197,6 +200,8 @@ public class CreatePaymentRequestFragment extends Fragment {
         final String txt_amounts = txt_amount.getText().toString();
         final String company = String.valueOf(spinner_company.getItemAtPosition(spinner_company.getSelectedItemPosition()));
         final FragmentManager fm = getActivity().getSupportFragmentManager();
+        Log.i("txt_amount" ,txt_amounts);
+        Log.i("company_name" ,company);
 
         txt_amount.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -204,17 +209,18 @@ public class CreatePaymentRequestFragment extends Fragment {
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
                     txt_amount.clearFocus();
                     if (!txt_amounts.equals("") || !company.equals("Select Company")) {
-                        showDiscardDialog();
+
+                        Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+                        ((FragmentActivity) getContext()).startActivity(login_intent);
+                        ((FragmentActivity) getContext()).finish();
                     } else {
                         SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
                                 Context.MODE_PRIVATE);
                         SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
                         editorOrderTabsFromDraft.putString("TabNo", "0");
                         editorOrderTabsFromDraft.apply();
+                         showDiscardDialog();
 
-                        Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
-                        ((FragmentActivity) getContext()).startActivity(login_intent);
-                        ((FragmentActivity) getContext()).finish();
                     }
                 }
                 return false;

@@ -51,13 +51,24 @@
                 android:textColor="@color/rv_box_color"
                 android:textSize="@dimen/rv_box_text_size"
                 />
-
+            <TextView
+                android:id="@+id/mobile_no_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/my_network_fragment_status"
+                android:text="Mobile No: "
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/open_sans"
+                android:textColor="@color/rv_box_color"
+                android:textSize="@dimen/rv_box_text_size"
+                />
             <TextView
                 android:id="@+id/company_mobile_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/network_status"
                 android:layout_marginBottom="5dp"
+                android:layout_toRightOf="@+id/mobile_no_text"
                 android:paddingTop="5dp"
                 android:fontFamily="@font/open_sans"
                 android:textColor="@color/rv_box_color"

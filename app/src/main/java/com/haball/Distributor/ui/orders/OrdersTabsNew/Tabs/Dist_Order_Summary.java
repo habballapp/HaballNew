@@ -458,10 +458,13 @@ public class Dist_Order_Summary extends Fragment {
                         SharedPreferences.Editor selectedProducts_distributor_editor = selectedProducts_distributor.edit();
                         selectedProducts_distributor_editor.clear();
                         selectedProducts_distributor_editor.apply();
-
-                        Intent login_intent = new Intent(getActivity(), DistributorDashboard.class);
-                        startActivity(login_intent);
-                        getActivity().finish();
+                        FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new HomeFragment());
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+//                        Intent login_intent = new Intent(getActivity(), DistributorDashboard.class);
+//                        startActivity(login_intent);
+//                        getActivity().finish();
                     }
                 });
 //                    Toast.makeText(getContext(), "Order Request ID " + result.get("OrderNumber") + " has been submitted successfully and sent for approval.", Toast.LENGTH_LONG).show();
@@ -473,26 +476,26 @@ public class Dist_Order_Summary extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
-                if(error.networkResponse.statusCode == 405) {
+                if (error.networkResponse.statusCode == 405) {
                     String messageMain = "";
                     NetworkResponse response = error.networkResponse;
-                     if (error instanceof ServerError && response != null) {
-                         try {
-                             String message = "";
+                    if (error instanceof ServerError && response != null) {
+                        try {
+                            String message = "";
 
-                             String res = new String(response.data,
-                                     HttpHeaderParser.parseCharset(response.headers, "utf-8"));
-                             // Now you can use any deserializer to make sense of data
-                             JSONObject obj = new JSONObject(res);
-                             messageMain = obj.getString("message");
-                         } catch (UnsupportedEncodingException e1) {
-                             // Couldn't properly decode data to string
-                             e1.printStackTrace();
-                         } catch (JSONException e2) {
-                             // returned data is not JSONObject?
-                             e2.printStackTrace();
-                         }
-                     }
+                            String res = new String(response.data,
+                                    HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+                            // Now you can use any deserializer to make sense of data
+                            JSONObject obj = new JSONObject(res);
+                            messageMain = obj.getString("message");
+                        } catch (UnsupportedEncodingException e1) {
+                            // Couldn't properly decode data to string
+                            e1.printStackTrace();
+                        } catch (JSONException e2) {
+                            // returned data is not JSONObject?
+                            e2.printStackTrace();
+                        }
+                    }
 
                     final Dialog fbDialogue = new Dialog(getContext());
                     //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
@@ -503,10 +506,10 @@ public class Dist_Order_Summary extends Fragment {
                     tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
                     txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
 //                            tv_pr1.setText("User Profile ID " + ID + " password has been changed successfully.");
-                    txt_header1.setText("   Error");
+                    txt_header1.setText(" Insufficient Balance");
                     txt_header1.setTextColor(getContext().getResources().getColor(R.color.error_stroke_color));
                     txt_header1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.border_set_error));
-                    tv_pr1.setText(messageMain);
+                    tv_pr1.setText("Sorry, your order cannot be processed as your available balance is PKR 5000 only");
                     fbDialogue.setCancelable(true);
                     fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
                     WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
@@ -811,28 +814,80 @@ public class Dist_Order_Summary extends Fragment {
             public void onResponse(final JSONObject result) {
                 loader.hideLoader();
                 Log.i("RESPONSE ORDER .. ", result.toString());
+                SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = grossamount.edit();
+                editor.clear();
+                editor.apply();
+                SharedPreferences selectedProducts_distributor = getContext().getSharedPreferences("selectedProducts_distributor",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor selectedProducts_distributor_editor = selectedProducts_distributor.edit();
+                selectedProducts_distributor_editor.clear();
+                selectedProducts_distributor_editor.apply();
+
+                SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                editorOrderTabsFromDraft.putString("TabNo", "1");
+                editorOrderTabsFromDraft.apply();
+                final Dialog fbDialogue = new Dialog(getActivity());
+                //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                fbDialogue.setContentView(R.layout.password_updatepopup);
+                TextView tv_pr1, txt_header1;
+                txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
+                tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
+                txt_header1.setText("Order Saved");
                 try {
-                    SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
-                            Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = grossamount.edit();
-                    editor.clear();
-                    editor.apply();
-                    SharedPreferences selectedProducts_distributor = getContext().getSharedPreferences("selectedProducts_distributor",
-                            Context.MODE_PRIVATE);
-                    SharedPreferences.Editor selectedProducts_distributor_editor = selectedProducts_distributor.edit();
-                    selectedProducts_distributor_editor.clear();
-                    selectedProducts_distributor_editor.apply();
+                    tv_pr1.setText("Your Order ID " + result.getString("OrderNumber") + " has been saved successfully.");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                fbDialogue.setCancelable(true);
+                fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+                layoutParams.y = 200;
+                layoutParams.x = -70;// top margin
+                fbDialogue.getWindow().setAttributes(layoutParams);
+                fbDialogue.show();
 
-                    Toast.makeText(getContext(), "Order Request ID " + result.get("OrderNumber") + " has been saved as draft successfully.", Toast.LENGTH_LONG).show();
-                    SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
-                            Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
-                    editorOrderTabsFromDraft.putString("TabNo", "1");
-                    editorOrderTabsFromDraft.apply();
+                ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+                close_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        fbDialogue.dismiss();
+                    }
+                });
 
-                    Intent login_intent = new Intent(getActivity(), DistributorDashboard.class);
-                    startActivity(login_intent);
-                    getActivity().finish();
+                fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+//                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                        fragmentTransaction.replace(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
+//                        fragmentTransaction.commit();
+
+                        SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = grossamount.edit();
+                        editor.clear();
+                        editor.apply();
+                        SharedPreferences selectedProducts_distributor = getContext().getSharedPreferences("selectedProducts_distributor",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor selectedProducts_distributor_editor = selectedProducts_distributor.edit();
+                        selectedProducts_distributor_editor.clear();
+                        selectedProducts_distributor_editor.apply();
+
+                        FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new HomeFragment());
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+//                        Intent login_intent = new Intent(getActivity(), DistributorDashboard.class);
+//                        startActivity(login_intent);
+//                        getActivity().finish();
+                    }
+                });
+//                    Intent login_intent = new Intent(getActivity(), DistributorDashboard.class);
+//                    startActivity(login_intent);
+//                    getActivity().finish();
 //                    HomeFragment homeFragment = new HomeFragment();
 //
 //                    Bundle args = new Bundle();
@@ -843,9 +898,6 @@ public class Dist_Order_Summary extends Fragment {
 //                    fragmentTransaction.addToBackStack(null);
 //                    fragmentTransaction.commit();
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
                 refreshRetailerInfo();
             }
         }, new Response.ErrorListener() {

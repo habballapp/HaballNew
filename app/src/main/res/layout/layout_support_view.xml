@@ -12,16 +12,16 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp">
 
 
             <LinearLayout
                 android:id="@+id/ln_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="27dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginRight="27dp"
                 android:background="@drawable/underline"
                 android:orientation="horizontal"
                 android:weightSum="5.3">
@@ -45,15 +45,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ln_login"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
                 android:orientation="vertical"
                 android:weightSum="3">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -83,9 +80,6 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
                     android:layout_weight="1"
                     android:hint="Business Name"
                     android:theme="@style/TextLabel"
@@ -108,9 +102,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginRight="30dp"
                     android:layout_weight="1"
                     android:hint="Email"
                     android:theme="@style/TextLabel"
@@ -132,9 +124,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginRight="30dp"
                     android:layout_weight="1"
                     android:hint="Mobile No"
                     android:theme="@style/TextLabel"
@@ -155,9 +145,7 @@
                     android:id="@+id/relative_txt_issue_type"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/spinner_round">
 
                     <EditText
@@ -188,9 +176,7 @@
                     android:id="@+id/relative_txt_criticality"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/spinner_round">
 
                     <EditText
@@ -221,9 +207,7 @@
                     android:id="@+id/relative_txt_preferred_contact_method"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/spinner_round">
 
                     <EditText
@@ -343,9 +327,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginRight="30dp"
                     android:layout_weight="1"
                     android:hint="Comments"
                     android:theme="@style/TextLabel"
@@ -379,8 +361,7 @@
                     android:id="@+id/btn_delete"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"
                     android:layout_weight="1"
                     android:background="@drawable/button_round"
@@ -396,8 +377,7 @@
                     android:id="@+id/btn_back"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/button_round"

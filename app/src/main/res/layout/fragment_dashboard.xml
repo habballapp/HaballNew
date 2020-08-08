@@ -5,200 +5,214 @@
     android:layout_height="wrap_content"
     android:background="#fff"
     tools:context=".Distributor.ui.home.HomeFragment">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="27dp"
-        android:layout_marginRight="27dp"
-        >
-    <RelativeLayout
-        android:id="@+id/spinner_containerMain"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/edit_text_squared">
+        android:layout_marginRight="27dp">
 
-        <Spinner
-            android:id="@+id/spinner_criteria"
+        <RelativeLayout
+            android:id="@+id/spinner_containerMain"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@null"
-            android:dropDownWidth="match_parent"
-            android:popupBackground="@drawable/spinner_round" />
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edit_text_squared">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignTop="@id/spinner_criteria"
-            android:layout_alignEnd="@+id/spinner_criteria"
-            android:layout_alignRight="@+id/spinner_criteria"
-            android:src="@drawable/ic_arrow_drop_down_black_24dp"
-            android:theme="@style/Spinner" />
-    </RelativeLayout>
+            <Spinner
+                android:id="@+id/spinner_criteria"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:dropDownWidth="match_parent"
+                android:popupBackground="@drawable/spinner_round" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignTop="@id/spinner_criteria"
+                android:layout_alignEnd="@+id/spinner_criteria"
+                android:layout_alignRight="@+id/spinner_criteria"
+                android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                android:theme="@style/Spinner" />
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/tv_select_company"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="@font/open_sans"
             android:layout_below="@+id/spinner_containerMain"
+            android:fontFamily="@font/open_sans"
             android:gravity="center"
-            android:visibility="visible"
             android:text="Please Select Company"
-            android:textSize="@dimen/no_data_available_size" />
-    <RelativeLayout
-        android:id="@+id/rl_overView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/spinner_containerMain"
-        android:visibility="visible">
+            android:textSize="@dimen/no_data_available_size"
+            android:visibility="visible" />
 
         <RelativeLayout
-            android:id="@+id/rl_unpaid_amount"
+            android:id="@+id/rl_overView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/edit_text_squared">
-            <TextView
-                android:id="@+id/tv_unpaid_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Total Unpaid Amount"
-                android:textSize="@dimen/rv_box_heading_size"
-                android:fontFamily="@font/open_sans_semibold"
-                android:textColor="@color/rv_box_color"
-              />
-            <TextView
-                android:id="@+id/value_unpaid_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="PKR 0.00"
-                android:paddingTop="10dp"
-                android:fontFamily="@font/open_sans"
-                android:textColor="@color/rv_box_color"
-                android:textSize="@dimen/rv_box_text_size"
-                android:layout_below="@+id/tv_unpaid_amount"/>
-        </RelativeLayout>
+            android:layout_height="match_parent"
+            android:layout_below="@+id/spinner_containerMain"
+            android:visibility="visible">
 
-        <RelativeLayout
-            android:id="@+id/rl_paid_amount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/rl_unpaid_amount"
-            android:background="@drawable/edit_text_squared">
-            <TextView
-                android:id="@+id/tv_paid_amount"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/rl_unpaid_amount"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Total Paid Amount"
-                android:textSize="@dimen/rv_box_heading_size"
-                android:fontFamily="@font/open_sans_semibold"
-                android:textColor="@color/rv_box_color"
-                />
-            <TextView
-                android:id="@+id/value_paid_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="PKR 0.00"
-                android:paddingTop="10dp"
-                android:fontFamily="@font/open_sans"
-                android:textColor="@color/rv_box_color"
-                android:textSize="@dimen/rv_box_text_size"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edit_text_squared"
+                android:padding="20dp">
 
-                android:layout_below="@+id/tv_paid_amount"/>
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/tv_unpaid_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:text="Total Unpaid Amount"
+                    android:textColor="@color/rv_box_color"
+                    android:textSize="@dimen/rv_box_heading_size" />
 
-        <RelativeLayout
-            android:id="@+id/rl_prepaid_balance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/rl_paid_amount"
-            android:background="@drawable/edit_text_squared">
-            <TextView
-                android:id="@+id/tv_prepaid_balance"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/value_unpaid_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_unpaid_amount"
+                    android:fontFamily="@font/open_sans"
+                    android:paddingTop="10dp"
+                    android:text="PKR 0.00"
+                    android:textColor="@color/rv_box_color"
+                    android:textSize="@dimen/rv_box_text_size" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_paid_amount"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ledger Balance"
-                android:textSize="@dimen/rv_box_heading_size"
-                android:fontFamily="@font/open_sans_semibold"
-                android:textColor="@color/rv_box_color"
-                />
-            <TextView
-                android:id="@+id/tv_opening_balance"
-                android:layout_width="wrap_content"
+                android:layout_below="@+id/rl_unpaid_amount"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edit_text_squared"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/tv_paid_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:text="Total Paid Amount"
+                    android:textColor="@color/rv_box_color"
+                    android:textSize="@dimen/rv_box_heading_size" />
+
+                <TextView
+                    android:id="@+id/value_paid_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_paid_amount"
+                    android:fontFamily="@font/open_sans"
+                    android:paddingTop="10dp"
+                    android:text="PKR 0.00"
+                    android:textColor="@color/rv_box_color"
+                    android:textSize="@dimen/rv_box_text_size" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_prepaid_balance"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Opening Balance"
-                android:paddingTop="30dp"
-                android:paddingBottom="5dp"
-                android:fontFamily="@font/open_sans"
-                android:textColor="@color/rv_box_color"
-                android:textSize="@dimen/rv_box_text_size"
-                android:layout_below="@+id/tv_prepaid_balance"/>
-            <TextView
-                android:id="@+id/tv_closing_balance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Closing Balance"
-                android:paddingBottom="5dp"
-                android:fontFamily="@font/open_sans"
-                android:textColor="@color/rv_box_color"
-                android:textSize="@dimen/rv_box_text_size"
-                android:layout_below="@+id/tv_opening_balance"/>
-            <TextView
-                android:id="@+id/tv_net_settlement"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Net Settlement"
-                android:fontFamily="@font/open_sans"
-                android:textColor="@color/rv_box_color"
-                android:textSize="@dimen/rv_box_text_size"
-                android:layout_below="@+id/tv_closing_balance"/>
-            <TextView
-                android:id="@+id/opening_balance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="PKR 0.00"
-                android:fontFamily="@font/open_sans"
-                android:textColor="@color/rv_box_color"
-                android:textSize="@dimen/rv_box_text_size"
-                android:paddingBottom="5dp"
-                android:paddingTop="30dp"
-                android:layout_below="@+id/tv_prepaid_balance"
-                android:layout_alignParentRight="true"/>
-            <TextView
-                android:id="@+id/closing_balance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="PKR 0.00"
-                android:fontFamily="@font/open_sans"
-                android:textColor="@color/rv_box_color"
-                android:textSize="@dimen/rv_box_text_size"
-                android:paddingBottom="5dp"
-                android:layout_below="@+id/tv_opening_balance"
-                android:layout_alignParentRight="true"/>
-            <TextView
-                android:id="@+id/net_settlement"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="PKR 0.00"
-                android:fontFamily="@font/open_sans"
-                android:textColor="@color/rv_box_color"
-                android:textSize="@dimen/rv_box_text_size"
-                android:layout_below="@+id/tv_closing_balance"
-                android:layout_alignParentRight="true"/>
+                android:layout_below="@+id/rl_paid_amount"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edit_text_squared"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/tv_prepaid_balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:text="Ledger Balance"
+                    android:textColor="@color/rv_box_color"
+                    android:textSize="@dimen/rv_box_heading_size" />
+                <TextView
+                    android:id="@+id/current_balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_prepaid_balance"
+                    android:fontFamily="@font/open_sans"
+                    android:paddingTop="10dp"
+                    android:text="PKR 0.00"
+                    android:textColor="@color/rv_box_color"
+                    android:textSize="@dimen/rv_box_text_size" />
+                <!--            <TextView-->
+                <!--                android:id="@+id/tv_opening_balance"-->
+                <!--                android:layout_width="wrap_content"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:text="Opening Balance"-->
+                <!--                android:paddingTop="30dp"-->
+                <!--                android:paddingBottom="5dp"-->
+                <!--                android:fontFamily="@font/open_sans"-->
+                <!--                android:textColor="@color/rv_box_color"-->
+                <!--                android:textSize="@dimen/rv_box_text_size"-->
+                <!--                android:layout_below="@+id/tv_prepaid_balance"/>-->
+                <!--            <TextView-->
+                <!--                android:id="@+id/tv_closing_balance"-->
+                <!--                android:layout_width="wrap_content"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:text="Closing Balance"-->
+                <!--                android:paddingBottom="5dp"-->
+                <!--                android:fontFamily="@font/open_sans"-->
+                <!--                android:textColor="@color/rv_box_color"-->
+                <!--                android:textSize="@dimen/rv_box_text_size"-->
+                <!--                android:layout_below="@+id/tv_opening_balance"/>-->
+                <!--            <TextView-->
+                <!--                android:id="@+id/tv_net_settlement"-->
+                <!--                android:layout_width="wrap_content"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:text="Net Settlement"-->
+                <!--                android:fontFamily="@font/open_sans"-->
+                <!--                android:textColor="@color/rv_box_color"-->
+                <!--                android:textSize="@dimen/rv_box_text_size"-->
+                <!--                android:layout_below="@+id/tv_closing_balance"/>-->
+                <!--            <TextView-->
+                <!--                android:id="@+id/opening_balance"-->
+                <!--                android:layout_width="wrap_content"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:text="PKR 0.00"-->
+                <!--                android:fontFamily="@font/open_sans"-->
+                <!--                android:textColor="@color/rv_box_color"-->
+                <!--                android:textSize="@dimen/rv_box_text_size"-->
+                <!--                android:paddingBottom="5dp"-->
+                <!--                android:paddingTop="30dp"-->
+                <!--                android:layout_below="@+id/tv_prepaid_balance"-->
+                <!--                android:layout_alignParentRight="true"/>-->
+                <!--            <TextView-->
+                <!--                android:id="@+id/closing_balance"-->
+                <!--                android:layout_width="wrap_content"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:text="PKR 0.00"-->
+                <!--                android:fontFamily="@font/open_sans"-->
+                <!--                android:textColor="@color/rv_box_color"-->
+                <!--                android:textSize="@dimen/rv_box_text_size"-->
+                <!--                android:paddingBottom="5dp"-->
+                <!--                android:layout_below="@+id/tv_opening_balance"-->
+                <!--                android:layout_alignParentRight="true"/>-->
+                <!--            <TextView-->
+                <!--                android:id="@+id/net_settlement"-->
+                <!--                android:layout_width="wrap_content"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:text="PKR 0.00"-->
+                <!--                android:fontFamily="@font/open_sans"-->
+                <!--                android:textColor="@color/rv_box_color"-->
+                <!--                android:textSize="@dimen/rv_box_text_size"-->
+                <!--                android:layout_below="@+id/tv_closing_balance"-->
+                <!--                android:layout_alignParentRight="true"/>-->
+            </RelativeLayout>
         </RelativeLayout>
-    </RelativeLayout>
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:layout_marginBottom="10dp"-->
-<!--        android:text="© Haball | All rights reserved"-->
-<!--        android:gravity="center"-->
-<!--        />-->
+        <!--    <TextView-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_alignParentBottom="true"-->
+        <!--        android:layout_marginBottom="10dp"-->
+        <!--        android:text="© Haball | All rights reserved"-->
+        <!--        android:gravity="center"-->
+        <!--        />-->
     </RelativeLayout>
 </RelativeLayout>

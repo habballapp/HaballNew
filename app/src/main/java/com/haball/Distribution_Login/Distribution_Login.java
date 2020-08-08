@@ -400,6 +400,7 @@ public class Distribution_Login extends AppCompatActivity {
 //                        requestQueue.add(sr);
                     }
                 } catch (JSONException e) {
+                    loader.hideLoader();
                     new CustomToast().showToast(Distribution_Login.this, "Invalid Credentials");
                     e.printStackTrace();
 //                    try {

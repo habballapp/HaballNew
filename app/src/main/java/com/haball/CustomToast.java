@@ -24,7 +24,7 @@ public class CustomToast {
 
         Toast toast = new Toast(activity);
         toast.setGravity(Gravity.TOP|Gravity.FILL_HORIZONTAL, 0, 180);
-        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setDuration(Toast.LENGTH_SHORT);
         toast.setView(layout);
         toast.show();
 

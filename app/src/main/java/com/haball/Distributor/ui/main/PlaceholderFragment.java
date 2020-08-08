@@ -150,6 +150,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     //overView
     private Spinner spinner_criteria;
     private String Company_selected;
+    private  TextView current_balance;
     private List<String> company_names = new ArrayList<>();
     private RelativeLayout rl_overView;
     private Context context;
@@ -425,6 +426,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 break;
             }
             case 3: {
+
                 tabName = "Dashboard";
                 context = getContext();
                 loader = new Loader(context);
@@ -434,6 +436,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 rl_overView = rootView.findViewById(R.id.rl_overView);
                 value_unpaid_amount = rootView.findViewById(R.id.value_unpaid_amount);
                 value_paid_amount = rootView.findViewById(R.id.value_paid_amount);
+                current_balance= rootView.findViewById(R.id.current_balance);
                 company_names.add("Select Company");
                 //company_names = "";
                 arrayAdapterPayments = new ArrayAdapter<String>(rootView.getContext(),
@@ -1999,6 +2002,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         StringRequest sr = new StringRequest(Request.Method.POST, URL_DISTRIBUTOR_DASHBOARD, new Response.Listener<String>() {
             @Override
             public void onResponse(String result) {
+                Log.i("over_view" ,result);
                 loader.hideLoader();
                 try {
                     JSONObject jsonObject = new JSONObject(result);
@@ -2006,8 +2010,12 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     String yourFormattedString1 = formatter1.format(Double.parseDouble(jsonObject.get("TotalUnpaidAmount").toString()));
                     DecimalFormat formatter2 = new DecimalFormat("#,###,###,##0.00");
                     String yourFormattedString2 = formatter2.format(Double.parseDouble(jsonObject.get("TotalPrepaidAmount").toString()));
+                    DecimalFormat formatter3 = new DecimalFormat("#,###,###,##0.00");
+                    String yourFormattedString3 = formatter3.format(Double.parseDouble(jsonObject.get("TotalDistributorBalance").toString()));
                     value_unpaid_amount.setText("Rs. " + yourFormattedString1);
                     value_paid_amount.setText("Rs. " + yourFormattedString2);
+                    current_balance.setText("Rs. " + yourFormattedString3);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

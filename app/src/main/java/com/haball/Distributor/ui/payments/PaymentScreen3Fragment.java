@@ -392,24 +392,31 @@ public class PaymentScreen3Fragment extends Fragment {
                 Log.i("paymentsRequestList", String.valueOf(paymentsRequestList));
                 Log.i("Token", Token);
 
+
+//                PrePaidNumber = sharedPreferences.getString("PrePaidNumber", "");
+//                PrePaidId = sharedPreferences.getString("PrePaidId", "");
+//                CompanyName = sharedPreferences.getString("CompanyName", "");
+//                CompanyId = sharedPreferences.getString("CompanyId", "");
+//                Amount = sharedPreferences.getString("Amount", "");
+
                 JSONObject map = new JSONObject();
                 map.put("ActionValue", 0);
                 map.put("BankIMD", paymentsRequestList.getBankIMD());
                 map.put("CompanyCNIC", paymentsRequestList.getCompanyCNIC());
-                map.put("CompanyId", paymentsRequestList.getCompanyId());
-                map.put("CompanyName", paymentsRequestList.getCompanyName());
+                map.put("CompanyId", CompanyId);
+                map.put("CompanyName", CompanyName);
                 map.put("CreatedBy", paymentsRequestList.getCreatedBy());
                 map.put("CreatedDate", paymentsRequestList.getCreatedDate());
                 map.put("DistributorCNIC", paymentsRequestList.getDistributorCNIC());
                 map.put("DistributorId", paymentsRequestList.getDistributorId());
                 map.put("DistributorName", paymentsRequestList.getDistributorName());
-                map.put("ID", paymentsRequestList.getID());
+                map.put("ID", PrePaidId);
                 map.put("IsTransmitted", paymentsRequestList.getIsTransmitted());
                 map.put("LastChangedBy", paymentsRequestList.getLastChangedBy());
                 map.put("LastChangedDate", paymentsRequestList.getLastChangedDate());
                 map.put("PaidAmount", paymentsRequestList.getPaidAmount());
                 map.put("PaidDate", paymentsRequestList.getPaidDate());
-                map.put("PrePaidNumber", paymentsRequestList.getPrePaidNumber());
+                map.put("PrePaidNumber", PrePaidNumber);
                 map.put("PrepaidStatusValue", paymentsRequestList.getPrepaidStatusValue());
                 map.put("ReferenceID", paymentsRequestList.getReferenceID());
                 map.put("State", paymentsRequestList.getState());

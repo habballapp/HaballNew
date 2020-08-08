@@ -238,6 +238,8 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
             @Override
             public void onResponse(String result) {
                 loader.hideLoader();
+                btn_reset.setEnabled(true);
+                btn_reset.setBackground(getResources().getDrawable(R.drawable.button_background));
 //                progressDialog.dismiss();
 //                Log.i("forgotpass", "'" + result + "'");
 //                Log.i("forgotpass", "'" + result.equals("true") + "'");
@@ -300,6 +302,8 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
+                btn_reset.setEnabled(true);
+                btn_reset.setBackground(getResources().getDrawable(R.drawable.button_background));
                 new ProcessingError().showError(Forgot_Pass_Retailer.this);
                 new HaballError().printErrorMessage(Forgot_Pass_Retailer.this, error);
                 error.printStackTrace();

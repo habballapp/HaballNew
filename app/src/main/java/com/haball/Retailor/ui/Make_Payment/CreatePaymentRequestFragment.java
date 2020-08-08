@@ -225,6 +225,8 @@ public class CreatePaymentRequestFragment extends Fragment {
         final String txt_amounts = txt_amount.getText().toString();
         final String company = (String) spinner_company.getItemAtPosition(spinner_company.getSelectedItemPosition()).toString();
         final FragmentManager fm = getActivity().getSupportFragmentManager();
+        Log.i("txt_amount" ,txt_amounts);
+        Log.i("company_name" ,company);
 
         txt_amount.setOnKeyListener(new View.OnKeyListener() {
             @Override

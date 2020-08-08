@@ -147,6 +147,76 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
 //        adapter.setParentAndIconExpandOnClick(true);
 //        recyclerView.setAdapter(adapter);
 
+        btn_checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loader.showLoader();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                loader.hideLoader();
+                                //Do something after 1 second
+
+                                SharedPreferences orderCheckout = getContext().getSharedPreferences("orderCheckout",
+                                        Context.MODE_PRIVATE);
+                                SharedPreferences.Editor orderCheckout_editor = orderCheckout.edit();
+                                orderCheckout_editor.putString("orderCheckout", "orderCheckout");
+                                orderCheckout_editor.apply();
+                                NonSwipeableViewPager viewPager = getActivity().findViewById(R.id.view_pager_rpoid);
+                                SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer",
+                                        Context.MODE_PRIVATE);
+                                Gson gson = new Gson();
+                                object_stringqty = selectedProducts.getString("selected_products_qty", "");
+                                object_string = selectedProducts.getString("selected_products", "");
+                                Type type = new TypeToken<List<OrderChildlist_Model>>() {
+                                }.getType();
+                                Type typeString = new TypeToken<List<String>>() {
+                                }.getType();
+                                selectedProductsDataList = gson.fromJson(object_string, type);
+                                selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
+//                        if (selectedProductsDataList.size() > 0) {
+//                            for (int i = 0; i < selectedProductsDataList.size(); i++) {
+//                                Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+//                                Log.i("qty", selectedProductsQuantityList.get(i));
+//                                if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
+//                                    grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
+//                            }
+                                if (selectedProductsDataList.size() > 0) {
+                                    for (int i = 0; i < selectedProductsDataList.size(); i++) {
+//                                Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+//                                Log.i("qty", selectedProductsQuantityList.get(i));
+                                        if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
+                                            grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
+                                    }
+                                    SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
+                                            Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = grossamount.edit();
+                                    editor.putString("grossamount", String.valueOf(grossAmount));
+                                    editor.apply();
+//                            Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
+                                    grossAmount = 0;
+                                    viewPager.setCurrentItem(1);
+
+                                    InputMethodManager imm = (InputMethodManager) (getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
+                                    imm.hideSoftInputFromWindow(myview.getWindowToken(), 0);
+
+
+                                    FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
+                                    fragmentTransaction.add(R.id.main_container, new Order_Summary());
+                                    fragmentTransaction.addToBackStack(null);
+                                    fragmentTransaction.commit();
+
+                                }
+                            }
+                        }, 3000);
+                    }
+                });
+            }
+        });
+
 
         btn_close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -863,8 +933,8 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
 //                            }
 
 //                            if (countOfProduct > 0) {
-                                Categories.put(tempModel.getTitle(), tempModel.getCategoryId());
-                                totalCategoryTitle.add(tempModel.getTitle());
+                            Categories.put(tempModel.getTitle(), tempModel.getCategoryId());
+                            totalCategoryTitle.add(tempModel.getTitle());
 //                            }
                         }
                         Log.i("totalCategoryTitle", String.valueOf(totalCategoryTitle));
