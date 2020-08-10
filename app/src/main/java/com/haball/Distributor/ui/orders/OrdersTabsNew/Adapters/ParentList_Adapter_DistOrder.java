@@ -127,6 +127,17 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
         Log.i("debugOrder_object1", String.valueOf(OrderParentList_VH_DistOrder.getPosition()));
         final OrderParentlist_Model_DistOrder OrderParentlist_Model_DistOrder = (OrderParentlist_Model_DistOrder) o;
         OrderParentList_VH_DistOrder._textview.setText(OrderParentlist_Model_DistOrder.getTitle());
+
+        if (position == (parentItemList.size() - 1)) {
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.MATCH_PARENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT
+            );
+            params.setMargins(0, 0, 0, 200);
+            OrderParentList_VH_DistOrder.rl_orderName_retailer.setLayoutParams(params);
+        }
+
+
         orderParentLIst_VH_main = OrderParentList_VH_DistOrder;
     }
 

@@ -47,6 +47,8 @@ import com.haball.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.haball.Retailer_Login.RetailerLogin;
 import com.haball.Retailor.Forgot_Password_Retailer.Forgot_Pass_Retailer;
+import com.haball.Select_User.Register_Activity;
+import com.haball.Support.Support_Ditributor.Support_Ticket_Form;
 import com.haball.TextField;
 
 import org.json.JSONException;
@@ -145,6 +147,8 @@ public class Forgot_Pass_Distributor extends AppCompatActivity {
                 if (!String.valueOf(txt_email.getText()).equals(""))
                     showDiscardDialog();
                 else {
+                    Intent intent = new Intent(Forgot_Pass_Distributor.this, Distribution_Login.class);
+                    startActivity(intent);
                     finish();
                 }
             }
@@ -189,6 +193,7 @@ public class Forgot_Pass_Distributor extends AppCompatActivity {
             btn_reset.setBackground(getResources().getDrawable(R.drawable.button_background));
         }
     }
+
     @Override
     public void onBackPressed() {
         String txt_Email = txt_email.getText().toString();
@@ -196,6 +201,8 @@ public class Forgot_Pass_Distributor extends AppCompatActivity {
         if (!txt_Email.equals("")) {
             showDiscardDialog();
         } else {
+            Intent intent = new Intent(Forgot_Pass_Distributor.this, Distribution_Login.class);
+            startActivity(intent);
             finish();
         }
     }
@@ -273,7 +280,7 @@ public class Forgot_Pass_Distributor extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
-                if(error.networkResponse.statusCode == 405) {
+                if (error.networkResponse.statusCode == 405) {
                     new CustomToast().showToast(Forgot_Pass_Distributor.this, "User does not exist");
                     layout_email_phone.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
                     layout_email_phone.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
@@ -388,6 +395,9 @@ public class Forgot_Pass_Distributor extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i("CreatePayment", "Button Clicked");
                 alertDialog.dismiss();
+
+                Intent intent = new Intent(Forgot_Pass_Distributor.this, Distribution_Login.class);
+                startActivity(intent);
                 finish();
             }
         });

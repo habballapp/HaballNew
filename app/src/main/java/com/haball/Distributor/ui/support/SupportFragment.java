@@ -235,6 +235,11 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
+                    try {
+                        fetchSupport();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
@@ -384,6 +389,12 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                         } catch (NullPointerException ex) {
                             ex.printStackTrace();
                         }
+                        try {
+                            fetchSupport();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                     } else {
                         try {
                             ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));

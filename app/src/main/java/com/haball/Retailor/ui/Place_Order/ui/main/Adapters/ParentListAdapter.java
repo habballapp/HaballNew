@@ -173,6 +173,7 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
 
             }
         });
+
         TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -203,6 +204,7 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
                 }
             }
         };
+
         orderChildList_vh.list_numberOFitems.addTextChangedListener(textWatcher);
         orderChildList_vh.list_numberOFitems.setOnKeyListener(new View.OnKeyListener() {
             @Override

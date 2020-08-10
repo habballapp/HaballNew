@@ -115,7 +115,6 @@ public class CreatePaymentRequestFragment extends Fragment {
 //                android.R.layout.simple_spinner_dropdown_item, CompanyNames);
 
 
-
         spinner_company.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -197,29 +196,35 @@ public class CreatePaymentRequestFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        final String txt_amounts = txt_amount.getText().toString();
-        final String company = String.valueOf(spinner_company.getItemAtPosition(spinner_company.getSelectedItemPosition()));
+//        final String txt_amounts = txt_amount.getText().toString();
+//        final String company = String.valueOf(spinner_company.getItemAtPosition(spinner_company.getSelectedItemPosition()));
         final FragmentManager fm = getActivity().getSupportFragmentManager();
-        Log.i("txt_amount" , String.valueOf(txt_amount));
-        Log.i("company_name" , String.valueOf(spinner_company));
 
         txt_amount.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    txt_amount.clearFocus();
-                    if (!txt_amounts.equals("") || !company.equals("Select Company")) {
+                    final String txt_amounts = txt_amount.getText().toString();
+                    final String company = String.valueOf(spinner_company.getItemAtPosition(spinner_company.getSelectedItemPosition()));
+                    Log.i("onResume_txt_amount", String.valueOf(txt_amounts));
+                    Log.i("onResume_company_name", String.valueOf(company));
 
-                        Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
-                        ((FragmentActivity) getContext()).startActivity(login_intent);
-                        ((FragmentActivity) getContext()).finish();
+                    txt_amount.clearFocus();
+                    if (!txt_amounts.equals("") || (!company.equals("Select Company") && company != null)) {
+                        showDiscardDialog();
+
+                        return true;
                     } else {
                         SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
                                 Context.MODE_PRIVATE);
                         SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
                         editorOrderTabsFromDraft.putString("TabNo", "0");
                         editorOrderTabsFromDraft.apply();
-                         showDiscardDialog();
+
+                        Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+                        ((FragmentActivity) getContext()).startActivity(login_intent);
+                        ((FragmentActivity) getContext()).finish();
+                        return true;
 
                     }
                 }
@@ -234,8 +239,13 @@ public class CreatePaymentRequestFragment extends Fragment {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     // handle back button's click listener
-                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
-                    if (!txt_amounts.equals("") || !company.equals("Select Company")) {
+                    final String txt_amounts = txt_amount.getText().toString();
+                    final String company = String.valueOf(spinner_company.getItemAtPosition(spinner_company.getSelectedItemPosition()));
+                    Log.i("onResume_txt_amount", String.valueOf(txt_amounts));
+                    Log.i("onResume_company_name", String.valueOf(company));
+
+//                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
+                    if (!txt_amounts.equals("") || (!company.equals("Select Company") && company != null)) {
                         showDiscardDialog();
                         return true;
                     } else {
@@ -248,6 +258,7 @@ public class CreatePaymentRequestFragment extends Fragment {
                         Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
                         ((FragmentActivity) getContext()).startActivity(login_intent);
                         ((FragmentActivity) getContext()).finish();
+                        return true;
                     }
                 }
                 return false;
@@ -321,7 +332,7 @@ public class CreatePaymentRequestFragment extends Fragment {
 
     private void makeSaveRequest() throws JSONException {
         String txt_amounts = txt_amount.getText().toString();
-        if(Double.parseDouble(txt_amounts) >= 500) {
+        if (Double.parseDouble(txt_amounts) >= 500) {
             loader.showLoader();
             SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                     Context.MODE_PRIVATE);
@@ -343,7 +354,7 @@ public class CreatePaymentRequestFragment extends Fragment {
             JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PAYMENT_REQUESTS_SAVE, map, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject result) {
-                loader.hideLoader();
+                    loader.hideLoader();
                     try {
                         prepaid_number = result.getString("PrePaidNumber");
                         prepaid_id = result.getString("ID");

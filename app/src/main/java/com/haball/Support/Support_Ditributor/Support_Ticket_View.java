@@ -162,7 +162,7 @@ public class Support_Ticket_View extends Fragment {
                     txt_preferred_contact_method.setText(String.valueOf(response.get("PreferredContactMethod")));
                     txt_comments.setText(String.valueOf(response.get("Description")));
                     ID = String.valueOf(response.get("Id"));
-                    tv_ticket_id.setText(ID);
+                    tv_ticket_id.setText(String.valueOf(response.get("TicketNumber")));
 
                     txt_business_name.setEnabled(false);
                     txt_email_address.setEnabled(false);

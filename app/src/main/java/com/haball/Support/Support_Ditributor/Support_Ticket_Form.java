@@ -42,6 +42,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.haball.Distribution_Login.Distribution_Login;
+import com.haball.Forgot_Password.Forgot_Pass_Distributor;
 import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.ProcessingError;
@@ -406,6 +408,8 @@ public class Support_Ticket_Form extends AppCompatActivity {
                 if (!txt_BName.equals("") || !txt_Email.equals("") || !txt_MobileNo.equals("") || !txt_IssueType.equals("Issue Type") || !txt_critcicality.equals("Criticality") || !txt_Preffered_Contact.equals("Preferred Method of Contacting") || !txt_Comment.equals("")) {
                     showDiscardDialog();
                 } else {
+                    Intent intent = new Intent(Support_Ticket_Form.this, Distribution_Login.class);
+                    startActivity(intent);
                     finish();
                 }
             }
@@ -566,6 +570,8 @@ public class Support_Ticket_Form extends AppCompatActivity {
         if (!txt_BName.equals("") || !txt_Email.equals("") || !txt_MobileNo.equals("") || !txt_IssueType.equals("Issue Type") || !txt_critcicality.equals("Criticality") || !txt_Preffered_Contact.equals("Preferred Method of Contacting") || !txt_Comment.equals("")) {
             showDiscardDialog();
         } else {
+            Intent intent = new Intent(Support_Ticket_Form.this, Distribution_Login.class);
+            startActivity(intent);
             finish();
         }
     }
@@ -592,6 +598,9 @@ public class Support_Ticket_Form extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i("CreatePayment", "Button Clicked");
                 alertDialog.dismiss();
+
+                Intent intent = new Intent(Support_Ticket_Form.this, Distribution_Login.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -701,7 +710,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
                 fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
-                        Intent intent = new Intent(Support_Ticket_Form.this, RetailerLogin.class);
+                        Intent intent = new Intent(Support_Ticket_Form.this, Distribution_Login.class);
                         startActivity(intent);
                         finish();
                     }
@@ -712,7 +721,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
-                 new HaballError().printErrorMessage(Support_Ticket_Form.this, error);
+                new HaballError().printErrorMessage(Support_Ticket_Form.this, error);
                 new ProcessingError().showError(Support_Ticket_Form.this);
             }
 
