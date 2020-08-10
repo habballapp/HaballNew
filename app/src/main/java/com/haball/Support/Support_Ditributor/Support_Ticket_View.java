@@ -77,7 +77,7 @@ public class Support_Ticket_View extends Fragment {
     private EditText txt_criticality;
     private EditText txt_preferred_contact_method;
     private TextInputEditText txt_comments;
-    private TextInputLayout layout_txt_business_name,layout_txt_email_address,layout_txt_mobile_number,layout_txt_comments;
+    private TextInputLayout layout_txt_business_name, layout_txt_email_address, layout_txt_mobile_number, layout_txt_comments;
     private String ID;
     private FragmentTransaction fragmentTransaction;
 
@@ -98,10 +98,10 @@ public class Support_Ticket_View extends Fragment {
         layout_txt_business_name = root.findViewById(R.id.layout_txt_business_name);
         layout_txt_email_address = root.findViewById(R.id.layout_txt_email_address);
         layout_txt_mobile_number = root.findViewById(R.id.layout_txt_mobile_number);
-        layout_txt_comments = root.findViewById( R.id.layout_txt_comments );
+        layout_txt_comments = root.findViewById(R.id.layout_txt_comments);
 
-        new TextField().changeColor(this.getContext(), layout_txt_business_name,  txt_business_name);
-        new TextField().changeColor(this.getContext(),  layout_txt_email_address, txt_email_address);
+        new TextField().changeColor(this.getContext(), layout_txt_business_name, txt_business_name);
+        new TextField().changeColor(this.getContext(), layout_txt_email_address, txt_email_address);
         new TextField().changeColor(this.getContext(), layout_txt_mobile_number, txt_mobile_number);
         new TextField().changeColor(this.getContext(), layout_txt_comments, txt_comments);
 
@@ -186,7 +186,7 @@ public class Support_Ticket_View extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
- new HaballError().printErrorMessage(getContext(), error);
+                new HaballError().printErrorMessage(getContext(), error);
                 new ProcessingError().showError(getContext());
                 error.printStackTrace();
                 Log.i("onErrorResponse", "Error");
@@ -290,7 +290,7 @@ public class Support_Ticket_View extends Fragment {
                     fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("null");
                     fragmentTransaction.commit();
-                    return  true;
+                    return true;
                 }
                 return false;
             }
