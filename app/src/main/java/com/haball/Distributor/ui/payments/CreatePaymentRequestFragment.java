@@ -200,8 +200,8 @@ public class CreatePaymentRequestFragment extends Fragment {
         final String txt_amounts = txt_amount.getText().toString();
         final String company = String.valueOf(spinner_company.getItemAtPosition(spinner_company.getSelectedItemPosition()));
         final FragmentManager fm = getActivity().getSupportFragmentManager();
-        Log.i("txt_amount" ,txt_amounts);
-        Log.i("company_name" ,company);
+        Log.i("txt_amount" , String.valueOf(txt_amount));
+        Log.i("company_name" , String.valueOf(spinner_company));
 
         txt_amount.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -234,7 +234,7 @@ public class CreatePaymentRequestFragment extends Fragment {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     // handle back button's click listener
-//                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
                     if (!txt_amounts.equals("") || !company.equals("Select Company")) {
                         showDiscardDialog();
                         return true;

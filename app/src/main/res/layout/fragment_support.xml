@@ -107,6 +107,7 @@
                         android:layout_height="50dp"
                         android:layout_below="@+id/spinner_container"
                         android:layout_marginTop="20dp"
+                        android:visibility="gone"
                         android:background="@drawable/edit_text_squared">
 
                         <Spinner
@@ -133,7 +134,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/spinner_container"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/search_bar"
@@ -162,7 +163,7 @@
                         android:layout_below="@+id/spinner_container"
                         android:layout_marginTop="20dp"
                         android:orientation="horizontal"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:weightSum="4">
 
                         <LinearLayout
