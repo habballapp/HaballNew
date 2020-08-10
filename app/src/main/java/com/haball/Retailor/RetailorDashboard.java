@@ -41,6 +41,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.navigation.NavigationView;
 import com.google.gson.reflect.TypeToken;
 import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.ui.expandablelist.CustomExpandableListModel;
@@ -151,6 +152,8 @@ public class RetailorDashboard extends AppCompatActivity {
         tv_user_company = toolbar.findViewById(R.id.tv_user_company);
 
 
+        drawer = findViewById(R.id.drawer_layout_retailor);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -159,6 +162,7 @@ public class RetailorDashboard extends AppCompatActivity {
 
         toggle.syncState();
         toggle.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
+
         drawer.setDrawerListener(toggle);
         SharedPreferences sharedPreferences = this.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);

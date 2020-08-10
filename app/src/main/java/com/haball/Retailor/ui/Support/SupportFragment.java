@@ -241,6 +241,10 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 date_filter_rl.setVisibility(View.GONE);
                 conso_edittext.setVisibility(View.GONE);
                 search_rl.setVisibility(View.GONE);
+                conso_edittext.setText("");
+                first_date.setText("DD/MM/YYYY");
+                second_date.setText("DD/MM/YYYY");
+
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));

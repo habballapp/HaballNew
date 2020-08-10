@@ -13,27 +13,39 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="27dp">
 
-        <LinearLayout
-            android:id="@+id/txt_header1"
+        <TextView
+            android:id="@+id/txt_change1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_semibold"
+            android:text="Please use the following tips to set a new password"
+            android:textSize="@dimen/paragraph_size" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/open_sans"
-                android:text="Enter Old Password"
-                android:textColor="@color/textcolor"
-                android:textSize="16sp" />
+        <TextView
+            android:id="@+id/txt_change2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_change1"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/open_sans"
+            android:text="* Password must have at-least 6 characters."
+            android:textSize="@dimen/paragraph_size" />
 
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/txt_change3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_change2"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/open_sans"
+            android:text="* Password must have at-least 1 lowercase, uppercase, numeric or special character."
+            android:textSize="@dimen/paragraph_size" />
 
         <LinearLayout
             android:id="@+id/ll_fields"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_header1"
+            android:layout_below="@+id/txt_change3"
             android:layout_marginTop="20dp"
             android:orientation="horizontal"
             android:weightSum="3">
@@ -61,27 +73,11 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/txt_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ll_fields">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/open_sans"
-                android:text="Enter New Password"
-                android:textColor="@color/textcolor"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/ll_fields1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_header">
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/ll_fields">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_password1"

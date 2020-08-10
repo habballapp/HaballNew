@@ -3,6 +3,7 @@ package com.haball.Retailor.ui.Notification.Adapters;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.os.Handler;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -32,6 +33,7 @@ import com.haball.SSL_HandShake;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -98,9 +100,20 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
                                     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                                     @Override
                                     public void onResponse(Boolean result) {
+//                                        ((FragmentActivity) context).runOnUiThread(new Runnable() {
+//                                            @Override
+//                                            public void run() {
+//                                                new Handler().postDelayed(new Runnable() {
+//                                                    @Override
+//                                                    public void run() {
                                         loader.hideLoader();
+                                        NotificationList.remove(position);
                                         notifyItemRemoved(position);
                                         notifyItemRangeChanged(position, NotificationList.size());
+//                                                    }
+//                                                }, 2000);
+//                                            }
+//                                        });
                                     }
                                 }, new Response.ErrorListener() {
                                     @Override
@@ -121,7 +134,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
                                     }
                                 };
                                 sr.setRetryPolicy(new DefaultRetryPolicy(
-                                        15000,
+                                        9999999,
                                         DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                                 Volley.newRequestQueue(context).add(sr);

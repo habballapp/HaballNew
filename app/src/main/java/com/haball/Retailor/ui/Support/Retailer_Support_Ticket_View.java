@@ -232,7 +232,6 @@ public class Retailer_Support_Ticket_View extends Fragment {
         SharedPreferences sharedPreferences3 = getContext().getSharedPreferences("SupportId",
                 Context.MODE_PRIVATE);
         ID = sharedPreferences3.getString("SupportId", "");
-        tv_ticket_id.setText(ID);
 
         Log.i("IDDDD", ID);
         if (!URL_SUPPORT_VIEW.contains("/" + ID))
@@ -258,8 +257,11 @@ public class Retailer_Support_Ticket_View extends Fragment {
 //                Log.i("statuskvp", String.valueOf(RetailerContactingMethodKVP));
 
                 Log.i("ticket_viewdata", String.valueOf(response));
+
                 String issue_type = "", criticality = "", preffered_contact = "";
                 try {
+                    tv_ticket_id.setText(response.getString("TicketNumber"));
+
                     if(!String.valueOf(response.get("ContactName")).equals("") && !String.valueOf(response.get("ContactName")).equals("null")) {
                         txt_business_name.setText(String.valueOf(response.get("ContactName")));
                         txt_business_name.setTextColor(getResources().getColor(R.color.textcolor));

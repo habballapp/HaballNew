@@ -405,6 +405,11 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 date_filter_rl.setVisibility(View.GONE);
                 amount_filter_rl.setVisibility(View.GONE);
                 search_rl.setVisibility(View.GONE);
+                conso_edittext.setText("");
+                et_amount1.setText("");
+                et_amount2.setText("");
+                first_date.setText("DD/MM/YYYY");
+                second_date.setText("DD/MM/YYYY");
 
                 if (i == 0) {
                     try {
@@ -492,6 +497,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
         spinner_consolidate.setAdapter(arrayAdapterPayments);
 
+        filters = new ArrayList<>();
         filters.add("Status");
         filters.add("Un-Paid");
         filters.add("Cancelled");
@@ -1448,6 +1454,11 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 date_filter_rl.setVisibility(View.GONE);
                 amount_filter_rl.setVisibility(View.GONE);
                 search_rl.setVisibility(View.GONE);
+                conso_edittext.setText("");
+                et_amount1.setText("");
+                et_amount2.setText("");
+                first_date.setText("DD/MM/YYYY");
+                second_date.setText("DD/MM/YYYY");
 
                 if (i == 0) {
                     try {

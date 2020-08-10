@@ -754,10 +754,10 @@ public class Retailer_Order_Summary extends Fragment {
         editor.putString("RetailerCode", "");
         editor.putString("RetailerID", "");
         editor.apply();
-
-        Intent login_intent = new Intent(getActivity(), RetailorDashboard.class);
-        startActivity(login_intent);
-        getActivity().finish();
+//
+//        Intent login_intent = new Intent(getActivity(), RetailorDashboard.class);
+//        startActivity(login_intent);
+//        getActivity().finish();
     }
 
     private class MyAsyncTask extends AsyncTask<Void, Void, Void> {
