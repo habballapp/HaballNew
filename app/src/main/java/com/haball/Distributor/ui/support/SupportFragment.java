@@ -133,7 +133,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                              ViewGroup container, Bundle savedInstanceState) {
         supportViewModel =
                 ViewModelProviders.of(this).get(SupportViewModel.class);
-        final View root = inflater.inflate(R.layout.activity_support_dashboard, container, false);
+        final View root = inflater.inflate(R.layout.fragment_support, container, false);
         btn_add_ticket = root.findViewById(R.id.btn_add_ticket);
         myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
         loader = new Loader(getContext());

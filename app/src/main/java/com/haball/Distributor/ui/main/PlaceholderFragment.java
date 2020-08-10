@@ -1808,6 +1808,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         JsonObjectRequest countRequest = new JsonObjectRequest(Request.Method.POST, URL_DISTRIBUTOR_PAYMENTS_COUNT, mapCount, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                Log.i("payment_all" , String.valueOf(response));
                 try {
                     totalEntries = Double.parseDouble(String.valueOf(response.get("prepaidrequestsCount")));
                     totalPages = Math.ceil(totalEntries / 10);
@@ -1847,6 +1848,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
+                Log.i("payment_all" , String.valueOf(result));
                 loader.hideLoader();
                 if (result.length() != 0) {
 
