@@ -491,7 +491,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                             Company_selected = company_names.get(i);
                             Log.i("company_debug", Company_selected);
                             rl_overView.setVisibility(View.VISIBLE);
-                            if(Company_selected.equals("Continental Biscuit Ltd")) {
+                            if (Company_selected.equals("Continental Biscuit Ltd")) {
                                 rl_balances.setVisibility(View.VISIBLE);
                                 current_balance.setVisibility(View.GONE);
                             }
@@ -797,6 +797,14 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 first_date.setText("DD/MM/YYYY");
                 second_date.setText("DD/MM/YYYY");
 
+                if (!byDefaultSelectCriteria) {
+                    try {
+                        fetchPaymentRequests();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
@@ -804,13 +812,6 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
-                    }
-                    if (!byDefaultSelectCriteria) {
-                        try {
-                            fetchPaymentRequests();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
                     }
                 } else {
                     byDefaultSelectCriteria = false;
@@ -1008,18 +1009,20 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
 
-                Filter_selected_value = String.valueOf(conso_edittext.getText());
-                if (!Filter_selected_value.equals("")) {
-                    try {
-                        fetchFilteredPaymentRequests();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        fetchPaymentRequests();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                if (!hasFocus) {
+                    Filter_selected_value = String.valueOf(conso_edittext.getText());
+                    if (!Filter_selected_value.equals("")) {
+                        try {
+                            fetchFilteredPaymentRequests();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        try {
+                            fetchPaymentRequests();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -1279,6 +1282,15 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 first_date.setText("DD/MM/YYYY");
                 second_date.setText("DD/MM/YYYY");
 
+                if (!byDefaultSelectCriteria) {
+                    try {
+                        loader.showLoader();
+                        fetchOrderData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(i)).setTextColor(getResources().getColor(R.color.textcolor));
@@ -1286,14 +1298,6 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
-                    }
-                    if (!byDefaultSelectCriteria) {
-                        try {
-                            loader.showLoader();
-                            fetchOrderData();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
                     }
 
                 } else {
@@ -1808,7 +1812,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         JsonObjectRequest countRequest = new JsonObjectRequest(Request.Method.POST, URL_DISTRIBUTOR_PAYMENTS_COUNT, mapCount, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.i("payment_all" , String.valueOf(response));
+                Log.i("payment_all", String.valueOf(response));
                 try {
                     totalEntries = Double.parseDouble(String.valueOf(response.get("prepaidrequestsCount")));
                     totalPages = Math.ceil(totalEntries / 10);
@@ -1848,7 +1852,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
-                Log.i("payment_all" , String.valueOf(result));
+                Log.i("payment_all", String.valueOf(result));
                 loader.hideLoader();
                 if (result.length() != 0) {
 

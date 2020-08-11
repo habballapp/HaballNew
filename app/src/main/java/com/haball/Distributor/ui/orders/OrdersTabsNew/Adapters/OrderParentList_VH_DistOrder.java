@@ -4,6 +4,7 @@ import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ public class OrderParentList_VH_DistOrder extends ParentViewHolder {
     public RecyclerView subchlid_RV;
     public RelativeLayout rl_parentList;
     private RelativeLayout filter_layout;
+    public LinearLayout plus_icon_ll;
 
 
     public OrderParentList_VH_DistOrder(View itemView, RelativeLayout filter_layout) {
@@ -31,6 +33,7 @@ public class OrderParentList_VH_DistOrder extends ParentViewHolder {
         layout_expandable = itemView.findViewById(R.id.layout_expandable);
         rl_orderName_retailer = itemView.findViewById(R.id.rl_orderName_retailer);
         rl_parentList = itemView.findViewById(R.id.rl_parentList);
+        plus_icon_ll = itemView.findViewById(R.id.plus_icon_ll);
         minus_icon.setVisibility(View.GONE);
         this.filter_layout = filter_layout;
         View.OnClickListener plusMinusOnClick = new View.OnClickListener() {

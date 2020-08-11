@@ -68,6 +68,7 @@ public class Order_PlaceOrder extends Fragment {
             SharedPreferences.Editor editor = selectedProducts.edit();
             editor.putString("selected_products", "");
             editor.putString("selected_products_qty", "");
+            editor.putString("selected_products_category", "");
             editor.apply();
         }
 

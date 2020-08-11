@@ -245,6 +245,14 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 first_date.setText("DD/MM/YYYY");
                 second_date.setText("DD/MM/YYYY");
 
+                if (!byDefaultSelectCriteria) {
+                    try {
+                        fetchSupport();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 if (i == 0) {
                     try {
 
@@ -254,13 +262,6 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
 
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
-                    }
-                    if (!byDefaultSelectCriteria) {
-                        try {
-                            fetchSupport();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
                     }
                 } else {
                     byDefaultSelectCriteria = false;
@@ -283,6 +284,9 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                     } else if (Filter_selected.equals("Issue Type")) {
                         Filter_selected = "IssueType";
                         spinner_container1.setVisibility(View.VISIBLE);
+
+                        filters = new ArrayList<>();
+
                         filters.add("Issue Type");
                         filters.add("Make Payment");
                         filters.add("Profile");
@@ -346,6 +350,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                         tv_shipment_no_data.setVisibility(View.VISIBLE);
                         spinner_container1.setVisibility(View.VISIBLE);
 
+                        filters = new ArrayList<>();
                         filters.add("Status");
                         filters.add("Pending");
                         filters.add("Resolved");
@@ -523,19 +528,21 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         conso_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                Filter_selected_value = String.valueOf(conso_edittext.getText());
-                if (!Filter_selected_value.equals("")) {
-                    try {
-                        fetchFilteredSupport();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        loader.showLoader();
-                        fetchSupport();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                if(!hasFocus) {
+                    Filter_selected_value = String.valueOf(conso_edittext.getText());
+                    if (!Filter_selected_value.equals("")) {
+                        try {
+                            fetchFilteredSupport();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        try {
+                            loader.showLoader();
+                            fetchSupport();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }

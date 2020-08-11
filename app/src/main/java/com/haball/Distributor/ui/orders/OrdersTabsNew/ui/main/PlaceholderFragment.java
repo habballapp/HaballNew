@@ -410,6 +410,8 @@ public class    PlaceholderFragment extends Fragment {
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = companyInfo.edit();
         editor.putString("CompanyId", CompanyList.get(position).getID());
+        editor.putString("ID", "0");
+        editor.putString("CategoryIndex", "0");
         editor.apply();
         FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace()).addToBackStack("tag");

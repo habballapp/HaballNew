@@ -36,6 +36,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distribution_Login.Distribution_Login;
+import com.haball.Distributor.ui.Distributor_Terms_And_Conditions;
 import com.haball.Distributor.ui.Fragment_Notification.FragmentNotification;
 import com.haball.Distributor.ui.Fragment_Notification.NotificationAdapter;
 import com.haball.Distributor.ui.Fragment_Notification.NotificationModel;
@@ -59,6 +60,7 @@ import com.haball.ProcessingError;
 import com.haball.R;
 import com.haball.Registration.BooleanRequest;
 import com.haball.Retailer_Login.RetailerLogin;
+import com.haball.Retailor.Retailer_Terms_And_Conditions;
 import com.haball.Select_User.Register_Activity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
@@ -156,6 +158,12 @@ public class DistributorDashboard extends AppCompatActivity {
 //                fragmentTransaction = getSupportFragmentManager().beginTransaction();
 //                fragmentTransaction.add(R.id.main_container, new TermsAndConditionsFragment());
 //                fragmentTransaction.commit();
+//                Intent login_intent = new Intent(RetailorDashboard.this, Retailer_Terms_And_Conditions.class);
+//                startActivity(login_intent);
+//                finish();
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.add(R.id.main_container, new Distributor_Terms_And_Conditions()).addToBackStack("tag");
+                fragmentTransaction.commit();
 
                 drawer.closeDrawer(GravityCompat.START);
 

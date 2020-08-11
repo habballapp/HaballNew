@@ -34,14 +34,14 @@ public class Dismiss_Notification {
 
     protected void requestDismissNotification(String id, final Context context, final String Token) {
         loader = new Loader(context);
-        loader.showLoader();
+//        loader.showLoader();
         URL_NOTIFICATION = URL_NOTIFICATION + id;
         Log.i("NOTIFICATION_DISMISS", URL_NOTIFICATION);
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_NOTIFICATION, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
-                loader.hideLoader();
+//                loader.hideLoader();
                 Log.i("DISMISSED ", result.toString());
 
             }

@@ -84,6 +84,7 @@ public class FragmentNotification extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         fetchNotificationForItemCount();
+        setNotificationStatus();
 
 
 //
@@ -94,19 +95,19 @@ public class FragmentNotification extends Fragment {
         sharedPreferences = mcontext.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                loader.showLoader();
-            }
-        });
+//        new Handler(Looper.getMainLooper()).post(new Runnable() {
+//            @Override
+//            public void run() {
+//                loader.showLoader();
+//            }
+//        });
 
 
         SharedPreferences sharedPreferences1 = mcontext.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         ID = sharedPreferences1.getString("ID", "");
-        String URL_NOTIFICATION = "http://175.107.203.97:4013/api/useralert/ShowAll/";
+        String URL_NOTIFICATION = "http://175.107.203.97:4013/api/useralert/";
         Log.i("DistributorId ", DistributorId);
         Log.i("Token", Token);
 
@@ -114,21 +115,25 @@ public class FragmentNotification extends Fragment {
             URL_NOTIFICATION = URL_NOTIFICATION + ID;
         Log.i("URL_NOTIFICATION", URL_NOTIFICATION);
 
-        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_NOTIFICATION, null, new Response.Listener<JSONArray>() {
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_NOTIFICATION, null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONArray result) {
+            public void onResponse(JSONObject result) {
                 loader.hideLoader();
 
-                if (resultLenght == result.length()) {
+                try {
+                    if (resultLenght == result.getInt("count")) {
 
+                    }
+
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<NotificationModel>>() {
+                    }.getType();
+                    notificationLists = gson.fromJson(result.getString("data"), type);
+                    NotificationAdapter = new NotificationAdapter(mcontext, notificationLists, Token);
+                    recyclerView.setAdapter(NotificationAdapter);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                Log.i("RESULT NOTIFICATION", result.toString());
-                Gson gson = new Gson();
-                Type type = new TypeToken<List<NotificationModel>>() {
-                }.getType();
-                notificationLists = gson.fromJson(result.toString(), type);
-                NotificationAdapter = new NotificationAdapter(mcontext, notificationLists, Token);
-                recyclerView.setAdapter(NotificationAdapter);
 //                setNotificationStatus(DistributorId, ID);
             }
         }, new Response.ErrorListener() {
@@ -168,16 +173,33 @@ public class FragmentNotification extends Fragment {
         Volley.newRequestQueue(mcontext).add(sr);
     }
 
-    private void setNotificationStatus(String DistributorId, String ID) {
+    private void setNotificationStatus() {
         loader.showLoader();
+
+        sharedPreferences = mcontext.getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                loader.showLoader();
+            }
+        });
+
+
+        SharedPreferences sharedPreferences1 = mcontext.getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+        ID = sharedPreferences1.getString("ID", "");
+
         String URL_NOTIFICATION_SEEN = "http://175.107.203.97:4013/api/useralert/MarkSeen/";
         if (!URL_NOTIFICATION_SEEN.contains("/" + ID))
             URL_NOTIFICATION_SEEN = URL_NOTIFICATION_SEEN + ID;
         Log.i("URL_NOTIFICATION", URL_NOTIFICATION_SEEN);
 
-        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_NOTIFICATION_SEEN, null, new Response.Listener<JSONArray>() {
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_NOTIFICATION_SEEN, null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONArray result) {
+            public void onResponse(JSONObject result) {
                 loader.hideLoader();
             }
         }, new Response.ErrorListener() {
@@ -226,25 +248,33 @@ public class FragmentNotification extends Fragment {
                 Context.MODE_PRIVATE);
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         ID = sharedPreferences1.getString("ID", "");
-        String URL_NOTIFICATION = "http://175.107.203.97:4013/api/useralert/ShowAll/";
+        String URL_NOTIFICATION = "http://175.107.203.97:4013/api/useralert/";
         Log.i("DistributorId ", DistributorId);
         Log.i("Token", Token);
 
         URL_NOTIFICATION = URL_NOTIFICATION + ID;
         Log.i("URL_NOTIFICATION", URL_NOTIFICATION);
 
-        JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_NOTIFICATION, null, new Response.Listener<JSONArray>() {
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_NOTIFICATION, null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(final JSONArray result) {
+            public void onResponse(final JSONObject result) {
                 loader.hideLoader();
 
-                FragmentNotification.counter = result.length();
+                try {
+                    FragmentNotification.counter = result.getInt("count");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 Timer timer = new Timer();
                 timer.scheduleAtFixedRate(new TimerTask() {
                     @Override
                     public void run() {
-                        fetchNotification(result.length());
+                        try {
+                            fetchNotification(result.getInt("count"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, 0, 5000);
                 Log.i("ResultLength", "" + result.length());

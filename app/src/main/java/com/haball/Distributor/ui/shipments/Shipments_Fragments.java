@@ -308,6 +308,7 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
         arrayAdapterPayments.notifyDataSetChanged();
         spinner_consolidate.setAdapter(arrayAdapterPayments);
 
+        filters = new ArrayList<>();
         filters.add("Status");
         filters.add("Pending");
         filters.add("In Transit");

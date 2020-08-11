@@ -411,6 +411,14 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 first_date.setText("DD/MM/YYYY");
                 second_date.setText("DD/MM/YYYY");
 
+                if (!byDefaultSelectCriteria) {
+                    try {
+                        fetchPaymentsData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
@@ -419,13 +427,6 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
-                    }
-                    if (!byDefaultSelectCriteria) {
-                        try {
-                            fetchPaymentsData();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
                     }
 
                 } else {
@@ -663,19 +664,20 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         conso_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-
-                Filter_selected_value = String.valueOf(conso_edittext.getText());
-                if (!Filter_selected_value.equals("")) {
-                    try {
-                        fetchFilteredRetailerPayments();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        fetchPaymentsData();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                if(!hasFocus) {
+                    Filter_selected_value = String.valueOf(conso_edittext.getText());
+                    if (!Filter_selected_value.equals("")) {
+                        try {
+                            fetchFilteredRetailerPayments();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        try {
+                            fetchPaymentsData();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -1460,6 +1462,15 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 first_date.setText("DD/MM/YYYY");
                 second_date.setText("DD/MM/YYYY");
 
+                if (!byDefaultSelectCriteria) {
+                    try {
+                        loader.showLoader();
+                        fetchOrderData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
@@ -1467,14 +1478,6 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
-                    }
-                    if (!byDefaultSelectCriteria) {
-                        try {
-                            loader.showLoader();
-                            fetchOrderData();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
                     }
                 } else {
                     byDefaultSelectCriteria = false;
@@ -1559,6 +1562,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
         spinner_consolidate.setAdapter(arrayAdapterPayments);
 
+        filters = new ArrayList<>();
         filters.add("Status");
         filters.add("Pending");
         filters.add("Approved");
@@ -1695,19 +1699,21 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         conso_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                Filter_selected_value = String.valueOf(conso_edittext.getText());
-                if (!Filter_selected_value.equals("")) {
-                    try {
-                        fetchFilteredOrderData();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        loader.showLoader();
-                        fetchOrderData();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                if(!hasFocus) {
+                    Filter_selected_value = String.valueOf(conso_edittext.getText());
+                    if (!Filter_selected_value.equals("")) {
+                        try {
+                            fetchFilteredOrderData();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        try {
+                            loader.showLoader();
+                            fetchOrderData();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }

@@ -400,35 +400,29 @@ public class PaymentScreen3Fragment extends Fragment {
 //                Amount = sharedPreferences.getString("Amount", "");
 
                 JSONObject map = new JSONObject();
-                map.put("ActionValue", 0);
-                if (paymentsRequestList.getBankIMD() != null)
-                    map.put("BankIMD", paymentsRequestList.getBankIMD());
-                else
-                    map.put("BankIMD", "");
-                if (paymentsRequestList.getCompanyCNIC() != null)
-                    map.put("CompanyCNIC", paymentsRequestList.getCompanyCNIC());
-                else
-                    map.put("CompanyCNIC", "");
+//                map.put("ActionValue", 0);
+//                map.put("BankIMD", paymentsRequestList.getBankIMD());
+//                map.put("CompanyCNIC", paymentsRequestList.getCompanyCNIC());
                 map.put("CompanyId", CompanyId);
-                map.put("CompanyName", CompanyName);
-                map.put("CreatedBy", paymentsRequestList.getCreatedBy());
-                map.put("CreatedDate", paymentsRequestList.getCreatedDate());
-                map.put("DistributorCNIC", paymentsRequestList.getDistributorCNIC());
-                map.put("DistributorId", paymentsRequestList.getDistributorId());
-                map.put("DistributorName", paymentsRequestList.getDistributorName());
+//                map.put("CompanyName", CompanyName);
+//                map.put("CreatedBy", paymentsRequestList.getCreatedBy());
+//                map.put("CreatedDate", paymentsRequestList.getCreatedDate());
+//                map.put("DistributorCNIC", paymentsRequestList.getDistributorCNIC());
+                map.put("DistributorId", DistributorId);
+//                map.put("DistributorName", paymentsRequestList.getDistributorName());
                 map.put("ID", PrePaidId);
-                map.put("IsTransmitted", paymentsRequestList.getIsTransmitted());
-                map.put("LastChangedBy", paymentsRequestList.getLastChangedBy());
-                map.put("LastChangedDate", paymentsRequestList.getLastChangedDate());
-                map.put("PaidAmount", paymentsRequestList.getPaidAmount());
-                map.put("PaidDate", paymentsRequestList.getPaidDate());
-                map.put("PrePaidNumber", PrePaidNumber);
-                map.put("PrepaidStatusValue", paymentsRequestList.getPrepaidStatusValue());
-                map.put("ReferenceID", paymentsRequestList.getReferenceID());
-                map.put("State", paymentsRequestList.getState());
+//                map.put("IsTransmitted", paymentsRequestList.getIsTransmitted());
+//                map.put("LastChangedBy", paymentsRequestList.getLastChangedBy());
+//                map.put("LastChangedDate", paymentsRequestList.getLastChangedDate());
+//                map.put("PaidAmount", paymentsRequestList.getPaidAmount());
+//                map.put("PaidDate", paymentsRequestList.getPaidDate());
+//                map.put("PrePaidNumber", PrePaidNumber);
+//                map.put("PrepaidStatusValue", paymentsRequestList.getPrepaidStatusValue());
+//                map.put("ReferenceID", paymentsRequestList.getReferenceID());
+//                map.put("State", paymentsRequestList.getState());
                 map.put("Status", 0);
-                map.put("employeesName", paymentsRequestList.getEmployeesName());
-                map.put("PaidAmount", txt_amount.getText().toString());
+//                map.put("employeesName", paymentsRequestList.getEmployeesName());
+                map.put("PaidAmount" ,txt_amount.getText().toString());
                 Log.i("UpdatePaymentsss", String.valueOf(map));
 
                 JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PAYMENT_REQUESTS_SAVE, map, new Response.Listener<JSONObject>() {

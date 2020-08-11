@@ -130,7 +130,7 @@ public class PlaceholderFragment extends Fragment {
             case 1: {
                 root = inflater.inflate(R.layout.fragment_distributor_profile, container, false);
 
-                InputMethodManager imm =(InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(root.getWindowToken(), 0);
 
                 layout_edt_dist_code = root.findViewById(R.id.layout_edt_dist_code);
@@ -506,7 +506,7 @@ public class PlaceholderFragment extends Fragment {
             case 2:
                 root = inflater.inflate(R.layout.pasword_change, container, false);
 
-                InputMethodManager imm =(InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(root.getWindowToken(), 0);
 
                 currentTab = "Password";
@@ -614,12 +614,12 @@ public class PlaceholderFragment extends Fragment {
         String rmobile = edt_dist_mobile.getText().toString();
         String r_Address = R_Address.getText().toString();
         if (changed) {
-            if (!remail.equals("") && !rmobile.equals("") && !r_Address.equals("")) {
+            if (!remail.equals("") && !rmobile.equals("") && !str_edt_firstname.equals("") && !str_edt_lastname.equals("")) {
                 if ((remail.equals(Email)
                         && rmobile.equals(Mobile)
                         && str_edt_firstname.equals(firstname)
-                        && str_edt_lastname.equals(lastname)
-                        && r_Address.equals(Address))
+                        && str_edt_lastname.equals(lastname))
+//                        && r_Address.equals(Address))
                         || !remail.matches(reg_ex)
                         || rmobile.length() != 12
 //                || comment.equals("")
@@ -687,6 +687,7 @@ public class PlaceholderFragment extends Fragment {
                     edt_dist_mobile.clearFocus();
                     R_Address.clearFocus();
                     showDiscardDialog();
+                    return true;
                 }
                 return false;
             }
@@ -864,7 +865,7 @@ public class PlaceholderFragment extends Fragment {
                         if (!String.valueOf(edt_firstname.getText()).equals(""))
                             edt_firstname.setTextColor(getResources().getColor(R.color.textcolor));
                         edt_lastname.setText(profile_model.getLastName());
-                        lastname = profile_model.getEmail();
+                        lastname = profile_model.getLastName();
                         if (!String.valueOf(edt_lastname.getText()).equals(""))
                             edt_lastname.setTextColor(getResources().getColor(R.color.textcolor));
                         edt_email.setText(profile_model.getEmail());
