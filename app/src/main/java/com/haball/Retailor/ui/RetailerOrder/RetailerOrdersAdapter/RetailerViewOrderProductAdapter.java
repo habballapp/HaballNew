@@ -6,12 +6,14 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Layout;
 import android.text.SpannableString;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.style.StyleSpan;
 import android.util.Log;
@@ -35,6 +37,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.haball.R;
 import com.haball.Retailor.ui.RetailerOrder.RetailerOrdersModel.RetailerViewOrderProductModel;
 
+import org.w3c.dom.Text;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,6 +50,8 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
     private Context context;
     private List<RetailerViewOrderProductModel> OrdersList;
     boolean scrollingLeft = false;
+    private int prevLineCount = -1;
+    private int newLineCount = -1;
 
     public RetailerViewOrderProductAdapter(Context context, List<RetailerViewOrderProductModel> ordersList) {
         this.context = context;
@@ -66,74 +72,211 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
 
         holder.product_code.setText("Product Code:\u00A0");
         SpannableString ss1 = new SpannableString(OrdersList.get(position).getProductCode());
+        SpannableString ss1_temp = new SpannableString("");
         ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
         holder.product_code.append(ss1);
 
+//        holder.product_code.measure(0, 0);
+//        Log.i("height_debug", String.valueOf(holder.product_code.getHeight()));
+//        Log.i("height_debug", String.valueOf(holder.product_code.getLineCount()));
+//        Log.i("height_debug", String.valueOf(holder.product_code.getMeasuredHeight()));
+
+
+        Log.i("height_debug_prevLine", String.valueOf(prevLineCount));
+        holder.product_code.append(ss1);
+        if (holder.product_code.getLayout() == null) {
+            holder.product_code.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    prevLineCount = holder.product_code.getLineCount();
+                    holder.product_code.getViewTreeObserver().removeOnPreDrawListener(this);
+                    return true;
+                }
+            });
+        } else {
+            prevLineCount = holder.product_code.getLineCount();
+        }
+        Log.i("height_debug_prevLine", String.valueOf(prevLineCount));
+
         holder.product_code.append("\n");
+//        newLineCount = getHeight(String.valueOf(holder.product_code.getText()), holder.product_code);
+//        holder.product_code.onPreDraw();
+//        Log.i("height_debug_newLine", String.valueOf(holder.product_code.getLineCount()));
+
+//        holder.product_code.measure(0, 0);
+//        Log.i("height_debug", String.valueOf(holder.product_code .getHeight()));
+//        Log.i("height_debug", String.valueOf(holder.product_code.getLineCount()));
+//        Log.i("height_debug", String.valueOf(holder.product_code.getMeasuredHeight()));
+//        holder.product_code.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                Log.v("Line count: ", holder.product_code.getLineCount()+"");
+//            }
+//        });
+
+        Log.i("height_debug_prevLine", String.valueOf(prevLineCount));
+        holder.product_code.append(ss1);
+        if (holder.product_code.getLayout() == null) {
+            holder.product_code.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    prevLineCount = holder.product_code.getLineCount();
+                    holder.product_code.getViewTreeObserver().removeOnPreDrawListener(this);
+                    return true;
+                }
+            });
+        } else {
+            prevLineCount = holder.product_code.getLineCount();
+        }
+        Log.i("height_debug_prevLine", String.valueOf(prevLineCount));
+
 
         holder.product_code.append("Price:\u00A0");
 
         DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
-        String yourFormattedString1 = formatter1.format(Double.parseDouble(OrdersList.get(position).getUnitPrice()));
+//        String yourFormattedString1 = formatter1.format(Double.parseDouble(OrdersList.get(position).getUnitPrice()));
+        String yourFormattedString1 = formatter1.format(Double.parseDouble("76535676335676543"));
 
         ss1 = new SpannableString("Rs.\u00A0" + yourFormattedString1);
         ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
         holder.product_code.append(ss1);
+
+//        holder.product_code.onPreDraw();
+//        Log.i("height_debug_newLine", String.valueOf(holder.product_code.getLineCount()));
+
+
+        ss1_temp = new SpannableString(holder.product_code.getText());
+
+//        holder.product_code.measure(0, 0);
+//        holder.product_code.onPreDraw();
+//        holder.product_code.onPreDraw();
+//        prevLineCount = holder.product_code.getLineCount();
+
+//        holder.product_code.invalidate();
+//        prevLineCount = holder.product_code.getLineCount() * holder.product_code.getLineHeight();
+//        Log.i("height_debug_prevLine", String.valueOf(prevLineCount));
+
+        Log.i("height_debug_prevLine", String.valueOf(prevLineCount));
+        holder.product_code.append(ss1);
+        if (holder.product_code.getLayout() == null) {
+            holder.product_code.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    prevLineCount = holder.product_code.getLineCount();
+                    holder.product_code.getViewTreeObserver().removeOnPreDrawListener(this);
+                    return true;
+                }
+            });
+        } else {
+            prevLineCount = holder.product_code.getLineCount();
+        }
+        Log.i("height_debug_prevLine", String.valueOf(prevLineCount));
+
         if (OrdersList.get(position).getUOMTitle() != null && !OrdersList.get(position).getUOMTitle().equals("null")) {
-            holder.product_code.append("        ");
+            holder.product_code.append("         ");
+            holder.product_code.append("         ");
 
             holder.product_code.append("UOM:\u00A0");
 
             ss1 = new SpannableString(OrdersList.get(position).getUOMTitle());
             ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
 
+            Log.i("height_debug_prevLine", String.valueOf(prevLineCount));
             holder.product_code.append(ss1);
+            if (holder.product_code.getLayout() == null) {
+                holder.product_code.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                    @Override
+                    public boolean onPreDraw() {
+                        prevLineCount = holder.product_code.getLineCount();
+                        holder.product_code.getViewTreeObserver().removeOnPreDrawListener(this);
+                        return true;
+                    }
+                });
+            } else {
+                prevLineCount = holder.product_code.getLineCount();
+            }
+            Log.i("height_debug_prevLine", String.valueOf(prevLineCount));
+//
+////            holder.product_code.invalidate();
+////            newLineCount = holder.product_code.getLineCount() * holder.product_code.getLineHeight();
+//            Log.i("height_debug_newLine", String.valueOf(newLineCount));
+//
+//            if(prevLineCount == newLineCount) {
+//                holder.product_code.setText(ss1_temp);
+//
+//                holder.product_code.append("         ");
+//                holder.product_code.append("|");
+//                holder.product_code.append("         ");
+//
+//                holder.product_code.append("UOM:\u00A0");
+//
+//                ss1 = new SpannableString(OrdersList.get(position).getUOMTitle());
+//                ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
+//
+//                holder.product_code.append(ss1);
+//            }
         }
+//
+//        ss1_temp = new SpannableString(holder.product_code.getText());
+//
+//        holder.product_code.measure(0, 0);
+//        prevLineCount = holder.product_code.getLineCount();
+//
+//        if (!OrdersList.get(position).getDiscount().equals("0") && !OrdersList.get(position).getDiscount().equals("") && !OrdersList.get(position).getDiscount().equals("null")) {
+//            holder.product_code.append("         ");
+//            holder.product_code.append("         ");
+//
+//            holder.product_code.append("Disc:\u00A0");
+//
+//            formatter1 = new DecimalFormat("#,###,##0.00");
+//            yourFormattedString1 = formatter1.format(Double.parseDouble(OrdersList.get(position).getDiscount()));
+//
+//            ss1 = new SpannableString("Rs.\u00A0" + yourFormattedString1);
+//            ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
+//            holder.product_code.append(ss1);
+//
+//        }
+//        holder.product_code.append("         ");
+//        holder.product_code.append("         ");
+//
+//        holder.product_code.append("Qty:\u00A0");
+//
+//        ss1 = new SpannableString(OrdersList.get(position).getOrderQty());
+//        ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
+//        holder.product_code.append(ss1);
+//
+//        holder.product_code.append("         ");
+//        holder.product_code.append("         ");
+//
+//        if (!OrdersList.get(position).getTaxValue().equals("0") && !OrdersList.get(position).getTaxValue().equals("") && !OrdersList.get(position).getTaxValue().equals("null")) {
+//
+//            holder.product_code.append("Tax:\u00A0");
+//
+//            formatter1 = new DecimalFormat("#,###,##0.00");
+//            yourFormattedString1 = formatter1.format(Double.parseDouble(OrdersList.get(position).getDiscount()));
+//
+//            ss1 = new SpannableString("Rs.\u00A0" + yourFormattedString1);
+//            ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
+//            holder.product_code.append(ss1);
+//
+//            holder.product_code.append("         ");
+//            holder.product_code.append("         ");
+//        }
+//        holder.product_code.append("Amount:\u00A0");
+//
+//        formatter1 = new DecimalFormat("#,###,##0.00");
+//        yourFormattedString1 = formatter1.format(Double.parseDouble(OrdersList.get(position).getTotalPrice()));
+//
+//        ss1 = new SpannableString("Rs.\u00A0" + yourFormattedString1);
+//        ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
+//        holder.product_code.append(ss1);
 
-        if (!OrdersList.get(position).getDiscount().equals("0") && !OrdersList.get(position).getDiscount().equals("") && !OrdersList.get(position).getDiscount().equals("null")) {
-            holder.product_code.append("            ");
 
-            holder.product_code.append("Disc:\u00A0");
 
-            formatter1 = new DecimalFormat("#,###,##0.00");
-            yourFormattedString1 = formatter1.format(Double.parseDouble(OrdersList.get(position).getDiscount()));
 
-            ss1 = new SpannableString("Rs.\u00A0" + yourFormattedString1);
-            ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
-            holder.product_code.append(ss1);
 
-        }
-        holder.product_code.append("        ");
 
-        holder.product_code.append("Qty:\u00A0");
 
-        ss1 = new SpannableString(OrdersList.get(position).getOrderQty());
-        ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
-        holder.product_code.append(ss1);
-
-        holder.product_code.append("        ");
-
-        if (!OrdersList.get(position).getTaxValue().equals("0") && !OrdersList.get(position).getTaxValue().equals("") && !OrdersList.get(position).getTaxValue().equals("null")) {
-
-            holder.product_code.append("Tax:\u00A0");
-
-            formatter1 = new DecimalFormat("#,###,##0.00");
-            yourFormattedString1 = formatter1.format(Double.parseDouble(OrdersList.get(position).getDiscount()));
-
-            ss1 = new SpannableString("Rs.\u00A0" + yourFormattedString1);
-            ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
-            holder.product_code.append(ss1);
-
-            holder.product_code.append("        ");
-        }
-        holder.product_code.append("Amount:\u00A0");
-
-        formatter1 = new DecimalFormat("#,###,##0.00");
-        yourFormattedString1 = formatter1.format(Double.parseDouble(OrdersList.get(position).getTotalPrice()));
-
-        ss1 = new SpannableString("Rs.\u00A0" + yourFormattedString1);
-        ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
-        holder.product_code.append(ss1);
 //
 //        SharedPreferences sharedPreferences1 = context.getSharedPreferences("OrderId",
 //                Context.MODE_PRIVATE);
@@ -202,6 +345,35 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
 //        holder.amount_new_line_value.setText("Rs.\u00A0" + yourFormattedString3);
 
     }
+
+    private int getHeight(String text, TextView textView) {
+        Rect bounds = new Rect();
+        Paint textPaint = textView.getPaint();
+        textPaint.getTextBounds(text,0,text.length(),bounds);
+        int height = bounds.height();
+        int width = bounds.width();
+        return height;
+
+    }
+
+    public static int getHeightOfMultiLineText(String text, int textSize, int maxWidth) {
+        TextPaint paint = new TextPaint();
+        paint.setTextSize(textSize);
+        int index = 0;
+        int lineCount = 0;
+        while (index < text.length()) {
+            index += paint.breakText(text, index, text.length(), true, maxWidth, null);
+            lineCount++;
+        }
+
+        Rect bounds = new Rect();
+        paint.getTextBounds("Yy", 0, 2, bounds);
+        // obtain space between lines
+        double lineSpacing = Math.max(0, ((lineCount - 1) * bounds.height() * 0.25));
+
+        return (int) Math.floor(lineSpacing + lineCount * bounds.height());
+    }
+
 
     public static boolean isTextViewEllipsized(final TextView textView) {
         // Check if the supplied TextView is not null

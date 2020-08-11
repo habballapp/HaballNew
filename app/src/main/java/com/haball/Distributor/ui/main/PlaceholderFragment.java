@@ -1798,7 +1798,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "-1");
 //        Log.i("DistributorId ", DistributorId);
 
         JSONObject mapCount = new JSONObject();

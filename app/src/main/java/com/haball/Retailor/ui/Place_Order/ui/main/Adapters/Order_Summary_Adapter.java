@@ -49,24 +49,30 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
     private List<OrderChildlist_Model> selectedProductsDataList;
     private List<String> selectedProductsDataListQty;
     private float grossAmount = 0;
+    private float discAmount = 0;
     //    private String before = "", after = "";
     private Button btn_draft;
     private Button btn_confirm;
     private double Quantity = 0;
+    private TextView total_amount;
+    private TextView discount_amount;
 
-    public Order_Summary_Adapter(FragmentActivity activity, Context context, List<OrderChildlist_Model> selectedProductsDataList, List<String> selectedProductsDataListQty, Button btn_confirm, Button btn_draft) {
+    public Order_Summary_Adapter(FragmentActivity activity, Context context, List<OrderChildlist_Model> selectedProductsDataList, List<String> selectedProductsDataListQty, Button btn_confirm, Button btn_draft, TextView total_amount, TextView discount_amount) {
         this.context = context;
         this.activity = activity;
         this.selectedProductsDataList = selectedProductsDataList;
         this.selectedProductsDataListQty = selectedProductsDataListQty;
         this.btn_draft = btn_draft;
         this.btn_confirm = btn_confirm;
+        this.total_amount = total_amount;
+        this.discount_amount = discount_amount;
 
         for (int iter = 0; iter < this.selectedProductsDataList.size(); iter++) {
             if (this.selectedProductsDataListQty.get(iter).equals("0") || this.selectedProductsDataListQty.get(iter).equals("")) {
                 this.selectedProductsDataListQty.set(iter, "0");
 
                 grossAmount = 0;
+                discAmount = 0;
 
 
                 for (int i = 0; i < this.selectedProductsDataList.size(); i++) {
@@ -81,6 +87,7 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
                 editor_grossamount.putString("grossamount", String.valueOf(grossAmount));
                 editor_grossamount.apply();
                 grossAmount = 0;
+                discAmount = 0;
 
                 this.selectedProductsDataList.remove(iter);
                 this.selectedProductsDataListQty.remove(iter);
@@ -102,11 +109,74 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
             }
         }
 
+        if (selectedProductsDataList.size() > 0) {
+            for (int i = 0; i < selectedProductsDataList.size(); i++) {
+                Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+                Log.i("qty", selectedProductsDataListQty.get(i));
+                if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsDataListQty.get(i).equals("")) {
+                    if (selectedProductsDataList.get(i).getDiscountAmount() != null) {
+                        grossAmount += (Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) - Float.parseFloat(selectedProductsDataList.get(i).getDiscountAmount())) * Float.parseFloat(selectedProductsDataListQty.get(i));
+                        discAmount += Float.parseFloat(selectedProductsDataList.get(i).getDiscountAmount()) * Float.parseFloat(selectedProductsDataListQty.get(i));
+                    } else
+                        grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsDataListQty.get(i));
+                }
+            }
+
+            float gstAmount = 0;
+            float totalAmount = grossAmount + gstAmount;
+//        if (totalAmount <= 0) {
+//            btn_draft.setEnabled(false);
+//            btn_draft.setBackgroundResource(R.drawable.button_grey_round);
+//            btn_confirm.setEnabled(false);
+//            btn_confirm.setBackgroundResource(R.drawable.button_grey_round);
+//
+//        } else {
+//            btn_draft.setEnabled(true);
+//            btn_draft.setBackgroundResource(R.drawable.button_round);
+//            btn_confirm.setEnabled(true);
+//            btn_confirm.setBackgroundResource(R.drawable.button_round);
+//
+//        }
+//        float grossAmount = 0;
+//        if(selectedProductsDataList != null) {
+//            if (selectedProductsDataList.size() > 0) {
+//                for (int i = 0; i < selectedProductsDataList.size(); i++) {
+//                    Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+//                    Log.i("qty", selectedProductsQuantityList.get(i));
+//                    if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
+//                        grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
+//                }
+//            }
+//
+//        }
+
+//        gst_amount.setText(String.valueOf(gstAmount));
+//        total_amount.setText(String.valueOf(totalAmount));
+            DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
+            String yourFormattedString3 = formatter1.format(totalAmount);
+//        gst_amount.setText(String.valueOf(gstAmount));
+            total_amount.setText(String.format(yourFormattedString3));
+
+            yourFormattedString3 = formatter1.format(discAmount);
+//        gst_amount.setText(String.valueOf(gstAmount));
+            discount_amount.setText(String.format(yourFormattedString3));
+
+
+            SharedPreferences grossamount = context.getSharedPreferences("grossamount",
+                    Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor_grossamount = grossamount.edit();
+            editor_grossamount.putString("grossamount", String.valueOf(grossAmount));
+            editor_grossamount.apply();
+            grossAmount = 0;
+            discAmount = 0;
+        }
+
+
         Quantity = 0;
-        for(int i = 0; i < this.selectedProductsDataListQty.size(); i++) {
+        for (int i = 0; i < this.selectedProductsDataListQty.size(); i++) {
             Quantity = Quantity + Float.parseFloat(this.selectedProductsDataListQty.get(i));
         }
-        if(Quantity > 0) {
+        if (Quantity > 0) {
             enableCheckoutButton();
         } else {
             disableCheckoutButton();
@@ -160,8 +230,13 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
 
         float totalamount = 0;
         String yourFormattedString3;
-        if (!selectedProductsDataList.get(position).getProductUnitPrice().equals("") && !selectedProductsDataListQty.get(position).equals(""))
-            totalamount = Float.parseFloat(selectedProductsDataListQty.get(position)) * Float.parseFloat(selectedProductsDataList.get(position).getProductUnitPrice());
+        if (!selectedProductsDataList.get(position).getProductUnitPrice().equals("") && !selectedProductsDataListQty.get(position).equals("")) {
+            if (selectedProductsDataList.get(position).getDiscountAmount() != null)
+                totalamount = Float.parseFloat(selectedProductsDataListQty.get(position)) * (Float.parseFloat(selectedProductsDataList.get(position).getProductUnitPrice()) - Float.parseFloat(selectedProductsDataList.get(position).getDiscountAmount()));
+            else
+                totalamount = Float.parseFloat(selectedProductsDataListQty.get(position)) * Float.parseFloat(selectedProductsDataList.get(position).getProductUnitPrice());
+        }
+
 //        holder.totalAmount_value.setText(String.valueOf(totalamount));
         yourFormattedString3 = formatter1.format(totalamount);
         holder.totalAmount_value.setText(yourFormattedString3);
@@ -264,11 +339,31 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
                         });
 
                         alertDialog.show();
-                    } else if (!str_quantity.equals("")) {
+                    }
+
+                    if (!str_quantity.equals("")) {
                         float totalamount = 0;
                         String yourFormattedString3;
-                        if (!selectedProductsDataList.get(position).getProductUnitPrice().equals("") && !selectedProductsDataListQty.get(position).equals(""))
-                            totalamount = Float.parseFloat(str_quantity) * Float.parseFloat(selectedProductsDataList.get(position).getProductUnitPrice());
+                        if (!selectedProductsDataList.get(position).getProductUnitPrice().equals("")) {
+                            if (selectedProductsDataList.get(position).getDiscountAmount() != null)
+                                totalamount = Float.parseFloat(str_quantity) * (Float.parseFloat(selectedProductsDataList.get(position).getProductUnitPrice()) - Float.parseFloat(selectedProductsDataList.get(position).getDiscountAmount()));
+                            else
+                                totalamount = Float.parseFloat(str_quantity) * Float.parseFloat(selectedProductsDataList.get(position).getProductUnitPrice());
+                        }
+
+//        holder.totalAmount_value.setText(String.valueOf(totalamount));
+                        yourFormattedString3 = formatter1.format(totalamount);
+                        holder.totalAmount_value.setText(yourFormattedString3);
+                    } else {
+                        float totalamount = 0;
+                        String yourFormattedString3;
+                        if (!selectedProductsDataList.get(position).getProductUnitPrice().equals("")) {
+                            if (selectedProductsDataList.get(position).getDiscountAmount() != null)
+                                totalamount = 0 * (Float.parseFloat(selectedProductsDataList.get(position).getProductUnitPrice()) - Float.parseFloat(selectedProductsDataList.get(position).getDiscountAmount()));
+                            else
+                                totalamount = 0 * Float.parseFloat(selectedProductsDataList.get(position).getProductUnitPrice());
+                        }
+
 //        holder.totalAmount_value.setText(String.valueOf(totalamount));
                         yourFormattedString3 = formatter1.format(totalamount);
                         holder.totalAmount_value.setText(yourFormattedString3);
@@ -349,20 +444,68 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
             checkOutEnabler(holder, finalPosition, "0");
 
             grossAmount = 0;
+            discAmount = 0;
 
 
             for (int i = 0; i < selectedProductsDataList.size(); i++) {
-//                                Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
-//                                Log.i("qty", selectedProductsDataListQty.get(i));
-                if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsDataListQty.get(i).equals(""))
-                    grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsDataListQty.get(i));
+                Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+                Log.i("qty", selectedProductsDataListQty.get(i));
+                if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsDataListQty.get(i).equals("")) {
+                    if (selectedProductsDataList.get(i).getDiscountAmount() != null) {
+                        grossAmount += (Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) - Float.parseFloat(selectedProductsDataList.get(i).getDiscountAmount())) * Float.parseFloat(selectedProductsDataListQty.get(i));
+                        discAmount += Float.parseFloat(selectedProductsDataList.get(i).getDiscountAmount()) * Float.parseFloat(selectedProductsDataListQty.get(i));
+                    } else
+                        grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsDataListQty.get(i));
+                }
             }
+
+            float gstAmount = 0;
+            float totalAmount = grossAmount + gstAmount;
+//        if (totalAmount <= 0) {
+//            btn_draft.setEnabled(false);
+//            btn_draft.setBackgroundResource(R.drawable.button_grey_round);
+//            btn_confirm.setEnabled(false);
+//            btn_confirm.setBackgroundResource(R.drawable.button_grey_round);
+//
+//        } else {
+//            btn_draft.setEnabled(true);
+//            btn_draft.setBackgroundResource(R.drawable.button_round);
+//            btn_confirm.setEnabled(true);
+//            btn_confirm.setBackgroundResource(R.drawable.button_round);
+//
+//        }
+//        float grossAmount = 0;
+//        if(selectedProductsDataList != null) {
+//            if (selectedProductsDataList.size() > 0) {
+//                for (int i = 0; i < selectedProductsDataList.size(); i++) {
+//                    Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+//                    Log.i("qty", selectedProductsQuantityList.get(i));
+//                    if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
+//                        grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
+//                }
+//            }
+//
+//        }
+
+//        gst_amount.setText(String.valueOf(gstAmount));
+//        total_amount.setText(String.valueOf(totalAmount));
+            DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
+            String yourFormattedString3 = formatter1.format(totalAmount);
+//        gst_amount.setText(String.valueOf(gstAmount));
+            total_amount.setText(String.format(yourFormattedString3));
+
+            yourFormattedString3 = formatter1.format(discAmount);
+//        gst_amount.setText(String.valueOf(gstAmount));
+            discount_amount.setText(String.format(yourFormattedString3));
+
+
             SharedPreferences grossamount = context.getSharedPreferences("grossamount",
                     Context.MODE_PRIVATE);
             SharedPreferences.Editor editor_grossamount = grossamount.edit();
             editor_grossamount.putString("grossamount", String.valueOf(grossAmount));
             editor_grossamount.apply();
             grossAmount = 0;
+            discAmount = 0;
         }
 
         selectedProductsDataList.remove(finalPosition);
@@ -415,14 +558,80 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
                     SharedPreferences.Editor editor1 = add_more_product.edit();
                     editor1.putString("add_more_product", "fromAddMore");
                     editor1.apply();
-
-                    SharedPreferences grossamount = context.getSharedPreferences("grossamount",
-                            Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = grossamount.edit();
-                    editor.putString("grossamount", String.valueOf(grossAmount));
-                    editor.apply();
+//
+//                    SharedPreferences grossamount = context.getSharedPreferences("grossamount",
+//                            Context.MODE_PRIVATE);
+//                    SharedPreferences.Editor editor = grossamount.edit();
+//                    editor.putString("grossamount", String.valueOf(grossAmount));
+//                    editor.apply();
 //                    Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
+
+                    if (selectedProductsDataList.size() > 0) {
+                        for (int i = 0; i < selectedProductsDataList.size(); i++) {
+                            Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+                            Log.i("qty", selectedProductsDataListQty.get(i));
+                            if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsDataListQty.get(i).equals("")) {
+                                if (selectedProductsDataList.get(i).getDiscountAmount() != null) {
+                                    grossAmount += (Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) - Float.parseFloat(selectedProductsDataList.get(i).getDiscountAmount())) * Float.parseFloat(selectedProductsDataListQty.get(i));
+                                    discAmount += Float.parseFloat(selectedProductsDataList.get(i).getDiscountAmount()) * Float.parseFloat(selectedProductsDataListQty.get(i));
+                                } else
+                                    grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsDataListQty.get(i));
+                            }
+                        }
+
+                        float gstAmount = 0;
+                        float totalAmount = grossAmount + gstAmount;
+//        if (totalAmount <= 0) {
+//            btn_draft.setEnabled(false);
+//            btn_draft.setBackgroundResource(R.drawable.button_grey_round);
+//            btn_confirm.setEnabled(false);
+//            btn_confirm.setBackgroundResource(R.drawable.button_grey_round);
+//
+//        } else {
+//            btn_draft.setEnabled(true);
+//            btn_draft.setBackgroundResource(R.drawable.button_round);
+//            btn_confirm.setEnabled(true);
+//            btn_confirm.setBackgroundResource(R.drawable.button_round);
+//
+//        }
+//        float grossAmount = 0;
+//        if(selectedProductsDataList != null) {
+//            if (selectedProductsDataList.size() > 0) {
+//                for (int i = 0; i < selectedProductsDataList.size(); i++) {
+//                    Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+//                    Log.i("qty", selectedProductsQuantityList.get(i));
+//                    if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
+//                        grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
+//                }
+//            }
+//
+//        }
+
+//        gst_amount.setText(String.valueOf(gstAmount));
+//        total_amount.setText(String.valueOf(totalAmount));
+                        DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
+                        String yourFormattedString3 = formatter1.format(totalAmount);
+//        gst_amount.setText(String.valueOf(gstAmount));
+                        total_amount.setText(String.format(yourFormattedString3));
+
+                        yourFormattedString3 = formatter1.format(discAmount);
+//        gst_amount.setText(String.valueOf(gstAmount));
+                        discount_amount.setText(String.format(yourFormattedString3));
+
+
+                        SharedPreferences grossamount = context.getSharedPreferences("grossamount",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor_grossamount = grossamount.edit();
+                        editor_grossamount.putString("grossamount", String.valueOf(grossAmount));
+                        editor_grossamount.apply();
+                        grossAmount = 0;
+                        discAmount = 0;
+                    }
+
+
+
                     grossAmount = 0;
+                    discAmount = 0;
                     NonSwipeableViewPager viewPager = activity.findViewById(R.id.view_pager_rpoid);
                     viewPager.setCurrentItem(0);
 
@@ -602,22 +811,70 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
             for (int i = 0; i < selectedProductsDataList.size(); i++) {
                 Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
                 Log.i("qty", selectedProductsDataListQty.get(i));
-                if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsDataListQty.get(i).equals(""))
-                    grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsDataListQty.get(i));
+                if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsDataListQty.get(i).equals("")) {
+                    if (selectedProductsDataList.get(i).getDiscountAmount() != null) {
+                        grossAmount += (Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) - Float.parseFloat(selectedProductsDataList.get(i).getDiscountAmount())) * Float.parseFloat(selectedProductsDataListQty.get(i));
+                        discAmount += Float.parseFloat(selectedProductsDataList.get(i).getDiscountAmount()) * Float.parseFloat(selectedProductsDataListQty.get(i));
+                    } else
+                        grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsDataListQty.get(i));
+                }
             }
+
+            float gstAmount = 0;
+            float totalAmount = grossAmount + gstAmount;
+//        if (totalAmount <= 0) {
+//            btn_draft.setEnabled(false);
+//            btn_draft.setBackgroundResource(R.drawable.button_grey_round);
+//            btn_confirm.setEnabled(false);
+//            btn_confirm.setBackgroundResource(R.drawable.button_grey_round);
+//
+//        } else {
+//            btn_draft.setEnabled(true);
+//            btn_draft.setBackgroundResource(R.drawable.button_round);
+//            btn_confirm.setEnabled(true);
+//            btn_confirm.setBackgroundResource(R.drawable.button_round);
+//
+//        }
+//        float grossAmount = 0;
+//        if(selectedProductsDataList != null) {
+//            if (selectedProductsDataList.size() > 0) {
+//                for (int i = 0; i < selectedProductsDataList.size(); i++) {
+//                    Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+//                    Log.i("qty", selectedProductsQuantityList.get(i));
+//                    if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
+//                        grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
+//                }
+//            }
+//
+//        }
+
+//        gst_amount.setText(String.valueOf(gstAmount));
+//        total_amount.setText(String.valueOf(totalAmount));
+            DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
+            String yourFormattedString3 = formatter1.format(totalAmount);
+//        gst_amount.setText(String.valueOf(gstAmount));
+            total_amount.setText(String.format(yourFormattedString3));
+
+            yourFormattedString3 = formatter1.format(discAmount);
+//        gst_amount.setText(String.valueOf(gstAmount));
+            discount_amount.setText(String.format(yourFormattedString3));
+
+
             SharedPreferences grossamount = context.getSharedPreferences("grossamount",
                     Context.MODE_PRIVATE);
             SharedPreferences.Editor editor_grossamount = grossamount.edit();
             editor_grossamount.putString("grossamount", String.valueOf(grossAmount));
             editor_grossamount.apply();
             grossAmount = 0;
+            discAmount = 0;
         }
 
+
         Quantity = 0;
-        for(int i = 0; i < this.selectedProductsDataListQty.size(); i++) {
+        for (int i = 0; i < this.selectedProductsDataListQty.size(); i++) {
             Quantity = Quantity + Float.parseFloat(this.selectedProductsDataListQty.get(i));
         }
-        if(Quantity > 0) {
+        if (Quantity > 0) {
             enableCheckoutButton();
         } else {
             disableCheckoutButton();

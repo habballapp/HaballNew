@@ -290,15 +290,29 @@ public class Retailer_Order_Summary extends Fragment {
         });
 
 
-        qtyChanged();
-        new MyAsyncTask().execute();
+//        qtyChanged();
+//        new MyAsyncTask().execute();
+        SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
+                Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        object_string = selectedProducts.getString("selected_products", "");
+        object_stringqty = selectedProducts.getString("selected_products_qty", "");
+        Log.i("object_string", object_string);
+        Log.i("object_stringqty", object_stringqty);
+        Type type = new TypeToken<List<OrderChildlist_Model>>() {
+        }.getType();
+        Type typeQty = new TypeToken<List<String>>() {
+        }.getType();
+        selectedProductsDataList = gson.fromJson(object_string, type);
+        selectedProductsQuantityList = gson.fromJson(object_stringqty, typeQty);
+
 
         recyclerView1 = view.findViewById(R.id.rv_orders_summary);
         recyclerView1.setHasFixedSize(false);
         layoutManager1 = new LinearLayoutManager(getContext());
         recyclerView1.setLayoutManager(layoutManager1);
 
-        mAdapter1 = new Order_Summary_Adapter(getActivity(), getContext(), selectedProductsDataList, selectedProductsQuantityList, btn_confirm, btn_draft);
+        mAdapter1 = new Order_Summary_Adapter(getActivity(), getContext(), selectedProductsDataList, selectedProductsQuantityList, btn_confirm, btn_draft, total_amount, discount_amount);
         recyclerView1.setAdapter(mAdapter1);
         recyclerView1.setNestedScrollingEnabled(false);
 //

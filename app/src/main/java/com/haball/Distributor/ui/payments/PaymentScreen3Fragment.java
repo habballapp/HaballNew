@@ -401,8 +401,14 @@ public class PaymentScreen3Fragment extends Fragment {
 
                 JSONObject map = new JSONObject();
                 map.put("ActionValue", 0);
-                map.put("BankIMD", paymentsRequestList.getBankIMD());
-                map.put("CompanyCNIC", paymentsRequestList.getCompanyCNIC());
+                if (paymentsRequestList.getBankIMD() != null)
+                    map.put("BankIMD", paymentsRequestList.getBankIMD());
+                else
+                    map.put("BankIMD", "");
+                if (paymentsRequestList.getCompanyCNIC() != null)
+                    map.put("CompanyCNIC", paymentsRequestList.getCompanyCNIC());
+                else
+                    map.put("CompanyCNIC", "");
                 map.put("CompanyId", CompanyId);
                 map.put("CompanyName", CompanyName);
                 map.put("CreatedBy", paymentsRequestList.getCreatedBy());
@@ -422,7 +428,7 @@ public class PaymentScreen3Fragment extends Fragment {
                 map.put("State", paymentsRequestList.getState());
                 map.put("Status", 0);
                 map.put("employeesName", paymentsRequestList.getEmployeesName());
-                map.put("PaidAmount" ,txt_amount.getText().toString());
+                map.put("PaidAmount", txt_amount.getText().toString());
                 Log.i("UpdatePaymentsss", String.valueOf(map));
 
                 JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PAYMENT_REQUESTS_SAVE, map, new Response.Listener<JSONObject>() {
