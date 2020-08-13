@@ -39,6 +39,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.JsonArray;
 import com.haball.Distribution_Login.Distribution_Login;
 import com.haball.Distributor.DistributorOrdersAdapter;
 import com.haball.Distributor.DistributorOrdersModel;
@@ -95,7 +96,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private RecyclerView.LayoutManager layoutManager;
     private String URL_DISTRIBUTOR_DASHBOARD = "http://175.107.203.97:4013/api/dashboard/ReadDistributorDashboard";
     //    private String URL_DISTRIBUTOR_PAYMENTS = "http://175.107.203.97:4013/api/dashboard/ReadDistributorPayments";
-    private String URL_DISTRIBUTOR_PAYMENTS = "http://175.107.203.97:4013/api/prepaidrequests/search";
+    private String URL_DISTRIBUTOR_PAYMENTS = "http://175.107.203.97:4013/api/prepaidrequests/searchall";
     private String URL_DISTRIBUTOR_PAYMENTS_COUNT = "http://175.107.203.97:4013/api/prepaidrequests/searchCount";
     private String URL_DISTRIBUTOR_ORDERS = "http://175.107.203.97:4013/api/orders/search";
     private String URL_DISTRIBUTOR_ORDERS_COUNT = "http://175.107.203.97:4013/api/orders/searchCount";
@@ -675,7 +676,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             @Override
             public void onResponse(JSONArray result) {
                 loader.hideLoader();
-//                Log.i("Payments Requests", result.toString());
+                Log.i("Payments all", result.toString());
 //                btn_load_more.setVisibility(View.GONE);
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
@@ -1792,7 +1793,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
     private void fetchPaymentRequests() throws JSONException {
         Log.i("PaymentDebug", "In Main");
-        loader.showLoader();
+//        loader.showLoader();
         tv_shipment_no_data1.setVisibility(View.GONE);
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
@@ -1805,43 +1806,37 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         DistributorId = sharedPreferences1.getString("Distributor_Id", "-1");
 //        Log.i("DistributorId ", DistributorId);
 
-        JSONObject mapCount = new JSONObject();
-        mapCount.put("Status", -1);
-        mapCount.put("DistributorId", Integer.parseInt(DistributorId));
-
-        JsonObjectRequest countRequest = new JsonObjectRequest(Request.Method.POST, URL_DISTRIBUTOR_PAYMENTS_COUNT, mapCount, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.i("payment_all", String.valueOf(response));
-                try {
-                    totalEntries = Double.parseDouble(String.valueOf(response.get("prepaidrequestsCount")));
-                    totalPages = Math.ceil(totalEntries / 10);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                new HaballError().printErrorMessage(getContext(), error);
-                new ProcessingError().showError(getContext());
-
-                error.printStackTrace();
-//                Log.i("onErrorResponse", "Error");
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer " + Token);
-                return params;
-            }
-        };
-        countRequest.setRetryPolicy(new DefaultRetryPolicy(
-                15000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext()).add(countRequest);
+//        JSONObject mapCount = new JSONObject();
+//        mapCount.put("Status", -1);
+//        mapCount.put("DistributorId", Integer.parseInt(DistributorId));
+//
+//        JsonObjectRequest countRequest = new JsonObjectRequest(Request.Method.POST, URL_DISTRIBUTOR_PAYMENTS_COUNT, mapCount, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                Log.i("payment_all", String.valueOf(response));
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                new HaballError().printErrorMessage(getContext(), error);
+//                new ProcessingError().showError(getContext());
+//
+//                error.printStackTrace();
+////                Log.i("onErrorResponse", "Error");
+//            }
+//        }) {
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                Map<String, String> params = new HashMap<String, String>();
+//                params.put("Authorization", "bearer " + Token);
+//                return params;
+//            }
+//        };
+//        countRequest.setRetryPolicy(new DefaultRetryPolicy(
+//                15000,
+//                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+//                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+//        Volley.newRequestQueue(getContext()).add(countRequest);
 
         JSONObject map = new JSONObject();
         map.put("DistributorId", Integer.parseInt(DistributorId));
@@ -1849,33 +1844,41 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         map.put("PageNumber", 0.1);
 
 
-
-
-
-        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_PAYMENTS, map, new Response.Listener<JSONArray>() {
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_DISTRIBUTOR_PAYMENTS, map, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
-            public void onResponse(JSONArray result) {
-                Log.i("payment_all", String.valueOf(result));
+            public void onResponse(JSONObject result) {
                 loader.hideLoader();
-                if (result.length() != 0) {
 
-//                    Log.i("Payments Requests", result.toString());
-                    Gson gson = new Gson();
-                    Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
-                    }.getType();
-                    PaymentsRequestList = gson.fromJson(result.toString(), type);
+                try {
+                    totalEntries = Double.parseDouble(String.valueOf(result.get("RecordCount")));
+                    totalPages = Math.ceil(totalEntries / 10);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-                    mAdapter = new DistributorPaymentRequestAdaptor(getActivity(), getContext(), PaymentsRequestList);
-                    recyclerView.setAdapter(mAdapter);
+                Log.i("Payments all1", result.toString());
+                JSONArray jsonArray = null;
+                try {
+                    jsonArray = new JSONArray(result.getString("PrePaidRequestData"));
+                    Log.i("jsonArray", String.valueOf(jsonArray));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
+                }.getType();
+                Gson gson = new Gson();
+                PaymentsRequestList = gson.fromJson(jsonArray.toString(), type);
+
+                mAdapter = new DistributorPaymentRequestAdaptor(getActivity(), getContext(), PaymentsRequestList);
+                recyclerView.setAdapter(mAdapter);
+                if (PaymentsRequestList.size() != 0) {
                     tv_shipment_no_data1.setVisibility(View.GONE);
-
                     spinner_container.setVisibility(View.VISIBLE);
                 } else {
                     tv_shipment_no_data1.setVisibility(View.VISIBLE);
+                    spinner_container.setVisibility(View.GONE);
                 }
-
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -1965,23 +1968,32 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
         Log.i("Map123", String.valueOf(map));
 
-        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_PAYMENTS, map, new Response.Listener<JSONArray>() {
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_DISTRIBUTOR_PAYMENTS, map, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
-            public void onResponse(JSONArray result) {
+            public void onResponse(JSONObject result) {
                 loader.hideLoader();
-                Log.i("Payments Requests11", result.toString());
-                Gson gson = new Gson();
+                Log.i("Payments all1", result.toString());
+                JSONArray jsonArray = null;
+                try {
+                    jsonArray = new JSONArray(result.getString("PrePaidRequestData"));
+                    Log.i("jsonArray", String.valueOf(jsonArray));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
                 }.getType();
-                PaymentsRequestList = gson.fromJson(result.toString(), type);
+                Gson gson = new Gson();
+                PaymentsRequestList = gson.fromJson(jsonArray.toString(), type);
 
                 mAdapter = new DistributorPaymentRequestAdaptor(getActivity(), getContext(), PaymentsRequestList);
                 recyclerView.setAdapter(mAdapter);
-                if (result.length() != 0) {
+                if (PaymentsRequestList.size() != 0) {
                     tv_shipment_no_data1.setVisibility(View.GONE);
+                    spinner_container.setVisibility(View.VISIBLE);
                 } else {
                     tv_shipment_no_data1.setVisibility(View.VISIBLE);
+                    spinner_container.setVisibility(View.GONE);
                 }
             }
         }, new Response.ErrorListener() {

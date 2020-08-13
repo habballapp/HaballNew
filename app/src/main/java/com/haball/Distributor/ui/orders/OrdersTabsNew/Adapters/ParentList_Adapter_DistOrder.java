@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -133,6 +134,26 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
     @Override
     public void onBindParentViewHolder(@NonNull final OrderParentList_VH_DistOrder OrderParentList_VH_DistOrder, final int position, @NonNull OrderParentlist_Model_DistOrder o) {
 //    public void onBindParentViewHolder(final OrderParentList_VH_DistOrder OrderParentList_VH_DistOrder, final int position, OrderParentlist_Model_DistOrder o) {
+//        if (parentItemList.size() >= 10) {
+//
+//            if (position == (parentItemList.size() - 1)) {
+////                Toast.makeText(context, "parentItemsss"+parentItemList, Toast.LENGTH_SHORT).show();
+////                Toast.makeText(context, "parentItemsss"+position, Toast.LENGTH_SHORT).show();
+//
+////        if (position == 2) {
+//                //Log.i("DebugSupportFilter_In", parentItemList.get(position).getId());
+//                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+//                        RelativeLayout.LayoutParams.WRAP_CONTENT,
+//                        RelativeLayout.LayoutParams.WRAP_CONTENT
+//                );
+//                params.setMargins(0, 20, 0, 580);
+//                OrderParentList_VH_DistOrder.rl_orderName_retailer1.setLayoutParams(params);
+//            }
+////
+//        } else {
+//
+////            OrderParentList_VH_DistOrder.rl_orderName_retailer1.setVisibility(View.GONE);
+//        }
         Log.i("debugOrder_object", String.valueOf(position));
         Log.i("debugOrder_object1", String.valueOf(OrderParentList_VH_DistOrder.getPosition()));
         final OrderParentlist_Model_DistOrder OrderParentlist_Model_DistOrder = (OrderParentlist_Model_DistOrder) o;
@@ -213,6 +234,7 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 Log.i("order_place_debug", String.valueOf(keyCode));
                 Log.i("order_place_debug123123", String.valueOf(KeyEvent.KEYCODE_BACK));
+                Toast.makeText(context, "clicked", Toast.LENGTH_SHORT).show();
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
 //                        fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace()).addToBackStack("null");
@@ -300,9 +322,9 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
 ////                                new CustomToast().showToast(((FragmentActivity) context), "Products from " + selectedProductsDataList.get(0).getCategoryTitle() + " is selected. Can't select products from other categories.");
 //                            }
 //                        } else {
-                            selectedProductsDataList.add(OrderChildlist_Model_DistOrder);
-                            selectedProductsQuantityList.add(String.valueOf(holder.list_numberOFitems.getText()));
-                            selectedProductsCategoryList.add(Category_selected);
+                        selectedProductsDataList.add(OrderChildlist_Model_DistOrder);
+                        selectedProductsQuantityList.add(String.valueOf(holder.list_numberOFitems.getText()));
+                        selectedProductsCategoryList.add(Category_selected);
 //                        }
                     }
             }

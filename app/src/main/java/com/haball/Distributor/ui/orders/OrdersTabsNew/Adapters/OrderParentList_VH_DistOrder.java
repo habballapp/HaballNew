@@ -22,6 +22,7 @@ public class OrderParentList_VH_DistOrder extends ParentViewHolder {
     public RelativeLayout rl_parentList;
     private RelativeLayout filter_layout;
     public LinearLayout plus_icon_ll;
+    public RelativeLayout rl_orderName_retailer1;
 
 
     public OrderParentList_VH_DistOrder(View itemView, RelativeLayout filter_layout) {
@@ -35,11 +36,13 @@ public class OrderParentList_VH_DistOrder extends ParentViewHolder {
         rl_parentList = itemView.findViewById(R.id.rl_parentList);
         plus_icon_ll = itemView.findViewById(R.id.plus_icon_ll);
         minus_icon.setVisibility(View.GONE);
+//        rl_orderName_retailer1 = itemView.findViewById(R.id.rl_orderName_retailer1);
         this.filter_layout = filter_layout;
         View.OnClickListener plusMinusOnClick = new View.OnClickListener() {
             @Override
             public void onClick(View itemView) {
                 togglePlusMinusIcon();
+
             }
         };
 //        _textview.setOnClickListener(plusMinusOnClick);
@@ -51,10 +54,7 @@ public class OrderParentList_VH_DistOrder extends ParentViewHolder {
 
 
     private void togglePlusMinusIcon() {
-
-
         if (filter_layout.getVisibility() == View.GONE) {
-
             filter_layout.setVisibility(View.VISIBLE);
             TranslateAnimation animate1 = new TranslateAnimation(
                     0,                 // fromXDelta
@@ -74,6 +74,7 @@ public class OrderParentList_VH_DistOrder extends ParentViewHolder {
             expandView();
             imageView.setVisibility(View.GONE);
             minus_icon.setVisibility(View.VISIBLE);
+//
         }
 
     }

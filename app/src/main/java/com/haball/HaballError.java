@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -39,35 +40,36 @@ public class HaballError {
 //            printAdvancedErrorInfo(context, error);
             if (error != null && error.networkResponse != null)
                 if (error.networkResponse.statusCode == 498) {
-                    String message = "";
-                    String responseBody = "";
-                    try {
-                        responseBody = new String(error.networkResponse.data, "utf-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        JSONObject data = new JSONObject(responseBody);
-                        if (data.getString("name").equals("TokenExpiredError")) {
-                            Log.i("Logout", "Logout Activity");
-                            SharedPreferences login_token = context.getSharedPreferences("LoginToken",
-                                    Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = login_token.edit();
-                            editor.remove("Login_Token");
-                            editor.remove("User_Type");
-                            editor.remove("Retailer_Id");
-                            editor.remove("username");
-                            editor.remove("CompanyName");
-                            editor.remove("UserId");
-                            editor.commit();
+//                    String message = "";
+//                    String responseBody = "";
+//                    try {
+//                        responseBody = new String(error.networkResponse.data, "utf-8");
+//                    } catch (UnsupportedEncodingException e) {
+//                        e.printStackTrace();
+//                    }
+//                    try {
+//                        JSONObject data = new JSONObject(responseBody);
+//                        if (data.getString("name").equals("TokenExpiredError")) {
+                    new CustomToast().showToast(((FragmentActivity) context), "Session has been expired");
+                    Log.i("Logout", "Logout Activity");
+                    SharedPreferences login_token = context.getSharedPreferences("LoginToken",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = login_token.edit();
+                    editor.remove("Login_Token");
+                    editor.remove("User_Type");
+                    editor.remove("Retailer_Id");
+                    editor.remove("username");
+                    editor.remove("CompanyName");
+                    editor.remove("UserId");
+                    editor.commit();
 
-                            Intent intent = new Intent((FragmentActivity) context, Register_Activity.class);
-                            ((FragmentActivity) context).startActivity(intent);
-                            ((FragmentActivity) context).finish();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    Intent intent = new Intent((FragmentActivity) context, Register_Activity.class);
+                    ((FragmentActivity) context).startActivity(intent);
+                    ((FragmentActivity) context).finish();
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
                 }
             Toast.makeText(context, String.valueOf(error), Toast.LENGTH_LONG).show();
         }

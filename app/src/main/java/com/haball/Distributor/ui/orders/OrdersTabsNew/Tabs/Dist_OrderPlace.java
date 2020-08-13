@@ -554,6 +554,7 @@ public class Dist_OrderPlace extends Fragment {
                     y = 0;
                     if (spinner_container_main.getVisibility() == View.VISIBLE) {
 //                                line_bottom.setVisibility(View.INVISIBLE);
+                        //spinner_container_main.setVisibility(View.VISIBLE);
                         TranslateAnimation animate = new TranslateAnimation(
                                 0,                 // fromXDelta
                                 0,                 // toXDelta

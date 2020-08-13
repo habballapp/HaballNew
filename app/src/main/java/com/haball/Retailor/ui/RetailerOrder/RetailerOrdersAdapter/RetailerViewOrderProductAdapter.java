@@ -72,7 +72,6 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
 
         holder.product_code.setText("Product Code:\u00A0");
         SpannableString ss1 = new SpannableString(OrdersList.get(position).getProductCode());
-        SpannableString ss1_temp = new SpannableString("");
         ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
         holder.product_code.append(ss1);
 
@@ -82,20 +81,20 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
 //        Log.i("height_debug", String.valueOf(holder.product_code.getMeasuredHeight()));
 
 
-        Log.i("height_debug_prevLine", String.valueOf(prevLineCount));
-        holder.product_code.append(ss1);
-        if (holder.product_code.getLayout() == null) {
-            holder.product_code.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-                @Override
-                public boolean onPreDraw() {
-                    prevLineCount = holder.product_code.getLineCount();
-                    holder.product_code.getViewTreeObserver().removeOnPreDrawListener(this);
-                    return true;
-                }
-            });
-        } else {
-            prevLineCount = holder.product_code.getLineCount();
-        }
+//        Log.i("height_debug_prevLine", String.valueOf(prevLineCount));
+//        holder.product_code.append(ss1);
+//        if (holder.product_code.getLayout() == null) {
+//            holder.product_code.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+//                @Override
+//                public boolean onPreDraw() {
+//                    prevLineCount = holder.product_code.getLineCount();
+//                    holder.product_code.getViewTreeObserver().removeOnPreDrawListener(this);
+//                    return true;
+//                }
+//            });
+//        } else {
+//            prevLineCount = holder.product_code.getLineCount();
+//        }
         Log.i("height_debug_prevLine", String.valueOf(prevLineCount));
 
         holder.product_code.append("\n");
@@ -114,20 +113,20 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
 //            }
 //        });
 
-        Log.i("height_debug_prevLine", String.valueOf(prevLineCount));
-        holder.product_code.append(ss1);
-        if (holder.product_code.getLayout() == null) {
-            holder.product_code.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-                @Override
-                public boolean onPreDraw() {
-                    prevLineCount = holder.product_code.getLineCount();
-                    holder.product_code.getViewTreeObserver().removeOnPreDrawListener(this);
-                    return true;
-                }
-            });
-        } else {
-            prevLineCount = holder.product_code.getLineCount();
-        }
+//        Log.i("height_debug_prevLine", String.valueOf(prevLineCount));
+//        holder.product_code.append(ss1);
+//        if (holder.product_code.getLayout() == null) {
+//            holder.product_code.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+//                @Override
+//                public boolean onPreDraw() {
+//                    prevLineCount = holder.product_code.getLineCount();
+//                    holder.product_code.getViewTreeObserver().removeOnPreDrawListener(this);
+//                    return true;
+//                }
+//            });
+//        } else {
+//            prevLineCount = holder.product_code.getLineCount();
+//        }
         Log.i("height_debug_prevLine", String.valueOf(prevLineCount));
 
 
@@ -145,7 +144,7 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
 //        Log.i("height_debug_newLine", String.valueOf(holder.product_code.getLineCount()));
 
 
-        ss1_temp = new SpannableString(holder.product_code.getText());
+//        ss1_temp = new SpannableString(holder.product_code.getText());
 
 //        holder.product_code.measure(0, 0);
 //        holder.product_code.onPreDraw();
@@ -156,45 +155,45 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
 //        prevLineCount = holder.product_code.getLineCount() * holder.product_code.getLineHeight();
 //        Log.i("height_debug_prevLine", String.valueOf(prevLineCount));
 
-        Log.i("height_debug_prevLine", String.valueOf(prevLineCount));
-        holder.product_code.append(ss1);
-        if (holder.product_code.getLayout() == null) {
-            holder.product_code.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-                @Override
-                public boolean onPreDraw() {
-                    prevLineCount = holder.product_code.getLineCount();
-                    holder.product_code.getViewTreeObserver().removeOnPreDrawListener(this);
-                    return true;
-                }
-            });
-        } else {
-            prevLineCount = holder.product_code.getLineCount();
-        }
+//        Log.i("height_debug_prevLine", String.valueOf(prevLineCount));
+//        holder.product_code.append(ss1);
+//        if (holder.product_code.getLayout() == null) {
+//            holder.product_code.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+//                @Override
+//                public boolean onPreDraw() {
+//                    prevLineCount = holder.product_code.getLineCount();
+//                    holder.product_code.getViewTreeObserver().removeOnPreDrawListener(this);
+//                    return true;
+//                }
+//            });
+//        } else {
+//            prevLineCount = holder.product_code.getLineCount();
+//        }
         Log.i("height_debug_prevLine", String.valueOf(prevLineCount));
 
         if (OrdersList.get(position).getUOMTitle() != null && !OrdersList.get(position).getUOMTitle().equals("null")) {
-            holder.product_code.append("         ");
-            holder.product_code.append("         ");
+            holder.product_code.append("            ");
+            holder.product_code.append("            ");
 
             holder.product_code.append("UOM:\u00A0");
 
             ss1 = new SpannableString(OrdersList.get(position).getUOMTitle());
             ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
-
-            Log.i("height_debug_prevLine", String.valueOf(prevLineCount));
-            holder.product_code.append(ss1);
-            if (holder.product_code.getLayout() == null) {
-                holder.product_code.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-                    @Override
-                    public boolean onPreDraw() {
-                        prevLineCount = holder.product_code.getLineCount();
-                        holder.product_code.getViewTreeObserver().removeOnPreDrawListener(this);
-                        return true;
-                    }
-                });
-            } else {
-                prevLineCount = holder.product_code.getLineCount();
-            }
+//
+//            Log.i("height_debug_prevLine", String.valueOf(prevLineCount));
+//            holder.product_code.append(ss1);
+//            if (holder.product_code.getLayout() == null) {
+//                holder.product_code.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+//                    @Override
+//                    public boolean onPreDraw() {
+//                        prevLineCount = holder.product_code.getLineCount();
+//                        holder.product_code.getViewTreeObserver().removeOnPreDrawListener(this);
+//                        return true;
+//                    }
+//                });
+//            } else {
+//                prevLineCount = holder.product_code.getLineCount();
+//            }
             Log.i("height_debug_prevLine", String.valueOf(prevLineCount));
 //
 ////            holder.product_code.invalidate();
@@ -217,14 +216,14 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
 //            }
         }
 //
-        ss1_temp = new SpannableString(holder.product_code.getText());
+//        ss1_temp = new SpannableString(holder.product_code.getText());
 
         holder.product_code.measure(0, 0);
         prevLineCount = holder.product_code.getLineCount();
 
         if (!OrdersList.get(position).getDiscount().equals("0") && !OrdersList.get(position).getDiscount().equals("") && !OrdersList.get(position).getDiscount().equals("null")) {
-            holder.product_code.append("         ");
-            holder.product_code.append("         ");
+            holder.product_code.append("            ");
+            holder.product_code.append("            ");
 
             holder.product_code.append("Disc:\u00A0");
 
@@ -236,8 +235,8 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
             holder.product_code.append(ss1);
 
         }
-        holder.product_code.append("         ");
-        holder.product_code.append("         ");
+        holder.product_code.append("            ");
+        holder.product_code.append("            ");
 
         holder.product_code.append("Qty:\u00A0");
 
@@ -245,8 +244,8 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
         ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
         holder.product_code.append(ss1);
 
-        holder.product_code.append("         ");
-        holder.product_code.append("         ");
+        holder.product_code.append("            ");
+        holder.product_code.append("            ");
 
         if (!OrdersList.get(position).getTaxValue().equals("0") && !OrdersList.get(position).getTaxValue().equals("") && !OrdersList.get(position).getTaxValue().equals("null")) {
 
@@ -259,8 +258,8 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
             ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
             holder.product_code.append(ss1);
 
-            holder.product_code.append("         ");
-            holder.product_code.append("         ");
+            holder.product_code.append("            ");
+            holder.product_code.append("            ");
         }
         holder.product_code.append("Amount:\u00A0");
 
