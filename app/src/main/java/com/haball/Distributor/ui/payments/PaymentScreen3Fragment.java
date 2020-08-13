@@ -409,34 +409,85 @@ public class PaymentScreen3Fragment extends Fragment {
                     map.put("CompanyCNIC", paymentsRequestList.getCompanyCNIC());
                 else
                     map.put("CompanyCNIC", "");
-                map.put("CompanyId", CompanyId);
-                map.put("CompanyName", CompanyName);
-                map.put("CreatedBy", paymentsRequestList.getCreatedBy());
-                map.put("CreatedDate", paymentsRequestList.getCreatedDate());
-                map.put("DistributorCNIC", paymentsRequestList.getDistributorCNIC());
-                map.put("DistributorId", paymentsRequestList.getDistributorId());
-                map.put("DistributorName", paymentsRequestList.getDistributorName());
+                if (paymentsRequestList.getCompanyId() != null)
+                    map.put("CompanyId", paymentsRequestList.getCompanyId());
+                else
+                    map.put("CompanyId", "");
+                if (paymentsRequestList.getCompanyName() != null)
+                    map.put("CompanyName", paymentsRequestList.getCompanyName());
+                else
+                    map.put("CompanyName", "");
+                if (paymentsRequestList.getCreatedBy() != null)
+                    map.put("CreatedBy", paymentsRequestList.getCreatedBy());
+                else
+                    map.put("CreatedBy", "");
+                if (paymentsRequestList.getCreatedDate() != null)
+                    map.put("CreatedDate", paymentsRequestList.getCreatedDate());
+                else
+                    map.put("CreatedDate", "");
+                if (paymentsRequestList.getDistributorCNIC() != null)
+                    map.put("DistributorCNIC", paymentsRequestList.getDistributorCNIC());
+                else
+                    map.put("DistributorCNIC", "");
+                if (paymentsRequestList.getDistributorId() != null)
+                    map.put("DistributorId", paymentsRequestList.getDistributorId());
+                else
+                    map.put("DistributorId", "");
+                if (paymentsRequestList.getDistributorName() != null)
+                    map.put("DistributorName", paymentsRequestList.getDistributorName());
+                else
+                    map.put("DistributorName", "");
+                if (paymentsRequestList.getIsTransmitted() != null)
+                    map.put("IsTransmitted", paymentsRequestList.getIsTransmitted());
+                else
+                    map.put("IsTransmitted", "");
+
                 map.put("ID", PrePaidId);
-                map.put("IsTransmitted", paymentsRequestList.getIsTransmitted());
-                map.put("LastChangedBy", paymentsRequestList.getLastChangedBy());
-                map.put("LastChangedDate", paymentsRequestList.getLastChangedDate());
-                map.put("PaidAmount", paymentsRequestList.getPaidAmount());
-                map.put("PaidDate", paymentsRequestList.getPaidDate());
+                if (paymentsRequestList.getLastChangedBy() != null)
+                    map.put("LastChangedBy", paymentsRequestList.getLastChangedBy());
+                else
+                    map.put("LastChangedBy", "");
+                if (paymentsRequestList.getLastChangedDate() != null)
+                    map.put("LastChangedDate", paymentsRequestList.getLastChangedDate());
+                else
+                    map.put("LastChangedDate", "");
+                if (paymentsRequestList.getPaidAmount() != null)
+                    map.put("PaidAmount", paymentsRequestList.getPaidAmount());
+                else
+                    map.put("PaidAmount", "");
+                if (paymentsRequestList.getPaidDate() != null)
+                    map.put("PaidDate", paymentsRequestList.getPaidDate());
+                else
+                    map.put("PaidDate", "");
+                if (paymentsRequestList.getPrepaidStatusValue() != null)
+                    map.put("PrepaidStatusValue", paymentsRequestList.getPrepaidStatusValue());
+                else
+                    map.put("PrepaidStatusValue", "");
+                if (paymentsRequestList.getReferenceID() != null)
+                    map.put("ReferenceID", paymentsRequestList.getReferenceID());
+                else
+                    map.put("ReferenceID", "");
+
                 map.put("PrePaidNumber", PrePaidNumber);
-                map.put("PrepaidStatusValue", paymentsRequestList.getPrepaidStatusValue());
-                map.put("ReferenceID", paymentsRequestList.getReferenceID());
-                map.put("State", paymentsRequestList.getState());
+
+                if (paymentsRequestList.getState() != null)
+                    map.put("State", paymentsRequestList.getState());
+                else
+                    map.put("State", "");
+                if (paymentsRequestList.getEmployeesName() != null)
+                    map.put("employeesName", paymentsRequestList.getEmployeesName());
+                else
+                    map.put("employeesName", "");
                 map.put("Status", 0);
-                map.put("employeesName", paymentsRequestList.getEmployeesName());
                 map.put("PaidAmount", txt_amount.getText().toString());
                 Log.i("UpdatePaymentsss", String.valueOf(map));
 
                 JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PAYMENT_REQUESTS_SAVE, map, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject result) {
+                        Log.i("save_Data", String.valueOf(result));
                         loader.hideLoader();
                         try {
-                            Log.i("Response PR", result.toString());
                             prepaid_id = result.getString("ID");
                         } catch (JSONException e) {
                             Log.i("Response PR", e.toString());

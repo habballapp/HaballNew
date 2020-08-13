@@ -1597,4 +1597,5 @@ public class Dist_OrderPlace extends Fragment {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
     }
+
 }

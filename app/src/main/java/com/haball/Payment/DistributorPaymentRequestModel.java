@@ -23,6 +23,9 @@ public class DistributorPaymentRequestModel {
     private String Status;
     private String employeesName;
 
+    public DistributorPaymentRequestModel() {
+    }
+
     public DistributorPaymentRequestModel(String bankIMD, String companyCNIC, String companyId, String companyName, String createdBy, String createdDate, String distributorCNIC, String distributorId, String distributorName, String ID, String isTransmitted, String lastChangedBy, String lastChangedDate, String paidAmount, String paidDate, String prePaidNumber, String prepaidStatusValue, String referenceID, String state, String status, String employeesName) {
         BankIMD = bankIMD;
         CompanyCNIC = companyCNIC;
