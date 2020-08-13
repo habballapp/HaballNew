@@ -84,7 +84,7 @@ public class Dist_Order_Summary extends Fragment {
     private RecyclerView recyclerView1;
     private List<OrderChildlist_Model_DistOrder> selectedProductsDataList = new ArrayList<>();
     private List<String> selectedProductsQuantityList = new ArrayList<>();
-    private String object_string, object_stringqty, Token, DistributorId, CompanyId, DealerCode;
+    private String object_string, object_stringqty, Token, DistributorId, CompanyId, ID, DealerCode;
     private String URL_CONFIRM_ORDERS = "http://175.107.203.97:4013/api/Orders/save";
     private String URL_SAVE_TEMPLATE = "http://175.107.203.97:4013/api/ordertemplate/save";
     private String URL_SAVE_DRAFT = "http://175.107.203.97:4013/api/Orders/savedraft";
@@ -95,7 +95,7 @@ public class Dist_Order_Summary extends Fragment {
     private List<OrderChildlist_Model_DistOrder> temp_list = new ArrayList<>();
     private List<String> temp_listqty = new ArrayList<>();
     private Loader loader;
-    String current_balance;
+//    String current_balance;
     String yourFormattedString3;
 
     @Override
@@ -119,9 +119,9 @@ public class Dist_Order_Summary extends Fragment {
         SharedPreferences.Editor editor1 = add_more_product.edit();
         editor1.putString("add_more_product", "");
         editor1.apply();
-        SharedPreferences tabsFromDraft = getContext().getSharedPreferences("currentBalance",
-                Context.MODE_PRIVATE);
-        current_balance = tabsFromDraft.getString("current_balance" ,"");
+//        SharedPreferences tabsFromDraft = getContext().getSharedPreferences("currentBalance",
+//                Context.MODE_PRIVATE);
+//        current_balance = tabsFromDraft.getString("current_balance" ,"");
 
         loader = new Loader(getContext());
 
@@ -360,6 +360,7 @@ public class Dist_Order_Summary extends Fragment {
         SharedPreferences sharedPreferences2 = this.getActivity().getSharedPreferences("CompanyInfo",
                 Context.MODE_PRIVATE);
         CompanyId = sharedPreferences2.getString("CompanyId", "");
+        ID = sharedPreferences2.getString("ID", "0");
 
         JSONArray jsonArray = new JSONArray();
         for (int i = 0; i < selectedProductsDataList.size(); i++) {
@@ -367,7 +368,7 @@ public class Dist_Order_Summary extends Fragment {
 
             if (!selectedProductsQuantityList.get(i).equals("0") && !selectedProductsQuantityList.get(i).equals("")) {
                 float tempAmount = Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice());
-                if (selectedProductsDataList.get(i).getDiscountAmount() != null)
+                if (selectedProductsDataList.get(i).getDiscountValue() != null)
                     tempAmount = Float.parseFloat(selectedProductsDataList.get(i).getDiscountAmount());
                 tempAmount *= Float.parseFloat(selectedProductsQuantityList.get(i));
 
@@ -395,7 +396,7 @@ public class Dist_Order_Summary extends Fragment {
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("DiscountAmount", 0);
-        jsonObject.put("ID", 0);
+        jsonObject.put("ID", ID);
         jsonObject.put("Status", 0);
         jsonObject.put("OrderDetails", jsonArray);
         jsonObject.put("CompanyId", CompanyId);
@@ -466,6 +467,12 @@ public class Dist_Order_Summary extends Fragment {
 //                        fragmentTransaction.replace(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
 //                        fragmentTransaction.commit();
 
+                        SharedPreferences orderCheckout = getContext().getSharedPreferences("orderCheckout",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor orderCheckout_editor = orderCheckout.edit();
+                        orderCheckout_editor.putString("orderCheckout", "");
+                        orderCheckout_editor.apply();
+
                         SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
                                 Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = grossamount.edit();
@@ -494,6 +501,7 @@ public class Dist_Order_Summary extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
+
                 if (error.networkResponse.statusCode == 405) {
                     String messageMain = "";
                     NetworkResponse response = error.networkResponse;
@@ -527,7 +535,8 @@ public class Dist_Order_Summary extends Fragment {
                     txt_header1.setText("Alert");
                     txt_header1.setTextColor(getContext().getResources().getColor(R.color.error_stroke_color));
                     txt_header1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.border_set_error));
-                    tv_pr1.setText("Sorry, your order cannot be processed as your available balance is PKR. "+current_balance+ " only");
+//                    tv_pr1.setText("Sorry, your order cannot be processed as your available balance is PKR. "+current_balance+ " only");
+                    tv_pr1.setText("Sorry, your order cannot be processed due to insufficient ledger balance.");
                     fbDialogue.setCancelable(true);
                     fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
                     WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
@@ -764,6 +773,7 @@ public class Dist_Order_Summary extends Fragment {
         SharedPreferences sharedPreferences2 = this.getActivity().getSharedPreferences("CompanyInfo",
                 Context.MODE_PRIVATE);
         CompanyId = sharedPreferences2.getString("CompanyId", "");
+        ID = sharedPreferences2.getString("ID", "0");
 
         JSONArray jsonArray = new JSONArray();
         for (int i = 0; i < selectedProductsDataList.size(); i++) {
@@ -799,7 +809,7 @@ public class Dist_Order_Summary extends Fragment {
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("DiscountAmount", 0);
-        jsonObject.put("ID", 0);
+        jsonObject.put("ID", ID);
         jsonObject.put("Status", 3);
         jsonObject.put("OrderDetails", jsonArray);
         jsonObject.put("CompanyId", CompanyId);
@@ -837,6 +847,13 @@ public class Dist_Order_Summary extends Fragment {
                 SharedPreferences.Editor editor = grossamount.edit();
                 editor.clear();
                 editor.apply();
+
+                SharedPreferences orderCheckout = getContext().getSharedPreferences("orderCheckout",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor orderCheckout_editor = orderCheckout.edit();
+                orderCheckout_editor.putString("orderCheckout", "");
+                orderCheckout_editor.apply();
+
                 SharedPreferences selectedProducts_distributor = getContext().getSharedPreferences("selectedProducts_distributor",
                         Context.MODE_PRIVATE);
                 SharedPreferences.Editor selectedProducts_distributor_editor = selectedProducts_distributor.edit();
@@ -882,6 +899,12 @@ public class Dist_Order_Summary extends Fragment {
 //                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                        fragmentTransaction.replace(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
 //                        fragmentTransaction.commit();
+
+                        SharedPreferences orderCheckout = getContext().getSharedPreferences("orderCheckout",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor orderCheckout_editor = orderCheckout.edit();
+                        orderCheckout_editor.putString("orderCheckout", "");
+                        orderCheckout_editor.apply();
 
                         SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
                                 Context.MODE_PRIVATE);
@@ -941,10 +964,11 @@ public class Dist_Order_Summary extends Fragment {
     }
 
     private void refreshRetailerInfo() {
-        SharedPreferences retailerInfo = getContext().getSharedPreferences("RetailerInfo",
+        SharedPreferences retailerInfo = getContext().getSharedPreferences("CompanyInfo",
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = retailerInfo.edit();
-        editor.putString("RetailerID", "");
+        editor.putString("CompanyId", "");
+        editor.putString("ID", "0");
         editor.apply();
 
 //        fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();

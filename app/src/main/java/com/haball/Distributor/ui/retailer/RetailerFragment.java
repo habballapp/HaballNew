@@ -314,6 +314,11 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
                 first_date.setText("DD/MM/YYYY");
                 second_date.setText("DD/MM/YYYY");
 
+                try {
+                    fetchRetailer();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 if (i == 0) {
                     try {
@@ -323,11 +328,6 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
                         ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
-                    }
-                    try {
-                        fetchRetailer();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
                 } else {
                     try {
@@ -395,6 +395,7 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
         arrayAdapterPayments.notifyDataSetChanged();
         spinner_consolidate.setAdapter(arrayAdapterPayments);
 
+        filters = new ArrayList<>();
         filters.add("Status");
         filters.add("Disconnected");
         filters.add("Connected");
@@ -545,19 +546,20 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
         conso_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-
-                Filter_selected_value = String.valueOf(conso_edittext.getText());
-                if (!Filter_selected_value.equals("")) {
-                    try {
-                        fetchFilteredRetailer();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        fetchRetailer();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                if (!hasFocus) {
+                    Filter_selected_value = String.valueOf(conso_edittext.getText());
+                    if (!Filter_selected_value.equals("")) {
+                        try {
+                            fetchFilteredRetailer();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        try {
+                            fetchRetailer();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -868,7 +870,7 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
             fromDate = year1 + "-" + String.format("%02d", (month1 + 1)) + "-" + String.format("%02d", date1);
             Log.i("fromDate", fromDate);
 
-           first_date.setText(new StringBuilder()
+            first_date.setText(new StringBuilder()
                     .append(String.format("%02d", date1)).append("/").append(String.format("%02d", (month1 + 1))).append("/").append(year1));
         } else if (date_type.equals("second date")) {
             toDate = year2 + "-" + String.format("%02d", (month2 + 1)) + "-" + String.format("%02d", date2);

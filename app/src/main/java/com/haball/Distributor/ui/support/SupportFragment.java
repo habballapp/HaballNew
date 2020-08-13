@@ -227,6 +227,12 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 first_date.setText("DD/MM/YYYY");
                 second_date.setText("DD/MM/YYYY");
 
+                try {
+                    fetchSupport();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
@@ -234,11 +240,6 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                         ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
-                    }
-                    try {
-                        fetchSupport();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
                 } else {
                     try {
@@ -260,6 +261,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                     } else if (Filter_selected.equals("Issue Type")) {
                         Filter_selected = "IssueType";
                         spinner_container1.setVisibility(View.VISIBLE);
+                        filters = new ArrayList<>();
                         filters.add("Issue Type");
                         filters.add("Main Dashboard");
                         filters.add("Connecting with Businesses");
@@ -323,6 +325,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                         Filter_selected = "Status";
                         //  tv_shipment_no_data.setVisibility(View.VISIBLE);
                         spinner_container1.setVisibility(View.VISIBLE);
+                        filters = new ArrayList<>();
 
                         filters.add("Status");
                         filters.add("Pending");
@@ -414,12 +417,37 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                         }
                     }
                 } else {
-                    Filter_selected_value = filters.get(i);
-                    Log.i("Filter_selected_value", Filter_selected_value);
-                    try {
-                        fetchFilteredSupport();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    if (i == 0) {
+                        try {
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                            ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
+                        } catch (NullPointerException ex) {
+                            ex.printStackTrace();
+                        }
+                        try {
+                            fetchSupport();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    } else {
+                        try {
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                            ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                            ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
+                        } catch (NullPointerException ex) {
+                            ex.printStackTrace();
+                        }
+
+                        Filter_selected_value = filters.get(i);
+                        if (!Filter_selected_value.equals("")) {
+                            try {
+                                fetchFilteredSupport();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
                 }
 
@@ -465,18 +493,20 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
 
-                Filter_selected_value = String.valueOf(conso_edittext.getText());
-                if (!Filter_selected_value.equals("")) {
-                    try {
-                        fetchFilteredSupport();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        fetchSupport();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                if(!hasFocus) {
+                    Filter_selected_value = String.valueOf(conso_edittext.getText());
+                    if (!Filter_selected_value.equals("")) {
+                        try {
+                            fetchFilteredSupport();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        try {
+                            fetchSupport();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }

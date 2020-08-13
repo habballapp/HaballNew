@@ -212,6 +212,12 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
                 first_date.setText("DD/MM/YYYY");
                 second_date.setText("DD/MM/YYYY");
 
+                try {
+                    fetchPaymentsData();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
@@ -219,11 +225,6 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
                         ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
-                    }
-                    try {
-                        fetchPaymentsData();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
                 } else {
                     try {
@@ -290,12 +291,14 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
 
         spinner_consolidate.setAdapter(arrayAdapterPayments);
 
+        filters = new ArrayList<>();
         filters.add("Status");
         filters.add("Pending");
-        filters.add("Unpaid ");
-        filters.add("Partially Paid");
+        filters.add("Invoiced");
+//        filters.add("Partially Paid");
         filters.add("Paid");
-        filters.add("Payment Processing");
+//        filters.add("Payment Processing");
+        filters.add("Cancelled");
         arrayAdapterFeltter = new ArrayAdapter<String>(rootView.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, filters) {
             @Override
@@ -403,19 +406,20 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
         conso_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-
-                Filter_selected_value = String.valueOf(conso_edittext.getText());
-                if (!Filter_selected_value.equals("")) {
-                    try {
-                        fetchFilteredRetailerPayments();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        fetchPaymentsData();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                if(!hasFocus) {
+                    Filter_selected_value = String.valueOf(conso_edittext.getText());
+                    if (!Filter_selected_value.equals("")) {
+                        try {
+                            fetchFilteredRetailerPayments();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        try {
+                            fetchPaymentsData();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }

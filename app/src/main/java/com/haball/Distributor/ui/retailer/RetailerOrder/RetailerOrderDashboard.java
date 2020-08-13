@@ -241,6 +241,12 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                 first_date.setText("DD/MM/YYYY");
                 second_date.setText("DD/MM/YYYY");
 
+                try {
+                    fetchRetailerOrdersData();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
@@ -248,11 +254,6 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                         ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
-                    }
-                    try {
-                        fetchRetailerOrdersData();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
                 } else {
 
@@ -278,7 +279,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                         Filter_selected = "OrderNumber";
                         conso_edittext.setVisibility(View.VISIBLE);
                         search_rl.setVisibility(View.VISIBLE);
-                    } else if (Filter_selected.equals("Retailer")) {
+                    } else if (Filter_selected.equals("Company")) {
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "Retailer";
                         conso_edittext.setVisibility(View.VISIBLE);
@@ -328,6 +329,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
 
         spinner_consolidate.setAdapter(arrayAdapterPayments);
 
+        filters = new ArrayList<>();
         filters.add("Status");
 //        filters.addAll(OrderStatusKVP.values());
 //        filters.add("Pending");
@@ -454,19 +456,20 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         conso_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-
-                Filter_selected_value = String.valueOf(conso_edittext.getText());
-                if (!Filter_selected_value.equals("")) {
-                    try {
-                        fetchFilteredOrderData();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        fetchRetailerOrdersData();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                if(!hasFocus) {
+                    Filter_selected_value = String.valueOf(conso_edittext.getText());
+                    if (!Filter_selected_value.equals("")) {
+                        try {
+                            fetchFilteredOrderData();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        try {
+                            fetchRetailerOrdersData();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }

@@ -56,7 +56,7 @@ public class EditOrderDraft {
     public EditOrderDraft() {
     }
 
-    public void editDraft(final Context context, String orderId, final String orderNumber) {
+    public void editDraft(final Context context, final String orderId, final String orderNumber) {
         final Loader loader = new Loader(context);
 //        mContext = context;
 //        SharedPreferences sharedPreferences = context.getSharedPreferences("LoginToken",
@@ -128,6 +128,7 @@ public class EditOrderDraft {
                     JSONArray arr = response.getJSONArray("OrderDetails");
 //                    JSONObject obj = response.getJSONObject("OrderPaymentDetails");
                     String CompanyName = response.getString("CompanyName");
+                    String CompanyId = response.getString("CompanyId");
 
                     Log.i("jsonOrderDetail1", String.valueOf(arr));
                     Gson gson = new Gson();
@@ -166,9 +167,17 @@ public class EditOrderDraft {
                             Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = selectedProducts.edit();
                     editor.putString("CompanyName", CompanyName);
+                    editor.putString("ID", orderId);
                     editor.putString("selected_products", json);
                     editor.putString("selected_products_qty", jsonqty);
                     editor.apply();
+
+                    SharedPreferences companyInfo = context.getSharedPreferences("CompanyInfo",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor_company = companyInfo.edit();
+                    editor_company.putString("CompanyId", CompanyId);
+                    editor_company.putString("ID", orderId);
+                    editor_company.apply();
 
                     SharedPreferences selectedDraft = context.getSharedPreferences("FromDraft",
                             Context.MODE_PRIVATE);

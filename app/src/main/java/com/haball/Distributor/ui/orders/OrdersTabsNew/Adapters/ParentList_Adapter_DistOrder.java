@@ -13,9 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,6 +25,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.haball.CustomToast;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.ExpandableRecyclerAdapter;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderChildlist_Model_DistOrder;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderParentlist_Model_DistOrder;
@@ -32,6 +35,8 @@ import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.RetailerPlaceOrder;
 import com.haball.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONException;
 
 import java.lang.reflect.Type;
 import java.text.DecimalFormat;
@@ -43,7 +48,8 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
     private Context context;
     public List<OrderChildlist_Model_DistOrder> selectedProductsDataList = new ArrayList<>();
     private List<String> selectedProductsQuantityList = new ArrayList<>();
-    private String object_string, object_stringqty;
+    private List<String> selectedProductsCategoryList = new ArrayList<>();
+    private String object_string, object_stringqty, object_stringcategory;
     private int pre_expanded = -1;
     public List<OrderParentList_VH_DistOrder> OrderParentList = new ArrayList<>();
     private int parentPosition = -1;
@@ -53,8 +59,10 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
     private Button btn_checkout;
     private double Quantity = 0;
     private List<OrderChildlist_Model_DistOrder> productList = new ArrayList<>();
+    private Spinner spinner_conso;
+    private String Category_selected;
 
-    public ParentList_Adapter_DistOrder(Context context, List<OrderParentlist_Model_DistOrder> parentItemList, RelativeLayout filter_layout, Button btn_checkout, List<OrderChildlist_Model_DistOrder> productList) {
+    public ParentList_Adapter_DistOrder(Context context, List<OrderParentlist_Model_DistOrder> parentItemList, RelativeLayout filter_layout, Button btn_checkout, List<OrderChildlist_Model_DistOrder> productList, String Category_selected) {
         super(parentItemList);
         inflater = LayoutInflater.from(context);
         this.context = context;
@@ -62,12 +70,14 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
         this.filter_layout = filter_layout;
         this.btn_checkout = btn_checkout;
         this.productList = productList;
+        this.Category_selected = Category_selected;
 
 
         SharedPreferences selectedProducts = context.getSharedPreferences("selectedProducts_distributor",
                 Context.MODE_PRIVATE);
         Gson gson = new Gson();
         object_stringqty = selectedProducts.getString("selected_products_qty", "");
+        object_stringcategory = selectedProducts.getString("selected_products_category", "");
         object_string = selectedProducts.getString("selected_products", "");
         Type type = new TypeToken<List<OrderChildlist_Model_DistOrder>>() {
         }.getType();
@@ -76,6 +86,7 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
         if (!object_string.equals("")) {
             selectedProductsDataList = gson.fromJson(object_string, type);
             selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
+            selectedProductsCategoryList = gson.fromJson(object_stringcategory, typeString);
             Log.i("debugOrder_selProdQty", String.valueOf(object_stringqty));
             Log.i("debugOrder_selProd", String.valueOf(object_string));
         }
@@ -89,7 +100,6 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
         } else {
             disableCheckoutButton();
         }
-
     }
 
     private void enableCheckoutButton() {
@@ -128,16 +138,12 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
         final OrderParentlist_Model_DistOrder OrderParentlist_Model_DistOrder = (OrderParentlist_Model_DistOrder) o;
         OrderParentList_VH_DistOrder._textview.setText(OrderParentlist_Model_DistOrder.getTitle());
 
-        if (position == (parentItemList.size() - 1)) {
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.MATCH_PARENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT
-            );
-            params.setMargins(0, 0, 0, 200);
-            OrderParentList_VH_DistOrder.rl_orderName_retailer.setLayoutParams(params);
-        }
 
-
+//        if (OrderParentList_VH_DistOrder._textview.getText().equals("")) {
+//            OrderParentList_VH_DistOrder.rl_parentList.setClickable(false);
+//            OrderParentList_VH_DistOrder.rl_orderName_retailer.setBackgroundColor(context.getResources().getColor(R.color.white));
+//            OrderParentList_VH_DistOrder.plus_icon_ll.setVisibility(View.GONE);
+//        }
         orderParentLIst_VH_main = OrderParentList_VH_DistOrder;
     }
 
@@ -170,8 +176,8 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
             OrderChildList_VH_DistOrder.list_price_value.setText("Rs. " + yourFormattedString1);
         }
         String yourFormattedString2;
-        if (OrderChildlist_Model_DistOrder.getDiscountAmount() != null)
-            yourFormattedString2 = formatter1.format(Double.parseDouble(OrderChildlist_Model_DistOrder.getDiscountAmount()));
+        if (OrderChildlist_Model_DistOrder.getDiscountValue() != null)
+            yourFormattedString2 = formatter1.format(Double.parseDouble(OrderChildlist_Model_DistOrder.getDiscountValue()));
         else
             yourFormattedString2 = formatter1.format(0);
         OrderChildList_VH_DistOrder.list_UOM_value.setText("Rs. " + yourFormattedString2);
@@ -255,6 +261,10 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
     }
 
     private void checkOutEnabler(OrderChildList_VH_DistOrder holder, int position, OrderChildlist_Model_DistOrder OrderChildlist_Model_DistOrder, String s) {
+//        SharedPreferences orderCheckout = context.getSharedPreferences("orderCheckout",
+//                Context.MODE_PRIVATE);
+//        String orderCheckedOut = orderCheckout.getString("orderCheckout", "");
+
         if (selectedProductsDataList != null) {
             int foundIndex = -1;
             for (int i = 0; i < selectedProductsDataList.size(); i++) {
@@ -277,8 +287,23 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
             } else {
                 if (!String.valueOf(holder.list_numberOFitems.getText()).equals(""))
                     if (Integer.parseInt(String.valueOf(holder.list_numberOFitems.getText())) > 0) {
-                        selectedProductsDataList.add(OrderChildlist_Model_DistOrder);
-                        selectedProductsQuantityList.add(String.valueOf(holder.list_numberOFitems.getText()));
+//                        if (orderCheckedOut.equals("orderCheckout")) {
+//                        if (selectedProductsCategoryList.size() > 0) {
+//                            if (Category_selected.equals(selectedProductsCategoryList.get(0))) {
+//                                selectedProductsDataList.add(OrderChildlist_Model_DistOrder);
+//                                selectedProductsQuantityList.add(String.valueOf(holder.list_numberOFitems.getText()));
+//                                selectedProductsCategoryList.add(Category_selected);
+//                            } else {
+////                            selectedProductsDataList.add(OrderChildlist_Model_DistOrder);
+////                            selectedProductsQuantityList.add(String.valueOf(holder.list_numberOFitems.getText()));
+//                                new CustomToast().showToast(((FragmentActivity) context), "Cross-Category Product selection is not allowed.");
+////                                new CustomToast().showToast(((FragmentActivity) context), "Products from " + selectedProductsDataList.get(0).getCategoryTitle() + " is selected. Can't select products from other categories.");
+//                            }
+//                        } else {
+                            selectedProductsDataList.add(OrderChildlist_Model_DistOrder);
+                            selectedProductsQuantityList.add(String.valueOf(holder.list_numberOFitems.getText()));
+                            selectedProductsCategoryList.add(Category_selected);
+//                        }
                     }
             }
         } else {
@@ -286,18 +311,23 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
                 if (Integer.parseInt(String.valueOf(holder.list_numberOFitems.getText())) > 0) {
                     selectedProductsDataList.add(OrderChildlist_Model_DistOrder);
                     selectedProductsQuantityList.add(String.valueOf(s));
+                    selectedProductsCategoryList.add(Category_selected);
                 }
             }
         }
 
+        Log.i("category_select_debug", String.valueOf(selectedProductsCategoryList));
+
         Gson gson = new Gson();
         String json = gson.toJson(selectedProductsDataList);
         String jsonqty = gson.toJson(selectedProductsQuantityList);
+        String jsoncategory = gson.toJson(selectedProductsCategoryList);
         SharedPreferences selectedProducts = context.getSharedPreferences("selectedProducts_distributor",
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = selectedProducts.edit();
         editor.putString("selected_products", json);
         editor.putString("selected_products_qty", jsonqty);
+        editor.putString("selected_products_category", jsoncategory);
         editor.apply();
 
         Quantity = 0;
