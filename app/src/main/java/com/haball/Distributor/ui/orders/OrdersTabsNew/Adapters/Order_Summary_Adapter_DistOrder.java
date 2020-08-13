@@ -115,9 +115,9 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
                     Log.i("unit price", selectedProductsDataList.get(i).getUnitPrice());
                     Log.i("qty", selectedProductsDataListQty.get(i));
                     if (!selectedProductsDataList.get(i).getUnitPrice().equals("") && !selectedProductsDataListQty.get(i).equals("")) {
-                        if (selectedProductsDataList.get(i).getDiscountAmount() != null) {
-                            grossAmount += (Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice()) - Float.parseFloat(selectedProductsDataList.get(i).getDiscountAmount())) * Float.parseFloat(selectedProductsDataListQty.get(i));
-                            discAmount += Float.parseFloat(selectedProductsDataList.get(i).getDiscountAmount()) * Float.parseFloat(selectedProductsDataListQty.get(i));
+                        if (selectedProductsDataList.get(i).getDiscountValue() != null) {
+                            grossAmount += (Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice()) - Float.parseFloat(selectedProductsDataList.get(i).getDiscountValue())) * Float.parseFloat(selectedProductsDataListQty.get(i));
+                            discAmount += Float.parseFloat(selectedProductsDataList.get(i).getDiscountValue()) * Float.parseFloat(selectedProductsDataListQty.get(i));
                         } else
                             grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice()) * Float.parseFloat(selectedProductsDataListQty.get(i));
                     }
@@ -218,9 +218,9 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
                 holder.list_price_value.setText("Rs. " + yourFormattedString1);
             }
             String yourFormattedString2;
-            Log.i("getDiscountAmount()", "'" + String.valueOf(selectedProductsDataList.get(position).getDiscountAmount()) + "'");
-            if (selectedProductsDataList.get(position).getDiscountAmount() != null)
-                yourFormattedString2 = formatter1.format(Double.parseDouble(selectedProductsDataList.get(position).getDiscountAmount()));
+            Log.i("getDiscountValue()", "'" + String.valueOf(selectedProductsDataList.get(position).getDiscountValue()) + "'");
+            if (selectedProductsDataList.get(position).getDiscountValue() != null)
+                yourFormattedString2 = formatter1.format(Double.parseDouble(selectedProductsDataList.get(position).getDiscountValue()));
             else
                 yourFormattedString2 = formatter1.format(0);
             holder.list_discount_value.setText("Rs. " + yourFormattedString2);
@@ -232,8 +232,8 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
             float totalamount = 0;
             String yourFormattedString3;
             if (!selectedProductsDataList.get(position).getUnitPrice().equals("") && !selectedProductsDataListQty.get(position).equals("")) {
-                if (selectedProductsDataList.get(position).getDiscountAmount() != null)
-                    totalamount = Float.parseFloat(selectedProductsDataListQty.get(position)) * (Float.parseFloat(selectedProductsDataList.get(position).getUnitPrice()) - Float.parseFloat(selectedProductsDataList.get(position).getDiscountAmount()));
+                if (selectedProductsDataList.get(position).getDiscountValue() != null)
+                    totalamount = Float.parseFloat(selectedProductsDataListQty.get(position)) * (Float.parseFloat(selectedProductsDataList.get(position).getUnitPrice()) - Float.parseFloat(selectedProductsDataList.get(position).getDiscountValue()));
                 else
                     totalamount = Float.parseFloat(selectedProductsDataListQty.get(position)) * Float.parseFloat(selectedProductsDataList.get(position).getUnitPrice());
             }
@@ -346,8 +346,8 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
                             float totalamount = 0;
                             String yourFormattedString3;
                             if (!selectedProductsDataList.get(position).getUnitPrice().equals("")) {
-                                if (selectedProductsDataList.get(position).getDiscountAmount() != null)
-                                    totalamount = Float.parseFloat(str_quantity) * (Float.parseFloat(selectedProductsDataList.get(position).getUnitPrice()) - Float.parseFloat(selectedProductsDataList.get(position).getDiscountAmount()));
+                                if (selectedProductsDataList.get(position).getDiscountValue() != null)
+                                    totalamount = Float.parseFloat(str_quantity) * (Float.parseFloat(selectedProductsDataList.get(position).getUnitPrice()) - Float.parseFloat(selectedProductsDataList.get(position).getDiscountValue()));
                                 else
                                     totalamount = Float.parseFloat(str_quantity) * Float.parseFloat(selectedProductsDataList.get(position).getUnitPrice());
                             }
@@ -359,8 +359,8 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
                             float totalamount = 0;
                             String yourFormattedString3;
                             if (!selectedProductsDataList.get(position).getUnitPrice().equals("")) {
-                                if (selectedProductsDataList.get(position).getDiscountAmount() != null)
-                                    totalamount = 0 * (Float.parseFloat(selectedProductsDataList.get(position).getUnitPrice()) - Float.parseFloat(selectedProductsDataList.get(position).getDiscountAmount()));
+                                if (selectedProductsDataList.get(position).getDiscountValue() != null)
+                                    totalamount = 0 * (Float.parseFloat(selectedProductsDataList.get(position).getUnitPrice()) - Float.parseFloat(selectedProductsDataList.get(position).getDiscountValue()));
                                 else
                                     totalamount = 0 * Float.parseFloat(selectedProductsDataList.get(position).getUnitPrice());
                             }
@@ -452,9 +452,9 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
                     Log.i("unit price", selectedProductsDataList.get(i).getUnitPrice());
                     Log.i("qty", selectedProductsDataListQty.get(i));
                     if (!selectedProductsDataList.get(i).getUnitPrice().equals("") && !selectedProductsDataListQty.get(i).equals("")) {
-                        if (selectedProductsDataList.get(i).getDiscountAmount() != null) {
-                            grossAmount += (Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice()) - Float.parseFloat(selectedProductsDataList.get(i).getDiscountAmount())) * Float.parseFloat(selectedProductsDataListQty.get(i));
-                            discAmount += Float.parseFloat(selectedProductsDataList.get(i).getDiscountAmount()) * Float.parseFloat(selectedProductsDataListQty.get(i));
+                        if (selectedProductsDataList.get(i).getDiscountValue() != null) {
+                            grossAmount += (Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice()) - Float.parseFloat(selectedProductsDataList.get(i).getDiscountValue())) * Float.parseFloat(selectedProductsDataListQty.get(i));
+                            discAmount += Float.parseFloat(selectedProductsDataList.get(i).getDiscountValue()) * Float.parseFloat(selectedProductsDataListQty.get(i));
                         } else
                             grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice()) * Float.parseFloat(selectedProductsDataListQty.get(i));
                     }
@@ -572,9 +572,9 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
                                 Log.i("unit price", selectedProductsDataList.get(i).getUnitPrice());
                                 Log.i("qty", selectedProductsDataListQty.get(i));
                                 if (!selectedProductsDataList.get(i).getUnitPrice().equals("") && !selectedProductsDataListQty.get(i).equals("")) {
-                                    if (selectedProductsDataList.get(i).getDiscountAmount() != null) {
-                                        grossAmount += (Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice()) - Float.parseFloat(selectedProductsDataList.get(i).getDiscountAmount())) * Float.parseFloat(selectedProductsDataListQty.get(i));
-                                        discAmount += Float.parseFloat(selectedProductsDataList.get(i).getDiscountAmount()) * Float.parseFloat(selectedProductsDataListQty.get(i));
+                                    if (selectedProductsDataList.get(i).getDiscountValue() != null) {
+                                        grossAmount += (Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice()) - Float.parseFloat(selectedProductsDataList.get(i).getDiscountValue())) * Float.parseFloat(selectedProductsDataListQty.get(i));
+                                        discAmount += Float.parseFloat(selectedProductsDataList.get(i).getDiscountValue()) * Float.parseFloat(selectedProductsDataListQty.get(i));
                                     } else
                                         grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice()) * Float.parseFloat(selectedProductsDataListQty.get(i));
                                 }
@@ -633,7 +633,7 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
 
                         grossAmount = 0;
                         discAmount = 0;
-                        NonSwipeableViewPager viewPager = activity.findViewById(R.id.view_pager_rpoid);
+                        NonSwipeableViewPager viewPager = activity.findViewById(R.id.view_pager5);
                         viewPager.setCurrentItem(0);
 
                         FragmentTransaction fragmentTransaction = (activity).getSupportFragmentManager().beginTransaction();
@@ -819,9 +819,9 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
                     Log.i("unit price", selectedProductsDataList.get(i).getUnitPrice());
                     Log.i("qty", selectedProductsDataListQty.get(i));
                     if (!selectedProductsDataList.get(i).getUnitPrice().equals("") && !selectedProductsDataListQty.get(i).equals("")) {
-                        if (selectedProductsDataList.get(i).getDiscountAmount() != null) {
-                            grossAmount += (Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice()) - Float.parseFloat(selectedProductsDataList.get(i).getDiscountAmount())) * Float.parseFloat(selectedProductsDataListQty.get(i));
-                            discAmount += Float.parseFloat(selectedProductsDataList.get(i).getDiscountAmount()) * Float.parseFloat(selectedProductsDataListQty.get(i));
+                        if (selectedProductsDataList.get(i).getDiscountValue() != null) {
+                            grossAmount += (Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice()) - Float.parseFloat(selectedProductsDataList.get(i).getDiscountValue())) * Float.parseFloat(selectedProductsDataListQty.get(i));
+                            discAmount += Float.parseFloat(selectedProductsDataList.get(i).getDiscountValue()) * Float.parseFloat(selectedProductsDataListQty.get(i));
                         } else
                             grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice()) * Float.parseFloat(selectedProductsDataListQty.get(i));
                     }

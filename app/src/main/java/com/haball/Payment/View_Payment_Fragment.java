@@ -89,9 +89,10 @@ public class View_Payment_Fragment extends Fragment {
         SharedPreferences sharedPreferences3 = getContext().getSharedPreferences("paymentsRequestListID",
                 Context.MODE_PRIVATE);
         PaymentsRequestId = sharedPreferences3.getString("paymentsRequestListID", "");
-//        Log.i("PaymentsRequestId12", PaymentsRequestId);
         if (!PAYMENT_REQUEST_URL.contains(PaymentsRequestId))
             PAYMENT_REQUEST_URL = PAYMENT_REQUEST_URL + PaymentsRequestId;
+
+        Log.i("PaymentsRequestId12", PAYMENT_REQUEST_URL);
 
         layout_txt_heading = root.findViewById(R.id.layout_txt_heading);
         layout_txt_paymentid = root.findViewById(R.id.layout_txt_paymentid);
@@ -224,8 +225,8 @@ public class View_Payment_Fragment extends Fragment {
                         txt_created_date.setText(String.valueOf(result.get("CreatedDate")).split("T")[0]);
                         txt_created_date.setTextColor(getContext().getResources().getColor(R.color.textcolor));
                     }
-                    if (!String.valueOf(result.get("TransactionDate")).equals("null")) {
-                        txt_transaction_date.setText(String.valueOf(result.get("TransactionDate")).split("T")[0]);
+                    if (!String.valueOf(result.get("PaidDate")).equals("null")) {
+                        txt_transaction_date.setText(String.valueOf(result.get("PaidDate")).split("T")[0]);
                         txt_transaction_date.setTextColor(getContext().getResources().getColor(R.color.textcolor));
                     }
                     if (!String.valueOf(result.get("BankName")).equals("null")) {

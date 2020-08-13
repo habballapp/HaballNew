@@ -176,8 +176,8 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
             OrderChildList_VH_DistOrder.list_price_value.setText("Rs. " + yourFormattedString1);
         }
         String yourFormattedString2;
-        if (OrderChildlist_Model_DistOrder.getDiscountAmount() != null)
-            yourFormattedString2 = formatter1.format(Double.parseDouble(OrderChildlist_Model_DistOrder.getDiscountAmount()));
+        if (OrderChildlist_Model_DistOrder.getDiscountValue() != null)
+            yourFormattedString2 = formatter1.format(Double.parseDouble(OrderChildlist_Model_DistOrder.getDiscountValue()));
         else
             yourFormattedString2 = formatter1.format(0);
         OrderChildList_VH_DistOrder.list_UOM_value.setText("Rs. " + yourFormattedString2);

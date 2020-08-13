@@ -368,7 +368,7 @@ public class Dist_Order_Summary extends Fragment {
 
             if (!selectedProductsQuantityList.get(i).equals("0") && !selectedProductsQuantityList.get(i).equals("")) {
                 float tempAmount = Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice());
-                if (selectedProductsDataList.get(i).getDiscountAmount() != null)
+                if (selectedProductsDataList.get(i).getDiscountValue() != null)
                     tempAmount = Float.parseFloat(selectedProductsDataList.get(i).getDiscountAmount());
                 tempAmount *= Float.parseFloat(selectedProductsQuantityList.get(i));
 

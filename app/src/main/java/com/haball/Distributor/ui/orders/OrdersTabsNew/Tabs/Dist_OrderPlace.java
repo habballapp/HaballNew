@@ -126,7 +126,7 @@ public class Dist_OrderPlace extends Fragment {
     private String editTextValue = "";
     String current_balance;
     private int selected_category_index = 0;
-    boolean byDefaultStatus = true;
+    String byDefaultStatus = "true";
 
     public Dist_OrderPlace() {
         // Required empty public constructor
@@ -212,9 +212,9 @@ public class Dist_OrderPlace extends Fragment {
                 SharedPreferences orderCheckout = getContext().getSharedPreferences("orderCheckout",
                         Context.MODE_PRIVATE);
                 Gson gson = new Gson();
-                String orderCheckedOut = orderCheckout.getString("orderCheckout", "");
+                String orderCheckedOutStr = orderCheckout.getString("orderCheckout", "");
 
-                if (selectedProductsDataList != null && selectedProductsDataList.size() > 0 && (orderCheckedOut.equals("orderCheckout") || orderCheckedOut.equals("orderCheckout123"))) {
+                if (selectedProductsDataList != null && selectedProductsDataList.size() > 0 && (orderCheckedOutStr.equals("orderCheckout") || orderCheckedOutStr.equals("orderCheckout123"))) {
                     showDiscardDialog();
                 } else {
 
@@ -233,140 +233,188 @@ public class Dist_OrderPlace extends Fragment {
             @Override
             public void onItemSelected(final AdapterView<?> parent, View view, final int position, long id) {
                 Category_selected = totalCategoryTitle.get(position);
-
-                try {
-                    ((TextView) parent.getChildAt(position)).setTextColor(getResources().getColor(R.color.textcolor));
-                    ((TextView) parent.getChildAt(position)).setTextSize((float) 13.6);
-                    ((TextView) parent.getChildAt(position)).setPadding(50, 0, 50, 0);
-                    Log.i("Categoriesselected", Categories.get(Category_selected) + " - " + Category_selected);
-                } catch (NullPointerException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    getFilteredProductCategory(Categories.get(Category_selected));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
 //
-//                SharedPreferences orderCheckout = getContext().getSharedPreferences("orderCheckout",
-//                        Context.MODE_PRIVATE);
-//                final String orderCheckedOut = orderCheckout.getString("orderCheckout", "");
-//
-//                if(orderCheckedOut.equals("orderCheckout")) {
-//                    SharedPreferences companyInfo = getContext().getSharedPreferences("CompanyInfo",
-//                            Context.MODE_PRIVATE);
-//                    String CategoryIndex = companyInfo.getString("CategoryIndex", "0");
-//
-//                    spinner_conso.setSelection(Integer.parseInt(CategoryIndex));
-//                    byDefaultStatus = true;
+//                try {
+//                    ((TextView) parent.getChildAt(position)).setTextColor(getResources().getColor(R.color.textcolor));
+//                    ((TextView) parent.getChildAt(position)).setTextSize((float) 13.6);
+//                    ((TextView) parent.getChildAt(position)).setPadding(50, 0, 50, 0);
+//                    Log.i("Categoriesselected", Categories.get(Category_selected) + " - " + Category_selected);
+//                } catch (NullPointerException e) {
+//                    e.printStackTrace();
 //                }
-//
-//                if (!byDefaultStatus) {
-//
-//
-//                    loader.showLoader();
-//                    getActivity().runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            new Handler().postDelayed(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    loader.hideLoader();
-//                                    SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_distributor",
-//                                            Context.MODE_PRIVATE);
-//                                    Gson gson = new Gson();
-//                                    object_stringqty = selectedProducts.getString("selected_products_qty", "");
-//                                    object_string = selectedProducts.getString("selected_products", "");
-//                                    Type type = new TypeToken<List<OrderChildlist_Model_DistOrder>>() {
-//                                    }.getType();
-//                                    Type typeString = new TypeToken<List<String>>() {
-//                                    }.getType();
-//                                    if (!object_string.equals("") && !object_stringqty.equals("")) {
-//                                        selectedProductsDataList = gson.fromJson(object_string, type);
-//                                        selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
-//                                    }
-//
-//                                    if (selectedProductsDataList.size() > 0 && (orderCheckedOut.equals("") || orderCheckedOut.equals("orderCheckout123"))) {
-//                                        spinner_conso.setSelection(selected_category_index);
-//                                        byDefaultStatus = true;
-//                                        new CustomToast().showToast(((FragmentActivity) getContext()), "Cross-Category Product selection is not allowed.");
-//                                    } else {
-//                                        selected_category_index = position;
-//                                        SharedPreferences companyInfo = getContext().getSharedPreferences("CompanyInfo",
-//                                                Context.MODE_PRIVATE);
-//                                        SharedPreferences.Editor editor = companyInfo.edit();
-//                                        editor.putString("CategoryIndex", String.valueOf(selected_category_index));
-//                                        editor.apply();
-//                                        try {
-//                                            ((TextView) parent.getChildAt(position)).setTextColor(getResources().getColor(R.color.textcolor));
-//                                            ((TextView) parent.getChildAt(position)).setTextSize((float) 13.6);
-//                                            ((TextView) parent.getChildAt(position)).setPadding(50, 0, 50, 0);
-//                                            Log.i("Categoriesselected", Categories.get(Category_selected) + " - " + Category_selected);
-//                                        } catch (NullPointerException e) {
-//                                            e.printStackTrace();
-//                                        }
-//                                        try {
-//                                            getFilteredProductCategory(Categories.get(Category_selected));
-//                                        } catch (JSONException e) {
-//                                            e.printStackTrace();
-//                                        }
-//                                    }
-//                                }
-//                            }, 3000);
-//                        }
-//                    });
-//
-//
-//
-//                    if(orderCheckedOut.equals("orderCheckout")) {
-//                        SharedPreferences.Editor orderCheckout_editor = orderCheckout.edit();
-//                        orderCheckout_editor.putString("orderCheckout123", "");
-//                        orderCheckout_editor.apply();
-//                    }
-//                } else {
-//                    byDefaultStatus = false;
-//                    SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_distributor",
-//                            Context.MODE_PRIVATE);
-//                    Gson gson = new Gson();
-//                    object_stringqty = selectedProducts.getString("selected_products_qty", "");
-//                    object_string = selectedProducts.getString("selected_products", "");
-//                    Type type = new TypeToken<List<OrderChildlist_Model_DistOrder>>() {
-//                    }.getType();
-//                    Type typeString = new TypeToken<List<String>>() {
-//                    }.getType();
-//                    if (!object_string.equals("") && !object_stringqty.equals("")) {
-//                        selectedProductsDataList = gson.fromJson(object_string, type);
-//                        selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
-//                    }
-//
-//
-//                    if (selectedProductsDataList.size() > 0 && (orderCheckedOut.equals("") || orderCheckedOut.equals("orderCheckout123"))) {
-//                        spinner_conso.setSelection(selected_category_index);
-//                        byDefaultStatus = true;
-//                        new CustomToast().showToast(((FragmentActivity) getContext()), "Cross-Category Product selection is not allowed.");
-//                    } else {
-//                        selected_category_index = position;
-//                        SharedPreferences companyInfo = getContext().getSharedPreferences("CompanyInfo",
-//                                Context.MODE_PRIVATE);
-//                        SharedPreferences.Editor editor = companyInfo.edit();
-//                        editor.putString("CategoryIndex", String.valueOf(selected_category_index));
-//                        editor.apply();
-//                        try {
-//                            ((TextView) parent.getChildAt(position)).setTextColor(getResources().getColor(R.color.textcolor));
-//                            ((TextView) parent.getChildAt(position)).setTextSize((float) 13.6);
-//                            ((TextView) parent.getChildAt(position)).setPadding(50, 0, 50, 0);
-//                            Log.i("Categoriesselected", Categories.get(Category_selected) + " - " + Category_selected);
-//                        } catch (NullPointerException e) {
-//                            e.printStackTrace();
-//                        }
-//                        try {
-//                            getFilteredProductCategory(Categories.get(Category_selected));
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
+//                try {
+//                    getFilteredProductCategory(Categories.get(Category_selected));
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
 //                }
+
+
+                final SharedPreferences orderCheckout_SP = getContext().getSharedPreferences("orderCheckout",
+                        Context.MODE_PRIVATE);
+                final String orderCheckedOut = orderCheckout_SP.getString("orderCheckout", "");
+
+                Log.i("orderCheckedOut_debug", orderCheckedOut + "''");
+                Log.i("orderCheckedOut_debug", byDefaultStatus + "''");
+
+                SharedPreferences companyInfo = getContext().getSharedPreferences("CompanyInfo",
+                        Context.MODE_PRIVATE);
+                String CategoryIndex = companyInfo.getString("CategoryIndex", "0");
+                selected_category_index = Integer.parseInt(CategoryIndex);
+
+                Log.i("orderCheckedOut_debug", CategoryIndex + "''");
+
+                Log.i("orderCheckedOut_debug", Categories.get(Category_selected) + " - " + Category_selected);
+
+                if (orderCheckedOut.equals("orderCheckout")) {
+
+                    spinner_conso.setSelection(Integer.parseInt(CategoryIndex));
+
+                    SharedPreferences.Editor orderCheckout_editor = orderCheckout_SP.edit();
+                    orderCheckout_editor.putString("orderCheckout", "asdasd");
+                    orderCheckout_editor.apply();
+
+                    try {
+                        ((TextView) parent.getChildAt(position)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) parent.getChildAt(position)).setTextSize((float) 13.6);
+                        ((TextView) parent.getChildAt(position)).setPadding(50, 0, 50, 0);
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        getFilteredProductCategory(Categories.get(Category_selected));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    byDefaultStatus = "true";
+                } else {
+
+                    if (byDefaultStatus.equals("false")) {
+
+
+                        loader.showLoader();
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        loader.hideLoader();
+                                        SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_distributor",
+                                                Context.MODE_PRIVATE);
+                                        Gson gson = new Gson();
+                                        object_stringqty = selectedProducts.getString("selected_products_qty", "");
+                                        object_string = selectedProducts.getString("selected_products", "");
+                                        Type type = new TypeToken<List<OrderChildlist_Model_DistOrder>>() {
+                                        }.getType();
+                                        Type typeString = new TypeToken<List<String>>() {
+                                        }.getType();
+                                        int quantity = 0;
+                                        if (!object_string.equals("") && !object_stringqty.equals("")) {
+                                            selectedProductsDataList = gson.fromJson(object_string, type);
+                                            selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
+                                            for (int i = 0; i < selectedProductsQuantityList.size(); i++) {
+                                                quantity += Integer.parseInt(selectedProductsQuantityList.get(i));
+                                            }
+                                        }
+
+                                        Log.i("orderCheckedOut_debug", selectedProductsDataList.size() + "''");
+                                        Log.i("orderCheckedOut_debug", quantity + "''");
+
+                                        if (quantity > 0 && (orderCheckedOut.equals("") || (orderCheckedOut.equals("orderCheckout123")))) {
+                                            spinner_conso.setSelection(selected_category_index);
+                                            byDefaultStatus = "";
+                                            new CustomToast().showToast(((FragmentActivity) getContext()), "Cross-Category Product selection is not allowed.");
+                                        } else {
+                                            selected_category_index = position;
+                                            SharedPreferences companyInfo = getContext().getSharedPreferences("CompanyInfo",
+                                                    Context.MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = companyInfo.edit();
+                                            editor.putString("CategoryIndex", String.valueOf(selected_category_index));
+                                            editor.apply();
+                                            try {
+                                                ((TextView) parent.getChildAt(position)).setTextColor(getResources().getColor(R.color.textcolor));
+                                                ((TextView) parent.getChildAt(position)).setTextSize((float) 13.6);
+                                                ((TextView) parent.getChildAt(position)).setPadding(50, 0, 50, 0);
+                                                Log.i("Categoriesselected", Categories.get(Category_selected) + " - " + Category_selected);
+                                            } catch (NullPointerException e) {
+                                                e.printStackTrace();
+                                            }
+                                            try {
+                                                getFilteredProductCategory(Categories.get(Category_selected));
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+
+//                                            if (orderCheckedOut.equals("orderCheckout")) {
+                                                SharedPreferences.Editor orderCheckout_editor = orderCheckout_SP.edit();
+                                                orderCheckout_editor.putString("orderCheckout", "orderCheckout123");
+                                                orderCheckout_editor.apply();
+//                                            }
+                                        }
+                                    }
+                                }, 3000);
+                            }
+                        });
+
+
+
+                    } else if (byDefaultStatus.equals("true")) {
+                        byDefaultStatus = "false";
+                        SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_distributor",
+                                Context.MODE_PRIVATE);
+                        Gson gson = new Gson();
+                        object_stringqty = selectedProducts.getString("selected_products_qty", "");
+                        object_string = selectedProducts.getString("selected_products", "");
+                        Type type = new TypeToken<List<OrderChildlist_Model_DistOrder>>() {
+                        }.getType();
+                        Type typeString = new TypeToken<List<String>>() {
+                        }.getType();
+                        int quantity = 0;
+                        if (!object_string.equals("") && !object_stringqty.equals("")) {
+                            selectedProductsDataList = gson.fromJson(object_string, type);
+                            selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
+                            for (int i = 0; i < selectedProductsQuantityList.size(); i++) {
+                                quantity += Integer.parseInt(selectedProductsQuantityList.get(i));
+                            }
+                        }
+
+                        Log.i("orderCheckedOut_debug", selectedProductsDataList.size() + "''");
+                        Log.i("orderCheckedOut_debug", quantity + "''");
+
+                        if (quantity > 0 && (orderCheckedOut.equals("") || (orderCheckedOut.equals("orderCheckout123")))) {
+                            spinner_conso.setSelection(selected_category_index);
+                            byDefaultStatus = "";
+                            new CustomToast().showToast(((FragmentActivity) getContext()), "Cross-Category Product selection is not allowed.");
+                        } else {
+                            selected_category_index = position;
+
+                            SharedPreferences.Editor editor = companyInfo.edit();
+                            editor.putString("CategoryIndex", String.valueOf(selected_category_index));
+                            editor.apply();
+                            try {
+                                ((TextView) parent.getChildAt(position)).setTextColor(getResources().getColor(R.color.textcolor));
+                                ((TextView) parent.getChildAt(position)).setTextSize((float) 13.6);
+                                ((TextView) parent.getChildAt(position)).setPadding(50, 0, 50, 0);
+                                Log.i("Categoriesselected", Categories.get(Category_selected) + " - " + Category_selected);
+                            } catch (NullPointerException e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                getFilteredProductCategory(Categories.get(Category_selected));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            SharedPreferences.Editor orderCheckout_editor = orderCheckout_SP.edit();
+                            orderCheckout_editor.putString("orderCheckout", "orderCheckout123");
+                            orderCheckout_editor.apply();
+                        }
+                    } else {
+                        byDefaultStatus = "false";
+                    }
+                }
+
             }
 
             @Override
@@ -794,9 +842,10 @@ public class Dist_OrderPlace extends Fragment {
                     SharedPreferences orderCheckout = getContext().getSharedPreferences("orderCheckout",
                             Context.MODE_PRIVATE);
                     Gson gson = new Gson();
-                    String orderCheckedOut = orderCheckout.getString("orderCheckout", "");
+                    String orderCheckedOutStr = orderCheckout.getString("orderCheckout", "");
 
-                    if (selectedProductsDataList != null && selectedProductsDataList.size() > 0 && (orderCheckedOut.equals("orderCheckout") || orderCheckedOut.equals("orderCheckout123"))) {
+                    if (selectedProductsDataList != null && selectedProductsDataList.size() > 0 && (orderCheckedOutStr.equals("orderCheckout") || orderCheckedOutStr.equals("orderCheckout123"))) {
+//                    if (selectedProductsDataList != null && selectedProductsDataList.size() > 0 && (orderCheckedOut.equals("orderCheckout") || orderCheckedOut.equals("orderCheckout123"))) {
                         showDiscardDialog();
                         return true;
                     } else {
@@ -1043,7 +1092,7 @@ public class Dist_OrderPlace extends Fragment {
     }
 
     private void getFilteredProductCategory(final String ParentId) throws JSONException {
-        byDefaultStatus = false;
+        byDefaultStatus = "false";
         loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);

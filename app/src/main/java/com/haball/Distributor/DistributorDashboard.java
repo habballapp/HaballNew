@@ -258,12 +258,7 @@ public class DistributorDashboard extends AppCompatActivity {
                         } else if (id == 8) {
                             Log.i("Logout", "Logout Activity");
                             if (Token != null) {
-                                SharedPreferences login_token = getSharedPreferences("LoginToken",
-                                        Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = login_token.edit();
-                                editor.remove("Login_Token");
-                                editor.commit();
-//                                Intent login = new Intent(DistributorDashboard.this, Distribution_Login.class);
+                                //                                Intent login = new Intent(DistributorDashboard.this, Distribution_Login.class);
 //                                startActivity(login);
 //                                finish();
                                 logoutUser();
@@ -405,11 +400,6 @@ public class DistributorDashboard extends AppCompatActivity {
     }
 
     private void logoutUser() {
-        SharedPreferences login_token = getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = login_token.edit();
-        editor.remove("Login_Token");
-        editor.commit();
 
         final AlertDialog alertDialog = new AlertDialog.Builder(DistributorDashboard.this).create();
         LayoutInflater inflater = LayoutInflater.from(DistributorDashboard.this);
@@ -429,6 +419,13 @@ public class DistributorDashboard extends AppCompatActivity {
         btn_discard.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 alertDialog.dismiss();
+
+                SharedPreferences login_token = getSharedPreferences("LoginToken",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = login_token.edit();
+                editor.remove("Login_Token");
+                editor.commit();
+
                 Intent login = new Intent(DistributorDashboard.this, Distribution_Login.class);
                 startActivity(login);
                 finish();
