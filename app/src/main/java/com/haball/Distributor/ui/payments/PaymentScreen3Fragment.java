@@ -656,7 +656,7 @@ public class PaymentScreen3Fragment extends Fragment {
                 Log.i("CreatePayment", "Button Clicked");
                 alertDialog.dismiss();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment());
+                fragmentTransaction.replace(R.id.main_container, new CreatePaymentRequestFragment());
                 fragmentTransaction.commit();
             }
         });

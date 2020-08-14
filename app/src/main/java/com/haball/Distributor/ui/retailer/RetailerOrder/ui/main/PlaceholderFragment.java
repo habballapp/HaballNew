@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,11 +50,12 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputLayout;
 import com.haball.CustomToast;
-import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.StatusKVP;
 import com.haball.Distributor.ui.payments.CreatePaymentRequestFragment;
 import com.haball.Distributor.ui.payments.ViewPDFRequest;
 import com.haball.Distributor.ui.payments.ViewVoucherRequest;
+import com.haball.Distributor.ui.retailer.Payment.RetailerPaymentDashboard;
+import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrderDashboard;
 import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrdersAdapter.RetailerViewOrderProductAdapter;
 import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrdersModel.RetailerViewOrderProductModel;
 import com.haball.HaballError;
@@ -297,9 +299,9 @@ public class PlaceholderFragment extends Fragment {
 //                        fragmentTransaction.add(R.id.main_container, new Dashboard_Tab());
 //                        fragmentTransaction.commit();
 
-                        Intent login_intent = new Intent(getContext(), DistributorDashboard.class);
-                        startActivity(login_intent);
-                        getActivity().finish();
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new RetailerOrderDashboard());
+                        fragmentTransaction.commit();
                     }
                 });
 
@@ -338,9 +340,9 @@ public class PlaceholderFragment extends Fragment {
 //                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                        fragmentTransaction.add(R.id.main_container, new Dashboard_Tab());
 //                        fragmentTransaction.commit();
-                        Intent login_intent = new Intent(getContext(), DistributorDashboard.class);
-                        startActivity(login_intent);
-                        getActivity().finish();
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new RetailerOrderDashboard());
+                        fragmentTransaction.commit();
                     }
                 });
 
@@ -437,9 +439,10 @@ public class PlaceholderFragment extends Fragment {
 //                            fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                            fragmentTransaction.add(R.id.main_container, new Dashboard_Tab());
 //                            fragmentTransaction.commit();
-                            Intent login_intent = new Intent(getContext(), DistributorDashboard.class);
-                            startActivity(login_intent);
-                            getActivity().finish();
+
+                            FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.add(R.id.main_container, new RetailerOrderDashboard());
+                            fragmentTransaction.commit();
                         }
                     });
 
@@ -536,10 +539,10 @@ public class PlaceholderFragment extends Fragment {
                             editorOrderTabsFromDraft.putString("TabNo", "0");
                             editorOrderTabsFromDraft.apply();
 
-                            Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
-                            ((FragmentActivity) getContext()).startActivity(login_intent);
-                            ((FragmentActivity) getContext()).finish();
 
+                            FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.add(R.id.main_container, new RetailerOrderDashboard());
+                            fragmentTransaction.commit();
 //                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                fragmentTransaction.add(R.id.main_container, new EditPaymentRequestFragment());
 //                fragmentTransaction.commit();
@@ -782,6 +785,26 @@ public class PlaceholderFragment extends Fragment {
 //        Volley.newRequestQueue(getContext()).add(stringRequest);
 //
 //    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.add(R.id.main_container, new RetailerOrderDashboard());
+                    fragmentTransaction.commit();
+                }
+                return false;
+            }
+        });
+
+    }
 
     private void getOrderData() {
         loader.showLoader();
@@ -1157,4 +1180,6 @@ public class PlaceholderFragment extends Fragment {
             }
         }
     }
+
+
 }

@@ -33,7 +33,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="34dp"
                     android:background="@drawable/border_set"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
 
                     <TextView
                         android:id="@+id/login_heading"

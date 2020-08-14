@@ -51,7 +51,7 @@ public class EditOrderDraft {
     public EditOrderDraft() {
     }
 
-    public void editDraft(final Context context, String orderId, final String orderNumber) {
+    public void editDraft(final Context context, final String orderId, final String orderNumber) {
         mContext = context;
         SharedPreferences sharedPreferences = context.getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
@@ -77,6 +77,15 @@ public class EditOrderDraft {
                     JSONArray arr = response.getJSONArray("OrderDetails");
                     JSONObject obj = response.getJSONObject("OrderPaymentDetails");
                     String CompanyName = obj.getString("CompanyName");
+                    String DealerCode = obj.getString("DealerCode");
+
+                    SharedPreferences sharedPreferences1 = context.getSharedPreferences("DealerInfo",
+                            Context.MODE_PRIVATE);
+
+                    SharedPreferences.Editor sharedPreferences1_editor = sharedPreferences1.edit();
+                    sharedPreferences1_editor.putString("DealerCode", DealerCode);
+                    sharedPreferences1_editor.putString("orderId", orderId);
+                    sharedPreferences1_editor.apply();
 
                     Log.i("jsonOrderDetail1", String.valueOf(arr));
                     Gson gson = new Gson();

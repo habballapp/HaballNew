@@ -309,12 +309,6 @@ public class RetailorDashboard extends AppCompatActivity {
         footer_item_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.add(R.id.main_container, new TermsAndConditionsFragment());
-//                fragmentTransaction.commit();
-//                Intent login_intent = new Intent(RetailorDashboard.this, Retailer_Terms_And_Conditions.class);
-//                startActivity(login_intent);
-//                finish();
                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.add(R.id.main_container_ret, new Retailer_Terms_And_Conditions()).addToBackStack("tag");
                 fragmentTransaction.commit();

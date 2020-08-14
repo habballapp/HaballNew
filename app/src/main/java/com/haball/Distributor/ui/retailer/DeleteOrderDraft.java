@@ -26,6 +26,7 @@ package com.haball.Distributor.ui.retailer;
         import com.android.volley.toolbox.Volley;
         import com.haball.Distributor.DistributorDashboard;
         import com.haball.Distributor.ui.home.HomeFragment;
+        import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrderDashboard;
         import com.haball.HaballError;
         import com.haball.Loader;
         import com.haball.ProcessingError;
@@ -117,9 +118,9 @@ public class DeleteOrderDraft {
                         editorOrderTabsFromDraft.putString("TabNo", "0");
                         editorOrderTabsFromDraft.apply();
 
-                        Intent login_intent = new Intent(((FragmentActivity) context), DistributorDashboard.class);
-                        ((FragmentActivity) context).startActivity(login_intent);
-                        ((FragmentActivity) context).finish();
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new RetailerOrderDashboard());
+                        fragmentTransaction.commit();
                     }
                 });
 

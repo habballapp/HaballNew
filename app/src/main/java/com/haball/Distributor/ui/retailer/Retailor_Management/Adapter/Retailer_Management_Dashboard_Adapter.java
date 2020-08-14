@@ -54,18 +54,18 @@ public class Retailer_Management_Dashboard_Adapter extends RecyclerView.Adapter<
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        if (retailerList.size() == 3) {
-            if (position == (retailerList.size() - 1)) {
-//        if (position == 2) {
-                Log.i("DebugSupportFilter_In", retailerList.get(position).getRetailerCode());
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                        RelativeLayout.LayoutParams.WRAP_CONTENT,
-                        RelativeLayout.LayoutParams.WRAP_CONTENT
-                );
-                params.setMargins(0, 50, 0, 280);
-                holder.main_layout_retailer_box_retailer.setLayoutParams(params);
-            }
-        }
+//         if (retailerList.size() == 3) {
+//             if (position == (retailerList.size() - 1)) {
+// //        if (position == 2) {
+//                 Log.i("DebugSupportFilter_In", retailerList.get(position).getRetailerCode());
+//                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+//                         RelativeLayout.LayoutParams.WRAP_CONTENT,
+//                         RelativeLayout.LayoutParams.WRAP_CONTENT
+//                 );
+//                 params.setMargins(0, 50, 0, 280);
+//                 holder.main_layout_retailer_box_retailer.setLayoutParams(params);
+//             }
+//         }
 
         holder.tv_heading.setText(retailerList.get(position).getCompanyName());
         holder.retailer_code_no.setText(retailerList.get(position).getRetailerCode());

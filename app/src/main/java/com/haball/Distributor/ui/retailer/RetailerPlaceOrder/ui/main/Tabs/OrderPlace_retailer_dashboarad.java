@@ -113,7 +113,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
     private RelativeLayout spinner_container_main;
 
     private Typeface myFont;
-    private MyAsyncTask myAsyncTask;
+//    private MyAsyncTask myAsyncTask;
     private FragmentTransaction fragmentTransaction;
     private int lastExpandedPosition = -1;
     private String editTextValue = "";
@@ -504,127 +504,127 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
         });
 
     }
-
-    private boolean enableCheckout() {
-//        Log.i("checkout", "in checkout");
-        SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer",
-                Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        object_stringqty = selectedProducts.getString("selected_products_qty", "");
-        object_string = selectedProducts.getString("selected_products", "");
-        Type type = new TypeToken<List<OrderChildlist_Model>>() {
-        }.getType();
-        Type typeString = new TypeToken<List<String>>() {
-        }.getType();
-        if (!object_string.equals("") && !object_stringqty.equals("")) {
-            selectedProductsDataList = gson.fromJson(object_string, type);
-            selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
-        }
-//        float totalQty = 0;
+//
+//    private boolean enableCheckout() {
+////        Log.i("checkout", "in checkout");
+//        SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer",
+//                Context.MODE_PRIVATE);
+//        Gson gson = new Gson();
+//        object_stringqty = selectedProducts.getString("selected_products_qty", "");
+//        object_string = selectedProducts.getString("selected_products", "");
+//        Type type = new TypeToken<List<OrderChildlist_Model>>() {
+//        }.getType();
+//        Type typeString = new TypeToken<List<String>>() {
+//        }.getType();
+//        if (!object_string.equals("") && !object_stringqty.equals("")) {
+//            selectedProductsDataList = gson.fromJson(object_string, type);
+//            selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
+//        }
+////        float totalQty = 0;
+////        if (selectedProductsDataList != null) {
+////            if (selectedProductsDataList.size() > 0) {
+////                for (int i = 0; i < selectedProductsDataList.size(); i++) {
+//////                    Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+//////                    Log.i("qty", selectedProductsQuantityList.get(i));
+////                    if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
+////                        if (Float.parseFloat(selectedProductsQuantityList.get(i)) > 0) {
+////                            totalQty = totalQty + Float.parseFloat(selectedProductsQuantityList.get(i));
+////                        }
+////                }
+////            }
+////        }
+//////        Log.i("totalQty", "here");
+//////        Log.i("totalQty", String.valueOf(totalQty));
+////        if (totalQty > 0) {
+////            btn_checkout.setEnabled(true);
+////            btn_checkout.setBackgroundResource(R.drawable.button_round);
+////        } else {
+////            btn_checkout.setEnabled(false);
+////            btn_checkout.setBackgroundResource(R.drawable.button_grey_round);
+////        }
+////        myAsyncTask = new MyAsyncTask();
+////        myAsyncTask.execute();
+//        final Loader loader = new Loader(getContext());
+//
+////            selectedProductsDataList = gson.fromJson(object_string, type);
 //        if (selectedProductsDataList != null) {
 //            if (selectedProductsDataList.size() > 0) {
-//                for (int i = 0; i < selectedProductsDataList.size(); i++) {
-////                    Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
-////                    Log.i("qty", selectedProductsQuantityList.get(i));
-//                    if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
-//                        if (Float.parseFloat(selectedProductsQuantityList.get(i)) > 0) {
-//                            totalQty = totalQty + Float.parseFloat(selectedProductsQuantityList.get(i));
-//                        }
-//                }
+////                btn_checkout.setBackgroundResource(R.drawable.button_round);
+////                btn_checkout.setEnabled(true);
+//                btn_checkout.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        loader.showLoader();
+//                        getActivity().runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                new Handler().postDelayed(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        loader.hideLoader();
+//                                        //Do something after 1 second
+//
+//                                        SharedPreferences orderCheckout = getContext().getSharedPreferences("orderCheckout",
+//                                                Context.MODE_PRIVATE);
+//                                        SharedPreferences.Editor orderCheckout_editor = orderCheckout.edit();
+//                                        orderCheckout_editor.putString("orderCheckout", "orderCheckout");
+//                                        orderCheckout_editor.apply();
+//                                        NonSwipeableViewPager viewPager = getActivity().findViewById(R.id.view_pager_rpoid);
+//                                        SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer",
+//                                                Context.MODE_PRIVATE);
+//                                        Gson gson = new Gson();
+//                                        object_stringqty = selectedProducts.getString("selected_products_qty", "");
+//                                        object_string = selectedProducts.getString("selected_products", "");
+//                                        Type type = new TypeToken<List<OrderChildlist_Model>>() {
+//                                        }.getType();
+//                                        Type typeString = new TypeToken<List<String>>() {
+//                                        }.getType();
+//                                        selectedProductsDataList = gson.fromJson(object_string, type);
+//                                        selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
+////                        if (selectedProductsDataList.size() > 0) {
+////                            for (int i = 0; i < selectedProductsDataList.size(); i++) {
+////                                Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+////                                Log.i("qty", selectedProductsQuantityList.get(i));
+////                                if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
+////                                    grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
+////                            }
+//                                        if (selectedProductsDataList.size() > 0) {
+//                                            for (int i = 0; i < selectedProductsDataList.size(); i++) {
+////                                Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
+////                                Log.i("qty", selectedProductsQuantityList.get(i));
+//                                                if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
+//                                                    grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
+//                                            }
+//                                            SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
+//                                                    Context.MODE_PRIVATE);
+//                                            SharedPreferences.Editor editor = grossamount.edit();
+//                                            editor.putString("grossamount", String.valueOf(grossAmount));
+//                                            editor.apply();
+////                            Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
+//                                            grossAmount = 0;
+//                                            viewPager.setCurrentItem(1);
+//
+//                                            InputMethodManager imm = (InputMethodManager) (getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
+//                                            imm.hideSoftInputFromWindow(myview.getWindowToken(), 0);
+//
+//
+//                                            FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
+//                                            fragmentTransaction.add(R.id.main_container, new Order_Summary());
+//                                            fragmentTransaction.addToBackStack(null);
+//                                            fragmentTransaction.commit();
+//
+//                                        }
+//                                    }
+//                                }, 3000);
+//                            }
+//                        });
+//                    }
+//                });
+//                return true;
 //            }
 //        }
-////        Log.i("totalQty", "here");
-////        Log.i("totalQty", String.valueOf(totalQty));
-//        if (totalQty > 0) {
-//            btn_checkout.setEnabled(true);
-//            btn_checkout.setBackgroundResource(R.drawable.button_round);
-//        } else {
-//            btn_checkout.setEnabled(false);
-//            btn_checkout.setBackgroundResource(R.drawable.button_grey_round);
-//        }
-        myAsyncTask = new MyAsyncTask();
-        myAsyncTask.execute();
-        final Loader loader = new Loader(getContext());
-
-//            selectedProductsDataList = gson.fromJson(object_string, type);
-        if (selectedProductsDataList != null) {
-            if (selectedProductsDataList.size() > 0) {
-//                btn_checkout.setBackgroundResource(R.drawable.button_round);
-//                btn_checkout.setEnabled(true);
-                btn_checkout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        loader.showLoader();
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        loader.hideLoader();
-                                        //Do something after 1 second
-
-                                        SharedPreferences orderCheckout = getContext().getSharedPreferences("orderCheckout",
-                                                Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor orderCheckout_editor = orderCheckout.edit();
-                                        orderCheckout_editor.putString("orderCheckout", "orderCheckout");
-                                        orderCheckout_editor.apply();
-                                        NonSwipeableViewPager viewPager = getActivity().findViewById(R.id.view_pager_rpoid);
-                                        SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer",
-                                                Context.MODE_PRIVATE);
-                                        Gson gson = new Gson();
-                                        object_stringqty = selectedProducts.getString("selected_products_qty", "");
-                                        object_string = selectedProducts.getString("selected_products", "");
-                                        Type type = new TypeToken<List<OrderChildlist_Model>>() {
-                                        }.getType();
-                                        Type typeString = new TypeToken<List<String>>() {
-                                        }.getType();
-                                        selectedProductsDataList = gson.fromJson(object_string, type);
-                                        selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
-//                        if (selectedProductsDataList.size() > 0) {
-//                            for (int i = 0; i < selectedProductsDataList.size(); i++) {
-//                                Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
-//                                Log.i("qty", selectedProductsQuantityList.get(i));
-//                                if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
-//                                    grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
-//                            }
-                                        if (selectedProductsDataList.size() > 0) {
-                                            for (int i = 0; i < selectedProductsDataList.size(); i++) {
-//                                Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
-//                                Log.i("qty", selectedProductsQuantityList.get(i));
-                                                if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
-                                                    grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
-                                            }
-                                            SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
-                                                    Context.MODE_PRIVATE);
-                                            SharedPreferences.Editor editor = grossamount.edit();
-                                            editor.putString("grossamount", String.valueOf(grossAmount));
-                                            editor.apply();
-//                            Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
-                                            grossAmount = 0;
-                                            viewPager.setCurrentItem(1);
-
-                                            InputMethodManager imm = (InputMethodManager) (getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
-                                            imm.hideSoftInputFromWindow(myview.getWindowToken(), 0);
-
-
-                                            FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
-                                            fragmentTransaction.add(R.id.main_container, new Order_Summary());
-                                            fragmentTransaction.addToBackStack(null);
-                                            fragmentTransaction.commit();
-
-                                        }
-                                    }
-                                }, 3000);
-                            }
-                        });
-                    }
-                });
-                return true;
-            }
-        }
-        return false;
-    }
+//        return false;
+//    }
 
 
     private void getFilteredProductsFromCategory(final String Product) throws JSONException {
@@ -748,7 +748,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
-        new MyAsyncTask().execute();
+//        new MyAsyncTask().execute();
     }
 
     private void getFilteredProductCategory(final String ParentId) throws JSONException {
@@ -1086,7 +1086,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
-        new MyAsyncTask().execute();
+//        new MyAsyncTask().execute();
     }
 
     private List<OrderParentlist_Model> initData() {
@@ -1105,94 +1105,94 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
         }
         return parentObjects;
     }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (!isVisibleToUser) {
-            if (myAsyncTask != null && myAsyncTask.getStatus() == AsyncTask.Status.RUNNING)
-                myAsyncTask.cancel(true);
-
-            if (myAsyncTask != null && myAsyncTask.getStatus() == AsyncTask.Status.RUNNING)
-                myAsyncTask.cancel(true);
-        }
-    }
-
-    private class MyAsyncTask extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... params) {
-            while (getContext() != null && !isCancelled()) {
-//                Log.i("productsAsync", "in loop");
-//                Log.i("productsAsync", String.valueOf(selectedProductsDataList));
-                SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer",
-                        Context.MODE_PRIVATE);
-                object_string = selectedProducts.getString("selected_products", "");
-                Gson gson = new Gson();
-                Type type = new TypeToken<List<OrderChildlist_Model>>() {
-                }.getType();
-                temp_list = gson.fromJson(object_string, type);
-                object_stringqty = selectedProducts.getString("selected_products_qty", "");
-                Type typestr = new TypeToken<List<String>>() {
-                }.getType();
-                temp_listqty = gson.fromJson(object_stringqty, typestr);
-                if (!object_string.equals("")) {
-                    if (selectedProductsDataList != null) {
-                        if (temp_list != selectedProductsDataList) {
-                            selectedProductsDataList = temp_list;
-                            selectedProductsQuantityList = temp_listqty;
-                            break;
-                        }
-                    }
-                    break;
-                }
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            if (getContext() != null)
-                enableCheckout();
-        }
-    }
-
-    private void printErrMessage(VolleyError error) {
-        if (getContext() != null) {
-            if (error instanceof NetworkError) {
-                Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
-            } else if (error instanceof ServerError) {
-                Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
-            } else if (error instanceof AuthFailureError) {
-                Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
-            } else if (error instanceof ParseError) {
-                Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
-            } else if (error instanceof NoConnectionError) {
-                Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
-            } else if (error instanceof TimeoutError) {
-                Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
-            }
-
-            if (error.networkResponse != null && error.networkResponse.data != null) {
-                try {
-                    String message = "";
-                    String responseBody = new String(error.networkResponse.data, "utf-8");
-                    Log.i("responseBody", responseBody);
-                    JSONObject data = new JSONObject(responseBody);
-                    Log.i("data", String.valueOf(data));
-                    Iterator<String> keys = data.keys();
-                    while (keys.hasNext()) {
-                        String key = keys.next();
-                        message = message + data.get(key) + "\n";
-                    }
-                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
+//
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        if (!isVisibleToUser) {
+//            if (myAsyncTask != null && myAsyncTask.getStatus() == AsyncTask.Status.RUNNING)
+//                myAsyncTask.cancel(true);
+//
+//            if (myAsyncTask != null && myAsyncTask.getStatus() == AsyncTask.Status.RUNNING)
+//                myAsyncTask.cancel(true);
+//        }
+//    }
+//
+//    private class MyAsyncTask extends AsyncTask<Void, Void, Void> {
+//        @Override
+//        protected Void doInBackground(Void... params) {
+//            while (getContext() != null && !isCancelled()) {
+////                Log.i("productsAsync", "in loop");
+////                Log.i("productsAsync", String.valueOf(selectedProductsDataList));
+//                SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer",
+//                        Context.MODE_PRIVATE);
+//                object_string = selectedProducts.getString("selected_products", "");
+//                Gson gson = new Gson();
+//                Type type = new TypeToken<List<OrderChildlist_Model>>() {
+//                }.getType();
+//                temp_list = gson.fromJson(object_string, type);
+//                object_stringqty = selectedProducts.getString("selected_products_qty", "");
+//                Type typestr = new TypeToken<List<String>>() {
+//                }.getType();
+//                temp_listqty = gson.fromJson(object_stringqty, typestr);
+//                if (!object_string.equals("")) {
+//                    if (selectedProductsDataList != null) {
+//                        if (temp_list != selectedProductsDataList) {
+//                            selectedProductsDataList = temp_list;
+//                            selectedProductsQuantityList = temp_listqty;
+//                            break;
+//                        }
+//                    }
+//                    break;
+//                }
+//            }
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Void result) {
+//            if (getContext() != null)
+//                enableCheckout();
+//        }
+//    }
+//
+//    private void printErrMessage(VolleyError error) {
+//        if (getContext() != null) {
+//            if (error instanceof NetworkError) {
+//                Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+//            } else if (error instanceof ServerError) {
+//                Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+//            } else if (error instanceof AuthFailureError) {
+//                Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+//            } else if (error instanceof ParseError) {
+//                Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+//            } else if (error instanceof NoConnectionError) {
+//                Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+//            } else if (error instanceof TimeoutError) {
+//                Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+//            }
+//
+//            if (error.networkResponse != null && error.networkResponse.data != null) {
+//                try {
+//                    String message = "";
+//                    String responseBody = new String(error.networkResponse.data, "utf-8");
+//                    Log.i("responseBody", responseBody);
+//                    JSONObject data = new JSONObject(responseBody);
+//                    Log.i("data", String.valueOf(data));
+//                    Iterator<String> keys = data.keys();
+//                    while (keys.hasNext()) {
+//                        String key = keys.next();
+//                        message = message + data.get(key) + "\n";
+//                    }
+//                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+//                } catch (UnsupportedEncodingException e) {
+//                    e.printStackTrace();
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//    }
 
     private String getScrollEvent() {
         String scroll = "";

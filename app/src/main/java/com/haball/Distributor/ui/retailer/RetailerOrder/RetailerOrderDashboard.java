@@ -51,6 +51,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.StatusKVP;
+import com.haball.Distributor.ui.home.HomeFragment;
 import com.haball.Distributor.ui.orders.Adapter.CompanyFragmentAdapter;
 import com.haball.Distributor.ui.orders.Models.Company_Fragment_Model;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
@@ -117,7 +118,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
     private int pageNumberOrder = 0;
     private double totalPagesOrder = 0;
     private double totalEntriesOrder = 0;
-    private String fromDate="", toDate="";
+    private String fromDate = "", toDate = "";
     private FragmentTransaction fragmentTransaction;
 
     private String fromAmount = "", toAmount = "";
@@ -130,6 +131,8 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
     private RelativeLayout search_rl;
     private StatusKVP statusKVP;
     private Loader loader;
+    boolean byDefaultSelectCriteria = true;
+    boolean byDefaultStatus = true;
 
 
     public RetailerOrderDashboard() {
@@ -240,13 +243,13 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                 et_amount2.setText("");
                 first_date.setText("DD/MM/YYYY");
                 second_date.setText("DD/MM/YYYY");
-
-                try {
-                    fetchRetailerOrdersData();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (!byDefaultSelectCriteria) {
+                    try {
+                        fetchRetailerOrdersData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
-
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
@@ -256,6 +259,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                         ex.printStackTrace();
                     }
                 } else {
+                    byDefaultSelectCriteria = false;
 
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
@@ -367,6 +371,14 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (!byDefaultStatus) {
+                    try {
+                        fetchRetailerOrdersData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
@@ -375,12 +387,9 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
-                    try {
-                        fetchRetailerOrdersData();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+
                 } else {
+                    byDefaultStatus = false;
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
@@ -456,7 +465,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         conso_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus) {
+                if (!hasFocus) {
                     Filter_selected_value = String.valueOf(conso_edittext.getText());
                     if (!Filter_selected_value.equals("")) {
                         try {
@@ -628,7 +637,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
                 error.printStackTrace();
-                 new HaballError().printErrorMessage(getContext(), error);
+                new HaballError().printErrorMessage(getContext(), error);
                 new ProcessingError().showError(getContext());
             }
         }) {
@@ -717,7 +726,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
                 error.printStackTrace();
-                 new HaballError().printErrorMessage(getContext(), error);
+                new HaballError().printErrorMessage(getContext(), error);
                 new ProcessingError().showError(getContext());
             }
         }) {
@@ -981,9 +990,9 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                     editorOrderTabsFromDraft.putString("TabNo", "0");
                     editorOrderTabsFromDraft.apply();
 
-                    Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
-                    ((FragmentActivity) getContext()).startActivity(login_intent);
-                    ((FragmentActivity) getContext()).finish();
+                    FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.add(R.id.main_container, new HomeFragment());
+                    fragmentTransaction.commit();
                     return true;
                 }
                 return false;

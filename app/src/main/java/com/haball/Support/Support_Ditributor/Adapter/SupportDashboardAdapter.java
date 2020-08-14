@@ -81,18 +81,18 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
 
     @Override
     public void onBindViewHolder(@NonNull final SupportDashboardAdapter.ViewHolder holder, final int position) {
-        if (supportList.size() == 3) {
-            if (position == (supportList.size() - 1)) {
-//        if (position == 2) {
-                Log.i("DebugSupportFilter_In", supportList.get(position).getId());
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                        RelativeLayout.LayoutParams.WRAP_CONTENT,
-                        RelativeLayout.LayoutParams.WRAP_CONTENT
-                );
-                params.setMargins(0, 50, 0, 280);
-                holder.main_layout_support_box_retailer.setLayoutParams(params);
-            }
-        }
+//         if (supportList.size() == 3) {
+//             if (position == (supportList.size() - 1)) {
+// //        if (position == 2) {
+//                 Log.i("DebugSupportFilter_In", supportList.get(position).getId());
+//                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+//                         RelativeLayout.LayoutParams.WRAP_CONTENT,
+//                         RelativeLayout.LayoutParams.WRAP_CONTENT
+//                 );
+//                 params.setMargins(0, 50, 0, 280);
+//                 holder.main_layout_support_box_retailer.setLayoutParams(params);
+//             }
+//         }
 
         holder.heading.setText(supportList.get(position).getIssueType());
         holder.ticket_id_value.setText(supportList.get(position).getId());

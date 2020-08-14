@@ -325,11 +325,12 @@
                 android:id="@+id/rl_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/spinner_container_main"
-                android:layout_marginBottom="10dp">
+                android:layout_below="@+id/spinner_container_main">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_dist_payment_retailer"
+                    android:paddingBottom="100dp"
+                    android:clipToPadding="false"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 

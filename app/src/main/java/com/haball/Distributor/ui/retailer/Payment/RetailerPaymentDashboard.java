@@ -44,9 +44,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.DistributorDashboard;
+import com.haball.Distributor.ui.home.HomeFragment;
 import com.haball.Distributor.ui.main.PageViewModel;
 import com.haball.Distributor.ui.retailer.Payment.Adapters.PaymentDashboardAdapter;
 import com.haball.Distributor.ui.retailer.Payment.Models.Dist_Retailer_Dashboard_Model;
+import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrderDashboard;
 import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.ProcessingError;
@@ -840,9 +842,9 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
                     editorOrderTabsFromDraft.putString("TabNo", "0");
                     editorOrderTabsFromDraft.apply();
 
-                    Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
-                    ((FragmentActivity) getContext()).startActivity(login_intent);
-                    ((FragmentActivity) getContext()).finish();
+                    FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.add(R.id.main_container, new HomeFragment());
+                    fragmentTransaction.commit();
                 }
                 return false;
             }

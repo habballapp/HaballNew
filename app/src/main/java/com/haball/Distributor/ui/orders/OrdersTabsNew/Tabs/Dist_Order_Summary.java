@@ -95,7 +95,7 @@ public class Dist_Order_Summary extends Fragment {
     private List<OrderChildlist_Model_DistOrder> temp_list = new ArrayList<>();
     private List<String> temp_listqty = new ArrayList<>();
     private Loader loader;
-//    String current_balance;
+    //    String current_balance;
     String yourFormattedString3;
 
     @Override
@@ -129,7 +129,6 @@ public class Dist_Order_Summary extends Fragment {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
         btn_add_product = view.findViewById(R.id.btn_add_product);
-
 
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NewApi")
@@ -693,20 +692,20 @@ public class Dist_Order_Summary extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
         getView().setFocusableInTouchMode(true);
         getView().requestFocus();
         getView().setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
+                Log.i("keyback_debug", String.valueOf(keyCode));
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    Log.i("back_key_debug", "back from fragment 1");
                     showDiscardDialog();
                     return true;
                 }
                 return false;
             }
         });
-
     }
 
     private void showDiscardDialog() {
@@ -761,14 +760,8 @@ public class Dist_Order_Summary extends Fragment {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
-
-        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
-
-        SharedPreferences sharedPreferences4 = this.getActivity().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        DealerCode = sharedPreferences4.getString("DealerCode", "");
+        DistributorId = sharedPreferences.getString("Distributor_Id", "");
+        DealerCode = sharedPreferences.getString("DealerCode", "");
 
         SharedPreferences sharedPreferences2 = this.getActivity().getSharedPreferences("CompanyInfo",
                 Context.MODE_PRIVATE);
@@ -970,6 +963,12 @@ public class Dist_Order_Summary extends Fragment {
         editor.putString("CompanyId", "");
         editor.putString("ID", "0");
         editor.apply();
+
+        SharedPreferences orderCheckout1 = getContext().getSharedPreferences("FromDraft",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor orderCheckout_editor1 = orderCheckout1.edit();
+        orderCheckout_editor1.putString("fromDraft", "");
+        orderCheckout_editor1.apply();
 
 //        fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
 //        fragmentTransaction.add(R.id.main_container, new Distributor());

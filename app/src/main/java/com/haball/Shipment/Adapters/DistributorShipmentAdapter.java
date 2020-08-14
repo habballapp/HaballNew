@@ -52,18 +52,18 @@ public class DistributorShipmentAdapter extends RecyclerView.Adapter<Distributor
 
     @Override
     public void onBindViewHolder(@NonNull DistributorShipmentAdapter.ViewHolder holder, final int position) {
-        if (shipmentList.size() == 3) {
-            if (position == (shipmentList.size() - 1)) {
-//        if (position == 2) {
-                Log.i("DebugSupportFilter_In", shipmentList.get(position).getDeliveryNumber());
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                        RelativeLayout.LayoutParams.WRAP_CONTENT,
-                        RelativeLayout.LayoutParams.WRAP_CONTENT
-                );
-                params.setMargins(0, 50, 0, 280);
-                holder.main_layout_shipment_box_retailer.setLayoutParams(params);
-            }
-        }
+//         if (shipmentList.size() == 3) {
+//             if (position == (shipmentList.size() - 1)) {
+// //        if (position == 2) {
+//                 Log.i("DebugSupportFilter_In", shipmentList.get(position).getDeliveryNumber());
+//                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+//                         RelativeLayout.LayoutParams.WRAP_CONTENT,
+//                         RelativeLayout.LayoutParams.WRAP_CONTENT
+//                 );
+//                 params.setMargins(0, 50, 0, 280);
+//                 holder.main_layout_shipment_box_retailer.setLayoutParams(params);
+//             }
+//         }
 
         if(shipmentList.get(position).getCompanyName() != null)
             heading = shipmentList.get(position).getCompanyName();

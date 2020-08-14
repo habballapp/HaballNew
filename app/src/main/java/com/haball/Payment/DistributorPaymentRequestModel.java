@@ -11,6 +11,7 @@ public class DistributorPaymentRequestModel {
     private String DistributorId;
     private String DistributorName;
     private String ID;
+    private String isInvoice;
     private String IsTransmitted;
     private String LastChangedBy;
     private String LastChangedDate;
@@ -23,10 +24,7 @@ public class DistributorPaymentRequestModel {
     private String Status;
     private String employeesName;
 
-    public DistributorPaymentRequestModel() {
-    }
-
-    public DistributorPaymentRequestModel(String bankIMD, String companyCNIC, String companyId, String companyName, String createdBy, String createdDate, String distributorCNIC, String distributorId, String distributorName, String ID, String isTransmitted, String lastChangedBy, String lastChangedDate, String paidAmount, String paidDate, String prePaidNumber, String prepaidStatusValue, String referenceID, String state, String status, String employeesName) {
+    public DistributorPaymentRequestModel(String bankIMD, String companyCNIC, String companyId, String companyName, String createdBy, String createdDate, String distributorCNIC, String distributorId, String distributorName, String ID, String isInvoice, String isTransmitted, String lastChangedBy, String lastChangedDate, String paidAmount, String paidDate, String prePaidNumber, String prepaidStatusValue, String referenceID, String state, String status, String employeesName) {
         BankIMD = bankIMD;
         CompanyCNIC = companyCNIC;
         CompanyId = companyId;
@@ -37,6 +35,7 @@ public class DistributorPaymentRequestModel {
         DistributorId = distributorId;
         DistributorName = distributorName;
         this.ID = ID;
+        this.isInvoice = isInvoice;
         IsTransmitted = isTransmitted;
         LastChangedBy = lastChangedBy;
         LastChangedDate = lastChangedDate;
@@ -128,6 +127,14 @@ public class DistributorPaymentRequestModel {
 
     public void setID(String ID) {
         this.ID = ID;
+    }
+
+    public String getIsInvoice() {
+        return isInvoice;
+    }
+
+    public void setIsInvoice(String isInvoice) {
+        this.isInvoice = isInvoice;
     }
 
     public String getIsTransmitted() {

@@ -66,18 +66,18 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
 
     @Override
     public void onBindViewHolder(@NonNull PaymentDashboardVH holder, final int position) {
-        if (paymentsList.size() == 3) {
-            if (position == (paymentsList.size() - 1)) {
-//        if (position == 2) {
-                Log.i("DebugSupportFilter_In", paymentsList.get(position).getInvoiceNumber());
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                        RelativeLayout.LayoutParams.WRAP_CONTENT,
-                        RelativeLayout.LayoutParams.WRAP_CONTENT
-                );
-                params.setMargins(0, 50, 0, 280);
-                holder.main_layout_payment_box_retailer.setLayoutParams(params);
-            }
-        }
+//         if (paymentsList.size() == 3) {
+//             if (position == (paymentsList.size() - 1)) {
+// //        if (position == 2) {
+//                 Log.i("DebugSupportFilter_In", paymentsList.get(position).getInvoiceNumber());
+//                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+//                         RelativeLayout.LayoutParams.WRAP_CONTENT,
+//                         RelativeLayout.LayoutParams.WRAP_CONTENT
+//                 );
+//                 params.setMargins(0, 50, 0, 280);
+//                 holder.main_layout_payment_box_retailer.setLayoutParams(params);
+//             }
+//         }
 
         holder.tv_heading.setText(paymentsList.get(position).getCompanyName());
         holder.tv_payment_id.setText(paymentsList.get(position).getInvoiceNumber());
@@ -235,7 +235,8 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
                         });
                         popup.show();
 
-                    } else if (paymentsList.get(position).getInvoiceStatusValue().equals("Pending") || paymentsList.get(position).getInvoiceStatusValue().equals("Paid") || paymentsList.get(position).getInvoiceStatusValue().equals("Payment Processing") || paymentsList.get(position).getInvoiceStatusValue().equals("Cancelled")) {
+//                    } else if (paymentsList.get(position).getInvoiceStatusValue().equals("Pending") || paymentsList.get(position).getInvoiceStatusValue().equals("Paid") || paymentsList.get(position).getInvoiceStatusValue().equals("Payment Processing") || paymentsList.get(position).getInvoiceStatusValue().equals("Cancelled") || paymentsList.get(position).getInvoiceStatusValue().equals("Invoiced")) {
+                    } else {
                         Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
                         final PopupMenu popup = new PopupMenu(wrapper, view);
                         MenuInflater inflater = popup.getMenuInflater();

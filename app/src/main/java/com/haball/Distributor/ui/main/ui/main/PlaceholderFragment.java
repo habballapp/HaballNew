@@ -451,7 +451,7 @@ public class PlaceholderFragment extends Fragment {
                         @Override
                         public void onClick(View view) {
                             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment());
+                            fragmentTransaction.replace(R.id.main_container, new CreatePaymentRequestFragment());
                             fragmentTransaction.commit();
                         }
                     });

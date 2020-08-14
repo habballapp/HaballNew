@@ -57,7 +57,9 @@ import com.android.volley.toolbox.Volley;
 import com.haball.CustomToast;
 import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.StatusKVP;
+import com.haball.Distributor.ui.home.HomeFragment;
 import com.haball.Distributor.ui.payments.CreatePaymentRequestFragment;
+import com.haball.Distributor.ui.retailer.Payment.RetailerPaymentDashboard;
 import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrdersAdapter.RetailerViewOrderProductAdapter;
 import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrdersModel.RetailerViewOrderProductModel;
 import com.haball.Distributor.ui.retailer.ViewInvoiceReceipt;
@@ -205,9 +207,9 @@ public class PlaceholderFragment extends Fragment {
 //                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                        fragmentTransaction.add(R.id.main_container, new Dashboard_Tab());
 //                        fragmentTransaction.commit();
-                        Intent login_intent = new Intent(getContext(), DistributorDashboard.class);
-                        startActivity(login_intent);
-                        getActivity().finish();
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new RetailerPaymentDashboard());
+                        fragmentTransaction.commit();
                     }
                 });
 
@@ -246,9 +248,9 @@ public class PlaceholderFragment extends Fragment {
 //                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                        fragmentTransaction.add(R.id.main_container, new Dashboard_Tab());
 //                        fragmentTransaction.commit();
-                        Intent login_intent = new Intent(getContext(), DistributorDashboard.class);
-                        startActivity(login_intent);
-                        getActivity().finish();
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new RetailerPaymentDashboard());
+                        fragmentTransaction.commit();
                     }
                 });
 
@@ -335,9 +337,9 @@ public class PlaceholderFragment extends Fragment {
 //                            fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                            fragmentTransaction.add(R.id.main_container, new Dashboard_Tab());
 //                            fragmentTransaction.commit();
-                            Intent login_intent = new Intent(getContext(), DistributorDashboard.class);
-                            startActivity(login_intent);
-                            getActivity().finish();
+                            FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.add(R.id.main_container, new RetailerPaymentDashboard());
+                            fragmentTransaction.commit();
                         }
                     });
 
@@ -426,9 +428,9 @@ public class PlaceholderFragment extends Fragment {
                             editorOrderTabsFromDraft.putString("TabNo", "0");
                             editorOrderTabsFromDraft.apply();
 
-                            Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
-                            ((FragmentActivity) getContext()).startActivity(login_intent);
-                            ((FragmentActivity) getContext()).finish();
+                            FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.add(R.id.main_container, new RetailerPaymentDashboard());
+                            fragmentTransaction.commit();
 
 //                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                fragmentTransaction.replace(R.id.main_container, new EditPaymentRequestFragment());

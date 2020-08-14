@@ -49,7 +49,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.CustomToast;
-import com.haball.Distributor.DistributorDashboard;
 import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.ProcessingError;
@@ -171,9 +170,9 @@ public class PlaceholderFragment extends Fragment {
                         if (changed) {
                             showDiscardDialog();
                         } else {
-                            Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
-                            ((FragmentActivity) getContext()).startActivity(login_intent);
-                            ((FragmentActivity) getContext()).finish();
+                            FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tabs());
+                            fragmentTransaction.commit();
                         }
 
                     }

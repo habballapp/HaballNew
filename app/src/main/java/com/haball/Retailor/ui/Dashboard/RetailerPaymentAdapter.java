@@ -72,20 +72,20 @@ public class RetailerPaymentAdapter extends RecyclerView.Adapter<RetailerPayment
 
     @Override
     public void onBindViewHolder(@NonNull RetailerPaymentAdapter.ViewHolder holder, final int position) {
-        if (paymentsList.size() == 3) {
-//            if (rv_filter.getVisibility() == View.GONE) {
-                if (position == (paymentsList.size() - 1)) {
-//        if (position == 2) {
-                    Log.i("DebugSupportFilter_In", paymentsList.get(position).getInvoiceNumber());
-                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                            RelativeLayout.LayoutParams.WRAP_CONTENT,
-                            RelativeLayout.LayoutParams.WRAP_CONTENT
-                    );
-                    params.setMargins(0, 50, 0, 280);
-                    holder.main_layout_payment_box_retailer.setLayoutParams(params);
-                }
-//            }
-        }
+//         if (paymentsList.size() == 3) {
+// //            if (rv_filter.getVisibility() == View.GONE) {
+//                 if (position == (paymentsList.size() - 1)) {
+// //        if (position == 2) {
+//                     Log.i("DebugSupportFilter_In", paymentsList.get(position).getInvoiceNumber());
+//                     RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+//                             RelativeLayout.LayoutParams.WRAP_CONTENT,
+//                             RelativeLayout.LayoutParams.WRAP_CONTENT
+//                     );
+//                     params.setMargins(0, 50, 0, 280);
+//                     holder.main_layout_payment_box_retailer.setLayoutParams(params);
+//                 }
+// //            }
+//         }
 
         holder.tv_heading.setText(paymentsList.get(position).getCompanyName());
         holder.tv_payment_id.setText(paymentsList.get(position).getInvoiceNumber());

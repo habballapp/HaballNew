@@ -118,7 +118,7 @@
             android:name=".Retailer_Login.RetailerLogin"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible|adjustPan"
+            android:windowSoftInputMode="stateHidden|adjustPan"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
@@ -157,7 +157,7 @@
             android:name=".Distribution_Login.Distribution_Login"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible|adjustPan"
+            android:windowSoftInputMode="stateHidden|adjustPan"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".Registration.Registration_main"

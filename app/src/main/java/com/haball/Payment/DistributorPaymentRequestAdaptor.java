@@ -47,6 +47,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.haball.Distribution_Login.Distribution_Login;
 import com.haball.Distributor.DistributorDashboard;
+import com.haball.Distributor.ui.main.invoice.ViewInvoice;
 import com.haball.Distributor.ui.payments.EditPayment;
 import com.haball.Distributor.ui.payments.EditPaymentRequestFragment;
 import com.haball.Distributor.ui.payments.PaymentScreen3Fragment;
@@ -56,9 +57,6 @@ import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.ProcessingError;
 import com.haball.R;
-import com.haball.Retailor.RetailorDashboard;
-import com.haball.Retailor.ui.Dashboard.DashBoardFragment;
-import com.haball.Retailor.ui.Make_Payment.Payment_Summary;
 import com.haball.SSL_HandShake;
 
 import org.json.JSONException;
@@ -102,18 +100,18 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        if (paymentsRequestList.size() == 3) {
-            if (position == (paymentsRequestList.size() - 1)) {
-//        if (position == 2) {
-                Log.i("DebugSupportFilter_In", paymentsRequestList.get(position).getPrePaidNumber());
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                        RelativeLayout.LayoutParams.WRAP_CONTENT,
-                        RelativeLayout.LayoutParams.WRAP_CONTENT
-                );
-                params.setMargins(0, 50, 0, 280);
-                holder.main_layout_payment_box.setLayoutParams(params);
-            }
-        }
+//         if (paymentsRequestList.size() == 3) {
+//             if (position == (paymentsRequestList.size() - 1)) {
+// //        if (position == 2) {
+//                 Log.i("DebugSupportFilter_In", paymentsRequestList.get(position).getPrePaidNumber());
+//                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+//                         RelativeLayout.LayoutParams.WRAP_CONTENT,
+//                         RelativeLayout.LayoutParams.WRAP_CONTENT
+//                 );
+//                 params.setMargins(0, 50, 0, 280);
+//                 holder.main_layout_payment_box.setLayoutParams(params);
+//             }
+//         }
         holder.tv_state.setVisibility(View.GONE);
         holder.tv_state_value.setVisibility(View.GONE);
         holder.tv_heading.setText(paymentsRequestList.get(position).getCompanyName());
@@ -121,58 +119,163 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
         DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
 
 
-        String yourFormattedString1 = formatter1.format(Integer.parseInt(paymentsRequestList.get(position).getPaidAmount()));
+        String yourFormattedString1 = formatter1.format(Double.parseDouble(paymentsRequestList.get(position).getPaidAmount()));
         holder.amount_value.setText("Rs. " + yourFormattedString1);
-        if (paymentsRequestList.get(position).getStatus().equals("1"))
-            holder.status_value.setText("Paid");
-        else if (paymentsRequestList.get(position).getStatus().equals("0"))
-            holder.status_value.setText("Unpaid");
-        else if (paymentsRequestList.get(position).getStatus().equals("-1"))
-            holder.status_value.setText("Processing Payment");
+//        if (paymentsRequestList.get(position).getStatus().equals("1"))
+//            holder.status_value.setText("Paid");
+//        else if (paymentsRequestList.get(position).getStatus().equals("0"))
+//            holder.status_value.setText("Unpaid");
+//        else if (paymentsRequestList.get(position).getStatus().equals("-1"))
+//            holder.status_value.setText("Processing Payment");
+            holder.status_value.setText(paymentsRequestList.get(position).getPrepaidStatusValue());
 
 
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (paymentsRequestList.get(position).getPrepaidStatusValue().equals("Paid")) {
-                    // final PopupMenu popup = new PopupMenu(context, view);
-                    Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
-                    final PopupMenu popup = new androidx.appcompat.widget.PopupMenu(wrapper, view);
-                    MenuInflater inflater = popup.getMenuInflater();
-                    inflater.inflate(R.menu.retailer_dashboard_view_menu, popup.getMenu());
-                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            switch (item.getItemId()) {
-                                case R.id.view_view:
-                                    SharedPreferences paymentsRequestListID = ((FragmentActivity) context).getSharedPreferences("paymentsRequestListID",
-                                            Context.MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = paymentsRequestListID.edit();
-                                    editor.putString("paymentsRequestListID", paymentsRequestList.get(position).getID());
-                                    editor.commit();
+                if (paymentsRequestList.get(position).getIsInvoice().equals("1")) {
+                    if (paymentsRequestList.get(position).getPrepaidStatusValue().equals("Un-Paid")) {
+//                        Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
+//                        final PopupMenu popup = new PopupMenu(wrapper, view);
+//                        MenuInflater inflater = popup.getMenuInflater();
+//                        inflater.inflate(R.menu.distributor_payment_invoice_action_buttons, popup.getMenu());
+//                        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                            @Override
+//                            public boolean onMenuItemClick(MenuItem item) {
+//                                switch (item.getItemId()) {
+//                                    case R.id.view_retailer_payment:
+//                                        SharedPreferences OrderId = ((FragmentActivity) context).getSharedPreferences("PaymentId",
+//                                                Context.MODE_PRIVATE);
+//                                        SharedPreferences.Editor editor = OrderId.edit();
+//                                        editor.putString("PaymentId", paymentsRequestList.get(position).getID());
+//                                        editor.putString("InvoiceStatus", String.valueOf(paymentsRequestList.get(position).getPrepaidStatusValue()));
+//                                        Log.i("InvoiceStatus_Adapter", String.valueOf(paymentsRequestList.get(position).getPrepaidStatusValue()));
+//                                        editor.commit();
+//                                        fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+//                                        fragmentTransaction.replace(R.id.main_container, new RetailerViewInvoice()).addToBackStack("tag");
+//                                        fragmentTransaction.commit();
+//
+//                                        break;
+//                                    case R.id.pay_by_retailer:
+//
+////                        setUnpaidPaymentMenu(position, view);
+////                        //handle menu3 click
+//                                        final AlertDialog alertDialog2 = new AlertDialog.Builder(context).create();
+//                                        LayoutInflater inflater2 = LayoutInflater.from(context);
+//                                        View view_popup2 = inflater2.inflate(R.layout.payment_request_details, null);
+//                                        alertDialog2.setView(view_popup2);
+//                                        alertDialog2.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+//                                        WindowManager.LayoutParams layoutParams = alertDialog2.getWindow().getAttributes();
+//                                        layoutParams.y = 200;
+//                                        layoutParams.x = -70;// top margin
+//                                        alertDialog2.getWindow().setAttributes(layoutParams);
+//                                        alertDialog2.show();
+//                                        ImageButton img_close = view_popup2.findViewById(R.id.image_button_close);
+//                                        TextView payment_information_txt3 = view_popup2.findViewById(R.id.payment_information_txt3);
+//                                        payment_information_txt3.setText(paymentsRequestList.get(position).getPrePaidNumber());
+//                                        Button btn_view_voucher = view_popup2.findViewById(R.id.btn_view_voucher);
+//                                        btn_view_voucher.setOnClickListener(new View.OnClickListener() {
+//                                            @Override
+//                                            public void onClick(View v) {
+//                                                if (checkAndRequestPermissions()) {
+//                                                    try {
+//                                                        viewInvoicePDF(context, paymentsRequestList.get(position).getID());
+//                                                    } catch (JSONException e) {
+//                                                        e.printStackTrace();
+//                                                    }
+//                                                }
+//                                            }
+//                                        });
+//                                        img_close.setOnClickListener(new View.OnClickListener() {
+//                                            @Override
+//                                            public void onClick(View v) {
+//                                                alertDialog2.dismiss();
+//                                            }
+//                                        });
+//
+////                        Toast.makeText(context, "pay by", Toast.LENGTH_LONG).show();
+////                        String paymentId = paymentsRequestList.get(position).getID();
+////                        deletePayment(context, paymentsRequestList.get(position).getRetailerInvoiceId(), paymentsRequestList.get(position).getInvoiceNumber());
+//
+//
+//                                        break;
+//                                }
+//                                return false;
+//                            }
+//                        });
+//                        popup.show();
 
-                                    fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                                    fragmentTransaction.add(R.id.main_container, new View_Payment_Fragment()).addToBackStack("tag");
-                                    fragmentTransaction.commit();
-                                    break;
+                    } else if (paymentsRequestList.get(position).getPrepaidStatusValue().equals("Pending") || paymentsRequestList.get(position).getPrepaidStatusValue().equals("Paid") || paymentsRequestList.get(position).getPrepaidStatusValue().equals("Payment Processing") || paymentsRequestList.get(position).getPrepaidStatusValue().equals("Cancelled")) {
+                        Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
+                        final PopupMenu popup = new PopupMenu(wrapper, view);
+                        MenuInflater inflater = popup.getMenuInflater();
+                        inflater.inflate(R.menu.orders_fragment_menu, popup.getMenu());
+                        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                switch (item.getItemId()) {
+                                    case R.id.orders_view:
+                                        SharedPreferences OrderId = ((FragmentActivity) context).getSharedPreferences("PaymentId",
+                                                Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = OrderId.edit();
+                                        editor.putString("PaymentId", paymentsRequestList.get(position).getID());
+                                        editor.putString("InvoiceStatus", String.valueOf(paymentsRequestList.get(position).getPrepaidStatusValue()));
+                                        Log.i("InvoiceStatus_Adapter", String.valueOf(paymentsRequestList.get(position).getPrepaidStatusValue()));
+                                        editor.commit();
+                                        fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+                                        fragmentTransaction.replace(R.id.main_container, new ViewInvoice()).addToBackStack("tag");
+                                        fragmentTransaction.commit();
 
+                                        break;
+//                                case R.id.view_pdf:
+//                                    // Toast.makeText(context, "View PDF", Toast.LENGTH_LONG).show();
+//                                    break;
+                                }
+                                return false;
                             }
-                            return false;
-                        }
-                    });
-                    popup.show();
+                        });
+                        popup.show();
+                    }
+                } else if (paymentsRequestList.get(position).getIsInvoice().equals("0")) {
+                    if (paymentsRequestList.get(position).getPrepaidStatusValue().equals("Paid")) {
+                        // final PopupMenu popup = new PopupMenu(context, view);
+                        Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
+                        final PopupMenu popup = new androidx.appcompat.widget.PopupMenu(wrapper, view);
+                        MenuInflater inflater = popup.getMenuInflater();
+                        inflater.inflate(R.menu.retailer_dashboard_view_menu, popup.getMenu());
+                        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                switch (item.getItemId()) {
+                                    case R.id.view_view:
+                                        SharedPreferences paymentsRequestListID = ((FragmentActivity) context).getSharedPreferences("paymentsRequestListID",
+                                                Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = paymentsRequestListID.edit();
+                                        editor.putString("paymentsRequestListID", paymentsRequestList.get(position).getID());
+                                        editor.commit();
 
-                } else if (paymentsRequestList.get(position).getPrepaidStatusValue().equals("Unpaid")) {
-                    // final PopupMenu popup = new PopupMenu(context, view);
-                    Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
-                    final PopupMenu popup = new androidx.appcompat.widget.PopupMenu(wrapper, view);
-                    MenuInflater inflater = popup.getMenuInflater();
-                    inflater.inflate(R.menu.distributor_payment_action_buttons, popup.getMenu());
-                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            switch (item.getItemId()) {
-                                case R.id.view_retailer_payment:
+                                        fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+                                        fragmentTransaction.add(R.id.main_container, new View_Payment_Fragment()).addToBackStack("tag");
+                                        fragmentTransaction.commit();
+                                        break;
+
+                                }
+                                return false;
+                            }
+                        });
+                        popup.show();
+
+                    } else if (paymentsRequestList.get(position).getPrepaidStatusValue().equals("Unpaid")) {
+                        // final PopupMenu popup = new PopupMenu(context, view);
+                        Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
+                        final PopupMenu popup = new androidx.appcompat.widget.PopupMenu(wrapper, view);
+                        MenuInflater inflater = popup.getMenuInflater();
+                        inflater.inflate(R.menu.distributor_payment_action_buttons, popup.getMenu());
+                        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                switch (item.getItemId()) {
+                                    case R.id.view_retailer_payment:
 //                                    View_Payment_Fragment view_Payment_Fragment = new View_Payment_Fragment();
 //                                    SharedPreferences paymentsRequestListID = ((FragmentActivity) context).getSharedPreferences("paymentsRequestListID",
 //                                            Context.MODE_PRIVATE);
@@ -183,26 +286,26 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
 //                                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
 //                                    fragmentTransaction.add(R.id.main_container, view_Payment_Fragment);
 //                                    fragmentTransaction.commit();
-                                    SharedPreferences PrePaidNumber = context.getSharedPreferences("PrePaidNumber",
-                                            Context.MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = PrePaidNumber.edit();
-                                    editor.putString("PrePaidNumber", paymentsRequestList.get(position).getPrePaidNumber());
-                                    editor.putString("PrePaidId", paymentsRequestList.get(position).getID());
-                                    editor.putString("CompanyId", paymentsRequestList.get(position).getCompanyId());
-                                    editor.putString("CompanyName", paymentsRequestList.get(position).getCompanyName());
-                                    editor.putString("Amount", paymentsRequestList.get(position).getPaidAmount());
-                                    editor.putString("MenuItem", "View");
-                                    editor.apply();
+                                        SharedPreferences PrePaidNumber = context.getSharedPreferences("PrePaidNumber",
+                                                Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = PrePaidNumber.edit();
+                                        editor.putString("PrePaidNumber", paymentsRequestList.get(position).getPrePaidNumber());
+                                        editor.putString("PrePaidId", paymentsRequestList.get(position).getID());
+                                        editor.putString("CompanyId", paymentsRequestList.get(position).getCompanyId());
+                                        editor.putString("CompanyName", paymentsRequestList.get(position).getCompanyName());
+                                        editor.putString("Amount", paymentsRequestList.get(position).getPaidAmount());
+                                        editor.putString("MenuItem", "View");
+                                        editor.apply();
 
-                                    fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                                    fragmentTransaction.add(R.id.main_container, new PaymentScreen3Fragment()).addToBackStack("tag");
-                                    fragmentTransaction.addToBackStack(null);
-                                    fragmentTransaction.commit();
+                                        fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+                                        fragmentTransaction.add(R.id.main_container, new PaymentScreen3Fragment()).addToBackStack("tag");
+                                        fragmentTransaction.addToBackStack(null);
+                                        fragmentTransaction.commit();
 
-                                    break;
-                                case R.id.edit_retailer_payment:
+                                        break;
+                                    case R.id.edit_retailer_payment:
 
-                                    // Toast.makeText(context,"Edit Clicked",Toast.LENGTH_LONG).show();
+                                        // Toast.makeText(context,"Edit Clicked",Toast.LENGTH_LONG).show();
 //                                    final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
 //                                    LayoutInflater inflater = LayoutInflater.from(context);
 //                                    View view_popup = inflater.inflate(R.layout.edit_payment_request, null);
@@ -270,56 +373,56 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
 //                                    arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //                                    arrayAdapterPayments.notifyDataSetChanged();
 //                                    spinner.setAdapter(arrayAdapterPayments);
-                                    SharedPreferences PrePaidNumberEdit = context.getSharedPreferences("PrePaidNumber",
-                                            Context.MODE_PRIVATE);
-                                    SharedPreferences.Editor editorEdit = PrePaidNumberEdit.edit();
-                                    editorEdit.putString("PrePaidNumber", paymentsRequestList.get(position).getPrePaidNumber());
-                                    editorEdit.putString("PrePaidId", paymentsRequestList.get(position).getID());
-                                    editorEdit.putString("CompanyName", paymentsRequestList.get(position).getCompanyName());
-                                    editorEdit.putString("Amount", paymentsRequestList.get(position).getPaidAmount());
-                                    Gson gson = new Gson();
-                                    editorEdit.putString("paymentsRequestList", gson.toJson(paymentsRequestList.get(position)));
+                                        SharedPreferences PrePaidNumberEdit = context.getSharedPreferences("PrePaidNumber",
+                                                Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editorEdit = PrePaidNumberEdit.edit();
+                                        editorEdit.putString("PrePaidNumber", paymentsRequestList.get(position).getPrePaidNumber());
+                                        editorEdit.putString("PrePaidId", paymentsRequestList.get(position).getID());
+                                        editorEdit.putString("CompanyName", paymentsRequestList.get(position).getCompanyName());
+                                        editorEdit.putString("Amount", paymentsRequestList.get(position).getPaidAmount());
+                                        Gson gson = new Gson();
+                                        editorEdit.putString("paymentsRequestList", gson.toJson(paymentsRequestList.get(position)));
 
-                                    editorEdit.putString("MenuItem", "Edit");
-                                    editorEdit.apply();
+                                        editorEdit.putString("MenuItem", "Edit");
+                                        editorEdit.apply();
 
-                                    FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                                    fragmentTransaction.add(R.id.main_container, new PaymentScreen3Fragment()).addToBackStack("Tag");
-                                    fragmentTransaction.commit();
+                                        FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+                                        fragmentTransaction.add(R.id.main_container, new PaymentScreen3Fragment()).addToBackStack("Tag");
+                                        fragmentTransaction.commit();
 
-                                    break;
-                                case R.id.pay_by_retailer:
-                                    //handle menu2 click
-                                    //  Toast.makeText(context,"Bank Clicked",Toast.LENGTH_LONG).show();
-                                    final AlertDialog alertDialog2 = new AlertDialog.Builder(context).create();
-                                    LayoutInflater inflater2 = LayoutInflater.from(context);
-                                    View view_popup2 = inflater2.inflate(R.layout.payment_request_details, null);
-                                    alertDialog2.setView(view_popup2);
-                                    alertDialog2.show();
-                                    Button btn_view_voucher = view_popup2.findViewById(R.id.btn_view_voucher);
-                                    btn_view_voucher.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            if (checkAndRequestPermissions()) {
-                                                try {
-                                                    viewPDF(context, paymentsRequestList.get(position).getID());
-                                                } catch (JSONException e) {
-                                                    e.printStackTrace();
+                                        break;
+                                    case R.id.pay_by_retailer:
+                                        //handle menu2 click
+                                        //  Toast.makeText(context,"Bank Clicked",Toast.LENGTH_LONG).show();
+                                        final AlertDialog alertDialog2 = new AlertDialog.Builder(context).create();
+                                        LayoutInflater inflater2 = LayoutInflater.from(context);
+                                        View view_popup2 = inflater2.inflate(R.layout.payment_request_details, null);
+                                        alertDialog2.setView(view_popup2);
+                                        alertDialog2.show();
+                                        Button btn_view_voucher = view_popup2.findViewById(R.id.btn_view_voucher);
+                                        btn_view_voucher.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                if (checkAndRequestPermissions()) {
+                                                    try {
+                                                        viewPDF(context, paymentsRequestList.get(position).getID());
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
                                                 }
                                             }
-                                        }
-                                    });
-                                    ImageButton img_close = (ImageButton) view_popup2.findViewById(R.id.image_button_close);
-                                    img_close.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            alertDialog2.dismiss();
-                                        }
-                                    });
-                                    break;
-                                case R.id.delete_retailer_payment:
-                                    //handle menu3 click
-                                    deletePayment(context, position);
+                                        });
+                                        ImageButton img_close = (ImageButton) view_popup2.findViewById(R.id.image_button_close);
+                                        img_close.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                alertDialog2.dismiss();
+                                            }
+                                        });
+                                        break;
+                                    case R.id.delete_retailer_payment:
+                                        //handle menu3 click
+                                        deletePayment(context, position);
                              /*   final AlertDialog deleteAlert = new AlertDialog.Builder(mContxt).create();
                                 LayoutInflater delete_inflater = LayoutInflater.from(mContxt);
                                 View delete_alert = delete_inflater.inflate(R.layout.delete_alert, null);
@@ -337,12 +440,12 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
                                     }
                                 });
                                 deleteAlert.show();*/
-                                    break;
+                                        break;
 
 
-                                case R.id.payment_request_ebay:
-                                    Toast.makeText(context, "Epay Clicked", Toast.LENGTH_LONG).show();
-                                    break;
+                                    case R.id.payment_request_ebay:
+                                        Toast.makeText(context, "Epay Clicked", Toast.LENGTH_LONG).show();
+                                        break;
 //                                case R.id.payment_request_download:
 ////                                        Toast.makeText(mContxt, "View PDF", Toast.LENGTH_LONG).show();
 //                                    try {
@@ -351,15 +454,22 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
 //                                        e.printStackTrace();
 //                                    }
 //                                    break;
+                                }
+                                return false;
                             }
-                            return false;
-                        }
-                    });
-                    popup.show();
+                        });
+                        popup.show();
+                    }
                 }
             }
         });
     }
+
+//
+//    private void viewInvoicePDF(Context context, String ID) throws JSONException {
+//        ViewInvoiceVoucher viewPDFRequest = new ViewInvoiceVoucher();
+//        viewPDFRequest.viewPDF(context, ID);
+//    }
 
     private void deletePayment(final Context context, final int position) {
 
@@ -498,7 +608,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
             public void onErrorResponse(VolleyError error) {
                 Log.i("paymentLog_Error", String.valueOf(error));
                 loader.hideLoader();
- new HaballError().printErrorMessage(context, error);
+                new HaballError().printErrorMessage(context, error);
                 new ProcessingError().showError(context);
                 error.printStackTrace();
             }

@@ -671,20 +671,24 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             map.put(Filter_selected, Filter_selected_value);
         }
 
-        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_PAYMENTS, map, new Response.Listener<JSONArray>() {
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_DISTRIBUTOR_PAYMENTS, map, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
-            public void onResponse(JSONArray result) {
+            public void onResponse(JSONObject result) {
                 loader.hideLoader();
-                Log.i("Payments all", result.toString());
+                try {
+                    Log.i("Payments all", result.getJSONArray("PrePaidRequestData").toString());
 //                btn_load_more.setVisibility(View.GONE);
-                Gson gson = new Gson();
-                Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
-                }.getType();
-                List<DistributorPaymentRequestModel> PaymentsRequestList_temp = new ArrayList<>();
-                PaymentsRequestList_temp = gson.fromJson(result.toString(), type);
-                PaymentsRequestList.addAll(PaymentsRequestList_temp);
-                mAdapter.notifyDataSetChanged();
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
+                    }.getType();
+                    List<DistributorPaymentRequestModel> PaymentsRequestList_temp = new ArrayList<>();
+                    PaymentsRequestList_temp = gson.fromJson(result.getJSONArray("PrePaidRequestData").toString(), type);
+                    PaymentsRequestList.addAll(PaymentsRequestList_temp);
+                    mAdapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 //                mAdapter = new DistributorPaymentRequestAdaptor(getContext(), PaymentsRequestList);
 //                recyclerView.setAdapter(mAdapter);
 //                tv_shipment_no_data1.setVisibility(View.GONE);
@@ -736,6 +740,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
         spinner_container = rootView.findViewById(R.id.spinner_container);
         spinner_container.setVisibility(View.GONE);
+//        tv_shipment_no_data.setVisibility(View.VISIBLE);
         spinner_container1 = rootView.findViewById(R.id.spinner_container1);
         spinner_consolidate = (Spinner) rootView.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) rootView.findViewById(R.id.conso_spinner2);
@@ -1793,7 +1798,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
     private void fetchPaymentRequests() throws JSONException {
         Log.i("PaymentDebug", "In Main");
-//        loader.showLoader();
+        loader.showLoader();
         tv_shipment_no_data1.setVisibility(View.GONE);
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
