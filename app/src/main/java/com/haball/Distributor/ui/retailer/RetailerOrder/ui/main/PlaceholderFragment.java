@@ -135,6 +135,7 @@ public class PlaceholderFragment extends Fragment {
     private Loader loader;
     private RelativeLayout ln_login;
     private RelativeLayout rl_jazz_cash;
+    private View view_root;
 
 
     public static PlaceholderFragment newInstance(int index) {
@@ -267,6 +268,7 @@ public class PlaceholderFragment extends Fragment {
             case 1: {
                 loader = new Loader(getContext());
                 rootView = inflater.inflate(R.layout.fragment_retailer_orders_tab, container, false);
+                view_root = rootView;
 
                 layout_txt_orderID = rootView.findViewById(R.id.layout_txt_orderID);
                 layout_txt_order_company = rootView.findViewById(R.id.layout_txt_order_company);
@@ -310,6 +312,8 @@ public class PlaceholderFragment extends Fragment {
             }
             case 2: {
                 rootView = inflater.inflate(R.layout.fragment_retailer_orders_details_tab, container, false);
+                view_root = rootView;
+
                 rv_fragment_retailer_order_details = rootView.findViewById(R.id.rv_fragment_retailer_order_details);
                 total_amount = rootView.findViewById(R.id.total_amount);
                 rv_fragment_retailer_order_details.setHasFixedSize(true);
@@ -358,6 +362,9 @@ public class PlaceholderFragment extends Fragment {
                 if (InvoiceStatus.equals("Paid")) {
 
                     rootView = inflater.inflate(R.layout.fragment_retailer_payment_tab, container, false);
+
+                    view_root = rootView;
+
                     layout_txt_companName = rootView.findViewById(R.id.layout_txt_companName);
                     layout_txt_paymentID = rootView.findViewById(R.id.layout_txt_paymentID);
                     layout_txt_created_date = rootView.findViewById(R.id.layout_txt_created_date);
@@ -452,6 +459,9 @@ public class PlaceholderFragment extends Fragment {
 
 
                     rootView = inflater.inflate(R.layout.activity_payment__screen3, container, false);
+                    view_root = rootView;
+
+
                     myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
 
                     payment_id = rootView.findViewById(R.id.payment_id);
@@ -790,19 +800,21 @@ public class PlaceholderFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        getView().setFocusableInTouchMode(true);
-        getView().requestFocus();
-        getView().setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
-                    FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.add(R.id.main_container, new RetailerOrderDashboard());
-                    fragmentTransaction.commit();
+        if(view_root != null) {
+            view_root.setFocusableInTouchMode(true);
+            view_root.requestFocus();
+            view_root.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new RetailerOrderDashboard());
+                        fragmentTransaction.commit();
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
+        }
 
     }
 
@@ -903,9 +915,35 @@ public class PlaceholderFragment extends Fragment {
                     RetailerViewOrderProductAdapter productAdapter = new RetailerViewOrderProductAdapter(getContext(), invo_productList);
                     rv_fragment_retailer_order_details.setAdapter(productAdapter);
                     DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
+//
+//                    String TotalAmount = "";
+//                    if (!response.getString("TotoalOrderDiscount").equals("null") && !response.getString("TotoalOrderDiscount").equals("0")) {
+//                        String OrderTotalDiscount = formatter1.format(Double.parseDouble(response.getString("TotoalOrderDiscount")));
+//                        discount_amount.setText(OrderTotalDiscount);
+//
+//                        if (totalPrice != 0)
+//                            TotalAmount = formatter1.format(totalPrice - Double.parseDouble(response.getString("TotoalOrderDiscount")));
+//                        total_amount.setText(TotalAmount);
+//                    } else if (totalDiscount == 0) {
+//                        discount.setVisibility(View.GONE);
+//                        Rs_discount.setVisibility(View.GONE);
+//                        discount_amount.setVisibility(View.GONE);
+//
+//                        if (totalPrice != 0)
+//                            TotalAmount = formatter1.format(totalPrice);
+//                        total_amount.setText(TotalAmount);
+//                    } else {
+//                        String OrderTotalDiscount = formatter1.format(totalDiscount);
+//                        discount_amount.setText(OrderTotalDiscount);
+//
+//                        if (totalPrice != 0)
+//                            TotalAmount = formatter1.format(totalPrice - totalDiscount);
+//                        total_amount.setText(TotalAmount);
+//                    }
+//
                     String TotalAmount = "";
                     if (totalPrice != 0)
-                        TotalAmount = formatter1.format(totalPrice);
+                        TotalAmount = formatter1.format(Double.parseDouble(response.getString("RetailerOrderTotal")));
                     total_amount.setText(TotalAmount);
                     if (!response.getString("TotoalOrderDiscount").equals("null") && !response.getString("TotoalOrderDiscount").equals("0")) {
                         String OrderTotalDiscount = formatter1.format(Double.parseDouble(response.getString("TotoalOrderDiscount")));

@@ -526,6 +526,18 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                     // handle back button's click listener
 //                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
 //
+                    SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer_own",
+                            Context.MODE_PRIVATE);
+                    Gson gson = new Gson();
+                    object_stringqty = selectedProducts.getString("selected_products_qty", "");
+                    object_string = selectedProducts.getString("selected_products", "");
+                    Type type = new TypeToken<List<OrderChildlist_Model>>() {
+                    }.getType();
+                    Type typeString = new TypeToken<List<String>>() {
+                    }.getType();
+                    selectedProductsDataList = gson.fromJson(object_string, type);
+                    selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
+
                     if (selectedProductsDataList == null || selectedProductsDataList.size() == 0) {
                         InputMethodManager imm = (InputMethodManager) (getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(myview.getWindowToken(), 0);
@@ -534,8 +546,10 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                         fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("null");
                         fragmentTransaction.commit();
+                        return true;
                     } else {
                         showDiscardDialog();
+                        return true;
                     }
 //                    SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
 //                            Context.MODE_PRIVATE);

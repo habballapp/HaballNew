@@ -117,7 +117,15 @@ public class ViewOrderProductAdapter extends RecyclerView.Adapter<ViewOrderProdu
         holder.product_code.append("Amount:\u00A0");
 
         formatter1 = new DecimalFormat("#,###,##0.00");
-        yourFormattedString1 = formatter1.format(Double.parseDouble(OrdersList.get(position).getTotalPrice()));
+        double totalAmount = Double.parseDouble(OrdersList.get(position).getTotalPrice());
+        // if (!OrdersList.get(position).getDiscount().equals("0") && !OrdersList.get(position).getDiscount().equals("") && !OrdersList.get(position).getDiscount().equals("null")) {
+
+        //     double discount = Double.parseDouble(OrdersList.get(position).getDiscount());
+        //     totalAmount -= discount;
+
+        // }
+
+        yourFormattedString1 = formatter1.format(totalAmount);
 
         ss1 = new SpannableString("Rs.\u00A0" + yourFormattedString1);
         ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);

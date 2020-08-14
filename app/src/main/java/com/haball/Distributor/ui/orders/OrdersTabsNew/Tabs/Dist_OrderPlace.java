@@ -50,6 +50,7 @@ import com.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderChildlist_Mode
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderParentlist_Model_DistOrder;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Order_PlaceOrder;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
+import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Tabs.Order_Summary;
 import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.NonSwipeableViewPager;
@@ -929,7 +930,7 @@ public class Dist_OrderPlace extends Fragment {
                         InputMethodManager imm = (InputMethodManager) (getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(myview.getWindowToken(), 0);
 
-
+//
                         fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                        fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace()).addToBackStack("null");
                         fragmentTransaction.add(R.id.main_container, new Order_PlaceOrder()).addToBackStack("null");

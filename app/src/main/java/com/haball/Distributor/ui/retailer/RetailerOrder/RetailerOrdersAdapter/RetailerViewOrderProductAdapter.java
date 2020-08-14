@@ -79,7 +79,8 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
         ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
         holder.product_code.append(ss1);
         if (OrdersList.get(position).getUOMTitle() != null && !OrdersList.get(position).getUOMTitle().equals("null")) {
-            holder.product_code.append("        ");
+            holder.product_code.append("            ");
+            holder.product_code.append("            ");
 
             holder.product_code.append("UOM:\u00A0");
 
@@ -102,7 +103,8 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
             holder.product_code.append(ss1);
 
         }
-        holder.product_code.append("        ");
+        holder.product_code.append("            ");
+        holder.product_code.append("            ");
 
         holder.product_code.append("Qty:\u00A0");
 
@@ -110,12 +112,21 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
         ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
         holder.product_code.append(ss1);
 
-        holder.product_code.append("        ");
+        holder.product_code.append("            ");
+        holder.product_code.append("            ");
 
         holder.product_code.append("Amount:\u00A0");
 
         formatter1 = new DecimalFormat("#,###,##0.00");
-        yourFormattedString1 = formatter1.format(Double.parseDouble(OrdersList.get(position).getTotalamount()));
+        double totalAmount = Double.parseDouble(OrdersList.get(position).getTotalamount());
+//        if (!OrdersList.get(position).getDiscount().equals("0") && !OrdersList.get(position).getDiscount().equals("") && !OrdersList.get(position).getDiscount().equals("null")) {
+//
+//            double discount = Double.parseDouble(OrdersList.get(position).getDiscount());
+//            totalAmount -= discount;
+//
+//        }
+
+        yourFormattedString1 = formatter1.format(totalAmount);
 
         ss1 = new SpannableString("Rs.\u00A0" + yourFormattedString1);
         ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);

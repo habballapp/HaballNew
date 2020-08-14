@@ -796,13 +796,13 @@ public class PlaceholderFragment extends Fragment {
                 }.getType();
                 try {
                     JSONObject OrderPaymentDetails = response.getJSONObject("OrderPaymentDetails");
-                    double totalPrice = 0;
+//                    double totalPrice = 0;
                     double totalDiscount = 0;
                     invo_productList = gson.fromJson(response.get("OrderDetails").toString(), type);
-                    for (int i = 0; i < invo_productList.size(); i++) {
-                        if (!String.valueOf(invo_productList.get(i).getTotalPrice()).equals("null"))
-                            totalPrice += Double.parseDouble(invo_productList.get(i).getTotalPrice());
-                    }
+//                    for (int i = 0; i < invo_productList.size(); i++) {
+//                        if (!String.valueOf(invo_productList.get(i).getTotalPrice()).equals("null"))
+//                            totalPrice += Double.parseDouble(invo_productList.get(i).getTotalPrice());
+//                    }
                     for (int i = 0; i < invo_productList.size(); i++) {
                         if (!String.valueOf(invo_productList.get(i).getDiscount()).equals("null"))
                             totalDiscount += Double.parseDouble(invo_productList.get(i).getDiscount());
@@ -812,8 +812,8 @@ public class PlaceholderFragment extends Fragment {
                     rv_fragment_retailer_order_details.setAdapter(productAdapter);
                     DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
                     String TotalAmount = "";
-                    if (totalPrice != 0)
-                        TotalAmount = formatter1.format(totalPrice);
+//                    if (totalPrice != 0)
+                    TotalAmount = formatter1.format(Double.parseDouble(OrderPaymentDetails.getString("TotalAmount")));
                     total_amount.setText(TotalAmount);
                     if (!OrderPaymentDetails.getString("OrderTotalDiscount").equals("null") && !OrderPaymentDetails.getString("OrderTotalDiscount").equals("0")) {
                         String OrderTotalDiscount = formatter1.format(Double.parseDouble(OrderPaymentDetails.getString("OrderTotalDiscount")));
@@ -826,6 +826,32 @@ public class PlaceholderFragment extends Fragment {
                         String OrderTotalDiscount = formatter1.format(totalDiscount);
                         discount_amount.setText(OrderTotalDiscount);
                     }
+
+//
+//                    String TotalAmount = "";
+//                    if (!response.getString("OrderTotalDiscount").equals("null") && !response.getString("OrderTotalDiscount").equals("0")) {
+//                        String OrderTotalDiscount = formatter1.format(Double.parseDouble(response.getString("OrderTotalDiscount")));
+//                        discount_amount.setText(OrderTotalDiscount);
+//
+//                        if (totalPrice != 0)
+//                            TotalAmount = formatter1.format(totalPrice - Double.parseDouble(response.getString("OrderTotalDiscount")));
+//                        total_amount.setText(TotalAmount);
+//                    } else if (totalDiscount == 0) {
+//                        discount.setVisibility(View.GONE);
+//                        Rs_discount.setVisibility(View.GONE);
+//                        discount_amount.setVisibility(View.GONE);
+//
+//                        if (totalPrice != 0)
+//                            TotalAmount = formatter1.format(totalPrice);
+//                        total_amount.setText(TotalAmount);
+//                    } else {
+//                        String OrderTotalDiscount = formatter1.format(totalDiscount);
+//                        discount_amount.setText(OrderTotalDiscount);
+//
+//                        if (totalPrice != 0)
+//                            TotalAmount = formatter1.format(totalPrice - totalDiscount);
+//                        total_amount.setText(TotalAmount);
+//                    }
 
                     if (invo_productList.size() != 0) {
                         tv_shipment_no_data.setVisibility(View.GONE);
