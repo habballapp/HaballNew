@@ -558,7 +558,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     }
 
     private void performPaginationOrder() throws JSONException {
-//        loader.showLoader();
+        loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -641,7 +641,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
     private void performPagination() throws JSONException {
         Log.i("PaymentDebug", "In Pagination");
-//        loader.showLoader();
+        loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");

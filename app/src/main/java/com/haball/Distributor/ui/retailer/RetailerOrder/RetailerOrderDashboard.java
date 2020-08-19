@@ -687,6 +687,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
 
     private void performPaginationOrder() throws JSONException {
 
+        loader.showLoader();
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);

@@ -639,6 +639,7 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
     }
 
     private void performPagination() throws JSONException {
+        loader.showLoader();
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);

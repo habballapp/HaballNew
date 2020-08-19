@@ -74,7 +74,7 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
                         RelativeLayout.LayoutParams.WRAP_CONTENT,
                         RelativeLayout.LayoutParams.WRAP_CONTENT
                 );
-                params.setMargins(0, 50, 0, 280);
+                params.setMargins(0, 50, 0, 360);
                 holder.main_layout_payment_box_retailer.setLayoutParams(params);
             }
         }

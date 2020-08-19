@@ -790,6 +790,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
 
 
     private void performPaginationSupport() throws JSONException {
+        loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");

@@ -312,7 +312,8 @@
         android:id="@+id/rl_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/rv_filter">
+        android:layout_below="@+id/rv_filter"
+        android:layout_marginBottom="20dp">
 
         <TextView
             android:id="@+id/tv_shipment_no_data"

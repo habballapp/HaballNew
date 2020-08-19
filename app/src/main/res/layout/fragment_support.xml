@@ -246,7 +246,8 @@
                 android:id="@+id/rl_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/spinner_container_main">
+                android:layout_below="@+id/spinner_container_main"
+                android:layout_marginBottom="20dp">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_support_complaints"

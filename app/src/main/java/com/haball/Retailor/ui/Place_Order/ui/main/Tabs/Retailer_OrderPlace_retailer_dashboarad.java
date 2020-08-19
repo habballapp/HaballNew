@@ -1069,7 +1069,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                     productList = gsonChild.fromJson(String.valueOf(resultMain.get("Products")), typeChild);
                     Log.i("productList", String.valueOf(productList));
 
-                    if (productList.size() < 3) {
+                    if (productList.size() <= 5) {
                         if (spinner_container_main.getVisibility() == View.GONE) {
 
                             spinner_container_main.setVisibility(View.VISIBLE);

@@ -75,7 +75,7 @@ public class DistributorOrdersAdapter extends RecyclerView.Adapter<DistributorOr
                          RelativeLayout.LayoutParams.WRAP_CONTENT,
                          RelativeLayout.LayoutParams.WRAP_CONTENT
                  );
-                 params.setMargins(0, 50, 0, 280);
+                 params.setMargins(0, 50, 0, 360);
                  holder.main_layout_order_box.setLayoutParams(params);
              }
          }
