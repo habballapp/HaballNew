@@ -81,21 +81,21 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
 
     @Override
     public void onBindViewHolder(@NonNull final SupportDashboardAdapter.ViewHolder holder, final int position) {
-//         if (supportList.size() == 3) {
-//             if (position == (supportList.size() - 1)) {
-// //        if (position == 2) {
-//                 Log.i("DebugSupportFilter_In", supportList.get(position).getId());
-//                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-//                         RelativeLayout.LayoutParams.WRAP_CONTENT,
-//                         RelativeLayout.LayoutParams.WRAP_CONTENT
-//                 );
-//                 params.setMargins(0, 50, 0, 280);
-//                 holder.main_layout_support_box_retailer.setLayoutParams(params);
-//             }
-//         }
+        if (supportList.size() == 3 || supportList.size() == 4) {
+            if (position == (supportList.size() - 1)) {
+                //        if (position == 2) {
+                Log.i("DebugSupportFilter_In", supportList.get(position).getId());
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT
+                );
+                params.setMargins(0, 50, 0, 280);
+                holder.main_layout_support_box_retailer.setLayoutParams(params);
+            }
+        }
 
         holder.heading.setText(supportList.get(position).getIssueType());
-        holder.ticket_id_value.setText(supportList.get(position).getId());
+        holder.ticket_id_value.setText(supportList.get(position).getTicketNumber());
         holder.status_value.setText(supportList.get(position).getStatus());
         holder.created_date_value.setText(supportList.get(position).getCreatedDate().split("T")[0]);
 
@@ -112,14 +112,14 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.menu_view:
-                                SharedPreferences SupportId = ((FragmentActivity)mContxt).getSharedPreferences("SupportId",
+                                SharedPreferences SupportId = ((FragmentActivity) mContxt).getSharedPreferences("SupportId",
                                         Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = SupportId.edit();
                                 editor.putString("SupportId", supportList.get(position).getId());
                                 editor.commit();
 
-                                FragmentTransaction fragmentTransaction= ((FragmentActivity)mContxt).getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction.add(R.id.main_container,new Support_Ticket_View());
+                                FragmentTransaction fragmentTransaction = ((FragmentActivity) mContxt).getSupportFragmentManager().beginTransaction();
+                                fragmentTransaction.add(R.id.main_container, new Support_Ticket_View());
                                 fragmentTransaction.commit();
 //                                if (!URL_SUPPORT_VIEW.contains("//" + supportList.get(position).getId()))
 //                                    URL_SUPPORT_VIEW = URL_SUPPORT_VIEW + supportList.get(position).getId();
@@ -174,7 +174,6 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
 //                                    }
 //                                });
 //                                Volley.newRequestQueue(mContxt).add(request);
-
 
 
                                 break;
@@ -248,6 +247,7 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
         String response = deleteSupport.DeleteSupportTicket(mContxt, ID);
 
     }
+
     private void showDeleteTicketDialog(final int position) {
         Log.i("CreatePayment", "In Dialog");
 //        final FragmentManager fm = getSupportFragmentManager();
@@ -290,6 +290,7 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
 
         alertDialog.show();
     }
+
     @Override
     public int getItemCount() {
         return supportList.size();

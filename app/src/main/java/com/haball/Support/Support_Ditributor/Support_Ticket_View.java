@@ -122,7 +122,7 @@ public class Support_Ticket_View extends Fragment {
             @Override
             public void onClick(View v) {
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                fragmentTransaction.add(R.id.main_container, new SupportFragment()).addToBackStack("tag");
                 fragmentTransaction.commit();
             }
         });
@@ -288,7 +288,7 @@ public class Support_Ticket_View extends Fragment {
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
 
                     fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("null");
+                    fragmentTransaction.add(R.id.main_container, new SupportFragment()).addToBackStack("null");
                     fragmentTransaction.commit();
                     return true;
                 }

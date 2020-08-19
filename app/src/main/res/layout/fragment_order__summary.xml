@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:layout_marginTop="60dp"
     android:background="#fff"
-    tools:context=".Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Tabs.Order_Summary">
+    tools:context=".Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Tabs.Order_Summary"
+    android:clickable="true">
 
     <RelativeLayout
         android:layout_width="match_parent"

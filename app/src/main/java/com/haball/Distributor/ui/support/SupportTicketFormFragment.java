@@ -332,8 +332,6 @@ public class SupportTicketFormFragment extends Fragment {
 
 
         fetchIssueType();
-        fetchCriticality();
-        fetchPrefferedContact();
 
         IssueType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -570,13 +568,13 @@ public class SupportTicketFormFragment extends Fragment {
                 Log.e("RESPONSE", result.toString());
 //                Toast.makeText(getContext(), "Ticket generated successfully.", Toast.LENGTH_LONG).show();
 //                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new SupportFragment());
+//                fragmentTransaction.add(((ViewGroup) getView().getParent()).getId(), new SupportFragment());
 //                fragmentTransaction.commit();
                 loader.hideLoader();
                 Log.e("RESPONSE", result.toString());
 //                Toast.makeText(getContext(), "Ticket generated successfully.", Toast.LENGTH_LONG).show();
 //                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new SupportFragment());
+//                fragmentTransaction.add(((ViewGroup) getView().getParent()).getId(), new SupportFragment());
 //                fragmentTransaction.commit();
 
 
@@ -612,7 +610,7 @@ public class SupportTicketFormFragment extends Fragment {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
                         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new SupportFragment());
+                        fragmentTransaction.add(((ViewGroup) getView().getParent()).getId(), new SupportFragment());
                         fragmentTransaction.commit();
                     }
                 });
@@ -645,6 +643,7 @@ public class SupportTicketFormFragment extends Fragment {
     }
 
     private void fetchIssueType() {
+        loader.showLoader();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -660,10 +659,12 @@ public class SupportTicketFormFragment extends Fragment {
                         issue_type.add(jsonObject.getString("value"));
                     }
                     Log.i("issue type values => ", issue_type.toString());
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 Log.e("RESPONSE OF ISSUE TYPE", result.toString());
+                fetchCriticality();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -714,6 +715,7 @@ public class SupportTicketFormFragment extends Fragment {
                     e.printStackTrace();
                 }
                 Log.e("RESPONSE OF criticality", result.toString());
+                fetchPrefferedContact();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -752,6 +754,7 @@ public class SupportTicketFormFragment extends Fragment {
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNER_PREFFEREDCONTACT, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
+                loader.hideLoader();
                 try {
                     JSONObject jsonObject = null;
                     for (int i = 0; i < result.length(); i++) {

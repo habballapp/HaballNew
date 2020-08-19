@@ -1,6 +1,7 @@
 package com.haball.Distributor.ui.main;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -9,14 +10,18 @@ import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -41,6 +46,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonArray;
 import com.haball.Distribution_Login.Distribution_Login;
+import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.DistributorOrdersAdapter;
 import com.haball.Distributor.DistributorOrdersModel;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
@@ -75,6 +81,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -158,6 +165,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private Loader loader;
     boolean byDefaultSelectCriteria = true;
     boolean byDefaultStatus = true;
+    private boolean doubleBackToExitPressedOnce = false;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -1042,7 +1050,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         // Toast.makeText(getContext(), "Consolidate clicked", Toast.LENGTH_LONG).show();
 //                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                        fragmentTransaction.remove(PaymentRequestDashboard.this);
-//                        fragmentTransaction.replace(((ViewGroup)getView().getParent()).getId(), new CreatePaymentRequestFragment());
+//                        fragmentTransaction.add(((ViewGroup)getView().getParent()).getId(), new CreatePaymentRequestFragment());
 //                        fragmentTransaction.addToBackStack(null);
 //                        fragmentTransaction.commit();
 //            }
@@ -2219,4 +2227,81 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         arrayAdapterPayments.notifyDataSetChanged();
         spinner_criteria.setAdapter(arrayAdapterPayments);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                Log.i("keyback_debug", String.valueOf(keyCode));
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    Log.i("back_key_debug", "back from fragment 1");
+
+                    if (doubleBackToExitPressedOnce) {
+//                    super.onBackPressed();
+//                    finishAffinity();
+                        logoutUser();
+                    }
+                    doubleBackToExitPressedOnce = true;
+                    // Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            doubleBackToExitPressedOnce = false;
+                        }
+                    }, 1500);
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    private void logoutUser() {
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
+        tv_discard.setText("Logout");
+        TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+        tv_discard_txt.setText("Are you sure, you want to logout?");
+        alertDialog.setView(view_popup);
+        alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+        WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+        layoutParams.y = 200;
+        layoutParams.x = -70;// top margin
+        alertDialog.getWindow().setAttributes(layoutParams);
+        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+        btn_discard.setText("Logout");
+        btn_discard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+                SharedPreferences login_token = getContext().getSharedPreferences("LoginToken",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = login_token.edit();
+                editor.remove("Login_Token");
+                editor.commit();
+
+                Intent login = new Intent(getContext(), Distribution_Login.class);
+                startActivity(login);
+                ((FragmentActivity) getContext()).finish();
+            }
+        });
+
+        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+        img_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
+    }
+
 }

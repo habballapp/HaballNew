@@ -100,18 +100,18 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-//         if (paymentsRequestList.size() == 3) {
-//             if (position == (paymentsRequestList.size() - 1)) {
-// //        if (position == 2) {
-//                 Log.i("DebugSupportFilter_In", paymentsRequestList.get(position).getPrePaidNumber());
-//                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-//                         RelativeLayout.LayoutParams.WRAP_CONTENT,
-//                         RelativeLayout.LayoutParams.WRAP_CONTENT
-//                 );
-//                 params.setMargins(0, 50, 0, 280);
-//                 holder.main_layout_payment_box.setLayoutParams(params);
-//             }
-//         }
+        if (paymentsRequestList.size() == 3 || paymentsRequestList.size() == 4) {
+            if (position == (paymentsRequestList.size() - 1)) {
+                //        if (position == 2) {
+                Log.i("DebugSupportFilter_In", paymentsRequestList.get(position).getPrePaidNumber());
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT
+                );
+                params.setMargins(0, 50, 0, 280);
+                holder.main_layout_payment_box.setLayoutParams(params);
+            }
+        }
         holder.tv_state.setVisibility(View.GONE);
         holder.tv_state_value.setVisibility(View.GONE);
         holder.tv_heading.setText(paymentsRequestList.get(position).getCompanyName());
@@ -127,7 +127,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
 //            holder.status_value.setText("Unpaid");
 //        else if (paymentsRequestList.get(position).getStatus().equals("-1"))
 //            holder.status_value.setText("Processing Payment");
-            holder.status_value.setText(paymentsRequestList.get(position).getPrepaidStatusValue());
+        holder.status_value.setText(paymentsRequestList.get(position).getPrepaidStatusValue());
 
 
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
@@ -152,7 +152,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
 //                                        Log.i("InvoiceStatus_Adapter", String.valueOf(paymentsRequestList.get(position).getPrepaidStatusValue()));
 //                                        editor.commit();
 //                                        fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-//                                        fragmentTransaction.replace(R.id.main_container, new RetailerViewInvoice()).addToBackStack("tag");
+//                                        fragmentTransaction.add(R.id.main_container, new RetailerViewInvoice()).addToBackStack("tag");
 //                                        fragmentTransaction.commit();
 //
 //                                        break;
@@ -223,7 +223,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
                                         Log.i("InvoiceStatus_Adapter", String.valueOf(paymentsRequestList.get(position).getPrepaidStatusValue()));
                                         editor.commit();
                                         fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                                        fragmentTransaction.replace(R.id.main_container, new ViewInvoice()).addToBackStack("tag");
+                                        fragmentTransaction.add(R.id.main_container, new ViewInvoice()).addToBackStack("tag");
                                         fragmentTransaction.commit();
 
                                         break;

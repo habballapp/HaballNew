@@ -5,7 +5,8 @@
     android:id="@+id/main_container_ret"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:clickable="true">
 
     <RelativeLayout
         android:id="@+id/spinner_container_main"
@@ -308,8 +309,7 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:isScrollContainer="false"
-            android:nestedScrollingEnabled="false"
-            android:paddingBottom="150dp" />
+            android:nestedScrollingEnabled="false" />
     </RelativeLayout>
     <!-- <TextView -->
     <!-- android:id="@+id/com_name" -->

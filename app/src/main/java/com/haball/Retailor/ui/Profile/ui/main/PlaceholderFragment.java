@@ -455,25 +455,25 @@ public class PlaceholderFragment extends Fragment {
                     @Override
                     public void afterTextChanged(Editable s) {
                         checkFieldsForEmptyValuesUpdatePass();
-                        if (txt_newpassword.getText().toString().equals(txt_cfmpassword.getText().toString())) {
-                            Log.i("Password_Log", "in password check2");
-                            confirm_password_check = true;
-//            layout_password3.setPasswordVisibilityToggleEnabled(true);
-                            layout_password3.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
-                            layout_password3.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
-                            layout_password3.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
-                            txt_cfmpassword.setTextColor(getResources().getColor(R.color.textcolor));
-                        } else {
-                            confirm_password_check = false;
-//            txt_cfmpassword.setError("Password does not match");
-//            layout_password3.setPasswordVisibilityToggleEnabled(false);
-                            layout_password3.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
-                            layout_password3.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
-                            layout_password3.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
-                            txt_cfmpassword.setTextColor(getResources().getColor(R.color.error_stroke_color));
-
-
-                        }
+//                        if (txt_newpassword.getText().toString().equals(txt_cfmpassword.getText().toString())) {
+//                            Log.i("Password_Log", "in password check2");
+//                            confirm_password_check = true;
+////            layout_password3.setPasswordVisibilityToggleEnabled(true);
+//                            layout_password3.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
+//                            layout_password3.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+//                            layout_password3.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
+//                            txt_cfmpassword.setTextColor(getResources().getColor(R.color.textcolor));
+//                        } else {
+//                            confirm_password_check = false;
+////            txt_cfmpassword.setError("Password does not match");
+////            layout_password3.setPasswordVisibilityToggleEnabled(false);
+//                            layout_password3.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+//                            layout_password3.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+//                            layout_password3.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+//                            txt_cfmpassword.setTextColor(getResources().getColor(R.color.error_stroke_color));
+//
+//
+//                        }
                     }
                 };
 
@@ -490,7 +490,7 @@ public class PlaceholderFragment extends Fragment {
 
                     @Override
                     public void afterTextChanged(Editable s) {
-                        checkPasswords();
+//                        checkPasswords();
                         checkFieldsForEmptyValuesUpdatePass();
                     }
                 };
@@ -1206,7 +1206,7 @@ public class PlaceholderFragment extends Fragment {
                     public void onDismiss(DialogInterface dialog) {
                         //                    Toast.makeText(getContext(), "Profile Information Successfully updated for " + result.getString("RetailerCode"), Toast.LENGTH_LONG).show();
                         fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.main_container_ret, new Profile_Tabs()).addToBackStack("tag");
+                        fragmentTransaction.add(R.id.main_container_ret, new Profile_Tabs()).addToBackStack("tag");
                         fragmentTransaction.commit();
                     }
                 });

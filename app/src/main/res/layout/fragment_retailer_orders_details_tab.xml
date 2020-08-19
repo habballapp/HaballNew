@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:clickable="true">
 
     <RelativeLayout
         android:id="@+id/rl_main_recycler"
@@ -78,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans"
-                android:text="Total Discount:"
+                android:text="Total Disc:"
                 android:textColor="@color/rv_box_color"
                 android:textSize="13sp" />
 
@@ -184,10 +185,7 @@
             android:fontFamily="@font/open_sans_semibold"
             android:text="Total price is subject to change based on approval, tax and discount calculation, if any."
             android:textColor="@color/error_stroke_color"
-            android:textSize="13sp"
-
-
-            />
+            android:textSize="13sp" />
 
         <Button
             android:id="@+id/button_back"
@@ -205,8 +203,7 @@
             android:text="Back"
             android:textAllCaps="false"
             android:textColor="#fff"
-            android:textSize="@dimen/button_text_size"
-            />
+            android:textSize="@dimen/button_text_size" />
 
 
     </RelativeLayout>

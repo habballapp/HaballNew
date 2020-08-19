@@ -140,7 +140,7 @@ public class Retailer_Support_Ticket_View extends Fragment {
             @Override
             public void onClick(View v) {
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container_ret, new SupportFragment()).addToBackStack("tag");
+                fragmentTransaction.add(R.id.main_container_ret, new SupportFragment()).addToBackStack("tag");
                 fragmentTransaction.commit();
             }
         });
@@ -372,6 +372,27 @@ public class Retailer_Support_Ticket_View extends Fragment {
 
     }
 
+
+    public void onResume() {
+        super.onResume();
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+
+                    fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.add(R.id.main_container_ret, new SupportFragment()).addToBackStack("null");
+                    fragmentTransaction.commit();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+    }
 
     // private void printErrorMessage(VolleyError error) {
     //     if (getContext() != null) {

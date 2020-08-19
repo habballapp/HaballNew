@@ -97,10 +97,10 @@ public class PlaceholderFragment extends Fragment {
     private PageViewModel pageViewModel;
     private TextInputLayout layout_txt_orderID, layout_txt_order_company, layout_txt_created_date_order, layout_txt_status_order, layout_txt_comments,
             layout_txt_companName, layout_txt_paymentID, layout_txt_created_date, layout_transaction_date,
-            layout_txt_bank, layout_txt_authorization_id, layout_txt_settlement_id, layout_txt_status,
+            layout_txt_bank, layout_txt_authorization_id, layout_txt_settlement_id, layout_txt_status, layout_txt_order_reference, layout_txt_invoice_reference,
             layout_txt_amount, layout_txt_transaction_charges, layout_txt_total_amount;
-    private TextInputEditText txt_orderID, txt_company_order, txt_created_date_order, txt_status_order, txt_comments;
-    private TextInputEditText txt_companyName, txt_paymentID, txt_created_date, txt_confirm, txt_bank, txt_authorization_id, txt_settlement_id, txt_status, txt_amount, txt_transaction_charges, txt_total_amount;
+    private TextInputEditText txt_orderID, txt_company_order, txt_created_date_order, txt_status_order, txt_comments, txt_confirm, txt_order_reference, txt_invoice_reference;
+    private TextInputEditText txt_companyName, txt_paymentID, txt_created_date, txt_bank, txt_authorization_id, txt_settlement_id, txt_status, txt_amount, txt_transaction_charges, txt_total_amount;
     private RecyclerView rv_fragment_retailer_order_details;
     private TextView tv_shipment_no_data;
     private RecyclerView.Adapter rv_productAdapter;
@@ -180,18 +180,27 @@ public class PlaceholderFragment extends Fragment {
                 layout_txt_order_company = rootView.findViewById(R.id.layout_txt_order_company);
                 layout_txt_created_date_order = rootView.findViewById(R.id.layout_txt_created_date_order);
                 layout_txt_status_order = rootView.findViewById(R.id.layout_txt_status_order);
+                layout_txt_order_reference = rootView.findViewById(R.id.layout_txt_order_reference);
+                layout_txt_invoice_reference = rootView.findViewById(R.id.layout_txt_invoice_reference);
                 layout_txt_comments = rootView.findViewById(R.id.layout_txt_comments);
                 txt_orderID = rootView.findViewById(R.id.txt_orderID);
                 txt_company_order = rootView.findViewById(R.id.txt_company_order);
                 txt_created_date_order = rootView.findViewById(R.id.txt_created_date_order);
                 txt_status_order = rootView.findViewById(R.id.txt_status_order);
+                txt_order_reference = rootView.findViewById(R.id.txt_order_reference);
+                txt_invoice_reference = rootView.findViewById(R.id.txt_invoice_reference);
                 txt_comments = rootView.findViewById(R.id.txt_comments);
                 button_back = rootView.findViewById(R.id.button_back);
+
+                layout_txt_invoice_reference.setVisibility(View.GONE);
+                layout_txt_order_reference.setVisibility(View.GONE);
 
                 new TextField().changeColor(this.getContext(), layout_txt_orderID, txt_orderID);
                 new TextField().changeColor(this.getContext(), layout_txt_order_company, txt_company_order);
                 new TextField().changeColor(this.getContext(), layout_txt_created_date_order, txt_company_order);
                 new TextField().changeColor(this.getContext(), layout_txt_status_order, txt_status_order);
+                new TextField().changeColor(this.getContext(), layout_txt_order_reference, txt_order_reference);
+                new TextField().changeColor(this.getContext(), layout_txt_invoice_reference, txt_invoice_reference);
                 new TextField().changeColor(this.getContext(), layout_txt_comments, txt_comments);
 
                 txt_orderID.setEnabled(false);
@@ -267,7 +276,7 @@ public class PlaceholderFragment extends Fragment {
                 Log.i("InvoiceStatus", InvoiceStatus);
 
 //        SectionsPagerAdapter sectionsPagerAdapter = null;
-                if (InvoiceStatus.equals("Paid") || InvoiceStatus.equals("Pending") || ReferenceNumber.equals("null")) {
+                if (InvoiceStatus.equals("Invoiced") || InvoiceStatus.equals("Paid") || InvoiceStatus.equals("Pending") || ReferenceNumber.equals("null")) {
 
                     rootView = inflater.inflate(R.layout.fragment_retailer_payment_tab, container, false);
                     layout_txt_companName = rootView.findViewById(R.id.layout_txt_companName);
@@ -343,6 +352,8 @@ public class PlaceholderFragment extends Fragment {
                         }
                     });
 
+                    button_view_receipt.setVisibility(View.GONE);
+
                     button_view_receipt.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -412,7 +423,7 @@ public class PlaceholderFragment extends Fragment {
                         @Override
                         public void onClick(View view) {
                             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, new CreatePaymentRequestFragment());
+                            fragmentTransaction.add(R.id.main_container, new CreatePaymentRequestFragment());
                             fragmentTransaction.commit();
                         }
                     });
@@ -433,7 +444,7 @@ public class PlaceholderFragment extends Fragment {
                             fragmentTransaction.commit();
 
 //                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.main_container, new EditPaymentRequestFragment());
+//                fragmentTransaction.add(R.id.main_container, new EditPaymentRequestFragment());
 //                fragmentTransaction.commit();
 
                         }
@@ -552,6 +563,10 @@ public class PlaceholderFragment extends Fragment {
                         txt_created_date_order.setText(String.valueOf(response.get("RetailerOrderCreatedDate")).split("T")[0]);
                     if (!String.valueOf(response.get("OrderStatus")).equals("") && !String.valueOf(response.get("OrderStatus")).equals("null"))
                         txt_status_order.setText(String.valueOf(response.get("OrderStatus")));
+                    if (!String.valueOf(response.get("OrderReference")).equals("") && !String.valueOf(response.get("OrderReference")).equals("null"))
+                        txt_order_reference.setText(String.valueOf(response.get("OrderReference")));
+                    if (!String.valueOf(response.get("InvoiceReference")).equals("") && !String.valueOf(response.get("InvoiceReference")).equals("null"))
+                        txt_invoice_reference.setText(String.valueOf(response.get("InvoiceReference")));
 
                     if (!String.valueOf(response.get("RetailerOrderNumber")).equals("") && !String.valueOf(response.get("RetailerOrderNumber")).equals("null"))
                         txt_orderID.setTextColor(getResources().getColor(R.color.textcolor));
@@ -561,6 +576,14 @@ public class PlaceholderFragment extends Fragment {
                         txt_created_date_order.setTextColor(getResources().getColor(R.color.textcolor));
                     if (!String.valueOf(response.get("OrderStatus")).equals("") && !String.valueOf(response.get("OrderStatus")).equals("null"))
                         txt_status_order.setTextColor(getResources().getColor(R.color.textcolor));
+                    if (!String.valueOf(response.get("OrderReference")).equals("") && !String.valueOf(response.get("OrderReference")).equals("null")) {
+                        layout_txt_order_reference.setVisibility(View.VISIBLE);
+                        txt_order_reference.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+                    if (!String.valueOf(response.get("InvoiceReference")).equals("") && !String.valueOf(response.get("InvoiceReference")).equals("null")) {
+                        layout_txt_invoice_reference.setVisibility(View.VISIBLE);
+                        txt_invoice_reference.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();

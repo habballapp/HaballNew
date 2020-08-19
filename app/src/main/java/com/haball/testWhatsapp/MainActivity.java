@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
 ////            @Override
 ////            public void onClick(View view) {
 ////                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-////                fragmentTransaction.replace(R.id.main_container_ret, new Support_Ticket_Form_Fragment());
+////                fragmentTransaction.add(R.id.main_container_ret, new Support_Ticket_Form_Fragment());
 ////                fragmentTransaction.addToBackStack(null);
 ////                fragmentTransaction.commit();
 ////

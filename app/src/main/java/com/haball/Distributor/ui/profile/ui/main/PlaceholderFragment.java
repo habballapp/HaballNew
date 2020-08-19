@@ -96,7 +96,7 @@ public class PlaceholderFragment extends Fragment {
     private String PROFILE_URL = "http://175.107.203.97:4013/api/distributor/";
     private String PROFILE_ADDRESS_URL = "http://175.107.203.97:4013/api/distributor/ReadAdditionalAddress/";
     private String ChangePass_URL = "http://175.107.203.97:4013/api/Users/ChangePassword";
-    private String PROFILE_EDIT_URL = "http://175.107.203.97:4013/api/distributor/save";
+    private String PROFILE_EDIT_URL = "http://175.107.203.97:4013/api/distributor/saveProfile";
     private String Token;
     private String DistributorId, ID, Username, Phone;
     private Dialog change_password_dail;
@@ -1124,6 +1124,7 @@ public class PlaceholderFragment extends Fragment {
 //                    error.printStackTrace();
 //                    new HaballError().printErrorMessage(error);
                     error.printStackTrace();
+                    new CustomToast().showToast(getActivity(), "Password mismatch");
 
                     layout_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
                     layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
@@ -1376,10 +1377,12 @@ public class PlaceholderFragment extends Fragment {
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+        String UserID = sharedPreferences1.getString("ID", "");
         Log.i("Distributor_Id ", DistributorId);
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("ID", DistributorId);
+        jsonObject.put("UserID", UserID);
         jsonObject.put("FirstName", edt_firstname.getText().toString());
         jsonObject.put("LastName", edt_lastname.getText().toString());
         jsonObject.put("CompanyName", tv_companyname.getText().toString());
@@ -1391,6 +1394,8 @@ public class PlaceholderFragment extends Fragment {
         jsonObject.put("DealerCode", edt_dist_code.getText().toString());
         jsonObject.put("Address", R_Address.getText().toString());
         jsonObject.put("UserType", 0);
+        jsonObject.put("Status", 1);
+        jsonObject.put("DistributorId", DistributorId);
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, PROFILE_EDIT_URL, jsonObject, new Response.Listener<JSONObject>() {
             @Override
@@ -1442,6 +1447,7 @@ public class PlaceholderFragment extends Fragment {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", "bearer " + Token);
+                params.put("Content-Type", "application/json; charset=UTF-8");
                 return params;
             }
         };

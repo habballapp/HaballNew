@@ -543,7 +543,7 @@ public class Retailer_Order_Summary extends Fragment {
                         @Override
                         public void onDismiss(DialogInterface dialog) {
 //                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                        fragmentTransaction.replace(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
+//                        fragmentTransaction.add(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
 //                        fragmentTransaction.commit();
 
                             SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
@@ -654,7 +654,7 @@ public class Retailer_Order_Summary extends Fragment {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
 //                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                        fragmentTransaction.replace(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
+//                        fragmentTransaction.add(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
 //                        fragmentTransaction.commit();
 
                         SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",

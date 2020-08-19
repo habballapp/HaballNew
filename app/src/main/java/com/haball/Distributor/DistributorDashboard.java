@@ -462,63 +462,63 @@ public class DistributorDashboard extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
+//    @Override
+//    public void onBackPressed() {
+////        getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//////            super.onBackPressed();
+////        if (drawer.isDrawerOpen(Gravity.LEFT)) {
+////            drawer.closeDrawer(Gravity.LEFT);
+////        } else {
+////            FragmentManager fm = getSupportFragmentManager();
+////            if (fm.getBackStackEntryCount() == 0) {
+////                if (doubleBackToExitPressedOnce) {
+////                    super.onBackPressed();
+////                    finishAffinity();
+////                    return;
+////                }
+////                this.doubleBackToExitPressedOnce = true;
+////                Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+////                new Handler().postDelayed(new Runnable() {
+////                    @Override
+////                    public void run() {
+////                        doubleBackToExitPressedOnce = false;
+////                    }
+////                }, 1500);
+////            } else {
+//////            super.onBackPressed();
+////                fm.popBackStack();
+////            }
+////
+////        }
+//
 //        getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 ////            super.onBackPressed();
 //        if (drawer.isDrawerOpen(Gravity.LEFT)) {
 //            drawer.closeDrawer(Gravity.LEFT);
 //        } else {
-//            FragmentManager fm = getSupportFragmentManager();
-//            if (fm.getBackStackEntryCount() == 0) {
-//                if (doubleBackToExitPressedOnce) {
-//                    super.onBackPressed();
-//                    finishAffinity();
-//                    return;
-//                }
-//                this.doubleBackToExitPressedOnce = true;
-//                Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        doubleBackToExitPressedOnce = false;
-//                    }
-//                }, 1500);
-//            } else {
-////            super.onBackPressed();
-//                fm.popBackStack();
-//            }
+////            FragmentManager fm = getSupportFragmentManager();
+////            if (fm.getBackStackEntryCount() == 0) {
+//            if (doubleBackToExitPressedOnce) {
+////                    super.onBackPressed();
+////                    finishAffinity();
+//                logoutUser();
 //
-//        }
-
-        getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-//            super.onBackPressed();
-        if (drawer.isDrawerOpen(Gravity.LEFT)) {
-            drawer.closeDrawer(Gravity.LEFT);
-        } else {
-//            FragmentManager fm = getSupportFragmentManager();
-//            if (fm.getBackStackEntryCount() == 0) {
-            if (doubleBackToExitPressedOnce) {
-//                    super.onBackPressed();
-//                    finishAffinity();
-                logoutUser();
-
-                return;
-            }
-            this.doubleBackToExitPressedOnce = true;
-           // Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    doubleBackToExitPressedOnce = false;
-                }
-            }, 1500);
-//            } else {
-////            super.onBackPressed();
-//                fm.popBackStack();
+//                return;
 //            }
-        }
-    }
+//            this.doubleBackToExitPressedOnce = true;
+//           // Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    doubleBackToExitPressedOnce = false;
+//                }
+//            }, 1500);
+////            } else {
+//////            super.onBackPressed();
+////                fm.popBackStack();
+////            }
+//        }
+//    }
 
     private void printErrMessage(VolleyError error) {
         if (error instanceof NetworkError) {

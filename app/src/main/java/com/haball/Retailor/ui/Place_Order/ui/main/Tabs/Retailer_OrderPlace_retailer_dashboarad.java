@@ -169,7 +169,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                     imm.hideSoftInputFromWindow(myview.getWindowToken(), 0);
 
                     fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("tag");
+                    fragmentTransaction.add(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("tag");
                     fragmentTransaction.commit();
                 }
             }
@@ -490,7 +490,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
 
 //
 //                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("tag");
+//                fragmentTransaction.add(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("tag");
 //                fragmentTransaction.commit();
 
                 Intent login_intent = new Intent(((FragmentActivity) getContext()), RetailorDashboard.class);
@@ -544,7 +544,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
 
 
                         fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("null");
+                        fragmentTransaction.add(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("null");
                         fragmentTransaction.commit();
                         return true;
                     } else {

@@ -552,7 +552,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
 
 
                         fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.main_container, new RetailerPlaceOrder()).addToBackStack("null");
+                        fragmentTransaction.add(R.id.main_container, new RetailerPlaceOrder()).addToBackStack("null");
                         fragmentTransaction.commit();
                         return true;
                     } else {

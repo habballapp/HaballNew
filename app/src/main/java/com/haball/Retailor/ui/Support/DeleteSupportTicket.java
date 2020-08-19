@@ -90,7 +90,7 @@ public class DeleteSupportTicket {
                         public void onClick(View v) {
                             delete_successAlert.dismiss();
                             fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new SupportFragment()).addToBackStack(null);
+                            fragmentTransaction.add(R.id.main_container_ret, new SupportFragment()).addToBackStack(null);
                             fragmentTransaction.commit();
                         }
                     });
@@ -99,7 +99,7 @@ public class DeleteSupportTicket {
                         public void onDismiss(DialogInterface dialog) {
                             delete_successAlert.dismiss();
                             fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new SupportFragment()).addToBackStack(null);
+                            fragmentTransaction.add(R.id.main_container_ret, new SupportFragment()).addToBackStack(null);
                             fragmentTransaction.commit();
                         }
                     });

@@ -310,11 +310,11 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
 
         filters = new ArrayList<>();
         filters.add("Status");
-        filters.add("Pending");
+//        filters.add("Pending");
         filters.add("In Transit");
         filters.add("Received");
-        filters.add("Returned");
-        filters.add("Revised");
+//        filters.add("Returned");
+//        filters.add("Revised");
 
         arrayAdapterFeltter = new ArrayAdapter<String>(root.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, filters) {
@@ -364,7 +364,13 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
                         ex.printStackTrace();
                     }
 
-                    Filter_selected_value = String.valueOf(i - 1);
+                    if(filters.get(i).equals("In Transit")) {
+                        Filter_selected_value = "1";
+                    } else if (filters.get(i).equals("Received")) {
+                        Filter_selected_value = "2";
+
+                    }
+
                     Log.i("Filter_selected_value", Filter_selected_value);
                     try {
                         fetchFilteredShipments();

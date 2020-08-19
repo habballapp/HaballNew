@@ -134,12 +134,12 @@ public class EditOrderDraft {
                     editorDraft.apply();
 
                     fragmentTransaction = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("null");
+                    fragmentTransaction.add(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("null");
                     fragmentTransaction.commit();
 
 //
 //                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                    fragmentTransaction.replace(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("tag");
+//                    fragmentTransaction.add(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("tag");
 //                    fragmentTransaction.commit();
 
 //                    SharedPreferences selectedProducts = context.getSharedPreferences("selectedProducts_distributor_draft",
