@@ -276,7 +276,7 @@ public class PlaceholderFragment extends Fragment {
                 Log.i("InvoiceStatus", InvoiceStatus);
 
 //        SectionsPagerAdapter sectionsPagerAdapter = null;
-                if (InvoiceStatus.equals("Invoiced") || InvoiceStatus.equals("Paid") || InvoiceStatus.equals("Pending") || ReferenceNumber.equals("null")) {
+                if (InvoiceStatus.equals("Invoiced") || InvoiceStatus.equals("Paid") || InvoiceStatus.equals("Pending") || InvoiceStatus.equals("Cancelled") || ReferenceNumber.equals("null")) {
 
                     rootView = inflater.inflate(R.layout.fragment_retailer_payment_tab, container, false);
                     layout_txt_companName = rootView.findViewById(R.id.layout_txt_companName);
@@ -369,7 +369,7 @@ public class PlaceholderFragment extends Fragment {
 
                     getPaidInvoiceData();
 //                } else if (InvoiceStatus.equals("Un-Paid")) {
-                } else if (InvoiceStatus.equals("Un-Paid") || InvoiceStatus.equals("Payment Processing") || InvoiceStatus.equals("Cancelled")) {
+                } else if (InvoiceStatus.equals("Un-Paid") || InvoiceStatus.equals("Payment Processing")) {
 //                    rootView = inflater.inflate(R.layout.activity_payment__screen3, container, false);
 
 
@@ -773,8 +773,11 @@ public class PlaceholderFragment extends Fragment {
                     }
                     if (response.has("Status")) {
                         setTextAndShow(layout_txt_status, txt_status, String.valueOf(response.getString("Status")));
-                        if (!String.valueOf(response.get("Status")).equals("") && !String.valueOf(response.get("Status")).equals("null"))
+                        if (!String.valueOf(response.get("Status")).equals("") && !String.valueOf(response.get("Status")).equals("null")) {
                             txt_status.setTextColor(getResources().getColor(R.color.textcolor));
+                            if (String.valueOf(response.get("Status")).equals("Pending"))
+                                layout_txt_amount.setVisibility(View.GONE);
+                        }
                     }
                     if (response.has("PaymentTransactionDate")) {
                         setTextAndShow(layout_transaction_date, txt_confirm, String.valueOf(response.getString("PaymentTransactionDate")).split("T")[0]);

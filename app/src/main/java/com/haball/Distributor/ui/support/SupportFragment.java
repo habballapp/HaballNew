@@ -652,14 +652,24 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         map.put("TotalRecords", 10);
         map.put("PageNumber", 0);
         if (Filter_selected.equals("date")) {
+//            if (!fromDate.equals(""))
+//                map.put(Filter_selected1, fromDate + "T00:00:00.000Z");
+//            else if (!toDate.equals(""))
+//                map.put(Filter_selected1, toDate + "T00:00:00.000Z");
+//
+//            if (!toDate.equals(""))
+//                map.put(Filter_selected2, toDate + "T23:59:59.000Z");
+//            else if (!fromDate.equals(""))
+//                map.put(Filter_selected2, fromDate + "T23:59:59.000Z");
             if (!fromDate.equals(""))
-                map.put(Filter_selected1, fromDate + "T00:00:00.000Z");
+                map.put(Filter_selected1, fromDate);
             else if (!toDate.equals(""))
-                map.put(Filter_selected1, toDate + "T00:00:00.000Z");
+                map.put(Filter_selected1, toDate);
+
             if (!toDate.equals(""))
-                map.put(Filter_selected2, toDate + "T23:59:59.000Z");
+                map.put(Filter_selected2, toDate);
             else if (!fromDate.equals(""))
-                map.put(Filter_selected2, fromDate + "T23:59:59.000Z");
+                map.put(Filter_selected2, fromDate);
         } else {
             map.put(Filter_selected, Filter_selected_value);
         }

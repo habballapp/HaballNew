@@ -61,6 +61,7 @@ import com.haball.SSL_HandShake;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -399,6 +400,8 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
                                         View view_popup2 = inflater2.inflate(R.layout.payment_request_details, null);
                                         alertDialog2.setView(view_popup2);
                                         alertDialog2.show();
+                                        TextView payment_information_txt3 = view_popup2.findViewById(R.id.payment_information_txt3);
+                                        payment_information_txt3.setText(paymentsRequestList.get(position).getPrePaidNumber());
                                         Button btn_view_voucher = view_popup2.findViewById(R.id.btn_view_voucher);
                                         btn_view_voucher.setOnClickListener(new View.OnClickListener() {
                                             @Override
@@ -548,7 +551,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
         map.put("PrepaidStatusValue", paymentsRequestList.get(position).getPrepaidStatusValue());
         map.put("ReferenceID", paymentsRequestList.get(position).getReferenceID());
         map.put("State", paymentsRequestList.get(position).getState());
-        map.put("Status", "-1");
+        map.put("Status", -1);
         map.put("employeesName", paymentsRequestList.get(position).getEmployeesName());
 
 

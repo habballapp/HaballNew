@@ -75,6 +75,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -215,6 +216,7 @@ public class DistributorDashboard extends AppCompatActivity {
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 2) {
                             Log.i("Place Order", "Orders Activity");
+                            getSupportFragmentManager().popBackStack("tag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.add(R.id.main_container, new Order_PlaceOrder()).addToBackStack("tag");
                             fragmentTransaction.commit();
@@ -261,7 +263,48 @@ public class DistributorDashboard extends AppCompatActivity {
                                 //                                Intent login = new Intent(DistributorDashboard.this, Distribution_Login.class);
 //                                startActivity(login);
 //                                finish();
-                                logoutUser();
+
+
+                                final AlertDialog alertDialog = new AlertDialog.Builder(DistributorDashboard.this).create();
+                                LayoutInflater inflater = LayoutInflater.from(DistributorDashboard.this);
+                                View view_popup = inflater.inflate(R.layout.discard_changes, null);
+                                TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
+                                tv_discard.setText("Logout");
+                                TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+                                tv_discard_txt.setText("Are you sure, you want to logout?");
+                                alertDialog.setView(view_popup);
+                                alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                                WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+                                layoutParams.y = 200;
+                                layoutParams.x = -70;// top margin
+                                alertDialog.getWindow().setAttributes(layoutParams);
+                                Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+                                btn_discard.setText("Logout");
+                                btn_discard.setOnClickListener(new View.OnClickListener() {
+                                    public void onClick(View v) {
+                                        alertDialog.dismiss();
+
+                                        SharedPreferences login_token = getSharedPreferences("LoginToken",
+                                                Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = login_token.edit();
+                                        editor.remove("Login_Token");
+                                        editor.commit();
+
+                                        Intent login = new Intent(DistributorDashboard.this, Distribution_Login.class);
+                                        startActivity(login);
+                                        finish();
+                                    }
+                                });
+
+                                ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+                                img_email.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        alertDialog.dismiss();
+                                    }
+                                });
+
+                                alertDialog.show();
                             }
                             drawer.closeDrawer(GravityCompat.START);
 //                        } else if (id == 8) {
@@ -398,50 +441,50 @@ public class DistributorDashboard extends AppCompatActivity {
         });
         Volley.newRequestQueue(DistributorDashboard.this).add(sr);
     }
-
-    private void logoutUser() {
-
-        final AlertDialog alertDialog = new AlertDialog.Builder(DistributorDashboard.this).create();
-        LayoutInflater inflater = LayoutInflater.from(DistributorDashboard.this);
-        View view_popup = inflater.inflate(R.layout.discard_changes, null);
-        TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
-        tv_discard.setText("Logout");
-        TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
-        tv_discard_txt.setText("Are you sure, you want to logout?");
-        alertDialog.setView(view_popup);
-        alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
-        WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
-        layoutParams.y = 200;
-        layoutParams.x = -70;// top margin
-        alertDialog.getWindow().setAttributes(layoutParams);
-        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
-        btn_discard.setText("Logout");
-        btn_discard.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                alertDialog.dismiss();
-
-                SharedPreferences login_token = getSharedPreferences("LoginToken",
-                        Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = login_token.edit();
-                editor.remove("Login_Token");
-                editor.commit();
-
-                Intent login = new Intent(DistributorDashboard.this, Distribution_Login.class);
-                startActivity(login);
-                finish();
-            }
-        });
-
-        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
-        img_email.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-            }
-        });
-
-        alertDialog.show();
-    }
+//
+//    private void logoutUser() {
+//
+//        final AlertDialog alertDialog = new AlertDialog.Builder(DistributorDashboard.this).create();
+//        LayoutInflater inflater = LayoutInflater.from(DistributorDashboard.this);
+//        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+//        TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
+//        tv_discard.setText("Logout");
+//        TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+//        tv_discard_txt.setText("Are you sure, you want to logout?");
+//        alertDialog.setView(view_popup);
+//        alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+//        WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+//        layoutParams.y = 200;
+//        layoutParams.x = -70;// top margin
+//        alertDialog.getWindow().setAttributes(layoutParams);
+//        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+//        btn_discard.setText("Logout");
+//        btn_discard.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                alertDialog.dismiss();
+//
+//                SharedPreferences login_token = getSharedPreferences("LoginToken",
+//                        Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = login_token.edit();
+//                editor.remove("Login_Token");
+//                editor.commit();
+//
+//                Intent login = new Intent(DistributorDashboard.this, Distribution_Login.class);
+//                startActivity(login);
+//                finish();
+//            }
+//        });
+//
+//        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+//        img_email.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                alertDialog.dismiss();
+//            }
+//        });
+//
+//        alertDialog.show();
+//    }
 
 
     public class MyAsyncTask extends AsyncTask<Void, Void, Void> {

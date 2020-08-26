@@ -328,6 +328,16 @@ public class Dist_Order_Summary extends Fragment {
         selectedProductsDataList = gson.fromJson(object_string, type);
         selectedProductsQuantityList = gson.fromJson(object_stringqty, typeQty);
 
+        for (int i = 0; i < selectedProductsDataList.size(); i++) {
+            if (selectedProductsQuantityList.get(i).equals("")) {
+                selectedProductsQuantityList.remove(i);
+                selectedProductsDataList.remove(i);
+            } else if (Integer.parseInt(selectedProductsQuantityList.get(i)) <= 0) {
+                selectedProductsQuantityList.remove(i);
+                selectedProductsDataList.remove(i);
+            }
+        }
+
         recyclerView1 = view.findViewById(R.id.rv_orders_summary);
         recyclerView1.setHasFixedSize(false);
         layoutManager1 = new LinearLayoutManager(getContext());
@@ -423,6 +433,9 @@ public class Dist_Order_Summary extends Fragment {
         jsonObject.put("TransportTypeId", 1);
         jsonObject.put("PaymentTermId", 1);
         jsonObject.put("DistributorDealerCode", DealerCode);
+
+        Log.i("summary_debug", String.valueOf(jsonObject));
+
         loader.showLoader();
         Log.i("jsonObject", String.valueOf(jsonObject));
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_CONFIRM_ORDERS, jsonObject, new Response.Listener<JSONObject>() {
@@ -502,26 +515,6 @@ public class Dist_Order_Summary extends Fragment {
                 loader.hideLoader();
 
                 if (error.networkResponse.statusCode == 405) {
-                    String messageMain = "";
-                    NetworkResponse response = error.networkResponse;
-                    if (error instanceof ServerError && response != null) {
-                        try {
-                            String message = "";
-
-                            String res = new String(response.data,
-                                    HttpHeaderParser.parseCharset(response.headers, "utf-8"));
-                            // Now you can use any deserializer to make sense of data
-                            JSONObject obj = new JSONObject(res);
-                            messageMain = obj.getString("message");
-                        } catch (UnsupportedEncodingException e1) {
-                            // Couldn't properly decode data to string
-                            e1.printStackTrace();
-                        } catch (JSONException e2) {
-                            // returned data is not JSONObject?
-                            e2.printStackTrace();
-                        }
-                    }
-
                     final Dialog fbDialogue = new Dialog(getContext());
                     //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
                     fbDialogue.setContentView(R.layout.password_updatepopup);
@@ -565,7 +558,6 @@ public class Dist_Order_Summary extends Fragment {
                     new ProcessingError().showError(getContext());
                     error.printStackTrace();
                 }
-                refreshRetailerInfo();
             }
         }) {
             @Override

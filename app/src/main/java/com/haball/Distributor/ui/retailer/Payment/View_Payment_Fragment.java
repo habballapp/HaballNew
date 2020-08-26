@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,6 +65,7 @@ public class View_Payment_Fragment extends Fragment {
             layout_txt_status, layout_txt_transaction_charges, layout_txt_total_amount;
     private FragmentTransaction fragmentTransaction;
     private TextView btn_make_payment;
+    private RelativeLayout create_payment_rl;
 
     public View_Payment_Fragment() {
         // Required empty public constructor
@@ -108,9 +110,13 @@ public class View_Payment_Fragment extends Fragment {
         txt_transaction_charges = root.findViewById(R.id.txt_transaction_charges);
         txt_total_amount = root.findViewById(R.id.txt_total_amount);
 
+        create_payment_rl = root.findViewById(R.id.create_payment_rl);
+
         btn_make_payment = root.findViewById(R.id.btn_addpayment);
         btn_vreciept = root.findViewById(R.id.btn_vreciept);
         btn_back = root.findViewById(R.id.btn_back);
+
+        create_payment_rl.setVisibility(View.GONE);
 
         new TextField().changeColor(this.getContext(), layout_txt_heading, txt_heading);
         new TextField().changeColor(this.getContext(), layout_txt_transaction_charges, txt_transaction_charges);
@@ -153,9 +159,12 @@ public class View_Payment_Fragment extends Fragment {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent login_intent = new Intent(getActivity(), RetailorDashboard.class);
-                startActivity(login_intent);
-                getActivity().finish();
+                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.add(R.id.main_container, new RetailerPaymentDashboard()).addToBackStack(null);
+                fragmentTransaction.commit();
+//                Intent login_intent = new Intent(getActivity(), RetailorDashboard.class);
+//                startActivity(login_intent);
+//                getActivity().finish();
             }
         });
 

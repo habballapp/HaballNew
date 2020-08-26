@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.UnderlineSpan;
@@ -845,11 +846,14 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         Filter_selected = "PrePaidNumber";
                         conso_edittext.setVisibility(View.VISIBLE);
                         search_rl.setVisibility(View.VISIBLE);
+                        conso_edittext.setInputType(InputType.TYPE_CLASS_NUMBER);
+
                     } else if (Filter_selected.equals("Company")) {
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "CompanyName";
                         conso_edittext.setVisibility(View.VISIBLE);
                         search_rl.setVisibility(View.VISIBLE);
+                        conso_edittext.setInputType(InputType.TYPE_CLASS_TEXT);
                     } else if (Filter_selected.equals("Date")) {
                         date_filter_rl.setVisibility(View.VISIBLE);
                         Filter_selected = "date";
@@ -1976,7 +1980,10 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             if (!toAmount.equals(""))
                 map.put(Filter_selected2, toAmount);
         } else {
-            map.put(Filter_selected, Filter_selected_value);
+            if (Filter_selected.equals("PrePaidNumber"))
+                map.put(Filter_selected, Integer.parseInt(Filter_selected_value));
+            else
+                map.put(Filter_selected, Filter_selected_value);
         }
 
         Log.i("Map123", String.valueOf(map));
@@ -2003,10 +2010,10 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 recyclerView.setAdapter(mAdapter);
                 if (PaymentsRequestList.size() != 0) {
                     tv_shipment_no_data1.setVisibility(View.GONE);
-                    spinner_container.setVisibility(View.VISIBLE);
+//                    spinner_container.setVisibility(View.VISIBLE);
                 } else {
                     tv_shipment_no_data1.setVisibility(View.VISIBLE);
-                    spinner_container.setVisibility(View.GONE);
+//                    spinner_container.setVisibility(View.GONE);
                 }
             }
         }, new Response.ErrorListener() {

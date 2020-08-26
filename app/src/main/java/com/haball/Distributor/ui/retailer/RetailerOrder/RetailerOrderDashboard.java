@@ -198,6 +198,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         consolidate_felter = new ArrayList<>();
         consolidate_felter = new ArrayList<>();
         consolidate_felter.add("Select Criteria");
+        consolidate_felter.add("Order ID");
         consolidate_felter.add("Company");
         consolidate_felter.add("Date");
         consolidate_felter.add("Status");

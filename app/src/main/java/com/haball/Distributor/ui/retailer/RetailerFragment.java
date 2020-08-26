@@ -92,7 +92,7 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
     private RecyclerView.LayoutManager layoutManager;
     private List<Retailer_Management_Dashboard_Model> RetailerList = new ArrayList<>();
     private String Token, DistributorId;
-    private String Filter_selected, Filter_selected_value;
+    private String Filter_selected = "", Filter_selected_value = "";
     private RelativeLayout rv_filter;
     private double totalPages = 0;
     private double totalEntries = 0;
@@ -169,70 +169,6 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-
-                scrollEvent = new ArrayList<>();
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
-                y = dy;
-                if (dy <= -5) {
-                    scrollEvent.add("ScrollDown");
-//                            Log.i("scrolling", "Scroll Down");
-                } else if (dy > 5) {
-                    scrollEvent.add("ScrollUp");
-//                            Log.i("scrolling", "Scroll Up");
-                }
-                String scroll = getScrollEvent();
-
-                if (scroll.equals("ScrollDown")) {
-                    if (rv_filter.getVisibility() == View.GONE) {
-
-                        rv_filter.setVisibility(View.VISIBLE);
-                        TranslateAnimation animate1 = new TranslateAnimation(
-                                0,                 // fromXDelta
-                                0,                 // toXDelta
-                                -rv_filter.getHeight(),  // fromYDelta
-                                0);                // toYDelta
-                        animate1.setDuration(250);
-                        animate1.setFillAfter(true);
-                        rv_filter.clearAnimation();
-                        rv_filter.startAnimation(animate1);
-                    }
-                } else if (scroll.equals("ScrollUp")) {
-                    y = 0;
-                    if (rv_filter.getVisibility() == View.VISIBLE) {
-//                                line_bottom.setVisibility(View.INVISIBLE);
-                        TranslateAnimation animate = new TranslateAnimation(
-                                0,                 // fromXDelta
-                                0,                 // toXDelta
-                                0,  // fromYDelta
-                                -rv_filter.getHeight()); // toYDelta
-                        animate.setDuration(100);
-                        animate.setFillAfter(true);
-                        rv_filter.clearAnimation();
-                        rv_filter.startAnimation(animate);
-                        rv_filter.setVisibility(View.GONE);
-                    }
-                }
-
-                int visibleItemCount = layoutManager.getChildCount();
-                int totalItemCount = layoutManager.getItemCount();
-                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
-                if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
-                    if (totalPages != 0 && pageNumber < totalPages) {
-//                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
-                        btn_load_more.setVisibility(View.VISIBLE);
-                    }
-                }
-            }
-        });
 
 
         // DATE FILTERS ......
@@ -266,7 +202,7 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
         date_filter_rl.setVisibility(View.GONE);
         amount_filter_rl.setVisibility(View.GONE);
         consolidate_felter.add("Select Criteria");
-//        consolidate_felter.add("Retailer Code");
+        consolidate_felter.add("Retailer Code");
         consolidate_felter.add("Company");
         consolidate_felter.add("Date");
         consolidate_felter.add("Status");
@@ -627,6 +563,26 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
 //                        btn_load_more.setVisibility(View.VISIBLE);
 //                    }
 //                }
+
+                if (isLastItemDisplaying(recyclerView)) {
+
+                    int visibleItemCount = layoutManager.getChildCount();
+                    int totalItemCount = layoutManager.getItemCount();
+                    int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
+                        if (totalPages != 0 && pageNumber < totalPages) {
+//                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
+//                        btn_load_more.setVisibility(View.VISIBLE);
+                            pageNumber++;
+                            try {
+                                performPagination();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+
             }
 
         });
@@ -638,35 +594,71 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
         return root;
     }
 
+    private boolean isLastItemDisplaying(RecyclerView recyclerView) {
+        if (recyclerView.getAdapter().getItemCount() > 9) {
+            int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+            if (lastVisibleItemPosition != RecyclerView.NO_POSITION && lastVisibleItemPosition == recyclerView.getAdapter().getItemCount() - 1)
+                return true;
+        }
+        return false;
+    }
+
     private void performPagination() throws JSONException {
         loader.showLoader();
-
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
-//        Log.i("Token", Token);
+        Log.i("Token", Token);
 
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
-//        Log.i("DistributorId ", DistributorId);
+        Log.i("DistributorId ", DistributorId);
 
         JSONObject map = new JSONObject();
         map.put("DistributorId", Integer.parseInt(DistributorId));
         map.put("TotalRecords", 10);
         map.put("PageNumber", pageNumber);
+        if (Filter_selected.equals("date")) {
+            if (!fromDate.equals(""))
+                map.put(Filter_selected1, fromDate + "T00:00:00.000Z");
+            else if (!toDate.equals(""))
+                map.put(Filter_selected1, toDate + "T00:00:00.000Z");
+            if (!toDate.equals(""))
+                map.put(Filter_selected2, toDate + "T23:59:59.000Z");
+            else if (!fromDate.equals(""))
+                map.put(Filter_selected2, fromDate + "T23:59:59.000Z");
+        } else if (Filter_selected.equals("amount")) {
+            map.put(Filter_selected1, fromAmount);
+            map.put(Filter_selected2, toAmount);
+        } else if (!Filter_selected.equals("")) {
+            map.put(Filter_selected, Filter_selected_value);
+        }
 
-        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_Retailers, map, new Response.Listener<JSONArray>() {
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_Retailers, map, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
-            public void onResponse(JSONArray result) {
-//                Log.i("Payments Requests", result.toString());
-                btn_load_more.setVisibility(View.GONE);
+            public void onResponse(JSONObject result) {
+                loader.hideLoader();
+                Log.i("Payments Requests", result.toString());
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<Retailer_Management_Dashboard_Model>>() {
+                }.getType();
+                try {
+                    List<Retailer_Management_Dashboard_Model> tempList = gson.fromJson(result.get("Data").toString(), type);
+                    RetailerList.addAll(tempList);
+
+                    mAdapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
                 new HaballError().printErrorMessage(getContext(), error);
                 new ProcessingError().showError(getContext());
 
@@ -701,10 +693,49 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
 
+        pageNumber = 0;
         JSONObject map = new JSONObject();
         map.put("DistributorId", Integer.parseInt(DistributorId));
         map.put("TotalRecords", 10);
-        map.put("PageNumber", 0);
+        map.put("PageNumber", pageNumber);
+
+
+
+        JsonObjectRequest sr1 = new JsonObjectRequest(Request.Method.POST, "http://175.107.203.97:4013/api/contact/searchCount", map, new Response.Listener<JSONObject>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onResponse(JSONObject result) {
+                loader.hideLoader();
+                try {
+                    totalEntries = Double.parseDouble(String.valueOf(result.get("SupportCount")));
+                    totalPages = Math.ceil(totalEntries / 10);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
+
+                error.printStackTrace();
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        sr1.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(getContext()).add(sr1);
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_Retailers, map, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -770,10 +801,12 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
 
+        pageNumber = 0;
+
         JSONObject map = new JSONObject();
         map.put("DistributorId", Integer.parseInt(DistributorId));
         map.put("TotalRecords", 10);
-        map.put("PageNumber", 0.1);
+        map.put("PageNumber", pageNumber);
         if (Filter_selected.equals("date")) {
             if (!fromDate.equals(""))
                 map.put(Filter_selected1, fromDate + "T00:00:00.000Z");

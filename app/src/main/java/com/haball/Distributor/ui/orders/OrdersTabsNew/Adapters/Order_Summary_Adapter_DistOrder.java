@@ -463,34 +463,8 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
 
                 float gstAmount = 0;
                 float totalAmount = grossAmount + gstAmount;
-//        if (totalAmount <= 0) {
-//            btn_draft.setEnabled(false);
-//            btn_draft.setBackgroundResource(R.drawable.button_grey_round);
-//            btn_confirm.setEnabled(false);
-//            btn_confirm.setBackgroundResource(R.drawable.button_grey_round);
-//
-//        } else {
-//            btn_draft.setEnabled(true);
-//            btn_draft.setBackgroundResource(R.drawable.button_round);
-//            btn_confirm.setEnabled(true);
-//            btn_confirm.setBackgroundResource(R.drawable.button_round);
-//
-//        }
-//        float grossAmount = 0;
-//        if(selectedProductsDataList != null) {
-//            if (selectedProductsDataList.size() > 0) {
-//                for (int i = 0; i < selectedProductsDataList.size(); i++) {
-//                    Log.i("unit price", selectedProductsDataList.get(i).getUnitPrice());
-//                    Log.i("qty", selectedProductsQuantityList.get(i));
-//                    if (!selectedProductsDataList.get(i).getUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
-//                        grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
-//                }
-//            }
-//
-//        }
 
-//        gst_amount.setText(String.valueOf(gstAmount));
-//        total_amount.setText(String.valueOf(totalAmount));
+
                 DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
                 String yourFormattedString3 = formatter1.format(totalAmount);
 //        gst_amount.setText(String.valueOf(gstAmount));

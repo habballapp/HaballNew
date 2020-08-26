@@ -17,6 +17,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
@@ -112,7 +113,7 @@ public class Dist_OrderPlace extends Fragment {
     //    private List<OrderParentlist_Model_DistOrder> totalCategory = new ArrayList<>();
     private List<String> totalCategoryTitle = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapterSpinnerConso;
-    private String Category_selected;
+    private String Category_selected = "";
     private HashMap<String, String> Categories = new HashMap<>();
     private TextInputEditText et_test;
     List<OrderParentlist_Model_DistOrder> temp_titles = new ArrayList<>();
@@ -208,6 +209,7 @@ public class Dist_OrderPlace extends Fragment {
 //
 //            }
 //        });
+        ((FragmentActivity) getContext()).getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN |     WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         close_order_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -514,41 +516,89 @@ public class Dist_OrderPlace extends Fragment {
 //            }
 //        });
 
-        et_test.addTextChangedListener(new TextWatcher() {
+//        et_test.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                Log.i("DebugFilter", "in edit text: " + s);
+//                Log.i("DebugFilter", "in edit text: C, " + Category_selected);
+//                editTextValue = String.valueOf(s);
+//
+////                titles = new ArrayList<>();
+//                if (!String.valueOf(s).equals("")) {
+//                    spinner_conso.setSelection(0);
+//                    Log.i("titles123", "in if");
+//                    try {
+//                        getFilteredProductsFromCategory(String.valueOf(s));
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                } else {
+//                    Log.i("titles123", "in else");
+//                    if (Category_selected != null && Category_selected.equals("All Category")) {
+//                        try {
+//                            getProductCategory();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//            }
+//        });
+
+
+        et_test.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void onFocusChange(View v, boolean hasFocus) {
+                ((FragmentActivity) getContext()).getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN |     WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+                if (!hasFocus) {
+                    if (spinner_container_main.getVisibility() == View.GONE) {
 
-            }
+                        spinner_container_main.setVisibility(View.VISIBLE);
+                        TranslateAnimation animate1 = new TranslateAnimation(
+                                0,                 // fromXDelta
+                                0,                 // toXDelta
+                                -spinner_container_main.getHeight(),  // fromYDelta
+                                0);                // toYDelta
+                        animate1.setDuration(250);
+                        animate1.setFillAfter(true);
+                        spinner_container_main.clearAnimation();
+                        spinner_container_main.startAnimation(animate1);
+                    }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                Log.i("DebugFilter", "in edit text: " + s);
-                Log.i("DebugFilter", "in edit text: C, " + Category_selected);
-                editTextValue = String.valueOf(s);
+                    String s = String.valueOf(et_test.getText());
+                    Log.i("DebugFilter", "in edit text: " + s);
+                    Log.i("DebugFilter", "in edit text: C, " + Category_selected);
+                    editTextValue = String.valueOf(s);
 
 //                titles = new ArrayList<>();
-                if (!String.valueOf(s).equals("")) {
-                    spinner_conso.setSelection(0);
-                    Log.i("titles123", "in if");
-                    try {
-                        getFilteredProductsFromCategory(String.valueOf(s));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    Log.i("titles123", "in else");
-                    if (Category_selected != null && Category_selected.equals("All Category")) {
+                    if (!String.valueOf(s).equals("")) {
+                        spinner_conso.setSelection(0);
+                        Log.i("titles123", "in if");
                         try {
-                            getProductCategory();
+                            getFilteredProductsFromCategory(String.valueOf(s));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        Log.i("titles123", "in else");
+                        try {
+                            getFilteredProductCategory(Categories.get(Category_selected));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
+
                 }
             }
         });
@@ -657,7 +707,7 @@ public class Dist_OrderPlace extends Fragment {
                                 SharedPreferences.Editor orderCheckout_editor = orderCheckout.edit();
                                 orderCheckout_editor.putString("orderCheckout", "orderCheckout");
                                 orderCheckout_editor.apply();
-                                NonSwipeableViewPager viewPager = getActivity().findViewById(R.id.view_pager5);
+                                final NonSwipeableViewPager viewPager = ((FragmentActivity) getContext()).findViewById(R.id.view_pager5);
                                 SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_distributor",
                                         Context.MODE_PRIVATE);
                                 Gson gson = new Gson();
@@ -690,8 +740,14 @@ public class Dist_OrderPlace extends Fragment {
                                     editor.apply();
 //                            Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
                                     grossAmount = 0;
-                                    viewPager.setCurrentItem(1);
-
+                                    viewPager.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
+                                    {
+                                        @Override
+                                        public void onGlobalLayout()
+                                        {
+                                            viewPager.setCurrentItem(1, false);
+                                        }
+                                    });
                                     InputMethodManager imm = (InputMethodManager) (getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
                                     imm.hideSoftInputFromWindow(myview.getWindowToken(), 0);
 
@@ -718,110 +774,6 @@ public class Dist_OrderPlace extends Fragment {
         return view;
 
     }
-//
-//    private boolean enableCheckout() {
-//
-////        Log.i("checkout", "in checkout");
-//        SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_distributor",
-//                Context.MODE_PRIVATE);
-//        Gson gson = new Gson();
-//        object_stringqty = selectedProducts.getString("selected_products_qty", "");
-//        object_string = selectedProducts.getString("selected_products", "");
-//        Type type = new TypeToken<List<OrderChildlist_Model_DistOrder>>() {
-//        }.getType();
-//        Type typeString = new TypeToken<List<String>>() {
-//        }.getType();
-//        if (!object_string.equals("") && !object_stringqty.equals("")) {
-//            selectedProductsDataList = gson.fromJson(object_string, type);
-//            selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
-//        }
-//        float totalQty = 0;
-//        if (selectedProductsDataList != null) {
-//            if (selectedProductsDataList.size() > 0) {
-//                for (int i = 0; i < selectedProductsDataList.size(); i++) {
-////                    Log.i("unit price", selectedProductsDataList.get(i).getUnitPrice());
-////                    Log.i("qty", selectedProductsQuantityList.get(i));
-//                    if (!selectedProductsDataList.get(i).getUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
-//                        if (Float.parseFloat(selectedProductsQuantityList.get(i)) > 0) {
-//                            totalQty = totalQty + Float.parseFloat(selectedProductsQuantityList.get(i));
-//                        }
-//                }
-//            }
-//        }
-////        Log.i("totalQty", "here");
-////        Log.i("totalQty", String.valueOf(totalQty));
-//        if (totalQty > 0) {
-//            btn_checkout.setEnabled(true);
-//            btn_checkout.setBackgroundResource(R.drawable.button_round);
-//        } else {
-//            btn_checkout.setEnabled(false);
-//            btn_checkout.setBackgroundResource(R.drawable.button_grey_round);
-//        }
-//        new MyAsyncTask().execute();
-//
-////            selectedProductsDataList = gson.fromJson(object_string, type);
-//        if (selectedProductsDataList != null) {
-//            if (selectedProductsDataList.size() > 0) {
-//                btn_checkout.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        loader.showLoader();
-//                        getActivity().runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                new Handler().postDelayed(new Runnable() {
-//                                    @Override
-//                                    public void run() {
-//                                        loader.hideLoader();
-//                                        NonSwipeableViewPager viewPager = getActivity().findViewById(R.id.view_pager5);
-//                                        SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_distributor",
-//                                                Context.MODE_PRIVATE);
-//                                        Gson gson = new Gson();
-//                                        object_stringqty = selectedProducts.getString("selected_products_qty", "");
-//                                        object_string = selectedProducts.getString("selected_products", "");
-//                                        Type type = new TypeToken<List<OrderChildlist_Model_DistOrder>>() {
-//                                        }.getType();
-//                                        Type typeString = new TypeToken<List<String>>() {
-//                                        }.getType();
-//                                        selectedProductsDataList = gson.fromJson(object_string, type);
-//                                        selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
-//                                        if (selectedProductsDataList != null) {
-//                                            if (selectedProductsDataList.size() > 0) {
-//                                                for (int i = 0; i < selectedProductsDataList.size(); i++) {
-////                                    Log.i("unit price", selectedProductsDataList.get(i).getUnitPrice());
-////                                    Log.i("qty", selectedProductsQuantityList.get(i));
-//                                                    if (!selectedProductsDataList.get(i).getUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
-//                                                        grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
-//                                                    if (Float.parseFloat(selectedProductsQuantityList.get(i)) > 0)
-//                                                        btn_checkout.setEnabled(true);
-//
-//                                                }
-//                                            }
-//                                        }
-//                                        SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
-//                                                Context.MODE_PRIVATE);
-//                                        SharedPreferences.Editor editor = grossamount.edit();
-//                                        editor.putString("grossamount", String.valueOf(grossAmount));
-//                                        editor.apply();
-//                                        // Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
-//                                        grossAmount = 0;
-//                                        viewPager.setCurrentItem(1);
-//                                        FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
-//                                        fragmentTransaction.add(R.id.main_container, new Dist_Order_Summary());
-//                                        fragmentTransaction.addToBackStack(null);
-//                                        fragmentTransaction.commit();
-//                                    }
-//                                }, 3000);
-//                            }
-//                        });
-//                    }
-//                });
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
 
     private void showDiscardDialog() {
         Log.i("CreatePayment", "In Dialog");
@@ -883,7 +835,6 @@ public class Dist_OrderPlace extends Fragment {
 
         alertDialog.show();
     }
-
 
     @Override
     public void onResume() {
@@ -956,129 +907,9 @@ public class Dist_OrderPlace extends Fragment {
 
     }
 
-    private boolean enableCheckout() {
-//        Log.i("checkout", "in checkout");
-        SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_distributor",
-                Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        object_stringqty = selectedProducts.getString("selected_products_qty", "");
-        object_string = selectedProducts.getString("selected_products", "");
-        Type type = new TypeToken<List<OrderChildlist_Model_DistOrder>>() {
-        }.getType();
-        Type typeString = new TypeToken<List<String>>() {
-        }.getType();
-        if (!object_string.equals("") && !object_stringqty.equals("")) {
-            selectedProductsDataList = gson.fromJson(object_string, type);
-            selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
-        }
-//        float totalQty = 0;
-//        if (selectedProductsDataList != null) {
-//            if (selectedProductsDataList.size() > 0) {
-//                for (int i = 0; i < selectedProductsDataList.size(); i++) {
-////                    Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
-////                    Log.i("qty", selectedProductsQuantityList.get(i));
-//                    if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
-//                        if (Float.parseFloat(selectedProductsQuantityList.get(i)) > 0) {
-//                            totalQty = totalQty + Float.parseFloat(selectedProductsQuantityList.get(i));
-//                        }
-//                }
-//            }
-//        }
-////        Log.i("totalQty", "here");
-////        Log.i("totalQty", String.valueOf(totalQty));
-//        if (totalQty > 0) {
-//            btn_checkout.setEnabled(true);
-//            btn_checkout.setBackgroundResource(R.drawable.button_round);
-//        } else {
-//            btn_checkout.setEnabled(false);
-//            btn_checkout.setBackgroundResource(R.drawable.button_grey_round);
-//        }
-//        myAsyncTask = new MyAsyncTask();
-//        myAsyncTask.execute();
-        final Loader loader = new Loader(getContext());
-
-//            selectedProductsDataList = gson.fromJson(object_string, type);
-        if (selectedProductsDataList != null) {
-            if (selectedProductsDataList.size() > 0) {
-//                btn_checkout.setBackgroundResource(R.drawable.button_round);
-//                btn_checkout.setEnabled(true);
-                btn_checkout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        loader.showLoader();
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        loader.hideLoader();
-                                        //Do something after 1 second
-
-                                        SharedPreferences orderCheckout = getContext().getSharedPreferences("orderCheckout",
-                                                Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor orderCheckout_editor = orderCheckout.edit();
-                                        orderCheckout_editor.putString("orderCheckout", "orderCheckout");
-                                        orderCheckout_editor.apply();
-                                        NonSwipeableViewPager viewPager = getActivity().findViewById(R.id.view_pager5);
-                                        SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_distributor",
-                                                Context.MODE_PRIVATE);
-                                        Gson gson = new Gson();
-                                        object_stringqty = selectedProducts.getString("selected_products_qty", "");
-                                        object_string = selectedProducts.getString("selected_products", "");
-                                        Type type = new TypeToken<List<OrderChildlist_Model_DistOrder>>() {
-                                        }.getType();
-                                        Type typeString = new TypeToken<List<String>>() {
-                                        }.getType();
-                                        selectedProductsDataList = gson.fromJson(object_string, type);
-                                        selectedProductsQuantityList = gson.fromJson(object_stringqty, typeString);
-//                        if (selectedProductsDataList.size() > 0) {
-//                            for (int i = 0; i < selectedProductsDataList.size(); i++) {
-//                                Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
-//                                Log.i("qty", selectedProductsQuantityList.get(i));
-//                                if (!selectedProductsDataList.get(i).getProductUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
-//                                    grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getProductUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
-//                            }
-                                        if (selectedProductsDataList.size() > 0) {
-                                            for (int i = 0; i < selectedProductsDataList.size(); i++) {
-//                                Log.i("unit price", selectedProductsDataList.get(i).getProductUnitPrice());
-//                                Log.i("qty", selectedProductsQuantityList.get(i));
-                                                if (!selectedProductsDataList.get(i).getUnitPrice().equals("") && !selectedProductsQuantityList.get(i).equals(""))
-                                                    grossAmount += Float.parseFloat(selectedProductsDataList.get(i).getUnitPrice()) * Float.parseFloat(selectedProductsQuantityList.get(i));
-                                            }
-                                            SharedPreferences grossamount = getContext().getSharedPreferences("grossamount",
-                                                    Context.MODE_PRIVATE);
-                                            SharedPreferences.Editor editor = grossamount.edit();
-                                            editor.putString("grossamount", String.valueOf(grossAmount));
-                                            editor.apply();
-//                            Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
-                                            grossAmount = 0;
-                                            viewPager.setCurrentItem(1);
-
-                                            InputMethodManager imm = (InputMethodManager) (getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
-                                            imm.hideSoftInputFromWindow(myview.getWindowToken(), 0);
-
-
-                                            FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
-                                            fragmentTransaction.add(R.id.main_container, new Dist_Order_Summary());
-                                            fragmentTransaction.addToBackStack(null);
-                                            fragmentTransaction.commit();
-
-                                        }
-                                    }
-                                }, 3000);
-                            }
-                        });
-                    }
-                });
-                return true;
-            }
-        }
-        return false;
-    }
-
-
     private void getProductCategory() throws JSONException {
+//        totalCategoryTitle = new ArrayList<>();
+//        Categories = new HashMap<>();
         loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
@@ -1106,7 +937,6 @@ public class Dist_OrderPlace extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
-                loader.hideLoader();
                 Log.i("result", String.valueOf(result));
                 for (int i = 0; i < result.length(); i++) {
                     Gson gson = new Gson();
@@ -1307,11 +1137,6 @@ public class Dist_OrderPlace extends Fragment {
                 productList = gson.fromJson(String.valueOf(result), type);
                 Log.i("productList", String.valueOf(productList));
 
-//                productList.add(new OrderChildlist_Model_DistOrder("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""));
-//                productList.add(new OrderChildlist_Model_DistOrder("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""));
-//                productList.add(new OrderChildlist_Model_DistOrder("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""));
-//                productList.add(new OrderChildlist_Model_DistOrder("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""));
-
                 final ParentList_Adapter_DistOrder adapter = new ParentList_Adapter_DistOrder(getActivity(), initData(), spinner_container_main, btn_checkout, productList, Category_selected);
 //                adapter.setCustomParentAnimationViewId(R.id.parent_list_item_expand_arrow);
 //                adapter.setParentClickableViewAnimationDefaultDuration();
@@ -1339,6 +1164,20 @@ public class Dist_OrderPlace extends Fragment {
 //                    adapter.setParentAndIconExpandOnClick(false);
 //                    recyclerView.addItemDecoration(new MyDividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL, 30));
                 recyclerView.setAdapter(adapter);
+
+                if (spinner_container_main.getVisibility() == View.GONE) {
+
+                    spinner_container_main.setVisibility(View.VISIBLE);
+                    TranslateAnimation animate1 = new TranslateAnimation(
+                            0,                 // fromXDelta
+                            0,                 // toXDelta
+                            -spinner_container_main.getHeight(),  // fromYDelta
+                            0);                // toYDelta
+                    animate1.setDuration(250);
+                    animate1.setFillAfter(true);
+                    spinner_container_main.clearAnimation();
+                    spinner_container_main.startAnimation(animate1);
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -1368,7 +1207,7 @@ public class Dist_OrderPlace extends Fragment {
     }
 
     private void getFilteredProductsFromCategory(final String Product) throws JSONException {
-//        loader.showLoader();
+        loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -1467,6 +1306,20 @@ public class Dist_OrderPlace extends Fragment {
 //                    adapter.setParentAndIconExpandOnClick(false);
 //                    recyclerView.addItemDecoration(new MyDividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL, 30));
                 recyclerView.setAdapter(adapter);
+
+                if (spinner_container_main.getVisibility() == View.GONE) {
+
+                    spinner_container_main.setVisibility(View.VISIBLE);
+                    TranslateAnimation animate1 = new TranslateAnimation(
+                            0,                 // fromXDelta
+                            0,                 // toXDelta
+                            -spinner_container_main.getHeight(),  // fromYDelta
+                            0);                // toYDelta
+                    animate1.setDuration(250);
+                    animate1.setFillAfter(true);
+                    spinner_container_main.clearAnimation();
+                    spinner_container_main.startAnimation(animate1);
+                }
             }
         }, new Response.ErrorListener() {
             @Override

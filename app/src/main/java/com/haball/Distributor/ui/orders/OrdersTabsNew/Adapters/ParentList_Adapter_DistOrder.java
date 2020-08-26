@@ -170,7 +170,7 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
 
 
     @Override
-    public void onBindChildViewHolder(@NonNull final OrderChildList_VH_DistOrder OrderChildList_VH_DistOrder, int pos, final int i, @NonNull OrderChildlist_Model_DistOrder o) {
+    public void onBindChildViewHolder(@NonNull final OrderChildList_VH_DistOrder OrderChildList_VH_DistOrder, final int pos, final int i, @NonNull OrderChildlist_Model_DistOrder o) {
 //    public void onBindChildViewHolder(OrderChildList_VH_DistOrder OrderChildList_VH_DistOrder, int pos, int i, OrderChildlist_Model_DistOrder o) {
 
 //        Log.i("debugOrder_o", String.valueOf(o));
@@ -185,6 +185,7 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
                 if (productList.get(iter).getCategoryId().equals(OrderChildlist_Model_DistOrder.getCategoryId()))
                     totalChildInThisParent++;
         }
+
 
         OrderChildList_VH_DistOrder.discount.setText("Pack Size: ");
         OrderChildList_VH_DistOrder.UOM.setText("Disc: ");
@@ -253,6 +254,8 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (finalTotalChildInThisParent == (i + 1)) {
+                    Toast.makeText(context, pos + " - " + i, Toast.LENGTH_SHORT).show();
+
                     Log.i("order_place_debug8", "done clicked on last child");
                     InputMethodManager imm = (InputMethodManager) ((FragmentActivity) context).getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);

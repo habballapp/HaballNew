@@ -60,7 +60,7 @@ public class DistributorShipmentAdapter extends RecyclerView.Adapter<Distributor
                          RelativeLayout.LayoutParams.WRAP_CONTENT,
                          RelativeLayout.LayoutParams.WRAP_CONTENT
                  );
-                 params.setMargins(0, 50, 0, 340);
+                 params.setMargins(0, 50, 0, 400);
                  holder.main_layout_shipment_box_retailer.setLayoutParams(params);
              }
          }

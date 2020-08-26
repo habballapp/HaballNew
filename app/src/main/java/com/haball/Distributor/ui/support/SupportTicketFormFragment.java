@@ -180,7 +180,7 @@ public class SupportTicketFormFragment extends Fragment {
                     editorOrderTabsFromDraft.apply();
 
                     FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.add(R.id.main_container, new HomeFragment());
+                    fragmentTransaction.add(R.id.main_container, new SupportFragment());
                     fragmentTransaction.commit();
 
                 }
@@ -859,9 +859,12 @@ public class SupportTicketFormFragment extends Fragment {
                 editorOrderTabsFromDraft.putString("TabNo", "0");
                 editorOrderTabsFromDraft.apply();
 
-                Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
-                ((FragmentActivity) getContext()).startActivity(login_intent);
-                ((FragmentActivity) getContext()).finish();
+                FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.add(R.id.main_container, new SupportFragment());
+                fragmentTransaction.commit();
+//                Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+//                ((FragmentActivity) getContext()).startActivity(login_intent);
+//                ((FragmentActivity) getContext()).finish();
 
             }
         });
@@ -880,6 +883,44 @@ public class SupportTicketFormFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        View.OnKeyListener listener = new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    final String txt_BName = String.valueOf(BName.getText());
+                    final String txt_Email = String.valueOf(Email.getText());
+                    final String txt_MobileNo = String.valueOf(MobileNo.getText());
+                    final String txt_Comment = String.valueOf(Comment.getText());
+
+                    BName.clearFocus();
+                    Email.clearFocus();
+                    MobileNo.clearFocus();
+                    Comment.clearFocus();
+                    if (!txt_BName.equals(first_name) || !txt_Email.equals(email) || !txt_MobileNo.equals(phone_number) || !txt_Comment.equals("") || !issueType.equals("Issue Type") || !Criticality.equals("Criticality") || !PrefferedContacts.equals("Preferred Method of Contacting")) {
+                        showDiscardDialog();
+                    } else {
+//                        fm.popBackStack();
+                        SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                        editorOrderTabsFromDraft.putString("TabNo", "0");
+                        editorOrderTabsFromDraft.apply();
+
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new SupportFragment());
+                        fragmentTransaction.commit();
+
+                    }
+                    return true;
+                }
+                return false;
+            }
+        };
+        BName.setOnKeyListener(listener);
+        Email.setOnKeyListener(listener);
+        MobileNo.setOnKeyListener(listener);
+        Comment.setOnKeyListener(listener);
 
         getView().setFocusableInTouchMode(true);
         getView().requestFocus();
@@ -887,9 +928,31 @@ public class SupportTicketFormFragment extends Fragment {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
-                    FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.add(R.id.main_container, new HomeFragment());
-                    fragmentTransaction.commit();
+                    final String txt_BName = String.valueOf(BName.getText());
+                    final String txt_Email = String.valueOf(Email.getText());
+                    final String txt_MobileNo = String.valueOf(MobileNo.getText());
+                    final String txt_Comment = String.valueOf(Comment.getText());
+
+                    BName.clearFocus();
+                    Email.clearFocus();
+                    MobileNo.clearFocus();
+                    Comment.clearFocus();
+                    if (!txt_BName.equals(first_name) || !txt_Email.equals(email) || !txt_MobileNo.equals(phone_number) || !txt_Comment.equals("") || !issueType.equals("Issue Type") || !Criticality.equals("Criticality") || !PrefferedContacts.equals("Preferred Method of Contacting")) {
+                        showDiscardDialog();
+                    } else {
+//                        fm.popBackStack();
+                        SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                        editorOrderTabsFromDraft.putString("TabNo", "0");
+                        editorOrderTabsFromDraft.apply();
+
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new SupportFragment());
+                        fragmentTransaction.commit();
+
+                    }
+
                     return  true;
                 }
                 return false;
