@@ -19,7 +19,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="10">
+            android:layout_weight="9">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/product_rv_shipment"
@@ -31,10 +31,10 @@
             android:id="@+id/ln_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/product_rv_shipment"
             android:layout_marginTop="20dp"
             android:orientation="vertical"
             android:weightSum="8">
+
             <RelativeLayout
                 android:id="@+id/line_bottom"
                 android:layout_width="match_parent"
@@ -75,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/open_sans"
-                    android:text="Total Discount:"
+                    android:text="Total Disc:"
                     android:textColor="@color/rv_box_color"
                     android:textSize="13sp" />
 

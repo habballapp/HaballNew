@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:layout_marginTop="60dp"
     android:background="#fff"
-    tools:context=".Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Tabs.Order_Summary">
+    tools:context=".Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Tabs.Order_Summary"
+    android:clickable="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -135,7 +136,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/open_sans"
-                    android:text="Total Discount:"
+                    android:text="Total Disc:"
                     android:textColor="@color/rv_box_color"
                     android:textSize="13sp" />
 
@@ -227,7 +228,6 @@
                 android:layout_marginBottom="20dp"
                 android:weightSum="2">
 
-
                 <Button
                     android:id="@+id/btn_draft"
                     android:layout_width="match_parent"
@@ -242,9 +242,7 @@
                     android:text="Draft"
                     android:textAllCaps="false"
                     android:textColor="#fff"
-                    android:textSize="@dimen/button_text_size"
-
-                    />
+                    android:textSize="@dimen/button_text_size" />
 
                 <Button
                     android:id="@+id/btn_confirm"

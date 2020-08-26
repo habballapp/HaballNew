@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:clickable="true">
 
     <ScrollView
         android:id="@+id/sv"
@@ -296,7 +297,6 @@
                     android:layout_height="@dimen/retailer_button_size"
                     android:layout_below="@+id/layout_txt_total_amount"
                     android:layout_marginTop="20dp"
-                    android:layout_marginBottom="10dp"
                     android:background="@drawable/button_round"
                     android:fontFamily="@font/open_sans"
                     android:gravity="center"

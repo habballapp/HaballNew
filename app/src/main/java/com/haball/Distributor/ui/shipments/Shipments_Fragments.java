@@ -47,8 +47,10 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.DistributorDashboard;
+import com.haball.Distributor.DistributorOrdersModel;
 import com.haball.Distributor.ui.home.HomeFragment;
 import com.haball.Distributor.ui.main.ViewOrder;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
@@ -88,7 +90,7 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
     private String Token, DistributorId;
     private String URL_SHIPMENTS = "http://175.107.203.97:4013/api/deliverynotes/search";
     private FragmentTransaction fragmentTransaction;
-    private String Filter_selected, Filter_selected_value;
+    private String Filter_selected = "", Filter_selected_value = "";
 
     private Spinner spinner_consolidate;
     private Spinner spinner2;
@@ -118,6 +120,12 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
     private RelativeLayout search_rl;
     private Loader loader;
     private String fromDate = "", toDate = "", fromAmount = "", toAmount = "";
+    private boolean byDefaultSelectCriteria = true;
+    private boolean byDefaultStatus = true;
+
+    private int pageNumber = 0;
+    private double totalPages = 0;
+    private double totalEntries = 0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -211,6 +219,14 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
                 first_date.setText("DD/MM/YYYY");
                 second_date.setText("DD/MM/YYYY");
 
+                if (!byDefaultSelectCriteria) {
+                    try {
+                        fetchShipments();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
@@ -220,6 +236,7 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
                         ex.printStackTrace();
                     }
                 } else {
+                    byDefaultSelectCriteria = false;
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
@@ -310,11 +327,11 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
 
         filters = new ArrayList<>();
         filters.add("Status");
-        filters.add("Pending");
+//        filters.add("Pending");
         filters.add("In Transit");
         filters.add("Received");
-        filters.add("Returned");
-        filters.add("Revised");
+//        filters.add("Returned");
+//        filters.add("Revised");
 
         arrayAdapterFeltter = new ArrayAdapter<String>(root.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, filters) {
@@ -347,6 +364,7 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
@@ -355,7 +373,16 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
+
+                    if (!byDefaultStatus) {
+                        try {
+                            fetchShipments();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 } else {
+                    byDefaultStatus = false;
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
@@ -364,7 +391,13 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
                         ex.printStackTrace();
                     }
 
-                    Filter_selected_value = String.valueOf(i - 1);
+                    if (filters.get(i).equals("In Transit")) {
+                        Filter_selected_value = "1";
+                    } else if (filters.get(i).equals("Received")) {
+                        Filter_selected_value = "2";
+
+                    }
+
                     Log.i("Filter_selected_value", Filter_selected_value);
                     try {
                         fetchFilteredShipments();
@@ -418,19 +451,20 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
         conso_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-
-                Filter_selected_value = String.valueOf(conso_edittext.getText());
-                if (!Filter_selected_value.equals("")) {
-                    try {
-                        fetchFilteredShipments();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        fetchShipments();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                if (!hasFocus) {
+                    Filter_selected_value = String.valueOf(conso_edittext.getText());
+                    if (!Filter_selected_value.equals("")) {
+                        try {
+                            fetchFilteredShipments();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        try {
+                            fetchShipments();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -490,6 +524,24 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
                     }
                 }
 
+                if (isLastItemDisplaying(recyclerView)) {
+
+                    int visibleItemCount = layoutManager.getChildCount();
+                    int totalItemCount = layoutManager.getItemCount();
+                    int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
+                        if (totalPages != 0 && pageNumber < totalPages) {
+//                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
+//                        btn_load_more.setVisibility(View.VISIBLE);
+                            pageNumber++;
+                            try {
+                                performPagination();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
 //                int visibleItemCount = layoutManager.getChildCount();
 //                int totalItemCount = layoutManager.getItemCount();
 //                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
@@ -512,6 +564,15 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
         return root;
     }
 
+    private boolean isLastItemDisplaying(RecyclerView recyclerView) {
+        if (recyclerView.getAdapter().getItemCount() > 9) {
+            int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+            if (lastVisibleItemPosition != RecyclerView.NO_POSITION && lastVisibleItemPosition == recyclerView.getAdapter().getItemCount() - 1)
+                return true;
+        }
+        return false;
+    }
+
     private void fetchShipments() throws JSONException {
         loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
@@ -523,6 +584,49 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
                 Context.MODE_PRIVATE);
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
+
+        pageNumber = 0;
+
+
+        JSONObject map1 = new JSONObject();
+        map1.put("DistributorId", Integer.parseInt(DistributorId));
+        map1.put("Status", -1);
+
+        JsonObjectRequest sr1 = new JsonObjectRequest(Request.Method.POST, "http://175.107.203.97:4013/api/deliverynotes/searchCount", map1, new Response.Listener<JSONObject>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onResponse(JSONObject result) {
+                try {
+                    totalEntries = Double.parseDouble(String.valueOf(result.get("deliveryNotesCount")));
+                    totalPages = Math.ceil(totalEntries / 10);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
+
+                error.printStackTrace();
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                return params;
+            }
+        };
+        sr1.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(getContext()).add(sr1);
 
         JSONObject map = new JSONObject();
         map.put("DistributorId", Integer.parseInt(DistributorId));
@@ -589,10 +693,12 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
 
+        pageNumber = 0;
+
         JSONObject map = new JSONObject();
         map.put("DistributorId", Integer.parseInt(DistributorId));
         map.put("TotalRecords", 10);
-        map.put("PageNumber", 0.1);
+        map.put("PageNumber", pageNumber);
         if (Filter_selected.equals("date")) {
             if (!fromDate.equals(""))
                 map.put(Filter_selected1, fromDate + "T00:00:00.000Z");
@@ -607,7 +713,7 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
                 map.put(Filter_selected1, fromAmount);
             if (!toAmount.equals(""))
                 map.put(Filter_selected2, toAmount);
-        } else {
+        } else if (!Filter_selected.equals("")) {
             map.put(Filter_selected, Filter_selected_value);
         }
         Log.i("Map", String.valueOf(map));
@@ -631,6 +737,81 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
 //                    Toast.makeText(getContext(), "No Data Available", Toast.LENGTH_LONG).show();
                     tv_shipment_no_data.setVisibility(View.VISIBLE);
                 }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
+                new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
+
+                error.printStackTrace();
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                return params;
+            }
+        };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(getContext()).add(sr);
+    }
+
+    private void performPagination() throws JSONException {
+        loader.showLoader();
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+        Log.i("Token", Token);
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+        Log.i("DistributorId ", DistributorId);
+
+        JSONObject map = new JSONObject();
+        map.put("DistributorId", Integer.parseInt(DistributorId));
+        map.put("TotalRecords", 10);
+        map.put("PageNumber", pageNumber);
+        if (Filter_selected.equals("date")) {
+            if (!fromDate.equals(""))
+                map.put(Filter_selected1, fromDate + "T00:00:00.000Z");
+            else if (!toDate.equals(""))
+                map.put(Filter_selected1, toDate + "T00:00:00.000Z");
+            if (!toDate.equals(""))
+                map.put(Filter_selected2, toDate + "T23:59:59.000Z");
+            else if (!fromDate.equals(""))
+                map.put(Filter_selected2, fromDate + "T23:59:59.000Z");
+        } else if (Filter_selected.equals("amount")) {
+            if (!fromAmount.equals(""))
+                map.put(Filter_selected1, fromAmount);
+            if (!toAmount.equals(""))
+                map.put(Filter_selected2, toAmount);
+        } else if (!Filter_selected.equals("")) {
+            map.put(Filter_selected, Filter_selected_value);
+        }
+        Log.i("Map", String.valueOf(map));
+
+        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_SHIPMENTS, map, new Response.Listener<JSONArray>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onResponse(JSONArray result) {
+                loader.hideLoader();
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<ShipmentModel>>() {
+                }.getType();
+
+                List<ShipmentModel> ShipmentList_temp = new ArrayList<>();
+                ShipmentList_temp = gson.fromJson(result.toString(), type);
+                ShipmentList.addAll(ShipmentList_temp);
+                mAdapter.notifyDataSetChanged();
             }
         }, new Response.ErrorListener() {
             @Override

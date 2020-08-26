@@ -72,7 +72,6 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/payment_information_txt2"
                         android:fontFamily="@font/open_sans_semibold"
-                        android:text="5494399392291912929"
                         android:textSize="@dimen/payment_options_retailer" />
                 </RelativeLayout>
 

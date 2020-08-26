@@ -4,6 +4,7 @@
     android:id="@+id/main_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
     tools:context=".Distributor.ui.main.PaymentsFragment">
 
     <RelativeLayout
@@ -293,7 +294,7 @@
             android:layout_below="@+id/rv_filter"
             android:layout_marginStart="27dp"
             android:layout_marginEnd="27dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="20dp">
 
             <TextView
                 android:id="@+id/tv_shipment_no_data"
@@ -308,6 +309,7 @@
                 android:id="@+id/rv_fragment_payments"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:clipToPadding="false"
                 android:isScrollContainer="false"
                 android:nestedScrollingEnabled="false" />
         </RelativeLayout>

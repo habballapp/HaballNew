@@ -170,7 +170,7 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
 
 
     @Override
-    public void onBindChildViewHolder(@NonNull final OrderChildList_VH_DistOrder OrderChildList_VH_DistOrder, int pos, final int i, @NonNull OrderChildlist_Model_DistOrder o) {
+    public void onBindChildViewHolder(@NonNull final OrderChildList_VH_DistOrder OrderChildList_VH_DistOrder, final int pos, final int i, @NonNull OrderChildlist_Model_DistOrder o) {
 //    public void onBindChildViewHolder(OrderChildList_VH_DistOrder OrderChildList_VH_DistOrder, int pos, int i, OrderChildlist_Model_DistOrder o) {
 
 //        Log.i("debugOrder_o", String.valueOf(o));
@@ -185,6 +185,7 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
                 if (productList.get(iter).getCategoryId().equals(OrderChildlist_Model_DistOrder.getCategoryId()))
                     totalChildInThisParent++;
         }
+
 
         OrderChildList_VH_DistOrder.discount.setText("Pack Size: ");
         OrderChildList_VH_DistOrder.UOM.setText("Disc: ");
@@ -234,7 +235,7 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 Log.i("order_place_debug", String.valueOf(keyCode));
                 Log.i("order_place_debug123123", String.valueOf(KeyEvent.KEYCODE_BACK));
-                Toast.makeText(context, "clicked", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "clicked", Toast.LENGTH_SHORT).show();
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
 //                        fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace()).addToBackStack("null");
@@ -253,6 +254,8 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (finalTotalChildInThisParent == (i + 1)) {
+                    Toast.makeText(context, pos + " - " + i, Toast.LENGTH_SHORT).show();
+
                     Log.i("order_place_debug8", "done clicked on last child");
                     InputMethodManager imm = (InputMethodManager) ((FragmentActivity) context).getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
@@ -283,10 +286,6 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
     }
 
     private void checkOutEnabler(OrderChildList_VH_DistOrder holder, int position, OrderChildlist_Model_DistOrder OrderChildlist_Model_DistOrder, String s) {
-//        SharedPreferences orderCheckout = context.getSharedPreferences("orderCheckout",
-//                Context.MODE_PRIVATE);
-//        String orderCheckedOut = orderCheckout.getString("orderCheckout", "");
-
         if (selectedProductsDataList != null) {
             int foundIndex = -1;
             for (int i = 0; i < selectedProductsDataList.size(); i++) {
@@ -309,23 +308,8 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
             } else {
                 if (!String.valueOf(holder.list_numberOFitems.getText()).equals(""))
                     if (Integer.parseInt(String.valueOf(holder.list_numberOFitems.getText())) > 0) {
-//                        if (orderCheckedOut.equals("orderCheckout")) {
-//                        if (selectedProductsCategoryList.size() > 0) {
-//                            if (Category_selected.equals(selectedProductsCategoryList.get(0))) {
-//                                selectedProductsDataList.add(OrderChildlist_Model_DistOrder);
-//                                selectedProductsQuantityList.add(String.valueOf(holder.list_numberOFitems.getText()));
-//                                selectedProductsCategoryList.add(Category_selected);
-//                            } else {
-////                            selectedProductsDataList.add(OrderChildlist_Model_DistOrder);
-////                            selectedProductsQuantityList.add(String.valueOf(holder.list_numberOFitems.getText()));
-//                                new CustomToast().showToast(((FragmentActivity) context), "Cross-Category Product selection is not allowed.");
-////                                new CustomToast().showToast(((FragmentActivity) context), "Products from " + selectedProductsDataList.get(0).getCategoryTitle() + " is selected. Can't select products from other categories.");
-//                            }
-//                        } else {
                         selectedProductsDataList.add(OrderChildlist_Model_DistOrder);
                         selectedProductsQuantityList.add(String.valueOf(holder.list_numberOFitems.getText()));
-                        selectedProductsCategoryList.add(Category_selected);
-//                        }
                     }
             }
         } else {
@@ -333,12 +317,9 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
                 if (Integer.parseInt(String.valueOf(holder.list_numberOFitems.getText())) > 0) {
                     selectedProductsDataList.add(OrderChildlist_Model_DistOrder);
                     selectedProductsQuantityList.add(String.valueOf(s));
-                    selectedProductsCategoryList.add(Category_selected);
                 }
             }
         }
-
-        Log.i("category_select_debug", String.valueOf(selectedProductsCategoryList));
 
         Gson gson = new Gson();
         String json = gson.toJson(selectedProductsDataList);

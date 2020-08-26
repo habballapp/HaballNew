@@ -40,6 +40,7 @@ import com.haball.Distributor.ui.Fragment_Notification.NotificationAdapter;
 import com.haball.Distributor.ui.support.MyJsonArrayRequest;
 import com.haball.HaballError;
 import com.haball.Loader;
+import com.haball.ProcessingError;
 import com.haball.R;
 import com.haball.Registration.BooleanRequest;
 import com.haball.Retailer_Login.RetailerLogin;
@@ -99,7 +100,7 @@ public class Notification_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //     return inflater.inflate(R.layout.fragment_blank, container, false);
-            new SSL_HandShake().handleSSLHandshake();
+        new SSL_HandShake().handleSSLHandshake();
         IO.Options opts = new IO.Options();
 //            opts.query = "userId=" + UserId;
         try {
@@ -184,8 +185,8 @@ public class Notification_Fragment extends Fragment {
         map.put("PageNumber", pageNumber);
 
         Log.i("map_SSSS", String.valueOf(map));
-            new SSL_HandShake().handleSSLHandshake();
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_Notification, map, new Response.Listener<JSONObject>() {
+        new SSL_HandShake().handleSSLHandshake();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL_Notification, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 loader.hideLoader();
@@ -219,6 +220,7 @@ public class Notification_Fragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
                 new HaballError().printErrorMessage(getContext(), error);
+                new ProcessingError().showError(getContext());
             }
         }) {
             @Override
@@ -226,8 +228,8 @@ public class Notification_Fragment extends Fragment {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", "bearer " + Token);
                 params.put("Content-Type", "application/json; charset=utf-8");
-                params.put("Content-Length", "1612");
-                params.put("Host", "retailer.haball.pk");
+//                params.put("Content-Length", "1612");
+//                params.put("Host", "retailer.haball.pk");
 
                 return params;
             }
@@ -346,7 +348,7 @@ public class Notification_Fragment extends Fragment {
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
 
-            new SSL_HandShake().handleSSLHandshake();
+        new SSL_HandShake().handleSSLHandshake();
 
         BooleanRequest sr = new BooleanRequest(Request.Method.PUT, URL_Mark_Seen, null, new Response.Listener<Boolean>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -421,7 +423,6 @@ public class Notification_Fragment extends Fragment {
                                 e.printStackTrace();
                                 loader.hideLoader();
                             }
-
 
 
                         }

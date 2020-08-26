@@ -312,7 +312,7 @@ public class PaymentRequestDashboard extends Fragment {
 //            public void onClick(View view) {
 //                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                fragmentTransaction.remove(PaymentRequestDashboard.this);
-//                fragmentTransaction.replace(((ViewGroup)getView().getParent()).getId(), new CreatePaymentRequestFragment());
+//                fragmentTransaction.add(((ViewGroup)getView().getParent()).getId(), new CreatePaymentRequestFragment());
 //                fragmentTransaction.addToBackStack(null);
 //                fragmentTransaction.commit();
 //            }

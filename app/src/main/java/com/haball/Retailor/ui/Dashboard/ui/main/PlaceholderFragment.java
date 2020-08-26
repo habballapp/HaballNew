@@ -664,7 +664,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         conso_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus) {
+                if (!hasFocus) {
                     Filter_selected_value = String.valueOf(conso_edittext.getText());
                     if (!Filter_selected_value.equals("")) {
                         try {
@@ -1141,6 +1141,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     }
 
     private void performPaginationPayment() throws JSONException {
+        loader.showLoader();
         Log.i("CheckPaymentLoader", "pagination");
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
@@ -1283,6 +1284,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     // }
 
     private void performPaginationOrder() throws JSONException {
+        loader.showLoader();
 
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
@@ -1699,7 +1701,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         conso_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus) {
+                if (!hasFocus) {
                     Filter_selected_value = String.valueOf(conso_edittext.getText());
                     if (!Filter_selected_value.equals("")) {
                         try {
@@ -2023,7 +2025,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                     .append(String.format("%02d", date1)).append("/").append(String.format("%02d", (month1 + 1))).append("/").append(year1));
         } else if (date_type.equals("second date")) {
             toDate = year2 + "-" + String.format("%02d", (month2 + 1)) + "-" + String.format("%02d", date2) + "T23:59:59.000Z";
-           second_date.setText(new StringBuilder()
+            second_date.setText(new StringBuilder()
                     .append(String.format("%02d", date2)).append("/").append(String.format("%02d", (month2 + 1))).append("/").append(year2));
         }
         if (tabName.equals("Payment")) {

@@ -261,7 +261,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
             public void onClick(View view) {
                 if (btn_update.getText().equals("Back")) {
                     FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment());
+                    fragmentTransaction.add(R.id.main_container_ret, new CreatePaymentRequestFragment());
                     fragmentTransaction.commit();
                 } else {
                     showDiscardDialogForCreatePayment();
@@ -293,7 +293,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
                     }
                 }
 //                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.main_container_ret, new EditPaymentRequestFragment());
+//                fragmentTransaction.add(R.id.main_container_ret, new EditPaymentRequestFragment());
 //                fragmentTransaction.commit();
 
             }
@@ -424,7 +424,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
                 Log.i("CreatePayment", "Button Clicked");
                 alertDialog.dismiss();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment());
+                fragmentTransaction.add(R.id.main_container_ret, new CreatePaymentRequestFragment());
                 fragmentTransaction.commit();
             }
         });
@@ -529,7 +529,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
                     editor_JazzCash.putString("Type", "PrePayment");
                     editor_JazzCash.apply();
                     fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.main_container_ret, new PaymentJazzCashApi()).addToBackStack("null");
+                    fragmentTransaction.add(R.id.main_container_ret, new PaymentJazzCashApi()).addToBackStack("null");
                     fragmentTransaction.commit();
                 }
             });
@@ -555,7 +555,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
             editor_JazzCash.putString("Type", "PrePayment");
             editor_JazzCash.apply();
             fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.main_container_ret, new PaymentJazzCashApi()).addToBackStack("null");
+            fragmentTransaction.add(R.id.main_container_ret, new PaymentJazzCashApi()).addToBackStack("null");
             fragmentTransaction.commit();
         }
     }
@@ -819,7 +819,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
+                fragmentTransaction.add(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
                 fragmentTransaction.commit();
             }
         });

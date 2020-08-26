@@ -462,6 +462,7 @@ public class Retailer_Order_Summary extends Fragment {
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("DealerInfo",
                 Context.MODE_PRIVATE);
         String DealerCode = sharedPreferences1.getString("DealerCode", "");
+        String OrderId = sharedPreferences1.getString("orderId", "0");
 
         SharedPreferences sharedPreferences2 = this.getActivity().getSharedPreferences("CompanyInfo",
                 Context.MODE_PRIVATE);
@@ -480,7 +481,7 @@ public class Retailer_Order_Summary extends Fragment {
 //        Log.i("Array", String.valueOf(jsonArray));
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("ID", 0);
+        jsonObject.put("ID", Integer.parseInt(OrderId));
 //        jsonObject.put("RetailerID", RetailerID);
         jsonObject.put("DealerCode", DealerCode);
         jsonObject.put("OrderDetails", jsonArray);
@@ -542,7 +543,7 @@ public class Retailer_Order_Summary extends Fragment {
                         @Override
                         public void onDismiss(DialogInterface dialog) {
 //                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                        fragmentTransaction.replace(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
+//                        fragmentTransaction.add(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
 //                        fragmentTransaction.commit();
 
                             SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
@@ -592,6 +593,7 @@ public class Retailer_Order_Summary extends Fragment {
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("DealerInfo",
                 Context.MODE_PRIVATE);
         String DealerCode = sharedPreferences1.getString("DealerCode", "");
+        String OrderId = sharedPreferences1.getString("orderId", "0");
 
         JSONArray jsonArray = new JSONArray();
         for (int i = 0; i < selectedProductsDataList.size(); i++) {
@@ -604,7 +606,7 @@ public class Retailer_Order_Summary extends Fragment {
 //        Log.i("Array", String.valueOf(jsonArray));
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("ID", 0);
+        jsonObject.put("ID", Integer.parseInt(OrderId));
 //        jsonObject.put("ProductName", "");
         jsonObject.put("DealerCode", DealerCode);
 //        jsonObject.put("RetailerID", RetailerID);
@@ -652,7 +654,7 @@ public class Retailer_Order_Summary extends Fragment {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
 //                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                        fragmentTransaction.replace(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
+//                        fragmentTransaction.add(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
 //                        fragmentTransaction.commit();
 
                         SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",

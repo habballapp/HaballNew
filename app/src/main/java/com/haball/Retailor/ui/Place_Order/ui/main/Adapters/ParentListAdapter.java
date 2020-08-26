@@ -187,19 +187,13 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
             public void afterTextChanged(Editable s) {
                 if (orderChildList_vh.list_numberOFitems.hasFocus()) {
                     String str_quantity = String.valueOf(s);
-                    Log.i("textChanged12", "check");
-                    Log.i("textChanged11", "'" + String.valueOf(s) + "'");
                     if (String.valueOf(s).equals(""))
                         str_quantity = "0";
 
                     if (temp_orderChildList_vh.list_txt_products.getText().equals(temp_orderChildlist_model.getTitle())) {
-//                    if (Float.parseFloat(str_quantity) <= 0) {
-//                        // Toast.makeText(context, "Quantity must be greater than 0", Toast.LENGTH_LONG).show();
-//                    } else {
                         Log.i("debugOrder_textChang", String.valueOf(temp_orderChildlist_model.getTitle()));
                         Log.i("debugOrder_textChang1", String.valueOf(temp_orderChildList_vh.list_txt_products.getText()));
                         checkOutEnabler(temp_orderChildList_vh, temp_i, temp_orderChildlist_model, str_quantity);
-//                    }
                     }
                 }
             }
@@ -214,7 +208,7 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
 //                        fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace()).addToBackStack("null");
-                    fragmentTransaction.add(R.id.main_container, new Retailer_Place_Order()).addToBackStack("null");
+                    fragmentTransaction.add(R.id.main_container_ret, new Retailer_Place_Order()).addToBackStack("null");
                     fragmentTransaction.commit();
                     return true;
                 }
@@ -241,11 +235,6 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
 //        orderChildList_vh.list_numberOFitems.setText("");
         if (selectedProductsDataList != null && selectedProductsQuantityList != null) {
             if (selectedProductsDataList.size() > 0 && selectedProductsQuantityList.size() > 0) {
-                Log.i("debugOrderQty1_found0", String.valueOf(i));
-                Log.i("debugOrderQty1_found1", String.valueOf(orderChildlist_model.getProductCode()));
-                Log.i("debugOrderQty1_found2", String.valueOf(orderChildList_vh.list_product_code_value.getText()));
-                Log.i("debugOrderQty1_found3", String.valueOf(orderChildlist_model.getTitle()));
-                Log.i("debugOrderQty1_found4", String.valueOf(orderChildList_vh.list_txt_products.getText()));
                 setQuantity(orderChildList_vh, orderChildlist_model, i);
             }
         }
@@ -257,33 +246,14 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
         if (selectedProductsQuantityList != null && selectedProductsDataList != null) {
             for (int j = 0; j < selectedProductsDataList.size(); j++) {
                 if (orderChildList_vh.list_txt_products.getText().equals(String.valueOf(selectedProductsDataList.get(j).getTitle())) && orderChildList_vh.list_product_code_value.getText().equals(selectedProductsDataList.get(j).getProductCode())) {
-                    Log.i("debugOrderQty_found0", String.valueOf(j));
-                    Log.i("debugOrderQty_found1", String.valueOf(pos));
-                    Log.i("debugOrderQty_found2", String.valueOf(orderChildList_vh.list_txt_products.getText()));
-                    Log.i("debugOrderQty_found3", String.valueOf(selectedProductsDataList.get(j).getTitle()));
-                    Log.i("debugOrderQty_found4", String.valueOf(orderChildlist_model.getTitle()));
-                    Log.i("debugOrderQty_found5", String.valueOf(orderChildList_vh.list_product_code_value.getText()));
-                    Log.i("debugOrderQty_found6", String.valueOf(selectedProductsDataList.get(j).getProductCode()));
-                    Log.i("debugOrderQty_found7", String.valueOf(orderChildlist_model.getProductCode()));
-                    Log.i("debugOrderQty_found8", String.valueOf(orderChildList_vh));
                     if (!selectedProductsQuantityList.get(j).equals("0") && !selectedProductsQuantityList.get(j).equals(""))
                         orderChildList_vh.list_numberOFitems.setText(selectedProductsQuantityList.get(j));
-                    Log.i("debugOrderQty_found0", String.valueOf(j));
-                    Log.i("debugOrderQty_found1", String.valueOf(pos));
-                    Log.i("debugOrderQty_found2", String.valueOf(orderChildList_vh.list_txt_products.getText()));
-                    Log.i("debugOrderQty_found3", String.valueOf(selectedProductsDataList.get(j).getTitle()));
-                    Log.i("debugOrderQty_found4", String.valueOf(orderChildlist_model.getTitle()));
-                    Log.i("debugOrderQty_found5", String.valueOf(orderChildList_vh.list_product_code_value.getText()));
-                    Log.i("debugOrderQty_found6", String.valueOf(selectedProductsDataList.get(j).getProductCode()));
-                    Log.i("debugOrderQty_found7", String.valueOf(orderChildlist_model.getProductCode()));
-                    Log.i("debugOrderQty_found8", String.valueOf(orderChildList_vh));
                 }
             }
         }
     }
 
     private void checkOutEnabler(OrderChildList_VH holder, int position, OrderChildlist_Model orderChildlist_model, String s) {
-        Log.i("debugOrder_seldatalist", String.valueOf(selectedProductsDataList));
         if (selectedProductsDataList != null) {
             int foundIndex = -1;
             for (int i = 0; i < selectedProductsDataList.size(); i++) {
@@ -319,9 +289,6 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
             }
         }
 
-        // for (int i = 0; i < selectedProductsDataList.size(); i++)
-        //     Toast.makeText(context, selectedProductsDataList.get(i).getTitle() + " - " + selectedProductsQuantityList.get(i), Toast.LENGTH_LONG).show();
-
         Gson gson = new Gson();
         String json = gson.toJson(selectedProductsDataList);
         String jsonqty = gson.toJson(selectedProductsQuantityList);
@@ -345,6 +312,4 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
         }
 
     }
-
-
 }

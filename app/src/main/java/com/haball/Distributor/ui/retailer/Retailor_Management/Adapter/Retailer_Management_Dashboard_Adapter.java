@@ -31,7 +31,7 @@ import java.util.List;
 public class Retailer_Management_Dashboard_Adapter extends RecyclerView.Adapter<Retailer_Management_Dashboard_Adapter.ViewHolder> {
 
     private Context mContext;
-    private String heading,retailer_code_no,tv_retailerdate_date_no,retailer_status_value;
+    private String heading, retailer_code_no, tv_retailerdate_date_no, retailer_status_value;
     private List<Retailer_Management_Dashboard_Model> retailerList;
 
     public Retailer_Management_Dashboard_Adapter(Context mContext, List<Retailer_Management_Dashboard_Model> retailerList) {
@@ -47,30 +47,30 @@ public class Retailer_Management_Dashboard_Adapter extends RecyclerView.Adapter<
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view_inflate = LayoutInflater.from(mContext).inflate(R.layout.retailer_mangement_dashboard_recycler,parent,false);
+        View view_inflate = LayoutInflater.from(mContext).inflate(R.layout.retailer_mangement_dashboard_recycler, parent, false);
         return new Retailer_Management_Dashboard_Adapter.ViewHolder(view_inflate);
 
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        if (retailerList.size() == 3) {
+        if (retailerList.size() == 3 || retailerList.size() == 4) {
             if (position == (retailerList.size() - 1)) {
-//        if (position == 2) {
+                //        if (position == 2) {
                 Log.i("DebugSupportFilter_In", retailerList.get(position).getRetailerCode());
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                         RelativeLayout.LayoutParams.WRAP_CONTENT,
                         RelativeLayout.LayoutParams.WRAP_CONTENT
                 );
-                params.setMargins(0, 50, 0, 280);
+                params.setMargins(0, 50, 0, 360);
                 holder.main_layout_retailer_box_retailer.setLayoutParams(params);
             }
         }
 
         holder.tv_heading.setText(retailerList.get(position).getCompanyName());
         holder.retailer_code_no.setText(retailerList.get(position).getRetailerCode());
-        if(retailerList.get(position).getCreatedDate() != null)
-        holder.tv_retailerdate_date_no.setText(retailerList.get(position).getCreatedDate().split("T")[0]);
+        if (retailerList.get(position).getCreatedDate() != null)
+            holder.tv_retailerdate_date_no.setText(retailerList.get(position).getCreatedDate().split("T")[0]);
         holder.retailer_status_value.setText(retailerList.get(position).getStatus());
         final int finalPosition = position;
         holder.menu_btn.setOnClickListener(new View.OnClickListener() {
@@ -87,18 +87,18 @@ public class Retailer_Management_Dashboard_Adapter extends RecyclerView.Adapter<
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        switch(item.getItemId()){
+                        switch (item.getItemId()) {
 
                             case R.id.view_retailer:
-                           //     Toast.makeText(mContext,"Popup",Toast.LENGTH_LONG).show();
+                                //     Toast.makeText(mContext,"Popup",Toast.LENGTH_LONG).show();
                                 ViewRetailer viewRetailer = new ViewRetailer();
                                 Bundle args = new Bundle();
                                 args.putString("RetailerId", retailerList.get(finalPosition).getID());
                                 viewRetailer.setArguments(args);
 
 
-                                FragmentTransaction fragmentTransaction= ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction.add(R.id.main_container,viewRetailer).addToBackStack("tag");
+                                FragmentTransaction fragmentTransaction = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
+                                fragmentTransaction.add(R.id.main_container, viewRetailer).addToBackStack("tag");
                                 fragmentTransaction.commit();
                                 break;
 
@@ -128,9 +128,10 @@ public class Retailer_Management_Dashboard_Adapter extends RecyclerView.Adapter<
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_heading,retailer_code_no,tv_retailerdate_date_no,retailer_status_value;
+        public TextView tv_heading, retailer_code_no, tv_retailerdate_date_no, retailer_status_value;
         public RelativeLayout main_layout_retailer_box_retailer;
         public ImageButton menu_btn;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 

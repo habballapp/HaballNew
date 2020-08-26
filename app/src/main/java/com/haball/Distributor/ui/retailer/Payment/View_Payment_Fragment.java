@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,7 +56,7 @@ import java.util.Map;
 public class View_Payment_Fragment extends Fragment {
 
     private String PaymentsRequestId;
-    private String PAYMENT_REQUEST_URL = "http://175.107.203.97:4014/api/prepaidrequests/";
+    private String PAYMENT_REQUEST_URL = "http://175.107.203.97:4013/api/retailerprepaidrequest/";
     private String Token;
     private TextInputEditText txt_heading, txt_paymentid, txt_created_date, txt_transaction_date, txt_bname, txt_authorization, txt_settlement, txt_amount, txt_status, txt_transaction_charges, txt_total_amount;
     private Button btn_vreciept, btn_back;
@@ -64,6 +65,7 @@ public class View_Payment_Fragment extends Fragment {
             layout_txt_status, layout_txt_transaction_charges, layout_txt_total_amount;
     private FragmentTransaction fragmentTransaction;
     private TextView btn_make_payment;
+    private RelativeLayout create_payment_rl;
 
     public View_Payment_Fragment() {
         // Required empty public constructor
@@ -108,9 +110,13 @@ public class View_Payment_Fragment extends Fragment {
         txt_transaction_charges = root.findViewById(R.id.txt_transaction_charges);
         txt_total_amount = root.findViewById(R.id.txt_total_amount);
 
+        create_payment_rl = root.findViewById(R.id.create_payment_rl);
+
         btn_make_payment = root.findViewById(R.id.btn_addpayment);
         btn_vreciept = root.findViewById(R.id.btn_vreciept);
         btn_back = root.findViewById(R.id.btn_back);
+
+        create_payment_rl.setVisibility(View.GONE);
 
         new TextField().changeColor(this.getContext(), layout_txt_heading, txt_heading);
         new TextField().changeColor(this.getContext(), layout_txt_transaction_charges, txt_transaction_charges);
@@ -142,18 +148,23 @@ public class View_Payment_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment()).addToBackStack(null);
+                fragmentTransaction.add(R.id.main_container, new CreatePaymentRequestFragment()).addToBackStack(null);
                 fragmentTransaction.commit();
 
             }
         });
 
+        btn_vreciept.setVisibility(View.GONE);
+
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent login_intent = new Intent(getActivity(), RetailorDashboard.class);
-                startActivity(login_intent);
-                getActivity().finish();
+                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.add(R.id.main_container, new RetailerPaymentDashboard()).addToBackStack(null);
+                fragmentTransaction.commit();
+//                Intent login_intent = new Intent(getActivity(), RetailorDashboard.class);
+//                startActivity(login_intent);
+//                getActivity().finish();
             }
         });
 
@@ -191,52 +202,52 @@ public class View_Payment_Fragment extends Fragment {
             public void onResponse(JSONObject result) {
                 Log.i("resultInvoice", String.valueOf(result));
                 try {
-                    if (!String.valueOf(result.get("CompanyName")).equals("null")) {
-                        txt_heading.setText(String.valueOf(result.get("CompanyName")));
+                    if (!String.valueOf(result.getJSONObject("Detail").get("CompanyName")).equals("null")) {
+                        txt_heading.setText(String.valueOf(result.getJSONObject("Detail").get("CompanyName")));
                         txt_heading.setTextColor(getContext().getResources().getColor(R.color.textcolor));
                     }
-                    if (!String.valueOf(result.get("PrePaidNumber")).equals("null")) {
-                        txt_paymentid.setText(String.valueOf(result.get("PrePaidNumber")));
+                    if (!String.valueOf(result.get("PaymentID")).equals("null")) {
+                        txt_paymentid.setText(String.valueOf(result.get("PaymentID")));
                         txt_paymentid.setTextColor(getContext().getResources().getColor(R.color.textcolor));
                     }
-                    if (!String.valueOf(result.get("CreatedDate")).equals("null")) {
-                        txt_created_date.setText(String.valueOf(result.get("CreatedDate")).split("T")[0]);
+                    if (!String.valueOf(result.get("PaymentCreatedDate")).equals("null")) {
+                        txt_created_date.setText(String.valueOf(result.get("PaymentCreatedDate")).split("T")[0]);
                         txt_created_date.setTextColor(getContext().getResources().getColor(R.color.textcolor));
                     }
-                    if (!String.valueOf(result.get("TransactionDate")).equals("null")) {
-                        txt_transaction_date.setText(String.valueOf(result.get("TransactionDate")).split("T")[0]);
+                    if (!String.valueOf(result.get("RetailerInvoicePaidDate")).equals("null")) {
+                        txt_transaction_date.setText(String.valueOf(result.get("RetailerInvoicePaidDate")).split("T")[0]);
                         txt_transaction_date.setTextColor(getContext().getResources().getColor(R.color.textcolor));
                     }
-                    if (!String.valueOf(result.get("BankName")).equals("null")) {
-                        txt_bname.setText(String.valueOf(result.get("BankName")));
+                    if (!String.valueOf(result.getJSONObject("Detail").get("BankName")).equals("null")) {
+                        txt_bname.setText(String.valueOf(result.getJSONObject("Detail").get("BankName")));
                         txt_bname.setTextColor(getContext().getResources().getColor(R.color.textcolor));
                     }
-                    if (!String.valueOf(result.get("AuthID")).equals("null")) {
-                        txt_authorization.setText(String.valueOf(result.get("AuthID")));
+                    if (!String.valueOf(result.getJSONObject("Detail").get("AuthID")).equals("null")) {
+                        txt_authorization.setText(String.valueOf(result.getJSONObject("Detail").get("AuthID")));
                         txt_authorization.setTextColor(getContext().getResources().getColor(R.color.textcolor));
                     }
-                    if (!String.valueOf(result.get("SettlementID")).equals("null")) {
-                        txt_settlement.setText(String.valueOf(result.get("SettlementID")));
+                    if (!String.valueOf(result.getJSONObject("Detail").get("SettlementID")).equals("null")) {
+                        txt_settlement.setText(String.valueOf(result.getJSONObject("Detail").get("SettlementID")));
                         txt_settlement.setTextColor(getContext().getResources().getColor(R.color.textcolor));
                     }
-                    if (!String.valueOf(result.get("PaidAmount")).equals("null")) {
+                    if (!String.valueOf(result.getJSONObject("Detail").get("PaidAmount")).equals("null")) {
 //                        txt_amount.setText(String.valueOf(result.get("PaidAmount")));
                         DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
-                        String Formatted_TotalAmount = formatter1.format(Double.parseDouble(result.getString("PaidAmount")));
+                        String Formatted_TotalAmount = formatter1.format(Double.parseDouble(result.getJSONObject("Detail").getString("PaidAmount")));
                         txt_amount.setText(Formatted_TotalAmount);
                         txt_amount.setTextColor(getContext().getResources().getColor(R.color.textcolor));
                     }
-                    if (!String.valueOf(result.get("Status")).equals("null")) {
-                        txt_status.setText(String.valueOf(result.get("Status")));
+                    if (!String.valueOf(result.getJSONObject("Detail").get("Status")).equals("null")) {
+                        txt_status.setText(String.valueOf(result.getJSONObject("Detail").get("Status")));
                         txt_status.setTextColor(getContext().getResources().getColor(R.color.textcolor));
                     }
-                    if (!String.valueOf(result.get("TransactionCharges")).equals("null")) {
-                        txt_transaction_charges.setText(String.valueOf(result.get("TransactionCharges")));
+                    if (!String.valueOf(result.getJSONObject("Detail").get("TransactionCharges")).equals("null")) {
+                        txt_transaction_charges.setText(String.valueOf(result.getJSONObject("Detail").get("TransactionCharges")));
                         txt_transaction_charges.setTextColor(getContext().getResources().getColor(R.color.textcolor));
                     }
-                    if (!String.valueOf(result.get("TotalAmount")).equals("null")) {
+                    if (!String.valueOf(result.getJSONObject("Detail").get("TotalAmount")).equals("null")) {
                         DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
-                        String Formatted_TotalAmount = formatter1.format(Double.parseDouble(result.getString("TotalAmount")));
+                        String Formatted_TotalAmount = formatter1.format(Double.parseDouble(result.getJSONObject("Detail").getString("TotalAmount")));
                         txt_total_amount.setText(Formatted_TotalAmount);
                         txt_total_amount.setTextColor(getContext().getResources().getColor(R.color.textcolor));
                     }

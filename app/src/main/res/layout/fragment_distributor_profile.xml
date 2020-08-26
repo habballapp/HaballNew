@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:backgroundTint="#80FFFFFF"
-    android:backgroundTintMode="src_over">
+    android:backgroundTintMode="src_over"
+    android:clickable="true">
 
     <RelativeLayout
         android:layout_width="match_parent"

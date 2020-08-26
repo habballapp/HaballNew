@@ -66,15 +66,15 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
 
     @Override
     public void onBindViewHolder(@NonNull PaymentDashboardVH holder, final int position) {
-        if (paymentsList.size() == 3) {
+        if (paymentsList.size() == 3 || paymentsList.size() == 4) {
             if (position == (paymentsList.size() - 1)) {
-//        if (position == 2) {
+                //        if (position == 2) {
                 Log.i("DebugSupportFilter_In", paymentsList.get(position).getInvoiceNumber());
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                         RelativeLayout.LayoutParams.WRAP_CONTENT,
                         RelativeLayout.LayoutParams.WRAP_CONTENT
                 );
-                params.setMargins(0, 50, 0, 280);
+                params.setMargins(0, 50, 0, 360);
                 holder.main_layout_payment_box_retailer.setLayoutParams(params);
             }
         }
@@ -181,7 +181,7 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
                                         editor.putString("IsEditable", paymentsList.get(finalPosition).getIsEditable());
                                         editor.commit();
                                         fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                                        fragmentTransaction.replace(R.id.main_container, new RetailerViewInvoice()).addToBackStack("tag");
+                                        fragmentTransaction.add(R.id.main_container, new RetailerViewInvoice()).addToBackStack("tag");
                                         fragmentTransaction.commit();
 
                                         break;
@@ -235,7 +235,8 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
                         });
                         popup.show();
 
-                    } else if (paymentsList.get(position).getInvoiceStatusValue().equals("Pending") || paymentsList.get(position).getInvoiceStatusValue().equals("Paid") || paymentsList.get(position).getInvoiceStatusValue().equals("Payment Processing") || paymentsList.get(position).getInvoiceStatusValue().equals("Cancelled")) {
+//                    } else if (paymentsList.get(position).getInvoiceStatusValue().equals("Pending") || paymentsList.get(position).getInvoiceStatusValue().equals("Paid") || paymentsList.get(position).getInvoiceStatusValue().equals("Payment Processing") || paymentsList.get(position).getInvoiceStatusValue().equals("Cancelled") || paymentsList.get(position).getInvoiceStatusValue().equals("Invoiced")) {
+                    } else {
                         Context wrapper = new ContextThemeWrapper(context, R.style.AppBaseTheme);
                         final PopupMenu popup = new PopupMenu(wrapper, view);
                         MenuInflater inflater = popup.getMenuInflater();
@@ -253,7 +254,7 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
                                         Log.i("InvoiceStatus_Adapter", String.valueOf(paymentsList.get(position).getStatus()));
                                         editor.commit();
                                         fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                                        fragmentTransaction.replace(R.id.main_container, new RetailerViewInvoice()).addToBackStack("tag");
+                                        fragmentTransaction.add(R.id.main_container, new RetailerViewInvoice()).addToBackStack("tag");
                                         fragmentTransaction.commit();
 
                                         break;
@@ -267,9 +268,10 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
                         popup.show();
                     }
                 } else if (paymentsList.get(position).getIsEditable().equals("1")) {
-                    if (paymentsList.get(position).getStatus().equals("Un-Paid")) {
+                    if (paymentsList.get(position).getInvoiceStatusValue().equals("Un-Paid")) {
                         setUnpaidPaymentMenu(position, view);
-                    } else if (paymentsList.get(position).getStatus().equals("Paid")) {
+                    } else if (paymentsList.get(position).getInvoiceStatusValue().equals("Invoiced") || paymentsList.get(position).getInvoiceStatusValue().equals("Pending") || paymentsList.get(position).getInvoiceStatusValue().equals("Paid") || paymentsList.get(position).getInvoiceStatusValue().equals("Payment Processing") || paymentsList.get(position).getInvoiceStatusValue().equals("Cancelled")) {
+//                    } else if (paymentsList.get(position).getStatus().equals("Paid")) {
                         setPaidPaymentMenu(position, view);
                     }
                 }
@@ -343,7 +345,7 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
                         editorEdit.putString("MenuItem", "Edit");
                         editorEdit.apply();
                         FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.main_container, new PaymentScreen3Fragment()).addToBackStack("Tag");
+                        fragmentTransaction.add(R.id.main_container, new PaymentScreen3Fragment()).addToBackStack("Tag");
                         fragmentTransaction.commit();
                         break;
                     case R.id.delete_retailer_payment:
@@ -395,7 +397,7 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
                         editorView.apply();
 
                         FragmentTransaction fragmentTransactionView = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                        fragmentTransactionView.replace(R.id.main_container, new PaymentScreen3Fragment()).addToBackStack("Tag");
+                        fragmentTransactionView.add(R.id.main_container, new PaymentScreen3Fragment()).addToBackStack("Tag");
                         fragmentTransactionView.commit();
 
                         break;
@@ -466,7 +468,7 @@ public class PaymentDashboardAdapter extends RecyclerView.Adapter<PaymentDashboa
                         editor.commit();
 
                         fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.main_container, new View_Payment_Fragment()).addToBackStack("tag");
+                        fragmentTransaction.add(R.id.main_container, new View_Payment_Fragment()).addToBackStack("tag");
                         fragmentTransaction.commit();
                         break;
                 }

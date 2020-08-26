@@ -15,8 +15,9 @@ public class SupportDashboardModel {
     String CreatedDate;
     String LastChangedBy;
     String LastChangedDate;
+    String TicketNumber;
 
-    public SupportDashboardModel(String id, String issueType, String criticality, String preferredContactMethod, String description, String contactName, String email, String mobileNumber, String status, String distributorId, String createdBy, String createdDate, String lastChangedBy, String lastChangedDate) {
+    public SupportDashboardModel(String id, String issueType, String criticality, String preferredContactMethod, String description, String contactName, String email, String mobileNumber, String status, String distributorId, String createdBy, String createdDate, String lastChangedBy, String lastChangedDate, String ticketNumber) {
         Id = id;
         IssueType = issueType;
         Criticality = criticality;
@@ -31,6 +32,7 @@ public class SupportDashboardModel {
         CreatedDate = createdDate;
         LastChangedBy = lastChangedBy;
         LastChangedDate = lastChangedDate;
+        TicketNumber = ticketNumber;
     }
 
     public String getId() {
@@ -143,5 +145,13 @@ public class SupportDashboardModel {
 
     public void setLastChangedDate(String lastChangedDate) {
         LastChangedDate = lastChangedDate;
+    }
+
+    public String getTicketNumber() {
+        return TicketNumber;
+    }
+
+    public void setTicketNumber(String ticketNumber) {
+        TicketNumber = ticketNumber;
     }
 }

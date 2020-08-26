@@ -62,7 +62,11 @@ public class Loader {
     public void hideLoader() {
         Log.i("mContext_hide", String.valueOf(mContext));
 //        if (fbDialogue.isShowing())
-        fbDialogue.dismiss();
+        try {
+            fbDialogue.dismiss();
+        } catch (IllegalArgumentException ex) {
+
+        }
     }
 
     public boolean isShowing() {

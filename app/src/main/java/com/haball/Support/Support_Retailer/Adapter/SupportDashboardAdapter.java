@@ -172,7 +172,7 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
         DeleteSupport deleteSupport = new DeleteSupport();
         String response = deleteSupport.DeleteSupportTicket(mContxt, ID);
         fragmentTransaction = ((FragmentActivity) mContxt).getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_container_ret, new SupportFragment()).addToBackStack(null);;
+        fragmentTransaction.add(R.id.main_container_ret, new SupportFragment()).addToBackStack(null);;
         fragmentTransaction.commit();
 
     }

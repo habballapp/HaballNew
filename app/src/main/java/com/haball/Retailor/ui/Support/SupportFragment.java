@@ -84,7 +84,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
-    private TextView tv_shipment_no_data;
+    private TextView tv_shipment_no_ticket, tv_shipment_no_data;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<String> array = new ArrayList<>();
     private TextView btn_add_ticket_retailer;
@@ -144,7 +144,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
             @Override
             public void onClick(View view) {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new Support_Ticket_Form_Fragment());
+                fragmentTransaction.add(((ViewGroup) getView().getParent()).getId(), new Support_Ticket_Form_Fragment());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
 
@@ -157,7 +157,10 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+        tv_shipment_no_ticket = root.findViewById(R.id.tv_shipment_no_ticket);
         tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
+
+
 //        scrollview_support = root.findViewById(R.id.scrollview_support);
 //        scrollview_support.setOnScrollChangeListener(new View.OnScrollChangeListener() {
 //            @Override
@@ -166,8 +169,9 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
 //            }
 //        });
 
-//        tv_shipment_no_data.setVisibility(View.VISIBLE);
+//        tv_shipment_no_ticket.setVisibility(View.VISIBLE);
 //        loader =  root.findViewById(R.id.loader);
+        tv_shipment_no_ticket.setVisibility(View.GONE);
         tv_shipment_no_data.setVisibility(View.GONE);
 //        loader.setVisibility(View.VISIBLE);
         loader = new Loader(getContext());
@@ -347,7 +351,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                     } else if (Filter_selected.equals("Status")) {
 
                         Filter_selected = "Status";
-                        tv_shipment_no_data.setVisibility(View.VISIBLE);
+                        tv_shipment_no_ticket.setVisibility(View.VISIBLE);
                         spinner_container1.setVisibility(View.VISIBLE);
 
                         filters = new ArrayList<>();
@@ -728,11 +732,13 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                     totalPages = Math.ceil(totalEntries / 10);
                     Log.i("recordCountObj_123", String.valueOf(response));
                     Log.i("SupportSize_1", String.valueOf(SupportList.size()));
-                    if (SupportList.size() != 0) {
+                    if (SupportList.size() > 0) {
+                        tv_shipment_no_ticket.setVisibility(View.GONE);
                         tv_shipment_no_data.setVisibility(View.GONE);
                         spinner_container.setVisibility(View.VISIBLE);
                     } else {
-                        tv_shipment_no_data.setVisibility(View.VISIBLE);
+                        tv_shipment_no_ticket.setVisibility(View.VISIBLE);
+                        tv_shipment_no_data.setVisibility(View.GONE);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -784,6 +790,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
 
 
     private void performPaginationSupport() throws JSONException {
+        loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -817,10 +824,12 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                     SupportList.addAll(supportDashboardRetailerModel);
                     Log.i("SupportSize_2", String.valueOf(SupportList.size()));
 
-                    if (SupportList.size() != 0) {
+                    if (SupportList.size() > 0) {
+                        tv_shipment_no_ticket.setVisibility(View.GONE);
                         tv_shipment_no_data.setVisibility(View.GONE);
                     } else {
-                        tv_shipment_no_data.setVisibility(View.VISIBLE);
+                        tv_shipment_no_ticket.setVisibility(View.VISIBLE);
+                        tv_shipment_no_data.setVisibility(View.GONE);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -901,8 +910,11 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
 
                     if (SupportList.size() != 0) {
                         tv_shipment_no_data.setVisibility(View.GONE);
+                        tv_shipment_no_ticket.setVisibility(View.GONE);
                     } else {
                         tv_shipment_no_data.setVisibility(View.VISIBLE);
+                        tv_shipment_no_ticket.setVisibility(View.GONE);
+
                     }
 
                 } catch (JSONException e) {

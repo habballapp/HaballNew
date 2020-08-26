@@ -141,7 +141,7 @@ public class FragmentNotification extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
 //                printErrorMessage(error);
-                Log.i("fetch_notification","error in fetch notification");
+                Log.i("fetch_notification", "error in fetch notification");
                 error.printStackTrace();
                 new HaballError().printErrorMessage(mcontext, error);
                 new ProcessingError().showError(mcontext);
@@ -206,7 +206,7 @@ public class FragmentNotification extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
-                Log.i("fetch_notification","error in setNotificationStatus");
+                Log.i("fetch_notification", "error in setNotificationStatus");
                 new HaballError().printErrorMessage(mcontext, error);
                 new ProcessingError().showError(mcontext);
                 error.printStackTrace();
@@ -266,17 +266,22 @@ public class FragmentNotification extends Fragment {
                     e.printStackTrace();
                 }
 
-                Timer timer = new Timer();
-                timer.scheduleAtFixedRate(new TimerTask() {
-                    @Override
-                    public void run() {
-                        try {
-                            fetchNotification(result.getInt("count"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, 0, 5000);
+                try {
+                    fetchNotification(result.getInt("count"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+//                Timer timer = new Timer();
+//                timer.scheduleAtFixedRate(new TimerTask() {
+//                    @Override
+//                    public void run() {
+//                        try {
+//                            fetchNotification(result.getInt("count"));
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }, 0, 5000);
                 Log.i("ResultLength", "" + result.length());
                 Log.i("RESULT NOTIFICATION", result.toString());
 
@@ -285,7 +290,7 @@ public class FragmentNotification extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 new HaballError().printErrorMessage(mcontext, error);
-                Log.i("fetch_notification","error in fetchNotificationForItemCount");
+                Log.i("fetch_notification", "error in fetchNotificationForItemCount");
                 new ProcessingError().showError(mcontext);
                 error.printStackTrace();
             }
@@ -338,7 +343,7 @@ public class FragmentNotification extends Fragment {
 //                        fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace()).addToBackStack("null");
                     fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("null");
                     fragmentTransaction.commit();
-                    return  true;
+                    return true;
 
 //                    Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
 //                    ((FragmentActivity) getContext()).startActivity(login_intent);

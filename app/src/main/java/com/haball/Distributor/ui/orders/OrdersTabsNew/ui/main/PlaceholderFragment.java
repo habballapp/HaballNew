@@ -24,6 +24,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -72,7 +74,7 @@ import java.util.Map;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class    PlaceholderFragment extends Fragment {
+public class PlaceholderFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -413,6 +415,7 @@ public class    PlaceholderFragment extends Fragment {
         editor.putString("ID", "0");
         editor.putString("CategoryIndex", "0");
         editor.apply();
+
         FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace()).addToBackStack("tag");
 //        fragmentTransaction.addToBackStack(null);

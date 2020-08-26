@@ -189,7 +189,7 @@ public class ProofOfPaymentsDashboardFragment extends Fragment implements DatePi
             public void onClick(View view) {
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.remove(ProofOfPaymentsDashboardFragment.this);
-                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new ProofOfPaymentForm());
+                fragmentTransaction.add(((ViewGroup) getView().getParent()).getId(), new ProofOfPaymentForm());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }

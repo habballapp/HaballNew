@@ -79,7 +79,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<String> array = new ArrayList<>();
     private TextView btn_add_ticket;
-    private TextView tv_shipment_no_data;
+    private TextView tv_shipment_no_ticket, tv_shipment_no_data;
     private String Token;
     private String URL_SUPPORT = "http://175.107.203.97:4013/api/contact/search";
     private SupportViewModel supportViewModel;
@@ -144,7 +144,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
 
 
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new SupportTicketFormFragment());
+                fragmentTransaction.add(((ViewGroup) getView().getParent()).getId(), new SupportTicketFormFragment());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
@@ -175,7 +175,8 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         conso_edittext = (EditText) root.findViewById(R.id.conso_edittext);
         spinner_container_main = root.findViewById(R.id.spinner_container_main);
         tv_shipment_no_data = root.findViewById(R.id.tv_shipment_no_data);
-        //tv_shipment_no_data.setVisibility(View.VISIBLE);
+        tv_shipment_no_ticket = root.findViewById(R.id.tv_shipment_no_ticket);
+        //tv_shipment_no_ticket.setVisibility(View.VISIBLE);
         spinner_container1 = root.findViewById(R.id.spinner_container1);
         spinner_container = root.findViewById(R.id.spinner_container);
         spinner_container.setVisibility(View.GONE);
@@ -323,7 +324,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                     } else if (Filter_selected.equals("Status")) {
 
                         Filter_selected = "Status";
-                        //  tv_shipment_no_data.setVisibility(View.VISIBLE);
+                        //  tv_shipment_no_ticket.setVisibility(View.VISIBLE);
                         spinner_container1.setVisibility(View.VISIBLE);
                         filters = new ArrayList<>();
 
@@ -611,13 +612,13 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 Type type = new TypeToken<List<SupportDashboardModel>>() {
                 }.getType();
                 SupportList = gson.fromJson(String.valueOf(response), type);
-                if (SupportList.size() != 0) {
+                if (SupportList.size() > 0) {
+                    tv_shipment_no_ticket.setVisibility(View.GONE);
                     tv_shipment_no_data.setVisibility(View.GONE);
-
                     spinner_container.setVisibility(View.VISIBLE);
                 } else {
-
-                    tv_shipment_no_data.setVisibility(View.VISIBLE);
+                    tv_shipment_no_ticket.setVisibility(View.VISIBLE);
+                    tv_shipment_no_data.setVisibility(View.GONE);
                 }
                 mAdapter = new SupportDashboardAdapter(getContext(), SupportList, recyclerView, mAdapter);
                 recyclerView.setAdapter(mAdapter);
@@ -651,14 +652,24 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         map.put("TotalRecords", 10);
         map.put("PageNumber", 0);
         if (Filter_selected.equals("date")) {
+//            if (!fromDate.equals(""))
+//                map.put(Filter_selected1, fromDate + "T00:00:00.000Z");
+//            else if (!toDate.equals(""))
+//                map.put(Filter_selected1, toDate + "T00:00:00.000Z");
+//
+//            if (!toDate.equals(""))
+//                map.put(Filter_selected2, toDate + "T23:59:59.000Z");
+//            else if (!fromDate.equals(""))
+//                map.put(Filter_selected2, fromDate + "T23:59:59.000Z");
             if (!fromDate.equals(""))
-                map.put(Filter_selected1, fromDate + "T00:00:00.000Z");
+                map.put(Filter_selected1, fromDate);
             else if (!toDate.equals(""))
-                map.put(Filter_selected1, toDate + "T00:00:00.000Z");
+                map.put(Filter_selected1, toDate);
+
             if (!toDate.equals(""))
-                map.put(Filter_selected2, toDate + "T23:59:59.000Z");
+                map.put(Filter_selected2, toDate);
             else if (!fromDate.equals(""))
-                map.put(Filter_selected2, fromDate + "T23:59:59.000Z");
+                map.put(Filter_selected2, fromDate);
         } else {
             map.put(Filter_selected, Filter_selected_value);
         }
@@ -675,10 +686,11 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 SupportList = gson.fromJson(String.valueOf(response), type);
                 if (SupportList.size() != 0) {
                     tv_shipment_no_data.setVisibility(View.GONE);
-
+                    tv_shipment_no_ticket.setVisibility(View.GONE);
                 } else {
-
                     tv_shipment_no_data.setVisibility(View.VISIBLE);
+                    tv_shipment_no_ticket.setVisibility(View.GONE);
+
                 }
                 mAdapter = new SupportDashboardAdapter(getContext(), SupportList, recyclerView, mAdapter);
                 recyclerView.setAdapter(mAdapter);

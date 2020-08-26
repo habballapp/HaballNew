@@ -51,6 +51,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.StatusKVP;
+import com.haball.Distributor.ui.home.HomeFragment;
 import com.haball.Distributor.ui.orders.Adapter.CompanyFragmentAdapter;
 import com.haball.Distributor.ui.orders.Models.Company_Fragment_Model;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
@@ -64,6 +65,8 @@ import com.haball.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.haball.Retailor.ui.Dashboard.RetailerOrderModel;
+import com.haball.SSL_HandShake;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -101,7 +104,8 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
     private ArrayAdapter<String> arrayAdapterPayments;
     private ArrayAdapter<String> arrayAdapterFeltter;
     //    private Button consolidate;
-    private String Filter_selected, Filter_selected1, Filter_selected2, Filter_selected_value;
+    private String Filter_selected = "", Filter_selected_value = "";
+    private String Filter_selected1, Filter_selected2;
     private int pageNumber = 0;
     private double totalPages = 0;
     private double totalEntries = 0;
@@ -117,10 +121,9 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
     private int pageNumberOrder = 0;
     private double totalPagesOrder = 0;
     private double totalEntriesOrder = 0;
-    private String fromDate="", toDate="";
+    private String fromDate = "", toDate = "", fromAmount = "", toAmount = "";
     private FragmentTransaction fragmentTransaction;
 
-    private String fromAmount = "", toAmount = "";
     private static int y;
     private List<String> scrollEvent = new ArrayList<>();
     private RelativeLayout spinner_container_main;
@@ -130,6 +133,8 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
     private RelativeLayout search_rl;
     private StatusKVP statusKVP;
     private Loader loader;
+    boolean byDefaultSelectCriteria = true;
+    boolean byDefaultStatus = true;
 
 
     public RetailerOrderDashboard() {
@@ -193,6 +198,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         consolidate_felter = new ArrayList<>();
         consolidate_felter = new ArrayList<>();
         consolidate_felter.add("Select Criteria");
+        consolidate_felter.add("Order ID");
         consolidate_felter.add("Company");
         consolidate_felter.add("Date");
         consolidate_felter.add("Status");
@@ -240,13 +246,13 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                 et_amount2.setText("");
                 first_date.setText("DD/MM/YYYY");
                 second_date.setText("DD/MM/YYYY");
-
-                try {
-                    fetchRetailerOrdersData();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (!byDefaultSelectCriteria) {
+                    try {
+                        fetchRetailerOrdersData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
-
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
@@ -256,6 +262,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                         ex.printStackTrace();
                     }
                 } else {
+                    byDefaultSelectCriteria = false;
 
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
@@ -367,6 +374,14 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (!byDefaultStatus) {
+                    try {
+                        fetchRetailerOrdersData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
                 if (i == 0) {
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
@@ -375,12 +390,9 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }
-                    try {
-                        fetchRetailerOrdersData();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+
                 } else {
+                    byDefaultStatus = false;
                     try {
                         ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
                         ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
@@ -456,7 +468,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         conso_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus) {
+                if (!hasFocus) {
                     Filter_selected_value = String.valueOf(conso_edittext.getText());
                     if (!Filter_selected_value.equals("")) {
                         try {
@@ -539,15 +551,24 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                     }
                 }
 
-//                int visibleItemCount = layoutManager.getChildCount();
-//                int totalItemCount = layoutManager.getItemCount();
-//                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
-//                if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
-//                    if (totalPages != 0 && pageNumber < totalPages) {
-////                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
+
+                if (isLastItemDisplaying(recyclerView)) {
+                    int visibleItemCount = layoutManager.getChildCount();
+                    int totalItemCount = layoutManager.getItemCount();
+                    int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
+                        if (totalPagesOrder != 0 && pageNumberOrder < totalPagesOrder) {
+//                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
 //                        btn_load_more.setVisibility(View.VISIBLE);
-//                    }
-//                }
+                            pageNumberOrder++;
+                            try {
+                                performPaginationOrder();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
             }
         });
 
@@ -559,6 +580,15 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
 
         return root;
 
+    }
+
+    private boolean isLastItemDisplaying(RecyclerView recyclerView) {
+        if (recyclerView.getAdapter().getItemCount() > 9) {
+            int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+            if (lastVisibleItemPosition != RecyclerView.NO_POSITION && lastVisibleItemPosition == recyclerView.getAdapter().getItemCount() - 1)
+                return true;
+        }
+        return false;
     }
 
     private void openCalenderPopup(String date_type) {
@@ -584,10 +614,12 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
 
+        pageNumberOrder = 0;
+
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("DistributorId", DistributorId);
         jsonObject.put("TotalRecords", 10);
-        jsonObject.put("PageNumber", 0);
+        jsonObject.put("PageNumber", pageNumberOrder);
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_FETCH_ORDERS, jsonObject, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -607,6 +639,12 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                     }.getType();
                     OrdersList = gson.fromJson(result.get("Data").toString(), type);
                     tv_shipment_no_data.setVisibility(View.GONE);
+
+//                    pageNumberOrder = Integer.parseInt(result.getString("Count"));
+                    totalEntriesOrder = Double.parseDouble(String.valueOf(result.get("Count")));
+                    totalPagesOrder = Math.ceil(totalEntriesOrder / 10);
+
+
                     Log.i("OrdersList", String.valueOf(OrdersList));
                     InvoiceStatusKVP = statusKVP.getInvoiceStatus();
                     mAdapter = new RetailerOrdersAdapter(getContext(), OrdersList, OrderStatusKVP, InvoiceStatusKVP);
@@ -628,7 +666,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
                 error.printStackTrace();
-                 new HaballError().printErrorMessage(getContext(), error);
+                new HaballError().printErrorMessage(getContext(), error);
                 new ProcessingError().showError(getContext());
             }
         }) {
@@ -646,6 +684,109 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getContext()).add(sr);
+    }
+
+    private void performPaginationOrder() throws JSONException {
+
+        loader.showLoader();
+
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        Token = sharedPreferences.getString("Login_Token", "");
+        Log.i("Token", Token);
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                Context.MODE_PRIVATE);
+        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
+        Log.i("DistributorId ", DistributorId);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("DistributorId", DistributorId);
+        jsonObject.put("TotalRecords", 10);
+        jsonObject.put("PageNumber", pageNumberOrder);
+        if (Filter_selected.equals("date")) {
+            if (!fromDate.equals(""))
+                jsonObject.put(Filter_selected1, fromDate + "T00:00:00.000Z");
+            else if (!toDate.equals(""))
+                jsonObject.put(Filter_selected1, toDate + "T00:00:00.000Z");
+            if (!toDate.equals(""))
+                jsonObject.put(Filter_selected2, toDate + "T23:59:59.000Z");
+            else if (!fromDate.equals(""))
+                jsonObject.put(Filter_selected2, fromDate + "T23:59:59.000Z");
+        } else if (Filter_selected.equals("amount")) {
+            if (!fromAmount.equals(""))
+                jsonObject.put(Filter_selected1, fromAmount);
+            if (!toAmount.equals(""))
+                jsonObject.put(Filter_selected2, toAmount);
+        } else if (!Filter_selected.equals("")) {
+            jsonObject.put(Filter_selected, Filter_selected_value);
+        }
+
+        new SSL_HandShake().handleSSLHandshake();
+
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_FETCH_ORDERS, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject result) {
+//                if(loader == null)
+//                    loader = new Loader(getContext());
+                loader.hideLoader();
+
+//                btn_load_more.setVisibility(View.GONE);
+                try {
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<RetailerOrdersModel>>() {
+                    }.getType();
+//                OrdersList = gson.fromJson(result.toString(), type);
+//                ((DistributorOrdersAdapter) recyclerView.getAdapter()).addListItem(OrdersList);
+                    List<RetailerOrdersModel> OrdersList_temp = new ArrayList<>();
+                    OrdersList_temp = gson.fromJson(result.get("Data").toString(), type);
+                    OrdersList.addAll(OrdersList_temp);
+                    mAdapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    // loader.hideLoader();
+                    e.printStackTrace();
+                }
+
+//                if (OrdersList.size() < 4) {
+//                    if (rv_filter.getVisibility() == View.GONE) {
+//
+//                        rv_filter.setVisibility(View.VISIBLE);
+//                        TranslateAnimation animate1 = new TranslateAnimation(
+//                                0,                 // fromXDelta
+//                                0,                 // toXDelta
+//                                -rv_filter.getHeight(),  // fromYDelta
+//                                0);                // toYDelta
+//                        animate1.setDuration(250);
+//                        animate1.setFillAfter(true);
+//                        rv_filter.clearAnimation();
+//                        rv_filter.startAnimation(animate1);
+//                    }
+//                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
+                new HaballError().printErrorMessage(getContext(), error);
+
+                error.printStackTrace();
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "bearer " + Token);
+                return params;
+            }
+        };
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                13000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(getContext()).add(sr);
+
     }
 
     private void fetchFilteredOrderData() throws JSONException {
@@ -679,7 +820,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                 jsonObject.put(Filter_selected1, fromAmount);
             if (!toAmount.equals(""))
                 jsonObject.put(Filter_selected2, toAmount);
-        } else {
+        } else if (!Filter_selected.equals("")) {
             jsonObject.put(Filter_selected, Filter_selected_value);
         }
 
@@ -717,7 +858,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
             public void onErrorResponse(VolleyError error) {
                 loader.hideLoader();
                 error.printStackTrace();
-                 new HaballError().printErrorMessage(getContext(), error);
+                new HaballError().printErrorMessage(getContext(), error);
                 new ProcessingError().showError(getContext());
             }
         }) {
@@ -981,9 +1122,9 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                     editorOrderTabsFromDraft.putString("TabNo", "0");
                     editorOrderTabsFromDraft.apply();
 
-                    Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
-                    ((FragmentActivity) getContext()).startActivity(login_intent);
-                    ((FragmentActivity) getContext()).finish();
+                    FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.add(R.id.main_container, new HomeFragment());
+                    fragmentTransaction.commit();
                     return true;
                 }
                 return false;

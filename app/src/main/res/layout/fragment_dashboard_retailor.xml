@@ -5,7 +5,8 @@
     android:id="@+id/main_container_ret"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:clickable="true">
 
     <RelativeLayout
         android:id="@+id/spinner_container_main"
@@ -16,8 +17,8 @@
             android:id="@+id/spinner_container_main_inner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="27dp"
-            android:layout_marginStart="27dp">
+            android:layout_marginStart="27dp"
+            android:layout_marginEnd="27dp">
 
             <RelativeLayout
                 android:id="@+id/spinner_container"
@@ -30,8 +31,8 @@
                     android:id="@+id/spinner_conso"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:dropDownWidth="match_parent"
                     android:background="@null"
+                    android:dropDownWidth="match_parent"
                     android:popupBackground="@drawable/spinner_round" />
 
                 <ImageView
@@ -58,8 +59,8 @@
                     android:id="@+id/conso_spinner2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:dropDownWidth="match_parent"
                     android:background="@null"
+                    android:dropDownWidth="match_parent"
                     android:popupBackground="@drawable/spinner_round" />
 
                 <ImageView
@@ -288,10 +289,10 @@
         android:id="@+id/rl_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/spinner_container_main"
         android:layout_marginStart="27dp"
         android:layout_marginEnd="27dp"
-        android:layout_below="@+id/spinner_container_main"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="20dp">
 
         <TextView
             android:id="@+id/tv_shipment_no_data"
@@ -307,6 +308,7 @@
             android:id="@+id/rv_fragment_payments"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipToPadding="false"
             android:isScrollContainer="false"
             android:nestedScrollingEnabled="false" />
     </RelativeLayout>

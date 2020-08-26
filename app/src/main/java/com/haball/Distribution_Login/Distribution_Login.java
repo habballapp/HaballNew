@@ -16,6 +16,8 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -318,7 +320,11 @@ public class Distribution_Login extends AppCompatActivity {
                         editor.putString("ID", ID);
                         editor.putString("IsTermAndConditionAccepted", IsTermAndConditionAccepted);
 
-
+                        SharedPreferences orderCheckout1 = getSharedPreferences("FromDraft",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor orderCheckout_editor1 = orderCheckout1.edit();
+                        orderCheckout_editor1.putString("fromDraft", "");
+                        orderCheckout_editor1.apply();
                       //  editor.putString("UpdatePassword", UpdatePassword);
 
                         editor.apply();

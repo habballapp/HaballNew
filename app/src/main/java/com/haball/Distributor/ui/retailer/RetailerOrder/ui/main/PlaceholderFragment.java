@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,11 +50,12 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputLayout;
 import com.haball.CustomToast;
-import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.StatusKVP;
 import com.haball.Distributor.ui.payments.CreatePaymentRequestFragment;
 import com.haball.Distributor.ui.payments.ViewPDFRequest;
 import com.haball.Distributor.ui.payments.ViewVoucherRequest;
+import com.haball.Distributor.ui.retailer.Payment.RetailerPaymentDashboard;
+import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrderDashboard;
 import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrdersAdapter.RetailerViewOrderProductAdapter;
 import com.haball.Distributor.ui.retailer.RetailerOrder.RetailerOrdersModel.RetailerViewOrderProductModel;
 import com.haball.HaballError;
@@ -102,11 +104,11 @@ public class PlaceholderFragment extends Fragment {
     private PageViewModel pageViewModel;
     private TextInputLayout layout_txt_orderID, layout_txt_order_company, layout_txt_created_date_order, layout_txt_status_order, layout_txt_comments,
             layout_txt_companName, layout_txt_paymentID, layout_txt_created_date, layout_transaction_date,
-            layout_txt_bank, layout_txt_authorization_id, layout_txt_settlement_id, layout_txt_status,
+            layout_txt_bank, layout_txt_authorization_id, layout_txt_settlement_id, layout_txt_status, layout_txt_order_reference, layout_txt_invoice_reference,
             layout_txt_amount, layout_txt_transaction_charges, layout_txt_total_amount;
-    private TextInputEditText txt_orderID, txt_company_order, txt_created_date_order, txt_status_order, txt_comments;
+    private TextInputEditText txt_orderID, txt_company_order, txt_created_date_order, txt_status_order, txt_comments, txt_confirm, txt_order_reference, txt_invoice_reference;
     private TextView discount, Rs_discount;
-    private TextInputEditText txt_companyName, txt_paymentID, txt_created_date, txt_confirm, txt_bank, txt_authorization_id, txt_settlement_id, txt_status, txt_amount, txt_transaction_charges, txt_total_amount;
+    private TextInputEditText txt_companyName, txt_paymentID, txt_created_date, txt_bank, txt_authorization_id, txt_settlement_id, txt_status, txt_amount, txt_transaction_charges, txt_total_amount;
     private RecyclerView rv_fragment_retailer_order_details;
     private TextView tv_shipment_no_data;
     private RecyclerView.Adapter rv_productAdapter;
@@ -133,6 +135,7 @@ public class PlaceholderFragment extends Fragment {
     private Loader loader;
     private RelativeLayout ln_login;
     private RelativeLayout rl_jazz_cash;
+    private View view_root;
 
 
     public static PlaceholderFragment newInstance(int index) {
@@ -265,23 +268,34 @@ public class PlaceholderFragment extends Fragment {
             case 1: {
                 loader = new Loader(getContext());
                 rootView = inflater.inflate(R.layout.fragment_retailer_orders_tab, container, false);
+                view_root = rootView;
 
                 layout_txt_orderID = rootView.findViewById(R.id.layout_txt_orderID);
                 layout_txt_order_company = rootView.findViewById(R.id.layout_txt_order_company);
                 layout_txt_created_date_order = rootView.findViewById(R.id.layout_txt_created_date_order);
                 layout_txt_status_order = rootView.findViewById(R.id.layout_txt_status_order);
+                layout_txt_order_reference = rootView.findViewById(R.id.layout_txt_order_reference);
+                layout_txt_invoice_reference = rootView.findViewById(R.id.layout_txt_invoice_reference);
                 layout_txt_comments = rootView.findViewById(R.id.layout_txt_comments);
                 txt_orderID = rootView.findViewById(R.id.txt_orderID);
                 txt_company_order = rootView.findViewById(R.id.txt_company_order);
                 txt_created_date_order = rootView.findViewById(R.id.txt_created_date_order);
                 txt_status_order = rootView.findViewById(R.id.txt_status_order);
+                txt_order_reference = rootView.findViewById(R.id.txt_order_reference);
+                txt_invoice_reference = rootView.findViewById(R.id.txt_invoice_reference);
                 txt_comments = rootView.findViewById(R.id.txt_comments);
                 button_back = rootView.findViewById(R.id.button_back);
+
+
+                layout_txt_order_reference.setVisibility(View.GONE);
+                layout_txt_invoice_reference.setVisibility(View.GONE);
 
                 new TextField().changeColor(this.getContext(), layout_txt_orderID, txt_orderID);
                 new TextField().changeColor(this.getContext(), layout_txt_order_company, txt_company_order);
                 new TextField().changeColor(this.getContext(), layout_txt_created_date_order, txt_company_order);
                 new TextField().changeColor(this.getContext(), layout_txt_status_order, txt_status_order);
+                new TextField().changeColor(this.getContext(), layout_txt_order_reference, txt_order_reference);
+                new TextField().changeColor(this.getContext(), layout_txt_invoice_reference, txt_invoice_reference);
                 new TextField().changeColor(this.getContext(), layout_txt_comments, txt_comments);
 
                 txt_orderID.setEnabled(false);
@@ -297,9 +311,9 @@ public class PlaceholderFragment extends Fragment {
 //                        fragmentTransaction.add(R.id.main_container, new Dashboard_Tab());
 //                        fragmentTransaction.commit();
 
-                        Intent login_intent = new Intent(getContext(), DistributorDashboard.class);
-                        startActivity(login_intent);
-                        getActivity().finish();
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new RetailerOrderDashboard());
+                        fragmentTransaction.commit();
                     }
                 });
 
@@ -308,6 +322,8 @@ public class PlaceholderFragment extends Fragment {
             }
             case 2: {
                 rootView = inflater.inflate(R.layout.fragment_retailer_orders_details_tab, container, false);
+                view_root = rootView;
+
                 rv_fragment_retailer_order_details = rootView.findViewById(R.id.rv_fragment_retailer_order_details);
                 total_amount = rootView.findViewById(R.id.total_amount);
                 rv_fragment_retailer_order_details.setHasFixedSize(true);
@@ -327,7 +343,7 @@ public class PlaceholderFragment extends Fragment {
                 Log.i("InvoiceStatus", InvoiceStatus);
 
 //        SectionsPagerAdapter sectionsPagerAdapter = null;
-                if ((!InvoiceStatus.equals("null") && !InvoiceStatus.equals("Pending")) || Status.equals("Cancelled")) {
+                if ((!InvoiceStatus.equals("null") && !InvoiceStatus.equals("0")) || Status.equals("Cancelled")) {
                     disclaimer_tv.setVisibility(View.GONE);
                 }
 
@@ -338,9 +354,9 @@ public class PlaceholderFragment extends Fragment {
 //                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                        fragmentTransaction.add(R.id.main_container, new Dashboard_Tab());
 //                        fragmentTransaction.commit();
-                        Intent login_intent = new Intent(getContext(), DistributorDashboard.class);
-                        startActivity(login_intent);
-                        getActivity().finish();
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new RetailerOrderDashboard());
+                        fragmentTransaction.commit();
                     }
                 });
 
@@ -353,9 +369,12 @@ public class PlaceholderFragment extends Fragment {
                         Context.MODE_PRIVATE);
                 InvoiceStatus = sharedPreferences1.getString("InvoiceStatus", "");
                 Log.i("InvoiceStatus", InvoiceStatus);
-                if (InvoiceStatus.equals("Paid")) {
+                if (InvoiceStatus.equals("0") || InvoiceStatus.equals("3")) {
 
                     rootView = inflater.inflate(R.layout.fragment_retailer_payment_tab, container, false);
+
+                    view_root = rootView;
+
                     layout_txt_companName = rootView.findViewById(R.id.layout_txt_companName);
                     layout_txt_paymentID = rootView.findViewById(R.id.layout_txt_paymentID);
                     layout_txt_created_date = rootView.findViewById(R.id.layout_txt_created_date);
@@ -417,6 +436,8 @@ public class PlaceholderFragment extends Fragment {
                     txt_transaction_charges.setEnabled(false);
                     txt_total_amount.setEnabled(false);
 
+                    button_view_receipt.setVisibility(View.GONE);
+
                     button_view_receipt.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -437,18 +458,22 @@ public class PlaceholderFragment extends Fragment {
 //                            fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                            fragmentTransaction.add(R.id.main_container, new Dashboard_Tab());
 //                            fragmentTransaction.commit();
-                            Intent login_intent = new Intent(getContext(), DistributorDashboard.class);
-                            startActivity(login_intent);
-                            getActivity().finish();
+
+                            FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.add(R.id.main_container, new RetailerOrderDashboard());
+                            fragmentTransaction.commit();
                         }
                     });
 
                     getPaidInvoiceData();
-                } else if (InvoiceStatus.equals("Un-Paid") || InvoiceStatus.equals("Payment Processing") || InvoiceStatus.equals("Cancelled") || InvoiceStatus.equals("Pending")) {
+                } else if (InvoiceStatus.equals("1") || InvoiceStatus.equals("2") || InvoiceStatus.equals("-1")) {
 //                    rootView = inflater.inflate(R.layout.activity_payment__screen3, container, false);
 
 
                     rootView = inflater.inflate(R.layout.activity_payment__screen3, container, false);
+                    view_root = rootView;
+
+
                     myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
 
                     payment_id = rootView.findViewById(R.id.payment_id);
@@ -536,10 +561,10 @@ public class PlaceholderFragment extends Fragment {
                             editorOrderTabsFromDraft.putString("TabNo", "0");
                             editorOrderTabsFromDraft.apply();
 
-                            Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
-                            ((FragmentActivity) getContext()).startActivity(login_intent);
-                            ((FragmentActivity) getContext()).finish();
 
+                            FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.add(R.id.main_container, new RetailerOrderDashboard());
+                            fragmentTransaction.commit();
 //                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                fragmentTransaction.add(R.id.main_container, new EditPaymentRequestFragment());
 //                fragmentTransaction.commit();
@@ -783,6 +808,28 @@ public class PlaceholderFragment extends Fragment {
 //
 //    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if(view_root != null) {
+            view_root.setFocusableInTouchMode(true);
+            view_root.requestFocus();
+            view_root.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new RetailerOrderDashboard());
+                        fragmentTransaction.commit();
+                    }
+                    return false;
+                }
+            });
+        }
+
+    }
+
     private void getOrderData() {
         loader.showLoader();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
@@ -809,6 +856,10 @@ public class PlaceholderFragment extends Fragment {
                         txt_created_date_order.setText(String.valueOf(response.get("RetailerOrderCreatedDate")).split("T")[0]);
                     if (!String.valueOf(response.get("RetailerOrderStatusValue")).equals("") && !String.valueOf(response.get("RetailerOrderStatusValue")).equals("null"))
                         txt_status_order.setText(String.valueOf(response.get("RetailerOrderStatusValue")));
+                    if (!String.valueOf(response.get("OrderReference")).equals("") && !String.valueOf(response.get("OrderReference")).equals("null"))
+                        txt_order_reference.setText(String.valueOf(response.get("OrderReference")));
+                    if (!String.valueOf(response.get("InvoiceReference")).equals("") && !String.valueOf(response.get("InvoiceReference")).equals("null"))
+                        txt_invoice_reference.setText(String.valueOf(response.get("InvoiceReference")));
 
                     if (!String.valueOf(response.get("RetailerOrderNumber")).equals("") && !String.valueOf(response.get("RetailerOrderNumber")).equals("null"))
                         txt_orderID.setTextColor(getResources().getColor(R.color.textcolor));
@@ -818,6 +869,14 @@ public class PlaceholderFragment extends Fragment {
                         txt_created_date_order.setTextColor(getResources().getColor(R.color.textcolor));
                     if (!String.valueOf(response.get("RetailerOrderStatusValue")).equals("") && !String.valueOf(response.get("RetailerOrderStatusValue")).equals("null"))
                         txt_status_order.setTextColor(getResources().getColor(R.color.textcolor));
+                    if (!String.valueOf(response.get("OrderReference")).equals("") && !String.valueOf(response.get("OrderReference")).equals("null")) {
+                        layout_txt_order_reference.setVisibility(View.VISIBLE);
+                        txt_order_reference.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
+                    if (!String.valueOf(response.get("InvoiceReference")).equals("") && !String.valueOf(response.get("InvoiceReference")).equals("null")) {
+                        layout_txt_invoice_reference.setVisibility(View.VISIBLE);
+                        txt_invoice_reference.setTextColor(getResources().getColor(R.color.textcolor));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -880,9 +939,35 @@ public class PlaceholderFragment extends Fragment {
                     RetailerViewOrderProductAdapter productAdapter = new RetailerViewOrderProductAdapter(getContext(), invo_productList);
                     rv_fragment_retailer_order_details.setAdapter(productAdapter);
                     DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
+//
+//                    String TotalAmount = "";
+//                    if (!response.getString("TotoalOrderDiscount").equals("null") && !response.getString("TotoalOrderDiscount").equals("0")) {
+//                        String OrderTotalDiscount = formatter1.format(Double.parseDouble(response.getString("TotoalOrderDiscount")));
+//                        discount_amount.setText(OrderTotalDiscount);
+//
+//                        if (totalPrice != 0)
+//                            TotalAmount = formatter1.format(totalPrice - Double.parseDouble(response.getString("TotoalOrderDiscount")));
+//                        total_amount.setText(TotalAmount);
+//                    } else if (totalDiscount == 0) {
+//                        discount.setVisibility(View.GONE);
+//                        Rs_discount.setVisibility(View.GONE);
+//                        discount_amount.setVisibility(View.GONE);
+//
+//                        if (totalPrice != 0)
+//                            TotalAmount = formatter1.format(totalPrice);
+//                        total_amount.setText(TotalAmount);
+//                    } else {
+//                        String OrderTotalDiscount = formatter1.format(totalDiscount);
+//                        discount_amount.setText(OrderTotalDiscount);
+//
+//                        if (totalPrice != 0)
+//                            TotalAmount = formatter1.format(totalPrice - totalDiscount);
+//                        total_amount.setText(TotalAmount);
+//                    }
+//
                     String TotalAmount = "";
                     if (totalPrice != 0)
-                        TotalAmount = formatter1.format(totalPrice);
+                        TotalAmount = formatter1.format(Double.parseDouble(response.getString("RetailerOrderTotal")));
                     total_amount.setText(TotalAmount);
                     if (!response.getString("TotoalOrderDiscount").equals("null") && !response.getString("TotoalOrderDiscount").equals("0")) {
                         String OrderTotalDiscount = formatter1.format(Double.parseDouble(response.getString("TotoalOrderDiscount")));
@@ -1030,51 +1115,51 @@ public class PlaceholderFragment extends Fragment {
         Log.i("Token invoice12", Token);
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Order_Data, null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONObject result) {
-                Log.i("Order Data response2", String.valueOf(result));
+            public void onResponse(JSONObject response) {
+                Log.i("Order Data response2", String.valueOf(response));
                 try {
-                    JSONObject response = result.getJSONObject("OrderPaymentDetails");
-                    invoiceID = response.getString("InvoiceID");
+//                    JSONObject response = result.getJSONObject("OrderPaymentDetails");
+                    invoiceID = response.getString("RetailerInvoiceId");
                     txt_companyName.setText(String.valueOf(response.get("RetailerCompanyName")));
-                    txt_paymentID.setText(String.valueOf(response.get("InvoiceNumber")));
-                    setTextAndShowDate(layout_txt_created_date, txt_created_date, String.valueOf(response.get("InvoiceCreatedDate")).split("T")[0]);
+                    txt_paymentID.setText(String.valueOf(response.get("PaymentID")));
+                    setTextAndShowDate(layout_txt_created_date, txt_created_date, String.valueOf(response.get("RetailerPaymentCreatedDate")).split("T")[0]);
 //                    setTextAndShow(layout_txt_amount, txt_amount, String.valueOf(response.get("InvoiceTotalAmount")));
                     DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
-                    String Formatted_TotalAmount = formatter1.format(Double.parseDouble(response.getString("InvoiceTotalAmount")));
+                    String Formatted_TotalAmount = formatter1.format(Double.parseDouble(response.getString("RetailerPaymentAmount")));
                     setTextAndShow(layout_txt_amount, txt_amount, Formatted_TotalAmount);
 
-                    setTextAndShow(layout_txt_status, txt_status, String.valueOf(response.getString("InvoiceStatus")));
-                    setTextAndShow(layout_transaction_date, txt_confirm, String.valueOf(response.getString("TransactionDate")).split("T")[0]);
-                    setTextAndShow(layout_txt_bank, txt_bank, String.valueOf(response.getString("BankName")));
-                    setTextAndShow(layout_txt_authorization_id, txt_authorization_id, String.valueOf(response.getString("AuthID")));
-                    setTextAndShow(layout_txt_settlement_id, txt_settlement_id, String.valueOf(response.getString("SettlementID")));
+                    setTextAndShow(layout_txt_status, txt_status, String.valueOf(response.getString("RetailerPaymentStatus")));
+                    setTextAndShow(layout_transaction_date, txt_confirm, String.valueOf(response.getString("RetailerInvoicePaidDate")).split("T")[0]);
+//                    setTextAndShow(layout_txt_bank, txt_bank, String.valueOf(response.getString("BankName")));
+//                    setTextAndShow(layout_txt_authorization_id, txt_authorization_id, String.valueOf(response.getString("AuthID")));
+//                    setTextAndShow(layout_txt_settlement_id, txt_settlement_id, String.valueOf(response.getString("SettlementID")));
 //                    setTextAndShow(layout_txt_total_amount, txt_total_amount, String.valueOf(response.getString("TotalAmount")));
-                    Formatted_TotalAmount = formatter1.format(Double.parseDouble(response.getString("TotalAmount")));
+                    Formatted_TotalAmount = formatter1.format(Double.parseDouble(response.getString("RetailerOrderTotal")));
                     setTextAndShow(layout_txt_total_amount, txt_total_amount, Formatted_TotalAmount);
 
-                    setTextAndShow(layout_txt_transaction_charges, txt_transaction_charges, String.valueOf(response.getString("TransactionCharges")));
+//                    setTextAndShow(layout_txt_transaction_charges, txt_transaction_charges, String.valueOf(response.getString("TransactionCharges")));
 
                     if (!String.valueOf(response.get("RetailerCompanyName")).equals("") && !String.valueOf(response.get("RetailerCompanyName")).equals("null"))
                         txt_companyName.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("InvoiceNumber")).equals("") && !String.valueOf(response.get("InvoiceNumber")).equals("null"))
+                    if (!String.valueOf(response.get("PaymentID")).equals("") && !String.valueOf(response.get("PaymentID")).equals("null"))
                         txt_paymentID.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("InvoiceCreatedDate")).split("T")[0].equals("") && !String.valueOf(response.get("InvoiceCreatedDate")).split("T")[0].equals("null"))
+                    if (!String.valueOf(response.get("RetailerPaymentCreatedDate")).split("T")[0].equals("") && !String.valueOf(response.get("RetailerPaymentCreatedDate")).split("T")[0].equals("null"))
                         txt_created_date.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("TransactionDate")).equals("") && !String.valueOf(response.get("TransactionDate")).equals("null"))
+                    if (!String.valueOf(response.get("RetailerInvoicePaidDate")).equals("") && !String.valueOf(response.get("RetailerInvoicePaidDate")).equals("null"))
                         txt_confirm.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("BankName")).equals("") && !String.valueOf(response.get("BankName")).equals("null"))
-                        txt_bank.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("AuthID")).equals("") && !String.valueOf(response.get("AuthID")).equals("null"))
-                        txt_authorization_id.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("SettlementID")).equals("") && !String.valueOf(response.get("SettlementID")).equals("null"))
-                        txt_settlement_id.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("InvoiceStatus")).equals("") && !String.valueOf(response.get("InvoiceStatus")).equals("null"))
+//                    if (!String.valueOf(response.get("BankName")).equals("") && !String.valueOf(response.get("BankName")).equals("null"))
+//                        txt_bank.setTextColor(getResources().getColor(R.color.textcolor));
+//                    if (!String.valueOf(response.get("AuthID")).equals("") && !String.valueOf(response.get("AuthID")).equals("null"))
+//                        txt_authorization_id.setTextColor(getResources().getColor(R.color.textcolor));
+//                    if (!String.valueOf(response.get("SettlementID")).equals("") && !String.valueOf(response.get("SettlementID")).equals("null"))
+//                        txt_settlement_id.setTextColor(getResources().getColor(R.color.textcolor));
+                    if (!String.valueOf(response.get("RetailerPaymentStatus")).equals("") && !String.valueOf(response.get("RetailerPaymentStatus")).equals("null"))
                         txt_status.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("InvoiceTotalAmount")).equals("") && !String.valueOf(response.get("InvoiceTotalAmount")).equals("null"))
+                    if (!String.valueOf(response.get("RetailerPaymentAmount")).equals("") && !String.valueOf(response.get("RetailerPaymentAmount")).equals("null"))
                         txt_amount.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("TransactionCharges")).equals("") && !String.valueOf(response.get("TransactionCharges")).equals("null"))
-                        txt_transaction_charges.setTextColor(getResources().getColor(R.color.textcolor));
-                    if (!String.valueOf(response.get("TotalAmount")).equals("") && !String.valueOf(response.get("TotalAmount")).equals("null"))
+//                    if (!String.valueOf(response.get("TransactionCharges")).equals("") && !String.valueOf(response.get("TransactionCharges")).equals("null"))
+//                        txt_transaction_charges.setTextColor(getResources().getColor(R.color.textcolor));
+                    if (!String.valueOf(response.get("RetailerOrderTotal")).equals("") && !String.valueOf(response.get("RetailerOrderTotal")).equals("null"))
                         txt_total_amount.setTextColor(getResources().getColor(R.color.textcolor));
 
                 } catch (JSONException e) {
@@ -1157,4 +1242,6 @@ public class PlaceholderFragment extends Fragment {
             }
         }
     }
+
+
 }

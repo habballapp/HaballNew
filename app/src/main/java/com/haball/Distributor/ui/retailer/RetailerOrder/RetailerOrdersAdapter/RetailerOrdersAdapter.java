@@ -61,15 +61,15 @@ public class RetailerOrdersAdapter extends RecyclerView.Adapter<RetailerOrdersAd
 
     @Override
     public void onBindViewHolder(@NonNull RetailerOrdersAdapter.ViewHolder holder, final int position) {
-        if (OrdersList.size() == 3) {
+        if (OrdersList.size() == 3 || OrdersList.size() == 4) {
             if (position == (OrdersList.size() - 1)) {
-//        if (position == 2) {
+                //        if (position == 2) {
                 Log.i("DebugSupportFilter_In", OrdersList.get(position).getOrderNumber());
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                         RelativeLayout.LayoutParams.WRAP_CONTENT,
                         RelativeLayout.LayoutParams.WRAP_CONTENT
                 );
-                params.setMargins(0, 50, 0, 280);
+                params.setMargins(0, 50, 0, 360);
                 holder.main_layout_order_box_retailer.setLayoutParams(params);
             }
         }

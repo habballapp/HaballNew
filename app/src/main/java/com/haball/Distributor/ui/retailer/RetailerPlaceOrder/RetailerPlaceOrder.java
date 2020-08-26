@@ -5,7 +5,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.haball.Distributor.ui.home.HomeViewModel;
+import com.haball.Distributor.ui.orders.OrdersTabsNew.Tabs.Dist_Order_Summary;
 import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Tabs.Order_Summary;
+import com.haball.Loader;
 import com.haball.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -13,11 +15,13 @@ import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -51,10 +55,25 @@ public class RetailerPlaceOrder extends Fragment {
                 Context.MODE_PRIVATE);
         if (selectedProductsSP.getString("fromDraft", "").equals("draft")) {
             viewPager.setCurrentItem(1);
-            FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.add(R.id.main_container, new Order_Summary());
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+
+            final Loader loader = new Loader(getContext());
+            loader.showLoader();
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            loader.hideLoader();
+
+                            FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.add(R.id.main_container, new Order_Summary());
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+                        }
+                    }, 3000);
+                }
+            });
 
             SharedPreferences orderCheckout1 = getContext().getSharedPreferences("FromDraft",
                     Context.MODE_PRIVATE);
@@ -69,6 +88,18 @@ public class RetailerPlaceOrder extends Fragment {
             editor.putString("selected_products", "");
             editor.putString("selected_products_qty", "");
             editor.apply();
+
+
+
+            SharedPreferences sharedPreferences1 = getContext().getSharedPreferences("RetailerInfo",
+                    Context.MODE_PRIVATE);
+
+            SharedPreferences.Editor sharedPreferences1_editor = sharedPreferences1.edit();
+            sharedPreferences1_editor.putString("RetailerCode", "");
+            sharedPreferences1_editor.putString("RetailerID", "");
+            sharedPreferences1_editor.putString("orderId", "0");
+            sharedPreferences1_editor.apply();
+
         }
 
 

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:clickable="true">
 
     <ScrollView
         android:id="@+id/sv"
@@ -18,7 +19,7 @@
             android:layout_marginEnd="27dp">
 
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/ln_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -52,7 +53,6 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:layout_below="@+id/layout_txt_orderID"
                     android:layout_marginTop="20dp"
                     android:hint="Company"
                     android:fontFamily="@font/open_sans"
@@ -76,7 +76,6 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:layout_below="@+id/layout_txt_order_company"
                     android:layout_marginTop="20dp"
                     android:hint="Created Date"
                     android:fontFamily="@font/open_sans"
@@ -99,7 +98,6 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:layout_below="@+id/layout_txt_created_date_order"
                     android:layout_marginTop="20dp"
                     android:hint="Status"
                     android:fontFamily="@font/open_sans"
@@ -118,11 +116,60 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_txt_order_reference"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="20dp"
+                    android:hint="Order Reference No"
+                    android:fontFamily="@font/open_sans"
+                    android:theme="@style/TextLabel"
+                    app:boxBackgroundColor="#fff"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txt_order_reference"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="text"
+                        android:enabled="true"
+                        android:focusableInTouchMode="false"
+                        android:scrollbars="vertical"
+                        android:theme="@style/TextLabelEditeText"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_txt_invoice_reference"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="20dp"
+                    android:hint="Invoice Reference No"
+                    android:fontFamily="@font/open_sans"
+                    android:theme="@style/TextLabel"
+                    app:boxBackgroundColor="#fff"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txt_invoice_reference"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="text"
+                        android:enabled="true"
+                        android:focusableInTouchMode="false"
+                        android:scrollbars="vertical"
+                        android:theme="@style/TextLabelEditeText"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_txt_comments"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="90dp"
-                    android:layout_below="@+id/layout_txt_status_order"
                     android:layout_marginTop="20dp"
                     android:hint="Comments"
                     android:fontFamily="@font/open_sans"
@@ -157,7 +204,6 @@
                     android:id="@+id/button_back"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/retailer_button_size"
-                    android:layout_below="@+id/layout_txt_comments"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/button_round"
@@ -169,7 +215,7 @@
                     android:textColor="#fff"
                     android:textSize="@dimen/button_text_size"
                     />
-            </RelativeLayout>
+            </LinearLayout>
 
         </RelativeLayout>
     </ScrollView>

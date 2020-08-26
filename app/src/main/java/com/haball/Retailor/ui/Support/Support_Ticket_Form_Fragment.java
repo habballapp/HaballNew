@@ -896,6 +896,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
 
 
     private void fetchSpinnerData() {
+        loader.showLoader();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -906,6 +907,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNER_DATA, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
+                loader.hideLoader();
                 try {
                     JSONObject jsonObject = null;
                     for (int i = 0; i < result.length(); i++) {
@@ -986,7 +988,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                 Log.e("RESPONSE", result.toString());
 //                Toast.makeText(getContext(), "Ticket generated successfully.", Toast.LENGTH_LONG).show();
 //                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new SupportFragment());
+//                fragmentTransaction.add(((ViewGroup) getView().getParent()).getId(), new SupportFragment());
 //                fragmentTransaction.commit();
 
 
@@ -1022,7 +1024,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
                         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), new SupportFragment());
+                        fragmentTransaction.add(((ViewGroup) getView().getParent()).getId(), new SupportFragment());
                         fragmentTransaction.commit();
                     }
                 });

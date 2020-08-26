@@ -43,14 +43,14 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.CustomToast;
-import com.haball.Distributor.DistributorDashboard;
-import com.haball.Distributor.ui.payments.PaymentScreen3Fragment;
+import com.haball.Distributor.ui.home.HomeFragment;
 import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.ProcessingError;
 import com.haball.R;
 import com.haball.Retailor.Forgot_Password_Retailer.Forgot_Pass_Retailer;
 import com.haball.Retailor.RetailorDashboard;
+import com.haball.Retailor.ui.Dashboard.Dashboard_Tabs;
 import com.haball.Retailor.ui.Support.SupportFragment;
 import com.haball.SSL_HandShake;
 import com.haball.TextField;
@@ -248,9 +248,9 @@ public class CreatePaymentRequestFragment extends Fragment {
                         editorOrderTabsFromDraft.putString("TabNo", "0");
                         editorOrderTabsFromDraft.apply();
 
-                        Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
-                        ((FragmentActivity) getContext()).startActivity(login_intent);
-                        ((FragmentActivity) getContext()).finish();
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tabs());
+                        fragmentTransaction.commit();
                         return true;
 
                     }
@@ -282,9 +282,9 @@ public class CreatePaymentRequestFragment extends Fragment {
                         editorOrderTabsFromDraft.putString("TabNo", "0");
                         editorOrderTabsFromDraft.apply();
 
-                        Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
-                        ((FragmentActivity) getContext()).startActivity(login_intent);
-                        ((FragmentActivity) getContext()).finish();
+                        FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container_ret, new HomeFragment());
+                        fragmentTransaction.commit();
                         return true;
                     }
                 }
@@ -481,7 +481,7 @@ public class CreatePaymentRequestFragment extends Fragment {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
+                fragmentTransaction.add(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
                 fragmentTransaction.commit();
             }
         });

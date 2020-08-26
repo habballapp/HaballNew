@@ -51,6 +51,7 @@ import com.haball.Distributor.ui.home.HomeFragment;
 import com.haball.Distributor.ui.main.OrdersFragment;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
 import com.haball.Distributor.ui.payments.PaymentScreen3Fragment;
+import com.haball.Distributor.ui.shipments.Shipments_Fragments;
 import com.haball.Distributor.ui.shipments.main.Adapters.SectionsPagerAdapter;
 import com.haball.Distributor.ui.shipments.main.Models.PageViewModel;
 import com.haball.HaballError;
@@ -194,7 +195,7 @@ public class PlaceholderFragment extends Fragment {
 //                        ((FragmentActivity) getContext()).startActivity(login_intent);
 //                        ((FragmentActivity) getContext()).finish();
                         FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                        fragmentTransaction.add(R.id.main_container, new Shipments_Fragments()).addToBackStack("tag");
                         fragmentTransaction.commit();
                     }
                 });
@@ -222,7 +223,7 @@ public class PlaceholderFragment extends Fragment {
 //                        ((FragmentActivity) getContext()).startActivity(login_intent);
 //                        ((FragmentActivity) getContext()).finish();
                         FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                        fragmentTransaction.add(R.id.main_container, new Shipments_Fragments()).addToBackStack("tag");
                         fragmentTransaction.commit();
 
                     }
@@ -261,7 +262,7 @@ public class PlaceholderFragment extends Fragment {
 //                        ((FragmentActivity) getContext()).startActivity(login_intent);
 //                        ((FragmentActivity) getContext()).finish();
                         FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                        fragmentTransaction.add(R.id.main_container, new Shipments_Fragments()).addToBackStack("tag");
                         fragmentTransaction.commit();
 
                     }
@@ -290,7 +291,7 @@ public class PlaceholderFragment extends Fragment {
 //                        ((FragmentActivity) getContext()).startActivity(login_intent);
 //                        ((FragmentActivity) getContext()).finish();
                         FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                        fragmentTransaction.add(R.id.main_container, new Shipments_Fragments()).addToBackStack("tag");
                         fragmentTransaction.commit();
                     }
                 });
@@ -369,7 +370,7 @@ public class PlaceholderFragment extends Fragment {
 //                        ((FragmentActivity) getContext()).startActivity(login_intent);
 //                        ((FragmentActivity) getContext()).finish();
                         FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                        fragmentTransaction.add(R.id.main_container, new Shipments_Fragments()).addToBackStack("tag");
                         fragmentTransaction.commit();
                     }
                 });
@@ -407,8 +408,8 @@ public class PlaceholderFragment extends Fragment {
                 txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
                 tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
                 tv_pr1.setText("");
-                txt_header1.setText("Shipment Request Received");
-                String steps1 = "Shipment Request ID ";
+                txt_header1.setText("Shipment Received");
+                String steps1 = "Shipment ID ";
                 String steps2 = " has been received successfully.";
                 String title = DeliveryNumber;
                 SpannableString ss1 = new SpannableString(title);
@@ -437,7 +438,7 @@ public class PlaceholderFragment extends Fragment {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
                         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.add(R.id.main_container, new HomeFragment());
+                        fragmentTransaction.add(R.id.main_container, new Shipments_Fragments());
                         fragmentTransaction.commit();
                     }
                 });
@@ -567,8 +568,9 @@ public class PlaceholderFragment extends Fragment {
                     Gson gson = new Gson();
                     Distributor_ShipmentModel shipmentModel = gson.fromJson(String.valueOf(response), Distributor_ShipmentModel.class);
                     company.setText(response.getJSONObject("deliveryCorp").getString("CompanyName"));
-                    shipment_id.setText(shipmentModel.getDeliveryNumber());
+                    shipment_id.setText(shipmentModel.getShippmentNo());
                     shipment_created_date.setText(shipmentModel.getCreatedDate().split("T")[0]);
+                    shipment_tv_dc_number.setText(shipmentModel.getDeliveryNumber());
 
                     if (shipmentModel.getDeliveryNoteStatus().equals("0")) {
                         shipment_tv_shstatus.setText("Pending");
@@ -582,17 +584,16 @@ public class PlaceholderFragment extends Fragment {
                         shipment_tv_shstatus.setText("Revised");
                     }
 
-                    if (shipment_tv_shstatus.getText().equals("Received")) {
-                        shipment_recieving_date.setVisibility(View.VISIBLE);
-                        shipment_tv_dc_number.setVisibility(View.VISIBLE);
+                    layout_shipment_tv_dc_number.setVisibility(View.VISIBLE);
+                    if (!String.valueOf(shipment_tv_dc_number.getText()).equals("") && !String.valueOf(shipment_tv_dc_number.getText()).equals("null"))
+                        shipment_tv_dc_number.setTextColor(getResources().getColor(R.color.textcolor));
 
+                    if (String.valueOf(shipment_tv_shstatus.getText()).equals("Received")) {
+                        layout_shipment_recieving_date.setVisibility(View.VISIBLE);
                         shipment_recieving_date.setText(shipmentModel.getGoodsreceivenotesReceivingDate().split("T")[0]);
-                        shipment_tv_dc_number.setText(shipmentModel.getShippmentNo());
 
                         if (!String.valueOf(shipment_recieving_date.getText()).equals("") && !String.valueOf(shipment_recieving_date.getText()).equals("null"))
                             shipment_recieving_date.setTextColor(getResources().getColor(R.color.textcolor));
-                        if (!String.valueOf(shipment_tv_dc_number.getText()).equals("") && !String.valueOf(shipment_tv_dc_number.getText()).equals("null"))
-                            shipment_tv_dc_number.setTextColor(getResources().getColor(R.color.textcolor));
                     }
 
                     if (!String.valueOf(company.getText()).equals("") && !String.valueOf(company.getText()).equals("null"))
@@ -706,7 +707,7 @@ public class PlaceholderFragment extends Fragment {
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
 //                    fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
-                    fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                    fragmentTransaction.add(R.id.main_container, new Shipments_Fragments()).addToBackStack("tag");
                     fragmentTransaction.commit();
                     return true;
                 }

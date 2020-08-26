@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Distributor.ui.shipments.main.DistributorShipment_ProductDetails">
+    android:background="@android:color/white"
+    android:clickable="true">
 
-    <LinearLayout
-        android:id="@+id/rl_1"
+    <RelativeLayout
+        android:id="@+id/rl_main_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/rl_line"
         android:layout_marginStart="27dp"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="27dp"
-        android:orientation="vertical"
-        android:weightSum="8">
+        android:layout_marginEnd="27dp">
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/tv_shipment_no_data"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="10">
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/open_sans"
+            android:gravity="center"
+            android:text="No Data Available"
+            android:textSize="@dimen/no_data_available_size" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/product_rv_shipment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/ln_txt"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/product_rv_shipment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/product_rv_shipment"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical"
-            android:weightSum="8">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:id="@+id/line_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/line_separator_light_grey" />
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/retailer_button_size"
+            android:layout_below="@+id/disclaimer_tv"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="27dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_round"
+            android:fontFamily="@font/open_sans"
+            android:gravity="center"
+            android:stateListAnimator="@null"
+            android:text="Back"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="@dimen/button_text_size" />
 
 
-            <Button
-                android:id="@+id/btn_back"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@drawable/button_round"
-                android:fontFamily="@font/open_sans"
-                android:gravity="center"
-                android:stateListAnimator="@null"
-                android:text="Back"
-                android:textAllCaps="false"
-                android:textColor="#fff"
-                android:textSize="@dimen/button_text_size"
-                app:elevation="0dp" />
-        </LinearLayout>
+    </RelativeLayout>
 
-
-    </LinearLayout>
-
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/footer"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_alignParentBottom="true"-->
-    <!--        android:layout_marginBottom="10dp"-->
-    <!--        android:gravity="center"-->
-    <!--        android:text="© Haball | All rights reserved" />-->
 </RelativeLayout>

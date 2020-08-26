@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
+    android:clickable="true"
     android:theme="@style/AppTheme"
     tools:context="Distributor.ui.support.SupportFragment">
 
@@ -107,8 +108,8 @@
                         android:layout_height="50dp"
                         android:layout_below="@+id/spinner_container"
                         android:layout_marginTop="20dp"
-                        android:visibility="gone"
-                        android:background="@drawable/edit_text_squared">
+                        android:background="@drawable/edit_text_squared"
+                        android:visibility="gone">
 
                         <Spinner
                             android:id="@+id/conso_spinner2"
@@ -246,12 +247,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/spinner_container_main"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="20dp">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_support_complaints"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false" />
+
+                <TextView
+                    android:id="@+id/tv_shipment_no_ticket"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/open_sans"
+                    android:gravity="center"
+                    android:text="No Support Tickets Created"
+                    android:textSize="@dimen/no_data_available_size" />
 
                 <TextView
                     android:id="@+id/tv_shipment_no_data"
@@ -260,8 +272,9 @@
                     android:layout_marginBottom="10dp"
                     android:fontFamily="@font/open_sans"
                     android:gravity="center"
-                    android:text="No Support Tickets Created"
-                    android:textSize="@dimen/no_data_available_size" />
+                    android:text="No Data Available"
+                    android:textSize="@dimen/no_data_available_size"
+                    android:visibility="gone" />
             </RelativeLayout>
             <!-- <TextView -->
             <!-- android:layout_below="@+id/rl_recycler" -->

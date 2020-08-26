@@ -95,7 +95,7 @@ public class Dist_Order_Summary extends Fragment {
     private List<OrderChildlist_Model_DistOrder> temp_list = new ArrayList<>();
     private List<String> temp_listqty = new ArrayList<>();
     private Loader loader;
-//    String current_balance;
+    //    String current_balance;
     String yourFormattedString3;
 
     @Override
@@ -129,7 +129,6 @@ public class Dist_Order_Summary extends Fragment {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
         btn_add_product = view.findViewById(R.id.btn_add_product);
-
 
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NewApi")
@@ -329,6 +328,16 @@ public class Dist_Order_Summary extends Fragment {
         selectedProductsDataList = gson.fromJson(object_string, type);
         selectedProductsQuantityList = gson.fromJson(object_stringqty, typeQty);
 
+        for (int i = 0; i < selectedProductsDataList.size(); i++) {
+            if (selectedProductsQuantityList.get(i).equals("")) {
+                selectedProductsQuantityList.remove(i);
+                selectedProductsDataList.remove(i);
+            } else if (Integer.parseInt(selectedProductsQuantityList.get(i)) <= 0) {
+                selectedProductsQuantityList.remove(i);
+                selectedProductsDataList.remove(i);
+            }
+        }
+
         recyclerView1 = view.findViewById(R.id.rv_orders_summary);
         recyclerView1.setHasFixedSize(false);
         layoutManager1 = new LinearLayoutManager(getContext());
@@ -424,6 +433,9 @@ public class Dist_Order_Summary extends Fragment {
         jsonObject.put("TransportTypeId", 1);
         jsonObject.put("PaymentTermId", 1);
         jsonObject.put("DistributorDealerCode", DealerCode);
+
+        Log.i("summary_debug", String.valueOf(jsonObject));
+
         loader.showLoader();
         Log.i("jsonObject", String.valueOf(jsonObject));
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_CONFIRM_ORDERS, jsonObject, new Response.Listener<JSONObject>() {
@@ -464,7 +476,7 @@ public class Dist_Order_Summary extends Fragment {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
 //                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                        fragmentTransaction.replace(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
+//                        fragmentTransaction.add(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
 //                        fragmentTransaction.commit();
 
                         SharedPreferences orderCheckout = getContext().getSharedPreferences("orderCheckout",
@@ -503,26 +515,6 @@ public class Dist_Order_Summary extends Fragment {
                 loader.hideLoader();
 
                 if (error.networkResponse.statusCode == 405) {
-                    String messageMain = "";
-                    NetworkResponse response = error.networkResponse;
-                    if (error instanceof ServerError && response != null) {
-                        try {
-                            String message = "";
-
-                            String res = new String(response.data,
-                                    HttpHeaderParser.parseCharset(response.headers, "utf-8"));
-                            // Now you can use any deserializer to make sense of data
-                            JSONObject obj = new JSONObject(res);
-                            messageMain = obj.getString("message");
-                        } catch (UnsupportedEncodingException e1) {
-                            // Couldn't properly decode data to string
-                            e1.printStackTrace();
-                        } catch (JSONException e2) {
-                            // returned data is not JSONObject?
-                            e2.printStackTrace();
-                        }
-                    }
-
                     final Dialog fbDialogue = new Dialog(getContext());
                     //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
                     fbDialogue.setContentView(R.layout.password_updatepopup);
@@ -566,7 +558,6 @@ public class Dist_Order_Summary extends Fragment {
                     new ProcessingError().showError(getContext());
                     error.printStackTrace();
                 }
-                refreshRetailerInfo();
             }
         }) {
             @Override
@@ -693,20 +684,20 @@ public class Dist_Order_Summary extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
         getView().setFocusableInTouchMode(true);
         getView().requestFocus();
         getView().setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
+                Log.i("keyback_debug", String.valueOf(keyCode));
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    Log.i("back_key_debug", "back from fragment 1");
                     showDiscardDialog();
                     return true;
                 }
                 return false;
             }
         });
-
     }
 
     private void showDiscardDialog() {
@@ -761,14 +752,8 @@ public class Dist_Order_Summary extends Fragment {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
-
-        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
-
-        SharedPreferences sharedPreferences4 = this.getActivity().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        DealerCode = sharedPreferences4.getString("DealerCode", "");
+        DistributorId = sharedPreferences.getString("Distributor_Id", "");
+        DealerCode = sharedPreferences.getString("DealerCode", "");
 
         SharedPreferences sharedPreferences2 = this.getActivity().getSharedPreferences("CompanyInfo",
                 Context.MODE_PRIVATE);
@@ -897,7 +882,7 @@ public class Dist_Order_Summary extends Fragment {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
 //                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                        fragmentTransaction.replace(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
+//                        fragmentTransaction.add(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
 //                        fragmentTransaction.commit();
 
                         SharedPreferences orderCheckout = getContext().getSharedPreferences("orderCheckout",
@@ -970,6 +955,12 @@ public class Dist_Order_Summary extends Fragment {
         editor.putString("CompanyId", "");
         editor.putString("ID", "0");
         editor.apply();
+
+        SharedPreferences orderCheckout1 = getContext().getSharedPreferences("FromDraft",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor orderCheckout_editor1 = orderCheckout1.edit();
+        orderCheckout_editor1.putString("fromDraft", "");
+        orderCheckout_editor1.apply();
 
 //        fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
 //        fragmentTransaction.add(R.id.main_container, new Distributor());

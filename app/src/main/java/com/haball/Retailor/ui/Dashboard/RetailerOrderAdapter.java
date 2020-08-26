@@ -67,18 +67,18 @@ public class RetailerOrderAdapter extends RecyclerView.Adapter<RetailerOrderAdap
 
     @Override
     public void onBindViewHolder(@NonNull RetailerOrderAdapter.ViewHolder holder, final int position) {
-        if (OrderList.size() == 3) {
-            if (position == (OrderList.size() - 1)) {
-//        if (position == 2) {
-                Log.i("DebugSupportFilter_In", OrderList.get(position).getOrderNumber());
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                        RelativeLayout.LayoutParams.WRAP_CONTENT,
-                        RelativeLayout.LayoutParams.WRAP_CONTENT
-                );
-                params.setMargins(0, 50, 0, 280);
-                holder.main_layout_order_box_retailer.setLayoutParams(params);
-            }
-        }
+         if (OrderList.size() == 3 || OrderList.size() == 4) {
+             if (position == (OrderList.size() - 1)) {
+ //        if (position == 2) {
+                 Log.i("DebugSupportFilter_In", OrderList.get(position).getOrderNumber());
+                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                         RelativeLayout.LayoutParams.WRAP_CONTENT,
+                         RelativeLayout.LayoutParams.WRAP_CONTENT
+                 );
+                 params.setMargins(0, 50, 0, 360);
+                 holder.main_layout_order_box_retailer.setLayoutParams(params);
+             }
+         }
 
 //        holder.tv_heading.setText(heading);
 //        holder.order_no_value.setText(order_no_value);

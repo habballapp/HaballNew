@@ -88,14 +88,13 @@ public class PlaceholderFragment extends Fragment {
     private String orderID ,orderStatus;
     private String URL_Order_Data = "http://175.107.203.97:4013/api/Orders/";
     private PageViewModel pageViewModel;
-    private TextInputEditText txt_orderID, txt_company_order, txt_created_date_order, txt_status_order, txt_comments, txt_confirm;
     private TextInputEditText txt_companyName, txt_paymentID, txt_created_date, txt_transaction_date, txt_bank, txt_authorization_id, txt_settlement_id, txt_status, txt_amount, txt_transaction_charges, txt_total_amount;
     private RecyclerView rv_fragment_retailer_order_details;
-    private TextInputLayout layout_txt_companName, layout_txt_paymentID, layout_txt_created_date, layout_transaction_date,
-            layout_txt_bank, layout_txt_authorization_id, layout_txt_settlement_id, layout_txt_status, layout_txt_amount,
-            layout_txt_transaction_charges, layout_txt_total_amount;
-
-    private TextInputLayout layout_txt_orderID, layout_txt_order_company, layout_txt_created_date_order, layout_txt_status_order, layout_txt_comments;
+    private TextInputLayout layout_txt_orderID, layout_txt_order_company, layout_txt_created_date_order, layout_txt_status_order, layout_txt_comments,
+            layout_txt_companName, layout_txt_paymentID, layout_txt_created_date, layout_transaction_date,
+            layout_txt_bank, layout_txt_authorization_id, layout_txt_settlement_id, layout_txt_status, layout_txt_order_reference, layout_txt_invoice_reference,
+            layout_txt_amount, layout_txt_transaction_charges, layout_txt_total_amount;
+    private TextInputEditText txt_orderID, txt_company_order, txt_created_date_order, txt_status_order, txt_comments, txt_confirm, txt_order_reference, txt_invoice_reference;
     private TextView tv_shipment_no_data;
     private RecyclerView.Adapter rv_productAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -191,19 +190,30 @@ public class PlaceholderFragment extends Fragment {
                 layout_txt_order_company = rootView.findViewById(R.id.layout_txt_order_company);
                 layout_txt_created_date_order = rootView.findViewById(R.id.layout_txt_created_date_order);
                 layout_txt_status_order = rootView.findViewById(R.id.layout_txt_status_order);
+                layout_txt_order_reference = rootView.findViewById(R.id.layout_txt_order_reference);
+                layout_txt_invoice_reference = rootView.findViewById(R.id.layout_txt_invoice_reference);
                 layout_txt_comments = rootView.findViewById(R.id.layout_txt_comments);
                 txt_orderID = rootView.findViewById(R.id.txt_orderID);
                 txt_company_order = rootView.findViewById(R.id.txt_company_order);
                 txt_created_date_order = rootView.findViewById(R.id.txt_created_date_order);
                 txt_status_order = rootView.findViewById(R.id.txt_status_order);
+                txt_order_reference = rootView.findViewById(R.id.txt_order_reference);
+                txt_invoice_reference = rootView.findViewById(R.id.txt_invoice_reference);
                 txt_comments = rootView.findViewById(R.id.txt_comments);
                 button_back = rootView.findViewById(R.id.button_back);
+
+                layout_txt_order_reference.setVisibility(View.GONE);
+                layout_txt_invoice_reference.setVisibility(View.GONE);
+
+
 
                 new TextField().changeColor(this.getContext(), layout_txt_orderID, txt_orderID);
                 new TextField().changeColor(this.getContext(), layout_txt_order_company, txt_company_order);
                 new TextField().changeColor(this.getContext(), layout_txt_created_date_order, txt_company_order);
                 new TextField().changeColor(this.getContext(), layout_txt_status_order, txt_status_order);
                 new TextField().changeColor(this.getContext(), layout_txt_comments, txt_comments);
+                new TextField().changeColor(this.getContext(), layout_txt_order_reference, txt_order_reference);
+                new TextField().changeColor(this.getContext(), layout_txt_invoice_reference, txt_invoice_reference);
 
                 txt_orderID.setEnabled(false);
                 txt_company_order.setEnabled(false);
@@ -451,7 +461,7 @@ public class PlaceholderFragment extends Fragment {
                         @Override
                         public void onClick(View view) {
                             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container_ret, new CreatePaymentRequestFragment());
+                            fragmentTransaction.add(R.id.main_container, new CreatePaymentRequestFragment());
                             fragmentTransaction.commit();
                         }
                     });
@@ -472,7 +482,7 @@ public class PlaceholderFragment extends Fragment {
                             ((FragmentActivity) getContext()).finish();
 
 //                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.main_container_ret, new EditPaymentRequestFragment());
+//                fragmentTransaction.add(R.id.main_container_ret, new EditPaymentRequestFragment());
 //                fragmentTransaction.commit();
 
                         }
@@ -788,9 +798,33 @@ public class PlaceholderFragment extends Fragment {
                     ViewOrderProductAdapter productAdapter = new ViewOrderProductAdapter(getContext(), invo_productList);
                     rv_fragment_retailer_order_details.setAdapter(productAdapter);
                     DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
+//                    String TotalAmount = "";
+//                    if (!response.getString("Discount").equals("null") && !response.getString("Discount").equals("0")) {
+//                        String OrderTotalDiscount = formatter1.format(Double.parseDouble(response.getString("Discount")));
+//                        discount_amount.setText(OrderTotalDiscount);
+//
+//                        if (totalPrice != 0)
+//                            TotalAmount = formatter1.format(totalPrice - Double.parseDouble(response.getString("Discount")));
+//                        total_amount.setText(TotalAmount);
+//                    } else if (totalDiscount == 0) {
+//                        discount.setVisibility(View.GONE);
+//                        Rs_discount.setVisibility(View.GONE);
+//                        discount_amount.setVisibility(View.GONE);
+//
+//                        if (totalPrice != 0)
+//                            TotalAmount = formatter1.format(totalPrice);
+//                        total_amount.setText(TotalAmount);
+//                    } else {
+//                        String OrderTotalDiscount = formatter1.format(totalDiscount);
+//                        discount_amount.setText(OrderTotalDiscount);
+//
+//                        if (totalPrice != 0)
+//                            TotalAmount = formatter1.format(totalPrice - totalDiscount);
+//                        total_amount.setText(TotalAmount);
+//                    }
                     String TotalAmount = "";
                     if (totalPrice != 0)
-                        TotalAmount = formatter1.format(totalPrice);
+                        TotalAmount = formatter1.format(Double.parseDouble(response.getString("NetPrice")));
                     total_amount.setText(TotalAmount);
                     if (!response.getString("Discount").equals("null") && !response.getString("Discount").equals("0")) {
                         String OrderTotalDiscount = formatter1.format(Double.parseDouble(response.getString("Discount")));

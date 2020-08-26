@@ -1,6 +1,7 @@
 package com.haball.Distributor.ui.main;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -9,14 +10,19 @@ import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -41,6 +47,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonArray;
 import com.haball.Distribution_Login.Distribution_Login;
+import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.DistributorOrdersAdapter;
 import com.haball.Distributor.DistributorOrdersModel;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
@@ -75,6 +82,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -158,6 +166,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private Loader loader;
     boolean byDefaultSelectCriteria = true;
     boolean byDefaultStatus = true;
+    private boolean doubleBackToExitPressedOnce = false;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -550,7 +559,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     }
 
     private void performPaginationOrder() throws JSONException {
-//        loader.showLoader();
+        loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -633,7 +642,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
     private void performPagination() throws JSONException {
         Log.i("PaymentDebug", "In Pagination");
-//        loader.showLoader();
+        loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -671,20 +680,24 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             map.put(Filter_selected, Filter_selected_value);
         }
 
-        MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_PAYMENTS, map, new Response.Listener<JSONArray>() {
+        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_DISTRIBUTOR_PAYMENTS, map, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
-            public void onResponse(JSONArray result) {
+            public void onResponse(JSONObject result) {
                 loader.hideLoader();
-                Log.i("Payments all", result.toString());
+                try {
+                    Log.i("Payments all", result.getJSONArray("PrePaidRequestData").toString());
 //                btn_load_more.setVisibility(View.GONE);
-                Gson gson = new Gson();
-                Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
-                }.getType();
-                List<DistributorPaymentRequestModel> PaymentsRequestList_temp = new ArrayList<>();
-                PaymentsRequestList_temp = gson.fromJson(result.toString(), type);
-                PaymentsRequestList.addAll(PaymentsRequestList_temp);
-                mAdapter.notifyDataSetChanged();
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<DistributorPaymentRequestModel>>() {
+                    }.getType();
+                    List<DistributorPaymentRequestModel> PaymentsRequestList_temp = new ArrayList<>();
+                    PaymentsRequestList_temp = gson.fromJson(result.getJSONArray("PrePaidRequestData").toString(), type);
+                    PaymentsRequestList.addAll(PaymentsRequestList_temp);
+                    mAdapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 //                mAdapter = new DistributorPaymentRequestAdaptor(getContext(), PaymentsRequestList);
 //                recyclerView.setAdapter(mAdapter);
 //                tv_shipment_no_data1.setVisibility(View.GONE);
@@ -736,6 +749,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
         spinner_container = rootView.findViewById(R.id.spinner_container);
         spinner_container.setVisibility(View.GONE);
+//        tv_shipment_no_data.setVisibility(View.VISIBLE);
         spinner_container1 = rootView.findViewById(R.id.spinner_container1);
         spinner_consolidate = (Spinner) rootView.findViewById(R.id.spinner_conso);
         spinner2 = (Spinner) rootView.findViewById(R.id.conso_spinner2);
@@ -832,11 +846,14 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                         Filter_selected = "PrePaidNumber";
                         conso_edittext.setVisibility(View.VISIBLE);
                         search_rl.setVisibility(View.VISIBLE);
+                        conso_edittext.setInputType(InputType.TYPE_CLASS_NUMBER);
+
                     } else if (Filter_selected.equals("Company")) {
                         search_bar.setHint("Search by " + Filter_selected);
                         Filter_selected = "CompanyName";
                         conso_edittext.setVisibility(View.VISIBLE);
                         search_rl.setVisibility(View.VISIBLE);
+                        conso_edittext.setInputType(InputType.TYPE_CLASS_TEXT);
                     } else if (Filter_selected.equals("Date")) {
                         date_filter_rl.setVisibility(View.VISIBLE);
                         Filter_selected = "date";
@@ -1037,7 +1054,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         // Toast.makeText(getContext(), "Consolidate clicked", Toast.LENGTH_LONG).show();
 //                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                        fragmentTransaction.remove(PaymentRequestDashboard.this);
-//                        fragmentTransaction.replace(((ViewGroup)getView().getParent()).getId(), new CreatePaymentRequestFragment());
+//                        fragmentTransaction.add(((ViewGroup)getView().getParent()).getId(), new CreatePaymentRequestFragment());
 //                        fragmentTransaction.addToBackStack(null);
 //                        fragmentTransaction.commit();
 //            }
@@ -1793,7 +1810,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 
     private void fetchPaymentRequests() throws JSONException {
         Log.i("PaymentDebug", "In Main");
-//        loader.showLoader();
+        loader.showLoader();
         tv_shipment_no_data1.setVisibility(View.GONE);
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
@@ -1963,7 +1980,10 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             if (!toAmount.equals(""))
                 map.put(Filter_selected2, toAmount);
         } else {
-            map.put(Filter_selected, Filter_selected_value);
+            if (Filter_selected.equals("PrePaidNumber"))
+                map.put(Filter_selected, Integer.parseInt(Filter_selected_value));
+            else
+                map.put(Filter_selected, Filter_selected_value);
         }
 
         Log.i("Map123", String.valueOf(map));
@@ -1990,10 +2010,10 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 recyclerView.setAdapter(mAdapter);
                 if (PaymentsRequestList.size() != 0) {
                     tv_shipment_no_data1.setVisibility(View.GONE);
-                    spinner_container.setVisibility(View.VISIBLE);
+//                    spinner_container.setVisibility(View.VISIBLE);
                 } else {
                     tv_shipment_no_data1.setVisibility(View.VISIBLE);
-                    spinner_container.setVisibility(View.GONE);
+//                    spinner_container.setVisibility(View.GONE);
                 }
             }
         }, new Response.ErrorListener() {
@@ -2214,4 +2234,81 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         arrayAdapterPayments.notifyDataSetChanged();
         spinner_criteria.setAdapter(arrayAdapterPayments);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                Log.i("keyback_debug", String.valueOf(keyCode));
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    Log.i("back_key_debug", "back from fragment 1");
+
+                    if (doubleBackToExitPressedOnce) {
+//                    super.onBackPressed();
+//                    finishAffinity();
+                        logoutUser();
+                    }
+                    doubleBackToExitPressedOnce = true;
+                    // Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            doubleBackToExitPressedOnce = false;
+                        }
+                    }, 1500);
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    private void logoutUser() {
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View view_popup = inflater.inflate(R.layout.discard_changes, null);
+        TextView tv_discard = view_popup.findViewById(R.id.tv_discard);
+        tv_discard.setText("Logout");
+        TextView tv_discard_txt = view_popup.findViewById(R.id.tv_discard_txt);
+        tv_discard_txt.setText("Are you sure, you want to logout?");
+        alertDialog.setView(view_popup);
+        alertDialog.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+        WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();
+        layoutParams.y = 200;
+        layoutParams.x = -70;// top margin
+        alertDialog.getWindow().setAttributes(layoutParams);
+        Button btn_discard = (Button) view_popup.findViewById(R.id.btn_discard);
+        btn_discard.setText("Logout");
+        btn_discard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+                SharedPreferences login_token = getContext().getSharedPreferences("LoginToken",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = login_token.edit();
+                editor.remove("Login_Token");
+                editor.commit();
+
+                Intent login = new Intent(getContext(), Distribution_Login.class);
+                startActivity(login);
+                ((FragmentActivity) getContext()).finish();
+            }
+        });
+
+        ImageButton img_email = (ImageButton) view_popup.findViewById(R.id.btn_close);
+        img_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
+    }
+
 }

@@ -86,18 +86,18 @@ public class SupportDashboardRetailerAdapter extends RecyclerView.Adapter<Suppor
         Log.i("DebugSupportFilter", supportList.get(position).getIssueType());
         Log.i("DebugSupportFilter_1", String.valueOf(position));
         Log.i("DebugSupportFilter_2", String.valueOf((supportList.size() - 1)));
-        if(supportList.size() == 3) {
-            if (position == (supportList.size() - 1)) {
-//        if (position == 2) {
-                Log.i("DebugSupportFilter_In", supportList.get(position).getIssueType());
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                        RelativeLayout.LayoutParams.WRAP_CONTENT,
-                        RelativeLayout.LayoutParams.WRAP_CONTENT
-                );
-                params.setMargins(0, 50, 0, 280);
-                holder.main_layout_support_box_retailer.setLayoutParams(params);
-            }
-        }
+         if(supportList.size() == 3 || supportList.size() == 4) {
+             if (position == (supportList.size() - 1)) {
+ //        if (position == 2) {
+                 Log.i("DebugSupportFilter_In", supportList.get(position).getIssueType());
+                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                         RelativeLayout.LayoutParams.WRAP_CONTENT,
+                         RelativeLayout.LayoutParams.WRAP_CONTENT
+                 );
+                 params.setMargins(0, 50, 0, 360);
+                 holder.main_layout_support_box_retailer.setLayoutParams(params);
+             }
+         }
         holder.heading.setText(supportList.get(position).getIssueType());
         holder.ticket_id_value.setText(supportList.get(position).getTicketNumber());
 //        holder.ticket_id_value.setText(supportList.get(position).getTicketNumber() + "\n\n\n\n1");

@@ -21,7 +21,18 @@ public class RetailerViewOrderProductModel {
     String UOMId;
     String UnitOFMeasure;
 
-    public RetailerViewOrderProductModel(String productId, String productCode, String productName, String orderQty, String unitPrice, String discount, String totalPrice, String UOM, String taxValue, String UOMTitle, String discountedAmount, String orderedQty, String packSize, String productTitle, String productUnitPrice, String totalamount, String UOMId, String unitOFMeasure) {
+
+
+    String AvailableStock;
+    String CreatedBy;
+    String CreatedDate;
+    String ID;
+    String LastChangedBy;
+    String LastChangedDate;
+    String ProductShortDescription;
+    String RetailerOrderId;
+
+    public RetailerViewOrderProductModel(String productId, String productCode, String productName, String orderQty, String unitPrice, String discount, String totalPrice, String UOM, String taxValue, String UOMTitle, String discountedAmount, String orderedQty, String packSize, String productTitle, String productUnitPrice, String totalamount, String UOMId, String unitOFMeasure, String availableStock, String createdBy, String createdDate, String ID, String lastChangedBy, String lastChangedDate, String productShortDescription, String retailerOrderId) {
         ProductId = productId;
         ProductCode = productCode;
         ProductName = productName;
@@ -40,6 +51,14 @@ public class RetailerViewOrderProductModel {
         Totalamount = totalamount;
         this.UOMId = UOMId;
         UnitOFMeasure = unitOFMeasure;
+        AvailableStock = availableStock;
+        CreatedBy = createdBy;
+        CreatedDate = createdDate;
+        this.ID = ID;
+        LastChangedBy = lastChangedBy;
+        LastChangedDate = lastChangedDate;
+        ProductShortDescription = productShortDescription;
+        RetailerOrderId = retailerOrderId;
     }
 
     public String getProductId() {
@@ -184,5 +203,69 @@ public class RetailerViewOrderProductModel {
 
     public void setUnitOFMeasure(String unitOFMeasure) {
         UnitOFMeasure = unitOFMeasure;
+    }
+
+    public String getAvailableStock() {
+        return AvailableStock;
+    }
+
+    public void setAvailableStock(String availableStock) {
+        AvailableStock = availableStock;
+    }
+
+    public String getCreatedBy() {
+        return CreatedBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        CreatedBy = createdBy;
+    }
+
+    public String getCreatedDate() {
+        return CreatedDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        CreatedDate = createdDate;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public String getLastChangedBy() {
+        return LastChangedBy;
+    }
+
+    public void setLastChangedBy(String lastChangedBy) {
+        LastChangedBy = lastChangedBy;
+    }
+
+    public String getLastChangedDate() {
+        return LastChangedDate;
+    }
+
+    public void setLastChangedDate(String lastChangedDate) {
+        LastChangedDate = lastChangedDate;
+    }
+
+    public String getProductShortDescription() {
+        return ProductShortDescription;
+    }
+
+    public void setProductShortDescription(String productShortDescription) {
+        ProductShortDescription = productShortDescription;
+    }
+
+    public String getRetailerOrderId() {
+        return RetailerOrderId;
+    }
+
+    public void setRetailerOrderId(String retailerOrderId) {
+        RetailerOrderId = retailerOrderId;
     }
 }
