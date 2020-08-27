@@ -43,6 +43,7 @@ import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.ProcessingError;
 import com.haball.R;
+import com.haball.Retailor.RetailorDashboard;
 import com.haball.Support.Support_Ditributor.Adapter.SupportDashboardAdapter;
 import com.haball.Support.Support_Ditributor.Model.SupportDashboardModel;
 import com.google.android.material.textfield.TextInputLayout;
@@ -819,6 +820,34 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         }
 //        Log.i("distinct", scroll);
         return scroll;
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    // handle back button's click listener
+//                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
+
+                    SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                    editorOrderTabsFromDraft.putString("TabNo", "0");
+                    editorOrderTabsFromDraft.apply();
+
+                    Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+                    ((FragmentActivity) getContext()).startActivity(login_intent);
+                    ((FragmentActivity) getContext()).finish();
+                }
+                return false;
+            }
+        });
+
     }
 
 

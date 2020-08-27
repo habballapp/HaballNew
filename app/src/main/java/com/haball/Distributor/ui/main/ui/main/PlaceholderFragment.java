@@ -11,6 +11,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,7 @@ import com.android.volley.toolbox.Volley;
 import com.haball.CustomToast;
 import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.StatusKVP;
+import com.haball.Distributor.ui.home.HomeFragment;
 import com.haball.Distributor.ui.main.ViewOrdersAdapter.ViewOrderProductAdapter;
 import com.haball.Distributor.ui.orders.ViewOrderProductModel;
 import com.haball.Distributor.ui.payments.CreatePaymentRequestFragment;
@@ -228,9 +230,12 @@ public class PlaceholderFragment extends Fragment {
 //                        fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tab());
 //                        fragmentTransaction.commit();
 
-                        Intent login_intent = new Intent(getContext(), DistributorDashboard.class);
-                        startActivity(login_intent);
-                        getActivity().finish();
+//                        Intent login_intent = new Intent(getContext(), DistributorDashboard.class);
+//                        startActivity(login_intent);
+//                        getActivity().finish();
+                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                        fragmentTransaction.commit();
                     }
                 });
 
@@ -270,9 +275,9 @@ public class PlaceholderFragment extends Fragment {
 //                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                        fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tab());
 //                        fragmentTransaction.commit();
-                        Intent login_intent = new Intent(getContext(), DistributorDashboard.class);
-                        startActivity(login_intent);
-                        getActivity().finish();
+                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                        fragmentTransaction.commit();
                     }
                 });
 
@@ -375,9 +380,9 @@ public class PlaceholderFragment extends Fragment {
 //                            fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                            fragmentTransaction.add(R.id.main_container_ret, new Dashboard_Tab());
 //                            fragmentTransaction.commit();
-                            Intent login_intent = new Intent(getContext(), DistributorDashboard.class);
-                            startActivity(login_intent);
-                            getActivity().finish();
+                            fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                            fragmentTransaction.commit();
                         }
                     });
 
@@ -477,9 +482,9 @@ public class PlaceholderFragment extends Fragment {
                             editorOrderTabsFromDraft.putString("TabNo", "0");
                             editorOrderTabsFromDraft.apply();
 
-                            Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
-                            ((FragmentActivity) getContext()).startActivity(login_intent);
-                            ((FragmentActivity) getContext()).finish();
+                            fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                            fragmentTransaction.commit();
 
 //                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                fragmentTransaction.add(R.id.main_container_ret, new EditPaymentRequestFragment());
@@ -620,6 +625,39 @@ public class PlaceholderFragment extends Fragment {
             }
         });
         Volley.newRequestQueue(getContext()).add(sr);
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    // handle back button's click listener
+//                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
+
+                    SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                    editorOrderTabsFromDraft.putString("TabNo", "0");
+                    editorOrderTabsFromDraft.apply();
+
+//                    Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
+//                    ((FragmentActivity) getContext()).startActivity(login_intent);
+//                    ((FragmentActivity) getContext()).finish();
+                    fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                    fragmentTransaction.commit();
+
+                    return true;
+                }
+                return false;
+            }
+        });
+
     }
 
     private void viewPDF(Context context, String ID) throws JSONException {
@@ -1073,4 +1111,6 @@ public class PlaceholderFragment extends Fragment {
             }
         }
     }
+
+
 }

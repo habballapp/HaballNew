@@ -776,7 +776,7 @@ public class PlaceholderFragment extends Fragment {
                         if (!String.valueOf(response.get("Status")).equals("") && !String.valueOf(response.get("Status")).equals("null")) {
                             txt_status.setTextColor(getResources().getColor(R.color.textcolor));
                             if (String.valueOf(response.get("Status")).equals("Pending"))
-                                layout_txt_amount.setVisibility(View.GONE);
+                                layout_txt_total_amount.setVisibility(View.GONE);
                         }
                     }
                     if (response.has("PaymentTransactionDate")) {
@@ -799,7 +799,7 @@ public class PlaceholderFragment extends Fragment {
                         if (!String.valueOf(response.get("SettlementID")).equals("") && !String.valueOf(response.get("SettlementID")).equals("null"))
                             txt_settlement_id.setTextColor(getResources().getColor(R.color.textcolor));
                     }
-                    if (response.has("TotalAmount")) {
+                    if (response.has("TotalAmount") && !String.valueOf(txt_status.getText()).equals("Pending")) {
 //                        setTextAndShow(layout_txt_total_amount, txt_total_amount, String.valueOf(response.getString("TotalAmount")));
                         DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
                         String Formatted_TotalAmount = formatter1.format(Double.parseDouble(response.getString("TotalAmount")));
