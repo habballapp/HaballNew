@@ -571,6 +571,7 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
                     int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
                     if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
                         if (totalPages != 0 && pageNumber < totalPages) {
+                            Log.i("map_Retailer_debug", "in scroll listener: " + totalPages);
 //                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
 //                        btn_load_more.setVisibility(View.VISIBLE);
                             pageNumber++;
@@ -635,6 +636,7 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
             map.put(Filter_selected, Filter_selected_value);
         }
 
+        Log.i("map_Retailer_debug", String.valueOf(map));
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_Retailers, map, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
@@ -707,7 +709,7 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
             public void onResponse(JSONObject result) {
                 loader.hideLoader();
                 try {
-                    totalEntries = Double.parseDouble(String.valueOf(result.get("SupportCount")));
+                    totalEntries = Double.parseDouble(String.valueOf(result.get("Count")));
                     totalPages = Math.ceil(totalEntries / 10);
                 } catch (JSONException e) {
                     e.printStackTrace();
