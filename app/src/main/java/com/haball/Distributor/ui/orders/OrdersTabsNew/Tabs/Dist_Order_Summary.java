@@ -84,6 +84,10 @@ public class Dist_Order_Summary extends Fragment {
     private RecyclerView recyclerView1;
     private List<OrderChildlist_Model_DistOrder> selectedProductsDataList = new ArrayList<>();
     private List<String> selectedProductsQuantityList = new ArrayList<>();
+
+    private List<OrderChildlist_Model_DistOrder> selectedProductsDataList_temp = new ArrayList<>();
+    private List<String> selectedProductsQuantityList_temp = new ArrayList<>();
+
     private String object_string, object_stringqty, Token, DistributorId, CompanyId, ID, DealerCode;
     private String URL_CONFIRM_ORDERS = "http://175.107.203.97:4013/api/Orders/save";
     private String URL_SAVE_TEMPLATE = "http://175.107.203.97:4013/api/ordertemplate/save";
@@ -327,6 +331,9 @@ public class Dist_Order_Summary extends Fragment {
         }.getType();
         selectedProductsDataList = gson.fromJson(object_string, type);
         selectedProductsQuantityList = gson.fromJson(object_stringqty, typeQty);
+
+        selectedProductsDataList_temp = selectedProductsDataList;
+        selectedProductsQuantityList_temp = selectedProductsQuantityList;
 
         for (int i = 0; i < selectedProductsDataList.size(); i++) {
             if (selectedProductsQuantityList.get(i).equals("")) {
@@ -692,8 +699,34 @@ public class Dist_Order_Summary extends Fragment {
                 Log.i("keyback_debug", String.valueOf(keyCode));
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     Log.i("back_key_debug", "back from fragment 1");
-                    showDiscardDialog();
-                    return true;
+                    SharedPreferences selectedProductsSP = getContext().getSharedPreferences("FromDraft_Temp",
+                            Context.MODE_PRIVATE);
+                    if (!selectedProductsSP.getString("fromDraft", "").equals("draft")) {
+                        showDiscardDialog();
+                        return true;
+                    } else {
+                        if (selectedProductsDataList != selectedProductsDataList_temp && selectedProductsQuantityList != selectedProductsQuantityList_temp) {
+                            showDiscardDialog();
+                            return true;
+                        } else {
+
+                            SharedPreferences orderCheckout1 = getContext().getSharedPreferences("FromDraft_Temp",
+                                    Context.MODE_PRIVATE);
+                            SharedPreferences.Editor orderCheckout_editor1 = orderCheckout1.edit();
+                            orderCheckout_editor1.putString("fromDraft", "");
+                            orderCheckout_editor1.apply();
+
+                            SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                                    Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                            editorOrderTabsFromDraft.putString("TabNo", "0");
+                            editorOrderTabsFromDraft.apply();
+                            fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                            fragmentTransaction.commit();
+                            return true;
+                        }
+                    }
                 }
                 return false;
             }

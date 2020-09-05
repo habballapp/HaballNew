@@ -1028,7 +1028,6 @@ public class Dist_OrderPlace extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
-                loader.hideLoader();
                 titles = new ArrayList<>();
                 Log.i("result", String.valueOf(result));
                 for (int i = 0; i < result.length(); i++) {

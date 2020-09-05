@@ -87,7 +87,7 @@ import java.util.Map;
 public class PlaceholderFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private String orderID ,orderStatus;
+    private String orderID, orderStatus;
     private String URL_Order_Data = "http://175.107.203.97:4013/api/Orders/";
     private PageViewModel pageViewModel;
     private TextInputEditText txt_companyName, txt_paymentID, txt_created_date, txt_transaction_date, txt_bank, txt_authorization_id, txt_settlement_id, txt_status, txt_amount, txt_transaction_charges, txt_total_amount;
@@ -159,9 +159,9 @@ public class PlaceholderFragment extends Fragment {
 
 
         orderID = sharedPreferences3.getString("OrderId", "");
-        orderStatus = sharedPreferences3.getString("Status" ,"");
+        orderStatus = sharedPreferences3.getString("Status", "");
         Log.i("OrderId", orderID);
-        Log.i("orderStatus" , orderStatus);
+        Log.i("orderStatus", orderStatus);
         if (!URL_Order_Data.contains(orderID)) {
             URL_Order_Data = URL_Order_Data + orderID;
             Log.i("URL_Order_Data", URL_Order_Data);
@@ -206,7 +206,6 @@ public class PlaceholderFragment extends Fragment {
 
                 layout_txt_order_reference.setVisibility(View.GONE);
                 layout_txt_invoice_reference.setVisibility(View.GONE);
-
 
 
                 new TextField().changeColor(this.getContext(), layout_txt_orderID, txt_orderID);
@@ -296,7 +295,7 @@ public class PlaceholderFragment extends Fragment {
                 Log.i("InvoiceStatus", InvoiceStatus);
 
 //        SectionsPagerAdapter sectionsPagerAdapter = null;
-                if (InvoiceStatus.equals("Paid") || InvoiceStatus.equals("Invoiced")) {
+                if (InvoiceStatus.equals("Paid") || InvoiceStatus.equals("Invoiced") || InvoiceStatus.equals("Delivered")) {
 
                     rootView = inflater.inflate(R.layout.fragment_retailer_payment_tab, container, false);
                     layout_txt_companName = rootView.findViewById(R.id.layout_txt_companName);
@@ -626,38 +625,39 @@ public class PlaceholderFragment extends Fragment {
         });
         Volley.newRequestQueue(getContext()).add(sr);
     }
+
     @Override
     public void onResume() {
         super.onResume();
-
-        getView().setFocusableInTouchMode(true);
-        getView().requestFocus();
-        getView().setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
-                    // handle back button's click listener
+        if (getView() != null) {
+            getView().setFocusableInTouchMode(true);
+            getView().requestFocus();
+            getView().setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                        // handle back button's click listener
 //                    Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
 
-                    SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
-                            Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
-                    editorOrderTabsFromDraft.putString("TabNo", "0");
-                    editorOrderTabsFromDraft.apply();
+                        SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                        editorOrderTabsFromDraft.putString("TabNo", "0");
+                        editorOrderTabsFromDraft.apply();
 
 //                    Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
 //                    ((FragmentActivity) getContext()).startActivity(login_intent);
 //                    ((FragmentActivity) getContext()).finish();
-                    fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
-                    fragmentTransaction.commit();
+                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                        fragmentTransaction.commit();
 
-                    return true;
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
-
+            });
+        }
     }
 
     private void viewPDF(Context context, String ID) throws JSONException {

@@ -702,43 +702,6 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
         map.put("PageNumber", pageNumber);
 
 
-
-        JsonObjectRequest sr1 = new JsonObjectRequest(Request.Method.POST, "http://175.107.203.97:4013/api/contact/searchCount", map, new Response.Listener<JSONObject>() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-            @Override
-            public void onResponse(JSONObject result) {
-                loader.hideLoader();
-                try {
-                    totalEntries = Double.parseDouble(String.valueOf(result.get("Count")));
-                    totalPages = Math.ceil(totalEntries / 10);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                loader.hideLoader();
-                new HaballError().printErrorMessage(getContext(), error);
-                new ProcessingError().showError(getContext());
-
-                error.printStackTrace();
-            }
-        }) {
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer " + Token);
-                return params;
-            }
-        };
-        sr1.setRetryPolicy(new DefaultRetryPolicy(
-                15000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext()).add(sr1);
-
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_Retailers, map, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
@@ -749,6 +712,10 @@ public class RetailerFragment extends Fragment implements DatePickerDialog.OnDat
                 Type type = new TypeToken<List<Retailer_Management_Dashboard_Model>>() {
                 }.getType();
                 try {
+                    totalEntries = Double.parseDouble(String.valueOf(result.get("Count")));
+                    totalPages = Math.ceil(totalEntries / 10);
+
+
                     RetailerList = gson.fromJson(result.get("Data").toString(), type);
                     Log.i("Payments_Requests", String.valueOf(RetailerList.size()));
                     mAdapter = new Retailer_Management_Dashboard_Adapter(getContext(), RetailerList);

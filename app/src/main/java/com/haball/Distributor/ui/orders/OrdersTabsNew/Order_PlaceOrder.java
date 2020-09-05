@@ -75,11 +75,17 @@ public class Order_PlaceOrder extends Fragment {
                 }
             });
 
-            SharedPreferences orderCheckout1 = getContext().getSharedPreferences("FromDraft",
+            SharedPreferences orderCheckout1 = getContext().getSharedPreferences("FromDraft_Temp",
                     Context.MODE_PRIVATE);
             SharedPreferences.Editor orderCheckout_editor1 = orderCheckout1.edit();
-            orderCheckout_editor1.putString("fromDraft", "");
+            orderCheckout_editor1.putString("fromDraft", "draft");
             orderCheckout_editor1.apply();
+
+            SharedPreferences orderCheckout1_temp = getContext().getSharedPreferences("FromDraft",
+                    Context.MODE_PRIVATE);
+            SharedPreferences.Editor orderCheckout_editor1_temp = orderCheckout1_temp.edit();
+            orderCheckout_editor1_temp.putString("fromDraft", "");
+            orderCheckout_editor1_temp.apply();
 
         } else {
             SharedPreferences orderCheckout = getContext().getSharedPreferences("orderCheckout",

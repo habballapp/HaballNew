@@ -1,6 +1,5 @@
 package com.haball.Distributor.ui.orders.OrdersTabsNew.Adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.Editable;
@@ -8,36 +7,26 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.haball.CustomToast;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.ExpandableRecyclerAdapter;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderChildlist_Model_DistOrder;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderParentlist_Model_DistOrder;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Order_PlaceOrder;
-import com.haball.Distributor.ui.orders.OrdersTabsNew.Tabs.Dist_OrderPlace;
-import com.haball.Distributor.ui.retailer.RetailerPlaceOrder.RetailerPlaceOrder;
 import com.haball.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONException;
 
 import java.lang.reflect.Type;
 import java.text.DecimalFormat;
@@ -133,47 +122,17 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
 
     @Override
     public void onBindParentViewHolder(@NonNull final OrderParentList_VH_DistOrder OrderParentList_VH_DistOrder, final int position, @NonNull OrderParentlist_Model_DistOrder o) {
-//    public void onBindParentViewHolder(final OrderParentList_VH_DistOrder OrderParentList_VH_DistOrder, final int position, OrderParentlist_Model_DistOrder o) {
-//        if (parentItemList.size() >= 10) {
-//
-//            if (position == (parentItemList.size() - 1)) {
-////                Toast.makeText(context, "parentItemsss"+parentItemList, Toast.LENGTH_SHORT).show();
-////                Toast.makeText(context, "parentItemsss"+position, Toast.LENGTH_SHORT).show();
-//
-////        if (position == 2) {
-//                //Log.i("DebugSupportFilter_In", parentItemList.get(position).getId());
-//                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-//                        RelativeLayout.LayoutParams.WRAP_CONTENT,
-//                        RelativeLayout.LayoutParams.WRAP_CONTENT
-//                );
-//                params.setMargins(0, 20, 0, 580);
-//                OrderParentList_VH_DistOrder.rl_orderName_retailer1.setLayoutParams(params);
-//            }
-////
-//        } else {
-//
-////            OrderParentList_VH_DistOrder.rl_orderName_retailer1.setVisibility(View.GONE);
-//        }
         Log.i("debugOrder_object", String.valueOf(position));
         Log.i("debugOrder_object1", String.valueOf(OrderParentList_VH_DistOrder.getPosition()));
         final OrderParentlist_Model_DistOrder OrderParentlist_Model_DistOrder = (OrderParentlist_Model_DistOrder) o;
         OrderParentList_VH_DistOrder._textview.setText(OrderParentlist_Model_DistOrder.getTitle());
 
-
-//        if (OrderParentList_VH_DistOrder._textview.getText().equals("")) {
-//            OrderParentList_VH_DistOrder.rl_parentList.setClickable(false);
-//            OrderParentList_VH_DistOrder.rl_orderName_retailer.setBackgroundColor(context.getResources().getColor(R.color.white));
-//            OrderParentList_VH_DistOrder.plus_icon_ll.setVisibility(View.GONE);
-//        }
         orderParentLIst_VH_main = OrderParentList_VH_DistOrder;
     }
 
 
     @Override
     public void onBindChildViewHolder(@NonNull final OrderChildList_VH_DistOrder OrderChildList_VH_DistOrder, final int pos, final int i, @NonNull OrderChildlist_Model_DistOrder o) {
-//    public void onBindChildViewHolder(OrderChildList_VH_DistOrder OrderChildList_VH_DistOrder, int pos, int i, OrderChildlist_Model_DistOrder o) {
-
-//        Log.i("debugOrder_o", String.valueOf(o));
         OrderChildlist_Model_DistOrder OrderChildlist_Model_DistOrder = (OrderChildlist_Model_DistOrder) o;
         final OrderChildList_VH_DistOrder temp_orderChildList_vh = OrderChildList_VH_DistOrder;
         final int temp_i = i;
@@ -203,8 +162,6 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
         else
             yourFormattedString2 = formatter1.format(0);
         OrderChildList_VH_DistOrder.list_UOM_value.setText("Rs. " + yourFormattedString2);
-//        if (OrderChildlist_Model_DistOrder.getPackSize() != null)
-//            OrderChildList_VH_DistOrder.list_pack_size_value.setText(OrderChildlist_Model_DistOrder.getPackSize());
         OrderChildList_VH_DistOrder.list_discount_value.setText(OrderChildlist_Model_DistOrder.getPackSize());
         OrderChildList_VH_DistOrder.list_numberOFitems.setText("");
         TextWatcher textWatcher = new TextWatcher() {
@@ -235,15 +192,12 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 Log.i("order_place_debug", String.valueOf(keyCode));
                 Log.i("order_place_debug123123", String.valueOf(KeyEvent.KEYCODE_BACK));
-//                Toast.makeText(context, "clicked", Toast.LENGTH_SHORT).show();
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-//                        fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace()).addToBackStack("null");
                     fragmentTransaction.add(R.id.main_container, new Order_PlaceOrder()).addToBackStack("null");
                     fragmentTransaction.commit();
                     return true;
                 }
-//                Log.i("order_place_debug", String.valueOf(KeyCode));
 
                 return false;
             }
@@ -264,14 +218,12 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
             }
         });
 
-//        OrderChildList_VH_DistOrder.list_numberOFitems.setText("");
         if (selectedProductsDataList != null && selectedProductsQuantityList != null) {
             if (selectedProductsDataList.size() > 0 && selectedProductsQuantityList.size() > 0) {
                 setQuantity(OrderChildList_VH_DistOrder, OrderChildlist_Model_DistOrder, i);
             }
         }
 
-//        OrderChildList_VH_DistOrder.list_numberOFitems.removeTextChangedListener(textWatcher);    }
     }
 
     private void setQuantity(OrderChildList_VH_DistOrder OrderChildList_VH_DistOrder, OrderChildlist_Model_DistOrder OrderChildlist_Model_DistOrder, int pos) {
@@ -303,7 +255,6 @@ public class ParentList_Adapter_DistOrder extends ExpandableRecyclerAdapter<Orde
                     }
                 else {
                     selectedProductsQuantityList.set(foundIndex, "0");
-//                    selectedProductsQuantityList.remove(foundIndex);
                 }
             } else {
                 if (!String.valueOf(holder.list_numberOFitems.getText()).equals(""))
