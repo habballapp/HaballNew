@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -130,6 +131,7 @@ public class Dist_OrderPlace extends Fragment {
     private int selected_category_index = 0;
     String byDefaultStatus = "true";
     private String fromDraft = "", fromAddMore = "";
+    private boolean isKeyboardShowing = false;
 
     public Dist_OrderPlace() {
         // Required empty public constructor
@@ -141,7 +143,7 @@ public class Dist_OrderPlace extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_dist_main_placeorder, container, false);
+        final View view = inflater.inflate(R.layout.fragment_dist_main_placeorder, container, false);
         myview = view;
         btn_checkout = view.findViewById(R.id.btn_checkout);
         close_order_button = view.findViewById(R.id.close_button);
@@ -771,8 +773,55 @@ public class Dist_OrderPlace extends Fragment {
             e.printStackTrace();
         }
 
+        // ContentView is the root view of the layout of this activity/fragment
+        view.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+
+                        Rect r = new Rect();
+                        view.getWindowVisibleDisplayFrame(r);
+                        int screenHeight = view.getRootView().getHeight();
+
+                        // r.bottom is the position above soft keypad or device button.
+                        // if keypad is shown, the r.bottom is smaller than that before.
+                        int keypadHeight = screenHeight - r.bottom;
+
+                        Log.d("order_debugKey_KeyHeig", "keypadHeight = " + keypadHeight);
+
+                        if (keypadHeight > screenHeight * 0.15) { // 0.15 ratio is perhaps enough to determine keypad height.
+                            // keyboard is opened
+                            if (!isKeyboardShowing) {
+                                isKeyboardShowing = true;
+                                onKeyboardVisibilityChanged(true);
+                            }
+                        } else {
+                            // keyboard is closed
+                            if (isKeyboardShowing) {
+                                isKeyboardShowing = false;
+                                onKeyboardVisibilityChanged(false);
+                            }
+                        }
+                    }
+                });
+
         return view;
 
+    }
+    private void onKeyboardVisibilityChanged(boolean opened) {
+        Log.i("order_debugKey_OpenClos", "keyboard " + opened);
+        if (!opened) {
+            spinner_container_main.setVisibility(View.VISIBLE);
+            TranslateAnimation animate1 = new TranslateAnimation(
+                    0,                 // fromXDelta
+                    0,                 // toXDelta
+                    -spinner_container_main.getHeight(),  // fromYDelta
+                    0);                // toYDelta
+            animate1.setDuration(250);
+            animate1.setFillAfter(true);
+            spinner_container_main.clearAnimation();
+            spinner_container_main.startAnimation(animate1);
+        }
     }
 
     private void showDiscardDialog() {

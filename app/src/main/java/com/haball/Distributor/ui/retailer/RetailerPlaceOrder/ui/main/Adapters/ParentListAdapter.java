@@ -206,8 +206,10 @@ public class ParentListAdapter extends ExpandableRecyclerAdapter<OrderParentlist
         orderChildList_vh.list_numberOFitems.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                Log.i("order_place_debug", String.valueOf(keyCode));
-                Log.i("order_place_debug123123", String.valueOf(KeyEvent.KEYCODE_BACK));
+                Log.i("order_debugKey_Code", String.valueOf(keyCode));
+                Log.i("order_debugKey_View", String.valueOf(v));
+                Log.i("order_debugKey_Event", String.valueOf(event));
+                Log.i("order_debugKey_Codeback", String.valueOf(KeyEvent.KEYCODE_BACK));
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
 //                        fragmentTransaction.add(R.id.main_container, new Dist_OrderPlace()).addToBackStack("null");

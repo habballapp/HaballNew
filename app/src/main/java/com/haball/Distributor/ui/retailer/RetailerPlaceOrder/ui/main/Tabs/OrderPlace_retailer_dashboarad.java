@@ -3,6 +3,7 @@ package com.haball.Distributor.ui.retailer.RetailerPlaceOrder.ui.main.Tabs;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -27,6 +28,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
@@ -121,6 +123,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
     private String editTextValue = "";
     private View myview = null;
     private Loader loader;
+    boolean isKeyboardShowing = false;
 
     public OrderPlace_retailer_dashboarad() {
         // Required empty public constructor
@@ -132,7 +135,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_order_place_retailer_dashboarad, container, false);
+        final View view = inflater.inflate(R.layout.fragment_order_place_retailer_dashboarad, container, false);
         myview = view;
         btn_checkout = view.findViewById(R.id.btn_checkout);
         btn_close = view.findViewById(R.id.close_button);
@@ -400,6 +403,40 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
+        // ContentView is the root view of the layout of this activity/fragment
+        view.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+
+                        Rect r = new Rect();
+                        view.getWindowVisibleDisplayFrame(r);
+                        int screenHeight = view.getRootView().getHeight();
+
+                        // r.bottom is the position above soft keypad or device button.
+                        // if keypad is shown, the r.bottom is smaller than that before.
+                        int keypadHeight = screenHeight - r.bottom;
+
+                        Log.d("order_debugKey_KeyHeig", "keypadHeight = " + keypadHeight);
+
+                        if (keypadHeight > screenHeight * 0.15) { // 0.15 ratio is perhaps enough to determine keypad height.
+                            // keyboard is opened
+                            if (!isKeyboardShowing) {
+                                isKeyboardShowing = true;
+                                onKeyboardVisibilityChanged(true);
+                            }
+                        } else {
+                            // keyboard is closed
+                            if (isKeyboardShowing) {
+                                isKeyboardShowing = false;
+                                onKeyboardVisibilityChanged(false);
+                            }
+                        }
+                    }
+                });
+
         return view;
 
     }
@@ -461,7 +498,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
         alertDialog.show();
     }
 
-//
+    //
 //    @Override
 //    public void onResume() {
 //        super.onResume();
@@ -520,6 +557,23 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
 //        });
 //
 //    }
+
+    private void onKeyboardVisibilityChanged(boolean opened) {
+        Log.i("order_debugKey_OpenClos", "keyboard " + opened);
+        if (!opened) {
+            spinner_container_main.setVisibility(View.VISIBLE);
+            TranslateAnimation animate1 = new TranslateAnimation(
+                    0,                 // fromXDelta
+                    0,                 // toXDelta
+                    -spinner_container_main.getHeight(),  // fromYDelta
+                    0);                // toYDelta
+            animate1.setDuration(250);
+            animate1.setFillAfter(true);
+            spinner_container_main.clearAnimation();
+            spinner_container_main.startAnimation(animate1);
+        }
+    }
+
 
     @Override
     public void onResume() {
