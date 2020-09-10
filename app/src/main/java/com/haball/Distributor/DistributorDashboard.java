@@ -150,6 +150,20 @@ public class DistributorDashboard extends AppCompatActivity {
 
         new MyAsyncTask().execute();
 
+        boolean Support = false;
+        boolean Retailer_Management_Retailers = false;
+        boolean Payments_Payment_Request = false;
+        boolean PaymentsLedger = false;
+        boolean Orders = false;
+        boolean Retailer_Payments  = false;
+        boolean KYB_View = false;
+        boolean Retailer_Order = false;
+        boolean Shipment = false;
+        boolean Invoices = false;
+        boolean Profile = false;
+        boolean Dashboard = false;
+
+
         toggle.syncState();
         navigationExpandableListView = findViewById(R.id.expandable_navigation);
         footer_item_1 = findViewById(R.id.footer_item_1);
