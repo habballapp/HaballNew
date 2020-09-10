@@ -85,6 +85,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -100,6 +101,8 @@ public class DistributorDashboard extends AppCompatActivity {
     private ImageButton notification_icon;
     private String URL_Notification = "http://175.107.203.97:4013/api/useralert/";
     private boolean doubleBackToExitPressedOnce = false;
+    private JSONArray userRights;
+    private List<String> NavList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +145,15 @@ public class DistributorDashboard extends AppCompatActivity {
         fragmentTransaction.add(R.id.main_container, new HomeFragment());
         fragmentTransaction.commit();
 
+
+        try {
+            userRights = new JSONArray(sharedPreferences.getString("UserRights", ""));
+            Log.i("userRights", String.valueOf(userRights));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -155,7 +167,7 @@ public class DistributorDashboard extends AppCompatActivity {
         boolean Payments_Payment_Request = false;
         boolean PaymentsLedger = false;
         boolean Orders = false;
-        boolean Retailer_Payments  = false;
+        boolean Retailer_Payments = false;
         boolean KYB_View = false;
         boolean Retailer_Order = false;
         boolean Shipment = false;
@@ -164,7 +176,85 @@ public class DistributorDashboard extends AppCompatActivity {
         boolean Dashboard = false;
 
 
+        for (int i = 0; i < userRights.length(); i++) {
+            try {
+                JSONObject userRightsData = new JSONObject(String.valueOf(userRights.get(i)));
+                if (userRightsData.get("RightId").equals("121")) {
+                    Support = true;
+                }
+                if (userRightsData.get("RightId").equals("133")) {
+                    Retailer_Management_Retailers = true;
+                }
+                if (userRightsData.get("RightId").equals("20")) {
+                    Payments_Payment_Request = true;
+                }
+                if (userRightsData.get("RightId").equals("21")) {
+                    PaymentsLedger = true;
+                }
+                if (userRightsData.get("RightId").equals("9")) {
+                    Orders = true;
+                }
+                if (userRightsData.get("RightId").equals("133")) {
+                    Retailer_Payments = true;
+                }
+                if (userRightsData.get("RightId").equals("14")) {
+                    KYB_View = true;
+                }
+                if (userRightsData.get("RightId").equals("130")) {
+                    Retailer_Order = true;
+                }
+                if (userRightsData.get("RightId").equals("7")) {
+                    Shipment = true;
+                }
+                if (userRightsData.get("RightId").equals("10")) {
+                    Invoices = true;
+                }
+                if (userRightsData.get("RightId").equals("13")) {
+                    Profile = true;
+                }
+                if (userRightsData.get("RightId").equals("67")) {
+                    Dashboard = true;
+                }
+
+//                Log.i("userRightsData", String.valueOf(userRights.get(i)));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+
         toggle.syncState();
+
+        if (Payments_Payment_Request || Orders || Dashboard)
+            NavList.add("Dashboard");
+        if (KYB_View)
+            NavList.add("My Network");
+        if (Orders)
+            NavList.add("Place Order");
+        if (Payments_Payment_Request || PaymentsLedger)
+            NavList.add("Payment");
+        if (Shipment)
+            NavList.add("Shipment");
+        if (Retailer_Management_Retailers || Retailer_Payments || Retailer_Order)
+            NavList.add("Retailer Management");
+        if (Profile)
+            NavList.add("Profile");
+        if (Support)
+            NavList.add("Support");
+//        if (Retailer_Management_Retailers)
+//            NavList.add("Retailer");
+//        if (Payments_Payment_Request)
+//            NavList.add("Make Payment");
+//        if (PaymentsLedger)
+//            NavList.add("Payment Ledger");
+//        if (Retailer_Payments)
+//            NavList.add("Retailer Payments");
+//        if (Retailer_Order)
+//            NavList.add("Order on Behalf");
+
+        NavList.add("Logout");
+
+
         navigationExpandableListView = findViewById(R.id.expandable_navigation);
         footer_item_1 = findViewById(R.id.footer_item_1);
         footer_item_1.setOnClickListener(new View.OnClickListener() {
@@ -184,32 +274,49 @@ public class DistributorDashboard extends AppCompatActivity {
 
             }
         });
-        navigationExpandableListView
-                .init(this)
-                .addHeaderModel(new HeaderModel("Dashboard"))
-                .addHeaderModel(new HeaderModel("My Network"))
-                .addHeaderModel(
-                        new HeaderModel("Place Order")
-                )
-                .addHeaderModel(
-                        new HeaderModel("Payment")
-//                                  .addChildModel(new ChildModel("\tPayments Summary"))
-                                //  .addChildModel(new ChildModel("\tConsolidate Payments"))
-                                .addChildModel(new ChildModel("\t\t\tMake Payment"))
-                                .addChildModel(new ChildModel("\t\t\tPayment Ledger"))
-                        // .addChildModel(new ChildModel("\tProof of Payments"))
+        navigationExpandableListView.init(this);
+        if (Payments_Payment_Request || Orders || Dashboard)
+            navigationExpandableListView.addHeaderModel(new HeaderModel("Dashboard"));
+        if (KYB_View)
+            navigationExpandableListView.addHeaderModel(new HeaderModel("My Network"));
+        if (Orders)
+            navigationExpandableListView.addHeaderModel(new HeaderModel("Place Order"));
+        if (Payments_Payment_Request || PaymentsLedger)
+            navigationExpandableListView.addHeaderModel(new HeaderModel("Payment"));
+        if (Shipment)
+            navigationExpandableListView.addHeaderModel(new HeaderModel("Shipment"));
+        if (Retailer_Management_Retailers || Retailer_Payments || Retailer_Order)
+            navigationExpandableListView.addHeaderModel(new HeaderModel("Retailer Management"));
+        if (Profile)
+            navigationExpandableListView.addHeaderModel(new HeaderModel("Profile"));
+        if (Support)
+            navigationExpandableListView.addHeaderModel(new HeaderModel("Support"));
+        navigationExpandableListView.addHeaderModel(new HeaderModel("Logout"));
 
-                )
-                .addHeaderModel(new HeaderModel("Shipment"))
-                .addHeaderModel(new HeaderModel("Retailer Management")
-                        .addChildModel(new ChildModel("\t\t\tRetailer"))
-                        .addChildModel(new ChildModel("\t\t\tOrder on Behalf"))
-                        .addChildModel(new ChildModel("\t\t\tRetailer Payments")))
-                .addHeaderModel(new HeaderModel("Profile"))
-                .addHeaderModel(new HeaderModel("Support"))
-                .addHeaderModel(new HeaderModel("Logout"))
+//                .addHeaderModel(new HeaderModel("Dashboard"))
+//                .addHeaderModel(new HeaderModel("My Network"))
+//                .addHeaderModel(
+//                        new HeaderModel("Place Order")
+//                )
+//                .addHeaderModel(
+//                        new HeaderModel("Payment")
+////                                  .addChildModel(new ChildModel("\tPayments Summary"))
+//                                //  .addChildModel(new ChildModel("\tConsolidate Payments"))
+//                                .addChildModel(new ChildModel("\t\t\tMake Payment"))
+//                                .addChildModel(new ChildModel("\t\t\tPayment Ledger"))
+//                        // .addChildModel(new ChildModel("\tProof of Payments"))
+//
+//                )
+//                .addHeaderModel(new HeaderModel("Shipment"))
+//                .addHeaderModel(new HeaderModel("Retailer Management")
+//                        .addChildModel(new ChildModel("\t\t\tRetailer"))
+//                        .addChildModel(new ChildModel("\t\t\tOrder on Behalf"))
+//                        .addChildModel(new ChildModel("\t\t\tRetailer Payments")))
+//                .addHeaderModel(new HeaderModel("Profile"))
+//                .addHeaderModel(new HeaderModel("Support"))
+//                .addHeaderModel(new HeaderModel("Logout"))
 //                .addHeaderModel(new HeaderModel("\n\n\n\nTerms And Conditions"))
-                .build()
+        navigationExpandableListView.build()
                 .addOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
                     @Override
                     public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
@@ -267,10 +374,10 @@ public class DistributorDashboard extends AppCompatActivity {
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 7) {
                             Log.i("Suppport", "Support Activity"); //DONE
-                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.add(R.id.main_container, new SupportFragment()).addToBackStack("tag");
-                            fragmentTransaction.commit();
-                            drawer.closeDrawer(GravityCompat.START);
+//                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//                            fragmentTransaction.add(R.id.main_container, new SupportFragment()).addToBackStack("tag");
+//                            fragmentTransaction.commit();
+//                            drawer.closeDrawer(GravityCompat.START);
                         } else if (id == 8) {
                             Log.i("Logout", "Logout Activity");
                             if (Token != null) {
