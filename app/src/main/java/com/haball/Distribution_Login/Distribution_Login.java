@@ -319,6 +319,7 @@ public class Distribution_Login extends AppCompatActivity {
                         editor.putString("Name", Name);
                         editor.putString("ID", ID);
                         editor.putString("IsTermAndConditionAccepted", IsTermAndConditionAccepted);
+                        editor.putString("UserRights", userRights);
 
                         SharedPreferences orderCheckout1 = getSharedPreferences("FromDraft",
                                 Context.MODE_PRIVATE);

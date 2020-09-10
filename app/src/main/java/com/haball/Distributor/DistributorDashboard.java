@@ -85,6 +85,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -100,6 +101,9 @@ public class DistributorDashboard extends AppCompatActivity {
     private ImageButton notification_icon;
     private String URL_Notification = "http://175.107.203.97:4013/api/useralert/";
     private boolean doubleBackToExitPressedOnce = false;
+    private String UserId;
+    private JSONArray userRights;
+    private List<String> NavList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +120,12 @@ public class DistributorDashboard extends AppCompatActivity {
         companyname = sharedPreferences.getString("CompanyName", "");
         Token = sharedPreferences.getString("Login_Token", "");
         ID = sharedPreferences.getString("ID", "");
+        try {
+            userRights = new JSONArray(sharedPreferences.getString("UserRights", ""));
+            Log.i("userRights", String.valueOf(userRights));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         tv_username = toolbar.findViewById(R.id.tv_username);
         tv_user_company = toolbar.findViewById(R.id.tv_user_company);
