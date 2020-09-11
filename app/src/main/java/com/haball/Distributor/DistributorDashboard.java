@@ -179,40 +179,41 @@ public class DistributorDashboard extends AppCompatActivity {
         for (int i = 0; i < userRights.length(); i++) {
             try {
                 JSONObject userRightsData = new JSONObject(String.valueOf(userRights.get(i)));
-                if (userRightsData.get("RightId").equals("121")) {
+                Log.i("userRights", String.valueOf(userRightsData.get("RightId")));
+                if (String.valueOf(userRightsData.get("RightId")).equals("121")) {
                     Support = true;
                 }
-                if (userRightsData.get("RightId").equals("133")) {
+                if (String.valueOf(userRightsData.get("RightId")).equals("133")) {
                     Retailer_Management_Retailers = true;
                 }
-                if (userRightsData.get("RightId").equals("20")) {
+                if (String.valueOf(userRightsData.get("RightId")).equals("20")) {
                     Payments_Payment_Request = true;
                 }
-                if (userRightsData.get("RightId").equals("21")) {
+                if (String.valueOf(userRightsData.get("RightId")).equals("21")) {
                     PaymentsLedger = true;
                 }
-                if (userRightsData.get("RightId").equals("9")) {
+                if (String.valueOf(userRightsData.get("RightId")).equals("9")) {
                     Orders = true;
                 }
-                if (userRightsData.get("RightId").equals("133")) {
+                if (String.valueOf(userRightsData.get("RightId")).equals("133")) {
                     Retailer_Payments = true;
                 }
-                if (userRightsData.get("RightId").equals("14")) {
+                if (String.valueOf(userRightsData.get("RightId")).equals("14")) {
                     KYB_View = true;
                 }
-                if (userRightsData.get("RightId").equals("130")) {
+                if (String.valueOf(userRightsData.get("RightId")).equals("130")) {
                     Retailer_Order = true;
                 }
-                if (userRightsData.get("RightId").equals("7")) {
+                if (String.valueOf(userRightsData.get("RightId")).equals("7")) {
                     Shipment = true;
                 }
-                if (userRightsData.get("RightId").equals("10")) {
+                if (String.valueOf(userRightsData.get("RightId")).equals("10")) {
                     Invoices = true;
                 }
-                if (userRightsData.get("RightId").equals("13")) {
+                if (String.valueOf(userRightsData.get("RightId")).equals("13")) {
                     Profile = true;
                 }
-                if (userRightsData.get("RightId").equals("67")) {
+                if (String.valueOf(userRightsData.get("RightId")).equals("67")) {
                     Dashboard = true;
                 }
 
@@ -281,71 +282,63 @@ public class DistributorDashboard extends AppCompatActivity {
             navigationExpandableListView.addHeaderModel(new HeaderModel("My Network"));
         if (Orders)
             navigationExpandableListView.addHeaderModel(new HeaderModel("Place Order"));
-        if (Payments_Payment_Request || PaymentsLedger)
-            navigationExpandableListView.addHeaderModel(new HeaderModel("Payment"));
+        if (Payments_Payment_Request || PaymentsLedger) {
+            HeaderModel headerModel = new HeaderModel("Payment");
+            if (Payments_Payment_Request)
+                headerModel.addChildModel(new ChildModel("\t\t\tMake Payment"));
+            if (PaymentsLedger)
+                headerModel.addChildModel(new ChildModel("\t\t\tPayment Ledger"));
+            navigationExpandableListView.addHeaderModel(headerModel);
+        }
         if (Shipment)
             navigationExpandableListView.addHeaderModel(new HeaderModel("Shipment"));
-        if (Retailer_Management_Retailers || Retailer_Payments || Retailer_Order)
-            navigationExpandableListView.addHeaderModel(new HeaderModel("Retailer Management"));
+        if (Retailer_Management_Retailers || Retailer_Payments || Retailer_Order) {
+            HeaderModel headerModel = new HeaderModel("Retailer Management");
+            if (Retailer_Management_Retailers)
+                headerModel.addChildModel(new ChildModel("\t\t\tRetailer"));
+            if (Retailer_Order)
+                headerModel.addChildModel(new ChildModel("\t\t\tOrder on Behalf"));
+            if (Retailer_Payments)
+                headerModel.addChildModel(new ChildModel("\t\t\tRetailer Payments"));
+            navigationExpandableListView.addHeaderModel(headerModel);
+        }
         if (Profile)
             navigationExpandableListView.addHeaderModel(new HeaderModel("Profile"));
         if (Support)
             navigationExpandableListView.addHeaderModel(new HeaderModel("Support"));
         navigationExpandableListView.addHeaderModel(new HeaderModel("Logout"));
 
-//                .addHeaderModel(new HeaderModel("Dashboard"))
-//                .addHeaderModel(new HeaderModel("My Network"))
-//                .addHeaderModel(
-//                        new HeaderModel("Place Order")
-//                )
-//                .addHeaderModel(
-//                        new HeaderModel("Payment")
-////                                  .addChildModel(new ChildModel("\tPayments Summary"))
-//                                //  .addChildModel(new ChildModel("\tConsolidate Payments"))
-//                                .addChildModel(new ChildModel("\t\t\tMake Payment"))
-//                                .addChildModel(new ChildModel("\t\t\tPayment Ledger"))
-//                        // .addChildModel(new ChildModel("\tProof of Payments"))
-//
-//                )
-//                .addHeaderModel(new HeaderModel("Shipment"))
-//                .addHeaderModel(new HeaderModel("Retailer Management")
-//                        .addChildModel(new ChildModel("\t\t\tRetailer"))
-//                        .addChildModel(new ChildModel("\t\t\tOrder on Behalf"))
-//                        .addChildModel(new ChildModel("\t\t\tRetailer Payments")))
-//                .addHeaderModel(new HeaderModel("Profile"))
-//                .addHeaderModel(new HeaderModel("Support"))
-//                .addHeaderModel(new HeaderModel("Logout"))
-//                .addHeaderModel(new HeaderModel("\n\n\n\nTerms And Conditions"))
+
         navigationExpandableListView.build()
                 .addOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
                     @Override
                     public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                         navigationExpandableListView.setSelected(groupPosition);
 
-                        if (id == 0) {
+                        if (NavList.contains("Dashboard") && NavList.indexOf("Dashboard") == id) {
                             Log.i("Dashboard", "Dashboard Activity"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.add(R.id.main_container, new HomeFragment());
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        } else if (id == 1) {
+                        } else if (NavList.contains("My Network") && NavList.indexOf("My Network") == id) {
                             Log.i("My Network", "My Network Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
 //                            fragmentTransaction.add(R.id.main_container_ret, new My_NetworkDashboard());
                             fragmentTransaction.add(R.id.main_container, new My_Network_Fragment()).addToBackStack("tag");
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        } else if (id == 2) {
+                        } else if (NavList.contains("Place Order") && NavList.indexOf("Place Order") == id) {
                             Log.i("Place Order", "Orders Activity");
                             getSupportFragmentManager().popBackStack("tag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.add(R.id.main_container, new Order_PlaceOrder()).addToBackStack("tag");
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        } else if (id == 3) {
+                        } else if (NavList.contains("Payment") && NavList.indexOf("Payment") == id) {
                             Log.i("Payments", "Payments Activity");//DONE
                             navigationView.setItemTextColor(ColorStateList.valueOf(Color.RED));
-                        } else if (id == 4) {
+                        } else if (NavList.contains("Shipment") && NavList.indexOf("Shipment") == id) {
                             Log.i("Shipment", "Shipment Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.add(R.id.main_container, new Shipments_Fragments()).addToBackStack("tag");
@@ -361,24 +354,24 @@ public class DistributorDashboard extends AppCompatActivity {
 //        jsonObject.put("AmountMin", null);
 //        jsonObject.put("AmountMax", null);
                             drawer.closeDrawer(GravityCompat.START);
-                        } else if (id == 5) {
+                        } else if (NavList.contains("Retailer Management") && NavList.indexOf("Retailer Management") == id) {
                             Log.i("Retailer", "Retailer Activity");
 
 
-                        } else if (id == 6) {
+                        } else if (NavList.contains("Profile") && NavList.indexOf("Profile") == id) {
                             Log.i("Profile", "Profile Activity");
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.add(R.id.main_container, new Distributor_Profile()).addToBackStack("tag");
                             ;
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        } else if (id == 7) {
+                        } else if (NavList.contains("Support") && NavList.indexOf("Support") == id) {
                             Log.i("Suppport", "Support Activity"); //DONE
 //                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
 //                            fragmentTransaction.add(R.id.main_container, new SupportFragment()).addToBackStack("tag");
 //                            fragmentTransaction.commit();
 //                            drawer.closeDrawer(GravityCompat.START);
-                        } else if (id == 8) {
+                        } else if (NavList.contains("Logout") && NavList.indexOf("Logout") == id) {
                             Log.i("Logout", "Logout Activity");
                             if (Token != null) {
                                 //                                Intent login = new Intent(DistributorDashboard.this, Distribution_Login.class);
