@@ -124,6 +124,8 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
     private Loader loader;
     private boolean byDefault = true;
     boolean isKeyboardShowing = false;
+    int width;
+    int height;
 
     public Retailer_OrderPlace_retailer_dashboarad() {
         // Required empty public constructor
@@ -139,6 +141,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_order_place_retailer_dashboarad, container, false);
         myview = view;
         myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
+        final RelativeLayout main_container = view.findViewById(R.id.main_container);
         btn_checkout = view.findViewById(R.id.btn_checkout);
         btn_close = view.findViewById(R.id.close_button);
         loader = new Loader(getContext());
@@ -462,6 +465,28 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
             e.printStackTrace();
         }
 
+        final ViewTreeObserver vto = main_container.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                    main_container.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                } else {
+                    main_container.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+                width = main_container.getMeasuredWidth();
+                height = main_container.getMeasuredHeight();
+
+                Log.i("heightOfLayout", String.valueOf(height));
+//                if (height < 1500) {
+//                    recyclerView.setPadding(0, 0, 0, 500);
+//                }
+
+                Log.i("debug_dim_height_debug", String.valueOf(height));
+                Log.i("debug_dim_width_debug", String.valueOf(width));
+
+            }
+        });
 
         // ContentView is the root view of the layout of this activity/fragment
         view.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -951,7 +976,6 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                         @UiThread
                         @Override
                         public void onParentExpanded(int parentPosition) {
-
                             if (lastExpandedPosition != -1
                                     && parentPosition != lastExpandedPosition) {
                                 adapter.collapseParent(lastExpandedPosition);
@@ -959,11 +983,18 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
 //                                adapter.OrderParentList.get(parentPosition).togglePlusMinusIcon();
                             }
                             lastExpandedPosition = parentPosition;
+                            if (height < 1500) {
+                                recyclerView.setPadding(0, 0, 0, 500);
+                            }
+
                         }
 
                         @UiThread
                         @Override
                         public void onParentCollapsed(int parentPosition) {
+                            if (height < 1500) {
+                                recyclerView.setPadding(0, 0, 0, 0);
+                            }
 //                            adapter.OrderParentList.get(parentPosition).togglePlusMinusIcon();
                         }
                     });
@@ -1158,11 +1189,17 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                                 adapter.collapseParent(lastExpandedPosition);
                             }
                             lastExpandedPosition = parentPosition;
+                            if (height < 1500) {
+                                recyclerView.setPadding(0, 0, 0, 500);
+                            }
                         }
 
                         @UiThread
                         @Override
                         public void onParentCollapsed(int parentPosition) {
+                            if (height < 1500) {
+                                recyclerView.setPadding(0, 0, 0, 0);
+                            }
                         }
                     });
 
@@ -1294,11 +1331,18 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
 //                            adapter.OrderParentList.get(lastExpandedPosition).togglePlusMinusIcon();
                             }
                             lastExpandedPosition = parentPosition;
+                            if (height < 1500) {
+                                recyclerView.setPadding(0, 0, 0, 500);
+                            }
+
                         }
 
                         @UiThread
                         @Override
                         public void onParentCollapsed(int parentPosition) {
+                            if (height < 1500) {
+                                recyclerView.setPadding(0, 0, 0, 0);
+                            }
                         }
                     });
                     //adapter.setParentClickableViewAnimationDefaultDuration();

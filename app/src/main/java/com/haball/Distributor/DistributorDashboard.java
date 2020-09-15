@@ -103,6 +103,8 @@ public class DistributorDashboard extends AppCompatActivity {
     private boolean doubleBackToExitPressedOnce = false;
     private JSONArray userRights;
     private List<String> NavList = new ArrayList<>();
+    private List<String> NavList_Payment = new ArrayList<>();
+    private List<String> NavList_Retailer = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,17 +176,54 @@ public class DistributorDashboard extends AppCompatActivity {
         boolean Invoices = false;
         boolean Profile = false;
         boolean Dashboard = false;
+        boolean Company_Preference = false;
+        boolean Order_Add_Update = false;
+        boolean Delivery_Notes_View = false;
+        boolean Invoice_View = false;
+        boolean Distributor_Profile = false;
+        boolean DashBoardView = false;
+        boolean Print_Delivery_Note = false;
+        boolean Print_Invoices_Detail = false;
+        boolean Order_View = false;
+        boolean PrepaidRequestAddUpdate = false;
+        boolean PrepaidRequestView = false;
+        boolean TransactionsView = false;
+        boolean PaymentTermView = false;
+        boolean RetailerOrder = false;
+        boolean RetailerOrderView = false;
+        boolean RetailerOrderAdd_Update = false;
+        boolean Retailer = false;
+        boolean Retailer_View = false;
+        boolean Support_Resolve = false;
 
 
         for (int i = 0; i < userRights.length(); i++) {
             try {
                 JSONObject userRightsData = new JSONObject(String.valueOf(userRights.get(i)));
                 Log.i("userRights", String.valueOf(userRightsData.get("RightId")));
-                if (String.valueOf(userRightsData.get("RightId")).equals("121")) {
-                    Support = true;
+                if (String.valueOf(userRightsData.get("RightId")).equals("2")) {
+                    Company_Preference = true;
                 }
-                if (String.valueOf(userRightsData.get("RightId")).equals("133")) {
-                    Retailer_Management_Retailers = true;
+                if (String.valueOf(userRightsData.get("RightId")).equals("6")) {
+                    Order_Add_Update = true;
+                }
+                if (String.valueOf(userRightsData.get("RightId")).equals("7")) {
+                    Shipment = true;
+                    Delivery_Notes_View = true;
+                }
+                if (String.valueOf(userRightsData.get("RightId")).equals("9")) {
+                    Orders = true;
+                }
+                if (String.valueOf(userRightsData.get("RightId")).equals("10")) {
+                    Invoices = true;
+                    Invoice_View = true;
+                }
+                if (String.valueOf(userRightsData.get("RightId")).equals("13")) {
+                    Profile = true;
+                    Distributor_Profile = true;
+                }
+                if (String.valueOf(userRightsData.get("RightId")).equals("14")) {
+                    KYB_View = true;
                 }
                 if (String.valueOf(userRightsData.get("RightId")).equals("20")) {
                     Payments_Payment_Request = true;
@@ -192,29 +231,55 @@ public class DistributorDashboard extends AppCompatActivity {
                 if (String.valueOf(userRightsData.get("RightId")).equals("21")) {
                     PaymentsLedger = true;
                 }
-                if (String.valueOf(userRightsData.get("RightId")).equals("9")) {
-                    Orders = true;
+                if (String.valueOf(userRightsData.get("RightId")).equals("67")) {
+                    Dashboard = true;
+                    DashBoardView = true;
                 }
-                if (String.valueOf(userRightsData.get("RightId")).equals("133")) {
-                    Retailer_Payments = true;
+                if (String.valueOf(userRightsData.get("RightId")).equals("75")) {
+                    Print_Delivery_Note = true;
                 }
-                if (String.valueOf(userRightsData.get("RightId")).equals("14")) {
-                    KYB_View = true;
+                if (String.valueOf(userRightsData.get("RightId")).equals("80")) {
+                    Print_Invoices_Detail = true;
+                }
+                if (String.valueOf(userRightsData.get("RightId")).equals("82")) {
+                    Order_View = true;
+                }
+                if (String.valueOf(userRightsData.get("RightId")).equals("90")) {
+                    PrepaidRequestAddUpdate = true;
+                }
+                if (String.valueOf(userRightsData.get("RightId")).equals("98")) {
+                    PrepaidRequestView = true;
+                }
+                if (String.valueOf(userRightsData.get("RightId")).equals("99")) {
+                    TransactionsView = true;
+                }
+                if (String.valueOf(userRightsData.get("RightId")).equals("101")) {
+                    PaymentTermView = true;
+                }
+                if (String.valueOf(userRightsData.get("RightId")).equals("121")) {
+                    Support = true;
                 }
                 if (String.valueOf(userRightsData.get("RightId")).equals("130")) {
                     Retailer_Order = true;
                 }
-                if (String.valueOf(userRightsData.get("RightId")).equals("7")) {
-                    Shipment = true;
+                if (String.valueOf(userRightsData.get("RightId")).equals("131")) {
+                    RetailerOrderView = true;
                 }
-                if (String.valueOf(userRightsData.get("RightId")).equals("10")) {
-                    Invoices = true;
+                if (String.valueOf(userRightsData.get("RightId")).equals("132")) {
+                    RetailerOrderAdd_Update = true;
                 }
-                if (String.valueOf(userRightsData.get("RightId")).equals("13")) {
-                    Profile = true;
+                if (String.valueOf(userRightsData.get("RightId")).equals("133")) {
+                    Retailer_Management_Retailers = true;
+                    Retailer_Payments = true;
                 }
-                if (String.valueOf(userRightsData.get("RightId")).equals("67")) {
-                    Dashboard = true;
+                if (String.valueOf(userRightsData.get("RightId")).equals("140")) {
+                    Retailer = true;
+                }
+                if (String.valueOf(userRightsData.get("RightId")).equals("141")) {
+                    Retailer_View = true;
+                }
+                if (String.valueOf(userRightsData.get("RightId")).equals("143")) {
+                    Support_Resolve = true;
                 }
 
 //                Log.i("userRightsData", String.valueOf(userRights.get(i)));
@@ -222,6 +287,43 @@ public class DistributorDashboard extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+
+
+        SharedPreferences retailerInfo = getSharedPreferences("Distributor_UserRights",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor retailerInfo_editor = retailerInfo.edit();
+        retailerInfo_editor.putString("Support", String.valueOf(Support));
+        retailerInfo_editor.putString("Retailer_Management_Retailers", String.valueOf(Retailer_Management_Retailers));
+        retailerInfo_editor.putString("Payments_Payment_Request", String.valueOf(Payments_Payment_Request));
+        retailerInfo_editor.putString("PaymentsLedger", String.valueOf(PaymentsLedger));
+        retailerInfo_editor.putString("Orders", String.valueOf(Orders));
+        retailerInfo_editor.putString("Retailer_Payments", String.valueOf(Retailer_Payments));
+        retailerInfo_editor.putString("KYB_View", String.valueOf(KYB_View));
+        retailerInfo_editor.putString("Retailer_Order", String.valueOf(Retailer_Order));
+        retailerInfo_editor.putString("Shipment", String.valueOf(Shipment));
+        retailerInfo_editor.putString("Invoices", String.valueOf(Invoices));
+        retailerInfo_editor.putString("Profile", String.valueOf(Profile));
+        retailerInfo_editor.putString("Dashboard", String.valueOf(Dashboard));
+        retailerInfo_editor.putString("Company_Preference", String.valueOf(Company_Preference));
+        retailerInfo_editor.putString("Order_Add_Update", String.valueOf(Order_Add_Update));
+        retailerInfo_editor.putString("Delivery_Notes_View", String.valueOf(Delivery_Notes_View));
+        retailerInfo_editor.putString("Invoice_View", String.valueOf(Invoice_View));
+        retailerInfo_editor.putString("Distributor_Profile", String.valueOf(Distributor_Profile));
+        retailerInfo_editor.putString("DashBoardView", String.valueOf(DashBoardView));
+        retailerInfo_editor.putString("Print_Delivery_Note", String.valueOf(Print_Delivery_Note));
+        retailerInfo_editor.putString("Print_Invoices_Detail", String.valueOf(Print_Invoices_Detail));
+        retailerInfo_editor.putString("Order_View", String.valueOf(Order_View));
+        retailerInfo_editor.putString("PrepaidRequestAddUpdate", String.valueOf(PrepaidRequestAddUpdate));
+        retailerInfo_editor.putString("PrepaidRequestView", String.valueOf(PrepaidRequestView));
+        retailerInfo_editor.putString("TransactionsView", String.valueOf(TransactionsView));
+        retailerInfo_editor.putString("PaymentTermView", String.valueOf(PaymentTermView));
+        retailerInfo_editor.putString("RetailerOrder", String.valueOf(RetailerOrder));
+        retailerInfo_editor.putString("RetailerOrderView", String.valueOf(RetailerOrderView));
+        retailerInfo_editor.putString("RetailerOrderAdd_Update", String.valueOf(RetailerOrderAdd_Update));
+        retailerInfo_editor.putString("Retailer", String.valueOf(Retailer));
+        retailerInfo_editor.putString("Retailer_View", String.valueOf(Retailer_View));
+        retailerInfo_editor.putString("Support_Resolve", String.valueOf(Support_Resolve));
+        retailerInfo_editor.apply();
 
 
         toggle.syncState();
@@ -232,12 +334,24 @@ public class DistributorDashboard extends AppCompatActivity {
             NavList.add("My Network");
         if (Orders)
             NavList.add("Place Order");
-        if (Payments_Payment_Request || PaymentsLedger)
+        if (Payments_Payment_Request || PaymentsLedger) {
             NavList.add("Payment");
+            if (Payments_Payment_Request)
+                NavList_Payment.add("Payments_Payment_Request");
+            if (PaymentsLedger)
+                NavList_Payment.add("PaymentsLedger");
+        }
         if (Shipment)
             NavList.add("Shipment");
-        if (Retailer_Management_Retailers || Retailer_Payments || Retailer_Order)
+        if (Retailer_Management_Retailers || Retailer_Payments || Retailer_Order) {
             NavList.add("Retailer Management");
+            if (Retailer_Management_Retailers)
+                NavList_Retailer.add("Retailer_Management_Retailers");
+            if (Retailer_Payments)
+                NavList_Retailer.add("Retailer_Payments");
+            if (Retailer_Order)
+                NavList_Retailer.add("Retailer_Order");
+        }
         if (Profile)
             NavList.add("Profile");
         if (Support)
@@ -367,10 +481,10 @@ public class DistributorDashboard extends AppCompatActivity {
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (NavList.contains("Support") && NavList.indexOf("Support") == id) {
                             Log.i("Suppport", "Support Activity"); //DONE
-//                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                            fragmentTransaction.add(R.id.main_container, new SupportFragment()).addToBackStack("tag");
-//                            fragmentTransaction.commit();
-//                            drawer.closeDrawer(GravityCompat.START);
+                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.add(R.id.main_container, new SupportFragment()).addToBackStack("tag");
+                            fragmentTransaction.commit();
+                            drawer.closeDrawer(GravityCompat.START);
                         } else if (NavList.contains("Logout") && NavList.indexOf("Logout") == id) {
                             Log.i("Logout", "Logout Activity");
                             if (Token != null) {
@@ -438,53 +552,58 @@ public class DistributorDashboard extends AppCompatActivity {
                     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                         navigationExpandableListView.setSelected(groupPosition, childPosition);
 
-//
-//                        if (groupPosition == 2 && childPosition == 0) {
-//                            Log.i("Consolidate Payments", "Child");//DONE
-//                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                            fragmentTransaction.add(R.id.main_container, new ConsolidatedPaymentsFragment()).addToBackStack("tag");
-//                            ;
-//                            fragmentTransaction.commit();
-//                            drawer.closeDrawer(GravityCompat.START);
-//                        }
-                        if (groupPosition == 3 && childPosition == 0) {
+////
+////                        if (groupPosition == 2 && childPosition == 0) {
+////                            Log.i("Consolidate Payments", "Child");//DONE
+////                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+////                            fragmentTransaction.add(R.id.main_container, new ConsolidatedPaymentsFragment()).addToBackStack("tag");
+////                            ;
+////                            fragmentTransaction.commit();
+////                            drawer.closeDrawer(GravityCompat.START);
+////                        }
+//                        if (groupPosition == 3 && childPosition == 0) {
+                        if (NavList.contains("Payment") && NavList.indexOf("Payment") == groupPosition && NavList_Payment.contains("Payments_Payment_Request") && NavList_Payment.indexOf("Payments_Payment_Request") == childPosition) {
                             Log.i("Make Payment", "Child");//DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.add(R.id.main_container, new CreatePaymentRequestFragment()).addToBackStack(null);
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        } else if (groupPosition == 3 && childPosition == 1) {
+//                        } else if (groupPosition == 3 && childPosition == 1) {
+                        } else if (NavList.contains("Payment") && NavList.indexOf("Payment") == groupPosition && NavList_Payment.contains("PaymentsLedger") && NavList_Payment.indexOf("PaymentsLedger") == childPosition) {
                             Log.i("Payment Ledger", "Child"); //DONE
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.add(R.id.main_container, new Payments_Fragment()).addToBackStack("tag");
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        }
-//                        else if (groupPosition == 2 && childPosition == 3) {
-//                            Log.i("Proof of Payments", "Child"); //DONE
-//                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                            fragmentTransaction.add(R.id.main_container, new ProofOfPaymentsDashboardFragment()).addToBackStack("tag");
-//                            fragmentTransaction.commit();
-//                            drawer.closeDrawer(GravityCompat.START);
-//                        }
-                        else if (groupPosition == 2 && childPosition == 0) {
-                            Log.i("Place order", "Child"); //DONE
-                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.add(R.id.main_container, new Order_PlaceOrder()).addToBackStack("tag");
-                            fragmentTransaction.commit();
-                            drawer.closeDrawer(GravityCompat.START);
-                        } else if (groupPosition == 5 && childPosition == 0) {
+////                        }
+//////                        else if (groupPosition == 2 && childPosition == 3) {
+//////                            Log.i("Proof of Payments", "Child"); //DONE
+//////                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//////                            fragmentTransaction.add(R.id.main_container, new ProofOfPaymentsDashboardFragment()).addToBackStack("tag");
+//////                            fragmentTransaction.commit();
+//////                            drawer.closeDrawer(GravityCompat.START);
+//////                        }
+////                        else if (groupPosition == 2 && childPosition == 0) {
+////                            Log.i("Place order", "Child"); //DONE
+////                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+////                            fragmentTransaction.add(R.id.main_container, new Order_PlaceOrder()).addToBackStack("tag");
+////                            fragmentTransaction.commit();
+////                            drawer.closeDrawer(GravityCompat.START);
+//                        } else if (groupPosition == 5 && childPosition == 0) {
 //                            Toast.makeText(DistributorDashboard.this, "retialer Managment", Toast.LENGTH_SHORT).show();
+                        } else if (NavList.contains("Retailer Management") && NavList.indexOf("Retailer Management") == groupPosition && NavList_Retailer.contains("Retailer_Management_Retailers") && NavList_Retailer.indexOf("Retailer_Management_Retailers") == childPosition) {
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.add(R.id.main_container, new RetailerFragment()).addToBackStack("tag");
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        } else if (groupPosition == 5 && childPosition == 1) {
+//                        } else if (groupPosition == 5 && childPosition == 1) {
+                        } else if (NavList.contains("Retailer Management") && NavList.indexOf("Retailer Management") == groupPosition && NavList_Retailer.contains("Retailer_Payments") && NavList_Retailer.indexOf("Retailer_Payments") == childPosition) {
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.add(R.id.main_container, new RetailerOrderDashboard()).addToBackStack("tag");
                             fragmentTransaction.commit();
                             drawer.closeDrawer(GravityCompat.START);
-                        } else if (groupPosition == 5 && childPosition == 2) {
+//                        } else if (groupPosition == 5 && childPosition == 2) {
+                        } else if (NavList.contains("Retailer Management") && NavList.indexOf("Retailer Management") == groupPosition && NavList_Retailer.contains("Retailer_Order") && NavList_Retailer.indexOf("Retailer_Order") == childPosition) {
 //                            Toast.makeText(DistributorDashboard.this, "Retailer Payment", Toast.LENGTH_SHORT).show();
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.add(R.id.main_container, new RetailerPaymentDashboard()).addToBackStack("tag");

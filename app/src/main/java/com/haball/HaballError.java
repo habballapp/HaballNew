@@ -39,26 +39,26 @@ public class HaballError {
         error.printStackTrace();
         if (context != null) {
 //            printAdvancedErrorInfo(context, error);
-            if (error instanceof ClientError) {
-                Log.i("Logout", "Logout Activity");
-                SharedPreferences login_token = context.getSharedPreferences("LoginToken",
-                        Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = login_token.edit();
-                editor.remove("Login_Token");
-                editor.remove("User_Type");
-                editor.remove("Retailer_Id");
-                editor.remove("username");
-                editor.remove("CompanyName");
-                editor.remove("UserId");
-                editor.commit();
-
-                Intent intent = new Intent((FragmentActivity) context, Register_Activity.class);
-                ((FragmentActivity) context).startActivity(intent);
-                ((FragmentActivity) context).finish();
-                new CustomToast().showToast((FragmentActivity) context, "Session has been expired");
-            } else {
-                if (error != null && error.networkResponse != null)
-                    if (error.networkResponse.statusCode == 498) {
+//            if (error instanceof ClientError) {
+//                Log.i("Logout", "Logout Activity");
+////                SharedPreferences login_token = context.getSharedPreferences("LoginToken",
+////                        Context.MODE_PRIVATE);
+////                SharedPreferences.Editor editor = login_token.edit();
+////                editor.remove("Login_Token");
+////                editor.remove("User_Type");
+////                editor.remove("Retailer_Id");
+////                editor.remove("username");
+////                editor.remove("CompanyName");
+////                editor.remove("UserId");
+////                editor.commit();
+//
+////                Intent intent = new Intent((FragmentActivity) context, Register_Activity.class);
+////                ((FragmentActivity) context).startActivity(intent);
+////                ((FragmentActivity) context).finish();
+////                new CustomToast().showToast((FragmentActivity) context, "Session has been expired");
+//            } else {
+            if (error != null && error.networkResponse != null)
+                if (error.networkResponse.statusCode == 498) {
 //                    String message = "";
 //                    String responseBody = "";
 //                    try {
@@ -69,29 +69,30 @@ public class HaballError {
 //                    try {
 //                        JSONObject data = new JSONObject(responseBody);
 //                        if (data.getString("name").equals("TokenExpiredError")) {
-                        Log.i("Logout", "Logout Activity");
-                        SharedPreferences login_token = context.getSharedPreferences("LoginToken",
-                                Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = login_token.edit();
-                        editor.remove("Login_Token");
-                        editor.remove("User_Type");
-                        editor.remove("Retailer_Id");
-                        editor.remove("username");
-                        editor.remove("CompanyName");
-                        editor.remove("UserId");
-                        editor.commit();
+                    Log.i("Logout", "Logout Activity");
+                    SharedPreferences login_token = context.getSharedPreferences("LoginToken",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = login_token.edit();
+                    editor.remove("Login_Token");
+                    editor.remove("User_Type");
+                    editor.remove("Retailer_Id");
+                    editor.remove("username");
+                    editor.remove("CompanyName");
+                    editor.remove("UserId");
+                    editor.commit();
 
-                        Intent intent = new Intent((FragmentActivity) context, Register_Activity.class);
-                        ((FragmentActivity) context).startActivity(intent);
-                        ((FragmentActivity) context).finish();
-                        new CustomToast().showToast((FragmentActivity) context, "Session has been expired");
+                    Intent intent = new Intent((FragmentActivity) context, Register_Activity.class);
+                    ((FragmentActivity) context).startActivity(intent);
+                    ((FragmentActivity) context).finish();
+                    new CustomToast().showToast((FragmentActivity) context, "Session has been expired");
 //                        }
 //                    } catch (JSONException e) {
 //                        e.printStackTrace();
 //                    }
-                    }
-                Toast.makeText(context, String.valueOf(error), Toast.LENGTH_LONG).show();
-            }
+                } else {
+                    Toast.makeText(context, String.valueOf(error), Toast.LENGTH_LONG).show();
+                }
+//            }
         }
 //         if (context != null) {
 //             if (error instanceof NetworkError) {

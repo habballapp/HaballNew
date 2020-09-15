@@ -85,13 +85,13 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
         ss1 = new SpannableString("Rs.\u00A0" + yourFormattedString1);
         ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
         holder.product_code.append(ss1);
-        if (OrdersList.get(position).getUOMTitle() != null && !OrdersList.get(position).getUOMTitle().equals("null")) {
+        if (OrdersList.get(position).getUnitOFMeasure() != null && !OrdersList.get(position).getUnitOFMeasure().equals("null")) {
             holder.product_code.append("            ");
             holder.product_code.append("            ");
 
             holder.product_code.append("UOM:\u00A0");
 
-            ss1 = new SpannableString(OrdersList.get(position).getUOMTitle());
+            ss1 = new SpannableString(OrdersList.get(position).getUnitOFMeasure());
             ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
 
             holder.product_code.append(ss1);
