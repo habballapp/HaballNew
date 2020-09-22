@@ -2013,7 +2013,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 map.put(Filter_selected2, toAmount);
         } else {
             if (Filter_selected.equals("PrePaidNumber"))
-                map.put(Filter_selected, Integer.parseInt(Filter_selected_value));
+                map.put(Filter_selected, Double.parseDouble(Filter_selected_value));
             else
                 map.put(Filter_selected, Filter_selected_value);
         }
