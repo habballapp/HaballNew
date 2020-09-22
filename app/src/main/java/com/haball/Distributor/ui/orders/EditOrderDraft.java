@@ -50,7 +50,7 @@ import java.util.List;
 import java.util.Map;
 
 public class EditOrderDraft {
-    public String URL_EDIT_ORDER_DRAFT = "http://175.107.203.97:4013/api/Orders/";
+    public String URL_EDIT_ORDER_DRAFT = "https://175.107.203.97:4013/api/Orders/";
     public String DistributorId, Token;
     public Context mContext;
 
@@ -59,7 +59,7 @@ public class EditOrderDraft {
     private List<String> selectedProductsQuantityList = new ArrayList<>();
     private float grossAmount = 0;
     private FragmentTransaction fragmentTransaction;
-    private String URL_PRODUCT_CATEGORY = "http://175.107.203.97:4013/api/products/ReadCategories/0/";
+    private String URL_PRODUCT_CATEGORY = "https://175.107.203.97:4013/api/products/ReadCategories/0/";
     private HashMap<String, String> Categories = new HashMap<>();
     private List<OrderParentlist_Model_DistOrder> totalCategoryTitle = new ArrayList<>();
     private HashMap<String, String> Sub_Categories = new HashMap<>();
@@ -129,7 +129,8 @@ public class EditOrderDraft {
             URL_EDIT_ORDER_DRAFT = URL_EDIT_ORDER_DRAFT + orderId;
 
 //        final Context finalcontext = context;
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_EDIT_ORDER_DRAFT, null, new Response.Listener<JSONObject>() {
             @Override
@@ -157,7 +158,7 @@ public class EditOrderDraft {
                 return params;
             }
         };
-        RequestQueue mRequestQueue = Volley.newRequestQueue(context, new HurlStack());
+        RequestQueue mRequestQueue = Volley.newRequestQueue(context, hurlStack);
         mRequestQueue.add(request);
 
 

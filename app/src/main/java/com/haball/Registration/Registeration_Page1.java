@@ -317,7 +317,7 @@ public class Registeration_Page1 extends AppCompatActivity implements View.OnFoc
             txt_email.setError("Email (format: johnsmith@Example.com)\n");
         } else {
             txt_email.setError(null);
-            String URL = "http://175.107.203.97:4013/api/users/CheckField";
+            String URL = "https://175.107.203.97:4013/api/users/CheckField";
 
             JSONObject map = new JSONObject();
             map.put("CName", "EmailAddress");
@@ -354,7 +354,7 @@ public class Registeration_Page1 extends AppCompatActivity implements View.OnFoc
         } else {
             txt_mobile_number.setError(null);
 
-            String URL = "http://175.107.203.97:4013/api/users/CheckField";
+            String URL = "https://175.107.203.97:4013/api/users/CheckField";
 
             JSONObject map = new JSONObject();
             map.put("CName", "Mobile");
@@ -390,7 +390,7 @@ public class Registeration_Page1 extends AppCompatActivity implements View.OnFoc
         } else {
             txt_phone_number.setError(null);
 
-            String URL = "http://175.107.203.97:4013/api/users/CheckField";
+            String URL = "https://175.107.203.97:4013/api/users/CheckField";
 
             JSONObject map = new JSONObject();
             map.put("CName", "Phone");
@@ -425,7 +425,7 @@ public class Registeration_Page1 extends AppCompatActivity implements View.OnFoc
             txt_cnic.setError("This field is required");
         } else {
             txt_cnic.setError(null);
-            String URL = "http://175.107.203.97:4013/api/users/CheckField";
+            String URL = "https://175.107.203.97:4013/api/users/CheckField";
 
             JSONObject map = new JSONObject();
             map.put("CName", "CNIC");
@@ -461,7 +461,7 @@ public class Registeration_Page1 extends AppCompatActivity implements View.OnFoc
         } else {
             txt_ntn.setError(null);
 
-            String URL = "http://175.107.203.97:4013/api/users/CheckField";
+            String URL = "https://175.107.203.97:4013/api/users/CheckField";
 
             JSONObject map = new JSONObject();
             map.put("CName", "CompanyNTN");

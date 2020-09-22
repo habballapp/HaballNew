@@ -57,10 +57,10 @@ public class Registration_page2 extends AppCompatActivity {
     private ImageButton btn_back;
     private String username, password, confirmpassword, firstname, lastname, email, cnic, mobile_number, phone_number, ntn, conpany_name, website;
     private EditText Address, postal_shipping, Address02, postal_billing;
-    private String URL_SPINNERS_COUNTRY = "http://175.107.203.97:4013/api/country";
-    private String URL_SPINNERS_PROVINCE = "http://175.107.203.97:4013/api/state/ReadByCountry/1";
-    private String URL_SPINNERS_CITY = "http://175.107.203.97:4013/api/city/ReadByState/1";
-    private String URL = "http://175.107.203.97:4013/api/distributor/Register";
+    private String URL_SPINNERS_COUNTRY = "https://175.107.203.97:4013/api/country";
+    private String URL_SPINNERS_PROVINCE = "https://175.107.203.97:4013/api/state/ReadByCountry/1";
+    private String URL_SPINNERS_CITY = "https://175.107.203.97:4013/api/city/ReadByState/1";
+    private String URL = "https://175.107.203.97:4013/api/distributor/Register";
 
     private CheckBox check_box;
     private Boolean check_value = false;

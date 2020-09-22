@@ -88,8 +88,8 @@ public class ProofOfPaymentsDashboardFragment extends Fragment implements DatePi
 
     private Button btn_create_proof_of_payment;
     private String Token;
-    private String URL_PROOF_OF_PAYMENTS = "http://175.107.203.97:4013/api/proofofpayment/search";
-    private String URL_PROOF_OF_PAYMENTS_COUNT = "http://175.107.203.97:4013/api/proofofpayment/searchCount";
+    private String URL_PROOF_OF_PAYMENTS = "https://175.107.203.97:4013/api/proofofpayment/search";
+    private String URL_PROOF_OF_PAYMENTS_COUNT = "https://175.107.203.97:4013/api/proofofpayment/searchCount";
     private ArrayAdapter<String> arrayAdapterPayments;
     private List<ProofOfPaymentModel> proofOfPaymentsList = new ArrayList<>();
 

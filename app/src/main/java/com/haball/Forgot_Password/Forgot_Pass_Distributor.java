@@ -66,7 +66,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Forgot_Pass_Distributor extends AppCompatActivity {
     //private ImageButton btn_back;
     private Button btn_reset, btn_lgn;
-    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4013/api/Users/forgot";
+    private String URL_FORGOT_PASSWORD = "https://175.107.203.97:4013/api/Users/forgot";
     // ProgressDialog progressDialog;
     private TextInputLayout layout_email_phone;
     private TextInputEditText txt_email;

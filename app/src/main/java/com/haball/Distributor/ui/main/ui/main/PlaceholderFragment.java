@@ -47,6 +47,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -88,7 +89,7 @@ public class PlaceholderFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     private String orderID, orderStatus;
-    private String URL_Order_Data = "http://175.107.203.97:4013/api/Orders/";
+    private String URL_Order_Data = "https://175.107.203.97:4013/api/Orders/";
     private PageViewModel pageViewModel;
     private TextInputEditText txt_companyName, txt_paymentID, txt_created_date, txt_transaction_date, txt_bank, txt_authorization_id, txt_settlement_id, txt_status, txt_amount, txt_transaction_charges, txt_total_amount;
     private RecyclerView rv_fragment_retailer_order_details;
@@ -128,7 +129,7 @@ public class PlaceholderFragment extends Fragment {
     private RelativeLayout rl_jazz_cash;
     private String InvoiceStatus, invoiceID;
     private TextView discount, Rs_discount;
-    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4013/api/company/ReadActiveCompanyContract/";
+    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "https://175.107.203.97:4013/api/company/ReadActiveCompanyContract/";
 
 
     public static PlaceholderFragment newInstance(int index) {
@@ -561,7 +562,8 @@ public class PlaceholderFragment extends Fragment {
         Token = sharedPreferences.getString("Login_Token", "");
 
         Log.i("Token", Token);
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PAYMENT_REQUESTS_SELECT_COMPANY, null, new Response.Listener<JSONArray>() {
             @Override
@@ -623,7 +625,7 @@ public class PlaceholderFragment extends Fragment {
 
             }
         });
-        Volley.newRequestQueue(getContext()).add(sr);
+        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
     }
 
     @Override
@@ -1013,7 +1015,8 @@ public class PlaceholderFragment extends Fragment {
 //        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
 //        Log.i("DistributorId invoice", DistributorId);
         Log.i("Token invoice12", Token);
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Order_Data, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
@@ -1056,7 +1059,7 @@ public class PlaceholderFragment extends Fragment {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext()).add(stringRequest);
+        Volley.newRequestQueue(getContext(), hurlStack).add(stringRequest);
 
     }
 

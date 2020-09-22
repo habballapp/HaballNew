@@ -88,7 +88,7 @@ import java.util.Map;
  */
 public class PlaceholderFragment extends Fragment {
     // invoice data
-    private String INVOICE_URL = "http://175.107.203.97:4013/api/deliverynotes/";
+    private String INVOICE_URL = "https://175.107.203.97:4013/api/deliverynotes/";
     private String Token;
     private String DistributorId;
     private String shipmentID;
@@ -394,7 +394,7 @@ public class PlaceholderFragment extends Fragment {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
-        String RECEIVE_SHIPMENT_URL = "http://175.107.203.97:4013/api/deliverynotes/MarkReceived/" + shipmentID;
+        String RECEIVE_SHIPMENT_URL = "https://175.107.203.97:4013/api/deliverynotes/MarkReceived/" + shipmentID;
 
         JsonObjectRequest obj = new JsonObjectRequest(Request.Method.GET, RECEIVE_SHIPMENT_URL, null, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)

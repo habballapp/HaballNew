@@ -40,7 +40,7 @@ package com.haball.Distributor.ui.orders;
         import java.util.Map;
 
 public class DeleteOrderDraft {
-    public String URL_DELETE_ORDER_DRAFT = "http://175.107.203.97:4013/api/orders/deletedraft/";
+    public String URL_DELETE_ORDER_DRAFT = "https://175.107.203.97:4013/api/orders/deletedraft/";
     public String DistributorId, Token;
     public Context mContext;
     private FragmentTransaction fragmentTransaction;

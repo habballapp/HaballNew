@@ -13,6 +13,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.DistributorOrdersAdapter;
 import com.haball.Distributor.DistributorOrdersModel;
@@ -51,12 +52,12 @@ import java.util.Map;
  */
 public class PlaceholderFragment extends Fragment {
 
-    private RecyclerView rv_network,rv_sent,rv_receive;
-    private RecyclerView.Adapter networkAdapter,sentadapter,recieveAdapter;
+    private RecyclerView rv_network, rv_sent, rv_receive;
+    private RecyclerView.Adapter networkAdapter, sentadapter, recieveAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private String Token, DistributorId;
     //network Api
-    private String MYNETWORK_URL = " http://175.107.203.97:4014/api/kyc/Search";
+    private String MYNETWORK_URL = " https://retailer.haball.pk/api/kyc/Search";
     private int pageNumbernetwork = 0;
     private double totalPagesnetwork = 0;
     private double totalEntriesnetwork = 0;
@@ -134,7 +135,7 @@ public class PlaceholderFragment extends Fragment {
 
             case 3: {
                 rootView = inflater.inflate(R.layout.fragment_recieved_, container, false);
-                 rv_receive = (RecyclerView) rootView.findViewById(R.id.rv_my_network_recieved);
+                rv_receive = (RecyclerView) rootView.findViewById(R.id.rv_my_network_recieved);
                 rv_receive.setHasFixedSize(false);
                 layoutManager = new LinearLayoutManager(getContext());
                 rv_receive.setLayoutManager(layoutManager);
@@ -159,7 +160,8 @@ public class PlaceholderFragment extends Fragment {
         JSONObject map = new JSONObject();
         map.put("TotalRecords", 10);
         map.put("PageNumber", pageNumbernetwork);
-            new SSL_HandShake().handleSSLHandshake();
+//            new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, MYNETWORK_URL, map, new Response.Listener<JSONArray>() {
             @Override
@@ -192,7 +194,7 @@ public class PlaceholderFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 //   new HaballError().printErrorMessage(error);
- new HaballError().printErrorMessage(getContext(), error);
+                new HaballError().printErrorMessage(getContext(), error);
                 new ProcessingError().showError(getContext());
                 error.printStackTrace();
             }
@@ -209,12 +211,12 @@ public class PlaceholderFragment extends Fragment {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext()).add(sr);
+        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
 
 
     }
 
-    private void mySentData() throws JSONException{
+    private void mySentData() throws JSONException {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -223,7 +225,8 @@ public class PlaceholderFragment extends Fragment {
         JSONObject map = new JSONObject();
         map.put("TotalRecords", 10);
         map.put("PageNumber", pageNumbernetwork);
-            new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, MYNETWORK_URL, map, new Response.Listener<JSONArray>() {
             @Override
@@ -255,8 +258,8 @@ public class PlaceholderFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-             //   new HaballError().printErrorMessage(error);
- new HaballError().printErrorMessage(getContext(), error);
+                //   new HaballError().printErrorMessage(error);
+                new HaballError().printErrorMessage(getContext(), error);
                 new ProcessingError().showError(getContext());
                 error.printStackTrace();
             }
@@ -273,7 +276,7 @@ public class PlaceholderFragment extends Fragment {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext()).add(sr);
+        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
     }
 
     private void myNetworkData() throws JSONException {
@@ -281,7 +284,7 @@ public class PlaceholderFragment extends Fragment {
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
         DistributorId = sharedPreferences.getString("Distributor_Id", "");
-    Log.i("netword_token" ,Token);
+        Log.i("netword_token", Token);
         Log.i("DistributorId ", DistributorId);
 
         JSONObject map = new JSONObject();
@@ -289,15 +292,16 @@ public class PlaceholderFragment extends Fragment {
         map.put("PageNumber", pageNumbernetwork);
 
         //   networkAdapter = new Fragment_My_Network_Adapter(getContext(), "Connected", "123456789","Mz-2,Horizon Vista,Plot-10,Block-4,Clifton");
-               // rv_network.setAdapter(networkAdapter);
-            new SSL_HandShake().handleSSLHandshake();
+        // rv_network.setAdapter(networkAdapter);
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, MYNETWORK_URL, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
 //                loader.hideLoader();
                 //                    JSONArray jsonArray = new JSONArray(result);
-              Log.i("results_network" , String.valueOf(result));
+                Log.i("results_network", String.valueOf(result));
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<Netwok_Model>>() {
                 }.getType();
@@ -323,7 +327,7 @@ public class PlaceholderFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 //new HaballError().printErrorMessage(error);
- new HaballError().printErrorMessage(getContext(), error);
+                new HaballError().printErrorMessage(getContext(), error);
                 new ProcessingError().showError(getContext());
                 error.printStackTrace();
             }
@@ -340,7 +344,7 @@ public class PlaceholderFragment extends Fragment {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext()).add(sr);
+        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
 
         //Log.i("aaaaaa", String.valueOf(mAdapter));
     }

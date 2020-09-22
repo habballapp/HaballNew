@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.DistributorDashboard;
@@ -34,7 +35,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class EditPayment {
-    private String URL_PAYMENT_REQUESTS_SAVE = "http://175.107.203.97:4014/api/prepaidrequests/save";
+    private String URL_PAYMENT_REQUESTS_SAVE = "https://retailer.haball.pk/api/prepaidrequests/save";
     private Context mContext;
 
     public EditPayment() {
@@ -48,7 +49,8 @@ public class EditPayment {
         map.put("ID", PrePaidId);
         map.put("DealerCode", DealerCode);
         map.put("PaidAmount", PaidAmount);
-            new SSL_HandShake().handleSSLHandshake();
+//            new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PAYMENT_REQUESTS_SAVE, map, new Response.Listener<JSONObject>() {
             @Override
@@ -79,7 +81,7 @@ public class EditPayment {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(context).add(sr);
+        Volley.newRequestQueue(context, hurlStack).add(sr);
 
     }
 

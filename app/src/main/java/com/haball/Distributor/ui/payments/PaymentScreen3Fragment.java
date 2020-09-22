@@ -91,9 +91,9 @@ public class PaymentScreen3Fragment extends Fragment {
     private RelativeLayout rl_jazz_cash;
     private Loader loader;
     private HashMap<String, String> companyNameAndId = new HashMap<>();
-    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4013/api/company/ReadActiveCompanyContract/";
+    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "https://175.107.203.97:4013/api/company/ReadActiveCompanyContract/";
     private String company_names;
-    private String URL_PAYMENT_REQUESTS_SAVE = "http://175.107.203.97:4013/api/prepaidrequests/save";
+    private String URL_PAYMENT_REQUESTS_SAVE = "https://175.107.203.97:4013/api/prepaidrequests/save";
     private String prepaid_number;
     private String prepaid_id;
 

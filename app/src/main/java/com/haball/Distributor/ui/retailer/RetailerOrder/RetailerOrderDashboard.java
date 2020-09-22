@@ -47,6 +47,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.DistributorDashboard;
@@ -89,10 +90,10 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private RelativeLayout btn_place_order;
-    private String URL_ORDER = "http://175.107.203.97:4013/api/retailerorder/search";
+    private String URL_ORDER = "https://175.107.203.97:4013/api/retailerorder/search";
     private String Token, DistributorId;
     private TextView tv_shipment_no_data;
-    private String URL_FETCH_ORDERS = "http://175.107.203.97:4013/api/retailerorder/search";
+    private String URL_FETCH_ORDERS = "https://175.107.203.97:4013/api/retailerorder/search";
     private List<RetailerOrdersModel> OrdersList;
     private Spinner spinner_order_ret;
     private RelativeLayout spinner_container, spinner_container1;
@@ -722,7 +723,8 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
             jsonObject.put(Filter_selected, Filter_selected_value);
         }
 
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_FETCH_ORDERS, jsonObject, new Response.Listener<JSONObject>() {
             @Override
@@ -785,7 +787,7 @@ public class RetailerOrderDashboard extends Fragment implements DatePickerDialog
                 13000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext()).add(sr);
+        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
 
     }
 

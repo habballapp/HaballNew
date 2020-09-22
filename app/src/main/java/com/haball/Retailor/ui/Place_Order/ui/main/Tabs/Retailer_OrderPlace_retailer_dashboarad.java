@@ -54,6 +54,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bignerdranch.expandablerecyclerview.model.SimpleParent;
@@ -95,8 +96,8 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
     private List<OrderParentlist_Model> titles = new ArrayList<>();
     private List<OrderChildlist_Model> productList = new ArrayList<>();
     private List<SimpleParent> parentObjects = new ArrayList<>();
-    private String URL_PRODUCT_CATEGORY = "http://175.107.203.97:4014/api/products/GetProductByDealerCode/";
-    //    private String URL_PRODUCT = "http://175.107.203.97:4014/api/products/GetProductByDealerCode/";
+    private String URL_PRODUCT_CATEGORY = "https://retailer.haball.pk/api/products/GetProductByDealerCode/";
+    //    private String URL_PRODUCT = "https://retailer.haball.pk/api/products/GetProductByDealerCode/";
     private String Token, Retailer_Id, CompanyId;
     private String object_string, object_stringqty;
     private List<OrderChildlist_Model> selectedProductsDataList = new ArrayList<>();
@@ -124,6 +125,8 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
     private Loader loader;
     private boolean byDefault = true;
     boolean isKeyboardShowing = false;
+    int width;
+    int height;
 
     public Retailer_OrderPlace_retailer_dashboarad() {
         // Required empty public constructor
@@ -139,6 +142,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_order_place_retailer_dashboarad, container, false);
         myview = view;
         myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
+        final RelativeLayout main_container = view.findViewById(R.id.main_container);
         btn_checkout = view.findViewById(R.id.btn_checkout);
         btn_close = view.findViewById(R.id.close_button);
         loader = new Loader(getContext());
@@ -462,6 +466,28 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
             e.printStackTrace();
         }
 
+        final ViewTreeObserver vto = main_container.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                    main_container.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                } else {
+                    main_container.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+                width = main_container.getMeasuredWidth();
+                height = main_container.getMeasuredHeight();
+
+                Log.i("heightOfLayout", String.valueOf(height));
+//                if (height < 1500) {
+//                    recyclerView.setPadding(0, 0, 0, 500);
+//                }
+
+                Log.i("debug_dim_height_debug", String.valueOf(height));
+                Log.i("debug_dim_width_debug", String.valueOf(width));
+
+            }
+        });
 
         // ContentView is the root view of the layout of this activity/fragment
         view.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -879,7 +905,8 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
 //        Log.i("Map", String.valueOf(map));
         if (!URL_PRODUCT_CATEGORY.contains("/" + CompanyId))
             URL_PRODUCT_CATEGORY = URL_PRODUCT_CATEGORY + CompanyId;
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_PRODUCT_CATEGORY, null, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -951,7 +978,6 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                         @UiThread
                         @Override
                         public void onParentExpanded(int parentPosition) {
-
                             if (lastExpandedPosition != -1
                                     && parentPosition != lastExpandedPosition) {
                                 adapter.collapseParent(lastExpandedPosition);
@@ -959,11 +985,18 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
 //                                adapter.OrderParentList.get(parentPosition).togglePlusMinusIcon();
                             }
                             lastExpandedPosition = parentPosition;
+                            if (height < 1500) {
+                                recyclerView.setPadding(0, 0, 0, 500);
+                            }
+
                         }
 
                         @UiThread
                         @Override
                         public void onParentCollapsed(int parentPosition) {
+                            if (height < 1500) {
+                                recyclerView.setPadding(0, 0, 0, 0);
+                            }
 //                            adapter.OrderParentList.get(parentPosition).togglePlusMinusIcon();
                         }
                     });
@@ -997,7 +1030,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(
 
-                getContext()).
+                getContext(), hurlStack).
 
                 add(sr);
     }
@@ -1029,7 +1062,8 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
             URL_PRODUCT_CATEGORY = URL_PRODUCT_CATEGORY + CompanyId;
 
 //        Log.i("Map", String.valueOf(map));
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_PRODUCT_CATEGORY, null, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -1158,11 +1192,17 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                                 adapter.collapseParent(lastExpandedPosition);
                             }
                             lastExpandedPosition = parentPosition;
+                            if (height < 1500) {
+                                recyclerView.setPadding(0, 0, 0, 500);
+                            }
                         }
 
                         @UiThread
                         @Override
                         public void onParentCollapsed(int parentPosition) {
+                            if (height < 1500) {
+                                recyclerView.setPadding(0, 0, 0, 0);
+                            }
                         }
                     });
 
@@ -1192,7 +1232,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext()).add(sr);
+        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
 
 //        new MyAsyncTask().execute();
     }
@@ -1222,7 +1262,8 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
         if (!URL_PRODUCT_CATEGORY.contains("/" + CompanyId))
             URL_PRODUCT_CATEGORY = URL_PRODUCT_CATEGORY + CompanyId;
 
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_PRODUCT_CATEGORY, null, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -1294,11 +1335,18 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
 //                            adapter.OrderParentList.get(lastExpandedPosition).togglePlusMinusIcon();
                             }
                             lastExpandedPosition = parentPosition;
+                            if (height < 1500) {
+                                recyclerView.setPadding(0, 0, 0, 500);
+                            }
+
                         }
 
                         @UiThread
                         @Override
                         public void onParentCollapsed(int parentPosition) {
+                            if (height < 1500) {
+                                recyclerView.setPadding(0, 0, 0, 0);
+                            }
                         }
                     });
                     //adapter.setParentClickableViewAnimationDefaultDuration();
@@ -1330,7 +1378,7 @@ public class Retailer_OrderPlace_retailer_dashboarad extends Fragment {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext()).add(sr);
+        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
 
 //        new MyAsyncTask().execute();
     }

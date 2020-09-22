@@ -58,6 +58,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.CustomToast;
@@ -89,8 +90,8 @@ import java.util.Map;
 public class Retailer_New_Password extends AppCompatActivity {
 
     private Button update_password, btn_back;
-    private String URL = "http://175.107.203.97:4014/api/users/UpdatePasswordByLink";
-    private String URL_TokenValidate = "http://175.107.203.97:4014/api/users/ValidateToken";
+    private String URL = "https://retailer.haball.pk/api/users/UpdatePasswordByLink";
+    private String URL_TokenValidate = "https://retailer.haball.pk/api/users/ValidateToken";
     private String Token;
     private String UserName, Name;
     private TextInputLayout layout_password3, layout_password1;
@@ -201,7 +202,8 @@ public class Retailer_New_Password extends AppCompatActivity {
 
         String requestBody = jsonObject.toString();
         
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(Retailer_New_Password.this);
 
         BooleanRequest sr = new BooleanRequest(Request.Method.POST, URL_TokenValidate, requestBody, new Response.Listener<Boolean>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -266,7 +268,7 @@ public class Retailer_New_Password extends AppCompatActivity {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(this).add(sr);
+        Volley.newRequestQueue(this, hurlStack).add(sr);
     }
 
 
@@ -374,7 +376,8 @@ public class Retailer_New_Password extends AppCompatActivity {
 
             String requestBody = jsonObject.toString();
             
-            new SSL_HandShake().handleSSLHandshake();
+//            new SSL_HandShake().handleSSLHandshake();
+            final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(Retailer_New_Password.this);
 
             BooleanRequest sr = new BooleanRequest(Request.Method.POST, URL, requestBody, new Response.Listener<Boolean>() {
                 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -474,7 +477,7 @@ public class Retailer_New_Password extends AppCompatActivity {
                     15000,
                     DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            Volley.newRequestQueue(this).add(sr);
+            Volley.newRequestQueue(this, hurlStack).add(sr);
         } else {
             layout_password1.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
             layout_password1.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));

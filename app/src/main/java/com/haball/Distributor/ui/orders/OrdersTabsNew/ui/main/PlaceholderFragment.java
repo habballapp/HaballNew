@@ -93,7 +93,7 @@ public class PlaceholderFragment extends Fragment {
     private TextView retailer_heading;
     private Button btn_next;
     private String Token, DistributorId;
-    private String URL_Company = "http://175.107.203.97:4013/api/company/ReadActiveCompanyOrders/"; // To be done
+    private String URL_Company = "https://175.107.203.97:4013/api/company/ReadActiveCompanyOrders/"; // To be done
     private List<Distributor_Fragment_Model_DistOrder> CompanyList;
     private String object_string;
     private Typeface myFont;

@@ -68,7 +68,7 @@ public class Support_Ticket_View extends Fragment {
     private String Token, DistributorId;
     private Button btn_delete, btn_back;
 
-    private String URL_SUPPORT_VIEW = "http://175.107.203.97:4013/api/contact//";
+    private String URL_SUPPORT_VIEW = "https://175.107.203.97:4013/api/contact//";
     private TextView tv_ticket_id;
     private TextInputEditText txt_business_name;
     private TextInputEditText txt_email_address;

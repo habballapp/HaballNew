@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class Dismiss_Notification {
     private String ID;
-    private String URL_NOTIFICATION = "http://175.107.203.97:4013/api/useralert/DismissAlert/";
+    private String URL_NOTIFICATION = "https://175.107.203.97:4013/api/useralert/DismissAlert/";
     private Loader loader;
 
     public Dismiss_Notification() {

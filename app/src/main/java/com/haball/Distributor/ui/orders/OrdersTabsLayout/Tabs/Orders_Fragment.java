@@ -59,7 +59,7 @@ public class Orders_Fragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private Button create_payment;
     private List<OrderFragmentModel> OrderList;
-    private String URL_ORDER = "http://175.107.203.97:4013/api/orders/search";
+    private String URL_ORDER = "https://175.107.203.97:4013/api/orders/search";
     private String Token, DistributorId;
     private String Filter_selected, Filter_selected_value;
 

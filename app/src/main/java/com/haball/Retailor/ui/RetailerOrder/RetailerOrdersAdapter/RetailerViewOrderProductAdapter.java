@@ -179,6 +179,7 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
 
             ss1 = new SpannableString(OrdersList.get(position).getUOMTitle());
             ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
+            holder.product_code.append(ss1);
 //
 //            Log.i("height_debug_prevLine", String.valueOf(prevLineCount));
 //            holder.product_code.append(ss1);
@@ -265,12 +266,12 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
 
         formatter1 = new DecimalFormat("#,###,##0.00");
         double totalAmount = Double.parseDouble(OrdersList.get(position).getTotalPrice());
-        if (!OrdersList.get(position).getDiscount().equals("0") && !OrdersList.get(position).getDiscount().equals("") && !OrdersList.get(position).getDiscount().equals("null")) {
-
-            double discount = Double.parseDouble(OrdersList.get(position).getDiscount());
-            totalAmount -= discount;
-
-        }
+//        if (!OrdersList.get(position).getDiscount().equals("0") && !OrdersList.get(position).getDiscount().equals("") && !OrdersList.get(position).getDiscount().equals("null")) {
+//
+//            double discount = Double.parseDouble(OrdersList.get(position).getDiscount());
+//            totalAmount -= discount;
+//
+//        }
 
         yourFormattedString1 = formatter1.format(totalAmount);
 

@@ -64,7 +64,7 @@ public class SupportDashboardAdapter extends RecyclerView.Adapter<SupportDashboa
     String dashboard, id, pending, createdDate;
     List<SupportDashboardModel> supportList;
     private FragmentTransaction fragmentTransaction;
-//    private String URL_SUPPORT_VIEW = "http://175.107.203.97:4013/api/contact//";
+//    private String URL_SUPPORT_VIEW = "https://175.107.203.97:4013/api/contact//";
 
     public SupportDashboardAdapter(Context context, List<SupportDashboardModel> supportList, RecyclerView recyclerView, RecyclerView.Adapter mAdapter) {
         this.mContxt = context;

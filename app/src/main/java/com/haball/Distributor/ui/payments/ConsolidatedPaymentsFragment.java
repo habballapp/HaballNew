@@ -91,8 +91,8 @@ public class ConsolidatedPaymentsFragment extends Fragment {
     private List<ConsolidatePaymentsModel> ConsolidatePaymentsRequestList = new ArrayList<>();
     private String Token, DistributorId;
     private Button create_payment;
-    private String URL_CONSOLIDATE_PAYMENTS = "http://175.107.203.97:4013/api/consolidatedinvoices/search";
-    private String URL_CONSOLIDATE_PAYMENTS_COUNT = "http://175.107.203.97:4013/api/consolidatedinvoices/searchCount";
+    private String URL_CONSOLIDATE_PAYMENTS = "https://175.107.203.97:4013/api/consolidatedinvoices/search";
+    private String URL_CONSOLIDATE_PAYMENTS_COUNT = "https://175.107.203.97:4013/api/consolidatedinvoices/searchCount";
     private FragmentTransaction fragmentTransaction;
     private String Filter_selected, Filter_selected_value;
    // private Button btn_load_more;

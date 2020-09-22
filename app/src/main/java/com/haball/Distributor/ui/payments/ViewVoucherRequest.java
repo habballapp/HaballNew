@@ -69,8 +69,8 @@ package com.haball.Distributor.ui.payments;
         import static java.util.stream.Collectors.toList;
 
 public class ViewVoucherRequest {
-    public String URL_PDF_VIEW_INVOICE = "http://175.107.203.97:4013/api/invoices/mPrintInvoice/";
-    public String URL_VOUCHER_VIEW = "http://175.107.203.97:4013/api/prepaidrequests/printrecipt";
+    public String URL_PDF_VIEW_INVOICE = "https://175.107.203.97:4013/api/invoices/mPrintInvoice/";
+    public String URL_VOUCHER_VIEW = "https://175.107.203.97:4013/api/prepaidrequests/printrecipt";
     public String DistributorId, Token;
     public Context mContext;
     private static final int PERMISSION_REQUEST_CODE = 1;

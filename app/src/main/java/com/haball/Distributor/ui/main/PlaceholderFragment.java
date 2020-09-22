@@ -102,13 +102,13 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private RecyclerView.Adapter OrdersAdapter;
     private TextView tv_shipment_no_data, tv_shipment_no_data1;
     private RecyclerView.LayoutManager layoutManager;
-    private String URL_DISTRIBUTOR_DASHBOARD = "http://175.107.203.97:4013/api/dashboard/ReadDistributorDashboard";
-    //    private String URL_DISTRIBUTOR_PAYMENTS = "http://175.107.203.97:4013/api/dashboard/ReadDistributorPayments";
-    private String URL_DISTRIBUTOR_PAYMENTS = "http://175.107.203.97:4013/api/prepaidrequests/searchall";
-    private String URL_DISTRIBUTOR_PAYMENTS_COUNT = "http://175.107.203.97:4013/api/prepaidrequests/searchCount";
-    private String URL_DISTRIBUTOR_ORDERS = "http://175.107.203.97:4013/api/orders/search";
-    private String URL_DISTRIBUTOR_ORDERS_COUNT = "http://175.107.203.97:4013/api/orders/searchCount";
-    private String URL_PAYMENT_LEDGER_COMPANY = "http://175.107.203.97:4013/api/company/ReadActiveCompanyContract/";
+    private String URL_DISTRIBUTOR_DASHBOARD = "https://175.107.203.97:4013/api/dashboard/ReadDistributorDashboard";
+    //    private String URL_DISTRIBUTOR_PAYMENTS = "https://175.107.203.97:4013/api/dashboard/ReadDistributorPayments";
+    private String URL_DISTRIBUTOR_PAYMENTS = "https://175.107.203.97:4013/api/prepaidrequests/searchall";
+    private String URL_DISTRIBUTOR_PAYMENTS_COUNT = "https://175.107.203.97:4013/api/prepaidrequests/searchCount";
+    private String URL_DISTRIBUTOR_ORDERS = "https://175.107.203.97:4013/api/orders/search";
+    private String URL_DISTRIBUTOR_ORDERS_COUNT = "https://175.107.203.97:4013/api/orders/searchCount";
+    private String URL_PAYMENT_LEDGER_COMPANY = "https://175.107.203.97:4013/api/company/ReadActiveCompanyContract/";
 
     private TextView tv_select_company, value_unpaid_amount, value_paid_amount;
     private List<DistributorPaymentRequestModel> PaymentsRequestList = new ArrayList<>();
@@ -200,26 +200,63 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         editorOrderTabsFromDraft.apply();
 
 
+        SharedPreferences dashboardRights = getContext().getSharedPreferences("Distributor_UserRights",
+                Context.MODE_PRIVATE);
+        boolean Order_View = Boolean.parseBoolean(dashboardRights.getString("Order_View", "false"));
+        boolean PrepaidRequestView = Boolean.parseBoolean(dashboardRights.getString("PrepaidRequestView", "false"));
+        boolean Invoice_View = Boolean.parseBoolean(dashboardRights.getString("Invoice_View", "false"));
+        boolean DashBoardView = Boolean.parseBoolean(dashboardRights.getString("DashBoardView", "false"));
+
 //        Log.i("SECTION NO", String.valueOf(getArguments().getInt(ARG_SECTION_NUMBER)));
         switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
             case 1: {
-                tabName = "Payment";
-                rootView = inflater.inflate(R.layout.fragment_payments, container, false);
-                paymentFragmentTask(rootView);
-                context = getContext();
-                loader = new Loader(context);
-                try {
-                    fetchPaymentRequests();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                if (PrepaidRequestView || Invoice_View)
+                    rootView = setPaymentFragmentTask(inflater, container);
+                else if (Order_View)
+                    rootView = setOrderFragmentTask(inflater, container);
+                else
+                    rootView = setDashboardFragmentTask(inflater, container);
+
+                break;
+            }
+
+            case 2: {
+                if (Order_View)
+                    rootView = setOrderFragmentTask(inflater, container);
+                else
+                    rootView = setDashboardFragmentTask(inflater, container);
+
+                break;
+            }
+            case 3: {
+                rootView = setDashboardFragmentTask(inflater, container);
+
+                break;
+            }
+            default:
+                break;
+        }
+        return rootView;
+    }
+
+    private View setPaymentFragmentTask(LayoutInflater inflater, ViewGroup container) {
+        tabName = "Payment";
+        View rootView = inflater.inflate(R.layout.fragment_payments, container, false);
+        paymentFragmentTask(rootView);
+        context = getContext();
+        loader = new Loader(context);
+        try {
+            fetchPaymentRequests();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 //                scroll_view_main = rootView.findViewById(R.id.scroll_view_main);
 
-                rv_filter = rootView.findViewById(R.id.rv_filter);
-                line_bottom = rootView.findViewById(R.id.line_bottom);
+        rv_filter = rootView.findViewById(R.id.rv_filter);
+        line_bottom = rootView.findViewById(R.id.line_bottom);
 
-                SpannableString content = new SpannableString("Load More");
-                content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        SpannableString content = new SpannableString("Load More");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
 //                btn_load_more.setText(content);
 //                btn_load_more.setVisibility(View.GONE);
 
@@ -237,102 +274,101 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 //                });
 
 
-                recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_fragment_payments);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_fragment_payments);
 
-                recyclerView.setHasFixedSize(true);
-                layoutManager = new LinearLayoutManager(rootView.getContext());
-                recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(rootView.getContext());
+        recyclerView.setLayoutManager(layoutManager);
 
-                recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                    @Override
-                    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                        super.onScrollStateChanged(recyclerView, newState);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
 
-                        scrollEvent = new ArrayList<>();
-                    }
-
-                    @Override
-                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                        super.onScrolled(recyclerView, dx, dy);
-                        LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
-                        y = dy;
-                        if (dy <= -5) {
-                            scrollEvent.add("ScrollDown");
-//                            Log.i("scrolling", "Scroll Down");
-                        } else if (dy > 5) {
-                            scrollEvent.add("ScrollUp");
-//                            Log.i("scrolling", "Scroll Up");
-                        }
-                        String scroll = getScrollEvent();
-
-                        if (scroll.equals("ScrollDown")) {
-                            if (rv_filter.getVisibility() == View.GONE) {
-
-                                rv_filter.setVisibility(View.VISIBLE);
-                                TranslateAnimation animate1 = new TranslateAnimation(
-                                        0,                 // fromXDelta
-                                        0,                 // toXDelta
-                                        -rv_filter.getHeight(),  // fromYDelta
-                                        0);                // toYDelta
-                                animate1.setDuration(230);
-                                animate1.setFillAfter(true);
-                                rv_filter.clearAnimation();
-                                rv_filter.startAnimation(animate1);
-                            }
-                        } else if (scroll.equals("ScrollUp")) {
-                            y = 0;
-                            if (rv_filter.getVisibility() == View.VISIBLE) {
-//                                line_bottom.setVisibility(View.INVISIBLE);
-                                TranslateAnimation animate = new TranslateAnimation(
-                                        0,                 // fromXDelta
-                                        0,                 // toXDelta
-                                        0,  // fromYDelta
-                                        -rv_filter.getHeight()); // toYDelta
-                                animate.setDuration(100);
-                                animate.setFillAfter(true);
-                                rv_filter.clearAnimation();
-                                rv_filter.startAnimation(animate);
-                                rv_filter.setVisibility(View.GONE);
-                            }
-                        }
-                        if (isLastItemDisplaying(recyclerView)) {
-
-                            int visibleItemCount = layoutManager.getChildCount();
-                            int totalItemCount = layoutManager.getItemCount();
-                            int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
-                            if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
-                                if (totalPages != 0 && pageNumber < totalPages) {
-//                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
-//                        btn_load_more.setVisibility(View.VISIBLE);
-                                    pageNumber++;
-                                    try {
-                                        performPagination();
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-
-
-                break;
+                scrollEvent = new ArrayList<>();
             }
 
-            case 2: {
-                tabName = "Order";
-                rootView = inflater.inflate(R.layout.fragment_orders, container, false);
-                orderFragmentTask(rootView);
-                context = getContext();
-                loader = new Loader(context);
-                rv_filter = rootView.findViewById(R.id.rv_filter);
-                recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_fragment_orders);
-                spinner_container_main = rootView.findViewById(R.id.spinner_container_main);
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+                y = dy;
+                if (dy <= -5) {
+                    scrollEvent.add("ScrollDown");
+//                            Log.i("scrolling", "Scroll Down");
+                } else if (dy > 5) {
+                    scrollEvent.add("ScrollUp");
+//                            Log.i("scrolling", "Scroll Up");
+                }
+                String scroll = getScrollEvent();
 
-                recyclerView.setHasFixedSize(true);
-                layoutManager = new LinearLayoutManager(rootView.getContext());
-                recyclerView.setLayoutManager(layoutManager);
+                if (scroll.equals("ScrollDown")) {
+                    if (rv_filter.getVisibility() == View.GONE) {
+
+                        rv_filter.setVisibility(View.VISIBLE);
+                        TranslateAnimation animate1 = new TranslateAnimation(
+                                0,                 // fromXDelta
+                                0,                 // toXDelta
+                                -rv_filter.getHeight(),  // fromYDelta
+                                0);                // toYDelta
+                        animate1.setDuration(230);
+                        animate1.setFillAfter(true);
+                        rv_filter.clearAnimation();
+                        rv_filter.startAnimation(animate1);
+                    }
+                } else if (scroll.equals("ScrollUp")) {
+                    y = 0;
+                    if (rv_filter.getVisibility() == View.VISIBLE) {
+//                                line_bottom.setVisibility(View.INVISIBLE);
+                        TranslateAnimation animate = new TranslateAnimation(
+                                0,                 // fromXDelta
+                                0,                 // toXDelta
+                                0,  // fromYDelta
+                                -rv_filter.getHeight()); // toYDelta
+                        animate.setDuration(100);
+                        animate.setFillAfter(true);
+                        rv_filter.clearAnimation();
+                        rv_filter.startAnimation(animate);
+                        rv_filter.setVisibility(View.GONE);
+                    }
+                }
+                if (isLastItemDisplaying(recyclerView)) {
+
+                    int visibleItemCount = layoutManager.getChildCount();
+                    int totalItemCount = layoutManager.getItemCount();
+                    int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
+                        if (totalPages != 0 && pageNumber < totalPages) {
+//                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
+//                        btn_load_more.setVisibility(View.VISIBLE);
+                            pageNumber++;
+                            try {
+                                performPagination();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        return rootView;
+    }
+
+
+    private View setOrderFragmentTask(LayoutInflater inflater, ViewGroup container) {
+        tabName = "Order";
+        View rootView = inflater.inflate(R.layout.fragment_orders, container, false);
+        orderFragmentTask(rootView);
+        context = getContext();
+        loader = new Loader(context);
+        rv_filter = rootView.findViewById(R.id.rv_filter);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_fragment_orders);
+        spinner_container_main = rootView.findViewById(R.id.spinner_container_main);
+
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(rootView.getContext());
+        recyclerView.setLayoutManager(layoutManager);
 
 //
 //                SpannableString content = new SpannableString("Load More");
@@ -353,174 +389,170 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
 //                    }
 //                });
 
-                recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                    @Override
-                    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                        super.onScrollStateChanged(recyclerView, newState);
-                        scrollEvent = new ArrayList<>();
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                scrollEvent = new ArrayList<>();
 
-                    }
+            }
 
-                    @Override
-                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                        super.onScrolled(recyclerView, dx, dy);
-                        LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
-                        y = dy;
-                        if (dy <= -5) {
-                            scrollEvent.add("ScrollDown");
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+                y = dy;
+                if (dy <= -5) {
+                    scrollEvent.add("ScrollDown");
 //                            Log.i("scrolling", "Scroll Down");
-                        } else if (dy > 5) {
-                            scrollEvent.add("ScrollUp");
+                } else if (dy > 5) {
+                    scrollEvent.add("ScrollUp");
 //                            Log.i("scrolling", "Scroll Up");
-                        }
-                        String scroll = getScrollEvent();
+                }
+                String scroll = getScrollEvent();
 
-                        if (scroll.equals("ScrollDown")) {
-                            if (rv_filter.getVisibility() == View.GONE) {
+                if (scroll.equals("ScrollDown")) {
+                    if (rv_filter.getVisibility() == View.GONE) {
 
-                                rv_filter.setVisibility(View.VISIBLE);
-                                TranslateAnimation animate1 = new TranslateAnimation(
-                                        0,                 // fromXDelta
-                                        0,                 // toXDelta
-                                        -rv_filter.getHeight(),  // fromYDelta
-                                        0);                // toYDelta
-                                animate1.setDuration(230);
-                                animate1.setFillAfter(true);
-                                rv_filter.clearAnimation();
-                                rv_filter.startAnimation(animate1);
-                            }
-                        } else if (scroll.equals("ScrollUp")) {
-                            y = 0;
-                            if (rv_filter.getVisibility() == View.VISIBLE) {
+                        rv_filter.setVisibility(View.VISIBLE);
+                        TranslateAnimation animate1 = new TranslateAnimation(
+                                0,                 // fromXDelta
+                                0,                 // toXDelta
+                                -rv_filter.getHeight(),  // fromYDelta
+                                0);                // toYDelta
+                        animate1.setDuration(230);
+                        animate1.setFillAfter(true);
+                        rv_filter.clearAnimation();
+                        rv_filter.startAnimation(animate1);
+                    }
+                } else if (scroll.equals("ScrollUp")) {
+                    y = 0;
+                    if (rv_filter.getVisibility() == View.VISIBLE) {
 //                                line_bottom.setVisibility(View.INVISIBLE);
-                                TranslateAnimation animate = new TranslateAnimation(
-                                        0,                 // fromXDelta
-                                        0,                 // toXDelta
-                                        0,  // fromYDelta
-                                        -rv_filter.getHeight()); // toYDelta
-                                animate.setDuration(100);
-                                animate.setFillAfter(true);
-                                rv_filter.clearAnimation();
-                                rv_filter.startAnimation(animate);
-                                rv_filter.setVisibility(View.GONE);
-                            }
-                        }
-                        if (isLastItemDisplaying(recyclerView)) {
+                        TranslateAnimation animate = new TranslateAnimation(
+                                0,                 // fromXDelta
+                                0,                 // toXDelta
+                                0,  // fromYDelta
+                                -rv_filter.getHeight()); // toYDelta
+                        animate.setDuration(100);
+                        animate.setFillAfter(true);
+                        rv_filter.clearAnimation();
+                        rv_filter.startAnimation(animate);
+                        rv_filter.setVisibility(View.GONE);
+                    }
+                }
+                if (isLastItemDisplaying(recyclerView)) {
 
-                            int visibleItemCount = layoutManager.getChildCount();
-                            int totalItemCount = layoutManager.getItemCount();
-                            int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
-                            if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
-                                if (totalPagesOrder != 0 && pageNumberOrder < totalPagesOrder) {
+                    int visibleItemCount = layoutManager.getChildCount();
+                    int totalItemCount = layoutManager.getItemCount();
+                    int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
+                        if (totalPagesOrder != 0 && pageNumberOrder < totalPagesOrder) {
 //                                Toast.makeText(getContext(), pageNumber + " - " + totalPages, Toast.LENGTH_LONG).show();
 //                        btn_load_more.setVisibility(View.VISIBLE);
-                                    pageNumberOrder++;
-                                    try {
-                                        performPaginationOrder();
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-
-
-                try {
-                    fetchOrderData();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                break;
-            }
-            case 3: {
-
-                tabName = "Dashboard";
-                context = getContext();
-                loader = new Loader(context);
-                rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
-                spinner_criteria = rootView.findViewById(R.id.spinner_criteria);
-                tv_select_company = rootView.findViewById(R.id.tv_select_company);
-                rl_overView = rootView.findViewById(R.id.rl_overView);
-                value_unpaid_amount = rootView.findViewById(R.id.value_unpaid_amount);
-                value_paid_amount = rootView.findViewById(R.id.value_paid_amount);
-                current_balance = rootView.findViewById(R.id.current_balance);
-                rl_balances = rootView.findViewById(R.id.rl_balances);
-                company_names.add("Select Company");
-                //company_names = "";
-                arrayAdapterPayments = new ArrayAdapter<String>(rootView.getContext(),
-                        android.R.layout.simple_spinner_dropdown_item, company_names) {
-                    @Override
-                    public View getDropDownView(int position, View convertView, ViewGroup parent) {
-                        // TODO Auto-generated method stub
-                        View view = super.getView(position, convertView, parent);
-                        TextView text = (TextView) view.findViewById(android.R.id.text1);
-                        text.setTextColor(getResources().getColor(R.color.text_color_selection));
-                        text.setTextSize((float) 13.6);
-                        text.setPadding(30, 0, 30, 0);
-                        text.setTypeface(myFont);
-                        return view;
-                    }
-
-                    @Override
-                    public View getView(int position, View convertView, ViewGroup parent) {
-                        // TODO Auto-generated method stub
-                        View view = super.getView(position, convertView, parent);
-                        TextView text = (TextView) view.findViewById(android.R.id.text1);
-                        text.setTextColor(getResources().getColor(R.color.text_color_selection));
-                        text.setTextSize((float) 13.6);
-                        text.setPadding(30, 0, 30, 0);
-                        return view;
-                    }
-                };
-                spinner_criteria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        if (i == 0) {
+                            pageNumberOrder++;
                             try {
-                                ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                                ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                                ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
-                            } catch (NullPointerException e) {
+                                performPaginationOrder();
+                            } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            rl_overView.setVisibility(View.GONE);
-                            tv_select_company.setVisibility(View.VISIBLE);
-                        } else {
-                            tv_select_company.setVisibility(View.GONE);
-                            try {
-                                ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
-                                ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
-                                ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
-                            } catch (NullPointerException ex) {
-                                ex.printStackTrace();
-                            }
-
-                            Company_selected = company_names.get(i);
-                            Log.i("company_debug", Company_selected);
-                            rl_overView.setVisibility(View.VISIBLE);
-                            if (Company_selected.equals("Continental Biscuit Ltd")) {
-                                rl_balances.setVisibility(View.VISIBLE);
-                                current_balance.setVisibility(View.GONE);
-                            }
                         }
                     }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-
-                    }
-                });
-
-                fetchCompanyData();
-                fetchDashboardData();
-                break;
+                }
             }
-            default:
-                break;
+        });
+
+
+        try {
+            fetchOrderData();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+
+        return rootView;
+    }
+
+    private View setDashboardFragmentTask(LayoutInflater inflater, ViewGroup container) {
+        tabName = "Dashboard";
+        context = getContext();
+        loader = new Loader(context);
+        View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        spinner_criteria = rootView.findViewById(R.id.spinner_criteria);
+        tv_select_company = rootView.findViewById(R.id.tv_select_company);
+        rl_overView = rootView.findViewById(R.id.rl_overView);
+        value_unpaid_amount = rootView.findViewById(R.id.value_unpaid_amount);
+        value_paid_amount = rootView.findViewById(R.id.value_paid_amount);
+        current_balance = rootView.findViewById(R.id.current_balance);
+        rl_balances = rootView.findViewById(R.id.rl_balances);
+        company_names.add("Select Company");
+        //company_names = "";
+        arrayAdapterPayments = new ArrayAdapter<String>(rootView.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, company_names) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                text.setTypeface(myFont);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(getResources().getColor(R.color.text_color_selection));
+                text.setTextSize((float) 13.6);
+                text.setPadding(30, 0, 30, 0);
+                return view;
+            }
+        };
+        spinner_criteria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 0) {
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
+                    rl_overView.setVisibility(View.GONE);
+                    tv_select_company.setVisibility(View.VISIBLE);
+                } else {
+                    tv_select_company.setVisibility(View.GONE);
+                    try {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textcolor));
+                        ((TextView) adapterView.getChildAt(0)).setTextSize((float) 13.6);
+                        ((TextView) adapterView.getChildAt(0)).setPadding(30, 0, 30, 0);
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    Company_selected = company_names.get(i);
+                    Log.i("company_debug", Company_selected);
+                    rl_overView.setVisibility(View.VISIBLE);
+                    if (Company_selected.equals("Continental Biscuit Ltd")) {
+                        rl_balances.setVisibility(View.VISIBLE);
+                        current_balance.setVisibility(View.GONE);
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        fetchCompanyData();
+        fetchDashboardData();
+
         return rootView;
     }
 

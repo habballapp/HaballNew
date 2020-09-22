@@ -61,7 +61,7 @@ import java.util.Map;
 public class View_Payment_Fragment extends Fragment {
 
     private String PaymentsRequestId;
-    private String PAYMENT_REQUEST_URL = "http://175.107.203.97:4013/api/prepaidrequests/";
+    private String PAYMENT_REQUEST_URL = "https://175.107.203.97:4013/api/prepaidrequests/";
     private String Token, DistributorId;
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
     private TextInputEditText txt_heading, txt_paymentid, txt_created_date, txt_transaction_date, txt_bname, txt_authorization, txt_settlement, txt_amount, txt_status, txt_transaction_charges, txt_total_amount;

@@ -86,7 +86,7 @@ public class PlaceholderFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     private String orderID, orderStatus;
-    private String URL_Order_Data = "http://175.107.203.97:4013/api/Invoices/";
+    private String URL_Order_Data = "https://175.107.203.97:4013/api/Invoices/";
     private PageViewModel pageViewModel;
     private TextInputEditText txt_companyName, txt_paymentID, txt_created_date, txt_transaction_date, txt_bank, txt_authorization_id, txt_settlement_id, txt_status, txt_amount, txt_transaction_charges, txt_total_amount;
     private RecyclerView rv_fragment_retailer_order_details;
@@ -126,7 +126,7 @@ public class PlaceholderFragment extends Fragment {
     private RelativeLayout rl_jazz_cash;
     private String InvoiceStatus, invoiceID;
     private TextView discount, Rs_discount;
-    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4013/api/company/ReadActiveCompanyContract/";
+    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "https://175.107.203.97:4013/api/company/ReadActiveCompanyContract/";
 
 
     public static PlaceholderFragment newInstance(int index) {
