@@ -99,7 +99,7 @@ public class DistributorDashboard extends AppCompatActivity {
     private ExpandableNavigationListView navigationExpandableListView, navigationExpandableListView1;
     private String username, companyname, Token, ID, Name;
     private ImageButton notification_icon;
-    private String URL_Notification = "http://175.107.203.97:4013/api/useralert/";
+    private String URL_Notification = "https://175.107.203.97:4013/api/useralert/";
     private boolean doubleBackToExitPressedOnce = false;
     private JSONArray userRights;
     private List<String> NavList = new ArrayList<>();

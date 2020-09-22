@@ -58,7 +58,7 @@ import java.util.Map;
 public class Distributor_UpdatePassword extends AppCompatActivity {
 
     private Button update_password, btn_back;
-    private String URL = "http://175.107.203.97:4013/api/users/UserChangePassword";
+    private String URL = "https://175.107.203.97:4013/api/users/UserChangePassword";
     private String Token;
     private String UserName, Name;
     private TextInputLayout layout_password3, layout_password1;

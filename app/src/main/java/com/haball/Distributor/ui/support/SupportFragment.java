@@ -82,7 +82,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
     private TextView btn_add_ticket;
     private TextView tv_shipment_no_ticket, tv_shipment_no_data;
     private String Token;
-    private String URL_SUPPORT = "http://175.107.203.97:4013/api/contact/search";
+    private String URL_SUPPORT = "https://175.107.203.97:4013/api/contact/search";
     private SupportViewModel supportViewModel;
     private List<SupportDashboardModel> SupportList = new ArrayList<>();
     private Spinner spinner_criteria;

@@ -89,9 +89,9 @@ public class Dist_Order_Summary extends Fragment {
     private List<String> selectedProductsQuantityList_temp = new ArrayList<>();
 
     private String object_string, object_stringqty, Token, DistributorId, CompanyId, ID, DealerCode;
-    private String URL_CONFIRM_ORDERS = "http://175.107.203.97:4013/api/Orders/save";
-    private String URL_SAVE_TEMPLATE = "http://175.107.203.97:4013/api/ordertemplate/save";
-    private String URL_SAVE_DRAFT = "http://175.107.203.97:4013/api/Orders/savedraft";
+    private String URL_CONFIRM_ORDERS = "https://175.107.203.97:4013/api/Orders/save";
+    private String URL_SAVE_TEMPLATE = "https://175.107.203.97:4013/api/ordertemplate/save";
+    private String URL_SAVE_DRAFT = "https://175.107.203.97:4013/api/Orders/savedraft";
     private Button btn_confirm, btn_draft, btn_add_product;
     private TextView discount_amount, total_amount;
     private float totalAmount;

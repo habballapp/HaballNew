@@ -21,6 +21,7 @@ package com.haball.Retailor.ui.Support;
         import com.android.volley.Request;
         import com.android.volley.Response;
         import com.android.volley.VolleyError;
+        import com.android.volley.toolbox.HurlStack;
         import com.android.volley.toolbox.JsonObjectRequest;
         import com.android.volley.toolbox.Volley;
         import com.haball.HaballError;
@@ -38,8 +39,8 @@ package com.haball.Retailor.ui.Support;
         import java.util.Map;
 
 public class DeleteSupportTicket {
-    //    public String URL_SUPPORT_STATUS_CHANGE = "http://175.107.203.97:4013/api/contact/StatusChange";
-    public String URL_SUPPORT_STATUS_CHANGE = "http://175.107.203.97:4014/api/support/Delete";
+    //    public String URL_SUPPORT_STATUS_CHANGE = "https://175.107.203.97:4013/api/contact/StatusChange";
+    public String URL_SUPPORT_STATUS_CHANGE = "https://retailer.haball.pk/api/support/Delete";
     public String DistributorId, Token;
     public Context mContext;
     private String response = "";
@@ -59,7 +60,8 @@ public class DeleteSupportTicket {
 
         JSONObject map = new JSONObject();
         map.put("ID", supportId);
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_SUPPORT_STATUS_CHANGE, map, new Response.Listener<JSONObject>() {
             @Override
@@ -130,7 +132,7 @@ public class DeleteSupportTicket {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-        Volley.newRequestQueue(context).add(sr);
+        Volley.newRequestQueue(context, hurlStack).add(sr);
         return response;
     }
 

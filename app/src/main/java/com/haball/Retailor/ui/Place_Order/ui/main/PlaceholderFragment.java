@@ -42,6 +42,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Tabs.Dist_OrderPlace;
 import com.haball.Distributor.ui.payments.MyJsonArrayRequest;
@@ -82,8 +83,8 @@ public class PlaceholderFragment extends Fragment {
     private RecyclerView.Adapter mAdapter1;
     private RecyclerView.LayoutManager layoutManager, layoutManager1;
     private String Token, Retailer_Id;
-    private String URL_Retailer = "http://175.107.203.97:4014/api/kyc/ConnectedKycList/"; // To be done
-    private String URL_Retailer_Details = "http://175.107.203.97:4014/api/retailer/"; // To be done
+    private String URL_Retailer = "https://retailer.haball.pk/api/kyc/ConnectedKycList/"; // To be done
+    private String URL_Retailer_Details = "https://retailer.haball.pk/api/retailer/"; // To be done
     private List<Company_Fragment_Model> CompanyList;
     private Button btn_next;
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -326,7 +327,8 @@ public class PlaceholderFragment extends Fragment {
         if (!URL_Retailer.contains(Retailer_Id))
             URL_Retailer = URL_Retailer + Retailer_Id;
         Log.i("URL_Company ", URL_Retailer);
-            new SSL_HandShake().handleSSLHandshake();
+//            new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.GET, URL_Retailer, null, new Response.Listener<JSONArray>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -391,7 +393,7 @@ public class PlaceholderFragment extends Fragment {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext()).add(sr);
+        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
         arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         arrayAdapterPayments.notifyDataSetChanged();
         spinner_conso.setAdapter(arrayAdapterPayments);

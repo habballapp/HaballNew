@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.android.volley.toolbox.HurlStack;
 import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.StatusKVP;
 import com.haball.Distributor.ui.terms_and_conditions.TermsAndConditionsFragment;
@@ -60,7 +61,8 @@ public class SplashScreen extends AppCompatActivity {
         rl_main_background.setBackground(background_drawable);
 //        rl_main_background.typ
 
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(SplashScreen.this);
 
         new Handler().postDelayed(new Runnable() {
 

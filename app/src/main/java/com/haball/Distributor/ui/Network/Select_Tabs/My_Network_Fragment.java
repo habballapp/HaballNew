@@ -16,6 +16,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.DistributorDashboard;
@@ -62,8 +63,8 @@ public class My_Network_Fragment extends Fragment {
     Netwok_Model paymentsViewModel;
     private RecyclerView.Adapter networkAdapter, sentadapter, recieveAdapter;
     private String Token, DistributorId;
-    private String MYNETWORK_COUNT_URL = " http://175.107.203.97:4013/api/kyc/searchCount";
-    private String MYNETWORK_URL = " http://175.107.203.97:4013/api/kyc/search";
+    private String MYNETWORK_COUNT_URL = " https://175.107.203.97:4013/api/kyc/searchCount";
+    private String MYNETWORK_URL = " https://175.107.203.97:4013/api/kyc/search";
     private int pageNumbernetwork = 0;
     private double totalPagesnetwork = 0;
     private double totalEntriesnetwork = 0;
@@ -126,7 +127,8 @@ public class My_Network_Fragment extends Fragment {
             e.printStackTrace();
         }
 
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, MYNETWORK_COUNT_URL, map, new Response.Listener<JSONObject>() {
             @Override
@@ -159,7 +161,7 @@ public class My_Network_Fragment extends Fragment {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext()).add(sr);
+        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
 
 
         //   networkAdapter = new Fragment_My_Network_Adapter(getContext(), "Connected", "123456789","Mz-2,Horizon Vista,Plot-10,Block-4,Clifton");

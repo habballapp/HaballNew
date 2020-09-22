@@ -24,7 +24,7 @@ import java.util.Map;
 
 public class ResolveTicket {
     private String ID;
-    private String URL_RESOLVE_TICKET = "http://175.107.203.97:4013/api/useralert/DismissAlert/";
+    private String URL_RESOLVE_TICKET = "https://175.107.203.97:4013/api/useralert/DismissAlert/";
 
     public ResolveTicket() {}
 

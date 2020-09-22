@@ -34,6 +34,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.ui.Fragment_Notification.NotificationAdapter;
@@ -76,8 +77,8 @@ public class Notification_Fragment extends Fragment {
     private RecyclerView.Adapter NotificationAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private Socket iSocket;
-    private static final String URL = "http://175.107.203.97:4014/";
-    private String URL_Mark_Seen = "http://175.107.203.97:4014/api/useralert/MarkSeen";
+    private static final String URL = "https://retailer.haball.pk/";
+    private String URL_Mark_Seen = "https://retailer.haball.pk/api/useralert/MarkSeen";
     private String UserId, Token;
     private List<Retailer_Notification_Model> NotificationList = new ArrayList<>();
     private TextView tv_notification_no_data;
@@ -88,7 +89,7 @@ public class Notification_Fragment extends Fragment {
     private int pageNumber = 0;
     private double totalPages = 0;
     private double totalEntries = 0;
-    private String URL_Notification = "http://175.107.203.97:4014/api/useralert/ShowAll";
+    private String URL_Notification = "https://retailer.haball.pk/api/useralert/ShowAll";
 
     public Notification_Fragment() {
         // Required empty public constructor
@@ -100,7 +101,8 @@ public class Notification_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //     return inflater.inflate(R.layout.fragment_blank, container, false);
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
         IO.Options opts = new IO.Options();
 //            opts.query = "userId=" + UserId;
         try {
@@ -185,7 +187,8 @@ public class Notification_Fragment extends Fragment {
         map.put("PageNumber", pageNumber);
 
         Log.i("map_SSSS", String.valueOf(map));
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL_Notification, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -237,7 +240,7 @@ public class Notification_Fragment extends Fragment {
         request.setRetryPolicy(new DefaultRetryPolicy(15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext()).add(request);
+        Volley.newRequestQueue(getContext(), hurlStack).add(request);
     }
 
 
@@ -255,7 +258,8 @@ public class Notification_Fragment extends Fragment {
         map.put("PageNumber", pageNumber);
 
         Log.i("map_SSSS", String.valueOf(map));
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_Notification, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -304,7 +308,7 @@ public class Notification_Fragment extends Fragment {
         request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext()).add(request);
+        Volley.newRequestQueue(getContext(), hurlStack).add(request);
     }
 
 
@@ -348,7 +352,8 @@ public class Notification_Fragment extends Fragment {
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
 
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         BooleanRequest sr = new BooleanRequest(Request.Method.PUT, URL_Mark_Seen, null, new Response.Listener<Boolean>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -376,7 +381,7 @@ public class Notification_Fragment extends Fragment {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext()).add(sr);
+        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
     }
 
     private void getNotifications() {

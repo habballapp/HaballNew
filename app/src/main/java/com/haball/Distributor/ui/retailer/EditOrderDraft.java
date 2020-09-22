@@ -42,7 +42,7 @@ import java.util.List;
 import java.util.Map;
 
 public class EditOrderDraft {
-    public String URL_EDIT_ORDER_DRAFT = "http://175.107.203.97:4013/api/retailerorder/";
+    public String URL_EDIT_ORDER_DRAFT = "https://175.107.203.97:4013/api/retailerorder/";
     public String DistributorId, Token;
     public Context mContext;
 
@@ -115,7 +115,8 @@ public class EditOrderDraft {
             URL_EDIT_ORDER_DRAFT = URL_EDIT_ORDER_DRAFT + orderId;
 
 //        final Context finalcontext = context;
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_EDIT_ORDER_DRAFT, null, new Response.Listener<JSONObject>() {
             @Override
@@ -230,7 +231,7 @@ public class EditOrderDraft {
                 return params;
             }
         };
-        RequestQueue mRequestQueue = Volley.newRequestQueue(context, new HurlStack());
+        RequestQueue mRequestQueue = Volley.newRequestQueue(context, hurlStack);
         mRequestQueue.add(request);
 
 

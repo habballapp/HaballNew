@@ -68,7 +68,7 @@ public class FragmentNotification extends Fragment {
     SharedPreferences sharedPreferences;
     private Context mcontext;
     static int counter;
-    //private String URL_NOTIFICATION = "http://175.107.203.97:4013/api/useralert/ShowAll/";
+    //private String URL_NOTIFICATION = "https://175.107.203.97:4013/api/useralert/ShowAll/";
     private Loader loader;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -107,7 +107,7 @@ public class FragmentNotification extends Fragment {
                 Context.MODE_PRIVATE);
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         ID = sharedPreferences1.getString("ID", "");
-        String URL_NOTIFICATION = "http://175.107.203.97:4013/api/useralert/";
+        String URL_NOTIFICATION = "https://175.107.203.97:4013/api/useralert/";
         Log.i("DistributorId ", DistributorId);
         Log.i("Token", Token);
 
@@ -192,7 +192,7 @@ public class FragmentNotification extends Fragment {
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         ID = sharedPreferences1.getString("ID", "");
 
-        String URL_NOTIFICATION_SEEN = "http://175.107.203.97:4013/api/useralert/MarkSeen/";
+        String URL_NOTIFICATION_SEEN = "https://175.107.203.97:4013/api/useralert/MarkSeen/";
         if (!URL_NOTIFICATION_SEEN.contains("/" + ID))
             URL_NOTIFICATION_SEEN = URL_NOTIFICATION_SEEN + ID;
         Log.i("URL_NOTIFICATION", URL_NOTIFICATION_SEEN);
@@ -248,7 +248,7 @@ public class FragmentNotification extends Fragment {
                 Context.MODE_PRIVATE);
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         ID = sharedPreferences1.getString("ID", "");
-        String URL_NOTIFICATION = "http://175.107.203.97:4013/api/useralert/";
+        String URL_NOTIFICATION = "https://175.107.203.97:4013/api/useralert/";
         Log.i("DistributorId ", DistributorId);
         Log.i("Token", Token);
 

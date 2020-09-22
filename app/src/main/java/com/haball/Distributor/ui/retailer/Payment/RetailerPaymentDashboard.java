@@ -79,7 +79,7 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
     private String Token, DistributorId;
     private Typeface myFont;
     ;
-    private String URL = "http://175.107.203.97:4013/api/retailerprepaidrequest/search";
+    private String URL = "https://175.107.203.97:4013/api/retailerprepaidrequest/search";
     private List<Dist_Retailer_Dashboard_Model> PaymentsList = new ArrayList<>();
     //spiner1
 

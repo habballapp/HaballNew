@@ -93,10 +93,10 @@ public class PlaceholderFragment extends Fragment {
             layout_R_Address;
     private TextInputEditText txt_password, txt_newpassword, txt_cfmpassword;
     public TextInputEditText edt_dist_code, tv_cnic, tv_NTN, tv_companyname, tv_created_date;
-    private String PROFILE_URL = "http://175.107.203.97:4013/api/distributor/";
-    private String PROFILE_ADDRESS_URL = "http://175.107.203.97:4013/api/distributor/ReadAdditionalAddress/";
-    private String ChangePass_URL = "http://175.107.203.97:4013/api/Users/ChangePassword";
-    private String PROFILE_EDIT_URL = "http://175.107.203.97:4013/api/distributor/saveProfile";
+    private String PROFILE_URL = "https://175.107.203.97:4013/api/distributor/";
+    private String PROFILE_ADDRESS_URL = "https://175.107.203.97:4013/api/distributor/ReadAdditionalAddress/";
+    private String ChangePass_URL = "https://175.107.203.97:4013/api/Users/ChangePassword";
+    private String PROFILE_EDIT_URL = "https://175.107.203.97:4013/api/distributor/saveProfile";
     private String Token;
     private String DistributorId, ID, Username, Phone;
     private Dialog change_password_dail;

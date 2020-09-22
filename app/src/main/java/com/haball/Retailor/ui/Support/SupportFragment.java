@@ -40,6 +40,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.ui.support.MyJsonArrayRequest;
 import com.haball.HaballError;
@@ -89,7 +90,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
     private ArrayList<String> array = new ArrayList<>();
     private TextView btn_add_ticket_retailer;
     private String Token, DistributorId;
-    private String URL_SUPPORT = "http://175.107.203.97:4014/api/support/Search";
+    private String URL_SUPPORT = "https://retailer.haball.pk/api/support/Search";
     private SupportDashboardRetailerModel supportViewModel;
     private List<SupportDashboardRetailerModel> SupportList = new ArrayList<>();
     //spinner1
@@ -121,7 +122,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
     private Loader loader;
     private boolean byDefaultSelectCriteria = true;
     private boolean byDefaultStatus = true;
-//    private ScrollView scrollview_support;
+    //    private ScrollView scrollview_support;
     private int pageNumber = 0;
     private double totalPages = 0;
     private double totalEntries = 0;
@@ -232,7 +233,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                 text.setTextSize((float) 13.6);
-               text.setPadding(30, 0, 30, 0);
+                text.setPadding(30, 0, 30, 0);
                 return view;
             }
         };
@@ -311,7 +312,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                                 text.setTextSize((float) 13.6);
-                               text.setPadding(30, 0, 30, 0);
+                                text.setPadding(30, 0, 30, 0);
                                 text.setTypeface(myFont);
                                 return view;
                             }
@@ -323,7 +324,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                                 text.setTextSize((float) 13.6);
-                               text.setPadding(30, 0, 30, 0);
+                                text.setPadding(30, 0, 30, 0);
                                 return view;
                             }
                         };
@@ -372,7 +373,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                                 text.setTextSize((float) 13.6);
-                               text.setPadding(30, 0, 30, 0);
+                                text.setPadding(30, 0, 30, 0);
                                 text.setTypeface(myFont);
                                 return view;
                             }
@@ -384,7 +385,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                                 text.setTextColor(getResources().getColor(R.color.text_color_selection));
                                 text.setTextSize((float) 13.6);
-                               text.setPadding(30, 0, 30, 0);
+                                text.setPadding(30, 0, 30, 0);
                                 return view;
                             }
                         };
@@ -532,7 +533,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         conso_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus) {
+                if (!hasFocus) {
                     Filter_selected_value = String.valueOf(conso_edittext.getText());
                     if (!Filter_selected_value.equals("")) {
                         try {
@@ -707,7 +708,8 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         JSONObject map = new JSONObject();
         map.put("TotalRecords", 10);
         map.put("PageNumber", pageNumber);
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         MyJsonArrayRequest request = new MyJsonArrayRequest(Request.Method.POST, URL_SUPPORT, map, new Response.Listener<JSONArray>() {
             @Override
@@ -785,7 +787,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext()).add(request);
+        Volley.newRequestQueue(getContext(), hurlStack).add(request);
     }
 
 
@@ -808,7 +810,9 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
             map.put(Filter_selected, Filter_selected_value);
         }
         Log.i("map_SSSS", String.valueOf(map));
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+
         MyJsonArrayRequest request = new MyJsonArrayRequest(Request.Method.POST, URL_SUPPORT, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -874,7 +878,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         request.setRetryPolicy(new DefaultRetryPolicy(15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext()).add(request);
+        Volley.newRequestQueue(getContext(), hurlStack).add(request);
     }
 
     private void fetchFilteredSupport() throws JSONException {
@@ -895,7 +899,8 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
             map.put(Filter_selected, Filter_selected_value);
         }
         Log.i("map_SSSS", String.valueOf(map));
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
         MyJsonArrayRequest request = new MyJsonArrayRequest(Request.Method.POST, URL_SUPPORT, map, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -959,7 +964,7 @@ public class SupportFragment extends Fragment implements DatePickerDialog.OnDate
         request.setRetryPolicy(new DefaultRetryPolicy(15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext()).add(request);
+        Volley.newRequestQueue(getContext(), hurlStack).add(request);
     }
 
     // private void printErrorMessage(VolleyError error) {

@@ -35,6 +35,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.CustomToast;
@@ -50,6 +51,7 @@ import com.haball.Retailer_Login.RetailerLogin;
 import com.haball.Retailor.Retailer_TermsAndConditionsFragment;
 import com.haball.Retailor.Retailer_UpdatePassword;
 import com.haball.Retailor.RetailorDashboard;
+import com.haball.SSL_HandShake;
 import com.haball.Select_User.Register_Activity;
 import com.haball.Support.Support_Ditributor.Support_Ticket_Form;
 import com.haball.TextField;
@@ -77,9 +79,9 @@ public class Distribution_Login extends AppCompatActivity {
     private Button btn_reset;
     public ImageButton btn_back;
     private TextInputEditText et_username, et_password, txt_email;
-    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4013/api/Users/forgot";
+    private String URL_FORGOT_PASSWORD = "https://175.107.203.97:4013/api/Users/forgot";
     private String token;
-    private  String URL = "http://175.107.203.97:4013/Token";
+    private  String URL = "https://175.107.203.97:4013/Token";
     ProgressDialog progressDialog;
     private TextInputLayout layout_password, layout_username;
     private Loader loader;
@@ -273,6 +275,7 @@ public class Distribution_Login extends AppCompatActivity {
             map.put("Password", et_password.getText().toString());
             map.put("grant_type", "password");
 
+        HurlStack hurlStack = new SSL_HandShake().handleSSLHandshakeDistributor(Distribution_Login.this);
 
         Log.i("map", String.valueOf(map));
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
@@ -443,9 +446,9 @@ public class Distribution_Login extends AppCompatActivity {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(this).add(sr);
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(sr);
+        Volley.newRequestQueue(this, hurlStack).add(sr);
+//        RequestQueue requestQueue = Volley.newRequestQueue(this);
+//        requestQueue.add(sr);
     }
 
     @Override

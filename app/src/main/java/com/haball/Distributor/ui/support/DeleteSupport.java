@@ -36,8 +36,8 @@ package com.haball.Distributor.ui.support;
         import java.util.Map;
 
 public class DeleteSupport {
-//    public String URL_SUPPORT_STATUS_CHANGE = "http://175.107.203.97:4013/api/contact/StatusChange";
-    public String URL_SUPPORT_STATUS_CHANGE = "http://175.107.203.97:4013/api/contact/StatusDelete";
+//    public String URL_SUPPORT_STATUS_CHANGE = "https://175.107.203.97:4013/api/contact/StatusChange";
+    public String URL_SUPPORT_STATUS_CHANGE = "https://175.107.203.97:4013/api/contact/StatusDelete";
     public String DistributorId, Token;
     public Context mContext;
     private String response = "";

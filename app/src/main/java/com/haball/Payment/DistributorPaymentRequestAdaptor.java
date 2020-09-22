@@ -81,7 +81,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
     private HashMap<String, String> companyNameAndId = new HashMap<>();
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
     private Activity activity;
-    public String URL_DELETE_PAYMENT = "http://175.107.203.97:4013/api/prepaidrequests/save";
+    public String URL_DELETE_PAYMENT = "https://175.107.203.97:4013/api/prepaidrequests/save";
 
     Spinner spinner;
     private FragmentTransaction fragmentTransaction;
@@ -556,7 +556,8 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
 
 
         final Context finalcontext = context;
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL_DELETE_PAYMENT, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -624,7 +625,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
                 return params;
             }
         };
-        RequestQueue mRequestQueue = Volley.newRequestQueue(context, new HurlStack());
+        RequestQueue mRequestQueue = Volley.newRequestQueue(context, hurlStack);
         mRequestQueue.add(request);
     }
 

@@ -39,6 +39,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -79,9 +80,9 @@ public class CreatePaymentRequestFragment extends Fragment {
     private String Token, DistributorId, ID;
     private Button btn_create;
 
-    //    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4014/api/kyc/KYCDistributorList";
-    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4014/api/prepaidrequests/GetByRetailerCode";
-    private String URL_PAYMENT_REQUESTS_SAVE = "http://175.107.203.97:4014/api/prepaidrequests/save";
+    //    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "https://retailer.haball.pk/api/kyc/KYCDistributorList";
+    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "https://retailer.haball.pk/api/prepaidrequests/GetByRetailerCode";
+    private String URL_PAYMENT_REQUESTS_SAVE = "https://retailer.haball.pk/api/prepaidrequests/save";
 
     private List<String> CompanyNames = new ArrayList<>();
     private HashMap<String, String> companyNameAndId = new HashMap<>();
@@ -379,7 +380,8 @@ public class CreatePaymentRequestFragment extends Fragment {
             map.put("PaidAmount", txt_amount.getText().toString());
 
             Log.i("JSON ", String.valueOf(map));
-            new SSL_HandShake().handleSSLHandshake();
+//            new SSL_HandShake().handleSSLHandshake();
+            final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
             JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PAYMENT_REQUESTS_SAVE, map, new Response.Listener<JSONObject>() {
                 @Override
@@ -436,7 +438,7 @@ public class CreatePaymentRequestFragment extends Fragment {
                     15000,
                     DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            Volley.newRequestQueue(getContext()).add(sr);
+            Volley.newRequestQueue(getContext(), hurlStack).add(sr);
         } else {
             new CustomToast().showToast(getActivity(), "Amount cannot be less than PKR 500.");
         }
@@ -494,7 +496,8 @@ public class CreatePaymentRequestFragment extends Fragment {
         Token = sharedPreferences.getString("Login_Token", "");
 
         Log.i("Token", Token);
-            new SSL_HandShake().handleSSLHandshake();
+//            new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PAYMENT_REQUESTS_SELECT_COMPANY, null, new Response.Listener<JSONArray>() {
             @Override
@@ -544,7 +547,7 @@ public class CreatePaymentRequestFragment extends Fragment {
 
             }
         });
-        Volley.newRequestQueue(getContext()).add(sr);
+        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
         arrayAdapterPayments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         arrayAdapterPayments.notifyDataSetChanged();
         spinner_company.setAdapter(arrayAdapterPayments);

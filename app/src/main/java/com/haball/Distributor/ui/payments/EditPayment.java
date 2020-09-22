@@ -33,7 +33,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class EditPayment {
-    private String URL_PAYMENT_REQUESTS_SAVE = "http://175.107.203.97:4013/api/prepaidrequests/save";
+    private String URL_PAYMENT_REQUESTS_SAVE = "https://175.107.203.97:4013/api/prepaidrequests/save";
     private Context mContext;
 
     public EditPayment() {

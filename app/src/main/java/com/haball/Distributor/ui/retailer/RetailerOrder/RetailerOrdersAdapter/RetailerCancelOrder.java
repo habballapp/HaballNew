@@ -38,7 +38,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 public class RetailerCancelOrder {
-    public String URL_CANCEL_ORDER = "http://175.107.203.97:4013/api/retailerorder/cancel/";
+    public String URL_CANCEL_ORDER = "https://175.107.203.97:4013/api/retailerorder/cancel/";
     public String DistributorId, Token;
     public Context mContext;
     private FragmentTransaction fragmentTransaction;

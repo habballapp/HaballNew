@@ -97,9 +97,9 @@ public class Dist_OrderPlace extends Fragment {
     private List<OrderParentlist_Model_DistOrder> titles = new ArrayList<>();
     private List<OrderChildlist_Model_DistOrder> productList = new ArrayList<>();
     //    private List<SimpleParent> parentObjects = new ArrayList<>();
-    private String URL_DISTRIBUTOR_DASHBOARD = "http://175.107.203.97:4013/api/dashboard/ReadDistributorDashboard";
-    private String URL_PRODUCT_CATEGORY = "http://175.107.203.97:4013/api/products/ReadCategories/0/";
-    private String URL_PRODUCT = "http://175.107.203.97:4013/api/products/ReadProductsByCategories/0/";
+    private String URL_DISTRIBUTOR_DASHBOARD = "https://175.107.203.97:4013/api/dashboard/ReadDistributorDashboard";
+    private String URL_PRODUCT_CATEGORY = "https://175.107.203.97:4013/api/products/ReadCategories/0/";
+    private String URL_PRODUCT = "https://175.107.203.97:4013/api/products/ReadProductsByCategories/0/";
     private String Token, DistributorId;
     private String object_string, object_stringqty;
     private List<OrderChildlist_Model_DistOrder> selectedProductsDataList = new ArrayList<>();

@@ -39,12 +39,14 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.reflect.TypeToken;
 import com.haball.Distributor.DistributorDashboard;
 import com.haball.Distributor.ui.expandablelist.CustomExpandableListModel;
+import com.haball.Distributor.ui.retailer.Retailor_Management.Retailer_Dashboard;
 import com.haball.Distributor.ui.terms_and_conditions.TermsAndConditionsFragment;
 import com.haball.Loader;
 import com.haball.ProcessingError;
@@ -115,12 +117,12 @@ public class RetailorDashboard extends AppCompatActivity {
     //    private TextView tv_username, tv_user_company;
     boolean doubleBackToExitPressedOnce = false;
     private Socket iSocket;
-    private static final String URL = "http://175.107.203.97:4014/";
+    private static final String URL = "https://retailer.haball.pk/";
     private String UserId;
     private JSONArray userRights;
     private List<String> NavList = new ArrayList<>();
     private int notification = 0;
-    private String URL_Logout = "http://175.107.203.97:4014/api/users/logout";
+    private String URL_Logout = "https://retailer.haball.pk/api/users/logout";
     private int UnReadNotifications = 0;
     private List<Retailer_Notification_Model> NotificationList = new ArrayList<>();
 
@@ -129,7 +131,7 @@ public class RetailorDashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retailor_dashboard);
 
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
 
         IO.Options opts = new IO.Options();
 //            opts.query = "userId=" + UserId;
@@ -447,7 +449,7 @@ public class RetailorDashboard extends AppCompatActivity {
                 alertDialog.dismiss();
                 loader.showLoader();
 
-                new SSL_HandShake().handleSSLHandshake();
+                final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(RetailorDashboard.this);
 
                 BooleanRequest sr = new BooleanRequest(Request.Method.DELETE, URL_Logout, null, new Response.Listener<Boolean>() {
                     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -508,7 +510,7 @@ public class RetailorDashboard extends AppCompatActivity {
                         15000,
                         DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-                Volley.newRequestQueue(RetailorDashboard.this).add(sr);
+                Volley.newRequestQueue(RetailorDashboard.this, hurlStack).add(sr);
 
 
             }
@@ -569,7 +571,7 @@ public class RetailorDashboard extends AppCompatActivity {
 
     private void logoutOnDestroy() {
         Log.i("Destroyed1", "destroyed");
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
         BooleanRequest sr = new BooleanRequest(Request.Method.DELETE, URL_Logout, null, new Response.Listener<Boolean>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override

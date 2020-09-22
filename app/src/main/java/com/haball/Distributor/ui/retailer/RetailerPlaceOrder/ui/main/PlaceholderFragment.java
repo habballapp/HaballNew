@@ -80,8 +80,8 @@ public class PlaceholderFragment extends Fragment {
     private RecyclerView.Adapter mAdapter1;
     private RecyclerView.LayoutManager layoutManager, layoutManager1;
     private String Token, DistributorId;
-    private String URL_Retailer = "http://175.107.203.97:4013/api/retailer/retailerById/"; // To be done
-    private String URL_Retailer_Details = "http://175.107.203.97:4013/api/retailer/"; // To be done
+    private String URL_Retailer = "https://175.107.203.97:4013/api/retailer/retailerById/"; // To be done
+    private String URL_Retailer_Details = "https://175.107.203.97:4013/api/retailer/"; // To be done
     private List<Retailer_Fragment_Model> RetailerList;
     private Button btn_next;
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -223,7 +223,7 @@ public class PlaceholderFragment extends Fragment {
         DistributorId = sharedPreferences1.getString("Distributor_Id", "");
         Log.i("DistributorId ", DistributorId);
         Log.i("Token", Token);
-        URL_Retailer_Details = "http://175.107.203.97:4013/api/retailer/";
+        URL_Retailer_Details = "https://175.107.203.97:4013/api/retailer/";
         URL_Retailer_Details = URL_Retailer_Details + retailerID;
         Log.i("URL_RETAILER_DETAILS ", URL_Retailer_Details);
 

@@ -33,6 +33,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.HaballError;
@@ -56,7 +57,7 @@ public class TermsAndConditionsFragment extends AppCompatActivity {
 
     private TermsAndConditionsViewModel mViewModel;
     private Button agree_button, disagree_button;
-    private String URL = "http://175.107.203.97:4014/api/users/termsandcondition";
+    private String URL = "https://retailer.haball.pk/api/users/termsandcondition";
     private String Token;
 
     public static TermsAndConditionsFragment newInstance() {
@@ -106,7 +107,8 @@ public class TermsAndConditionsFragment extends AppCompatActivity {
         jsonObject.put("RetailerID", Integer.parseInt(RetailerID));
 
         String requestBody = jsonObject.toString();
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(TermsAndConditionsFragment.this);
 
         BooleanRequest sr = new BooleanRequest(Request.Method.POST, URL, requestBody, new Response.Listener<Boolean>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -144,7 +146,7 @@ public class TermsAndConditionsFragment extends AppCompatActivity {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(this).add(sr);
+        Volley.newRequestQueue(this, hurlStack).add(sr);
     }
 
 }

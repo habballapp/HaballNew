@@ -83,7 +83,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class RetailerFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
     private RetailerViewModel shareViewModel;
-    private String URL_Retailers = "http://175.107.203.97:4013/api/retailer/search";
+    private String URL_Retailers = "https://175.107.203.97:4013/api/retailer/search";
     private RecyclerView recyclerView;
     private Button btn_load_more;
     private int pageNumber = 0;

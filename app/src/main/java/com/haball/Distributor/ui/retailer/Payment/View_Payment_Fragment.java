@@ -27,6 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.HaballError;
@@ -56,7 +57,7 @@ import java.util.Map;
 public class View_Payment_Fragment extends Fragment {
 
     private String PaymentsRequestId;
-    private String PAYMENT_REQUEST_URL = "http://175.107.203.97:4013/api/retailerprepaidrequest/";
+    private String PAYMENT_REQUEST_URL = "https://175.107.203.97:4013/api/retailerprepaidrequest/";
     private String Token;
     private TextInputEditText txt_heading, txt_paymentid, txt_created_date, txt_transaction_date, txt_bname, txt_authorization, txt_settlement, txt_amount, txt_status, txt_transaction_charges, txt_total_amount;
     private Button btn_vreciept, btn_back;
@@ -195,7 +196,8 @@ public class View_Payment_Fragment extends Fragment {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, PAYMENT_REQUEST_URL, null, new Response.Listener<JSONObject>() {
             @Override
@@ -275,7 +277,7 @@ public class View_Payment_Fragment extends Fragment {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext()).add(sr);
+        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
     }
 
     // private void printErrMessage(VolleyError error) {

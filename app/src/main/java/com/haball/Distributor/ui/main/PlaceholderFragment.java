@@ -102,13 +102,13 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private RecyclerView.Adapter OrdersAdapter;
     private TextView tv_shipment_no_data, tv_shipment_no_data1;
     private RecyclerView.LayoutManager layoutManager;
-    private String URL_DISTRIBUTOR_DASHBOARD = "http://175.107.203.97:4013/api/dashboard/ReadDistributorDashboard";
-    //    private String URL_DISTRIBUTOR_PAYMENTS = "http://175.107.203.97:4013/api/dashboard/ReadDistributorPayments";
-    private String URL_DISTRIBUTOR_PAYMENTS = "http://175.107.203.97:4013/api/prepaidrequests/searchall";
-    private String URL_DISTRIBUTOR_PAYMENTS_COUNT = "http://175.107.203.97:4013/api/prepaidrequests/searchCount";
-    private String URL_DISTRIBUTOR_ORDERS = "http://175.107.203.97:4013/api/orders/search";
-    private String URL_DISTRIBUTOR_ORDERS_COUNT = "http://175.107.203.97:4013/api/orders/searchCount";
-    private String URL_PAYMENT_LEDGER_COMPANY = "http://175.107.203.97:4013/api/company/ReadActiveCompanyContract/";
+    private String URL_DISTRIBUTOR_DASHBOARD = "https://175.107.203.97:4013/api/dashboard/ReadDistributorDashboard";
+    //    private String URL_DISTRIBUTOR_PAYMENTS = "https://175.107.203.97:4013/api/dashboard/ReadDistributorPayments";
+    private String URL_DISTRIBUTOR_PAYMENTS = "https://175.107.203.97:4013/api/prepaidrequests/searchall";
+    private String URL_DISTRIBUTOR_PAYMENTS_COUNT = "https://175.107.203.97:4013/api/prepaidrequests/searchCount";
+    private String URL_DISTRIBUTOR_ORDERS = "https://175.107.203.97:4013/api/orders/search";
+    private String URL_DISTRIBUTOR_ORDERS_COUNT = "https://175.107.203.97:4013/api/orders/searchCount";
+    private String URL_PAYMENT_LEDGER_COMPANY = "https://175.107.203.97:4013/api/company/ReadActiveCompanyContract/";
 
     private TextView tv_select_company, value_unpaid_amount, value_paid_amount;
     private List<DistributorPaymentRequestModel> PaymentsRequestList = new ArrayList<>();

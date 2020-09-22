@@ -60,8 +60,8 @@ public class ViewRetailer extends Fragment {
     private String RetailerId;
     private TextInputEditText mg_rt_code, mg_rt_firstname, mg_rt_email, mg_cnic_no, mg_mobile_no, mg_rt_company, mg_tr_address, mg_rt_sapcode, mg_rt_status;
     private TextInputLayout layout_mg_rt_code, layout_mg_rt_firstname, layout_mg_rt_email, layout_mg_cnic_no, layout_mg_mobile_no, layout_mg_rt_company, layout_mg_tr_address, layout_mg_rt_sapcode, layout_mg_rt_status;
-    private String URL_RETAILER_DETAILS = "http://175.107.203.97:4013/api/retailer/";
-    private String URL_UPDATE_RETAILER = "http://175.107.203.97:4013/api/retailer/RetailerUpdate";
+    private String URL_RETAILER_DETAILS = "https://175.107.203.97:4013/api/retailer/";
+    private String URL_UPDATE_RETAILER = "https://175.107.203.97:4013/api/retailer/RetailerUpdate";
     private String Token, DistributorId;
     private CheckBox check_box;
     private Button btn_close, btn_save;

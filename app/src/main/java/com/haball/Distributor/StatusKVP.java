@@ -15,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
@@ -31,11 +32,11 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class StatusKVP {
-    private String URL_OrderStatus = "http://175.107.203.97:4013/api/lookup/ORDER_STATUS";
-    private String URL_InvoiceStatus = "http://175.107.203.97:4013/api/lookup/INVOICE_STATUS";
-    private String URL_PREPAIDStatus = "http://175.107.203.97:4013/api/lookup/PREPAID_STATUS";
-    private String URL_InvoiceState = "http://175.107.203.97:4013/api/lookup/INVOICE_STATE";
-    private String URL_Retailer_All_Status = "http://175.107.203.97:4014/api/lookup/null";
+    private String URL_OrderStatus = "https://175.107.203.97:4013/api/lookup/ORDER_STATUS";
+    private String URL_InvoiceStatus = "https://175.107.203.97:4013/api/lookup/INVOICE_STATUS";
+    private String URL_PREPAIDStatus = "https://175.107.203.97:4013/api/lookup/PREPAID_STATUS";
+    private String URL_InvoiceState = "https://175.107.203.97:4013/api/lookup/INVOICE_STATE";
+    private String URL_Retailer_All_Status = "https://retailer.haball.pk/api/lookup/null";
     private HashMap<String, String> OrderStatusKVP = new HashMap<>();
     private HashMap<String, String> PREPAIDStatusKVP = new HashMap<>();
     private HashMap<String, String> InvoiceStatusKVP = new HashMap<>();
@@ -92,7 +93,8 @@ public class StatusKVP {
     }
 
     private void GetOrderStatusDefault() {
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_OrderStatus, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
@@ -127,7 +129,7 @@ public class StatusKVP {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(context).add(sr);
+        Volley.newRequestQueue(context, hurlStack).add(sr);
     }
 
     public HashMap<String, String> getOrderStatus() {
@@ -137,7 +139,8 @@ public class StatusKVP {
     }
 
     private void GetInvoiceStatusDefault() {
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_InvoiceStatus, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
@@ -172,7 +175,7 @@ public class StatusKVP {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(context).add(sr);
+        Volley.newRequestQueue(context, hurlStack).add(sr);
     }
 
     public HashMap<String, String> getInvoiceStatus() {
@@ -181,7 +184,8 @@ public class StatusKVP {
     }
 
     private void GetPrepaidStatusDefault() {
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_InvoiceStatus, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
@@ -216,7 +220,7 @@ public class StatusKVP {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(context).add(sr);
+        Volley.newRequestQueue(context, hurlStack).add(sr);
     }
 
     public HashMap<String, String> getPrepaidStatus() {
@@ -225,7 +229,8 @@ public class StatusKVP {
     }
 
     private void GetInvoiceStateDefault() {
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_InvoiceState, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
@@ -260,7 +265,7 @@ public class StatusKVP {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(context).add(sr);
+        Volley.newRequestQueue(context, hurlStack).add(sr);
     }
 
     public HashMap<String, String> getInvoiceState() {
@@ -269,7 +274,8 @@ public class StatusKVP {
     }
 
     private void GetRetailerStatusDefault() {
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_Retailer_All_Status, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray result) {
@@ -352,7 +358,7 @@ public class StatusKVP {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(context).add(sr);
+        Volley.newRequestQueue(context, hurlStack).add(sr);
     }
 
     public HashMap<String, String> ReturnRetailerContactingMethodKVP() {

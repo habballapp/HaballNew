@@ -35,6 +35,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haball.HaballError;
@@ -71,9 +72,9 @@ public class OrderSummaryDraft extends Fragment {
     private List<OrderChildlist_Model> selectedProductsDataList = new ArrayList<>();
     private List<String> selectedProductsQuantityList = new ArrayList<>();
     private String object_string, object_stringqty, Token, DistributorId, CompanyId;
-    private String URL_CONFIRM_ORDERS = "http://175.107.203.97:4014/api/Orders/saveOrder";
-    //    private String URL_SAVE_TEMPLATE = "http://175.107.203.97:4013/api/ordertemplate/save";
-    private String URL_SAVE_DRAFT = "http://175.107.203.97:4014/api/Orders/draft";
+    private String URL_CONFIRM_ORDERS = "https://retailer.haball.pk/api/Orders/saveOrder";
+    //    private String URL_SAVE_TEMPLATE = "https://175.107.203.97:4013/api/ordertemplate/save";
+    private String URL_SAVE_DRAFT = "https://retailer.haball.pk/api/Orders/draft";
     private Button btn_confirm, btn_template, btn_draft;
     private TextView gross_amount, discount_amount, gst_amount, total_amount;
     private float totalAmount;
@@ -381,7 +382,8 @@ public class OrderSummaryDraft extends Fragment {
 //        jsonObject.put("TotalDiscountAmount", 0);
 
         Log.i("jsonObject", String.valueOf(jsonObject));
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_SAVE_DRAFT, jsonObject, new Response.Listener<JSONObject>() {
             @Override
@@ -426,7 +428,7 @@ public class OrderSummaryDraft extends Fragment {
             }
         };
 
-        Volley.newRequestQueue(getContext()).add(sr);
+        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
     }
 
     private void requestConfirmOrder() throws JSONException {
@@ -459,7 +461,8 @@ public class OrderSummaryDraft extends Fragment {
 //        jsonObject.put("TotalPrice", totalAmount);
 
         Log.i("jsonObject", String.valueOf(jsonObject));
-        new SSL_HandShake().handleSSLHandshake();
+//        new SSL_HandShake().handleSSLHandshake();
+        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_CONFIRM_ORDERS, jsonObject, new Response.Listener<JSONObject>() {
             @Override
@@ -489,7 +492,7 @@ public class OrderSummaryDraft extends Fragment {
             }
         };
 
-        Volley.newRequestQueue(getContext()).add(sr);
+        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
     }
 
     private void refreshRetailerInfo() {

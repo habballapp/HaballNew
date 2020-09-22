@@ -21,6 +21,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.Volley;
 import com.haball.Distributor.ui.Fragment_Notification.Dismiss_Notification;
 import com.haball.Distributor.ui.Fragment_Notification.NotificationAdapter;
@@ -46,7 +47,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
     private Context context;
     private String subject, notification_txt;
     private List<Retailer_Notification_Model> NotificationList = new ArrayList<>();
-    private String dismiss_alert = "http://175.107.203.97:4014/api/useralert/DismissAlert/";
+    private String dismiss_alert = "https://retailer.haball.pk/api/useralert/DismissAlert/";
 
     public Notification_Adapter(Context context, List<Retailer_Notification_Model> notificationList) {
         this.context = context;
@@ -95,7 +96,8 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
 
                                 final Loader loader = new Loader(context);
                                 loader.showLoader();
-                                new SSL_HandShake().handleSSLHandshake();
+//                                new SSL_HandShake().handleSSLHandshake();
+                                final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
                                 BooleanRequest sr = new BooleanRequest(Request.Method.POST, dismiss_alert, null, new Response.Listener<Boolean>() {
                                     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                                     @Override
@@ -137,7 +139,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
                                         9999999,
                                         DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-                                Volley.newRequestQueue(context).add(sr);
+                                Volley.newRequestQueue(context, hurlStack).add(sr);
 
 //                                Toast.makeText(context, "Notification Dismissed", Toast.LENGTH_LONG).show();
                                 break;
