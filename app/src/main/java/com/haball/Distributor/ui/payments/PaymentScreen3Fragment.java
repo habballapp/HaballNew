@@ -247,7 +247,7 @@ public class PaymentScreen3Fragment extends Fragment {
 
             }
         });
-        txt_amount.setText(Amount);
+        txt_amount.setText("PKR "+Amount);
         txt_amount.setTextColor(getResources().getColor(R.color.textcolor));
         txt_amount.addTextChangedListener(new TextWatcher() {
             @Override

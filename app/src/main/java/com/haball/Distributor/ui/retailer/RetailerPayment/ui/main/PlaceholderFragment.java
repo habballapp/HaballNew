@@ -655,7 +655,7 @@ public class PlaceholderFragment extends Fragment {
                     String TotalAmount = "";
 //                    if (totalPrice != 0)
                     TotalAmount = formatter1.format(Double.parseDouble(response.getString("Amount")));
-                    total_amount.setText(TotalAmount);
+                    total_amount.setText("PKR "+TotalAmount);
                     if (!response.getString("TotoalOrderDiscount").equals("null") && !response.getString("TotoalOrderDiscount").equals("0")) {
                         String OrderTotalDiscount = formatter1.format(Double.parseDouble(response.getString("TotoalOrderDiscount")));
                         discount_amount.setText(OrderTotalDiscount);
@@ -771,7 +771,7 @@ public class PlaceholderFragment extends Fragment {
 //                        setTextAndShow(layout_txt_amount, txt_amount, String.valueOf(response.get("Amount")));
                         DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
                         String Formatted_TotalAmount = formatter1.format(Double.parseDouble(response.getString("Amount")));
-                        setTextAndShow(layout_txt_amount, txt_amount, Formatted_TotalAmount);
+                        setTextAndShow(layout_txt_amount, txt_amount, "PKR "+Formatted_TotalAmount);
                         if (!String.valueOf(response.get("Amount")).equals("") && !String.valueOf(response.get("Amount")).equals("null"))
                             txt_amount.setTextColor(getResources().getColor(R.color.textcolor));
                     }
@@ -807,7 +807,7 @@ public class PlaceholderFragment extends Fragment {
 //                        setTextAndShow(layout_txt_total_amount, txt_total_amount, String.valueOf(response.getString("TotalAmount")));
                         DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
                         String Formatted_TotalAmount = formatter1.format(Double.parseDouble(response.getString("TotalAmount")));
-                        setTextAndShow(layout_txt_total_amount, txt_total_amount, Formatted_TotalAmount);
+                        setTextAndShow(layout_txt_total_amount, txt_total_amount,"PKR "+Formatted_TotalAmount);
                         if (!String.valueOf(response.get("TotalAmount")).equals("") && !String.valueOf(response.get("TotalAmount")).equals("null"))
                             txt_total_amount.setTextColor(getResources().getColor(R.color.textcolor));
                     }

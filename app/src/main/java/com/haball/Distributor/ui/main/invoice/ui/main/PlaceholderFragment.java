@@ -907,7 +907,7 @@ public class PlaceholderFragment extends Fragment {
 //                    setTextAndShow(layout_txt_amount, txt_amount, String.valueOf(response.get("InvoiceTotalAmount")));
                     DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
                     String Formatted_TotalAmount = formatter1.format(Double.parseDouble(response.getString("PaidAmount")));
-                    setTextAndShow(layout_txt_amount, txt_amount, Formatted_TotalAmount);
+                    setTextAndShow(layout_txt_amount, txt_amount, "PKR "+Formatted_TotalAmount);
 
                     setTextAndShow(layout_txt_status, txt_status, String.valueOf(InvoiceStatusKVP.get(response.getString("invoiceStatus"))));
                     setTextAndShow(layout_transaction_date, txt_confirm, String.valueOf(response.getString("PaidDate")).split("T")[0]);
@@ -916,7 +916,7 @@ public class PlaceholderFragment extends Fragment {
 //                        setTextAndShow(layout_txt_settlement_id, txt_settlement_id, String.valueOf(response.getString("SettlementID")));
 //                    setTextAndShow(layout_txt_total_amount, txt_total_amount, String.valueOf(response.getString("TotalAmount")));
                     Formatted_TotalAmount = formatter1.format(Double.parseDouble(response.getString("TotalPrice")));
-                    setTextAndShow(layout_txt_total_amount, txt_total_amount, Formatted_TotalAmount);
+                    setTextAndShow(layout_txt_total_amount, txt_total_amount,"PKR "+Formatted_TotalAmount);
 
 //                        setTextAndShow(layout_txt_transaction_charges, txt_transaction_charges, String.valueOf(response.getString("TransactionCharges")));
 
