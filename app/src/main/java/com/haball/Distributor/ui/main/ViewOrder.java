@@ -46,7 +46,7 @@ public class ViewOrder extends Fragment {
         Log.i("OrderStatus", OrderStatus);
 
 //        SectionsPagerAdapter sectionsPagerAdapter = null;
-        if (InvoiceStatus.equals("null") || InvoiceStatus.equals("Pending") || OrderStatus.equals("Pending") || ((InvoiceUpload.equals("0")) && OrderStatus.equals("Cancelled"))) {
+        if (InvoiceStatus.equals("null") || InvoiceStatus.equals("Pending") || OrderStatus.equals("Pending") || OrderStatus.equals("Rejected")|| ((InvoiceUpload.equals("0")) && OrderStatus.equals("Cancelled"))) {
             SectionsPagerAdapter_WithoutPayments sectionsPagerAdapter = new SectionsPagerAdapter_WithoutPayments(getActivity(), getChildFragmentManager());
             final ViewPager viewPager = root.findViewById(R.id.view_pager_ret_view_order);
             viewPager.setOffscreenPageLimit(3);

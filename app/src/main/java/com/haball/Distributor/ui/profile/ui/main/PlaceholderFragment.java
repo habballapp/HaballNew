@@ -1165,7 +1165,6 @@ public class PlaceholderFragment extends Fragment {
             });
             Volley.newRequestQueue(getActivity()).add(sr);
         } else {
-            Toast.makeText(getActivity(), "Password do not Match", Toast.LENGTH_LONG).show();
             new CustomToast().showToast(getActivity(), "Password mismatch");
             layout_password1.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
             layout_password1.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));

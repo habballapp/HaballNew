@@ -319,7 +319,7 @@
 		Distributor_Profile
 	</string>
     <string name="txt_forgot">
-		Please enter your registered email address or reset your password.
+		Please enter your registered email address to reset your password.
 	</string>
     <string name="txt_popup_email_snt">
 		Password reset instructions have been sent to the email address provided.

@@ -25,6 +25,27 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ln_login"
                 android:orientation="vertical">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_txt_order_company"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="20dp"
+                    android:hint="Company"
+                    android:fontFamily="@font/open_sans"
+                    android:theme="@style/TextLabel"
+                    app:boxBackgroundColor="#fff"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txt_company_order"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="text"
+                        android:theme="@style/TextLabelEditeText"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_txt_orderID"
@@ -48,27 +69,6 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layout_txt_order_company"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_marginTop="20dp"
-                    android:hint="Company"
-                    android:fontFamily="@font/open_sans"
-                    android:theme="@style/TextLabel"
-                    app:boxBackgroundColor="#fff"
-                    >
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/txt_company_order"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:inputType="text"
-                        android:theme="@style/TextLabelEditeText" 
-                      />
-
-                </com.google.android.material.textfield.TextInputLayout>
 
 
                 <com.google.android.material.textfield.TextInputLayout
