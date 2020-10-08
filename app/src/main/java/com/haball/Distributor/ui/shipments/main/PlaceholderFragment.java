@@ -108,7 +108,7 @@ public class PlaceholderFragment extends Fragment {
     private TextInputEditText txt_companyName, txt_paymentID, txt_created_date, txt_confirm, txt_bank, txt_authorization_id, txt_settlement_id, txt_status, txt_amount, txt_transaction_charges, txt_total_amount;
 
 
-    private TextView discount_amount, total_amount;
+    private TextView discount_amount, total_amount ,tv_shipment_no_data;
     private RecyclerView product_rv_shipment;
 
     private RecyclerView.Adapter productShipmentDetailsAdapter;
@@ -213,6 +213,7 @@ public class PlaceholderFragment extends Fragment {
 
                 product_rv_shipment = rootView.findViewById(R.id.product_rv_shipment);
                 btn_back = rootView.findViewById(R.id.btn_back);
+                tv_shipment_no_data = rootView.findViewById(R.id.tv_shipment_no_data);
                 product_rv_shipment.setHasFixedSize(true);
                 layoutManager = new LinearLayoutManager(rootView.getContext());
                 product_rv_shipment.setLayoutManager(layoutManager);
@@ -656,6 +657,7 @@ public class PlaceholderFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 Log.i("response", String.valueOf(response));
                 try {
+
                     Gson gson = new Gson();
                     JSONObject deliveryCorp = response.getJSONObject("deliveryCorp");
                     JSONArray jsonArray = deliveryCorp.getJSONArray("DeliveryNoteDetails");
@@ -668,6 +670,11 @@ public class PlaceholderFragment extends Fragment {
 
                     productShipmentDetailsAdapter = new ProductDetailsAdapter(getContext(), productShipmentList);
                     product_rv_shipment.setAdapter(productShipmentDetailsAdapter);
+                    if (productShipmentList.size() != 0){
+                        tv_shipment_no_data.setVisibility(View.GONE);
+                    }
+                    else
+                        tv_shipment_no_data.setVisibility(View.VISIBLE);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -840,8 +847,8 @@ public class PlaceholderFragment extends Fragment {
                         txt_paymentID.setText(invoiceModel.getInvoiceNumber());
                         txt_companyName.setText(response.getJSONObject("deliveryCorp").getString("CompanyName"));
                         txt_created_date.setText(invoiceModel.getCreatedDate().split("T")[0]);
-                        txt_amount.setText(invoiceModel.getPaidAmount());
-                        txt_total_amount.setText(invoiceModel.getTotalPrice());
+                        txt_amount.setText("Rs. "+invoiceModel.getPaidAmount());
+                        txt_total_amount.setText("Rs. "+invoiceModel.getTotalPrice());
 //                        tv_status.setText(invoiceModel.getStatus());
                         if (invoiceModel.getStatus().equals("0")) {
                             txt_status.setText("Pending");

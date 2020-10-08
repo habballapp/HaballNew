@@ -40,7 +40,7 @@ package com.haball.Retailor.ui.Support;
 
 public class DeleteSupportTicket {
     //    public String URL_SUPPORT_STATUS_CHANGE = "https://175.107.203.97:4013/api/contact/StatusChange";
-    public String URL_SUPPORT_STATUS_CHANGE = "https://retailer.haball.pk/api/support/Delete";
+    public String URL_SUPPORT_STATUS_CHANGE = "http://175.107.203.97:4014/api/support/Delete";
     public String DistributorId, Token;
     public Context mContext;
     private String response = "";
@@ -60,8 +60,8 @@ public class DeleteSupportTicket {
 
         JSONObject map = new JSONObject();
         map.put("ID", supportId);
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_SUPPORT_STATUS_CHANGE, map, new Response.Listener<JSONObject>() {
             @Override
@@ -132,7 +132,7 @@ public class DeleteSupportTicket {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-        Volley.newRequestQueue(context, hurlStack).add(sr);
+        Volley.newRequestQueue(context).add(sr);
         return response;
     }
 

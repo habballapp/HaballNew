@@ -1007,38 +1007,39 @@ public class PlaceholderFragment extends Fragment {
         checkPasswords();
         checkConfirmPassword();
         if (old_password_check && password_check && confirm_password_check) {
+            if (!String.valueOf(txt_password.getText()).equals(String.valueOf(txt_newpassword.getText()))) {
 
-            SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
-                    Context.MODE_PRIVATE);
-            Token = sharedPreferences.getString("Login_Token", "");
-            Log.i("Login_Token", Token);
-            SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
-                    Context.MODE_PRIVATE);
-            ID = sharedPreferences1.getString("ID", "");
-            Username = sharedPreferences1.getString("username", "");
-            // Toast.makeText(getActivity(), "Update Password clicked", Toast.LENGTH_SHORT).show();
+                SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                        Context.MODE_PRIVATE);
+                Token = sharedPreferences.getString("Login_Token", "");
+                Log.i("Login_Token", Token);
+                SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                        Context.MODE_PRIVATE);
+                ID = sharedPreferences1.getString("ID", "");
+                Username = sharedPreferences1.getString("username", "");
+                // Toast.makeText(getActivity(), "Update Password clicked", Toast.LENGTH_SHORT).show();
 
-            // change_password_dail.dismiss();
+                // change_password_dail.dismiss();
 
-            JSONObject map = new JSONObject();
-            map.put("Password", txt_password.getText().toString());
-            map.put("NewPassword", txt_newpassword.getText().toString());
-            map.put("NewPassword1", txt_cfmpassword.getText().toString());
-            //        map.put("Password", "Force@123");
-            //        map.put("NewPassword", "Force@123");
-            //        map.put("NewPassword1", "Force@123");
-            map.put("ID", ID);
-            map.put("Username", Username);
-            Log.i("Map", map.toString());
-            JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, ChangePass_URL, map, new Response.Listener<JSONObject>() {
-                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-                @Override
-                public void onResponse(JSONObject result) {
-                    Log.i("response545", String.valueOf(result));
-                    try {
-                        if (result.has("message")) {
-                            Toast.makeText(getActivity(), result.get("message").toString(), Toast.LENGTH_SHORT).show();
-                        } else {
+                JSONObject map = new JSONObject();
+                map.put("Password", txt_password.getText().toString());
+                map.put("NewPassword", txt_newpassword.getText().toString());
+                map.put("NewPassword1", txt_cfmpassword.getText().toString());
+                //        map.put("Password", "Force@123");
+                //        map.put("NewPassword", "Force@123");
+                //        map.put("NewPassword1", "Force@123");
+                map.put("ID", ID);
+                map.put("Username", Username);
+                Log.i("Map", map.toString());
+                JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, ChangePass_URL, map, new Response.Listener<JSONObject>() {
+                    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                    @Override
+                    public void onResponse(JSONObject result) {
+                        Log.i("response545", String.valueOf(result));
+                        try {
+                            if (result.has("message")) {
+                                Toast.makeText(getActivity(), result.get("message").toString(), Toast.LENGTH_SHORT).show();
+                            } else {
 //                            final Dialog fbDialogue = new Dialog(getActivity());
 //                            //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
 //                            fbDialogue.setContentView(R.layout.password_updatepopup);
@@ -1058,112 +1059,115 @@ public class PlaceholderFragment extends Fragment {
 //                                    fbDialogue.dismiss();
 //                                }
 //                            });
-                            final Dialog fbDialogue = new Dialog(getActivity());
-                            //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
-                            fbDialogue.setContentView(R.layout.password_updatepopup);
+                                final Dialog fbDialogue = new Dialog(getActivity());
+                                //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                                fbDialogue.setContentView(R.layout.password_updatepopup);
 
-                            tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
+                                tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
 //                            tv_pr1.setText("User Profile ID " + ID + " password has been changed successfully.");
-                            tv_pr1.setText("Your password has been updated. You can login with the new credentials.");
-                            fbDialogue.setCancelable(true);
-                            fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
-                            WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
-                            layoutParams.y = 200;
-                            layoutParams.x = -70;// top margin
-                            fbDialogue.getWindow().setAttributes(layoutParams);
-                            fbDialogue.show();
+                                tv_pr1.setText("Your password has been updated. You can login with the new credentials.");
+                                fbDialogue.setCancelable(true);
+                                fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                                WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+                                layoutParams.y = 200;
+                                layoutParams.x = -70;// top margin
+                                fbDialogue.getWindow().setAttributes(layoutParams);
+                                fbDialogue.show();
 
-                            ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
-                            close_button.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    fbDialogue.dismiss();
-                                }
-                            });
+                                ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+                                close_button.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        fbDialogue.dismiss();
+                                    }
+                                });
 
-                            fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                @Override
-                                public void onDismiss(DialogInterface dialog) {
-                                    SharedPreferences login_token = getContext().getSharedPreferences("LoginToken",
-                                            Context.MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = login_token.edit();
-                                    editor.putString("Login_Token", "");
-                                    editor.putString("User_Type", "");
-                                    editor.putString("Distributor_Id", "");
-                                    editor.putString("username", "");
-                                    editor.putString("CompanyName", "");
-                                    editor.putString("EmailAddress", "");
-                                    editor.putString("Mobile", "");
-                                    editor.putString("DealerCode", "");
-                                    editor.putString("Name", "");
-                                    editor.putString("ID", "");
-                                    editor.putString("IsTermAndConditionAccepted", "");
+                                fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialog) {
+                                        SharedPreferences login_token = getContext().getSharedPreferences("LoginToken",
+                                                Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = login_token.edit();
+                                        editor.putString("Login_Token", "");
+                                        editor.putString("User_Type", "");
+                                        editor.putString("Distributor_Id", "");
+                                        editor.putString("username", "");
+                                        editor.putString("CompanyName", "");
+                                        editor.putString("EmailAddress", "");
+                                        editor.putString("Mobile", "");
+                                        editor.putString("DealerCode", "");
+                                        editor.putString("Name", "");
+                                        editor.putString("ID", "");
+                                        editor.putString("IsTermAndConditionAccepted", "");
 
-                                    editor.commit();
+                                        editor.commit();
 
-                                    Intent intent = new Intent(getContext(), Distribution_Login.class);
-                                    startActivity(intent);
-                                    ((FragmentActivity) getContext()).finish();
-                                }
-                            });
+                                        Intent intent = new Intent(getContext(), Distribution_Login.class);
+                                        startActivity(intent);
+                                        ((FragmentActivity) getContext()).finish();
+                                    }
+                                });
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
+
                         }
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
-
+                        //                Log.e("RESPONSE", result.toString());
+                        //                Toast.makeText(Distribution_Login.this,result.toString(),Toast.LENGTH_LONG).show();
                     }
-                    //                Log.e("RESPONSE", result.toString());
-                    //                Toast.makeText(Distribution_Login.this,result.toString(),Toast.LENGTH_LONG).show();
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
 //                    printErrorMessage(error);
 //
 //                    error.printStackTrace();
 //                    new HaballError().printErrorMessage(error);
-                    error.printStackTrace();
-                    new CustomToast().showToast(getActivity(), "Password mismatch");
+                        error.printStackTrace();
+                        new CustomToast().showToast(getActivity(), "Password mismatch");
 
-                    layout_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
-                    layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
-                    layout_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
-                    txt_password.setTextColor(getResources().getColor(R.color.error_stroke_color));
+                        layout_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+                        layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+                        layout_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+                        txt_password.setTextColor(getResources().getColor(R.color.error_stroke_color));
 //            layout_password1.setPasswordVisibilityToggleEnabled(false);
-                    update_password.setEnabled(false);
-                    update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+                        update_password.setEnabled(false);
+                        update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
-                    // Toast.makeText(getActivity(), String.valueOf(error),Toast.LENGTH_LONG).show();
-                }
+                        // Toast.makeText(getActivity(), String.valueOf(error),Toast.LENGTH_LONG).show();
+                    }
 
-            }) {
+                }) {
 
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("Authorization", "bearer " + Token);
-                    params.put("Content-Type", "application/json; charset=UTF-8");
-                    return params;
-                }
-            };
-            sr.setRetryPolicy(new RetryPolicy() {
-                @Override
-                public int getCurrentTimeout() {
-                    return 50000;
-                }
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("Authorization", "bearer " + Token);
+                        params.put("Content-Type", "application/json; charset=UTF-8");
+                        return params;
+                    }
+                };
+                sr.setRetryPolicy(new RetryPolicy() {
+                    @Override
+                    public int getCurrentTimeout() {
+                        return 50000;
+                    }
 
-                @Override
-                public int getCurrentRetryCount() {
-                    return 1000;
-                }
+                    @Override
+                    public int getCurrentRetryCount() {
+                        return 1000;
+                    }
 
-                @Override
-                public void retry(VolleyError error) throws VolleyError {
+                    @Override
+                    public void retry(VolleyError error) throws VolleyError {
 
-                }
-            });
-            Volley.newRequestQueue(getActivity()).add(sr);
+                    }
+                });
+                Volley.newRequestQueue(getActivity()).add(sr);
+            } else {
+                new CustomToast().showToast(getActivity(), "New password cannot be old password.");
+            }
         } else {
             new CustomToast().showToast(getActivity(), "Password mismatch");
             layout_password1.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));

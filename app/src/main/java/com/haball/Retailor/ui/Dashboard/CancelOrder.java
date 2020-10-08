@@ -41,7 +41,7 @@ package com.haball.Retailor.ui.Dashboard;
         import androidx.fragment.app.FragmentTransaction;
 
 public class CancelOrder {
-    public String URL_CANCEL_ORDER = "https://retailer.haball.pk/api/orders/cancelorder";
+    public String URL_CANCEL_ORDER = "http://175.107.203.97:4014/api/orders/cancelorder";
     public String Token;
     public Context mContext;
     private FragmentTransaction fragmentTransaction;
@@ -66,8 +66,8 @@ public class CancelOrder {
 
         final Context finalcontext = context;
 
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
 
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL_CANCEL_ORDER, map, new Response.Listener<JSONObject>() {
@@ -131,7 +131,7 @@ public class CancelOrder {
                 return params;
             }
         };
-        RequestQueue mRequestQueue = Volley.newRequestQueue(context, hurlStack);
+        RequestQueue mRequestQueue = Volley.newRequestQueue(context);
         mRequestQueue.add(request);
 
     }

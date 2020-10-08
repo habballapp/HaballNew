@@ -534,7 +534,7 @@ public class Dist_Order_Summary extends Fragment {
                     txt_header1.setText("Alert");
                     txt_header1.setTextColor(getContext().getResources().getColor(R.color.error_stroke_color));
                     txt_header1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.border_set_error));
-//                    tv_pr1.setText("Sorry, your order cannot be processed as your available balance is PKR. "+current_balance+ " only");
+//                    tv_pr1.setText("Sorry, your order cannot be processed as your available balance is Rs.. "+current_balance+ " only");
                     tv_pr1.setText("Sorry, your order cannot be processed due to insufficient ledger balance.");
                     fbDialogue.setCancelable(true);
                     fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);

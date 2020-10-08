@@ -58,7 +58,7 @@ import java.util.Map;
 public class View_Payment_Fragment extends Fragment {
 
     private String PaymentsRequestId;
-    private String PAYMENT_REQUEST_URL = "https://retailer.haball.pk/api/prepaidrequests/";
+    private String PAYMENT_REQUEST_URL = "http://175.107.203.97:4014/api/prepaidrequests/";
     private String Token;
     private TextInputEditText txt_heading, txt_paymentid, txt_created_date, txt_transaction_date, txt_bname, txt_authorization, txt_settlement, txt_amount, txt_status, txt_transaction_charges, txt_total_amount;
     private Button btn_vreciept, btn_back;
@@ -187,8 +187,8 @@ public class View_Payment_Fragment extends Fragment {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, PAYMENT_REQUEST_URL, null, new Response.Listener<JSONObject>() {
             @Override
@@ -267,7 +267,7 @@ public class View_Payment_Fragment extends Fragment {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
+        Volley.newRequestQueue(getContext()).add(sr);
     }
 
 

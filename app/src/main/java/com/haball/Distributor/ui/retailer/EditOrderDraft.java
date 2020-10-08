@@ -115,8 +115,8 @@ public class EditOrderDraft {
             URL_EDIT_ORDER_DRAFT = URL_EDIT_ORDER_DRAFT + orderId;
 
 //        final Context finalcontext = context;
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_EDIT_ORDER_DRAFT, null, new Response.Listener<JSONObject>() {
             @Override
@@ -231,7 +231,7 @@ public class EditOrderDraft {
                 return params;
             }
         };
-        RequestQueue mRequestQueue = Volley.newRequestQueue(context, hurlStack);
+        RequestQueue mRequestQueue = Volley.newRequestQueue(context);
         mRequestQueue.add(request);
 
 

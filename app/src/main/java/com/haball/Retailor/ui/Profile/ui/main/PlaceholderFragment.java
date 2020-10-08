@@ -90,10 +90,10 @@ import androidx.lifecycle.ViewModelProviders;
  */
 public class PlaceholderFragment extends Fragment {
 
-    private String ChangePass_URL = " https://retailer.haball.pk/api/users/ChangePassword";
-    private String PROFILE_EDIT_URL = "https://retailer.haball.pk/api/retailer/Save";
+    private String ChangePass_URL = " http://175.107.203.97:4014/api/users/ChangePassword";
+    private String PROFILE_EDIT_URL = "http://175.107.203.97:4014/api/retailer/Save";
     private String Token;
-    private String PROFILE_URL = "https://retailer.haball.pk/api/retailer/";
+    private String PROFILE_URL = "http://175.107.203.97:4014/api/retailer/";
     private String RetailerId, ID, username, CompanyName;
     private Button btn_changepwd, btn_save_password, update_password;
     private TextInputEditText Rfirstname, Remail, Rcode, Rcnic, Rmobile, R_created_date, R_Address, txt_password, txt_newpassword, txt_cfmpassword;
@@ -837,8 +837,8 @@ public class PlaceholderFragment extends Fragment {
 //            map.put("ID", ID);
             map.put("Username", username);
             Log.i("MapChangePass", map.toString());
-//            new SSL_HandShake().handleSSLHandshake();
-            final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+            new SSL_HandShake().handleSSLHandshake();
+//            final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
             BooleanRequest sr = new BooleanRequest(Request.Method.POST, ChangePass_URL, String.valueOf(map), new Response.Listener<Boolean>() {
                 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                 @Override
@@ -967,7 +967,7 @@ public class PlaceholderFragment extends Fragment {
 
                 }
             });
-            Volley.newRequestQueue(getActivity(), hurlStack).add(sr);
+            Volley.newRequestQueue(getActivity()).add(sr);
         } else {
 //            Toast.makeText(getActivity(), "Password do not Match", Toast.LENGTH_LONG).show();
             new CustomToast().showToast(getActivity(), "Password mismatch");
@@ -1173,8 +1173,8 @@ public class PlaceholderFragment extends Fragment {
         jsonObject.put("CompanyName", CompanyName);
         jsonObject.put("Address", R_Address.getText().toString());
         jsonObject.put("Email", Remail.getText().toString());
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, PROFILE_EDIT_URL, jsonObject, new Response.Listener<JSONObject>() {
             @Override
@@ -1234,7 +1234,7 @@ public class PlaceholderFragment extends Fragment {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
+        Volley.newRequestQueue(getContext()).add(sr);
     }
 
     // private void printErrorMessage(VolleyError error) {
@@ -1287,8 +1287,8 @@ public class PlaceholderFragment extends Fragment {
         Log.i("RetailerId ", RetailerId);
         PROFILE_URL = PROFILE_URL + RetailerId;
         Log.i("Token Retailer ", Token);
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, PROFILE_URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
@@ -1351,7 +1351,7 @@ public class PlaceholderFragment extends Fragment {
 
             }
         });
-        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
+        Volley.newRequestQueue(getContext()).add(sr);
 
 
     }

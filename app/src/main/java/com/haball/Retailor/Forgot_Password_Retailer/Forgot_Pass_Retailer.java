@@ -73,7 +73,7 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
     private TextInputEditText txt_email;
     private TextView heading;
     private Button btn_lgn, btn_reset;
-    private String URL_FORGOT_PASSWORD = "https://retailer.haball.pk/api/users/forgot";
+    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4014/api/users/forgot";
     //    ProgressDialog progressDialog;
     private TextInputLayout layout_email;
     private Loader loader;
@@ -238,8 +238,8 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
 //        progressDialog.setTitle("Resetting Password");
 //        progressDialog.setMessage("Loading, Please Wait..");
 //        progressDialog.show();
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(Forgot_Pass_Retailer.this);
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(Forgot_Pass_Retailer.this);
 
         StringRequest sr = new StringRequest(Request.Method.POST, URL_FORGOT_PASSWORD, new Response.Listener<String>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -333,7 +333,7 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject();
                     jsonObject.put("Email", String.valueOf(txt_email.getText()));
-                    jsonObject.put("RedirectUrl", "https://retailer.haball.pk/#/updatePassword");
+                    jsonObject.put("RedirectUrl", "http://175.107.203.97:4014/#/updatePassword");
                     return jsonObject.toString().getBytes(StandardCharsets.UTF_8);
                 } catch (Exception e) {
                     return null;
@@ -357,7 +357,7 @@ public class Forgot_Pass_Retailer extends AppCompatActivity {
             }
         });
 //
-        Volley.newRequestQueue(this, hurlStack).add(sr);
+        Volley.newRequestQueue(this).add(sr);
 
 
     }

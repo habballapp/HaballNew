@@ -71,7 +71,7 @@ import static com.google.android.gms.plus.PlusOneDummyView.TAG;
 import static java.util.stream.Collectors.toList;
 
 public class ViewReceeiptPDFRequest {
-    public String URL_VOUCHER_VIEW = "https://retailer.haball.pk/api/prepaidrequests/mpaymentreceipt/";
+    public String URL_VOUCHER_VIEW = "http://175.107.203.97:4014/api/prepaidrequests/mpaymentreceipt/";
     public String Token;
     public Context mContext;
     private static final int PERMISSION_REQUEST_CODE = 1;
@@ -95,8 +95,8 @@ public class ViewReceeiptPDFRequest {
 
 
         final Context finalcontext = context;
-//            new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
+            new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
         InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.GET, URL_VOUCHER_VIEW, null, new Response.Listener<byte[]>() {
             @Override
             public void onResponse(byte[] response) {
@@ -161,7 +161,7 @@ public class ViewReceeiptPDFRequest {
                 return params;
             }
         };
-        RequestQueue mRequestQueue = Volley.newRequestQueue(context, hurlStack);
+        RequestQueue mRequestQueue = Volley.newRequestQueue(context);
         mRequestQueue.add(request);
 //
 //        final Context finalcontext = context;

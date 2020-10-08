@@ -85,17 +85,17 @@ public class PaymentJazzCashApi extends Fragment {
     private String Token, ID;
     private Button btn_create;
 
-    //    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "https://retailer.haball.pk/api/kyc/KYCDistributorList";
-    private String URL_PREPAID_REQUEST = "https://retailer.haball.pk/api/prepaidrequests/";
-    private String URL_INVOICE = "https://retailer.haball.pk/api/invoices/";
+    //    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4014/api/kyc/KYCDistributorList";
+    private String URL_PREPAID_REQUEST = "http://175.107.203.97:4014/api/prepaidrequests/";
+    private String URL_INVOICE = "http://175.107.203.97:4014/api/invoices/";
     private String URL_PAYMENT_REQUESTS_GET_DATA = "";
     private String URL_LOGIN = "https://sandbox.jazzcash.com.pk/Sandbox/Login/Login";
-    private String URL_PAYMENT_REQUESTS_GET_DATA_JAZZ_CASH = "https://retailer.haball.pk/api/payaxis/PrePaidPay/";
+    private String URL_PAYMENT_REQUESTS_GET_DATA_JAZZ_CASH = "http://175.107.203.97:4014/api/payaxis/PrePaidPay/";
     private String URL_Jazz_Cash_Transaction = "https://sandbox.jazzcash.com.pk/Sandbox/HomeV20/DoTransactionMWallet";
     private String URL_RegenerateTxnReference = "https://sandbox.jazzcash.com.pk/Sandbox/HomeV20/RegenerateGenerateTxnReference";
     private String URL_Calculate_Secure_Hash = "https://sandbox.jazzcash.com.pk/Sandbox/HomeV20/CalculateSecureHash";
 
-    private String URL_PAYMENT_REQUESTS_SAVE = "https://retailer.haball.pk/api/prepaidrequests/save";
+    private String URL_PAYMENT_REQUESTS_SAVE = "http://175.107.203.97:4014/api/prepaidrequests/save";
 
     private HashMap<String, String> companyNameAndId = new HashMap<>();
     private FragmentTransaction fragmentTransaction;
@@ -382,8 +382,8 @@ public class PaymentJazzCashApi extends Fragment {
 //        map.put("PaidAmount", txt_amount.getText().toString());
 
 //        Log.i("JSON ", String.valueOf(map));
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_PAYMENT_REQUESTS_GET_DATA, null, new Response.Listener<JSONObject>() {
             @Override
@@ -453,7 +453,7 @@ public class PaymentJazzCashApi extends Fragment {
                 1500000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
+        Volley.newRequestQueue(getContext()).add(sr);
     }
 
     private void getJazzCashDataFromPrePayAxisAPI(String PrePaidNumber) {
@@ -535,8 +535,8 @@ public class PaymentJazzCashApi extends Fragment {
 //        map.put("PaidAmount", txt_amount.getText().toString());
 
 //        Log.i("JSON ", String.valueOf(map));
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_PAYMENT_REQUESTS_GET_DATA, null, new Response.Listener<JSONObject>() {
             @Override
@@ -614,7 +614,7 @@ public class PaymentJazzCashApi extends Fragment {
                 1500000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
+        Volley.newRequestQueue(getContext()).add(sr);
     }
 
     private void checkFieldsForEmptyValues() {
@@ -767,7 +767,7 @@ public class PaymentJazzCashApi extends Fragment {
 //////        map.put("pp_Amount", pp_Amount);
 ////                            map.put("Request[pp_Amount]", "32653200");
 //////        map.put("pp_TxnCurrency", pp_TxnCurrency);
-////                            map.put("Request[pp_TxnCurrency]", "PKR");
+////                            map.put("Request[pp_TxnCurrency]", "Rs.");
 //////        map.put("pp_TxnDateTime", pp_TxnDateTime);
 ////                            map.put("Request[pp_TxnDateTime]", "20200629130547");
 //////        map.put("pp_BillReference", pp_BillReference);
@@ -863,7 +863,7 @@ public class PaymentJazzCashApi extends Fragment {
 //                    obj.put("pp_Amount", pp_Amount);
 ////                obj.put("Request[pp_Amount]", "32653200");
 //                    obj.put("pp_TxnCurrency", pp_TxnCurrency);
-////                obj.put("Request[pp_TxnCurrency]", "PKR");
+////                obj.put("Request[pp_TxnCurrency]", "Rs.");
 //                    obj.put("pp_TxnDateTime", pp_TxnDateTime);
 ////                obj.put("Request[pp_TxnDateTime]", "20200629140134");
 //                    obj.put("pp_BillReference", "billRef");
@@ -928,7 +928,7 @@ public class PaymentJazzCashApi extends Fragment {
 //        map.put("Request%5Bpp_Amount%5D", pp_Amount);
 ////                map.put("Request[pp_Amount]", "32653200");
 //        map.put("Request%5Bpp_TxnCurrency%5D", pp_TxnCurrency);
-////                map.put("Request[pp_TxnCurrency]", "PKR");
+////                map.put("Request[pp_TxnCurrency]", "Rs.");
 //        map.put("Request%5Bpp_TxnDateTime%5D", pp_TxnDateTime);
 ////                map.put("Request[pp_TxnDateTime]", "20200629140134");
 //        map.put("Request%5Bpp_BillReference%5D", "billRef");
@@ -1062,7 +1062,7 @@ public class PaymentJazzCashApi extends Fragment {
         map.put("pp_Amount", pp_Amount );
 //                            map.put("Request[pp_Amount]", "32653200");
         map.put("pp_TxnCurrency", pp_TxnCurrency);
-//                            map.put("Request[pp_TxnCurrency]", "PKR");
+//                            map.put("Request[pp_TxnCurrency]", "Rs.");
         map.put("pp_TxnDateTime", pp_TxnDateTime);
 //                            map.put("Request[pp_TxnDateTime]", "20200629130547");
         map.put("pp_BillReference", pp_BillReference);
@@ -1263,7 +1263,7 @@ public class PaymentJazzCashApi extends Fragment {
 //////        map.put("pp_Amount", pp_Amount);
 ////                            map.put("Request[pp_Amount]", "32653200");
 //////        map.put("pp_TxnCurrency", pp_TxnCurrency);
-////                            map.put("Request[pp_TxnCurrency]", "PKR");
+////                            map.put("Request[pp_TxnCurrency]", "Rs.");
 //////        map.put("pp_TxnDateTime", pp_TxnDateTime);
 ////                            map.put("Request[pp_TxnDateTime]", "20200629130547");
 //////        map.put("pp_BillReference", pp_BillReference);
@@ -1350,7 +1350,7 @@ public class PaymentJazzCashApi extends Fragment {
 //                                obj.put("pp_Amount", pp_Amount);
 ////                obj.put("Request[pp_Amount]", "32653200");
 //                                obj.put("pp_TxnCurrency", pp_TxnCurrency);
-////                obj.put("Request[pp_TxnCurrency]", "PKR");
+////                obj.put("Request[pp_TxnCurrency]", "Rs.");
 //                                obj.put("pp_TxnDateTime", pp_TxnDateTime);
 ////                obj.put("Request[pp_TxnDateTime]", "20200629140134");
 //                                obj.put("pp_BillReference", "billRef");

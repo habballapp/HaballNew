@@ -45,13 +45,13 @@
                 android:text="Amount:"
                 android:textSize="14sp" />
             <TextView
-                android:id="@+id/tv_pkr_amount_view"
+                android:id="@+id/tv_Rs._amount_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/consolidate_invoice_no_view"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/tv_consolidate_amount_view"
-                android:text="PKR "
+                android:text="Rs. "
                 android:textColor="#676a6c"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/consolidate_invoice_no_view"
                 android:layout_marginLeft="1dp"
-                android:layout_toRightOf="@+id/tv_pkr_amount_view"
+                android:layout_toRightOf="@+id/tv_Rs._amount_view"
                 android:text=" 600,000.00"
                 android:textColor="#676a6c"
                 android:textSize="14sp"

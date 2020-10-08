@@ -767,12 +767,12 @@
 		fcm_default_channel
 	</string>
     <string name="retailer_production_server">
-		https://retailer.haball.pk/
+		http://175.107.203.97:4014/
 	</string>
     <string name="retailer_qa_server">
-		http://https://retailer.haball.pk/
+		http://http://175.107.203.97:4014/
 	</string>
     <string name="retailer_server">
-		https://retailer.haball.pk/
+		http://175.107.203.97:4014/
 	</string>
 </resources>

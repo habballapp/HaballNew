@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DeleteOrderDraft {
-    public String URL_DELETE_ORDER_DRAFT = "https://retailer.haball.pk/api/orders/deletedraft/";
+    public String URL_DELETE_ORDER_DRAFT = "http://175.107.203.97:4014/api/orders/deletedraft/";
     public String DistributorId, Token;
     public Context mContext;
     private FragmentTransaction fragmentTransaction;
@@ -61,8 +61,8 @@ public class DeleteOrderDraft {
             URL_DELETE_ORDER_DRAFT = URL_DELETE_ORDER_DRAFT + orderId;
 
 //        final Context finalcontext = context;
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.DELETE, URL_DELETE_ORDER_DRAFT, null, new Response.Listener<JSONObject>() {
             @Override
@@ -123,7 +123,7 @@ public class DeleteOrderDraft {
                 return params;
             }
         };
-        RequestQueue mRequestQueue = Volley.newRequestQueue(context, hurlStack);
+        RequestQueue mRequestQueue = Volley.newRequestQueue(context);
         mRequestQueue.add(request);
 
     }

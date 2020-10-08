@@ -58,7 +58,7 @@ public class SupportDashboardRetailerAdapter extends RecyclerView.Adapter<Suppor
     Context activity;
     String dashboard, id, pending, createdDate;
     List<SupportDashboardRetailerModel> supportList;
-    private String URL_SUPPORT_VIEW = "https://retailer.haball.pk/api/support/TicketById/";
+    private String URL_SUPPORT_VIEW = "http://175.107.203.97:4014/api/support/TicketById/";
 
     public SupportDashboardRetailerAdapter(Activity activity, Context applicationContext, String dashboard, String id, String pending, String createdDate) {
 //        this.mContxt = applicationContext;

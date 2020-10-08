@@ -247,7 +247,7 @@ public class PaymentScreen3Fragment extends Fragment {
 
             }
         });
-        txt_amount.setText("PKR "+Amount);
+        txt_amount.setText("Rs. "+Amount);
         txt_amount.setTextColor(getResources().getColor(R.color.textcolor));
         txt_amount.addTextChangedListener(new TextWatcher() {
             @Override
@@ -474,10 +474,10 @@ public class PaymentScreen3Fragment extends Fragment {
                 Volley.newRequestQueue(getContext()).add(sr);
 
             } else {
-                new CustomToast().showToast(getActivity(), "Amount cannot be less than PKR 500.");
+                new CustomToast().showToast(getActivity(), "Amount cannot be less than Rs. 500.");
             }
         } else {
-            new CustomToast().showToast(getActivity(), "Amount cannot be less than PKR 500.");
+            new CustomToast().showToast(getActivity(), "Amount cannot be less than Rs. 500.");
         }
 
     }

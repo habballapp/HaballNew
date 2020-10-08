@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> array = new ArrayList<>();
     private TextView btn_add_ticket_retailer;
     private String Token, DistributorId;
-    private String URL_SUPPORT = "https://retailer.haball.pk/api/support/Search";
+    private String URL_SUPPORT = "http://175.107.203.97:4014/api/support/Search";
     private SupportDashboardRetailerModel supportViewModel;
     private List<SupportDashboardRetailerModel> SupportList = new ArrayList<>();
     //spinner1
@@ -678,8 +678,8 @@ public class MainActivity extends AppCompatActivity {
         JSONObject map = new JSONObject();
         map.put("TotalRecords", 10);
         map.put("PageNumber", 0);
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(MainActivity.this);
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(MainActivity.this);
 
         MyJsonArrayRequest request = new MyJsonArrayRequest(Request.Method.POST, URL_SUPPORT, map, new Response.Listener<JSONArray>() {
             @Override
@@ -750,7 +750,7 @@ public class MainActivity extends AppCompatActivity {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(MainActivity.this, hurlStack).add(request);
+        Volley.newRequestQueue(MainActivity.this).add(request);
     }
 
 
@@ -772,8 +772,8 @@ public class MainActivity extends AppCompatActivity {
             map.put(Filter_selected, Filter_selected_value);
         }
         Log.i("map_SSSS", String.valueOf(map));
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(MainActivity.this);
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(MainActivity.this);
 
         MyJsonArrayRequest request = new MyJsonArrayRequest(Request.Method.POST, URL_SUPPORT, map, new Response.Listener<JSONArray>() {
             @Override
@@ -836,7 +836,7 @@ public class MainActivity extends AppCompatActivity {
         request.setRetryPolicy(new DefaultRetryPolicy(15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(MainActivity.this, hurlStack).add(request);
+        Volley.newRequestQueue(MainActivity.this).add(request);
     }
 
     // private void printErrMessage(VolleyError error) {

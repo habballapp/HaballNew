@@ -38,7 +38,7 @@ package com.haball.Retailor.ui.Dashboard;
         import java.util.Map;
 
 public class EditOrderDraft {
-    public String URL_EDIT_ORDER_DRAFT = "https://retailer.haball.pk/api/Orders/";
+    public String URL_EDIT_ORDER_DRAFT = "http://175.107.203.97:4014/api/Orders/";
     public String Token;
     public Context mContext;
     private List<RetailerViewOrderProductModel> RetailerDraftProductsList = new ArrayList<>();
@@ -65,8 +65,8 @@ public class EditOrderDraft {
             URL_EDIT_ORDER_DRAFT = URL_EDIT_ORDER_DRAFT + orderId;
 
 //        final Context finalcontext = context;
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_EDIT_ORDER_DRAFT, null, new Response.Listener<JSONObject>() {
             @Override
@@ -172,7 +172,7 @@ public class EditOrderDraft {
                 return params;
             }
         };
-        RequestQueue mRequestQueue = Volley.newRequestQueue(context, hurlStack);
+        RequestQueue mRequestQueue = Volley.newRequestQueue(context);
         mRequestQueue.add(request);
 
 

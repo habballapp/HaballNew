@@ -249,7 +249,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1.5"
-                                android:text="PKR "
+                                android:text="Rs. "
                                 android:textColor="#676A6C" />
 
                             <EditText
@@ -296,7 +296,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1.5"
-                                android:text="PKR "
+                                android:text="Rs. "
                                 android:textColor="#676A6C" />
 
                             <EditText

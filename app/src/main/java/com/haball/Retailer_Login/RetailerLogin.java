@@ -100,8 +100,8 @@ public class RetailerLogin extends AppCompatActivity {
     private TextInputLayout layout_username, layout_password;
     private Toolbar tb;
     private RequestQueue queue;
-    private String URL_Token = "https://retailer.haball.pk/Token";
-    //    private String URL_FORGOT_PASSWORD = "https://retailer.haball.pk/api/Users/forgot";
+    private String URL_Token = "http://175.107.203.97:4014/Token";
+    //    private String URL_FORGOT_PASSWORD = "http://175.107.203.97:4014/api/Users/forgot";
 //    private String URL_FORGOT_PASSWORD = "https://175.107.203.97:4013/api/users/forgot";
     private HttpURLConnection urlConnection = null;
     private java.net.URL url;
@@ -109,7 +109,7 @@ public class RetailerLogin extends AppCompatActivity {
     private String success_text = "";
     //    private ProgressDialog progressDialog;
     private Loader loader;
-    private String URL_Profile = "https://retailer.haball.pk/api/retailer/";
+    private String URL_Profile = "http://175.107.203.97:4014/api/retailer/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -354,20 +354,8 @@ public class RetailerLogin extends AppCompatActivity {
         map.put("Password", et_password.getText().toString());
         map.put("grant_type", "password");
 
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(RetailerLogin.this);
-//        HurlStack hurlStack = new HurlStack() {
-//            @Override
-//            protected HttpURLConnection createConnection(URL url) throws IOException {
-//                HttpsURLConnection httpsURLConnection = (HttpsURLConnection) super.createConnection(url);
-//                try {
-//                    httpsURLConnection.setSSLSocketFactory(getSSLSocketFactory());
-//                    httpsURLConnection.setHostnameVerifier(getHostnameVerifier());
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//                return httpsURLConnection;
-//            }
-//        };
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(RetailerLogin.this);
+        new SSL_HandShake().handleSSLHandshake();
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_Token, map, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -413,8 +401,8 @@ public class RetailerLogin extends AppCompatActivity {
 
                         URL_Profile = URL_Profile + RetailerId;
 
-//                        new SSL_HandShake().handleSSLHandshake();
-                        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(RetailerLogin.this);
+                        new SSL_HandShake().handleSSLHandshake();
+//                        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(RetailerLogin.this);
 
                         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_Profile, null, new Response.Listener<JSONObject>() {
                             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -475,7 +463,7 @@ public class RetailerLogin extends AppCompatActivity {
                                 return params;
                             }
                         };
-                        Volley.newRequestQueue(RetailerLogin.this, hurlStack).add(sr);
+                        Volley.newRequestQueue(RetailerLogin.this).add(sr);
 //                        RequestQueue requestQueue = Volley.newRequestQueue(RetailerLogin.this);
 //                        requestQueue.add(sr);
                     }
@@ -502,7 +490,7 @@ public class RetailerLogin extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-//                loader.hideLoader();
+                loader.hideLoader();
                 error.printStackTrace();
                 new HaballError().printErrorMessage(RetailerLogin.this, error);
                 new ProcessingError().showError(RetailerLogin.this);
@@ -513,7 +501,7 @@ public class RetailerLogin extends AppCompatActivity {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(this, hurlStack).add(sr);
+        Volley.newRequestQueue(this).add(sr);
 //        RequestQueue requestQueue = Volley.newRequestQueue(this);
 //        requestQueue.add(sr);
     }

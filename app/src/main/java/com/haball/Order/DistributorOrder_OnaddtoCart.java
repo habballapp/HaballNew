@@ -60,8 +60,8 @@ public class DistributorOrder_OnaddtoCart extends AppCompatActivity {
 
 
         // specify an adapter (see also next example)
-        mAdapter = new DistributorOrder_OnaddtoCartAdapter(DistributorOrder_OnaddtoCart.this,"AC Card Battery Charger","PKR1200.00");
-        mAdapter = new DistributorOrder_OnaddtoCartAdapter(DistributorOrder_OnaddtoCart.this,"AC Card Battery Charger","PKR1200.00");
+        mAdapter = new DistributorOrder_OnaddtoCartAdapter(DistributorOrder_OnaddtoCart.this,"AC Card Battery Charger","Rs.1200.00");
+        mAdapter = new DistributorOrder_OnaddtoCartAdapter(DistributorOrder_OnaddtoCart.this,"AC Card Battery Charger","Rs.1200.00");
 
         recyclerView.setAdapter(mAdapter);
 

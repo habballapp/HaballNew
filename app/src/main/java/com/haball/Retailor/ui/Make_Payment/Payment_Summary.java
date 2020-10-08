@@ -65,7 +65,7 @@ public class Payment_Summary extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private String URL = "https://retailer.haball.pk/api/prepaidrequests/Search";
+    private String URL = "http://175.107.203.97:4014/api/prepaidrequests/Search";
     private String Token;
     private List<RetailerPaymentModel> PaymentsList = new ArrayList<>();
 
@@ -110,8 +110,8 @@ public class Payment_Summary extends Fragment {
         jsonObject.put("AmountMax", null);
         jsonObject.put("TotalRecords", 10);
         jsonObject.put("PageNumber", 0);
-//            new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+            new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -154,7 +154,7 @@ public class Payment_Summary extends Fragment {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
+        Volley.newRequestQueue(getContext()).add(sr);
     }
 
     // private void printErrorMessage(VolleyError error) {
