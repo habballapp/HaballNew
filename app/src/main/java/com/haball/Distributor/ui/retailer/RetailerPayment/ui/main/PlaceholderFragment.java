@@ -193,8 +193,8 @@ public class PlaceholderFragment extends Fragment {
                 txt_comments = rootView.findViewById(R.id.txt_comments);
                 button_back = rootView.findViewById(R.id.button_back);
 
-                layout_txt_invoice_reference.setVisibility(View.GONE);
-                layout_txt_order_reference.setVisibility(View.GONE);
+                // layout_txt_invoice_reference.setVisibility(View.GONE);
+                // layout_txt_order_reference.setVisibility(View.GONE);
 
                 new TextField().changeColor(this.getContext(), layout_txt_orderID, txt_orderID);
                 new TextField().changeColor(this.getContext(), layout_txt_order_company, txt_company_order);
@@ -277,7 +277,7 @@ public class PlaceholderFragment extends Fragment {
                 Log.i("InvoiceStatus", InvoiceStatus);
 
 //        SectionsPagerAdapter sectionsPagerAdapter = null;
-                if (InvoiceStatus.equals("Invoiced") || InvoiceStatus.equals("Paid") || InvoiceStatus.equals("Pending") || InvoiceStatus.equals("Cancelled") || ReferenceNumber.equals("null")) {
+//                if (InvoiceStatus.equals("Invoiced") || InvoiceStatus.equals("Paid") || InvoiceStatus.equals("Pending") || InvoiceStatus.equals("Cancelled") || ReferenceNumber.equals("null")) {
 
                     rootView = inflater.inflate(R.layout.fragment_retailer_payment_tab, container, false);
                     layout_txt_companName = rootView.findViewById(R.id.layout_txt_companName);
@@ -319,15 +319,15 @@ public class PlaceholderFragment extends Fragment {
                     new TextField().changeColor(getContext(), layout_txt_transaction_charges, txt_transaction_charges);
                     new TextField().changeColor(getContext(), layout_txt_total_amount, txt_total_amount);
 
-                    layout_txt_created_date.setVisibility(View.GONE);
-                    layout_transaction_date.setVisibility(View.GONE);
-                    layout_txt_bank.setVisibility(View.GONE);
-                    layout_txt_authorization_id.setVisibility(View.GONE);
-                    layout_txt_settlement_id.setVisibility(View.GONE);
-                    layout_txt_status.setVisibility(View.GONE);
-                    layout_txt_amount.setVisibility(View.GONE);
-                    layout_txt_transaction_charges.setVisibility(View.GONE);
-                    layout_txt_total_amount.setVisibility(View.GONE);
+                    // layout_txt_created_date.setVisibility(View.GONE);
+                    // layout_transaction_date.setVisibility(View.GONE);
+                    // layout_txt_bank.setVisibility(View.GONE);
+                    // layout_txt_authorization_id.setVisibility(View.GONE);
+                    // layout_txt_settlement_id.setVisibility(View.GONE);
+                    // layout_txt_status.setVisibility(View.GONE);
+                    // layout_txt_amount.setVisibility(View.GONE);
+                    // layout_txt_transaction_charges.setVisibility(View.GONE);
+                    // layout_txt_total_amount.setVisibility(View.GONE);
 
                     txt_companyName.setEnabled(false);
                     txt_paymentID.setEnabled(false);
@@ -370,138 +370,138 @@ public class PlaceholderFragment extends Fragment {
 
                     getPaidInvoiceData();
 //                } else if (InvoiceStatus.equals("Un-Paid")) {
-                } else if (InvoiceStatus.equals("Un-Paid") || InvoiceStatus.equals("Payment Processing")) {
+//                } else if (InvoiceStatus.equals("Un-Paid") || InvoiceStatus.equals("Payment Processing")) {
 //                    rootView = inflater.inflate(R.layout.activity_payment__screen3, container, false);
-
-
-                    rootView = inflater.inflate(R.layout.activity_payment__screen3, container, false);
-                    myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
-
-                    payment_id = rootView.findViewById(R.id.payment_id);
-                    spinner_companyName = rootView.findViewById(R.id.spinner_companyName);
-                    txt_amount = rootView.findViewById(R.id.txt_amount);
-                    layout_txt_amount = rootView.findViewById(R.id.layout_txt_amount);
-                    btn_newpayment = rootView.findViewById(R.id.btn_addpayment);
-                    btn_update = rootView.findViewById(R.id.btn_update);
-                    btn_voucher = rootView.findViewById(R.id.btn_voucher);
-                    ln_login = rootView.findViewById(R.id.ln_login);
-
-                    ln_login.setVisibility(View.GONE);
-
-
-                    rl_jazz_cash = rootView.findViewById(R.id.rl_jazz_cash);
-
-                    rl_jazz_cash.setVisibility(View.GONE);
-
-                    payment_id.setOnLongClickListener(new View.OnLongClickListener() {
-                        @Override
-                        public boolean onLongClick(View v) {
-                            ClipboardManager cm = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                            cm.setText(payment_id.getText());
-//                            Toast.makeText(getContext(), "Payment ID: " + String.valueOf(payment_id.getText()) + " - Copied to clipboard", Toast.LENGTH_SHORT).show();
-//                            Toast toast = Toast.makeText(getContext(), "Payment ID: " + String.valueOf(payment_id.getText()) + " - Copied to clipboard", Toast.LENGTH_LONG);
-////                    toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, 0);
-//                            toast.setGravity(Gravity.TOP | Gravity.START | Gravity.END, 0, 200);
-////                            toast.setGravity(Gravity.TOP, 0, 200);
-//                            toast.show();
-
-                            new CustomToast().showToast(getActivity(), "PSID has been copied to clipboard");
-
-
-                            return false;
-                        }
-                    });
-
-
-                    new TextField().changeColor(getContext(), layout_txt_amount, txt_amount);
-
-                    txt_amount.setEnabled(false);
-                    spinner_companyName.setEnabled(false);
-                    spinner_companyName.setClickable(false);
-
-
-                    btn_newpayment.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.add(R.id.main_container, new CreatePaymentRequestFragment());
-                            fragmentTransaction.commit();
-                        }
-                    });
-
-                    btn_update.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-//                            final FragmentManager fm = getActivity().getSupportFragmentManager();
-//                            fm.popBackStack();
-                            SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
-                                    Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
-                            editorOrderTabsFromDraft.putString("TabNo", "0");
-                            editorOrderTabsFromDraft.apply();
-
-                            FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.add(R.id.main_container, new RetailerPaymentDashboard());
-                            fragmentTransaction.commit();
-
-//                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.add(R.id.main_container, new EditPaymentRequestFragment());
-//                fragmentTransaction.commit();
-
-                        }
-                    });
-
-                    btn_voucher.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if (checkAndRequestPermissions()) {
-                                try {
-                                    viewPDF(getContext(), PrePaidId);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-                    });
-
-                    tv_banking_channel = rootView.findViewById(R.id.tv_banking_channel);
-                    tv_banking_channel.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                            final AlertDialog alertDialog2 = new AlertDialog.Builder(getContext()).create();
-                            LayoutInflater inflater2 = LayoutInflater.from(getContext());
-                            View view_popup2 = inflater2.inflate(R.layout.payment_request_details, null);
-                            alertDialog2.setView(view_popup2);
-                            alertDialog2.show();
-                            ImageButton img_close = view_popup2.findViewById(R.id.image_button_close);
-                            TextView payment_information_txt3 = view_popup2.findViewById(R.id.payment_information_txt3);
-                            payment_information_txt3.setText(PrePaidNumber);
-                            Button btn_view_voucher = view_popup2.findViewById(R.id.btn_view_voucher);
-                            btn_view_voucher.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    if (checkAndRequestPermissions()) {
-                                        try {
-                                            viewPDF(getContext(), PrePaidId);
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                }
-                            });
-
-                            img_close.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    alertDialog2.dismiss();
-                                }
-                            });
-                        }
-                    });
-                    getUnPaidInvoiceData();
-
-                }
+//
+//
+//                    rootView = inflater.inflate(R.layout.activity_payment__screen3, container, false);
+//                    myFont = ResourcesCompat.getFont(getContext(), R.font.open_sans);
+//
+//                    payment_id = rootView.findViewById(R.id.payment_id);
+//                    spinner_companyName = rootView.findViewById(R.id.spinner_companyName);
+//                    txt_amount = rootView.findViewById(R.id.txt_amount);
+//                    layout_txt_amount = rootView.findViewById(R.id.layout_txt_amount);
+//                    btn_newpayment = rootView.findViewById(R.id.btn_addpayment);
+//                    btn_update = rootView.findViewById(R.id.btn_update);
+//                    btn_voucher = rootView.findViewById(R.id.btn_voucher);
+//                    ln_login = rootView.findViewById(R.id.ln_login);
+//
+//                    ln_login.setVisibility(View.GONE);
+//
+//
+//                    rl_jazz_cash = rootView.findViewById(R.id.rl_jazz_cash);
+//
+//                    rl_jazz_cash.setVisibility(View.GONE);
+//
+//                    payment_id.setOnLongClickListener(new View.OnLongClickListener() {
+//                        @Override
+//                        public boolean onLongClick(View v) {
+//                            ClipboardManager cm = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+//                            cm.setText(payment_id.getText());
+////                            Toast.makeText(getContext(), "Payment ID: " + String.valueOf(payment_id.getText()) + " - Copied to clipboard", Toast.LENGTH_SHORT).show();
+////                            Toast toast = Toast.makeText(getContext(), "Payment ID: " + String.valueOf(payment_id.getText()) + " - Copied to clipboard", Toast.LENGTH_LONG);
+//////                    toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, 0);
+////                            toast.setGravity(Gravity.TOP | Gravity.START | Gravity.END, 0, 200);
+//////                            toast.setGravity(Gravity.TOP, 0, 200);
+////                            toast.show();
+//
+//                            new CustomToast().showToast(getActivity(), "PSID has been copied to clipboard");
+//
+//
+//                            return false;
+//                        }
+//                    });
+//
+//
+//                    new TextField().changeColor(getContext(), layout_txt_amount, txt_amount);
+//
+//                    txt_amount.setEnabled(false);
+//                    spinner_companyName.setEnabled(false);
+//                    spinner_companyName.setClickable(false);
+//
+//
+//                    btn_newpayment.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                            fragmentTransaction.add(R.id.main_container, new CreatePaymentRequestFragment());
+//                            fragmentTransaction.commit();
+//                        }
+//                    });
+//
+//                    btn_update.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+////                            final FragmentManager fm = getActivity().getSupportFragmentManager();
+////                            fm.popBackStack();
+//                            SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+//                                    Context.MODE_PRIVATE);
+//                            SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+//                            editorOrderTabsFromDraft.putString("TabNo", "0");
+//                            editorOrderTabsFromDraft.apply();
+//
+//                            FragmentTransaction fragmentTransaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+//                            fragmentTransaction.add(R.id.main_container, new RetailerPaymentDashboard());
+//                            fragmentTransaction.commit();
+//
+////                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+////                fragmentTransaction.add(R.id.main_container, new EditPaymentRequestFragment());
+////                fragmentTransaction.commit();
+//
+//                        }
+//                    });
+//
+//                    btn_voucher.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            if (checkAndRequestPermissions()) {
+//                                try {
+//                                    viewPDF(getContext(), PrePaidId);
+//                                } catch (JSONException e) {
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//                        }
+//                    });
+//
+//                    tv_banking_channel = rootView.findViewById(R.id.tv_banking_channel);
+//                    tv_banking_channel.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//
+//                            final AlertDialog alertDialog2 = new AlertDialog.Builder(getContext()).create();
+//                            LayoutInflater inflater2 = LayoutInflater.from(getContext());
+//                            View view_popup2 = inflater2.inflate(R.layout.payment_request_details, null);
+//                            alertDialog2.setView(view_popup2);
+//                            alertDialog2.show();
+//                            ImageButton img_close = view_popup2.findViewById(R.id.image_button_close);
+//                            TextView payment_information_txt3 = view_popup2.findViewById(R.id.payment_information_txt3);
+//                            payment_information_txt3.setText(PrePaidNumber);
+//                            Button btn_view_voucher = view_popup2.findViewById(R.id.btn_view_voucher);
+//                            btn_view_voucher.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    if (checkAndRequestPermissions()) {
+//                                        try {
+//                                            viewPDF(getContext(), PrePaidId);
+//                                        } catch (JSONException e) {
+//                                            e.printStackTrace();
+//                                        }
+//                                    }
+//                                }
+//                            });
+//
+//                            img_close.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    alertDialog2.dismiss();
+//                                }
+//                            });
+//                        }
+//                    });
+//                    getUnPaidInvoiceData();
+//
+//                }
 
                 break;
             }

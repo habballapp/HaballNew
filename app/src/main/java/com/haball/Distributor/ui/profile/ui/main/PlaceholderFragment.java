@@ -245,7 +245,7 @@ public class PlaceholderFragment extends Fragment {
                         if (event.getAction() == MotionEvent.ACTION_UP) {
                             if (event.getRawX() >= (R_Address.getRight() - R_Address.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                                 // your action here
-                                R_Address.setInputType(InputType.TYPE_TEXT_FLAG_IME_MULTI_LINE);
+//                                R_Address.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
                                 R_Address.requestFocus();
                                 R_Address.setFocusable(true);
                                 R_Address.setFocusableInTouchMode(true);
@@ -619,7 +619,7 @@ public class PlaceholderFragment extends Fragment {
                         && rmobile.equals(Mobile)
                         && str_edt_firstname.equals(firstname)
                         && str_edt_lastname.equals(lastname))
-//                        && r_Address.equals(Address))
+                        && r_Address.equals(Address)
                         || !remail.matches(reg_ex)
                         || rmobile.length() != 12
 //                || comment.equals("")

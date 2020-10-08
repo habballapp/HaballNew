@@ -288,8 +288,8 @@ public class PlaceholderFragment extends Fragment {
                 button_back = rootView.findViewById(R.id.button_back);
 
 
-                layout_txt_order_reference.setVisibility(View.GONE);
-                layout_txt_invoice_reference.setVisibility(View.GONE);
+                // layout_txt_order_reference.setVisibility(View.GONE);
+                // layout_txt_invoice_reference.setVisibility(View.GONE);
 
                 new TextField().changeColor(this.getContext(), layout_txt_orderID, txt_orderID);
                 new TextField().changeColor(this.getContext(), layout_txt_order_company, txt_company_order);
@@ -415,15 +415,16 @@ public class PlaceholderFragment extends Fragment {
                     new TextField().changeColor(getContext(), layout_txt_transaction_charges, txt_transaction_charges);
                     new TextField().changeColor(getContext(), layout_txt_total_amount, txt_total_amount);
 
-                    layout_txt_created_date.setVisibility(View.GONE);
-                    layout_transaction_date.setVisibility(View.GONE);
-                    layout_txt_bank.setVisibility(View.GONE);
-                    layout_txt_authorization_id.setVisibility(View.GONE);
-                    layout_txt_settlement_id.setVisibility(View.GONE);
-                    layout_txt_status.setVisibility(View.GONE);
-                    layout_txt_amount.setVisibility(View.GONE);
-                    layout_txt_transaction_charges.setVisibility(View.GONE);
-                    layout_txt_total_amount.setVisibility(View.GONE);
+                    // fields hidden here
+                    // layout_txt_created_date.setVisibility(View.GONE);
+                    // layout_transaction_date.setVisibility(View.GONE);
+                    // layout_txt_bank.setVisibility(View.GONE);
+                    // layout_txt_authorization_id.setVisibility(View.GONE);
+                    // layout_txt_settlement_id.setVisibility(View.GONE);
+                    // layout_txt_status.setVisibility(View.GONE);
+                    // layout_txt_amount.setVisibility(View.GONE);
+                    // layout_txt_transaction_charges.setVisibility(View.GONE);
+                    // layout_txt_total_amount.setVisibility(View.GONE);
 
                     txt_companyName.setEnabled(false);
                     txt_paymentID.setEnabled(false);

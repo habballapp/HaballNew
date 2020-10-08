@@ -342,15 +342,15 @@ public class PlaceholderFragment extends Fragment {
                 new TextField().changeColor(getContext(), layout_txt_transaction_charges, txt_transaction_charges);
                 new TextField().changeColor(getContext(), layout_txt_total_amount, txt_total_amount);
 
-                layout_txt_created_date.setVisibility(View.GONE);
-                layout_transaction_date.setVisibility(View.GONE);
-                layout_txt_bank.setVisibility(View.GONE);
-                layout_txt_authorization_id.setVisibility(View.GONE);
-                layout_txt_settlement_id.setVisibility(View.GONE);
-                layout_txt_status.setVisibility(View.GONE);
-                layout_txt_amount.setVisibility(View.GONE);
-                layout_txt_transaction_charges.setVisibility(View.GONE);
-                layout_txt_total_amount.setVisibility(View.GONE);
+                // layout_txt_created_date.setVisibility(View.GONE);
+                // layout_transaction_date.setVisibility(View.GONE);
+                // layout_txt_bank.setVisibility(View.GONE);
+                // layout_txt_authorization_id.setVisibility(View.GONE);
+                // layout_txt_settlement_id.setVisibility(View.GONE);
+                // layout_txt_status.setVisibility(View.GONE);
+                // layout_txt_amount.setVisibility(View.GONE);
+                // layout_txt_transaction_charges.setVisibility(View.GONE);
+                // layout_txt_total_amount.setVisibility(View.GONE);
 
                 txt_companyName.setEnabled(false);
                 txt_paymentID.setEnabled(false);
@@ -877,13 +877,13 @@ public class PlaceholderFragment extends Fragment {
                             txt_status.setTextColor(getResources().getColor(R.color.textcolor));
 
                         layout_txt_created_date.setVisibility(View.VISIBLE);
-                        layout_transaction_date.setVisibility(View.GONE);
-                        layout_txt_bank.setVisibility(View.GONE);
-                        layout_txt_authorization_id.setVisibility(View.GONE);
-                        layout_txt_settlement_id.setVisibility(View.GONE);
+                        // layout_transaction_date.setVisibility(View.GONE);
+                        // layout_txt_bank.setVisibility(View.GONE);
+                        // layout_txt_authorization_id.setVisibility(View.GONE);
+                        // layout_txt_settlement_id.setVisibility(View.GONE);
                         layout_txt_status.setVisibility(View.VISIBLE);
                         layout_txt_amount.setVisibility(View.VISIBLE);
-                        layout_txt_transaction_charges.setVisibility(View.GONE);
+                        // layout_txt_transaction_charges.setVisibility(View.GONE);
                         layout_txt_total_amount.setVisibility(View.VISIBLE);
 
 //                        if (invoiceModel.getStatus().equals("1")) {

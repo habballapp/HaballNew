@@ -257,7 +257,7 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
                     } else if (Filter_selected.equals("Date")) {
                         date_filter_rl.setVisibility(View.VISIBLE);
                         Filter_selected = "date";
-                        Filter_selected1 = "DateTo";
+                        Filter_selected1 = "DateFrom";
                         Filter_selected2 = "DateTo";
                         first_date_btn.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -594,6 +594,14 @@ public class RetailerPaymentDashboard extends Fragment implements DatePickerDial
                 map.put(Filter_selected2, toDate + "T23:59:59.000Z");
             else if (!fromDate.equals(""))
                 map.put(Filter_selected2, fromDate + "T23:59:59.000Z");
+//            if (!fromDate.equals(""))
+//                map.put("Paid" + Filter_selected1, fromDate + "T00:00:00.000Z");
+//            else if (!toDate.equals(""))
+//                map.put("Paid" + Filter_selected1, toDate + "T00:00:00.000Z");
+//            if (!toDate.equals(""))
+//                map.put("Paid" + Filter_selected2, toDate + "T23:59:59.000Z");
+//            else if (!fromDate.equals(""))
+//                map.put("Paid" + Filter_selected2, fromDate + "T23:59:59.000Z");
         } else if (Filter_selected.equals("amount")) {
             if (!fromAmount.equals(""))
                 map.put(Filter_selected1, fromAmount);

@@ -268,6 +268,7 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
             @Override
             public void afterTextChanged(Editable s) {
                 if (holder.list_numberOFitems.hasFocus()) {
+                    Log.i("list_numberOFitems", String.valueOf(holder.list_numberOFitems.getText()));
 //                after = String.valueOf(s);
 ////                if (String.valueOf(s).equals("0")) {
 ////                    Log.i("position to be removed", String.valueOf(finalPosition));
@@ -442,7 +443,7 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
         if (selectedProductsDataList.size() > 1) {
 
             selectedProductsDataListQty.set(finalPosition, "0");
-            holder.list_numberOFitems.setText("0");
+//            holder.list_numberOFitems.setText("");
             checkOutEnabler(holder, finalPosition, "0");
 
             grossAmount = 0;
@@ -629,7 +630,6 @@ public class Order_Summary_Adapter extends RecyclerView.Adapter<Order_Summary_Ad
                         grossAmount = 0;
                         discAmount = 0;
                     }
-
 
 
                     grossAmount = 0;

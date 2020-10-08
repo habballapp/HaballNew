@@ -541,8 +541,8 @@ public class Order_Summary extends Fragment {
                     TextView tv_pr1, txt_header1;
                     txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
                     tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
-                    txt_header1.setText("Order Created");
-                    tv_pr1.setText("Your Order ID " + result.getString("OrderNumber") + " has been created successfully.");
+                    txt_header1.setText("Order Saved");
+                    tv_pr1.setText("Your Order ID " + result.getString("OrderNumber") + " has been saved successfully.");
                     fbDialogue.setCancelable(true);
                     fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
                     WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();

@@ -34,7 +34,7 @@
         android:layout_below="@+id/heading"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="5dp"
-        android:text="Ticket Id:"
+        android:text="Ticket ID:"
         android:fontFamily="@font/open_sans"
         android:textColor="@color/rv_box_color"
         android:textSize="@dimen/rv_box_text_size" />

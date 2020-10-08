@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.UiThread;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -137,6 +138,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_order_place_retailer_dashboarad, container, false);
         myview = view;
+        ((FragmentActivity) getContext()).getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN |     WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         btn_checkout = view.findViewById(R.id.btn_checkout);
         btn_close = view.findViewById(R.id.close_button);
         loader = new Loader(getContext());
@@ -302,38 +304,119 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
             }
         });
 
+//
+//        et_test.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+////                titles = new ArrayList<>();
+//                if (!String.valueOf(s).equals("")) {
+//                    Log.i("titles123", "in if");
+//                    try {
+//                        getFilteredProductsFromCategory(String.valueOf(s));
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                } else {
+//                    Log.i("titles123", "in else");
+//                    try {
+//                        getProductCategory();
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        });
 
-        et_test.addTextChangedListener(new TextWatcher() {
+        et_test.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void onFocusChange(View v, boolean hasFocus) {
+                ((FragmentActivity) getContext()).getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN |     WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+                if (!hasFocus) {
+                    if (spinner_container_main.getVisibility() == View.GONE) {
 
-            }
+                        spinner_container_main.setVisibility(View.VISIBLE);
+                        TranslateAnimation animate1 = new TranslateAnimation(
+                                0,                 // fromXDelta
+                                0,                 // toXDelta
+                                -spinner_container_main.getHeight(),  // fromYDelta
+                                0);                // toYDelta
+                        animate1.setDuration(250);
+                        animate1.setFillAfter(true);
+                        spinner_container_main.clearAnimation();
+                        spinner_container_main.startAnimation(animate1);
+                    }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-            }
+                    String s = String.valueOf(et_test.getText());
+                    Log.i("DebugFilter", "in edit text: " + s);
+                    Log.i("DebugFilter", "in edit text: C, " + Category_selected);
+                    editTextValue = String.valueOf(s);
 
-            @Override
-            public void afterTextChanged(Editable s) {
 //                titles = new ArrayList<>();
-                if (!String.valueOf(s).equals("")) {
-                    Log.i("titles123", "in if");
-                    try {
-                        getFilteredProductsFromCategory(String.valueOf(s));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    if (!String.valueOf(s).equals("")) {
+                        spinner_conso.setSelection(0);
+                        Log.i("titles123", "in if");
+                        try {
+                            getFilteredProductsFromCategory(String.valueOf(s));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        Log.i("titles123", "in else");
+                        try {
+                            getProductCategory();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
-                } else {
-                    Log.i("titles123", "in else");
-                    try {
-                        getProductCategory();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+
                 }
             }
         });
+
+
+        // ContentView is the root view of the layout of this activity/fragment
+        view.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+
+                        Rect r = new Rect();
+                        view.getWindowVisibleDisplayFrame(r);
+                        int screenHeight = view.getRootView().getHeight();
+
+                        // r.bottom is the position above soft keypad or device button.
+                        // if keypad is shown, the r.bottom is smaller than that before.
+                        int keypadHeight = screenHeight - r.bottom;
+
+                        Log.d("order_debugKey_KeyHeig", "keypadHeight = " + keypadHeight);
+
+                        if (keypadHeight > screenHeight * 0.15) { // 0.15 ratio is perhaps enough to determine keypad height.
+                            // keyboard is opened
+                            if (!isKeyboardShowing) {
+                                isKeyboardShowing = true;
+                                onKeyboardVisibilityChanged(true);
+                            }
+                        } else {
+                            // keyboard is closed
+                            if (isKeyboardShowing) {
+                                isKeyboardShowing = false;
+                                onKeyboardVisibilityChanged(false);
+                            }
+                        }
+                    }
+                });
+
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -404,41 +487,56 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
             e.printStackTrace();
         }
 
-
-        // ContentView is the root view of the layout of this activity/fragment
-        view.getViewTreeObserver().addOnGlobalLayoutListener(
-                new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-
-                        Rect r = new Rect();
-                        view.getWindowVisibleDisplayFrame(r);
-                        int screenHeight = view.getRootView().getHeight();
-
-                        // r.bottom is the position above soft keypad or device button.
-                        // if keypad is shown, the r.bottom is smaller than that before.
-                        int keypadHeight = screenHeight - r.bottom;
-
-                        Log.d("order_debugKey_KeyHeig", "keypadHeight = " + keypadHeight);
-
-                        if (keypadHeight > screenHeight * 0.15) { // 0.15 ratio is perhaps enough to determine keypad height.
-                            // keyboard is opened
-                            if (!isKeyboardShowing) {
-                                isKeyboardShowing = true;
-                                onKeyboardVisibilityChanged(true);
-                            }
-                        } else {
-                            // keyboard is closed
-                            if (isKeyboardShowing) {
-                                isKeyboardShowing = false;
-                                onKeyboardVisibilityChanged(false);
-                            }
-                        }
-                    }
-                });
+//
+//        // ContentView is the root view of the layout of this activity/fragment
+//        view.getViewTreeObserver().addOnGlobalLayoutListener(
+//                new ViewTreeObserver.OnGlobalLayoutListener() {
+//                    @Override
+//                    public void onGlobalLayout() {
+//
+//                        Rect r = new Rect();
+//                        view.getWindowVisibleDisplayFrame(r);
+//                        int screenHeight = view.getRootView().getHeight();
+//
+//                        // r.bottom is the position above soft keypad or device button.
+//                        // if keypad is shown, the r.bottom is smaller than that before.
+//                        int keypadHeight = screenHeight - r.bottom;
+//
+//                        Log.d("order_debugKey_KeyHeig", "keypadHeight = " + keypadHeight);
+//
+//                        if (keypadHeight > screenHeight * 0.15) { // 0.15 ratio is perhaps enough to determine keypad height.
+//                            // keyboard is opened
+//                            if (!isKeyboardShowing) {
+//                                isKeyboardShowing = true;
+//                                onKeyboardVisibilityChanged(true);
+//                            }
+//                        } else {
+//                            // keyboard is closed
+//                            if (isKeyboardShowing) {
+//                                isKeyboardShowing = false;
+//                                onKeyboardVisibilityChanged(false);
+//                            }
+//                        }
+//                    }
+//                });
 
         return view;
 
+    }
+    private void onKeyboardVisibilityChanged(boolean opened) {
+        Log.i("order_debugKey_OpenClos", "keyboard " + opened);
+        if (!opened) {
+            spinner_container_main.setVisibility(View.VISIBLE);
+            TranslateAnimation animate1 = new TranslateAnimation(
+                    0,                 // fromXDelta
+                    0,                 // toXDelta
+                    -spinner_container_main.getHeight(),  // fromYDelta
+                    0);                // toYDelta
+            animate1.setDuration(250);
+            animate1.setFillAfter(true);
+            spinner_container_main.clearAnimation();
+            spinner_container_main.startAnimation(animate1);
+        }
     }
 
 
@@ -557,23 +655,6 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
 //        });
 //
 //    }
-
-    private void onKeyboardVisibilityChanged(boolean opened) {
-        Log.i("order_debugKey_OpenClos", "keyboard " + opened);
-        if (!opened) {
-            spinner_container_main.setVisibility(View.VISIBLE);
-            TranslateAnimation animate1 = new TranslateAnimation(
-                    0,                 // fromXDelta
-                    0,                 // toXDelta
-                    -spinner_container_main.getHeight(),  // fromYDelta
-                    0);                // toYDelta
-            animate1.setDuration(250);
-            animate1.setFillAfter(true);
-            spinner_container_main.clearAnimation();
-            spinner_container_main.startAnimation(animate1);
-        }
-    }
-
 
     @Override
     public void onResume() {
@@ -752,6 +833,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
 
 
     private void getFilteredProductsFromCategory(final String Product) throws JSONException {
+        loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -776,6 +858,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
+                loader.hideLoader();
                 productList = new ArrayList<>();
                 List<OrderParentlist_Model> temp12_titles = titles;
 //                temp_titles = titles;
@@ -852,6 +935,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
                 new HaballError().printErrorMessage(getContext(), error);
                 new ProcessingError().showError(getContext());
 
@@ -876,6 +960,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
     }
 
     private void getFilteredProductCategory(final String ParentId) throws JSONException {
+        loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -950,6 +1035,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
                 new HaballError().printErrorMessage(getContext(), error);
                 new ProcessingError().showError(getContext());
 
@@ -981,6 +1067,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
     boolean bool = true;
 
     private void getProductCategory() throws JSONException {
+        loader.showLoader();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
@@ -1152,6 +1239,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
+                loader.hideLoader();
                 Log.i("result", String.valueOf(result));
 
                 Gson gson = new Gson();
@@ -1190,6 +1278,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loader.hideLoader();
                 new HaballError().printErrorMessage(getContext(), error);
                 new ProcessingError().showError(getContext());
 
