@@ -652,8 +652,8 @@ public class PlaceholderFragment extends Fragment {
                         editorOrderTabsFromDraft.putString("TabNo", "0");
                         editorOrderTabsFromDraft.apply();
 
-                       FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.main_container, new Shipments_Fragments()).addToBackStack("tag");
+                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
                         fragmentTransaction.commit();
                         return true;
 //                    Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
