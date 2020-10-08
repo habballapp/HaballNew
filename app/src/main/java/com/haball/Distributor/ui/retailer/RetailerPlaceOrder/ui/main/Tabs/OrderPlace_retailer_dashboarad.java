@@ -155,6 +155,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
         btn_checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final NonSwipeableViewPager viewPager;
                 loader.showLoader();
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -170,7 +171,7 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
                                 SharedPreferences.Editor orderCheckout_editor = orderCheckout.edit();
                                 orderCheckout_editor.putString("orderCheckout", "orderCheckout");
                                 orderCheckout_editor.apply();
-                                NonSwipeableViewPager viewPager = getActivity().findViewById(R.id.view_pager_rpoid);
+                                final NonSwipeableViewPager viewPager = getActivity().findViewById(R.id.view_pager_rpoid);
                                 SharedPreferences selectedProducts = getContext().getSharedPreferences("selectedProducts_retailer",
                                         Context.MODE_PRIVATE);
                                 Gson gson = new Gson();
@@ -203,6 +204,14 @@ public class OrderPlace_retailer_dashboarad extends Fragment {
                                     editor.apply();
 //                            Toast.makeText(getContext(), "Total Amount: " + grossAmount, Toast.LENGTH_SHORT).show();
                                     grossAmount = 0;
+                                    viewPager.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
+                                    {
+                                        @Override
+                                        public void onGlobalLayout()
+                                        {
+                                            viewPager.setCurrentItem(1, false);
+                                        }
+                                    });
                                     viewPager.setCurrentItem(1);
 
                                     InputMethodManager imm = (InputMethodManager) (getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);

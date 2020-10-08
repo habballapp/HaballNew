@@ -816,98 +816,100 @@ public class PlaceholderFragment extends Fragment {
         checkPasswords();
         checkConfirmPassword();
         if (old_password_check && password_check && confirm_password_check) {
-            loader.showLoader();
+            if (!String.valueOf(txt_password.getText()).equals(String.valueOf(txt_newpassword.getText()))) {
 
-            SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
-                    Context.MODE_PRIVATE);
-            Token = sharedPreferences.getString("Login_Token", "");
-            Log.i("Login_Token", Token);
-            SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
-                    Context.MODE_PRIVATE);
-            ID = sharedPreferences1.getString("ID", "");
-            username = sharedPreferences1.getString("username", "");
+                loader.showLoader();
+
+                SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                        Context.MODE_PRIVATE);
+                Token = sharedPreferences.getString("Login_Token", "");
+                Log.i("Login_Token", Token);
+                SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                        Context.MODE_PRIVATE);
+                ID = sharedPreferences1.getString("ID", "");
+                username = sharedPreferences1.getString("username", "");
 //            Toast.makeText(getActivity(), "Update Password clicked", Toast.LENGTH_SHORT).show();
 
 //            change_password_dail.dismiss();
 
-            JSONObject map = new JSONObject();
-            map.put("Password", txt_password.getText().toString());
-            map.put("NewPassword", txt_newpassword.getText().toString());
-            map.put("ConfirmPassword", txt_cfmpassword.getText().toString());
+                JSONObject map = new JSONObject();
+                map.put("Password", txt_password.getText().toString());
+                map.put("NewPassword", txt_newpassword.getText().toString());
+                map.put("ConfirmPassword", txt_cfmpassword.getText().toString());
 //            map.put("ID", ID);
-            map.put("Username", username);
-            Log.i("MapChangePass", map.toString());
-            new SSL_HandShake().handleSSLHandshake();
+                map.put("Username", username);
+                Log.i("MapChangePass", map.toString());
+                new SSL_HandShake().handleSSLHandshake();
 //            final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
-            BooleanRequest sr = new BooleanRequest(Request.Method.POST, ChangePass_URL, String.valueOf(map), new Response.Listener<Boolean>() {
-                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-                @Override
-                public void onResponse(Boolean result) {
-                    loader.hideLoader();
-                    Log.i("response", String.valueOf(result));
-                    if (result) {
+                BooleanRequest sr = new BooleanRequest(Request.Method.POST, ChangePass_URL, String.valueOf(map), new Response.Listener<Boolean>() {
+                    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                    @Override
+                    public void onResponse(Boolean result) {
+                        loader.hideLoader();
+                        Log.i("response", String.valueOf(result));
+                        if (result) {
 //                            Toast.makeText(getActivity(), result.get("message").toString(), Toast.LENGTH_SHORT).show();
 //                        } else {
-                        final Dialog fbDialogue = new Dialog(getActivity());
-                        //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
-                        fbDialogue.setContentView(R.layout.password_updatepopup);
+                            final Dialog fbDialogue = new Dialog(getActivity());
+                            //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                            fbDialogue.setContentView(R.layout.password_updatepopup);
 
-                        tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
+                            tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
 //                            tv_pr1.setText("User Profile ID " + ID + " password has been changed successfully.");
-                        tv_pr1.setText("Your password has been updated. You can login with the new credentials.");
-                        fbDialogue.setCancelable(true);
-                        fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
-                        WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
-                        layoutParams.y = 200;
-                        layoutParams.x = -70;// top margin
-                        fbDialogue.getWindow().setAttributes(layoutParams);
-                        fbDialogue.show();
+                            tv_pr1.setText("Your password has been updated. You can login with the new credentials.");
+                            fbDialogue.setCancelable(true);
+                            fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                            WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+                            layoutParams.y = 200;
+                            layoutParams.x = -70;// top margin
+                            fbDialogue.getWindow().setAttributes(layoutParams);
+                            fbDialogue.show();
 
-                        ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
-                        close_button.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                fbDialogue.dismiss();
-                            }
-                        });
+                            ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+                            close_button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    fbDialogue.dismiss();
+                                }
+                            });
 
-                        fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                            @Override
-                            public void onDismiss(DialogInterface dialog) {
-                                SharedPreferences login_token = getContext().getSharedPreferences("LoginToken",
-                                        Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = login_token.edit();
-                                editor.putString("Login_Token", "");
-                                editor.putString("User_Type", "");
-                                editor.putString("Retailer_Id", "");
-                                editor.putString("username", "");
-                                editor.putString("CompanyName", "");
-                                editor.putString("UserId", "");
+                            fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface dialog) {
+                                    SharedPreferences login_token = getContext().getSharedPreferences("LoginToken",
+                                            Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = login_token.edit();
+                                    editor.putString("Login_Token", "");
+                                    editor.putString("User_Type", "");
+                                    editor.putString("Retailer_Id", "");
+                                    editor.putString("username", "");
+                                    editor.putString("CompanyName", "");
+                                    editor.putString("UserId", "");
 
-                                editor.commit();
+                                    editor.commit();
 
-                                Intent intent = new Intent(getContext(), RetailerLogin.class);
-                                startActivity(intent);
-                                ((FragmentActivity) getContext()).finish();
-                            }
-                        });
+                                    Intent intent = new Intent(getContext(), RetailerLogin.class);
+                                    startActivity(intent);
+                                    ((FragmentActivity) getContext()).finish();
+                                }
+                            });
+                        }
                     }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    loader.hideLoader();
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loader.hideLoader();
 //                    new HaballError().printErrorMessage(error);
-                    error.printStackTrace();
-                    new CustomToast().showToast(getActivity(), "Password mismatch");
+                        error.printStackTrace();
+                        new CustomToast().showToast(getActivity(), "Password mismatch");
 
-                    layout_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
-                    layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
-                    layout_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
-                    txt_password.setTextColor(getResources().getColor(R.color.error_stroke_color));
+                        layout_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+                        layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+                        layout_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+                        txt_password.setTextColor(getResources().getColor(R.color.error_stroke_color));
 //            layout_password1.setPasswordVisibilityToggleEnabled(false);
-                    update_password.setEnabled(false);
-                    update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+                        update_password.setEnabled(false);
+                        update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
 //                    final Dialog fbDialogue = new Dialog(getActivity());
 //                    //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
@@ -939,50 +941,54 @@ public class PlaceholderFragment extends Fragment {
 //                        }
 //                    });
 //                    Toast.makeText(getActivity(), String.valueOf(error),Toast.LENGTH_LONG).show();
-                }
+                    }
 
-            }) {
+                }) {
 
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("Authorization", "bearer " + Token);
-                    params.put("Content-Type", "application/json; charset=UTF-8");
-                    return params;
-                }
-            };
-            sr.setRetryPolicy(new RetryPolicy() {
-                @Override
-                public int getCurrentTimeout() {
-                    return 50000;
-                }
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("Authorization", "bearer " + Token);
+                        params.put("Content-Type", "application/json; charset=UTF-8");
+                        return params;
+                    }
+                };
+                sr.setRetryPolicy(new RetryPolicy() {
+                    @Override
+                    public int getCurrentTimeout() {
+                        return 50000;
+                    }
 
-                @Override
-                public int getCurrentRetryCount() {
-                    return 1000;
-                }
+                    @Override
+                    public int getCurrentRetryCount() {
+                        return 1000;
+                    }
 
-                @Override
-                public void retry(VolleyError error) throws VolleyError {
+                    @Override
+                    public void retry(VolleyError error) throws VolleyError {
 
-                }
-            });
-            Volley.newRequestQueue(getActivity()).add(sr);
-        } else {
+                    }
+                });
+                Volley.newRequestQueue(getActivity()).add(sr);
+            } else {
+                new CustomToast().showToast(getActivity(), "New password cannot be old password.");
+
+            }
+        } else{
 //            Toast.makeText(getActivity(), "Password do not Match", Toast.LENGTH_LONG).show();
-            new CustomToast().showToast(getActivity(), "Password mismatch");
-            layout_password1.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
-            layout_password1.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
-            layout_password1.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
-            txt_newpassword.setTextColor(getResources().getColor(R.color.error_stroke_color));
+                new CustomToast().showToast(getActivity(), "Password mismatch");
+                layout_password1.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+                layout_password1.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+                layout_password1.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+                txt_newpassword.setTextColor(getResources().getColor(R.color.error_stroke_color));
 //            layout_password1.setPasswordVisibilityToggleEnabled(false);
-            update_password.setEnabled(false);
-            update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+                update_password.setEnabled(false);
+                update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
 
-            layout_password3.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
-            layout_password3.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+                layout_password3.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+                layout_password3.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
 //            layout_password3.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
-            txt_cfmpassword.setTextColor(getResources().getColor(R.color.error_stroke_color));
+                txt_cfmpassword.setTextColor(getResources().getColor(R.color.error_stroke_color));
 
 //            final Dialog fbDialogue = new Dialog(getActivity());
 //            //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
@@ -1013,32 +1019,32 @@ public class PlaceholderFragment extends Fragment {
 //                    fbDialogue.dismiss();
 //                }
 //            });
+            }
+
         }
 
-    }
-
-    private void checkOldPasswords() {
-        String reg_ex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{6,}$";
+        private void checkOldPasswords () {
+            String reg_ex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{6,}$";
 //        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
-        if (txt_password.getText().toString().matches(reg_ex)) {
-            old_password_check = true;
-            layout_password.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
-            layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
-            layout_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
-            txt_password.setTextColor(getResources().getColor(R.color.textcolor));
+            if (txt_password.getText().toString().matches(reg_ex)) {
+                old_password_check = true;
+                layout_password.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
+                layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+                layout_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
+                txt_password.setTextColor(getResources().getColor(R.color.textcolor));
 //            layout_password1.setPasswordVisibilityToggleEnabled(true);
-            checkFieldsForEmptyValuesUpdatePass();
-        } else {
+                checkFieldsForEmptyValuesUpdatePass();
+            } else {
 //            txt_newpassword.setError("Please enter password with minimum 6 characters & 1 Numeric or special character");
-            old_password_check = false;
-            layout_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
-            layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
-            layout_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
-            txt_password.setTextColor(getResources().getColor(R.color.error_stroke_color));
+                old_password_check = false;
+                layout_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+                layout_password.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+                layout_password.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+                txt_password.setTextColor(getResources().getColor(R.color.error_stroke_color));
 //            layout_password1.setPasswordVisibilityToggleEnabled(false);
-            update_password.setEnabled(false);
-            update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
-        }
+                update_password.setEnabled(false);
+                update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+            }
 //        txt_password.addTextChangedListener(new TextWatcher() {
 //            @Override
 //            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -1061,298 +1067,298 @@ public class PlaceholderFragment extends Fragment {
 //
 //            }
 //        });
-    }
-
-    private void checkPasswords() {
-        String reg_ex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{6,}$";
-//        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
-        if (txt_newpassword.getText().toString().matches(reg_ex)) {
-            password_check = true;
-            layout_password1.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
-            layout_password1.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
-            layout_password1.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
-            txt_newpassword.setTextColor(getResources().getColor(R.color.textcolor));
-//            layout_password1.setPasswordVisibilityToggleEnabled(true);
-            checkFieldsForEmptyValuesUpdatePass();
-        } else {
-//            txt_newpassword.setError("Please enter password with minimum 6 characters & 1 Numeric or special character");
-            password_check = false;
-            layout_password1.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
-            layout_password1.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
-            layout_password1.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
-            txt_newpassword.setTextColor(getResources().getColor(R.color.error_stroke_color));
-//            layout_password1.setPasswordVisibilityToggleEnabled(false);
-            update_password.setEnabled(false);
-            update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
         }
-        txt_newpassword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+        private void checkPasswords () {
+            String reg_ex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{6,}$";
+//        String reg_ex = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*[\\.,#';\\\\\\(\\)\\{\\}'`/$^+=!*()@%&])).{6,}$";
+            if (txt_newpassword.getText().toString().matches(reg_ex)) {
+                password_check = true;
                 layout_password1.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
                 layout_password1.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
                 layout_password1.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
                 txt_newpassword.setTextColor(getResources().getColor(R.color.textcolor));
-//                layout_password1.setPasswordVisibilityToggleEnabled(true);
+//            layout_password1.setPasswordVisibilityToggleEnabled(true);
                 checkFieldsForEmptyValuesUpdatePass();
-                checkConfirmPassword();
+            } else {
+//            txt_newpassword.setError("Please enter password with minimum 6 characters & 1 Numeric or special character");
+                password_check = false;
+                layout_password1.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+                layout_password1.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+                layout_password1.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+                txt_newpassword.setTextColor(getResources().getColor(R.color.error_stroke_color));
+//            layout_password1.setPasswordVisibilityToggleEnabled(false);
+                update_password.setEnabled(false);
+                update_password.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
             }
+            txt_newpassword.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            @Override
-            public void afterTextChanged(Editable s) {
+                }
 
-            }
-        });
-    }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    layout_password1.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
+                    layout_password1.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+                    layout_password1.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
+                    txt_newpassword.setTextColor(getResources().getColor(R.color.textcolor));
+//                layout_password1.setPasswordVisibilityToggleEnabled(true);
+                    checkFieldsForEmptyValuesUpdatePass();
+                    checkConfirmPassword();
+                }
 
-    private void checkConfirmPassword() {
-        if (txt_newpassword.getText().toString().equals(txt_cfmpassword.getText().toString())) {
-            confirm_password_check = true;
-            layout_password3.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
-            layout_password3.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
-            layout_password3.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
-            txt_cfmpassword.setTextColor(getResources().getColor(R.color.textcolor));
-//            layout_password3.setPasswordVisibilityToggleEnabled(true);
-            checkFieldsForEmptyValuesUpdatePass();
-        } else {
-            confirm_password_check = false;
-//            txt_cfmpassword.setError("Password does not match");
-            layout_password3.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
-            layout_password3.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
-//            layout_password3.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
-            txt_cfmpassword.setTextColor(getResources().getColor(R.color.error_stroke_color));
-//            layout_password3.setPasswordVisibilityToggleEnabled(false);
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
         }
-        txt_cfmpassword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+        private void checkConfirmPassword () {
+            if (txt_newpassword.getText().toString().equals(txt_cfmpassword.getText().toString())) {
+                confirm_password_check = true;
                 layout_password3.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
                 layout_password3.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
                 layout_password3.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
                 txt_cfmpassword.setTextColor(getResources().getColor(R.color.textcolor));
-//                layout_password3.setPasswordVisibilityToggleEnabled(true);
+//            layout_password3.setPasswordVisibilityToggleEnabled(true);
                 checkFieldsForEmptyValuesUpdatePass();
-
+            } else {
+                confirm_password_check = false;
+//            txt_cfmpassword.setError("Password does not match");
+                layout_password3.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+                layout_password3.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+//            layout_password3.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+                txt_cfmpassword.setTextColor(getResources().getColor(R.color.error_stroke_color));
+//            layout_password3.setPasswordVisibilityToggleEnabled(false);
             }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-    }
-
-    private void saveProfileData() throws JSONException {
-        loader.showLoader();
-
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token", "");
-
-        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        RetailerId = sharedPreferences1.getString("Retailer_Id", "");
-        Log.i("RetailerId ", RetailerId);
-//        PROFILE_URL = PROFILE_URL + RetailerId;
-        Log.i("Token Retailer ", Token);
-
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("ID", RetailerId);
-        jsonObject.put("Name", Rfirstname.getText().toString());
-        jsonObject.put("CNIC", Rcnic.getText().toString());
-        jsonObject.put("Mobile", Rmobile.getText().toString());
-        jsonObject.put("CompanyName", CompanyName);
-        jsonObject.put("Address", R_Address.getText().toString());
-        jsonObject.put("Email", Remail.getText().toString());
-        new SSL_HandShake().handleSSLHandshake();
-//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
-
-        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, PROFILE_EDIT_URL, jsonObject, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject result) {
-                loader.hideLoader();
-                final Dialog fbDialogue = new Dialog(getActivity());
-                //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
-                fbDialogue.setContentView(R.layout.password_updatepopup);
-                TextView tv_pr1, txt_header1;
-                txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
-                tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
-                tv_pr1.setText("Your profile has been updated successfully.");
-                txt_header1.setText("Profile Updated");
-                fbDialogue.setCancelable(true);
-                fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
-                WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
-                layoutParams.y = 200;
-                layoutParams.x = -70;// top margin
-                fbDialogue.getWindow().setAttributes(layoutParams);
-                fbDialogue.show();
-
-                ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
-                close_button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        fbDialogue.dismiss();
-                    }
-                });
-
-                fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        //                    Toast.makeText(getContext(), "Profile Information Successfully updated for " + result.getString("RetailerCode"), Toast.LENGTH_LONG).show();
-                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.add(R.id.main_container_ret, new Profile_Tabs()).addToBackStack("tag");
-                        fragmentTransaction.commit();
-                    }
-                });
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                loader.hideLoader();
-                new ProcessingError().showError(getContext());
-                new HaballError().printErrorMessage(getContext(), error);
-                error.printStackTrace();
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer " + Token);
-                return params;
-            }
-        };
-        sr.setRetryPolicy(new DefaultRetryPolicy(
-                15000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext()).add(sr);
-    }
-
-    // private void printErrorMessage(VolleyError error) {
-
-    //     if (error instanceof NetworkError) {
-    //         Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
-    //     } else if (error instanceof ServerError) {
-    //         Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
-    //     } else if (error instanceof AuthFailureError) {
-    //         Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
-    //     } else if (error instanceof ParseError) {
-    //         Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
-    //     } else if (error instanceof NoConnectionError) {
-    //         Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
-    //     } else if (error instanceof TimeoutError) {
-    //         Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
-    //     }
-
-    //     if (error.networkResponse != null && error.networkResponse.data != null) {
-    //         try {
-    //             String message = "";
-    //             String responseBody = new String(error.networkResponse.data, "utf-8");
-    //             Log.i("responseBody", responseBody);
-    //             JSONObject data = new JSONObject(responseBody);
-    //             Log.i("data", String.valueOf(data));
-    //             Iterator<String> keys = data.keys();
-    //             while (keys.hasNext()) {
-    //                 String key = keys.next();
-    //                 message = message + data.get(key) + "\n";
-    //             }
-    //             Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-    //         } catch (UnsupportedEncodingException e) {
-    //             e.printStackTrace();
-    //         } catch (JSONException e) {
-    //             e.printStackTrace();
-    //         }
-    //     }
-    // }
-
-    private void profileData() {
-        loader.showLoader();
-
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        Token = sharedPreferences.getString("Login_Token", "");
-
-        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
-                Context.MODE_PRIVATE);
-        RetailerId = sharedPreferences1.getString("Retailer_Id", "");
-        Log.i("RetailerId ", RetailerId);
-        PROFILE_URL = PROFILE_URL + RetailerId;
-        Log.i("Token Retailer ", Token);
-        new SSL_HandShake().handleSSLHandshake();
-//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
-        JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, PROFILE_URL, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject result) {
-                loader.hideLoader();
-                try {
-                    Log.i("aaaaa", String.valueOf(result));
-                    CompanyName = result.getString("CompanyName");
-                    Rfirstname.setText(result.getString("Name"));
-                    Remail.setText(result.getString("Email"));
-                    Email = result.getString("Email");
-                    Rcode.setText(result.getString("RetailerCode"));
-                    Rcnic.setText(result.getString("CNIC"));
-                    Rmobile.setText(result.getString("Mobile"));
-                    Mobile = result.getString("Mobile");
-                    R_Address.setText(result.getString("Address"));
-                    Address = result.getString("Address");
-                    String string = result.getString("CreatedDate");
-                    String[] parts = string.split("T");
-                    String Date = parts[0];
-                    R_created_date.setText(Date);
-                    checkFieldsForEmptyValues();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(getActivity(), "Error" + e.toString(), Toast.LENGTH_SHORT).show();
+            txt_cfmpassword.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
                 }
 
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    layout_password3.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
+                    layout_password3.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+                    layout_password3.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
+                    txt_cfmpassword.setTextColor(getResources().getColor(R.color.textcolor));
+//                layout_password3.setPasswordVisibilityToggleEnabled(true);
+                    checkFieldsForEmptyValuesUpdatePass();
 
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                loader.hideLoader();
-                new ProcessingError().showError(getContext());
-                //new HaballError().printErrorMessage(error);
-                error.printStackTrace();
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "bearer " + Token);
-                return params;
-            }
-        };
-        sr.setRetryPolicy(new RetryPolicy() {
-            @Override
-            public int getCurrentTimeout() {
-                return 50000;
-            }
+                }
 
-            @Override
-            public int getCurrentRetryCount() {
-                return 1000;
-            }
+                @Override
+                public void afterTextChanged(Editable s) {
 
-            @Override
-            public void retry(VolleyError error) throws VolleyError {
+                }
+            });
+        }
 
-            }
-        });
-        Volley.newRequestQueue(getContext()).add(sr);
+        private void saveProfileData () throws JSONException {
+            loader.showLoader();
+
+            SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                    Context.MODE_PRIVATE);
+            Token = sharedPreferences.getString("Login_Token", "");
+
+            SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                    Context.MODE_PRIVATE);
+            RetailerId = sharedPreferences1.getString("Retailer_Id", "");
+            Log.i("RetailerId ", RetailerId);
+//        PROFILE_URL = PROFILE_URL + RetailerId;
+            Log.i("Token Retailer ", Token);
+
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("ID", RetailerId);
+            jsonObject.put("Name", Rfirstname.getText().toString());
+            jsonObject.put("CNIC", Rcnic.getText().toString());
+            jsonObject.put("Mobile", Rmobile.getText().toString());
+            jsonObject.put("CompanyName", CompanyName);
+            jsonObject.put("Address", R_Address.getText().toString());
+            jsonObject.put("Email", Remail.getText().toString());
+            new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+
+            JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, PROFILE_EDIT_URL, jsonObject, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject result) {
+                    loader.hideLoader();
+                    final Dialog fbDialogue = new Dialog(getActivity());
+                    //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                    fbDialogue.setContentView(R.layout.password_updatepopup);
+                    TextView tv_pr1, txt_header1;
+                    txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
+                    tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
+                    tv_pr1.setText("Your profile has been updated successfully.");
+                    txt_header1.setText("Profile Updated");
+                    fbDialogue.setCancelable(true);
+                    fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                    WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+                    layoutParams.y = 200;
+                    layoutParams.x = -70;// top margin
+                    fbDialogue.getWindow().setAttributes(layoutParams);
+                    fbDialogue.show();
+
+                    ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+                    close_button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            fbDialogue.dismiss();
+                        }
+                    });
+
+                    fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            //                    Toast.makeText(getContext(), "Profile Information Successfully updated for " + result.getString("RetailerCode"), Toast.LENGTH_LONG).show();
+                            fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.add(R.id.main_container_ret, new Profile_Tabs()).addToBackStack("tag");
+                            fragmentTransaction.commit();
+                        }
+                    });
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    loader.hideLoader();
+                    new ProcessingError().showError(getContext());
+                    new HaballError().printErrorMessage(getContext(), error);
+                    error.printStackTrace();
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("Authorization", "bearer " + Token);
+                    return params;
+                }
+            };
+            sr.setRetryPolicy(new DefaultRetryPolicy(
+                    15000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            Volley.newRequestQueue(getContext()).add(sr);
+        }
+
+        // private void printErrorMessage(VolleyError error) {
+
+        //     if (error instanceof NetworkError) {
+        //         Toast.makeText(getContext(), "Network Error !", Toast.LENGTH_LONG).show();
+        //     } else if (error instanceof ServerError) {
+        //         Toast.makeText(getContext(), "Server Error !", Toast.LENGTH_LONG).show();
+        //     } else if (error instanceof AuthFailureError) {
+        //         Toast.makeText(getContext(), "Auth Failure Error !", Toast.LENGTH_LONG).show();
+        //     } else if (error instanceof ParseError) {
+        //         Toast.makeText(getContext(), "Parse Error !", Toast.LENGTH_LONG).show();
+        //     } else if (error instanceof NoConnectionError) {
+        //         Toast.makeText(getContext(), "No Connection Error !", Toast.LENGTH_LONG).show();
+        //     } else if (error instanceof TimeoutError) {
+        //         Toast.makeText(getContext(), "Timeout Error !", Toast.LENGTH_LONG).show();
+        //     }
+
+        //     if (error.networkResponse != null && error.networkResponse.data != null) {
+        //         try {
+        //             String message = "";
+        //             String responseBody = new String(error.networkResponse.data, "utf-8");
+        //             Log.i("responseBody", responseBody);
+        //             JSONObject data = new JSONObject(responseBody);
+        //             Log.i("data", String.valueOf(data));
+        //             Iterator<String> keys = data.keys();
+        //             while (keys.hasNext()) {
+        //                 String key = keys.next();
+        //                 message = message + data.get(key) + "\n";
+        //             }
+        //             Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        //         } catch (UnsupportedEncodingException e) {
+        //             e.printStackTrace();
+        //         } catch (JSONException e) {
+        //             e.printStackTrace();
+        //         }
+        //     }
+        // }
+
+        private void profileData () {
+            loader.showLoader();
+
+            SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
+                    Context.MODE_PRIVATE);
+            Token = sharedPreferences.getString("Login_Token", "");
+
+            SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("LoginToken",
+                    Context.MODE_PRIVATE);
+            RetailerId = sharedPreferences1.getString("Retailer_Id", "");
+            Log.i("RetailerId ", RetailerId);
+            PROFILE_URL = PROFILE_URL + RetailerId;
+            Log.i("Token Retailer ", Token);
+            new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+            JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, PROFILE_URL, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject result) {
+                    loader.hideLoader();
+                    try {
+                        Log.i("aaaaa", String.valueOf(result));
+                        CompanyName = result.getString("CompanyName");
+                        Rfirstname.setText(result.getString("Name"));
+                        Remail.setText(result.getString("Email"));
+                        Email = result.getString("Email");
+                        Rcode.setText(result.getString("RetailerCode"));
+                        Rcnic.setText(result.getString("CNIC"));
+                        Rmobile.setText(result.getString("Mobile"));
+                        Mobile = result.getString("Mobile");
+                        R_Address.setText(result.getString("Address"));
+                        Address = result.getString("Address");
+                        String string = result.getString("CreatedDate");
+                        String[] parts = string.split("T");
+                        String Date = parts[0];
+                        R_created_date.setText(Date);
+                        checkFieldsForEmptyValues();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(getActivity(), "Error" + e.toString(), Toast.LENGTH_SHORT).show();
+
+                    }
 
 
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    loader.hideLoader();
+                    new ProcessingError().showError(getContext());
+                    //new HaballError().printErrorMessage(error);
+                    error.printStackTrace();
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("Authorization", "bearer " + Token);
+                    return params;
+                }
+            };
+            sr.setRetryPolicy(new RetryPolicy() {
+                @Override
+                public int getCurrentTimeout() {
+                    return 50000;
+                }
+
+                @Override
+                public int getCurrentRetryCount() {
+                    return 1000;
+                }
+
+                @Override
+                public void retry(VolleyError error) throws VolleyError {
+
+                }
+            });
+            Volley.newRequestQueue(getContext()).add(sr);
+
+
+        }
     }
-}
