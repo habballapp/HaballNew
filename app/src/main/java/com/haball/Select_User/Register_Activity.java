@@ -62,8 +62,8 @@ public class Register_Activity extends AppCompatActivity {
         rl_distributor.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-//                Intent intent = new Intent(Register_Activity.this, Distribution_Login.class);
-//                startActivity(intent);
+                Intent intent = new Intent(Register_Activity.this, Distribution_Login.class);
+                startActivity(intent);
             }
 
         });

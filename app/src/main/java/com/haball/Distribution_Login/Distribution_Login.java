@@ -275,7 +275,7 @@ public class Distribution_Login extends AppCompatActivity {
             map.put("Password", et_password.getText().toString());
             map.put("grant_type", "password");
 
-        HurlStack hurlStack = new SSL_HandShake().handleSSLHandshakeDistributor(Distribution_Login.this);
+        new SSL_HandShake().handleSSLHandshakeDistributor(Distribution_Login.this);
 
         Log.i("map", String.valueOf(map));
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
@@ -446,7 +446,7 @@ public class Distribution_Login extends AppCompatActivity {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(this, hurlStack).add(sr);
+        Volley.newRequestQueue(this).add(sr);
 //        RequestQueue requestQueue = Volley.newRequestQueue(this);
 //        requestQueue.add(sr);
     }

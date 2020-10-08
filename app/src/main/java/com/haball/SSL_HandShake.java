@@ -79,22 +79,51 @@ public class SSL_HandShake {
 //        }
 //    }
 
-    public HurlStack handleSSLHandshakeDistributor(Context context) {
-        this.context = context;
-        HurlStack hurlStack = new HurlStack() {
-            @Override
-            protected HttpURLConnection createConnection(URL url) throws IOException {
-                HttpsURLConnection httpsURLConnection = (HttpsURLConnection) super.createConnection(url);
-                try {
-                    httpsURLConnection.setSSLSocketFactory(getSSLSocketFactoryDistributor());
-                    httpsURLConnection.setHostnameVerifier(getHostnameVerifierDistributor());
-                } catch (Exception e) {
-                    e.printStackTrace();
+//    public HurlStack handleSSLHandshakeDistributor(Context context) {
+////        this.context = context;
+////        HurlStack hurlStack = new HurlStack() {
+////            @Override
+////            protected HttpURLConnection createConnection(URL url) throws IOException {
+////                HttpsURLConnection httpsURLConnection = (HttpsURLConnection) super.createConnection(url);
+////                try {
+////                    httpsURLConnection.setSSLSocketFactory(getSSLSocketFactoryDistributor());
+////                    httpsURLConnection.setHostnameVerifier(getHostnameVerifierDistributor());
+////                } catch (Exception e) {
+////                    e.printStackTrace();
+////                }
+////                return httpsURLConnection;
+////            }
+////        };
+////        return hurlStack;
+//    }
+
+    public void handleSSLHandshakeDistributor(Context context) {
+        try {
+            TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
+                public X509Certificate[] getAcceptedIssuers() {
+                    return new X509Certificate[0];
                 }
-                return httpsURLConnection;
-            }
-        };
-        return hurlStack;
+
+                @Override
+                public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                }
+
+                @Override
+                public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                }
+            }};
+
+            SSLContext sc = SSLContext.getInstance("SSL");
+            sc.init(null, trustAllCerts, new SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
+                @Override
+                public boolean verify(String arg0, SSLSession arg1) {
+                    return true;
+                }
+            });
+        } catch (Exception ignored) {
+        }
     }
 
     private HostnameVerifier getHostnameVerifierDistributor() {
