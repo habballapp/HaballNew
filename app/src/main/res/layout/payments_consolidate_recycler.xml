@@ -110,13 +110,13 @@
 
 
     <TextView
-        android:id="@+id/tv_pkr_amount"
+        android:id="@+id/tv_Rs._amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_consolidated_date"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/tv_consolidate_amount"
-        android:text="PKR "
+        android:text="Rs. "
         android:textColor="#676a6c"
         android:textSize="14sp"
         android:textStyle="bold" />
@@ -126,7 +126,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_consolidated_date"
         android:layout_marginLeft="1dp"
-        android:layout_toRightOf="@+id/tv_pkr_amount"
+        android:layout_toRightOf="@+id/tv_Rs._amount"
         android:text=" 600,000.00"
         android:textColor="#676a6c"
         android:textSize="14sp"
@@ -142,13 +142,13 @@
 
 
     <TextView
-        android:id="@+id/tv_pkr1_ramaining"
+        android:id="@+id/tv_Rs.1_ramaining"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/consolidate_amount_value"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/tv_consolidate_remamount"
-        android:text="PKR "
+        android:text="Rs. "
         android:textColor="#676a6c"
         android:textSize="14sp"
         android:textStyle="bold" />
@@ -158,7 +158,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/consolidate_amount_value"
         android:layout_marginLeft="1dp"
-        android:layout_toRightOf="@+id/tv_pkr1_ramaining"
+        android:layout_toRightOf="@+id/tv_Rs.1_ramaining"
         android:text="600,000.00"
         android:textColor="#676a6c"
         android:textSize="14sp"
@@ -175,7 +175,7 @@
         android:id="@+id/consolidate_sat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_pkr1_ramaining"
+        android:layout_below="@+id/tv_Rs.1_ramaining"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/consolidate_status"
         android:text="Paid"

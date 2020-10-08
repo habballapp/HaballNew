@@ -68,6 +68,7 @@
                         android:drawableRight="@drawable/ic_search_black_24dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
+                        android:inputType="text"
                         android:paddingBottom="15dp"
                         android:textColor="#676a6c"
                         android:textSize="14sp" />

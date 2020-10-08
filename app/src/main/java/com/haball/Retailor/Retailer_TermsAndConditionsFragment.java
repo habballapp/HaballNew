@@ -43,7 +43,7 @@ import java.util.Map;
 public class Retailer_TermsAndConditionsFragment extends AppCompatActivity {
 
     private Button agree_button, disagree_button;
-    private String URL = "https://retailer.haball.pk/api/users/termsandcondition";
+    private String URL = "http://175.107.203.97:4014/api/users/termsandcondition";
     private String Token;
     boolean doubleBackToExitPressedOnce = false;
     private Loader loader;
@@ -598,8 +598,8 @@ public class Retailer_TermsAndConditionsFragment extends AppCompatActivity {
 
         String requestBody = jsonObject.toString();
         
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(Retailer_TermsAndConditionsFragment.this);
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(Retailer_TermsAndConditionsFragment.this);
 
         BooleanRequest sr = new BooleanRequest(Request.Method.POST, URL, requestBody, new Response.Listener<Boolean>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -640,7 +640,7 @@ public class Retailer_TermsAndConditionsFragment extends AppCompatActivity {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(this, hurlStack).add(sr);
+        Volley.newRequestQueue(this).add(sr);
     }
 
 }

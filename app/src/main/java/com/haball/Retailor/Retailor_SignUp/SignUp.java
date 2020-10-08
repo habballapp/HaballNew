@@ -53,7 +53,7 @@ import java.util.Iterator;
 public class SignUp extends AppCompatActivity implements View.OnFocusChangeListener {
 
     private ImageButton btn_back;
-    private String URL = "https://retailer.haball.pk/api/retailer/Register";
+    private String URL = "http://175.107.203.97:4014/api/retailer/Register";
     private EditText txt_username, txt_password, txt_confirmpass, txt_fullname, txt_email, txt_cnic, txt_mobile_number, txt_business_name, txt_address;
     private Button btn_register_signup, btn_register_close;
     private Boolean password_check = false, confirm_password_check = false;
@@ -261,8 +261,8 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
             map.put("PostCode", "12345");
 
             Log.i("MAP OBJECT", String.valueOf(map));
-//            new SSL_HandShake().handleSSLHandshake();
-            final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(this);
+            new SSL_HandShake().handleSSLHandshake();
+//            final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(this);
 
             JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
                 @Override
@@ -294,7 +294,7 @@ public class SignUp extends AppCompatActivity implements View.OnFocusChangeListe
                 }
 
             });
-            Volley.newRequestQueue(this, hurlStack).add(sr);
+            Volley.newRequestQueue(this).add(sr);
         } else {
 
             layout_txt_password.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));

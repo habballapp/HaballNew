@@ -116,7 +116,7 @@ public class PlaceholderFragment extends Fragment {
     private FragmentTransaction fragmentTransaction;
 
     private TextView tv_banking_channel, payment_id, btn_newpayment;
-    //    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "https://retailer.haball.pk/api/prepaidrequests/GetByRetailerCode";
+    //    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4014/api/prepaidrequests/GetByRetailerCode";
     private String PrePaidNumber = "", PrePaidId = "", RetailerCompanyName = "", Amount = "", CompanyId = "", MenuItem = "";
     private Button btn_voucher, btn_update, btn_back;
     private Spinner spinner_companyName;
@@ -550,8 +550,8 @@ public class PlaceholderFragment extends Fragment {
 //        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
 //        Log.i("DistributorId invoice", DistributorId);
         Log.i("Token invoice", Token);
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Payment_Data, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -611,7 +611,7 @@ public class PlaceholderFragment extends Fragment {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext(), hurlStack).add(stringRequest);
+        Volley.newRequestQueue(getContext()).add(stringRequest);
 
     }
 
@@ -626,8 +626,8 @@ public class PlaceholderFragment extends Fragment {
             URL_Payment_Data = URL_Payment_Data + paymentId;
             Log.i("URL_Payment_Data", URL_Payment_Data);
         }
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Payment_Data, null, new Response.Listener<JSONObject>() {
             @Override
@@ -655,7 +655,7 @@ public class PlaceholderFragment extends Fragment {
                     String TotalAmount = "";
 //                    if (totalPrice != 0)
                     TotalAmount = formatter1.format(Double.parseDouble(response.getString("Amount")));
-                    total_amount.setText(TotalAmount);
+                    total_amount.setText("Rs. "+TotalAmount);
                     if (!response.getString("TotoalOrderDiscount").equals("null") && !response.getString("TotoalOrderDiscount").equals("0")) {
                         String OrderTotalDiscount = formatter1.format(Double.parseDouble(response.getString("TotoalOrderDiscount")));
                         discount_amount.setText(OrderTotalDiscount);
@@ -729,7 +729,7 @@ public class PlaceholderFragment extends Fragment {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext(), hurlStack).add(stringRequest);
+        Volley.newRequestQueue(getContext()).add(stringRequest);
 
     }
 
@@ -747,8 +747,8 @@ public class PlaceholderFragment extends Fragment {
 //        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
 //        Log.i("DistributorId invoice", DistributorId);
         Log.i("Token invoice12", Token);
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Payment_Data, null, new Response.Listener<JSONObject>() {
             @Override
@@ -771,7 +771,7 @@ public class PlaceholderFragment extends Fragment {
 //                        setTextAndShow(layout_txt_amount, txt_amount, String.valueOf(response.get("Amount")));
                         DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
                         String Formatted_TotalAmount = formatter1.format(Double.parseDouble(response.getString("Amount")));
-                        setTextAndShow(layout_txt_amount, txt_amount, Formatted_TotalAmount);
+                        setTextAndShow(layout_txt_amount, txt_amount, "Rs. "+Formatted_TotalAmount);
                         if (!String.valueOf(response.get("Amount")).equals("") && !String.valueOf(response.get("Amount")).equals("null"))
                             txt_amount.setTextColor(getResources().getColor(R.color.textcolor));
                     }
@@ -807,7 +807,7 @@ public class PlaceholderFragment extends Fragment {
 //                        setTextAndShow(layout_txt_total_amount, txt_total_amount, String.valueOf(response.getString("TotalAmount")));
                         DecimalFormat formatter1 = new DecimalFormat("#,###,##0.00");
                         String Formatted_TotalAmount = formatter1.format(Double.parseDouble(response.getString("TotalAmount")));
-                        setTextAndShow(layout_txt_total_amount, txt_total_amount, Formatted_TotalAmount);
+                        setTextAndShow(layout_txt_total_amount, txt_total_amount,"Rs. "+Formatted_TotalAmount);
                         if (!String.valueOf(response.get("TotalAmount")).equals("") && !String.valueOf(response.get("TotalAmount")).equals("null"))
                             txt_total_amount.setTextColor(getResources().getColor(R.color.textcolor));
                     }
@@ -846,7 +846,7 @@ public class PlaceholderFragment extends Fragment {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext(), hurlStack).add(stringRequest);
+        Volley.newRequestQueue(getContext()).add(stringRequest);
 
     }
 
@@ -864,8 +864,8 @@ public class PlaceholderFragment extends Fragment {
 //        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
 //        Log.i("DistributorId invoice", DistributorId);
         Log.i("Token invoice12", Token);
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Payment_Data, null, new Response.Listener<JSONObject>() {
             @Override
@@ -943,7 +943,7 @@ public class PlaceholderFragment extends Fragment {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext(), hurlStack).add(stringRequest);
+        Volley.newRequestQueue(getContext()).add(stringRequest);
 
     }
 

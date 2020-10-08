@@ -701,13 +701,16 @@ public class Shipments_Fragments extends Fragment implements DatePickerDialog.On
         map.put("PageNumber", pageNumber);
         if (Filter_selected.equals("date")) {
             if (!fromDate.equals(""))
-                map.put(Filter_selected1, fromDate + "T00:00:00.000Z");
+                map.put(Filter_selected1, fromDate + "T14:27:17.000Z");
             else if (!toDate.equals(""))
-                map.put(Filter_selected1, toDate + "T00:00:00.000Z");
+                map.put(Filter_selected1, toDate + "T14:27:17.000Z");
             if (!toDate.equals(""))
-                map.put(Filter_selected2, toDate + "T23:59:59.000Z");
+                map.put(Filter_selected2, toDate + "T14:27:17.000Z");
             else if (!fromDate.equals(""))
-                map.put(Filter_selected2, fromDate + "T23:59:59.000Z");
+                map.put(Filter_selected2, fromDate + "T14:27:17.000Z");
+            if(Filter_selected1.equals("ReceivingDateFrom"))
+                map.put("Status", -1);
+
         } else if (Filter_selected.equals("amount")) {
             if (!fromAmount.equals(""))
                 map.put(Filter_selected1, fromAmount);

@@ -123,6 +123,7 @@ public class RetailerCancelOrder {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", "bearer " + Token);
                 params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("dataType", "json");
                 return params;
             }
         };

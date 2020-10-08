@@ -81,7 +81,7 @@ public class Distribution_Login extends AppCompatActivity {
     private TextInputEditText et_username, et_password, txt_email;
     private String URL_FORGOT_PASSWORD = "https://175.107.203.97:4013/api/Users/forgot";
     private String token;
-    private  String URL = "https://175.107.203.97:4013/Token";
+    private String URL = "https://175.107.203.97:4013/Token";
     ProgressDialog progressDialog;
     private TextInputLayout layout_password, layout_username;
     private Loader loader;
@@ -271,11 +271,11 @@ public class Distribution_Login extends AppCompatActivity {
         loader.showLoader();
 
         JSONObject map = new JSONObject();
-            map.put("Username", et_username.getText().toString());
-            map.put("Password", et_password.getText().toString());
-            map.put("grant_type", "password");
+        map.put("Username", et_username.getText().toString());
+        map.put("Password", et_password.getText().toString());
+        map.put("grant_type", "password");
 
-        new SSL_HandShake().handleSSLHandshakeDistributor(Distribution_Login.this);
+        new SSL_HandShake().handleSSLHandshake();
 
         Log.i("map", String.valueOf(map));
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
@@ -290,10 +290,10 @@ public class Distribution_Login extends AppCompatActivity {
                         JSONObject userAccount = new JSONObject(String.valueOf(result.get("UserAccount")));
                         Log.i("user account => ", userAccount.get("DistributorID").toString());
                         JSONObject termsAndConditionObj = userAccount.getJSONObject("IsTermAndConditionAccepted");
-                       // int arr = ((int[]) termsAndConditionObj.get("data"))[0];
-                        JSONArray arr=(JSONArray)termsAndConditionObj.get("data");
+                        // int arr = ((int[]) termsAndConditionObj.get("data"))[0];
+                        JSONArray arr = (JSONArray) termsAndConditionObj.get("data");
                         final String IsTermAndConditionAccepted = String.valueOf(arr.get(0));
-                        Log.i("abc",IsTermAndConditionAccepted);
+                        Log.i("abc", IsTermAndConditionAccepted);
                         //final String UpdatePassword = userAccount.get("UpdatePassword").toString();
                         String userRights = userAccount.get("UserRights").toString();
                         final String DistributorId = userAccount.get("DistributorID").toString();
@@ -329,7 +329,7 @@ public class Distribution_Login extends AppCompatActivity {
                         SharedPreferences.Editor orderCheckout_editor1 = orderCheckout1.edit();
                         orderCheckout_editor1.putString("fromDraft", "");
                         orderCheckout_editor1.apply();
-                      //  editor.putString("UpdatePassword", UpdatePassword);
+                        //  editor.putString("UpdatePassword", UpdatePassword);
 
                         editor.apply();
                         if (IsTermAndConditionAccepted.equals("0")) {
@@ -434,7 +434,7 @@ public class Distribution_Login extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onErrorResponse(VolleyError error) {
-               // loader.hideLoader();
+                // loader.hideLoader();
                 error.printStackTrace();
                 new HaballError().printErrorMessage(Distribution_Login.this, error);
                 new ProcessingError().showError(Distribution_Login.this);

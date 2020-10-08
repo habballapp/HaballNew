@@ -87,11 +87,11 @@ public class Support_Ticket_Form_Fragment extends Fragment {
     private String DistributorId;
     private Button btn_back;
     private Spinner IssueType, critcicality, Preffered_Contact;
-    private String URL_SPINNER_DATA = " https://retailer.haball.pk/api/lookup/null";
-    //    private String URL_SPINNER_ISSUETYPE = "https://retailer.haball.pk/api/lookup/public/ISSUE_TYPE_PRIVATE";
-//    private String URL_SPINNER_CRITICALITY = "https://retailer.haball.pk/api/lookup/public/CRITICALITY_PRIVATE";
-//    private String URL_SPINNER_PREFFEREDCONTACT = "https://retailer.haball.pk/api/lookup/public/CONTRACTING_METHOD";
-    private String URL_TICkET = "https://retailer.haball.pk/api/support/PrivateSave";
+    private String URL_SPINNER_DATA = " http://175.107.203.97:4014/api/lookup/null";
+    //    private String URL_SPINNER_ISSUETYPE = "http://175.107.203.97:4014/api/lookup/public/ISSUE_TYPE_PRIVATE";
+//    private String URL_SPINNER_CRITICALITY = "http://175.107.203.97:4014/api/lookup/public/CRITICALITY_PRIVATE";
+//    private String URL_SPINNER_PREFFEREDCONTACT = "http://175.107.203.97:4014/api/lookup/public/CONTRACTING_METHOD";
+    private String URL_TICkET = "http://175.107.203.97:4014/api/support/PrivateSave";
 
     private List<String> issue_type = new ArrayList<>();
     private List<String> criticality = new ArrayList<>();
@@ -903,8 +903,8 @@ public class Support_Ticket_Form_Fragment extends Fragment {
         Token = sharedPreferences.getString("Login_Token", "");
         Log.i("Token", Token);
 
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_SPINNER_DATA, null, new Response.Listener<JSONArray>() {
             @Override
@@ -961,7 +961,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(this.getContext(), hurlStack).add(sr);
+        Volley.newRequestQueue(this.getContext()).add(sr);
         arrayAdapterPreferredContact.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         arrayAdapterPreferredContact.notifyDataSetChanged();
         Preffered_Contact.setAdapter(arrayAdapterPreferredContact);
@@ -981,8 +981,8 @@ public class Support_Ticket_Form_Fragment extends Fragment {
         map.put("ID", 0);
 
         Log.i("TICKET_OBJECT", String.valueOf(map));
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_TICkET, map, new Response.Listener<JSONObject>() {
             @Override
@@ -1050,7 +1050,7 @@ public class Support_Ticket_Form_Fragment extends Fragment {
                 return params;
             }
         };
-        Volley.newRequestQueue(this.getContext(), hurlStack).add(sr);
+        Volley.newRequestQueue(this.getContext()).add(sr);
     }
 
     // private void printErrorMessage(VolleyError error) {

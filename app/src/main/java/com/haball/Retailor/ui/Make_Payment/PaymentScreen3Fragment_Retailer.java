@@ -84,7 +84,7 @@ import static android.os.Build.ID;
 public class PaymentScreen3Fragment_Retailer extends Fragment {
     private String Token, DistributorId, ID;
     private TextView tv_banking_channel, payment_id, btn_newpayment;
-    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "https://retailer.haball.pk/api/prepaidrequests/GetByRetailerCode";
+    private String URL_PAYMENT_REQUESTS_SELECT_COMPANY = "http://175.107.203.97:4014/api/prepaidrequests/GetByRetailerCode";
     private String PrePaidNumber = "", PrePaidId = "", CompanyName = "", Amount = "", CompanyId = "", MenuItem = "";
     private Button btn_voucher, btn_update, btn_back;
     private Spinner spinner_companyName;
@@ -96,7 +96,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
     private String company_names;
     private Typeface myFont;
-    private String URL_PAYMENT_REQUESTS_SAVE = "https://retailer.haball.pk/api/prepaidrequests/save";
+    private String URL_PAYMENT_REQUESTS_SAVE = "http://175.107.203.97:4014/api/prepaidrequests/save";
     private String prepaid_number;
     private String prepaid_id;
     private FragmentTransaction fragmentTransaction;
@@ -636,8 +636,8 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
                 map.put("PaidAmount", txt_amount.getText().toString());
 
                 Log.i("JSON ", String.valueOf(map));
-//                new SSL_HandShake().handleSSLHandshake();
-                final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+                new SSL_HandShake().handleSSLHandshake();
+//                final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
                 JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_PAYMENT_REQUESTS_SAVE, map, new Response.Listener<JSONObject>() {
                     @Override
@@ -693,12 +693,12 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
                         15000,
                         DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-                Volley.newRequestQueue(getContext(), hurlStack).add(sr);
+                Volley.newRequestQueue(getContext()).add(sr);
             } else {
-                new CustomToast().showToast(getActivity(), "Amount cannot be less than PKR 500.");
+                new CustomToast().showToast(getActivity(), "Amount cannot be less than Rs. 500.");
             }
         } else {
-            new CustomToast().showToast(getActivity(), "Amount cannot be less than PKR 500.");
+            new CustomToast().showToast(getActivity(), "Amount cannot be less than Rs. 500.");
         }
     }
 
@@ -709,8 +709,8 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
         Token = sharedPreferences.getString("Login_Token", "");
 
         Log.i("Token", Token);
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PAYMENT_REQUESTS_SELECT_COMPANY, null, new Response.Listener<JSONArray>() {
             @Override
@@ -780,7 +780,7 @@ public class PaymentScreen3Fragment_Retailer extends Fragment {
 
             }
         });
-        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
+        Volley.newRequestQueue(getContext()).add(sr);
     }
 
     private void showSuccessDialog(String paymentID) {

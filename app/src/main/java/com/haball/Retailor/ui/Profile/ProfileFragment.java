@@ -57,9 +57,9 @@ public class ProfileFragment extends Fragment {
     private EditText Rfirstname, Remail, Rcode, Rcnic, Rmobile, R_created_date, R_Address, txt_password, txt_newpassword, txt_cfmpassword;
     private TextView tv_pr1;
 
-    private String PROFILE_URL = "https://retailer.haball.pk/api/retailer/";
-    private String ChangePass_URL = "https://retailer.haball.pk/api/Users/ChangePassword";
-    private String PROFILE_EDIT_URL = "https://retailer.haball.pk/api/retailer/Save";
+    private String PROFILE_URL = "http://175.107.203.97:4014/api/retailer/";
+    private String ChangePass_URL = "http://175.107.203.97:4014/api/Users/ChangePassword";
+    private String PROFILE_EDIT_URL = "http://175.107.203.97:4014/api/retailer/Save";
     private String Token;
     private String RetailerId, ID, username, CompanyName;
     private Dialog change_password_dail;
@@ -230,8 +230,8 @@ public class ProfileFragment extends Fragment {
         jsonObject.put("CompanyName", CompanyName);
         jsonObject.put("Address", R_Address.getText().toString());
         jsonObject.put("Email", Remail.getText().toString());
-//            new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+            new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, PROFILE_EDIT_URL, jsonObject, new Response.Listener<JSONObject>() {
             @Override
@@ -260,7 +260,7 @@ public class ProfileFragment extends Fragment {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
+        Volley.newRequestQueue(getContext()).add(sr);
 
     }
 
@@ -288,8 +288,8 @@ public class ProfileFragment extends Fragment {
             map.put("ID", ID);
             map.put("Username", username);
             Log.i("Map", map.toString());
-//            new SSL_HandShake().handleSSLHandshake();
-            final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+            new SSL_HandShake().handleSSLHandshake();
+//            final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
             JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, ChangePass_URL, map, new Response.Listener<JSONObject>() {
                 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                 @Override
@@ -355,7 +355,7 @@ public class ProfileFragment extends Fragment {
 
                 }
             });
-            Volley.newRequestQueue(getActivity(), hurlStack).add(sr);
+            Volley.newRequestQueue(getActivity()).add(sr);
         } else {
             Toast.makeText(getActivity(), "Password do not Match", Toast.LENGTH_LONG).show();
         }
@@ -395,8 +395,8 @@ public class ProfileFragment extends Fragment {
         Log.i("RetailerId ", RetailerId);
         PROFILE_URL = PROFILE_URL + RetailerId;
         Log.i("Token Retailer ", Token);
-//            new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+            new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, PROFILE_URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
@@ -452,7 +452,7 @@ public class ProfileFragment extends Fragment {
 
             }
         });
-        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
+        Volley.newRequestQueue(getContext()).add(sr);
 
 
     }

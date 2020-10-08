@@ -61,8 +61,8 @@ public class SplashScreen extends AppCompatActivity {
         rl_main_background.setBackground(background_drawable);
 //        rl_main_background.typ
 
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(SplashScreen.this);
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(SplashScreen.this);
 
         new Handler().postDelayed(new Runnable() {
 

@@ -556,8 +556,8 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
 
 
         final Context finalcontext = context;
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(context);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL_DELETE_PAYMENT, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -625,7 +625,7 @@ DistributorPaymentRequestAdaptor extends RecyclerView.Adapter<DistributorPayment
                 return params;
             }
         };
-        RequestQueue mRequestQueue = Volley.newRequestQueue(context, hurlStack);
+        RequestQueue mRequestQueue = Volley.newRequestQueue(context);
         mRequestQueue.add(request);
     }
 

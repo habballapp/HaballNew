@@ -196,8 +196,8 @@ public class View_Payment_Fragment extends Fragment {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginToken",
                 Context.MODE_PRIVATE);
         Token = sharedPreferences.getString("Login_Token", "");
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, PAYMENT_REQUEST_URL, null, new Response.Listener<JSONObject>() {
             @Override
@@ -236,7 +236,7 @@ public class View_Payment_Fragment extends Fragment {
 //                        txt_amount.setText(String.valueOf(result.get("PaidAmount")));
                         DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
                         String Formatted_TotalAmount = formatter1.format(Double.parseDouble(result.getJSONObject("Detail").getString("PaidAmount")));
-                        txt_amount.setText(Formatted_TotalAmount);
+                        txt_amount.setText("Rs. "+Formatted_TotalAmount);
                         txt_amount.setTextColor(getContext().getResources().getColor(R.color.textcolor));
                     }
                     if (!String.valueOf(result.getJSONObject("Detail").get("Status")).equals("null")) {
@@ -244,13 +244,13 @@ public class View_Payment_Fragment extends Fragment {
                         txt_status.setTextColor(getContext().getResources().getColor(R.color.textcolor));
                     }
                     if (!String.valueOf(result.getJSONObject("Detail").get("TransactionCharges")).equals("null")) {
-                        txt_transaction_charges.setText(String.valueOf(result.getJSONObject("Detail").get("TransactionCharges")));
+                        txt_transaction_charges.setText("Rs. "+String.valueOf(result.getJSONObject("Detail").get("TransactionCharges")));
                         txt_transaction_charges.setTextColor(getContext().getResources().getColor(R.color.textcolor));
                     }
                     if (!String.valueOf(result.getJSONObject("Detail").get("TotalAmount")).equals("null")) {
                         DecimalFormat formatter1 = new DecimalFormat("#,###,###.00");
                         String Formatted_TotalAmount = formatter1.format(Double.parseDouble(result.getJSONObject("Detail").getString("TotalAmount")));
-                        txt_total_amount.setText(Formatted_TotalAmount);
+                        txt_total_amount.setText("Rs. "+Formatted_TotalAmount);
                         txt_total_amount.setTextColor(getContext().getResources().getColor(R.color.textcolor));
                     }
                 } catch (JSONException e) {
@@ -277,7 +277,7 @@ public class View_Payment_Fragment extends Fragment {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
+        Volley.newRequestQueue(getContext()).add(sr);
     }
 
     // private void printErrMessage(VolleyError error) {

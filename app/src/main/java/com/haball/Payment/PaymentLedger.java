@@ -70,7 +70,7 @@ public class PaymentLedger extends AppCompatActivity {
 //        fetchCompanyNames();
 //        fetchPaymentLedgerData();
 //
-//        mAdapter = new PaymentLedgerAdapter(PaymentLedger.this,"Ghulam Rabani & Sons Traders & Distributors","1002312324251524","Invoice","PKR 50,000.00","PKR 600,000.00");
+//        mAdapter = new PaymentLedgerAdapter(PaymentLedger.this,"Ghulam Rabani & Sons Traders & Distributors","1002312324251524","Invoice","Rs. 50,000.00","Rs. 600,000.00");
 //        recyclerView.setAdapter(mAdapter);
     }
 }

@@ -403,7 +403,7 @@ public class CreatePaymentRequestFragment extends Fragment {
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             Volley.newRequestQueue(getContext()).add(sr);
         } else {
-            new CustomToast().showToast(getActivity(), "Amount cannot be less than PKR 500.");
+            new CustomToast().showToast(getActivity(), "Amount cannot be less than Rs. 500.");
         }
     }
 

@@ -165,8 +165,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
     private RecyclerView.LayoutManager layoutManager;
     private String Token, DistributorId;
     private RelativeLayout search_rl;
-    private String URL = "https://retailer.haball.pk/api/prepaidrequests/search";
-    private String URL_DISTRIBUTOR_ORDERS = "https://retailer.haball.pk/api/Orders/Search";
+    private String URL = "http://175.107.203.97:4014/api/prepaidrequests/search";
+    private String URL_DISTRIBUTOR_ORDERS = "http://175.107.203.97:4014/api/Orders/Search";
     //    private String URL_DISTRIBUTOR_PAYMENTS_COUNT = "https://175.107.203.97:4013/api/prepaidrequests/searchCount";
 //    private String URL_DISTRIBUTOR_ORDERS_COUNT = "https://175.107.203.97:4013/api/orders/searchCount";
     private TextView tv_shipment_no_data, tv_shipment_no_data1;
@@ -968,8 +968,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         jsonObject.put("TotalRecords", 10);
         jsonObject.put("PageNumber", pageNumber);
 
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -1039,7 +1039,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 13000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
+        Volley.newRequestQueue(getContext()).add(sr);
     }
 
     private void fetchFilteredRetailerPayments() throws JSONException {
@@ -1078,8 +1078,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         }
 
         Log.i("Mapsssss", String.valueOf(map));
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
@@ -1140,7 +1140,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 13000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
+        Volley.newRequestQueue(getContext()).add(sr);
 
     }
 
@@ -1176,8 +1176,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         }
 
         Log.i("mapRetailerPayment", String.valueOf(map));
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
@@ -1242,7 +1242,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 13000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
+        Volley.newRequestQueue(getContext()).add(sr);
 
     }
 
@@ -1316,8 +1316,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
             loader.showLoader();
             map.put(Filter_selected, Filter_selected_value);
         }
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS, map, new Response.Listener<JSONArray>() {
             @Override
@@ -1380,7 +1380,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 13000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
+        Volley.newRequestQueue(getContext()).add(sr);
 
     }
 
@@ -1836,8 +1836,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         JSONObject map = new JSONObject();
         map.put("TotalRecords", 10);
         map.put("PageNumber", 0);
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS, map, new Response.Listener<JSONArray>() {
             @Override
@@ -1903,7 +1903,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 13000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
+        Volley.newRequestQueue(getContext()).add(sr);
 
     }
 
@@ -1937,8 +1937,8 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
         }
 
         Log.i("OrderFilter", String.valueOf(map));
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         MyJsonArrayRequest sr = new MyJsonArrayRequest(Request.Method.POST, URL_DISTRIBUTOR_ORDERS, map, new Response.Listener<JSONArray>() {
             @Override
@@ -2005,7 +2005,7 @@ public class PlaceholderFragment extends Fragment implements DatePickerDialog.On
                 13000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
+        Volley.newRequestQueue(getContext()).add(sr);
 
     }
 

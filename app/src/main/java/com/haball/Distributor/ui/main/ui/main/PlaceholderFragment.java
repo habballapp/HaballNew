@@ -23,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -60,6 +61,7 @@ import com.haball.Distributor.ui.orders.ViewOrderProductModel;
 import com.haball.Distributor.ui.payments.CreatePaymentRequestFragment;
 import com.haball.Distributor.ui.payments.ViewPDFRequest;
 import com.haball.Distributor.ui.payments.ViewVoucherRequest;
+import com.haball.Distributor.ui.shipments.Shipments_Fragments;
 import com.haball.HaballError;
 import com.haball.Loader;
 import com.haball.ProcessingError;
@@ -155,6 +157,8 @@ public class PlaceholderFragment extends Fragment {
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+
+
         SharedPreferences sharedPreferences3 = getContext().getSharedPreferences("OrderId",
                 Context.MODE_PRIVATE);
 
@@ -562,8 +566,8 @@ public class PlaceholderFragment extends Fragment {
         Token = sharedPreferences.getString("Login_Token", "");
 
         Log.i("Token", Token);
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
 
         JsonArrayRequest sr = new JsonArrayRequest(Request.Method.GET, URL_PAYMENT_REQUESTS_SELECT_COMPANY, null, new Response.Listener<JSONArray>() {
             @Override
@@ -625,7 +629,7 @@ public class PlaceholderFragment extends Fragment {
 
             }
         });
-        Volley.newRequestQueue(getContext(), hurlStack).add(sr);
+        Volley.newRequestQueue(getContext()).add(sr);
     }
 
     @Override
@@ -647,14 +651,18 @@ public class PlaceholderFragment extends Fragment {
                         editorOrderTabsFromDraft.putString("TabNo", "0");
                         editorOrderTabsFromDraft.apply();
 
+                       FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.main_container, new Shipments_Fragments()).addToBackStack("tag");
+                        fragmentTransaction.commit();
+                        return true;
 //                    Intent login_intent = new Intent(((FragmentActivity) getContext()), DistributorDashboard.class);
 //                    ((FragmentActivity) getContext()).startActivity(login_intent);
 //                    ((FragmentActivity) getContext()).finish();
-                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
-                        fragmentTransaction.commit();
-
-                        return true;
+//                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                        fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+//                        fragmentTransaction.commit();
+//
+//                        return true;
                     }
                     return false;
                 }
@@ -1015,8 +1023,8 @@ public class PlaceholderFragment extends Fragment {
 //        DistributorId = sharedPreferences1.getString("Distributor_Id", "");
 //        Log.i("DistributorId invoice", DistributorId);
         Log.i("Token invoice12", Token);
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(getContext());
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL_Order_Data, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
@@ -1059,7 +1067,7 @@ public class PlaceholderFragment extends Fragment {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getContext(), hurlStack).add(stringRequest);
+        Volley.newRequestQueue(getContext()).add(stringRequest);
 
     }
 

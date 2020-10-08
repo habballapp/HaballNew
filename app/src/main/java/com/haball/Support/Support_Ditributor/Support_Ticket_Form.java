@@ -83,11 +83,11 @@ public class Support_Ticket_Form extends AppCompatActivity {
     private TextInputLayout layout_BName, layout_Email, layout_MobileNo, layout_Comment;
     //    private ImageButton btn_back;
     private Spinner IssueType, critcicality, Preffered_Contact;
-    private String URL_SPINNER_DATA = "https://retailer.haball.pk/api/support/PublicUsers";
+    private String URL_SPINNER_DATA = "http://175.107.203.97:4014/api/support/PublicUsers";
     //    private String URL_SPINNER_ISSUETYPE = "https://175.107.203.97:4013/api/lookup/public/ISSUE_TYPE_PUBLIC";
 //    private String URL_SPINNER_CRITICALITY = "https://175.107.203.97:4013/api/lookup/public/CRITICALITY_PUBLIC";
 //    private String URL_SPINNER_PREFFEREDCONTACT = "https://175.107.203.97:4013/api/lookup/public/CONTRACTING_METHOD";
-    private String URL_TICkET = "https://retailer.haball.pk/api/support/PublicSave";
+    private String URL_TICkET = "http://175.107.203.97:4014/api/support/PublicSave";
 
     private List<String> issue_type = new ArrayList<>();
     private List<String> criticality = new ArrayList<>();
@@ -425,6 +425,12 @@ public class Support_Ticket_Form extends AppCompatActivity {
                         TextUtils.isEmpty(MobileNo.getText().toString())) {
 
                     Snackbar.make(view, "Please Enter All Required Fields", Snackbar.LENGTH_SHORT).show();
+                } else if (String.valueOf(BName.getText()).replaceAll(" ", "").length() <= 0) {
+                    Snackbar.make(view, "Business Name cant be only spaces.", Snackbar.LENGTH_SHORT).show();
+                    layout_BName.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+                    layout_BName.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+
+
                 } else {
 
                     try {
@@ -451,6 +457,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 checkFieldsForEmptyValues();
+                checkBusinessName();
 
             }
         };
@@ -513,6 +520,11 @@ public class Support_Ticket_Form extends AppCompatActivity {
         });
 
 
+    }
+
+    private void checkBusinessName() {
+        layout_BName.setBoxStrokeColor(getResources().getColor(R.color.green_color));
+        layout_BName.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
     }
 
 
@@ -666,8 +678,8 @@ public class Support_Ticket_Form extends AppCompatActivity {
         map.put("Description", Comment.getText().toString());
 
         Log.i("TICKET OBJECT", String.valueOf(map));
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(this);
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(this);
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, URL_TICkET, map, new Response.Listener<JSONObject>() {
             @Override
@@ -735,7 +747,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
                 return params;
             }
         };
-        Volley.newRequestQueue(this, hurlStack).add(sr);
+        Volley.newRequestQueue(this).add(sr);
     }
 //
 //    private void fetchIssueType() {
@@ -890,8 +902,8 @@ public class Support_Ticket_Form extends AppCompatActivity {
 
     private void fetchSpinnerData() {
         loader.showLoader();
-//        new SSL_HandShake().handleSSLHandshake();
-        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(Support_Ticket_Form.this);
+        new SSL_HandShake().handleSSLHandshake();
+//        final HurlStack hurlStack = new SSL_HandShake().handleSSLHandshake(Support_Ticket_Form.this);
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, URL_SPINNER_DATA, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
@@ -962,7 +974,7 @@ public class Support_Ticket_Form extends AppCompatActivity {
                 15000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(this, hurlStack).add(sr);
+        Volley.newRequestQueue(this).add(sr);
         arrayAdapterPreferredContact.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         arrayAdapterPreferredContact.notifyDataSetChanged();
         Preffered_Contact.setAdapter(arrayAdapterPreferredContact);

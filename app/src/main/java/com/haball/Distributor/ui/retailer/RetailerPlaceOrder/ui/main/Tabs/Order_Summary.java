@@ -541,8 +541,8 @@ public class Order_Summary extends Fragment {
                     TextView tv_pr1, txt_header1;
                     txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
                     tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
-                    txt_header1.setText("Order Saved");
-                    tv_pr1.setText("Your Order ID " + result.getString("OrderNumber") + " has been saved successfully.");
+                    txt_header1.setText("Order Created");
+                    tv_pr1.setText("Your Order ID " + result.getString("OrderNumber") + " has been created successfully.");
                     fbDialogue.setCancelable(true);
                     fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
                     WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
@@ -562,6 +562,7 @@ public class Order_Summary extends Fragment {
                     fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
                         @Override
                         public void onDismiss(DialogInterface dialog) {
+                            loader.hideLoader();
 //                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                        fragmentTransaction.add(R.id.main_container_ret, new PaymentScreen3Fragment_Retailer());
 //                        fragmentTransaction.commit();
@@ -677,8 +678,8 @@ public class Order_Summary extends Fragment {
                     TextView tv_pr1, txt_header1;
                     txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
                     tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
-                    txt_header1.setText("Order Saved");
-                    tv_pr1.setText("Your Order ID " + result.getString("OrderNumber") + " has been saved successfully.");
+                    txt_header1.setText("Order Created");
+                    tv_pr1.setText("Your Order ID " + result.getString("OrderNumber") + " has been created successfully.");
                     fbDialogue.setCancelable(true);
                     fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
                     WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
@@ -928,7 +929,7 @@ public class Order_Summary extends Fragment {
         String yourFormattedString3 = formatter1.format(totalAmount);
 //        gst_amount.setText(String.valueOf(gstAmount));
         total_amount.setText(String.format(yourFormattedString3));
-      //  total_amount.setText(String.format("%.0f", totalAmount));
+        //  total_amount.setText(String.format("%.0f", totalAmount));
 
 
     }
