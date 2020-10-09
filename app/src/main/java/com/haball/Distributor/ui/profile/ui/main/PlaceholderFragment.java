@@ -11,7 +11,9 @@ import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -109,6 +111,8 @@ public class PlaceholderFragment extends Fragment {
     private TextView tv_pr1;
     private String Email = "", Address = "", Mobile = "", firstname = "", lastname = "";
     private FragmentTransaction fragmentTransaction;
+    private String AddressID = "";
+    private JSONObject AddressData = new JSONObject();
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -231,6 +235,46 @@ public class PlaceholderFragment extends Fragment {
                         return false;
                     }
                 });
+//
+////                edt_firstname.setFilters(new InputFilter[] { filter });
+//                edt_firstname.setFilters(new InputFilter[] {
+//                        new InputFilter() {
+//                            @Override
+//                            public CharSequence filter(CharSequence cs, int start,
+//                                                       int end, Spanned spanned, int dStart, int dEnd) {
+//                                // TODO Auto-generated method stub
+//                                Log.i("debug_keyFilter", String.valueOf(cs));
+//                                if(cs.equals("")){ // for backspace
+//                                    return cs;
+//                                }
+//                                if(cs.toString().matches("[a-zA-Z ]+")){
+//                                    return cs;
+//                                } else {
+//                                    new CustomToast().showToast(getActivity(), "Only alphabets");
+//                                    return cs;
+//                                }
+////                                return String.valueOf(cs).replaceAll("\\W", "").replaceAll("\\d", "");
+//                            }
+//                        }
+//                });
+//
+//                edt_lastname.setFilters(new InputFilter[] {
+//                        new InputFilter() {
+//                            @Override
+//                            public CharSequence filter(CharSequence cs, int start,
+//                                                       int end, Spanned spanned, int dStart, int dEnd) {
+//                                // TODO Auto-generated method stub
+//                                if(cs.equals("")){ // for backspace
+//                                    return cs;
+//                                }
+//                                if(cs.toString().matches("[a-zA-Z ]+")){
+//                                    return cs;
+//                                }
+//                                return "";
+//                            }
+//                        }
+//                });
+
 
                 R_Address.setOnTouchListener(new View.OnTouchListener() {
                     @SuppressLint("ClickableViewAccessibility")
@@ -289,6 +333,7 @@ public class PlaceholderFragment extends Fragment {
                         return false;
                     }
                 });
+
                 edt_email.setOnTouchListener(new View.OnTouchListener() {
                     @SuppressLint("ClickableViewAccessibility")
                     @Override
@@ -468,6 +513,7 @@ public class PlaceholderFragment extends Fragment {
 
                     @Override
                     public void afterTextChanged(Editable s) {
+                        checkLastName();
                         checkFieldsForEmptyValues();
                     }
                 });
@@ -484,6 +530,7 @@ public class PlaceholderFragment extends Fragment {
 
                     @Override
                     public void afterTextChanged(Editable s) {
+                        checkFirstName();
                         checkFieldsForEmptyValues();
                     }
                 });
@@ -585,7 +632,6 @@ public class PlaceholderFragment extends Fragment {
         return root;
     }
 
-
     private void checkEmail() {
         String reg_ex = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
 
@@ -601,6 +647,45 @@ public class PlaceholderFragment extends Fragment {
             layout_edt_email.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
             layout_edt_email.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
             edt_email.setTextColor(getResources().getColor(R.color.textcolor));
+            checkFieldsForEmptyValues();
+        }
+    }
+
+
+    private void checkFirstName() {
+        String reg_ex = "[a-zA-Z ]+";
+
+        if (!edt_firstname.getText().toString().matches(reg_ex)) {
+            layout_edt_firstname.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+            layout_edt_firstname.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            layout_edt_firstname.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            edt_firstname.setTextColor(getResources().getColor(R.color.error_stroke_color));
+            distri_btn_save.setEnabled(false);
+            distri_btn_save.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+        } else {
+            layout_edt_firstname.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
+            layout_edt_firstname.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+            layout_edt_firstname.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
+            edt_firstname.setTextColor(getResources().getColor(R.color.textcolor));
+            checkFieldsForEmptyValues();
+        }
+    }
+
+    private void checkLastName() {
+        String reg_ex = "[a-zA-Z ]+";
+
+        if (!edt_lastname.getText().toString().matches(reg_ex)) {
+            layout_edt_lastname.setBoxStrokeColor(getResources().getColor(R.color.error_stroke_color));
+            layout_edt_lastname.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            layout_edt_lastname.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.error_stroke_color)));
+            edt_lastname.setTextColor(getResources().getColor(R.color.error_stroke_color));
+            distri_btn_save.setEnabled(false);
+            distri_btn_save.setBackground(getResources().getDrawable(R.drawable.disabled_button_background));
+        } else {
+            layout_edt_lastname.setBoxStrokeColor(getResources().getColor(R.color.box_stroke));
+            layout_edt_lastname.setDefaultHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_color)));
+            layout_edt_lastname.setPasswordVisibilityToggleTintList(ColorStateList.valueOf(getResources().getColor(R.color.textcolorhint)));
+            edt_lastname.setTextColor(getResources().getColor(R.color.textcolor));
             checkFieldsForEmptyValues();
         }
     }
@@ -621,6 +706,8 @@ public class PlaceholderFragment extends Fragment {
                         && str_edt_lastname.equals(lastname))
                         && r_Address.equals(Address)
                         || !remail.matches(reg_ex)
+                        || !str_edt_firstname.matches("[a-zA-Z ]+")
+                        || !str_edt_lastname.matches("[a-zA-Z ]+")
                         || rmobile.length() != 12
 //                || comment.equals("")
                 ) {
@@ -954,28 +1041,31 @@ public class PlaceholderFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray result) {
-                for (int i = 0; i < result.length(); i++) {
-                    try {
-                        if (result.getJSONObject(i).get("StatusValue").equals("Active")) {
-                            String address = String.valueOf(result.getJSONObject(i).get("Address1"));
-                            address.concat(", ");
-                            address.concat(String.valueOf(result.getJSONObject(i).get("CityName")));
-                            address.concat(", ");
-                            address.concat(String.valueOf(result.getJSONObject(i).get("ProvinceName")));
-                            address.concat(", ");
-                            address.concat(String.valueOf(result.getJSONObject(i).get("CountryName")));
-                            R_Address.setText(address);
-                            Address = address;
-                            if (!String.valueOf(R_Address.getText()).equals(""))
-                                R_Address.setTextColor(getResources().getColor(R.color.textcolor));
+                int i = 0;
+//                for (int i = 0; i < result.length(); i++) {
+                try {
+                    if (result.getJSONObject(i).get("StatusValue").equals("Active")) {
+                        AddressData = result.getJSONObject(i);
+                        AddressID = String.valueOf(result.getJSONObject(i).get("ID"));
+                        String address = String.valueOf(result.getJSONObject(i).get("Address1"));
+                        address.concat(", ");
+                        address.concat(String.valueOf(result.getJSONObject(i).get("CityName")));
+                        address.concat(", ");
+                        address.concat(String.valueOf(result.getJSONObject(i).get("ProvinceName")));
+                        address.concat(", ");
+                        address.concat(String.valueOf(result.getJSONObject(i).get("CountryName")));
+                        R_Address.setText(address);
+                        Address = address;
+                        if (!String.valueOf(R_Address.getText()).equals(""))
+                            R_Address.setTextColor(getResources().getColor(R.color.textcolor));
 
-                            break;
+//                        break;
 
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+//                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -1385,7 +1475,8 @@ public class PlaceholderFragment extends Fragment {
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("ID", DistributorId);
-        jsonObject.put("UserID", UserID);
+        jsonObject.put("DealerCode", edt_dist_code.getText().toString());
+        jsonObject.put("UserType", 0);
         jsonObject.put("FirstName", edt_firstname.getText().toString());
         jsonObject.put("LastName", edt_lastname.getText().toString());
         jsonObject.put("CompanyName", tv_companyname.getText().toString());
@@ -1394,48 +1485,154 @@ public class PlaceholderFragment extends Fragment {
         jsonObject.put("Phone", Phone);
         jsonObject.put("Mobile", edt_dist_mobile.getText().toString());
         jsonObject.put("Email", edt_email.getText().toString());
-        jsonObject.put("DealerCode", edt_dist_code.getText().toString());
-        jsonObject.put("Address", R_Address.getText().toString());
-        jsonObject.put("UserType", 0);
+//        jsonObject.put("BillingAddress1", R_Address.getText().toString());
         jsonObject.put("Status", 1);
+        jsonObject.put("UserID", UserID);
         jsonObject.put("DistributorId", DistributorId);
+        Log.i("Distributor_Id ", String.valueOf(jsonObject));
+
+
+//        BillingAddress1: null
+//        BillingAddress2: null
+//        BillingCityId: null
+//        BillingCountryId: null
+//        BillingPostCode: null
+//        BillingProvinceId: null
+//        CityName: null
+//        CountryName: null
+//        CreatedBy: null
+//        CreatedDate: "2020-04-08T06:43:15.000Z"
+//        DistributorCode: "3599"
+//        Email: "onceuponatime@yopmail.com"
+//        FirstName: "One"
+//        IsAgree: null
+//        IsAllowAutoPayment: 1
+//        LastChangedBy: "nflnfl"
+//        LastChangedDate: "2020-09-09T11:56:10.000Z"
+//        LastName: "Call"
+//        OtherContact: null
+//        ReferenceID: null
+//        ShippingAddress1: null
+//        ShippingAddress2: null
+//        ShippingCityId: null
+//        ShippingCountryId: null
+//        ShippingPostCode: null
+//        ShippingProvinceId: null
+//        URL: null
 
         JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, PROFILE_EDIT_URL, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
-                final Dialog fbDialogue = new Dialog(getActivity());
-                //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
-                fbDialogue.setContentView(R.layout.password_updatepopup);
-                TextView tv_pr1, txt_header1;
-                txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
-                tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
-                tv_pr1.setText("Your profile has been updated successfully.");
-                txt_header1.setText("Profile Updated");
-                fbDialogue.setCancelable(true);
-                fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
-                WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
-                layoutParams.y = 200;
-                layoutParams.x = -70;// top margin
-                fbDialogue.getWindow().setAttributes(layoutParams);
-                fbDialogue.show();
+//                final Dialog fbDialogue = new Dialog(getActivity());
+//                //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+//                fbDialogue.setContentView(R.layout.password_updatepopup);
+//                TextView tv_pr1, txt_header1;
+//                txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
+//                tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
+//                tv_pr1.setText("Your profile has been updated successfully.");
+//                txt_header1.setText("Profile Updated");
+//                fbDialogue.setCancelable(true);
+//                fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+//                WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+//                layoutParams.y = 200;
+//                layoutParams.x = -70;// top margin
+//                fbDialogue.getWindow().setAttributes(layoutParams);
+//                fbDialogue.show();
+//
+//                ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+//                close_button.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        fbDialogue.dismiss();
+//                    }
+//                });
+//
+//                fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
+//                    @Override
+//                    public void onDismiss(DialogInterface dialog) {
+//                        //                    Toast.makeText(getContext(), "Profile Information Successfully updated for " + result.getString("RetailerCode"), Toast.LENGTH_LONG).show();
+//                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                        fragmentTransaction.add(R.id.main_container, new Distributor_Profile()).addToBackStack("tag");
+//                        fragmentTransaction.commit();
+//                    }
+//                });
 
-                ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
-                close_button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        fbDialogue.dismiss();
-                    }
-                });
 
-                fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("ID", AddressData.get("ID"));
+                    jsonObject.put("DistributorId", DistributorId);
+                    jsonObject.put("Address1", R_Address.getText().toString());
+                    jsonObject.put("CountryId", AddressData.get("CountryId"));
+                    jsonObject.put("ProvinceId", AddressData.get("ProvinceId"));
+                    jsonObject.put("CityId", AddressData.get("CityId"));
+                    jsonObject.put("PostCode", AddressData.get("PostCode"));
+                    jsonObject.put("Status", 1);
+                    jsonObject.put("Type", AddressData.get("Type"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                JsonObjectRequest sr = new JsonObjectRequest(Request.Method.POST, "https://175.107.203.97:4013/api/distributor/SaveAdditionalAddress", jsonObject, new Response.Listener<JSONObject>() {
                     @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        //                    Toast.makeText(getContext(), "Profile Information Successfully updated for " + result.getString("RetailerCode"), Toast.LENGTH_LONG).show();
-                        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.add(R.id.main_container, new Distributor_Profile()).addToBackStack("tag");
-                        fragmentTransaction.commit();
+                    public void onResponse(JSONObject result) {
+                        final Dialog fbDialogue = new Dialog(getActivity());
+                        //fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                        fbDialogue.setContentView(R.layout.password_updatepopup);
+                        TextView tv_pr1, txt_header1;
+                        txt_header1 = fbDialogue.findViewById(R.id.txt_header1);
+                        tv_pr1 = fbDialogue.findViewById(R.id.txt_details);
+                        tv_pr1.setText("Your profile has been updated successfully.");
+                        txt_header1.setText("Profile Updated");
+                        fbDialogue.setCancelable(true);
+                        fbDialogue.getWindow().setGravity(Gravity.TOP | Gravity.START | Gravity.END);
+                        WindowManager.LayoutParams layoutParams = fbDialogue.getWindow().getAttributes();
+                        layoutParams.y = 200;
+                        layoutParams.x = -70;// top margin
+                        fbDialogue.getWindow().setAttributes(layoutParams);
+                        fbDialogue.show();
+
+                        ImageButton close_button = fbDialogue.findViewById(R.id.image_button);
+                        close_button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                fbDialogue.dismiss();
+                            }
+                        });
+
+                        fbDialogue.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                //                    Toast.makeText(getContext(), "Profile Information Successfully updated for " + result.getString("RetailerCode"), Toast.LENGTH_LONG).show();
+                                fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                                fragmentTransaction.add(R.id.main_container, new Distributor_Profile()).addToBackStack("tag");
+                                fragmentTransaction.commit();
+                            }
+                        });
                     }
-                });
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        new HaballError().printErrorMessage(getContext(), error);
+                        new ProcessingError().showError(getContext());
+
+                        error.printStackTrace();
+                    }
+                }) {
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("Authorization", "bearer " + Token);
+                        params.put("Content-Type", "application/json; charset=UTF-8");
+                        return params;
+                    }
+                };
+                sr.setRetryPolicy(new DefaultRetryPolicy(
+                        15000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                Volley.newRequestQueue(getContext()).add(sr);
+
             }
         }, new Response.ErrorListener() {
             @Override

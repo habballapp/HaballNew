@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import com.haball.Distributor.ui.home.HomeFragment;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Models.OrderChildlist_Model_DistOrder;
 import com.haball.Distributor.ui.orders.OrdersTabsNew.Tabs.Dist_OrderPlace;
+import com.haball.Loader;
 import com.haball.NonSwipeableViewPager;
 import com.haball.R;
 import com.google.gson.Gson;
@@ -33,6 +35,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_Summary_Adapter_DistOrder.ViewHolder> {
@@ -45,11 +48,12 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
     private float discAmount = 0;
     private Button btn_draft;
     private Button btn_confirm;
-    private double Quantity = 0;
+    private double Quantity = 0, Quantity_temp = 0;
     private TextView total_amount;
     private TextView discount_amount;
 
     public Order_Summary_Adapter_DistOrder(FragmentActivity activity, Context context, List<OrderChildlist_Model_DistOrder> selectedProductsDataList, List<String> selectedProductsDataListQty, Button btn_confirm, Button btn_draft, TextView total_amount, TextView discount_amount) {
+        Log.i("debug_back_pressed", "String.valueOf(selectedProductsDataList)");
         this.context = context;
         this.activity = activity;
         this.selectedProductsDataList = selectedProductsDataList;
@@ -137,6 +141,7 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
         for (int i = 0; i < this.selectedProductsDataListQty.size(); i++) {
             Quantity = Quantity + Float.parseFloat(this.selectedProductsDataListQty.get(i));
         }
+        Quantity_temp = Quantity;
         if (Quantity > 0) {
             enableCheckoutButton();
         } else {
@@ -149,6 +154,8 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
 
 
         Log.i("selectedProducts", String.valueOf(this.selectedProductsDataList));
+        Log.i("debug_back_pressed", String.valueOf(this.selectedProductsDataList_temp));
+        Log.i("debug_back_pressed", String.valueOf(this.selectedProductsDataListQty_temp));
     }
 
     private void enableCheckoutButton() {
@@ -209,39 +216,68 @@ public class Order_Summary_Adapter_DistOrder extends RecyclerView.Adapter<Order_
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    final Loader loader = new Loader(context);
+                    loader.showLoader();
+                    ((FragmentActivity) context).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    loader.hideLoader();
+                                    Log.i("back_key_debug", "back from fragment 1");
+                                    SharedPreferences selectedProductsSP = context.getSharedPreferences("fromDraft",
+                                            Context.MODE_PRIVATE);
+//                                    if (!selectedProductsSP.getString("fromDraft", "").equals("draft")) {
+                                    Log.i("debug_back_pressed", String.valueOf(selectedProductsDataList));
+                                    Log.i("debug_back_pressed", String.valueOf(selectedProductsDataList_temp));
+                                    Log.i("debug_back_pressed", String.valueOf(Quantity_temp));
+                                    Log.i("debug_back_pressed", String.valueOf(Quantity));
+                                    if (selectedProductsDataList != selectedProductsDataList_temp || Quantity != Quantity_temp) {
+                                        showDiscardDialog();
+                                    } else {
+                                        SharedPreferences orderCheckout1 = context.getSharedPreferences("FromDraft_Temp",
+                                                Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor orderCheckout_editor1 = orderCheckout1.edit();
+                                        orderCheckout_editor1.putString("fromDraft", "");
+                                        orderCheckout_editor1.apply();
 
-                    Log.i("back_key_debug", "back from adapter 1");
-//                    Log.i("back_key_debug", selectedProductsDataList);
-//                    Log.i("back_key_debug", selectedProductsDataList_temp);
-                    SharedPreferences selectedProductsSP = context.getSharedPreferences("FromDraft_Temp",
-                            Context.MODE_PRIVATE);
-
-                    if (!selectedProductsSP.getString("fromDraft", "").equals("draft")) {
-                        showDiscardDialog();
-                        return true;
-                    } else {
-                        if (selectedProductsDataList != selectedProductsDataList_temp && selectedProductsDataListQty != selectedProductsDataListQty_temp) {
-                            showDiscardDialog();
-                            return true;
-                        } else {
-
-                            SharedPreferences orderCheckout1 = context.getSharedPreferences("FromDraft_Temp",
-                                    Context.MODE_PRIVATE);
-                            SharedPreferences.Editor orderCheckout_editor1 = orderCheckout1.edit();
-                            orderCheckout_editor1.putString("fromDraft", "");
-                            orderCheckout_editor1.apply();
-
-                            SharedPreferences tabsFromDraft = context.getSharedPreferences("OrderTabsFromDraft",
-                                    Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
-                            editorOrderTabsFromDraft.putString("TabNo", "0");
-                            editorOrderTabsFromDraft.apply();
-                            FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
-                            fragmentTransaction.commit();
-                            return true;
+                                        SharedPreferences tabsFromDraft = context.getSharedPreferences("OrderTabsFromDraft",
+                                                Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                                        editorOrderTabsFromDraft.putString("TabNo", "1");
+                                        editorOrderTabsFromDraft.apply();
+                                        FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+                                        fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                                        fragmentTransaction.commit();
+                                    }
+//                        showDiscardDialog();
+//                        return true;
+//                                    } else {
+//                                        if (selectedProductsDataList != selectedProductsDataList_temp && selectedProductsDataListQty != selectedProductsDataListQty_temp) {
+//                                            showDiscardDialog();
+//                                        } else {
+//                                            SharedPreferences orderCheckout1 = context.getSharedPreferences("FromDraft_Temp",
+//                                                    Context.MODE_PRIVATE);
+//                                            SharedPreferences.Editor orderCheckout_editor1 = orderCheckout1.edit();
+//                                            orderCheckout_editor1.putString("fromDraft", "");
+//                                            orderCheckout_editor1.apply();
+//
+//                                            SharedPreferences tabsFromDraft = context.getSharedPreferences("OrderTabsFromDraft",
+//                                                    Context.MODE_PRIVATE);
+//                                            SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+//                                            editorOrderTabsFromDraft.putString("TabNo", "0");
+//                                            editorOrderTabsFromDraft.apply();
+//                                            FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+//                                            fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+//                                            fragmentTransaction.commit();
+//                                        }
+//                                    }
+                                }
+                            }, 3000);
                         }
-                    }
+                    });
+                    return true;
                 }
                 return false;
             }

@@ -121,7 +121,7 @@ public class PaymentScreen3Fragment extends Fragment {
         CompanyName = sharedPreferences.getString("CompanyName", "");
         CompanyId = sharedPreferences.getString("CompanyId", "");
         Amount = sharedPreferences.getString("Amount", "");
-        MenuItem = sharedPreferences.getString("MenuItem", "");
+        MenuItem = sharedPreferences.getString("MenuItem", "View");
         prepaid_number = PrePaidNumber;
 
 
@@ -247,7 +247,8 @@ public class PaymentScreen3Fragment extends Fragment {
 
             }
         });
-        txt_amount.setText("Rs. "+Amount);
+
+        txt_amount.setText(Amount);
         txt_amount.setTextColor(getResources().getColor(R.color.textcolor));
         txt_amount.addTextChangedListener(new TextWatcher() {
             @Override

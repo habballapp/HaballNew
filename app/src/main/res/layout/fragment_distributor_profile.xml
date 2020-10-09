@@ -63,6 +63,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableRight="@drawable/ic_edit_black_24dp"
+                    android:maxLength="150"
                     android:theme="@style/TextLabelEditeText" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -75,7 +76,7 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/open_sans"
                 android:hint="Last Name"
-                
+
                 android:theme="@style/TextLabel"
                 app:boxBackgroundColor="#fff"
                 app:boxStrokeColor="@color/box_stroke"
@@ -85,6 +86,7 @@
                     android:id="@+id/edt_lastname"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:maxLength="150"
                     android:drawableRight="@drawable/ic_edit_black_24dp"
                     android:theme="@style/TextLabelEditeText" />
 

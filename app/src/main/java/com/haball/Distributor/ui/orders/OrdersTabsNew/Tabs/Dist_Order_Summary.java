@@ -698,35 +698,64 @@ public class Dist_Order_Summary extends Fragment {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 Log.i("keyback_debug", String.valueOf(keyCode));
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
-                    Log.i("back_key_debug", "back from fragment 1");
-                    SharedPreferences selectedProductsSP = getContext().getSharedPreferences("FromDraft_Temp",
-                            Context.MODE_PRIVATE);
-                    if (!selectedProductsSP.getString("fromDraft", "").equals("draft")) {
-                        showDiscardDialog();
-                        return true;
-                    } else {
-                        if (selectedProductsDataList != selectedProductsDataList_temp && selectedProductsQuantityList != selectedProductsQuantityList_temp) {
-                            showDiscardDialog();
-                            return true;
-                        } else {
+                    loader.showLoader();
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    loader.hideLoader();
+                                    Log.i("back_key_debug", "back from fragment 1");
+                                    SharedPreferences selectedProductsSP = getContext().getSharedPreferences("fromDraft",
+                                            Context.MODE_PRIVATE);
+                                    if (!selectedProductsSP.getString("fromDraft", "").equals("draft")) {
+                                        if (selectedProductsDataList != selectedProductsDataList_temp || selectedProductsQuantityList != selectedProductsQuantityList_temp) {
+                                            showDiscardDialog();
+                                        } else {
+                                            SharedPreferences orderCheckout1 = getContext().getSharedPreferences("FromDraft_Temp",
+                                                    Context.MODE_PRIVATE);
+                                            SharedPreferences.Editor orderCheckout_editor1 = orderCheckout1.edit();
+                                            orderCheckout_editor1.putString("fromDraft", "");
+                                            orderCheckout_editor1.apply();
 
-                            SharedPreferences orderCheckout1 = getContext().getSharedPreferences("FromDraft_Temp",
-                                    Context.MODE_PRIVATE);
-                            SharedPreferences.Editor orderCheckout_editor1 = orderCheckout1.edit();
-                            orderCheckout_editor1.putString("fromDraft", "");
-                            orderCheckout_editor1.apply();
+                                            SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                                                    Context.MODE_PRIVATE);
+                                            SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                                            editorOrderTabsFromDraft.putString("TabNo", "0");
+                                            editorOrderTabsFromDraft.apply();
+                                            fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                                            fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                                            fragmentTransaction.commit();
+                                        }
+//                        showDiscardDialog();
+//                        return true;
+                                    } else {
+                                        if (selectedProductsDataList != selectedProductsDataList_temp || selectedProductsQuantityList != selectedProductsQuantityList_temp) {
+                                            showDiscardDialog();
+                                        } else {
+                                            SharedPreferences orderCheckout1 = getContext().getSharedPreferences("FromDraft_Temp",
+                                                    Context.MODE_PRIVATE);
+                                            SharedPreferences.Editor orderCheckout_editor1 = orderCheckout1.edit();
+                                            orderCheckout_editor1.putString("fromDraft", "");
+                                            orderCheckout_editor1.apply();
 
-                            SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
-                                    Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
-                            editorOrderTabsFromDraft.putString("TabNo", "0");
-                            editorOrderTabsFromDraft.apply();
-                            fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
-                            fragmentTransaction.commit();
-                            return true;
+                                            SharedPreferences tabsFromDraft = getContext().getSharedPreferences("OrderTabsFromDraft",
+                                                    Context.MODE_PRIVATE);
+                                            SharedPreferences.Editor editorOrderTabsFromDraft = tabsFromDraft.edit();
+                                            editorOrderTabsFromDraft.putString("TabNo", "0");
+                                            editorOrderTabsFromDraft.apply();
+                                            fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                                            fragmentTransaction.add(R.id.main_container, new HomeFragment()).addToBackStack("tag");
+                                            fragmentTransaction.commit();
+                                        }
+                                    }
+                                }
+                            }, 3000);
                         }
-                    }
+                    });
+                    return true;
+
                 }
                 return false;
             }

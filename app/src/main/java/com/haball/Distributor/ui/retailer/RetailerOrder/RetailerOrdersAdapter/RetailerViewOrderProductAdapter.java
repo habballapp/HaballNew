@@ -125,6 +125,21 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
         holder.product_code.append("            ");
         holder.product_code.append("            ");
 
+        if (!OrdersList.get(position).getTaxValue().equals("0") && !OrdersList.get(position).getTaxValue().equals("") && !OrdersList.get(position).getTaxValue().equals("null")) {
+
+            holder.product_code.append("Tax:\u00A0");
+
+            formatter1 = new DecimalFormat("#,###,##0.00");
+            yourFormattedString1 = formatter1.format(Double.parseDouble(OrdersList.get(position).getTaxValue()));
+
+            ss1 = new SpannableString("Rs.\u00A0" + yourFormattedString1);
+            ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
+            holder.product_code.append(ss1);
+
+            holder.product_code.append("            ");
+            holder.product_code.append("            ");
+        }
+
         holder.product_code.append("Amount:\u00A0");
 
         formatter1 = new DecimalFormat("#,###,##0.00");

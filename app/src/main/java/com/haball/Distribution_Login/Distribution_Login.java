@@ -101,6 +101,10 @@ public class Distribution_Login extends AppCompatActivity {
         layout_username = findViewById(R.id.layout_username);
         layout_password = findViewById(R.id.layout_password);
 
+//        et_username.setText("remotenfl");
+//        et_password.setText("@dmin1234");
+
+
         loader = new Loader(Distribution_Login.this);
 
         nullifySharedPreference();

@@ -253,7 +253,7 @@ public class RetailerViewOrderProductAdapter extends RecyclerView.Adapter<Retail
             holder.product_code.append("Tax:\u00A0");
 
             formatter1 = new DecimalFormat("#,###,##0.00");
-            yourFormattedString1 = formatter1.format(Double.parseDouble(OrdersList.get(position).getDiscount()));
+            yourFormattedString1 = formatter1.format(Double.parseDouble(OrdersList.get(position).getTaxValue()));
 
             ss1 = new SpannableString("Rs.\u00A0" + yourFormattedString1);
             ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
